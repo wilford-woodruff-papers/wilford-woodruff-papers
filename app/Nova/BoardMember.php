@@ -3,10 +3,13 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Place extends Resource
+class BoardMember extends Resource
 {
 
     public static $displayInNavigation = false;
@@ -16,7 +19,7 @@ class Place extends Resource
      *
      * @var string
      */
-    public static $model = \App\Models\Place::class;
+    public static $model = \App\Models\BoardMember::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -33,6 +36,7 @@ class Place extends Resource
     public static $search = [
         'id',
         'name',
+        'title',
     ];
 
     /**
@@ -45,8 +49,9 @@ class Place extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            ID::make(__('Name'), 'name')->sortable(),
-            ID::make(__('Slug'), 'slug')->sortable(),
+            Text::make(__('Name'), 'name')->sortable(),
+            Text::make(__('Title'), 'title')->sortable(),
+            Textarea::make(__('Bio'), 'bio')->sortable(),
         ];
     }
 

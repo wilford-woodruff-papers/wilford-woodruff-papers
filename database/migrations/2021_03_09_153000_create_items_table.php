@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePlacesTable extends Migration
+class CreateItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,9 @@ class CreatePlacesTable extends Migration
      */
     public function up()
     {
-        Schema::create('places', function (Blueprint $table) {
+        Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->string('slug')->index();
-            $table->string('name');
-            $table->string('index');
-            $table->string('latitude');
-            $table->string('longitude');
-            $table->boolean('enabled')->default(0);
+            $table->efficientUuid('uuid')->index();
             $table->timestamps();
         });
     }
@@ -32,6 +27,6 @@ class CreatePlacesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('places');
+        Schema::dropIfExists('items');
     }
 }

@@ -3,20 +3,20 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Place extends Resource
+class Team extends Resource
 {
-
-    public static $displayInNavigation = false;
-
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\Models\Place::class;
+    public static $model = \App\Models\Team::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -45,8 +45,9 @@ class Place extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            ID::make(__('Name'), 'name')->sortable(),
-            ID::make(__('Slug'), 'slug')->sortable(),
+            Text::make(__('Name'), 'name')->sortable(),
+            Number::make(__('Order'), 'order')->sortable(),
+            HasMany::make('BoardMembers'),
         ];
     }
 

@@ -7,11 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
-class Place extends Model
+class Subject extends Model
 {
     use HasFactory, HasSlug;
 
     protected $guarded = ['id'];
+
+    public function category()
+    {
+        return $this->belongsToMany(Category::class);
+    }
 
     /**
      * Get the options for generating the slug.
@@ -22,7 +27,6 @@ class Place extends Model
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
     }
-
     /**
      * Get the route key for the model.
      *
@@ -32,4 +36,5 @@ class Place extends Model
     {
         return 'slug';
     }
+
 }

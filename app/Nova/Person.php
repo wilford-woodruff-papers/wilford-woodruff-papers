@@ -8,6 +8,9 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Person extends Resource
 {
+
+    public static $displayInNavigation = false;
+
     /**
      * The model the resource corresponds to.
      *

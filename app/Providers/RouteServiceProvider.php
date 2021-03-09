@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Item;
+use App\Models\Page;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -46,6 +48,14 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
+        });
+
+        Route::bind('item', function ($item) {
+            return Item::whereUuid($item)->first();
+        });
+
+        Route::bind('page', function ($page) {
+            return Page::whereUuid($page)->first();
         });
     }
 

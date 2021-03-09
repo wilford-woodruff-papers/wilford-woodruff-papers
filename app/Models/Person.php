@@ -11,6 +11,8 @@ class Person extends Model
 {
     use HasFactory, HasSlug;
 
+    protected $guarded = ['id'];
+
     /**
      * Get the options for generating the slug.
      */

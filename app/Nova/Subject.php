@@ -2,21 +2,20 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\ImportSubjects;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Place extends Resource
+class Subject extends Resource
 {
-
-    public static $displayInNavigation = false;
-
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\Models\Place::class;
+    public static $model = \App\Models\Subject::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -45,8 +44,8 @@ class Place extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            ID::make(__('Name'), 'name')->sortable(),
-            ID::make(__('Slug'), 'slug')->sortable(),
+            Text::make(__('Name'), 'name')->sortable(),
+            Text::make(__('Slug'), 'slug')->hideWhenCreating()->sortable(),
         ];
     }
 
@@ -91,6 +90,8 @@ class Place extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            new ImportSubjects,
+        ];
     }
 }
