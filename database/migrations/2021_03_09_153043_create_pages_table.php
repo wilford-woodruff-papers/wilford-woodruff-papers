@@ -15,9 +15,14 @@ class CreatePagesTable extends Migration
     {
         Schema::create('pages', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('item_id');
             $table->efficientUuid('uuid')->index();
             $table->string('name');
             $table->timestamps();
+
+            $table->foreign('item_id')
+                ->references('id')
+                ->on('items');
         });
 
         Schema::create('page_subject', function (Blueprint $table) {

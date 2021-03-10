@@ -22,6 +22,11 @@ class Item extends Model
         return $this->hasMany(Page::class);
     }
 
+    public function type()
+    {
+        return $this->belongsTo(Type::class);
+    }
+
     public function getRouteKeyName()
     {
         return 'uuid';
