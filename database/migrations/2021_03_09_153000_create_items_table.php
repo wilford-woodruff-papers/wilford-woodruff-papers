@@ -15,8 +15,9 @@ class CreateItemsTable extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('type_id');
+            $table->unsignedBigInteger('type_id')->nullable();
             $table->string('name');
+            $table->string('ftp_id')->nullable()->index();
             $table->efficientUuid('uuid')->index();
             $table->boolean('enabled')->default(0);
             $table->timestamps();

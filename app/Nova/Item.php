@@ -2,8 +2,10 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\Enable;
 use App\Nova\Actions\ImportSubjects;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
@@ -44,6 +46,7 @@ class Item extends Resource
     public function fields(Request $request)
     {
         return [
+            Boolean::make('Enabled')->sortable(),
             ID::make(__('ID'), 'id')->sortable(),
             Text::make(__('Name'), 'name')->sortable(),
             HasMany::make('Pages'),
@@ -91,6 +94,8 @@ class Item extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            new Enable,
+        ];
     }
 }

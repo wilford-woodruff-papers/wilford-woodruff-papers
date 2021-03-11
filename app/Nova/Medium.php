@@ -2,22 +2,21 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\ImportSubjects;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\BelongsToMany;
-use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Category extends Resource
+class Medium extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\Models\Category::class;
+    public static $model = \Spatie\MediaLibrary\MediaCollections\Models\Media::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -47,7 +46,6 @@ class Category extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
             Text::make(__('Name'), 'name')->sortable(),
-            BelongsToMany::make('Subjects'),
         ];
     }
 

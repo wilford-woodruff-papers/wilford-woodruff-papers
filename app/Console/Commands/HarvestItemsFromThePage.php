@@ -2,17 +2,18 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Item;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 
-class HarvestFromThePage extends Command
+class HarvestItemsFromThePage extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'import:ftp';
+    protected $signature = 'import:items';
 
     /**
      * The console command description.
@@ -40,7 +41,15 @@ class HarvestFromThePage extends Command
     {
         $response = Http::get('https://fromthepage.com/iiif/collection/970');
 
-        logger()->info(collect($response->json()));
+        $manifests = $response->json()['manifests'];
+
+        foreach($manifests as $key => $item){
+            $item = Item::firstOrCreate([
+                'ftp_id' => $item['@id'],
+            ], [
+                'name' => $item['label'],
+            ]);
+        };
 
         return 0;
     }

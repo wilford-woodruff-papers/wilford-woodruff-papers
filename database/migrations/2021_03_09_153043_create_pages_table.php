@@ -18,6 +18,8 @@ class CreatePagesTable extends Migration
             $table->unsignedBigInteger('item_id');
             $table->efficientUuid('uuid')->index();
             $table->string('name');
+            $table->string('ftp_id')->nullable()->index();
+            $table->longText('transcript')->nullable();
             $table->timestamps();
 
             $table->foreign('item_id')

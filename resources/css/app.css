@@ -1,3 +1,105 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+
+#skipnav {
+    position: fixed;
+    top: 30px;
+    left: 50%;
+    border: 1px solid #ababab;
+    transform: translateX(-50%);
+    z-index: -5;
+    padding: 7.5px;
+    background-color: #fff;
+    opacity: 0;
+}
+
+h1 {
+    @apply font-serif;
+}
+
+nav a{
+    @apply text-base font-medium text-primary md:text-white md:hover:text-highlight uppercase;
+}
+
+nav.sub-menu ul {
+    @apply grid grid-cols-4;
+}
+
+.table-of-contents a {
+    @apply text-lg font-medium text-secondary md:hover:text-primary;
+}
+
+.page .content h2 {
+    @apply text-primary text-4xl font-serif mt-4 mb-8 border-b border-gray-300;
+}
+
+.page-title {
+    @apply font-serif md:text-5xl italic text-secondary py-8 px-4;
+}
+
+.section-header, .section-title {
+    @apply font-sans text-lg font-medium mt-4 mb-4;
+}
+
+/* Document splitter */
+#separator {
+    cursor: col-resize;
+    background-color: #aaa;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='30'><path d='M2 0 v30 M5 0 v30 M8 0 v30' fill='none' stroke='black'/></svg>");
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 10px;
+
+    /* Prevent the browser's built-in drag from interfering */
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    @apply md:block hidden;
+}
+
+#document-viewer {
+    min-width: 10px;
+}
+
+#transcript {
+    min-width: 10px;
+}
+
+.property h4 {
+    @apply text-xl font-medium uppercase mt-2;
+}
+
+.property .values {
+    @apply ml-2;
+}
+
+.property .values .value a{
+    @apply text-secondary hover:underline !important;
+}
+
+.property .values .value p{
+    @apply mt-4 !important;
+}
+
+.property .values .value .unclear{
+    @apply italic;
+}
+
+input[class^="numeric-"], select[class^="numeric-"]{
+    @apply shadow-sm sm:text-sm border-gray-300;
+}
+
+.post-body.entry-content table tbody{
+    @apply bg-white divide-y divide-gray-200 !important;
+}
+
+.post-body.entry-content table tbody tr{
+
+}
+
+.post-body.entry-content table tbody tr td{
+    @apply px-6 py-4 whitespace-nowrap text-base font-medium text-gray-900 !important;
+}

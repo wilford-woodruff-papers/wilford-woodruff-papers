@@ -11,7 +11,30 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Nunito', ...defaultTheme.fontFamily.sans],
+                sans: ['Source Sans Pro', 'sans-serif'],
+                serif: ['Source Serif Pro', 'serif'],
+            },
+            colors: {
+                'primary': {
+                    'DEFAULT': '#0B2836',
+                },
+                'secondary': {
+                    'DEFAULT': '#792310',
+                },
+                'highlight': {
+                    'DEFAULT': '#B4A677',
+                },
+                'polaroid': {
+                    'DEFAULT': '#F0EDDE',
+                },
+            },
+            width: {
+                '112': '28rem',
+                '128': '32rem',
+            },
+            height: {
+                '112': '28rem',
+                '128': '32rem',
             },
         },
     },

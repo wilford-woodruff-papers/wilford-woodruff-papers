@@ -16,7 +16,7 @@ class Page extends Resource
      *
      * @var string
      */
-    public static $model = \App\Models\Item::class;
+    public static $model = \App\Models\Page::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -46,6 +46,7 @@ class Page extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
             Text::make(__('Name'), 'name')->sortable(),
+            HasMany::make('Media'),
         ];
     }
 
