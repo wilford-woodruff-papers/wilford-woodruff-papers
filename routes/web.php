@@ -17,6 +17,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/documents', [\App\Http\Controllers\ItemController::class, 'index'])->name('documents');
+Route::get('/people', [\App\Http\Controllers\PeopleController::class, 'index'])->name('people');
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+
+Route::get('/s/wilford-woodruff-papers/documents', function (){
+    return redirect()->route('documents');
+});
+Route::get('/s/wilford-woodruff-papers/page/people', function (){
+    return redirect()->route('people');
+});

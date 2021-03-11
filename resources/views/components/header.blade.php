@@ -96,8 +96,8 @@
                     </div>
                     <div class="mt-6">
                         <nav class="grid gap-6">
-                            <a href="/s/wilford-woodruff-papers/documents">Documents</a>
-                            <a href="/s/wilford-woodruff-papers/page/people">People</a>
+                            <a href="{{ route('documents') }}">Documents</a>
+                            <a href="{{ route('people') }}">People</a>
                             <a href="/s/wilford-woodruff-papers/page/places">Places</a>
                             <a href="/s/wilford-woodruff-papers/page/timeline">Timeline</a>
                             <a href="/s/wilford-woodruff-papers/media">Search</a>
