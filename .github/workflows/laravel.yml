@@ -10,6 +10,16 @@ jobs:
   laravel-tests:
 
     runs-on: ubuntu-latest
+    
+    services:
+      mysql:
+          image: mysql:5.7
+          env:
+              MYSQL_ALLOW_EMPTY_PASSWORD: yes
+              MYSQL_DATABASE: wwp
+          ports:
+              - 3306
+          options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
     - uses: shivammathur/setup-php@b7d1d9c9a92d8d8463ce36d7f60da34d461724f8
@@ -29,9 +39,6 @@ jobs:
         mkdir -p database
         touch database/database.sqlite
     - name: Execute tests (Unit and Feature tests) via PHPUnit
-      env:
-        DB_CONNECTION: sqlite
-        DB_DATABASE: database/database.sqlite
       run: vendor/bin/phpunit
     - name: Upgrade Chrome Driver
       run: php artisan dusk:chrome-driver `/opt/google/chrome/chrome --version | cut -d " " -f3 | cut -d "." -f1`
@@ -55,4 +62,7 @@ jobs:
       with:
         name: console
         path: tests/Browser/console    
- 
+    env:
+        DB_CONNECTION: mysql
+        DB_DATABASE: database/database.sqlite
+        DB_PORT: ${{ job.services.mysql.ports[3306] }}
