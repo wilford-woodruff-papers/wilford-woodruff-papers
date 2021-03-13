@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Subject;
+use App\Models\Wife;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
@@ -16,9 +17,10 @@ class PeopleController extends Controller
     public function index()
     {
         return view('public.people', [
-            'people' => Subject::whereEnabled(1)->whereHas('category', function (Builder $query) {
+            'subjects' => Subject::whereEnabled(1)->whereHas('category', function (Builder $query) {
                                     $query->where('name', 'People');
                                 })->get(),
+            'wives' => Wife::with('person', 'children')->get(),
         ]);
     }
 

@@ -6,10 +6,11 @@ use Dyrynda\Database\Casts\EfficientUuid;
 use Dyrynda\Database\Support\GeneratesUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Auditable;
 
-class Item extends Model
+class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable
 {
-    use GeneratesUuid, HasFactory;
+    use Auditable, GeneratesUuid, HasFactory;
 
     protected $guarded = ['id'];
 
@@ -25,6 +26,11 @@ class Item extends Model
     public function type()
     {
         return $this->belongsTo(Type::class);
+    }
+
+    public function dates()
+    {
+        return $this->morphMany(Date::class, 'dateable');
     }
 
     public function getRouteKeyName()

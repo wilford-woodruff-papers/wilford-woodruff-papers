@@ -1,7 +1,7 @@
 <x-guest-layout>
 
     <div class="bg-cover bg-center h-36 md:h-72"
-         style="background-image: url({{ asset('img/home.jpg') }})">
+         style="background-image: url({{ asset('img/banners/home.jpg') }})">
         <div class="max-w-7xl mx-auto">
 
         </div>
@@ -35,6 +35,15 @@
             <div class="text-xl text-highlight italic text-center">
                 -- Wilford Woodruff
             </div>
+        </div>
+    </div>
+
+    <div class="mt-4 md:mt-12">
+        <div class="max-w-7xl mx-auto grid grid-cols-2 gap-2 px-4 md:px-12 md:gap-4 md:px-40">
+            <x-polaroid route="documents" image="img/home/documents.jpg" name="Documents" />
+            <x-polaroid route="people" image="img/home/people.jpg" name="People" />
+            <x-polaroid route="places" image="img/home/places.jpg" name="Places" />
+            <x-polaroid route="timeline" image="img/home/historical-context.jpg" name="Timeline" />
         </div>
     </div>
 

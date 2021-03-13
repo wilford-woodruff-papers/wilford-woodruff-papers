@@ -19,6 +19,9 @@ Route::get('/', function () {
 
 Route::get('/documents', [\App\Http\Controllers\ItemController::class, 'index'])->name('documents');
 Route::get('/people', [\App\Http\Controllers\PeopleController::class, 'index'])->name('people');
+Route::get('/places', [\App\Http\Controllers\PlaceController::class, 'index'])->name('places');
+Route::get('/timeline', [\App\Http\Controllers\TimelineController::class, 'index'])->name('timeline');
+Route::get('/meet-the-team', [\App\Http\Controllers\TeamController::class, 'index'])->name('team');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
@@ -30,4 +33,13 @@ Route::get('/s/wilford-woodruff-papers/documents', function (){
 });
 Route::get('/s/wilford-woodruff-papers/page/people', function (){
     return redirect()->route('people');
+});
+Route::get('/s/wilford-woodruff-papers/page/places', function (){
+    return redirect()->route('places');
+});
+Route::get('/s/wilford-woodruff-papers/page/timeline', function (){
+    return redirect()->route('timeline');
+});
+Route::get('/s/wilford-woodruff-papers/page/meet-the-team', function (){
+    return redirect()->route('team');
 });

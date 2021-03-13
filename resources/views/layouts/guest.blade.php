@@ -9,8 +9,9 @@
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.gstatic.com">
-        {{--<link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro&display=swap" rel="stylesheet">--}}
+        <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro&display=swap" rel="stylesheet">
 
+        <x-favicon />
 
         <link href="https://fonts.googleapis.com/css2?family=Italianno&display=swap" rel="stylesheet">
 

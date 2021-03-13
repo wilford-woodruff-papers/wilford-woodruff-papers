@@ -19,9 +19,8 @@ class SubjectImport implements ToCollection, WithHeadingRow
 
         foreach ($rows as $row)
         {
-            logger()->info($row);
             $subject = Subject::firstOrCreate([
-                'name' => $row['title'],
+                'name' => trim($row['title']),
             ]);
 
             foreach(explode(';', $row['categories']) as $subjectCategory){

@@ -25,21 +25,22 @@ class CreatePeopleTable extends Migration
         Schema::create('wives', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('person_id');
-            $table->string('mother');
-            $table->string('father');
-            $table->date('birthdate');
-            $table->date('deathdate');
-            $table->string('relationship');
-            $table->string('marriage');
-            $table->string('sealing');
-            $table->date('divorce');
-            $table->string('prior_marriage');
-            $table->string('subsequent_marriage');
+            $table->string('marriage_year');
+            $table->string('mother')->nullable();
+            $table->string('father')->nullable();
+            $table->string('birthdate')->nullable();
+            $table->string('deathdate')->nullable();
+            $table->string('relationship')->nullable();
+            $table->string('marriage')->nullable();
+            $table->string('sealing')->nullable();
+            $table->string('divorce')->nullable();
+            $table->string('prior_marriage')->nullable();
+            $table->string('subsequent_marriage')->nullable();
             $table->timestamps();
 
             $table->foreign('person_id')
                     ->references('id')
-                    ->on('people');
+                    ->on('subjects');
         });
 
 
@@ -47,11 +48,12 @@ class CreatePeopleTable extends Migration
         Schema::create('children', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('wife_id');
+            $table->string('name');
             $table->string('gender');
-            $table->string('birthplace');
-            $table->date('birthdate');
-            $table->string('deathplace');
-            $table->date('deathdate');
+            $table->string('birthplace')->nullable();
+            $table->string('birthdate')->nullable();
+            $table->string('deathplace')->nullable();
+            $table->string('deathdate')->nullable();
             $table->timestamps();
 
             $table->foreign('wife_id')

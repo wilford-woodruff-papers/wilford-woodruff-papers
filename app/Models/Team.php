@@ -9,6 +9,8 @@ class Team extends Model
 {
     use HasFactory;
 
+    protected $guarded = ['id'];
+
     public function boardmembers()
     {
         return $this->hasMany(BoardMember::class);

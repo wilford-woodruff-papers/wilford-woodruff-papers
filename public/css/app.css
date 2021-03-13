@@ -33459,7 +33459,7 @@ nav.sub-menu ul {
   }
 }
 
-.page .content h2 {
+.content h2 {
   --tw-border-opacity: 1;
   border-color: rgba(209, 213, 219, var(--tw-border-opacity));
   border-bottom-width: 1px;
@@ -33573,7 +33573,7 @@ input[class^="numeric-"], select[class^="numeric-"]{
   }
 }
 
-.post-body.entry-content table tbody > :not([hidden]) ~ :not([hidden]) {
+.content table tbody > :not([hidden]) ~ :not([hidden]) {
   --tw-divide-y-reverse: 0 !important;
   border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse))) !important;
   border-bottom-width: calc(1px * var(--tw-divide-y-reverse)) !important;
@@ -33581,15 +33581,15 @@ input[class^="numeric-"], select[class^="numeric-"]{
   border-color: rgba(229, 231, 235, var(--tw-divide-opacity)) !important;
 }
 
-.post-body.entry-content table tbody {
+.content table tbody {
   --tw-bg-opacity: 1 !important;
   background-color: rgba(255, 255, 255, var(--tw-bg-opacity)) !important;
 }
 
-.post-body.entry-content table tbody tr{
+.content table tbody tr{
 }
 
-.post-body.entry-content table tbody tr td{
+.content table tbody tr td{
   font-weight: 500 !important;
   font-size: 1rem !important;
   line-height: 1.5rem !important;
@@ -33599,7 +33599,6 @@ input[class^="numeric-"], select[class^="numeric-"]{
   padding-right: 1.5rem !important;
   --tw-text-opacity: 1 !important;
   color: rgba(17, 24, 39, var(--tw-text-opacity)) !important;
-  white-space: nowrap !important;
 }
 
 @media (min-width: 640px) {
