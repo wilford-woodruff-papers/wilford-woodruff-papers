@@ -92,7 +92,7 @@
                                                                 <h3 class="text-3xl text-primary font-semibold serif"
                                                                 >{{ $person->name }}</h3>
                                                                 @if(! empty($person->title))
-                                                                    <p class="text-gray-600 uppercase serif">, {{ $person->title }}</p>
+                                                                    <p class="text-gray-600 uppercase serif">{{ $person->title }}</p>
                                                                 @endif
                                                             </div>
                                                             <div class="text-lg">
