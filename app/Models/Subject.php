@@ -18,6 +18,11 @@ class Subject extends Model
         return $this->belongsToMany(Category::class);
     }
 
+    public function pages()
+    {
+        return $this->belongsToMany(Page::class);
+    }
+
     /**
      * Get the options for generating the slug.
      */

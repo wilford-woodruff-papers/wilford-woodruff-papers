@@ -18,6 +18,9 @@ Route::get('/', function () {
 });
 
 Route::get('/documents', [\App\Http\Controllers\ItemController::class, 'index'])->name('documents');
+Route::get('/documents/{item}', [\App\Http\Controllers\ItemController::class, 'show'])->name('documents.show');
+Route::get('/documents/{item}/page/{page}', [\App\Http\Controllers\PageController::class, 'show'])->name('pages.show');
+Route::get('/subjects/{subject}', [\App\Http\Controllers\SubjectController::class, 'show'])->name('subjects.show');
 Route::get('/people', [\App\Http\Controllers\PeopleController::class, 'index'])->name('people');
 Route::get('/places', [\App\Http\Controllers\PlaceController::class, 'index'])->name('places');
 Route::get('/timeline', [\App\Http\Controllers\TimelineController::class, 'index'])->name('timeline');

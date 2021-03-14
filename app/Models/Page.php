@@ -23,7 +23,7 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
 
     public function item()
     {
-        return $this->belongsToMany(Item::class);
+        return $this->belongsTo(Item::class);
     }
 
     public function subjects()

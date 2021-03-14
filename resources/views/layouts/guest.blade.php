@@ -39,4 +39,5 @@
     <x-footer />
     <x-facebook-pixel />
     <script async data-uid="7ce7f1665b" src="https://wilford-woodruff-papers.ck.page/7ce7f1665b/index.js"></script>
+    @stack('scripts')
 </html>

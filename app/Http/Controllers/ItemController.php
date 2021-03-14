@@ -21,7 +21,7 @@ class ItemController extends Controller
             $items = $items->where('type_id', $request->get('type'));
         }
 
-        return view('public.documents', [
+        return view('public.documents.index', [
             'types' => Type::withCount('items')->orderBy('name')->get(),
             'items' => $items->paginate(25),
         ]);
@@ -56,7 +56,11 @@ class ItemController extends Controller
      */
     public function show(Item $item)
     {
-        //
+        $item->load('pages');
+
+        return view('public.documents.show', [
+            'item' => $item,
+        ]);
     }
 
     /**

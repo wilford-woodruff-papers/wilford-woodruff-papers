@@ -16,4 +16,8 @@ class Date extends Model
         return $this->morphTo();
     }
 
+    protected $dates = [
+        'date',
+    ];
+
 }
