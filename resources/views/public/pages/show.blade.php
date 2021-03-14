@@ -109,7 +109,7 @@
                     Transcript
                 </h4>
                 <div class="metadata">
-                    {!! $page->transcript !!}
+                    {!! $page->text() !!}
                 </div>
             </div>
 

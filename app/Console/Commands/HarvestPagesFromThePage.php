@@ -56,7 +56,10 @@ class HarvestPagesFromThePage extends Command
                     'ftp_id' => $canvas['@id'],
                 ], [
                     'name' => $canvas['label'],
-                    'transcript' => $this->convertSubjectTags( Http::get($canvas['otherContent'][0]['@id'])->json('resources.0.resource.chars') )
+                    'transcript' => $this->convertSubjectTags(
+                        ( array_key_exists('otherContent', $canvas))
+                            ? Http::get($canvas['otherContent'][0]['@id'])->json('resources.0.resource.chars')
+                            : '' )
                 ]);
 
                 $page->clearMediaCollection();

@@ -13,7 +13,7 @@
         $subject = [
             'last_name' => array_pop($name),
             'first_name' => implode(" ", $name) . (! empty($name_suffix)? ' ('.trim(implode(', ', $name_suffix)).')':''),
-            'url' => '/s/wilford-woodruff-papers/page/'.$person->slug,
+            'url' => route('subjects.show', ['subject' => $person]),
             #'url' => '/s/'.$page->params['site-slug'].'/page/'.$page->params['page-slug'],
         ];
         $subject['full_name'] = $subject['first_name'] .' '.$subject['last_name'];

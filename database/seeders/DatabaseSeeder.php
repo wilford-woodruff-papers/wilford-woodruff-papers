@@ -29,10 +29,10 @@ class DatabaseSeeder extends Seeder
             Type::factory([
                     'name' => $type,
                 ])
-                ->has(
+                /*->has(
                     Item::factory()
                         ->count(3)
-                )
+                )*/
                 ->create();
         }
 
@@ -73,6 +73,21 @@ class DatabaseSeeder extends Seeder
         Artisan::call('import:podcasts');
         Artisan::call('import:videos');
         Artisan::call('import:news');
+        Artisan::call('import:items');
 
+        $letter = Item::where('name', 'Letter to Phebe Whittemore Carter Woodruff, September 30, 1839')->first();
+        $letter->type()->associate(Type::whereName('Letters')->first());
+        $letter->save();
+        $journal = Item::where('name', 'Journal (September 9, 1836–December 31, 1836)')->first();
+        $journal->type()->associate(Type::whereName('Journals')->first());
+        $journal->save();
+
+        Item::whereIn('name', [
+                    'Journal (September 9, 1836–December 31, 1836)',
+                    'Letter to Phebe Whittemore Carter Woodruff, September 30, 1839',
+                ])
+                ->update(['enabled' => 1]);
+
+        Artisan::call('import:pages');
     }
 }
