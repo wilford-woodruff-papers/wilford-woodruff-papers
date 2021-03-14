@@ -27,7 +27,7 @@ jobs:
     - name: Create Database
       run: |
           sudo systemctl start mysql
-          mysql --user="root" --password="root" -e "CREATE DATABASE `laravel`;"
+          mysql --user="root" --password="root" -e "CREATE DATABASE laravel;"
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       run: vendor/bin/phpunit
     - name: Upgrade Chrome Driver
