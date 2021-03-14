@@ -9,6 +9,7 @@ use Tests\DuskTestCase;
 
 class HomePageTest extends DuskTestCase
 {
+    use DatabaseMigrations;
     /**
      * A Dusk test example.
      *

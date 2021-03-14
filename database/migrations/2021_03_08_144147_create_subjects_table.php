@@ -43,6 +43,7 @@ class CreateSubjectsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('category_subject');
         Schema::dropIfExists('subjects');
         Schema::dropIfExists('categories');

@@ -13,14 +13,6 @@ class CreatePeopleTable extends Migration
      */
     public function up()
     {
-        Schema::create('people', function (Blueprint $table) {
-            $table->id();
-            $table->string('slug')->index();
-            $table->string('name');
-            $table->string('index');
-            $table->boolean('enabled')->default(0);
-            $table->timestamps();
-        });
 
         Schema::create('wives', function (Blueprint $table) {
             $table->id();
