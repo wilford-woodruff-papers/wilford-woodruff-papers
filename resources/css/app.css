@@ -103,3 +103,10 @@ input[class^="numeric-"], select[class^="numeric-"]{
 .content table tbody tr td{
     @apply px-6 py-4 text-base font-medium text-gray-900 !important;
 }
+
+.submenu a{
+    @apply text-secondary hover:text-gray-900 hover:bg-gray-50;
+}
+.submenu a.active{
+    @apply text-white bg-secondary hover:text-gray-900 hover:bg-gray-50;
+ }

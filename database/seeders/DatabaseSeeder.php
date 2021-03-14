@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use App\Models\Item;
+use App\Models\Photo;
 use App\Models\Team;
 use App\Models\Type;
 use App\Models\User;
@@ -60,6 +61,18 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Artisan::call('import:team');
+
+        $photos = Photo::factory()
+                        ->count(3)
+                        ->create();
+
+        foreach($photos as $photo){
+            $photo->addMediaFromUrl('https://wilfordwoodruffpapers.org/files/medium/8ff5ef10524521faea83c55ac813b16251c0c992.jpg')->toMediaCollection();
+        }
+
+        Artisan::call('import:podcasts');
+        Artisan::call('import:videos');
+        Artisan::call('import:news');
 
     }
 }

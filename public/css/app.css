@@ -33601,6 +33601,41 @@ input[class^="numeric-"], select[class^="numeric-"]{
   color: rgba(17, 24, 39, var(--tw-text-opacity)) !important;
 }
 
+.submenu a:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgba(249, 250, 251, var(--tw-bg-opacity));
+}
+
+.submenu a {
+  --tw-text-opacity: 1;
+  color: rgba(121, 35, 16, var(--tw-text-opacity));
+}
+
+.submenu a:hover {
+  --tw-text-opacity: 1;
+  color: rgba(17, 24, 39, var(--tw-text-opacity));
+}
+
+.submenu a.active{
+  --tw-bg-opacity: 1;
+  background-color: rgba(121, 35, 16, var(--tw-bg-opacity));
+}
+
+.submenu a.active:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgba(249, 250, 251, var(--tw-bg-opacity));
+}
+
+.submenu a.active {
+  --tw-text-opacity: 1;
+  color: rgba(255, 255, 255, var(--tw-text-opacity));
+}
+
+.submenu a.active:hover {
+  --tw-text-opacity: 1;
+  color: rgba(17, 24, 39, var(--tw-text-opacity));
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;

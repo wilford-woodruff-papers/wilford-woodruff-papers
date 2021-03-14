@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Item;
 use App\Models\Page;
+use App\Models\Photo;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -56,6 +57,10 @@ class RouteServiceProvider extends ServiceProvider
 
         Route::bind('page', function ($page) {
             return Page::whereUuid($page)->first();
+        });
+
+        Route::bind('photo', function ($photo) {
+            return Photo::whereUuid($photo)->first();
         });
     }
 

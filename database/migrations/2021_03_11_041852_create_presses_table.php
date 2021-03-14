@@ -15,11 +15,14 @@ class CreatePressesTable extends Migration
     {
         Schema::create('presses', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('subtitle');
-            $table->mediumText('description');
+            $table->string('type');
+            $table->string('title')->nullable();
+            $table->string('subtitle')->nullable();
+            $table->mediumText('description')->nullable();
             $table->date('date');
-            $table->string('link');
+            $table->string('link')->nullable();
+            $table->string('embed')->nullable();
+            $table->string('transcript')->nullable();
             $table->timestamps();
         });
     }

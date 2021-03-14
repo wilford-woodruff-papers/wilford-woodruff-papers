@@ -1,37 +1,12 @@
 <x-guest-layout>
-
     <div id="content" role="main">
-
         <div class="max-w-7xl mx-auto px-4">
-
-
             <div class="blocks">
                 <div class="grid grid-cols-12 py-12">
                     <div class="col-span-12 md:col-span-3 px-2 py-16">
-                        <nav class="space-y-1" aria-label="Sidebar">
-                            <!-- Current: "bg-gray-100 text-gray-900", Default: "text-gray-600 hover:bg-gray-50 hover:text-gray-900" -->
-                            <h2 class="text-gray-500 text-xl uppercase mb-4">
-                                About
-                            </h2>
-                            <div class="mt-1 space-y-1 pb-4 pl-4" aria-labelledby="media-library-headline">
-                                <a href="/s/wilford-woodruff-papers/page/about" class="group flex items-center px-3 py-2 text-sm font-medium text-secondary hover:text-gray-900 hover:bg-gray-50">
-                        <span class="truncate">
-                            Mission
-                        </span>
-                                </a>
-                                <a href="/s/wilford-woodruff-papers/page/meet-the-team" class="group flex items-center px-3 py-2 text-sm font-medium text-white bg-secondary hover:text-gray-900 hover:bg-gray-50">
-                        <span class="truncate">
-                            Meet the Team
-                        </span>
-                                </a>
-                                <a href="/s/wilford-woodruff-papers/page/editorial-method" class="group flex items-center px-3 py-2 text-sm font-medium text-secondary hover:text-gray-900 hover:bg-gray-50">
-                        <span class="truncate">
-                            Editorial Method
-                        </span>
-                                </a>
-                            </div>
-                        </nav>        </div>
-                    <div class="content col-span-12 md:col-span-9 px-4">
+                        <x-submenu area="About"/>
+                    </div>
+                    <div class="content col-span-12 md:col-span-9">
                         <h2>Meet the Team</h2>
                         <div class="grid grid-cols-1 md:grid-cols-2">
                             @foreach($teams as $team)
@@ -112,9 +87,7 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
-
 </x-guest-layout>

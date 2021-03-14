@@ -11,4 +11,10 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 class Press extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditable
 {
     use Auditable, HasFactory, InteractsWithMedia;
+
+    protected $guarded = ['id'];
+
+    protected $dates = [
+        'date',
+    ];
 }
