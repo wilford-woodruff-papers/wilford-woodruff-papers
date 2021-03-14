@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Models\Type;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
@@ -12,10 +13,17 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $items = Item::with('type')->whereEnabled(1);
+
+        if($request->has('type')){
+            $items = $items->where('type_id', $request->get('type'));
+        }
+
         return view('public.documents', [
-            'items' => Item::whereEnabled(1)->get(),
+            'types' => Type::withCount('items')->orderBy('name')->get(),
+            'items' => $items->paginate(25),
         ]);
     }
 

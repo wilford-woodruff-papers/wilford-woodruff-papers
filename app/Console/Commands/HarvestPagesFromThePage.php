@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Date;
 use App\Models\Item;
 use App\Models\Page;
 use App\Models\Subject;
@@ -61,6 +62,8 @@ class HarvestPagesFromThePage extends Command
                 $page->clearMediaCollection();
                 $page->addMediaFromUrl($canvas['images'][0]['resource']['@id'])->toMediaCollection();
 
+                $page->subjects()->detach();
+
                 $subjects = [];
                 Str::of($page->transcript)->replaceMatches('/(?:\[\[)(.*?)(?:\]\])/', function ($match) use (&$subjects) {
                     $subjects[] = Str::of($match[0])->trim('[[]]')->explode('|')->first();
@@ -76,6 +79,16 @@ class HarvestPagesFromThePage extends Command
                         $subject->save();
                         $page->subjects()->syncWithoutDetaching($subject->id);
                     }
+                }
+
+                $page->dates()->delete();
+
+                $dates = $this->extractDates($page->transcript);
+
+                foreach($dates as $date){
+                    $d = new Date;
+                    $d->date = $date;
+                    $page->dates()->save($d);
                 }
             }
         });
@@ -96,5 +109,17 @@ class HarvestPagesFromThePage extends Command
             $transcript = $transcript->replace($link->outerHtml(), '[['. $link->getAttribute('title') .'|'. $link->innerHtml() .']]');
         }
         return $transcript;
+    }
+
+    private function extractDates($transcript){
+        $dates = [];
+        $dom = new Dom;
+        $dom->loadStr($transcript);
+        $dateNodes = $dom->find('date');
+        foreach ($dateNodes as $node){
+            $dates[] = $node->getAttribute('when');
+        }
+
+        return $dates;
     }
 }

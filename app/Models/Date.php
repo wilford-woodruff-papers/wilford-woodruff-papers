@@ -9,6 +9,8 @@ class Date extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     public function dateable()
     {
         return $this->morphTo();
