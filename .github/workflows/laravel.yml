@@ -52,6 +52,3 @@ jobs:
       with:
         name: console
         path: tests/Browser/console    
-    env:
-        DB_CONNECTION: sqlite
-        DB_DATABASE: ":memory:"
