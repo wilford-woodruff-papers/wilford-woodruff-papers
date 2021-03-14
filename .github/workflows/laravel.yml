@@ -10,16 +10,6 @@ jobs:
   laravel-tests:
 
     runs-on: ubuntu-latest
-    
-    services:
-      mysql:
-        image: mysql:5.7
-        env:
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          MYSQL_DATABASE: wwp_test
-        ports:
-          - 3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
     - uses: shivammathur/setup-php@b7d1d9c9a92d8d8463ce36d7f60da34d461724f8
@@ -63,6 +53,5 @@ jobs:
         name: console
         path: tests/Browser/console    
     env:
-        DB_CONNECTION: mysql
-        DB_DATABASE: wwp_test
-        DB_PORT: 3306
+        DB_CONNECTION: sqlite
+        DB_DATABASE: ":memory:"
