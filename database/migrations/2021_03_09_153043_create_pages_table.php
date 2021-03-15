@@ -28,8 +28,6 @@ class CreatePagesTable extends Migration
             $table->foreign('item_id')
                 ->references('id')
                 ->on('items');
-
-            DB::statement('ALTER TABLE `pages` ADD FULLTEXT INDEX page_transcript_index (title, transcript)');
         });
 
         Schema::create('page_subject', function (Blueprint $table) {
@@ -37,6 +35,8 @@ class CreatePagesTable extends Migration
             $table->unsignedBigInteger('subject_id');
             $table->primary(['page_id', 'subject_id']);
         });
+
+        DB::statement('ALTER TABLE `pages` ADD FULLTEXT INDEX page_transcript_index (title, transcript)');
     }
 
     /**
