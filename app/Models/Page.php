@@ -7,13 +7,19 @@ use Dyrynda\Database\Support\GeneratesUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Auditable;
+use Spatie\EloquentSortable\Sortable;
+use Spatie\EloquentSortable\SortableTrait;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditable
+class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditable, Sortable
 {
-    use Auditable, GeneratesUuid, HasFactory, InteractsWithMedia;
+    use Auditable;
+    use GeneratesUuid;
+    use HasFactory;
+    use InteractsWithMedia;
+    use SortableTrait;
 
     protected $guarded = ['id'];
 
@@ -47,6 +53,16 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
             ->width(368)
             ->height(232)
             ->sharpen(10);
+    }
+
+    public $sortable = [
+        'order_column_name' => 'order',
+        'sort_when_creating' => true,
+    ];
+
+    public function buildSortQuery()
+    {
+        return static::query()->where('item_id', $this->item_id);
     }
 
 }
