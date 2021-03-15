@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use App\Models\Type;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
@@ -22,7 +23,9 @@ class ItemController extends Controller
         }
 
         return view('public.documents.index', [
-            'types' => Type::withCount('items')->orderBy('name')->get(),
+            'types' => Type::withCount(['items' => function(Builder $query){
+                                    $query->where('enabled', 1);
+                                }])->orderBy('name')->get(),
             'items' => $items->paginate(25),
         ]);
     }

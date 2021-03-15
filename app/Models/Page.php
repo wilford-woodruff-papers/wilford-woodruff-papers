@@ -6,6 +6,7 @@ use Dyrynda\Database\Casts\EfficientUuid;
 use Dyrynda\Database\Support\GeneratesUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use OwenIt\Auditing\Auditable;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
@@ -42,6 +43,14 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
         return $this->morphMany(Date::class, 'dateable');
     }
 
+    public function text()
+    {
+        return Str::of($this->transcript)->replaceMatches('/(?:\[\[)(.*?)(?:\]\])/', function ($match) {
+            return '<a href="/subjects/' . Str::of(Str::of($match[1])->explode("|")->first())->slug() . '" class="text-secondary" target="_subject">'. Str::of($match[1])->explode("|")->last() .'</a>';
+        });
+
+    }
+
     public function getRouteKeyName()
     {
         return 'uuid';
@@ -54,6 +63,7 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
             ->height(232)
             ->sharpen(10);
     }
+
 
     public $sortable = [
         'order_column_name' => 'order',

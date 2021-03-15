@@ -11,6 +11,6 @@ class Type extends Model
 
     public function items()
     {
-        return $this->hasMany(Item::class)->whereEnabled(1);
+        return $this->hasMany(Item::class);
     }
 }

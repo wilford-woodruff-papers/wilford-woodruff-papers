@@ -5,7 +5,7 @@
         $subject = [
             'name' => $place->name,
             #'url' => '/s/'.$page->params['site-slug'].'/page/'.$page->params['page-slug'],
-            'url' => '/s/wilford-woodruff-papers/page/'.$place->slug,
+            'url' => route('subjects.show', ['subject' => $place]),
         ];
         $places[] = $subject;
 
