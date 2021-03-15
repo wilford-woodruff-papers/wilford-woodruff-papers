@@ -36,7 +36,7 @@ class CreatePagesTable extends Migration
             $table->primary(['page_id', 'subject_id']);
         });
 
-        DB::statement('ALTER TABLE `pages` ADD FULLTEXT INDEX page_transcript_index (title, transcript)');
+        DB::statement('ALTER TABLE `pages` ADD FULLTEXT INDEX page_transcript_index (name, transcript)');
     }
 
     /**
