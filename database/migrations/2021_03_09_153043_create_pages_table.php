@@ -47,9 +47,11 @@ class CreatePagesTable extends Migration
      */
     public function down()
     {
-        Schema::table('pages', function($table) {
-            $table->dropIndex('post_title_index');
-        });
+        if(config('database.default') == 'mysql'){
+            Schema::table('pages', function($table) {
+                $table->dropIndex('post_title_index');
+            });
+        }
         Schema::dropIfExists('page_transcript_index');
         Schema::dropIfExists('pages');
     }
