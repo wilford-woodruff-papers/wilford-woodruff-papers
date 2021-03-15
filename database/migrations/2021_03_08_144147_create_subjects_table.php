@@ -25,6 +25,9 @@ class CreateSubjectsTable extends Migration
             $table->string('name');
             $table->string('index')->nullable();
             $table->longText('bio')->nullable();
+            $table->mediumText('footnotes')->nullable();
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
             $table->boolean('enabled')->default(0);
             $table->timestamps();
         });

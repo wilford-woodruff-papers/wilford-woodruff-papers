@@ -17,6 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/search', \App\Http\Controllers\SearchController::class)->name('search');
 Route::get('/documents', [\App\Http\Controllers\ItemController::class, 'index'])->name('documents');
 Route::get('/documents/{item}', [\App\Http\Controllers\ItemController::class, 'show'])->name('documents.show');
 Route::get('/documents/{item}/page/{page}', [\App\Http\Controllers\PageController::class, 'show'])->name('pages.show');
@@ -98,4 +99,10 @@ Route::get('/s/wilford-woodruff-papers/page/podcasts', function (){
 });
 Route::get('/s/wilford-woodruff-papers/photos', function (){
     return redirect()->route('media.photos');
+});
+Route::get('/s/wilford-woodruff-papers/media', function (){
+    return redirect()->route('search');
+});
+Route::get('/s/wilford-woodruff-papers/item/search', function (){
+    return redirect()->route('search');
 });

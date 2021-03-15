@@ -63,21 +63,9 @@
                     <ul class="divide-y divide-gray-200">
 
                         @foreach($item->pages as $page)
-                            <li class="py-4 grid grid-cols-7">
-                                <div class="col-span-1 px-2">
-                                    <a class="col-span-1 h-auto w-20 my-2 mx-auto" href="{{ route('pages.show', ['item' => $item, 'page' => $page]) }}">
-                                        <img src="{{ optional($page->getFirstMedia())->getUrl('thumb') }}" alt="">
-                                    </a>
-                                </div>
-                                <div class="col-span-6 py-2">
-                                    <p class="text-lg font-medium text-secondary pb-1 capitalize">
-                                        <a href="{{ route('pages.show', ['item' => $item, 'page' => $page]) }}">{{ $page->name }}</a>
-                                    </p>
-                                    <p class="text-sm text-gray-500 ml-2 py-2">
-                                        {{--TODO: add snippet of transcript --}}
-                                    </p>
-                                </div>
-                            </li>
+
+                            <x-page-summary :page="$page" />
+
                         @endforeach
 
                     </ul>

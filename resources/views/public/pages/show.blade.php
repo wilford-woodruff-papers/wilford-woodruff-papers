@@ -55,7 +55,7 @@
             <div class="w-full h-20 absolute top-0 bg-white pt-4">
                 <div class="flex w-100 m-auto items-center h-16 justify-center">
                     <div class="flex-initial px-8">
-                       @if (! empty($previousPage = $item->pages->where('id', '<', $page->id)->sortByDesc('id')->first()))
+                       @if (! empty($previousPage = $item->pages->where('order', '<', $page->order)->sortByDesc('order')->first()))
                             {{--$this->hyperlink('Previous', $previousMedia->url(), ['class' => 'relative inline-flex items-center px-4 py-2 text-sm font-medium border border-secondary text-sm font-medium text-white bg-secondary hover:text-highlight', 'title' => $translate('Previous'), 'aria-label' => $translate('Previous')]);--}}
                             <a class="relative inline-flex items-center px-4 py-2 text-sm font-medium border border-secondary text-sm font-medium text-white bg-secondary hover:text-highlight"
                                href="{{ route('pages.show', ['item' => $item, 'page' =>  $previousPage]) }}">
@@ -65,12 +65,12 @@
                     </div>
                     <div class="flex-1 py-1 relative">
                         <div class="h-2 bg-gray-200 rounded-full">
-                            <div class="absolute h-2 rounded-full bg-primary w-0" style="width: {{ floor((($item->pages->where('id', '<', $page->id)->count())/$item->pages->count())*100) }}%;"></div>
-                            <div class="absolute h-4 flex items-center justify-center w-4 rounded-full bg-white shadow border border-gray-300 -ml-2 top-0 cursor-pointer" unselectable="on" onselectstart="return false;" style="left: {{ floor((($item->pages->where('id', '<', $page->id)->count())/$item->pages->count())*100) }}%;">
+                            <div class="absolute h-2 rounded-full bg-primary w-0" style="width: {{ floor((($item->pages->where('order', '<', $page->order)->count())/$item->pages->count())*100) }}%;"></div>
+                            <div class="absolute h-4 flex items-center justify-center w-4 rounded-full bg-white shadow border border-gray-300 -ml-2 top-0 cursor-pointer" unselectable="on" onselectstart="return false;" style="left: {{ floor((($item->pages->where('order', '<', $page->order)->count())/$item->pages->count())*100) }}%;">
                                 <div class="relative -mt-2 w-1">
                                     <div class="absolute z-40 opacity-100 bottom-100 mb-2 left-0 min-w-full" style="margin-left: -20.5px;">
                                         <div class="relative shadow-md pr-1">
-                                            <div class="bg-primary -mt-8 text-white truncate text-xs rounded py-1 px-4">{{ $item->pages->where('id', '<', $page->id)->count() + 1 }}</div>
+                                            <div class="bg-primary -mt-8 text-white truncate text-xs rounded py-1 px-4">{{ $item->pages->where('order', '<', $page->order)->count() + 1 }}</div>
                                             <svg class="absolute text-primary w-full h-2 left-0 top-100" x="0px" y="0px" viewBox="0 0 255 255" xml:space="preserve">
                                                 <polygon class="fill-current" points="0,0 127.5,127.5 255,0"></polygon>
                                             </svg>
@@ -81,7 +81,7 @@
                         </div>
                     </div>
                     <div class="flex-initial px-8">
-                        @if (! empty($nextPage = $item->pages->where('id', '>', $page->id)->sortBy('id')->first()) )
+                        @if (! empty($nextPage = $item->pages->where('order', '>', $page->order)->sortBy('order')->first()) )
                             {{--$this->hyperlink('Next', $nextMedia->url(), ['class' => 'relative inline-flex items-center px-4 py-2 text-sm font-medium border border-secondary text-sm font-medium text-white bg-secondary hover:text-highlight', 'title' => $translate('Previous'), 'aria-label' => $translate('Previous')]);--}}
                         <a class="relative inline-flex items-center px-4 py-2 text-sm font-medium border border-secondary text-sm font-medium text-white bg-secondary hover:text-highlight"
                            href="{{ route('pages.show', ['item' => $item, 'page' =>  $nextPage]) }}">
@@ -121,7 +121,7 @@
                 </div>
             </div>
 
-            @if($page->subjects)
+            @if($page->subjects->count() > 0)
                 <div class="property">
                     <h4>
                         People & Places
@@ -139,7 +139,7 @@
                 </div>
             @endif
 
-            @if($page->dates)
+            @if($page->dates->count() > 0)
                 <div class="property">
                     <h4>
                         Dates

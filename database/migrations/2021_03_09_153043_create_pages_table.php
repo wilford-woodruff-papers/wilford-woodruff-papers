@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreatePagesTable extends Migration
@@ -19,12 +20,16 @@ class CreatePagesTable extends Migration
             $table->efficientUuid('uuid')->index();
             $table->string('name');
             $table->string('ftp_id')->nullable()->index();
+            $table->string('ftp_link')->nullable();
             $table->longText('transcript')->nullable();
+            $table->unsignedInteger('order')->nullable();
             $table->timestamps();
 
             $table->foreign('item_id')
                 ->references('id')
                 ->on('items');
+
+            DB::statement('ALTER TABLE `pages` ADD FULLTEXT INDEX page_transcript_index (title, transcript)');
         });
 
         Schema::create('page_subject', function (Blueprint $table) {
@@ -41,7 +46,10 @@ class CreatePagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('page_subject');
+        Schema::table('pages', function($table) {
+            $table->dropIndex('post_title_index');
+        });
+        Schema::dropIfExists('page_transcript_index');
         Schema::dropIfExists('pages');
     }
 }

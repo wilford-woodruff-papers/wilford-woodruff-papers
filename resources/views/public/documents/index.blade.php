@@ -25,7 +25,7 @@
                     <div>
 
                     </div>
-                    <a class="block text-sm text-center text-white font-bold bg-secondary uppercase py-4 px-8 mt-8" href="/s/wilford-woodruff-papers/item/search">
+                    <a class="block text-sm text-center text-white font-bold bg-secondary uppercase py-4 px-8 mt-8" href="{{ route('search') }}">
                         Begin Advanced Search
                     </a>
                 </div>

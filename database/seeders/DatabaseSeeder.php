@@ -51,6 +51,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Artisan::call('import:subjects');
+        Artisan::call('import:bios');
         Artisan::call('import:family');
 
         Team::insert([

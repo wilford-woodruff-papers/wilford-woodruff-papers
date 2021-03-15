@@ -4,7 +4,7 @@
             <img src="{{ optional($page->getFirstMedia())->getUrl('thumb') }}" alt="">
         </a>
     </div>
-    <div class="col-span-6 py-2">
+    <div class="col-span-6 py-2 px-4">
         <p class="text-lg font-medium text-secondary pb-1 capitalize">
             <a href="{{ route('pages.show', ['item' => $page->item, 'page' => $page]) }}">{{ $page->name }}</a>
         </p>
@@ -17,8 +17,8 @@
         @if($page->item->type)
             <p class="text-base text-primary ml-2">{{ $page->item->type->name }}</p>
         @endif
-        <p class="text-sm text-gray-500 ml-2 py-2">
-            {{--TODO: add snippet of transcript --}}
-        </p>
+        <div class="text-sm text-gray-500 px-4 py-2">
+            {!! Str::of( strip_tags( $page->text() ) )->words(50) !!}
+        </div>
     </div>
 </li>
