@@ -157,7 +157,6 @@
         </div>
     </div>
     <!-- End Modal for displaying subject quick view-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js" charset="utf-8"></script>
     <script src="{{ asset('js/openseadragon.min.js') }}" charset="utf-8"></script>
 
     <script>

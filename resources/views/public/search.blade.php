@@ -2,10 +2,10 @@
 
     <div class="max-w-7xl mx-auto">
 
-        <div class="my-12 mx-4 bg-gray-200 py-4 px-12">
+        <div class="my-12 mx-4 bg-gray-200 py-2 px-12">
             <form action="{{ route('search') }}" method="GET">
                 <div class="space-y-6 sm:space-y-5">
-                    <div class="sm:grid sm:grid-cols-4 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:py-5">
+                    <div class="sm:grid sm:grid-cols-4 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:py-4">
                         <label for="q"
                                class="block text-xl font-medium text-gray-700 sm:mt-px sm:pt-2 pl-8">
                             Search
@@ -20,7 +20,7 @@
                     </div>
                 </div>
                 <div class="space-y-6 sm:space-y-5">
-                    <div class="grid grid-cols-2 mt-4 sm:pb-5">
+                    <div class="grid grid-cols-2 mt-0 sm:pb-5">
                         <div class="px-8">
                             <div class="block text-lg font-medium text-primary sm:mt-px sm:pt-2">
                                 <div class="mt-4 sm:mt-0 sm:col-span-2">
@@ -69,7 +69,7 @@
                                        class="mt-1 focus:ring-gray-500 focus:border-gray-500 block w-full shadow-sm sm:text-sm border-gray-300">
                             </div>
                         </div>
-                        <div class="mt-8 mx-8" id="page-actions">
+                        <div class="mt-4 mx-8" id="page-actions">
                             <input class="inline-flex items-center relative inline-flex items-center px-12 py-2 border border-secondary text-sm font-medium text-white bg-secondary hover:text-highlight cursor-pointer" type="submit" name="submit" value="Search">
                         </div>
                     </div>

@@ -80,7 +80,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
                         <template x-for="(place, index) in filteredPlaces" :key="index">
                             <div class="">
-                                <a class="text-secondary"
+                                <a class="text-secondary popup"
                                    x-bind:href="place.url"
                                    x-text="place.name"
                                 >

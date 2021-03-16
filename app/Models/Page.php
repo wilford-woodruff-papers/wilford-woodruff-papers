@@ -46,7 +46,7 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
     public function text()
     {
         return Str::of($this->transcript)->replaceMatches('/(?:\[\[)(.*?)(?:\]\])/', function ($match) {
-            return '<a href="/subjects/' . Str::of(Str::of($match[1])->explode("|")->first())->slug() . '" class="text-secondary" target="_subject">'. Str::of($match[1])->explode("|")->last() .'</a>';
+            return '<a href="/subjects/' . Str::of(Str::of($match[1])->explode("|")->first())->slug() . '" class="text-secondary popup">'. Str::of($match[1])->explode("|")->last() .'</a>';
         });
 
     }

@@ -14,6 +14,10 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable
 
     protected $guarded = ['id'];
 
+    protected $dates = [
+        'added_to_collection_at',
+    ];
+
     protected $casts = [
         'uuid' => EfficientUuid::class,
     ];

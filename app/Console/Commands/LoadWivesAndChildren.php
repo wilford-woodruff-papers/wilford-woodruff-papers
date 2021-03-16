@@ -84,7 +84,7 @@ class LoadWivesAndChildren extends Command
     {
         return json_decode('[{
                                     "year": "1837",
-                                    "link": "phebe-whittemore-carter-woodruff",
+                                    "link": "/subjects/phebe-whittemore-carter-woodruff",
                                     "name": "Phebe Whittemore Carter",
                                     "parents": {
                                         "mother": "Sarah Fabyan",
@@ -112,7 +112,7 @@ class LoadWivesAndChildren extends Command
                                 },
                                 {
                                     "year": "1846",
-                                    "link": "mary-ann-jackson-woodruff",
+                                    "link": "/subjects/mary-ann-jackson-woodruff",
                                     "name": "Mary Ann Jackson",
                                     "parents": {
                                         "mother": "Elizabeth Lloyd",
@@ -132,7 +132,7 @@ class LoadWivesAndChildren extends Command
                                 },
                                 {
                                     "year": "1846",
-                                    "link": "",
+                                    "link": "/subjects/",
                                     "name": "Sarah Elinor Brown",
                                     "parents": {
                                         "mother": "Mary Arey",
@@ -150,7 +150,7 @@ class LoadWivesAndChildren extends Command
                                 },
                                 {
                                     "year": "1846",
-                                    "link": "",
+                                    "link": "/subjects/",
                                     "name": "Mary Caroline Barton",
                                     "parents": {
                                         "mother": "Mary Ann Swain",
@@ -168,7 +168,7 @@ class LoadWivesAndChildren extends Command
                                 },
                                 {
                                     "year": "1852",
-                                    "link": "",
+                                    "link": "/subjects/",
                                     "name": "Mary Meek Giles",
                                     "parents": {
                                         "mother": "Elizabeth Reith",
@@ -186,7 +186,7 @@ class LoadWivesAndChildren extends Command
                                 },
                                 {
                                     "year": "1852",
-                                    "link": "",
+                                    "link": "/subjects/",
                                     "name": "Clarissa Henrietta Hardy",
                                     "parents": {
                                         "mother": "Elizabeth Harriman Nichols",
@@ -204,7 +204,7 @@ class LoadWivesAndChildren extends Command
                                 },
                                 {
                                     "year": "1853",
-                                    "link": "",
+                                    "link": "/subjects/",
                                     "name": "Sarah Brown",
                                     "parents": {
                                         "mother": "Rhoda North",
@@ -231,7 +231,7 @@ class LoadWivesAndChildren extends Command
                                 },
                                 {
                                     "year": "1853",
-                                    "link": "emma-smith-woodruff",
+                                    "link": "/subjects/emma-smith-woodruff",
                                     "name": "Emma Smith",
                                     "parents": {
                                         "mother": "Martisha Smoot",
@@ -258,7 +258,7 @@ class LoadWivesAndChildren extends Command
                                 },
                                 {
                                     "year": "1857",
-                                    "link": "",
+                                    "link": "/subjects/",
                                     "name": "Sarah Delight Stocking",
                                     "parents": {
                                         "mother": "Catherine E. Ensign",
@@ -284,7 +284,7 @@ class LoadWivesAndChildren extends Command
                                 },
                                 {
                                     "year": "1877",
-                                    "link": "",
+                                    "link": "/subjects/",
                                     "name": "Eudora Lovina Young",
                                     "parents": {
                                         "mother": "Lucy Bigelow",

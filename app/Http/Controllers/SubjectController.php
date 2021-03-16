@@ -11,6 +11,9 @@ class SubjectController extends Controller
 {
     public function show(Subject $subject)
     {
+        if(request()->ajax()){
+            return $subject;
+        }
 
         return view('public.subjects.show', [
             'subject' => $subject,

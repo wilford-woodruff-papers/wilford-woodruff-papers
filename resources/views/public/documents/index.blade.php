@@ -53,20 +53,24 @@
                     </div>
                     <div class="col-span-2 flex items-center grid justify-items-center lg:justify-items-end">
                         <form class="sorting" action="">
-                            <input type="hidden" name="page" value="1">
+                            <input type="hidden" name="type" value="{{ request('type') }}">
                             <div class="inline-block">
-                                <select class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" name="sort_by" aria-label="Sort by">
-                                    <option value="dcterms:title">Title</option>
-                                    <option value="created" selected="">Added to Collection</option>
+                                <select class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                        name="sort"
+                                        aria-label="Sort by">
+                                    <option value="added:desc" selected="">Added to Collection (Newest to Oldest)</option>
+                                    <option value="added:asc">Added to Collection (Oldest to Newest)</option>
+                                    <option value="title:asc">Title (A-Z)</option>
+                                    <option value="title:desc">Title (Z-A)</option>
                                 </select>
                             </div>
 
-                            <div class="inline-block">
+                            {{--<div class="inline-block">
                                 <select class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" name="sort_order" aria-label="Sort order">
                                     <option value="asc">Ascending</option>
                                     <option value="desc" selected="">Descending</option>
                                 </select>
-                            </div>
+                            </div>--}}
 
                             <div class="inline-block">
                                 <button type="submit" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium text-white bg-secondary hover:text-highlight focus:outline-none">Sort</button>

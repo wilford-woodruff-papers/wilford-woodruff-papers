@@ -22,10 +22,24 @@ class ItemController extends Controller
             $items = $items->where('type_id', $request->get('type'));
         }
 
+        if($request->has('sort')){
+            $sort = explode(":", $request->get('sort'));
+            $direction = ($sort[1] == 'desc'? 'DESC' : 'ASC');
+            switch($sort[0]){
+                case 'title':
+                    $items = $items->orderBy('title', $direction);
+                    break;
+                default:
+                    $items = $items->orderBy('added_to_collection_at', $direction);
+            }
+        }else{
+            $items = $items->orderBy('added_to_collection_at', 'DESC');
+        }
+
         return view('public.documents.index', [
             'types' => Type::withCount(['items' => function(Builder $query){
                                     $query->where('enabled', 1);
-                                }])->orderBy('name')->get(),
+                                }])->get(),
             'items' => $items->paginate(25),
         ]);
     }

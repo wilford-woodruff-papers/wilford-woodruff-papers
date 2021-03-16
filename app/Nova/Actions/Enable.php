@@ -28,6 +28,7 @@ class Enable extends Action
     {
         foreach ($models as $model) {
             $model->enabled = $fields->status;
+            $model->added_to_collection_at = now();
             $model->save();
         }
     }

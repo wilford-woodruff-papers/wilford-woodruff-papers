@@ -140,7 +140,7 @@
                             @php usort($group, "lastNameSort") @endphp
                             @foreach($group as $key => $page)
                                 <div class="">
-                                    <a class="text-secondary"
+                                    <a class="text-secondary popup"
                                        href="{{ $page['url'] }}"
                                     >
                                         {{ $page['last_name'] }}@if(strlen($page['first_name'])), @endif {{ $page['first_name'] }}
@@ -160,7 +160,7 @@
                     <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
                         <template x-for="person in filteredPeople" :key="person.url">
                             <div class="">
-                                <a class="text-secondary"
+                                <a class="text-secondary popup"
                                    x-bind:href="person.url"
                                    x-text="person.last_name + ', ' + person.first_name"
                                 >

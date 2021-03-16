@@ -20,6 +20,7 @@ class CreateItemsTable extends Migration
             $table->string('ftp_id')->nullable()->index();
             $table->efficientUuid('uuid')->index();
             $table->boolean('enabled')->default(0);
+            $table->date('added_to_collection_at')->nullable();
             $table->timestamps();
 
             $table->foreign('type_id')
