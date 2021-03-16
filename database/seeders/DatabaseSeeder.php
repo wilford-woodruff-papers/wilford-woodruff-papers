@@ -63,13 +63,13 @@ class DatabaseSeeder extends Seeder
 
         Artisan::call('import:team');
 
-        $photos = Photo::factory()
+        /*$photos = Photo::factory()
                         ->count(3)
                         ->create();
 
         foreach($photos as $photo){
             $photo->addMediaFromUrl('https://wilfordwoodruffpapers.org/files/medium/8ff5ef10524521faea83c55ac813b16251c0c992.jpg')->toMediaCollection();
-        }
+        }*/
 
         Artisan::call('import:podcasts');
         Artisan::call('import:videos');

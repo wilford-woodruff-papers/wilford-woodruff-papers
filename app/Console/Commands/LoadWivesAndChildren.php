@@ -6,7 +6,6 @@ use App\Models\Child;
 use App\Models\Subject;
 use App\Models\Wife;
 use Illuminate\Console\Command;
-use Illuminate\Support\Str;
 
 class LoadWivesAndChildren extends Command
 {

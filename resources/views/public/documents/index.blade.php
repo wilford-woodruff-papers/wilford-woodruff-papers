@@ -53,15 +53,17 @@
                     </div>
                     <div class="col-span-2 flex items-center grid justify-items-center lg:justify-items-end">
                         <form class="sorting" action="">
-                            <input type="hidden" name="type" value="{{ request('type') }}">
+                            @if(request()->has('type'))
+                                <input type="hidden" name="type" value="{{ request('type') }}">
+                            @endif
                             <div class="inline-block">
                                 <select class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                         name="sort"
                                         aria-label="Sort by">
-                                    <option value="added:desc" selected="">Added to Collection (Newest to Oldest)</option>
-                                    <option value="added:asc">Added to Collection (Oldest to Newest)</option>
-                                    <option value="title:asc">Title (A-Z)</option>
-                                    <option value="title:desc">Title (Z-A)</option>
+                                    <option value="added:desc" @if(request()->get('sort') == 'added:desc') selected="" @endif>Added to Collection (Newest to Oldest)</option>
+                                    <option value="added:asc" @if(request()->get('sort') == 'added:asc') selected="" @endif>Added to Collection (Oldest to Newest)</option>
+                                    <option value="title:asc" @if(request()->get('sort') == 'title:asc') selected="" @endif>Title (A-Z)</option>
+                                    <option value="title:desc" @if(request()->get('sort') == 'title:desc') selected="" @endif>Title (Z-A)</option>
                                 </select>
                             </div>
 

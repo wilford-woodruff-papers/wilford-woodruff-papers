@@ -2,25 +2,26 @@
 
 namespace App\Console\Commands;
 
-use App\Imports\SubjectImport;
+
+use App\Imports\PhotoImport;
 use Illuminate\Console\Command;
 use Maatwebsite\Excel\Facades\Excel;
 
-class LoadSubjects extends Command
+class LoadPhotos extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'import:subjects';
+    protected $signature = 'import:photos';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Import people and places';
+    protected $description = 'Import Photos';
 
     /**
      * Create a new command instance.
@@ -39,7 +40,7 @@ class LoadSubjects extends Command
      */
     public function handle()
     {
-        Excel::import(new SubjectImport, storage_path('app/fromthepage_subject_details.csv'));
+        Excel::import(new PhotoImport, storage_path('app/image_metadata.csv'));
 
         return 0;
     }

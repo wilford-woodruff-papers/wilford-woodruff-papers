@@ -3,12 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Imports\BiographyImport;
-use App\Imports\SubjectImport;
-use App\Models\Child;
-use App\Models\Wife;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 
 class LoadBios extends Command

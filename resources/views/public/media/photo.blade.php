@@ -9,7 +9,7 @@
                     <div class="content col-span-12 md:col-span-9">
                         <h2>{{ $photo->title }}</h2>
                         <img class="max-w-4xl w-full md:w-1/2 mx-auto"
-                             src="{{ optional($photo->getFirstMedia())->getUrl() }}"
+                             src="{{ optional($photo->getFirstMedia())->getUrl('web') }}"
                         />
                         <!-- This example requires Tailwind CSS v2.0+ -->
                         <div class="flex flex-col mt-12">

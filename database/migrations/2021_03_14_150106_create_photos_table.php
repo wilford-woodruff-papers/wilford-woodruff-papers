@@ -16,13 +16,14 @@ class CreatePhotosTable extends Migration
         Schema::create('photos', function (Blueprint $table) {
             $table->id();
             $table->efficientUuid('uuid')->index();
+            $table->string('filename')->index();
             $table->string('title')->nullable();
             $table->mediumText('description')->nullable();
-            $table->date('date')->nullable();
+            $table->string('date')->nullable();
             $table->string('artist_or_photographer')->nullable();
             $table->string('location')->nullable();
-            $table->string('journal_reference')->nullable();
-            $table->string('identification_source')->nullable();
+            $table->mediumText('journal_reference')->nullable();
+            $table->mediumText('identification_source')->nullable();
             $table->string('editor')->nullable();
             $table->mediumText('notes')->nullable();
             $table->timestamps();

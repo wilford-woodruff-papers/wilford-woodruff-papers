@@ -22,10 +22,6 @@ class Photo extends Model implements HasMedia
         'uuid' => EfficientUuid::class,
     ];
 
-    protected $dates = [
-        'date',
-    ];
-
     public function getRouteKeyName()
     {
         return 'uuid';
@@ -33,6 +29,12 @@ class Photo extends Model implements HasMedia
 
     public function registerMediaConversions(Media $media = null): void
     {
+
+        $this->addMediaConversion('web')
+            ->width(1472)
+            ->height(928)
+            ->sharpen(10);
+
         $this->addMediaConversion('thumb')
             ->width(368)
             ->height(232)

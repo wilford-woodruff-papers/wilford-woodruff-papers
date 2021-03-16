@@ -27,7 +27,7 @@ class ItemController extends Controller
             $direction = ($sort[1] == 'desc'? 'DESC' : 'ASC');
             switch($sort[0]){
                 case 'title':
-                    $items = $items->orderBy('title', $direction);
+                    $items = $items->orderBy('name', $direction);
                     break;
                 default:
                     $items = $items->orderBy('added_to_collection_at', $direction);
