@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Avatar;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
@@ -52,6 +53,7 @@ class BoardMember extends Resource
             Text::make(__('Name'), 'name')->sortable(),
             Text::make(__('Title'), 'title')->sortable(),
             Textarea::make(__('Bio'), 'bio')->sortable(),
+            Avatar::make(__('Picture'), 'image')->sortable(),
         ];
     }
 

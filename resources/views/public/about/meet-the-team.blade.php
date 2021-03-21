@@ -54,7 +54,7 @@
                                         <div class="space-y-12 sm:divide-y sm:divide-gray-200 sm:space-y-0 sm:-mt-8 lg:gap-x-8 lg:space-y-0" x-max="1">
 
                                             <div class="sm:py-8"
-                                                 x-bind:id="(slugify(person.name))"
+                                                 id="{{ Str::of($person->name)->slug() }}"
                                             >
                                                 <div class="flex items-center space-y-4 sm:grid sm:grid-cols-3 sm:items-start sm:gap-6 sm:space-y-0">
                                                     <!-- Image -->
