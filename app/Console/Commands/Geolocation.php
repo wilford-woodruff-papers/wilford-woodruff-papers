@@ -8,7 +8,7 @@ use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Builder;
 use Maatwebsite\Excel\Facades\Excel;
 
-class LoadSubjects extends Command
+class Geolocation extends Command
 {
     /**
      * The name and signature of the console command.
