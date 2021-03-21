@@ -32,7 +32,7 @@ class Photo extends Resource
      */
     public static $search = [
         'id',
-        'name',
+        'title',
     ];
 
     /**

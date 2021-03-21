@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "alexpechkarev/google-maps": "^8.0",
         "anaseqal/nova-import": "^0.0.6",
         "dyrynda/laravel-efficient-uuid": "^4.3",
         "dyrynda/laravel-model-uuid": "^6.4",

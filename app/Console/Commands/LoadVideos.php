@@ -38,7 +38,7 @@ class LoadVideos extends Command
      */
     public function handle()
     {
-        $videos = $this->getPodcasts();
+        $videos = $this->getVideos();
         foreach($videos as $key => $video){
             $video['type'] = 'VIDEO';
             $press = Press::create($video);
@@ -48,7 +48,7 @@ class LoadVideos extends Command
     }
 
 
-    private function getPodcasts()
+    private function getVideos()
     {
         return json_decode('[
             {

@@ -191,11 +191,48 @@
                     <a href="/s/wilford-woodruff-papers/media">Search</a>
                 </div>
                 <div class="flex space-x-4 md:space-x-10  mt-4 flex md:mt-0 md:ml-4">
-                    <a href="/s/wilford-woodruff-papers/page/about">About</a>
+                    {{--<a href="/s/wilford-woodruff-papers/page/about">About</a>--}}
+
+                    <div class="relative inline-block text-left">
+                            <span x-on:mouseenter="showAbout = true; showMedia = false; showDonate = false; showGetInvolved = false;"
+                                  x-on:click="showAbout = true; showMedia = false; showDonate = false; showGetInvolved = false;"
+                                  x-on:click.away="showAbout = false"
+                                  class="text-base font-medium text-primary md:text-white md:hover:text-highlight uppercase"
+                            >
+                                About
+                            </span>
+                        <div x-show="showAbout"
+                             x-on:mouseleave="showAbout = false"
+                             x-cloak
+                             class="origin-top-right absolute -right-4 mt-2 w-72 shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
+                            <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                                <a href="{{ route('about') }}"
+                                   class="block px-4 py-2 text-secondary font-medium hover:bg-gray-100"
+                                   role="menuitem">
+                                    Mission
+                                </a>
+                                <a href="{{ route('about.meet-the-team') }}"
+                                   class="block px-4 py-2 text-secondary font-medium hover:bg-gray-100"
+                                   role="menuitem">
+                                    Meet the Team
+                                </a>
+                                <a href="{{ route('about.editorial-method') }}"
+                                   class="block px-4 py-2 text-secondary font-medium hover:bg-gray-100"
+                                   role="menuitem">
+                                    Editorial Method
+                                </a>
+                                <a href="{{ route('about.frequently-asked-questions') }}"
+                                   class="block px-4 py-2 text-secondary font-medium hover:bg-gray-100"
+                                   role="menuitem">
+                                    Frequently Asked Questions
+                                </a>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="relative inline-block text-left">
                             <span x-on:mouseenter="showAbout = false; showMedia = false; showDonate = false; showGetInvolved = true;"
-                                  x-on:click="showGetInvolved = false; showMedia = false; showDonate = false; showGetInvolved = true;"
+                                  x-on:click="showAbout = false; showMedia = false; showDonate = false; showGetInvolved = true;"
                                   x-on:click.away="showGetInvolved = false"
                                   class="text-base font-medium text-primary md:text-white md:hover:text-highlight uppercase"
                             >
@@ -204,7 +241,7 @@
                         <div x-show="showGetInvolved"
                              x-on:mouseleave="showGetInvolved = false"
                              x-cloak
-                             class="origin-top-right absolute -right-4 mt-2 w-56 shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
+                             class="origin-top-right absolute -right-4 mt-2 w-72 shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
                             <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                                 <a href="/s/wilford-woodruff-papers/page/volunteer"
                                    class="block px-4 py-2 text-secondary font-medium hover:bg-gray-100"
@@ -278,7 +315,7 @@
                         <div x-show="showMedia"
                              x-on:mouseleave="showMedia = false"
                              x-cloak
-                             class="origin-top-right absolute -right-4 mt-2 w-40 shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
+                             class="origin-top-right absolute -right-4 mt-2 w-72 shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
                             <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                                 <a href="/s/wilford-woodruff-papers/photos"
                                    class="block px-4 py-2 text-secondary font-medium hover:bg-gray-100"

@@ -11,6 +11,12 @@
                         <p>
                             {!! $subject->bio !!}
                         </p>
+                        @if(! empty($subject->geolocation))
+                            <img src="{{ $subject->mapUrl() }}"
+                                 alt=""
+                                 class="w-full md:w-1/2 h-auto mx-auto"
+                            />
+                        @endif
 
                         @if(! empty($subject->footnotes))
                             <h3 class="mt-8 text-2xl border-b border-primary">Footnotes</h3>

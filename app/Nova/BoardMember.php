@@ -27,7 +27,7 @@ class BoardMember extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'name';
 
     /**
      * The columns that should be searched.
@@ -52,7 +52,7 @@ class BoardMember extends Resource
             ID::make(__('ID'), 'id')->sortable(),
             Text::make(__('Name'), 'name')->sortable(),
             Text::make(__('Title'), 'title')->sortable(),
-            Textarea::make(__('Bio'), 'bio')->sortable(),
+            Textarea::make(__('Bio'), 'bio')->alwaysShow(),
             Avatar::make(__('Picture'), 'image')->sortable(),
         ];
     }

@@ -10,14 +10,14 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class Press extends Resource
+class Faq extends Resource
 {
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\Models\Press::class;
+    public static $model = \App\Models\Faq::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -46,12 +46,8 @@ class Press extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            Date::make(__('Date'), 'date')->sortable(),
-            Text::make(__('Title'), 'title')->sortable(),
-            Text::make(__('Slug'), 'slug')->hideWhenCreating()->sortable(),
-            Trix::make('description'),
-            Text::make('link')->hideFromIndex(),
-            HasMany::make('Media'),
+            Text::make(__('Question'), 'question')->sortable(),
+            Trix::make(__('Answer'), 'answer'),
         ];
     }
 

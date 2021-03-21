@@ -90,5 +90,6 @@ class DatabaseSeeder extends Seeder
                 ->update(['enabled' => 1]);
 
         Artisan::call('import:pages');
+        Artisan::call('import:faqs');
     }
 }

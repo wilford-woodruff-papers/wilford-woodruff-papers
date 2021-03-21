@@ -32,6 +32,7 @@ Route::get('/contribute-documents', [\App\Http\Controllers\GetInvolvedController
 Route::get('/about', [\App\Http\Controllers\AboutController::class, 'mission'])->name('about');
 Route::get('/about/meet-the-team', [\App\Http\Controllers\AboutController::class, 'meetTheTeam'])->name('about.meet-the-team');
 Route::get('/about/editorial-method', [\App\Http\Controllers\AboutController::class, 'editorialMethod'])->name('about.editorial-method');
+Route::get('/about/frequently-asked-questions', [\App\Http\Controllers\AboutController::class, 'faqs'])->name('about.frequently-asked-questions');
 
 Route::get('/media/photos', [\App\Http\Controllers\MediaController::class, 'photos'])->name('media.photos');
 Route::get('/media/photos/{photo}', [\App\Http\Controllers\MediaController::class, 'photo'])->name('media.photos.show');
@@ -105,4 +106,7 @@ Route::get('/s/wilford-woodruff-papers/media', function (){
 });
 Route::get('/s/wilford-woodruff-papers/item/search', function (){
     return redirect()->route('search');
+});
+Route::get('/s/wilford-woodruff-papers/page/frequently-asked-questions', function (){
+    return redirect()->route('about.frequently-asked-questions');
 });

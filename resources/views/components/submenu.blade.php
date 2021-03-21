@@ -25,6 +25,12 @@
                                 Editorial Method
                             </span>
                 </a>
+                <a href="{{ route('about.frequently-asked-questions') }}"
+                   class="group flex items-center px-3 py-2 text-sm font-medium @if(request()->is('about/frequently-asked-questions')) active @else @endif">
+                            <span class="truncate">
+                                Frequently Asked Questions
+                            </span>
+                </a>
             </div>
             @break
 
