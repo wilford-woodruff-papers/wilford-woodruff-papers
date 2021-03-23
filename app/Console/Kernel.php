@@ -24,7 +24,13 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('import:items')
+                 ->dailyAt('1:00 AM')
+                 ->timezone('Americas/Denver');
+
+        $schedule->command('import:pages')
+                 ->weeklyOn(5, '2:00 AM')
+                 ->timezone('Americas/Denver');
     }
 
     /**
