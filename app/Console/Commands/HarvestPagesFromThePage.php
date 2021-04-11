@@ -79,16 +79,13 @@ class HarvestPagesFromThePage extends Command
                     $subjects[] = Str::of($match[0])->trim('[[]]')->explode('|')->first();
                     return '[['.$match[0].']]';
                 });
-
                 foreach($subjects as $subject){
                     $subject = Subject::firstOrCreate([
                         'name' => $subject,
                     ]);
-                    if($subject->enabled == 0){
-                        $subject->enabled = 1;
-                        $subject->save();
-                        $page->subjects()->syncWithoutDetaching($subject->id);
-                    }
+                    $subject->enabled = 1;
+                    $subject->save();
+                    $page->subjects()->syncWithoutDetaching($subject->id);
                 }
 
                 $page->dates()->delete();
