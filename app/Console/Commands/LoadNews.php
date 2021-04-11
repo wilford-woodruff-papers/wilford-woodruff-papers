@@ -74,6 +74,14 @@ class LoadNews extends Command
                 "date":"2021-03-11",
                 "link":"https://latterdaysaintmag.com/wilford-woodruffs-unmatched-eyewitness-account-of-the-restoration/",
                 "embed":""
+            },
+            {
+                "title":"The Wilford Woodruff Papers: How a Team of Individuals Are Making Possible the Impossible!",
+                "subtitle":"Meridian Magazine",
+                "description":"This third of a four-part series to understand the legacy of Wilford Woodruff, includes an explanation of our mission to collect, transcribe, publish, and digitally preserve Wilford Woodruff\'s records to proclaim that Jesus Christ has restored his gospel and continues to reveal his will through his prophets.",
+                "date":"2021-03-22",
+                "link":"https://latterdaysaintmag.com/the-wilford-woodruff-papers-how-a-team-of-individuals-are-making-possible-the-impossible",
+                "embed":""
             }
         ]',true);
     }

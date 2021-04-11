@@ -77,30 +77,21 @@
                             <div class="inline-block">
                                 <button type="submit" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium text-white bg-secondary hover:text-highlight focus:outline-none">Sort</button>
                             </div>
-                        </form>                    </div>
+                        </form>
+                    </div>
                 </div>
                 <ul class="divide-y divide-gray-200 px-4">
 
                     @foreach($items as $item)
-                        <li class="py-4 grid grid-cols-7">
-                            <div class="col-span-1 ">
-                                <a class="col-span-1" href="{{ route('documents.show', ['item' => $item]) }}"><img class="h-auto w-20 my-2 mx-auto" src="https://wilfordwoodruffpapers.org/files/medium/0ba67b58e7ee4e8a94a1b8bd87ff2f2f5dde54c7.jpg" alt=""></a>                                                            </div>
-                            <div class="col-span-6 py-2">
-                                <a href="{{ route('documents.show', ['item' => $item]) }}">
-                                    <div class="ml-3">
-                                        <p class="text-lg font-medium text-secondary pb-1">{{ $item->name }}</p>
-                                        <p>{{ optional($item->type)->name }}</p>
-                                    </div>
-                                    <div class="ml-3">
-                                        <p class="text-sm text-gray-900"></p>
-                                    </div>
-                                </a>
-                            </div>
-                        </li>
+                        <x-item-summary :item="$item"/>
                     @endforeach
                 </ul>
 
-                <nav class="bg-white px-4 py-3 flex items-center justify-between sm:px-6" role="navigation" aria-label="Pagination">
+                <div class="my-4 px-8">
+                    {!! $items->withQueryString()->links('vendor.pagination.tailwind') !!}
+                </div>
+
+                {{--<nav class="bg-white px-4 py-3 flex items-center justify-between sm:px-6" role="navigation" aria-label="Pagination">
                     <div class="hidden sm:block">
                         <p class="text-base text-primary">
                             Showing
@@ -116,12 +107,14 @@
                         <span class="previous o-icon-prev button inactive"></span>
                         <span class="next o-icon-next button inactive"></span>
                     </div>
-                </nav>
+                </nav>--}}
 
                 <!--
                     <div class="blocks">
                                         </div>
-                -->        </div>
+                -->
+            </div>
+
         </div>
     </div>
 

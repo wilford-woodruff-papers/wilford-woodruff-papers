@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\ImportPhotos;
 use App\Nova\Actions\ImportSubjects;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\HasMany;
@@ -11,6 +12,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Photo extends Resource
 {
+    public static $group = 'Website';
     /**
      * The model the resource corresponds to.
      *
@@ -23,7 +25,7 @@ class Photo extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'title';
 
     /**
      * The columns that should be searched.
@@ -91,6 +93,8 @@ class Photo extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            new ImportPhotos,
+        ];
     }
 }

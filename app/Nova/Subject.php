@@ -10,6 +10,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Subject extends Resource
 {
+    public static $group = 'Metadata';
     /**
      * The model the resource corresponds to.
      *
@@ -22,7 +23,7 @@ class Subject extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'name';
 
     /**
      * The columns that should be searched.

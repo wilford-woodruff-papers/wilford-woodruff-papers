@@ -65,8 +65,8 @@
                     </div>
                     <div class="flex-1 py-1 relative">
                         <div class="h-2 bg-gray-200 rounded-full">
-                            <div class="absolute h-2 rounded-full bg-primary w-0" style="width: {{ floor((($item->pages->where('order', '<', $page->order)->count())/$item->pages->count())*100) }}%;"></div>
-                            <div class="absolute h-4 flex items-center justify-center w-4 rounded-full bg-white shadow border border-gray-300 -ml-2 top-0 cursor-pointer" unselectable="on" onselectstart="return false;" style="left: {{ floor((($item->pages->where('order', '<', $page->order)->count())/$item->pages->count())*100) }}%;">
+                            <div class="absolute h-2 rounded-full bg-primary w-0" style="width: {{ floor((($item->pages->where('order', '<=', $page->order)->count())/$item->pages->count())*100) }}%;"></div>
+                            <div class="absolute h-4 flex items-center justify-center w-4 rounded-full bg-white shadow border border-gray-300 -ml-2 top-0 cursor-pointer" unselectable="on" onselectstart="return false;" style="left: {{ floor((($item->pages->where('order', '<=', $page->order)->count())/$item->pages->count())*100) }}%;">
                                 <div class="relative -mt-2 w-1">
                                     <div class="absolute z-40 opacity-100 bottom-100 mb-2 left-0 min-w-full" style="margin-left: -20.5px;">
                                         <div class="relative shadow-md pr-1">
@@ -166,7 +166,7 @@
             //prefixUrl: "/openseadragon/images/",
             tileSources: [{
                 'type': 'image',
-                'url': '{{ optional($page->getFirstMedia())->getUrl() }}'
+                'url': '{{ $page->getFirstMediaUrl() }}'
             }],
             sequenceMode: true,
             showRotationControl: false,

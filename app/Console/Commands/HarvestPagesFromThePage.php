@@ -18,7 +18,7 @@ class HarvestPagesFromThePage extends Command
      *
      * @var string
      */
-    protected $signature = 'import:pages';
+    protected $signature = 'import:pages {item?} {--enable=false}';
 
     /**
      * The console command description.
@@ -44,7 +44,11 @@ class HarvestPagesFromThePage extends Command
      */
     public function handle()
     {
-        $items = Item::whereEnabled(true)->whereNotNull('ftp_id')->get();
+        if(empty($itemId = $this->argument('item'))){
+            $items = Item::whereEnabled(true)->whereNotNull('ftp_id')->get();
+        }else{
+            $items = Item::whereId($itemId)->whereNotNull('ftp_id')->get();
+        }
 
         $items->each(function($item, $key){
             $response = Http::get($item->ftp_id);
@@ -96,6 +100,10 @@ class HarvestPagesFromThePage extends Command
                     $d->date = $date;
                     $page->dates()->save($d);
                 }
+            }
+            if($this->option('enable') == true){
+                $item->enabled = 1;
+                $item->save();
             }
         });
 

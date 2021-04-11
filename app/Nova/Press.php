@@ -12,6 +12,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Press extends Resource
 {
+    public static $group = 'Website';
     /**
      * The model the resource corresponds to.
      *
@@ -24,7 +25,7 @@ class Press extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'title';
 
     /**
      * The columns that should be searched.
@@ -49,7 +50,7 @@ class Press extends Resource
             Date::make(__('Date'), 'date')->sortable(),
             Text::make(__('Title'), 'title')->sortable(),
             Text::make(__('Slug'), 'slug')->hideWhenCreating()->sortable(),
-            Trix::make('description'),
+            Trix::make('description')->alwaysShow(),
             Text::make('link')->hideFromIndex(),
             HasMany::make('Media'),
         ];

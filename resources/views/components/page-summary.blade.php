@@ -18,7 +18,21 @@
             <p class="text-base text-primary ml-2">{{ $page->item->type->name }}</p>
         @endif
         <div class="text-sm text-gray-500 px-4 py-2">
-            {!! Str::of( strip_tags( $page->text() ) )->words(50) !!}
+            @php
+                $description = '';
+                if(! empty( request('q'))){
+                    preg_match_all('~(?:[\p{L}\p{N}\']+[^\p{L}\p{N}\']+){0,10}'.request('q').'(?:[^\p{L}\p{N}\']+[\p{L}\p{N}\']+){0,10}~ui', str_replace(['[[', ']]'], '', strip_tags( $page->transcript ) ),$matches);
+                    foreach ($matches[0] as $match) {
+                        $description .= '<div>...' . str_highlight($match, request('q'), STR_HIGHLIGHT_SIMPLE, '<span class="bg-yellow-100">\1</span>') . '...</div>';
+                    }
+
+                }else {
+                    $description = (strlen($page->text()) > 0) ? get_snippet($page->text(), 100) . ((get_word_count($page->text()) > 100)?' ...':'') : '';
+                    $description = str_replace(['[[', ']]'], '', strip_tags( $description ) );
+                }
+            @endphp
+            {!! $description !!}
+            {{--{!! Str::of( strip_tags( $page->text() ) )->words(50) !!}--}}
         </div>
     </div>
 </li>

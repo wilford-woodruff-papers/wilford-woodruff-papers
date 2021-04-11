@@ -11,6 +11,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Type extends Resource
 {
+    public static $group = 'Metadata';
     /**
      * The model the resource corresponds to.
      *
@@ -23,7 +24,7 @@ class Type extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'name';
 
     /**
      * The columns that should be searched.

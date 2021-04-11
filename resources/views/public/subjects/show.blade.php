@@ -41,7 +41,7 @@
                             </ul>
 
                             <div>
-                                {!! $pages->links() !!}
+                                {!! $pages->withQueryString()->links() !!}
                             </div>
                         </div>
                     </div>

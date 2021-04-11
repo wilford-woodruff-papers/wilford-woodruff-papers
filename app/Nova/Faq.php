@@ -12,6 +12,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Faq extends Resource
 {
+    public static $group = 'Website';
     /**
      * The model the resource corresponds to.
      *
@@ -24,7 +25,7 @@ class Faq extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'question';
 
     /**
      * The columns that should be searched.
@@ -33,7 +34,8 @@ class Faq extends Resource
      */
     public static $search = [
         'id',
-        'title',
+        'question',
+        'answer',
     ];
 
     /**

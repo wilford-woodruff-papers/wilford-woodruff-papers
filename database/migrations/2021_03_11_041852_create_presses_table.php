@@ -20,8 +20,8 @@ class CreatePressesTable extends Migration
             $table->string('subtitle')->nullable();
             $table->mediumText('description')->nullable();
             $table->date('date');
-            $table->string('link')->nullable();
-            $table->string('embed')->nullable();
+            $table->string('link', 2048)->nullable();
+            $table->string('embed', 2048)->nullable();
             $table->string('transcript')->nullable();
             $table->timestamps();
         });

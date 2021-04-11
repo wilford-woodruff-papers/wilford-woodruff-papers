@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use OwenIt\Auditing\Auditable;
+use OwenIt\Auditing\Encoders\Base64Encoder;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 use Spatie\MediaLibrary\HasMedia;
@@ -74,5 +75,9 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
     {
         return static::query()->where('item_id', $this->item_id);
     }
+
+    protected $attributeModifiers = [
+        'uuid' => Base64Encoder::class,
+    ];
 
 }

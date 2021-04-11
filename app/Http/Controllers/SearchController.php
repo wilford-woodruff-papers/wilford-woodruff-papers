@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Date;
 use App\Models\Page;
+use App\Models\Type;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
@@ -18,12 +19,17 @@ class SearchController extends Controller
     public function __invoke(Request $request)
     {
         $pages = new Page;
+        $pages = $pages->with('item');
 
         if($request->has('q')){
             $pages = $pages->where(function($query) use ($request) {
                                 $query->where('name', 'LIKE', '%'.$request->get('q').'%')
                                       ->orWhere('transcript', 'LIKE', '%'.$request->get('q').'%');
                             });
+        }
+
+        if($request->has('types')){
+            $pages = $pages->whereIn('type_id', $request->get('types'));
         }
 
         if($request->get('use_min_date') == "true" && $request->has('min_date')){
@@ -39,6 +45,7 @@ class SearchController extends Controller
         }
 
         return view('public.search', [
+            'types' => Type::get(),
             'pages' => $pages->paginate(20),
             'dates' => [
                 'min' => Date::where('dateable_type', Page::class)->orderBy('date', 'ASC')->first(),
