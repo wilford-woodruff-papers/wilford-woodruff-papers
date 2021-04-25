@@ -59,7 +59,7 @@
                                                 <div class="flex items-center space-y-4 sm:grid sm:grid-cols-3 sm:items-start sm:gap-6 sm:space-y-0">
                                                     <!-- Image -->
                                                     <div class="aspect-w-3 aspect-h-2 sm:aspect-w-3 sm:aspect-h-4 hidden md:block">
-                                                        <img class="object-cover shadow-lg rounded-full h-80 w-80" src="{{ $person->image }}" alt="">
+                                                        <img class="object-cover shadow-lg rounded-full h-80 w-80" src="{{ Storage::disk('board_members')->url($person->image) }}" alt="">
                                                     </div>
                                                     <div class="col-span-3 md:col-span-2">
                                                         <div class="space-y-4">

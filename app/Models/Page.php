@@ -34,6 +34,15 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
         return $this->belongsTo(Item::class);
     }
 
+    public function parent()
+    {
+        if(empty($this->item->item_id)){
+            return $this->item();
+        }else{
+            return $this->belongsTo(Item::class, 'parent_item_id');
+        }
+    }
+
     public function subjects()
     {
         return $this->belongsToMany(Subject::class);
@@ -73,7 +82,7 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
 
     public function buildSortQuery()
     {
-        return static::query()->where('item_id', $this->item_id);
+        return static::query()->where('parent_item_id', $this->parent->id);
     }
 
     protected $attributeModifiers = [

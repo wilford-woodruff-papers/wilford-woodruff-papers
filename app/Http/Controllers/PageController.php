@@ -10,12 +10,14 @@ class PageController extends Controller
 {
     public function show(Item $item, Page $page)
     {
-        $item->load('pages');
+        $item = $item->parent();
         $page->load('dates', 'subjects');
 
         return view('public.pages.show', [
             'item' => $item,
             'page' => $page,
+            'pages' => Page::where('parent_item_id', $item->id)
+                        ->ordered()->get(),
         ]);
     }
 }

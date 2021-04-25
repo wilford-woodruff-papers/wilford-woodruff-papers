@@ -37,6 +37,7 @@ class Page extends Resource
         'id',
         'name',
         'transcript',
+        'uuid'
     ];
 
     /**

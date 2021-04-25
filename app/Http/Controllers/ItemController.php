@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Models\Page;
 use App\Models\Type;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -16,7 +17,9 @@ class ItemController extends Controller
      */
     public function index(Request $request)
     {
-        $items = Item::with('type')->whereEnabled(1);
+        $items = Item::whereNull('item_id')
+                        ->with('type')
+                        ->whereEnabled(1);
 
         if($request->has('type')){
             $items = $items->where('type_id', $request->get('type'));
@@ -37,7 +40,8 @@ class ItemController extends Controller
         }
 
         return view('public.documents.index', [
-            'types' => Type::withCount(['items' => function(Builder $query){
+            'types' => Type::whereNull('type_id')
+                                ->withCount(['items' => function(Builder $query){
                                     $query->where('enabled', 1);
                                 }])->get(),
             'items' => $items->paginate(25),
@@ -73,10 +77,12 @@ class ItemController extends Controller
      */
     public function show(Item $item)
     {
-        $item->load('pages');
+        $pages = Page::where('parent_item_id', $item->id)
+                        ->ordered();
 
         return view('public.documents.show', [
             'item' => $item,
+            'pages' => $pages->paginate(20),
         ]);
     }
 

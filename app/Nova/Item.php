@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
+use Laravel\Nova\Fields\HasManyThrough;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
@@ -55,11 +56,13 @@ class Item extends Resource
         return [
             Boolean::make('Enabled')->sortable(),
             ID::make(__('ID'), 'id')->sortable(),
+            BelongsTo::make('Item')->nullable()->sortable(),
             Text::make(__('Name'), 'name')->help('Field is overwritten on import')->sortable(),
             BelongsTo::make('Type')->sortable(),
             Text::make('Preview', function () {
                 return '<a href="'.route('documents.show', ['item' => $this]).'" class="no-underline dim text-primary font-bold" target="_preview">Preview</a>';
             })->asHtml(),
+            HasMany::make('Items'),
             HasMany::make('Pages'),
         ];
     }

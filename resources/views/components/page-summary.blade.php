@@ -6,12 +6,12 @@
     </div>
     <div class="col-span-6 py-2 px-4">
         <p class="text-lg font-medium text-secondary pb-1 capitalize">
-            <a href="{{ route('pages.show', ['item' => $page->item, 'page' => $page]) }}">{{ $page->name }}</a>
+            <a href="{{ route('pages.show', ['item' => $page->item, 'page' => $page]) }}">Page {{ $page->order }}</a>
         </p>
         <p class="text-base font-medium ml-2">
             <span class="text-gray-600">Part of </span>
             <span class="text-secondary">
-                <a href="{{ route('documents.show', ['item' => $page->item]) }}">{{ $page->item->name }}</a>
+                <a href="{{ route('documents.show', ['item' => $page->parent]) }}">{{ $page->parent->name }}</a>
             </span>
         </p>
         @if($page->item->type)

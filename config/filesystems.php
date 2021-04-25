@@ -42,6 +42,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'board_members' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/board-members'),
+            'url' => env('APP_URL').'/storage/board-members',
+            'visibility' => 'public',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
@@ -66,7 +73,7 @@ return [
     */
 
     'links' => [
-        public_path('storage') => storage_path('app/public'),
+        '/home/wilfordw/public_html/storage' => storage_path('app/public'),
     ],
 
 ];

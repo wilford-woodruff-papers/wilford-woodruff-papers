@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\ImportBiographies;
 use App\Nova\Actions\ImportSubjects;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
@@ -92,6 +93,7 @@ class Subject extends Resource
     public function actions(Request $request)
     {
         return [
+            new ImportBiographies,
             new ImportSubjects,
         ];
     }

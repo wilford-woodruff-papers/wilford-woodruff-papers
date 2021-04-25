@@ -111,19 +111,9 @@
             </form>
         </div>
 
-        <div class="browse-controls flex flex-wrap grid grid-cols-1 lg:grid-cols-4 mt-8">
+        <div class="browse-controls flex flex-wrap grid grid-cols-1 lg:grid-cols-2 mt-8">
             <div class="items-center col-span-2 px-8">
                 {!! $pages->withQueryString()->links('vendor.pagination.tailwind') !!}
-            </div>
-            <div class="flex items-center grid justify-items-center lg:justify-items-end md:col-span-2">
-                <form class="sorting" action="">
-                    @if(request()->has('type'))
-                        <input type="hidden" name="type" value="{{ request('type') }}">
-                    @endif
-                    <div class="inline-block">
-
-                    </div>
-                </form>
             </div>
         </div>
 

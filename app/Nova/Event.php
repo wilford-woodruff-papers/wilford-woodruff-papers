@@ -11,7 +11,7 @@ use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class BoardMember extends Resource
+class Event extends Resource
 {
 
     public static $displayInNavigation = false;
@@ -21,7 +21,7 @@ class BoardMember extends Resource
      *
      * @var string
      */
-    public static $model = \App\Models\BoardMember::class;
+    public static $model = \App\Models\Event::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -38,7 +38,7 @@ class BoardMember extends Resource
     public static $search = [
         'id',
         'name',
-        'title',
+        'date',
     ];
 
     /**
@@ -52,9 +52,7 @@ class BoardMember extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
             Text::make(__('Name'), 'name')->sortable(),
-            Text::make(__('Title'), 'title')->sortable(),
-            Textarea::make(__('Bio'), 'bio')->alwaysShow(),
-            File::make(__('Picture'), 'image')->disk('board_members'),
+            Text::make(__('Date'), 'date')->sortable(),
         ];
     }
 

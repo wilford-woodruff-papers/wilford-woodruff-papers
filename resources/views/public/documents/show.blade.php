@@ -3,6 +3,7 @@
     $item->pages->each(function($page) use (&$subjects){
         $subjects = $subjects->merge($page->subjects->all());
     });
+    $subjects = $subjects->unique('id');
 @endphp
 
 <x-guest-layout>
@@ -62,13 +63,16 @@
 
                     <ul class="divide-y divide-gray-200">
 
-                        @foreach($item->pages as $page)
+                        @foreach($pages as $page)
 
                             <x-page-summary :page="$page" />
 
                         @endforeach
 
                     </ul>
+                    <div class="my-4 px-8">
+                        {!! $pages->withQueryString()->links('vendor.pagination.tailwind') !!}
+                    </div>
                 </div>
             </div>
 
