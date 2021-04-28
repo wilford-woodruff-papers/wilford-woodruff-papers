@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Item;
 use App\Models\Page;
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Collection;
 
 class UpdatePageOrder extends Command
 {
@@ -62,6 +63,8 @@ class UpdatePageOrder extends Command
                 $page->parent_item_id = $item->parent()->id;
                 $page->save();
             });
+            $this->info('Item: ' . $item->id);
+            $this->info(implode(', ', $itemPages->pluck('id')->all()));
             Page::setNewOrder($itemPages->pluck('id')->all());
         });
 

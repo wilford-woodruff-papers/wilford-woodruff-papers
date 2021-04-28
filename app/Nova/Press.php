@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -47,6 +48,11 @@ class Press extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
+            Select::make(__('Type'))->options([
+                'News' => 'News',
+                'Podcast' => 'Podcast',
+                'Video' => 'Video',
+            ])->sortable(),
             Date::make(__('Date'), 'date')->sortable(),
             Text::make(__('Title'), 'title')->sortable(),
             Text::make(__('Slug'), 'slug')->hideWhenCreating()->sortable(),

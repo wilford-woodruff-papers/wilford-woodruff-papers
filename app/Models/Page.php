@@ -89,4 +89,12 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
         'uuid' => Base64Encoder::class,
     ];
 
+    /**
+     * Get all of the events that are assigned this page.
+     */
+    public function events()
+    {
+        return $this->morphToMany(Event::class, 'timelineable');
+    }
+
 }

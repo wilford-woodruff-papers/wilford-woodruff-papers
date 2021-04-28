@@ -32,6 +32,11 @@
                             </li>
                             @endforeach
                         </ul>
+                        <div class="browse-controls flex flex-wrap grid grid-cols-1 lg:grid-cols-2 mt-8">
+                            <div class="items-center col-span-2 px-8">
+                                {!! $photos->withQueryString()->links('vendor.pagination.tailwind') !!}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

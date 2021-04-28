@@ -14,6 +14,7 @@ use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\HasManyThrough;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\MorphToMany;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -64,6 +65,7 @@ class Item extends Resource
             })->asHtml(),
             HasMany::make('Items'),
             HasMany::make('Pages'),
+            MorphToMany::make(__('Events')),
         ];
     }
 

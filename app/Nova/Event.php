@@ -4,9 +4,14 @@ namespace App\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Avatar;
+use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\MorphedByMany;
+use Laravel\Nova\Fields\MorphMany;
+use Laravel\Nova\Fields\MorphTo;
+use Laravel\Nova\Fields\MorphToMany;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -14,7 +19,12 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 class Event extends Resource
 {
 
-    public static $displayInNavigation = false;
+    public static $group = 'Website';
+
+    public static function label()
+    {
+        return 'Timeline';
+    }
 
     /**
      * The model the resource corresponds to.
@@ -28,7 +38,7 @@ class Event extends Resource
      *
      * @var string
      */
-    public static $title = 'name';
+    public static $title = 'description';
 
     /**
      * The columns that should be searched.
@@ -37,7 +47,7 @@ class Event extends Resource
      */
     public static $search = [
         'id',
-        'name',
+        'description',
         'date',
     ];
 
@@ -51,8 +61,14 @@ class Event extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            Text::make(__('Name'), 'name')->sortable(),
-            Text::make(__('Date'), 'date')->sortable(),
+            Text::make(__('Description'), 'description')->sortable(),
+            Date::make(__('Date'), 'date')->sortable(),
+            /*MorphToMany::make('pages')->fields(function(){
+                return [
+                    Item::class,
+                    Photo::class,
+                ];
+            })->nullable(),*/
         ];
     }
 

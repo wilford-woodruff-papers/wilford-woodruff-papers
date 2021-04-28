@@ -72,7 +72,7 @@
                                 <div class="relative -mt-2 w-1">
                                     <div class="absolute z-40 opacity-100 bottom-100 mb-2 left-0 min-w-full" style="margin-left: -33px;">
                                         <div class="relative shadow-md pr-0">
-                                            <div class="bg-primary -mt-8 text-white truncate text-xs rounded py-1 px-4">Page {{ $pages->where('order', '<', $page->order)->count() + 1 }}</div>
+                                            <div class="bg-primary -mt-8 text-white truncate text-xs rounded py-1 px-4">Page {{ $page->order }}</div>
                                             <svg class="absolute text-primary w-full h-2 left-0 top-100" x="0px" y="0px" viewBox="0 0 255 255" xml:space="preserve">
                                                 <polygon class="fill-current" points="0,0 127.5,127.5 255,0"></polygon>
                                             </svg>
@@ -108,7 +108,7 @@
                 </h4>
                 <div class="values">
                     <div class="value" lang="">
-                        Page {{ $pages->where('order', '<', $page->order)->count() + 1 }}
+                        Page {{ $page->order }}
                     </div>
                 </div>
             </div>
