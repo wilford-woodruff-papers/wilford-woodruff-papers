@@ -102,23 +102,29 @@
                 Media Library
             </h3>
             <div class="mt-1 space-y-1 pb-4 pl-4" aria-labelledby="media-library-headline">
+                <a href="{{ route('media.articles') }}"
+                   class="group flex items-center px-3 py-2 text-sm font-medium  @if(request()->is('media/articles*')) active @else @endif">
+                    <span class="truncate">
+                        Articles
+                    </span>
+                </a>
                 <a href="{{ route('media.photos') }}"
                    class="group flex items-center px-3 py-2 text-sm font-medium  @if(request()->is('media/photos*')) active @else @endif">
-                            <span class="truncate">
-                                Photos
-                            </span>
+                    <span class="truncate">
+                        Photos
+                    </span>
                 </a>
                 <a href="{{ route('media.podcasts') }}"
                    class="group flex items-center px-3 py-2 text-sm font-medium @if(request()->is('media/podcasts')) active @else @endif">
-                            <span class="truncate">
-                                Podcasts
-                            </span>
+                    <span class="truncate">
+                        Podcasts
+                    </span>
                 </a>
                 <a href="{{ route('media.videos') }}"
                    class="group flex items-center px-3 py-2 text-sm font-medium @if(request()->is('media/videos')) active @else @endif">
-                            <span class="truncate">
-                                Videos
-                            </span>
+                    <span class="truncate">
+                        Videos
+                    </span>
                 </a>
             </div>
             <h3 class="px-3 text-xs font-semibold text-primary uppercase tracking-wider" id="media-press-center-headline">
@@ -127,15 +133,15 @@
             <div class="mt-1 space-y-1 pb-4 pl-4" aria-labelledby="media-press-center-headline">
                 <a href="{{ route('media.kit') }}"
                    class="group flex items-center px-3 py-2 text-sm font-medium @if(request()->is('media/media-kit')) active @else @endif">
-                            <span class="truncate">
-                                Media Kit
-                            </span>
+                    <span class="truncate">
+                        Media Kit
+                    </span>
                 </a>
                 <a href="{{ route('media.requests') }}"
                    class="group flex items-center px-3 py-2 text-sm font-medium @if(request()->is('media/requests')) active @else @endif">
-                            <span class="truncate">
-                                Media Requests
-                            </span>
+                    <span class="truncate">
+                        Media Requests
+                    </span>
                 </a>
                 <!--
                 <a href="/s/wilford-woodruff-papers/page/news-releases"
@@ -146,9 +152,9 @@
                 </a>-->
                 <a href="{{ route('media.news') }}"
                    class="group flex items-center px-3 py-2 text-sm font-medium @if(request()->is('media/news')) active @else @endif">
-                            <span class="truncate">
-                                Newsroom
-                            </span>
+                    <span class="truncate">
+                        Newsroom
+                    </span>
                 </a>
             </div>
             @break

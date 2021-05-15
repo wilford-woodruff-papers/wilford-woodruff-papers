@@ -4,6 +4,17 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta name="facebook-domain-verification" content="jz329nocbeufu5m4s8g7dxdtz8j2qq" />
+
+        <meta property="og:site_name" content="Wilford Woodruff Papers">
+        <meta property="og:title" content="Wilford Woodruff Papers Foundation">
+        <meta property="og:description" content="Explore Wilford Woodruff's powerful eyewitness account of the Restoration">
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://wilfordwoodruffpapers.org/img/wilford-woodruff.png">
+        <meta property="og:url" content="https://wilfordwoodruffpapers.org/">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="description" content="Explore Wilford Woodruff's powerful eyewitness account of the Restoration"/>
+        <meta name="keywords" content="Wilford Woodruff, Restoration, Prophet, The Church of Jesus Christ of Latter-day Saints"/>
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 

@@ -49,13 +49,14 @@ class Press extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
             Select::make(__('Type'))->options([
+                'Article' => 'Article',
                 'News' => 'News',
                 'Podcast' => 'Podcast',
                 'Video' => 'Video',
             ])->sortable(),
             Date::make(__('Date'), 'date')->sortable(),
             Text::make(__('Title'), 'title')->sortable(),
-            Text::make(__('Slug'), 'slug')->hideWhenCreating()->sortable(),
+            // Text::make(__('Slug'), 'slug')->hideWhenCreating()->sortable(),
             Trix::make('description')->alwaysShow(),
             Text::make('link')->hideFromIndex(),
             HasMany::make('Media'),

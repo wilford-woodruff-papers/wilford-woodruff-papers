@@ -38,7 +38,7 @@ class Event extends Resource
      *
      * @var string
      */
-    public static $title = 'description';
+    public static $title = 'text';
 
     /**
      * The columns that should be searched.
@@ -47,8 +47,8 @@ class Event extends Resource
      */
     public static $search = [
         'id',
-        'description',
-        'date',
+        'text',
+        'start_at',
     ];
 
     /**
@@ -61,8 +61,8 @@ class Event extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            Text::make(__('Description'), 'description')->sortable(),
-            Date::make(__('Date'), 'date')->sortable(),
+            Text::make(__('Description'), 'text')->sortable(),
+            Date::make(__('Date'), 'start_at')->sortable(),
             /*MorphToMany::make('pages')->fields(function(){
                 return [
                     Item::class,

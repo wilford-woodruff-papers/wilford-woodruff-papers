@@ -13,6 +13,10 @@ class Event extends Model implements HasMedia
     use HasFactory;
     use InteractsWithMedia;
 
+    protected $guarded = [
+        'id',
+    ];
+
     protected $dates = [
         'start_at',
         'end_at',
@@ -48,5 +52,39 @@ class Event extends Model implements HasMedia
             ->width(368)
             ->height(232)
             ->sharpen(10);
+    }
+
+    public function toArray()
+    {
+        $event = [];
+
+        $event['start_date'] = [
+            'year' => $this->start_at->year,
+            'month' => $this->start_at->month,
+            'day' => $this->start_at->day,
+        ];
+        if(! empty($this->end_at)){
+            $event['end_date'] = [
+                'year' => $this->end_at->year,
+                'month' => $this->end_at->month,
+                'day' => $this->end_at->day,
+            ];
+        }
+
+        $event['text'] = [
+            'headline' => $this->headline,
+            'text' => $this->text,
+        ];
+
+        if($this->media->count() > 0){
+            $event['media'] = [
+                'url' => $this->getFirstMediaUrl(),
+                'thumbnail' => $this->getFirstMediaUrl('default','thumb'),
+            ];
+        }
+
+        $event['group'] = $this->group;
+
+        return $event;
     }
 }

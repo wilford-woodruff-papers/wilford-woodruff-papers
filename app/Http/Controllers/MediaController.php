@@ -8,6 +8,22 @@ use Illuminate\Http\Request;
 
 class MediaController extends Controller
 {
+    public function articles(Request $request)
+    {
+        return view('public.media.articles', [
+            'articles' => Press::whereType('ARTICLE')
+                                    ->orderBy('date', 'DESC')
+                                    ->paginate(10),
+        ]);
+    }
+
+    public function article(Request $request, Press $article)
+    {
+        return view('public.media.article', [
+            'article' => $article,
+        ]);
+    }
+
     public function photos(Request $request)
     {
         return view('public.media.photos', [

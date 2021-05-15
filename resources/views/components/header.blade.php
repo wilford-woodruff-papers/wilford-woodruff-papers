@@ -147,6 +147,10 @@
                         </div>
 
                         <div class="grid grid-cols-1 gap-y-6">
+                            <a href="{{ route('media.articles') }}" class="text-base font-medium text-gray-900 hover:text-gray-700">
+                                Articles
+                            </a>
+
                             <a href="/s/wilford-woodruff-papers/photos" class="text-base font-medium text-gray-900 hover:text-gray-700">
                                 Photos
                             </a>
@@ -317,6 +321,11 @@
                              x-cloak
                              class="origin-top-right absolute -right-4 mt-2 w-72 shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
                             <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                                <a href="{{ route('media.articles') }}"
+                                   class="block px-4 py-2 text-secondary font-medium hover:bg-gray-100"
+                                   role="menuitem">
+                                    Articles
+                                </a>
                                 <a href="/s/wilford-woodruff-papers/photos"
                                    class="block px-4 py-2 text-secondary font-medium hover:bg-gray-100"
                                    role="menuitem">
