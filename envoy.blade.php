@@ -1,7 +1,8 @@
-@servers(['web' => ['-A wilfordw@wilfordwoodruffpapers.org']])
+@servers(['web' => ['wilfordw@wilfordwoodruffpapers.org']])
 
-@task('deploy', ['on' => 'web'])
+@task('dev', ['on' => 'web'])
     cd /home/wilfordw/dev.wilfordwoodruffpapers.org/production
-    git pull origin main
+    git pull origin main --ff-only
+    composer install
     php artisan migrate --force
 @endtask
