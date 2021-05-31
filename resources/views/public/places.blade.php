@@ -23,8 +23,8 @@
 <x-guest-layout>
 
     <div class="bg-cover bg-top" style="background-image: url({{ asset('img/banners/places.png') }})">
-        <div class="max-w-7xl mx-auto py-12">
-            <h1 class="text-white text-8xl">
+        <div class="max-w-7xl mx-auto py-4 xl:py-12">
+            <h1 class="text-white text-4xl md:text-6xl xl:text-8xl">
                 Places
             </h1>
         </div>

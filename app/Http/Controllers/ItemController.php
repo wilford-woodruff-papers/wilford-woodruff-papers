@@ -9,6 +9,7 @@ use App\Models\Type;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\UnreachableUrl;
 
 class ItemController extends Controller
 {
@@ -33,6 +34,9 @@ class ItemController extends Controller
             switch($sort[0]){
                 case 'title':
                     $items = $items->orderBy('name', $direction);
+                    break;
+                case 'created':
+                    $items = $items->orderBy('first_date', $direction);
                     break;
                 default:
                     $items = $items->orderBy('added_to_collection_at', $direction);
@@ -129,8 +133,11 @@ class ItemController extends Controller
      */
     public function show(Item $item)
     {
-        $pages = Page::where('parent_item_id', $item->id)
+        $pages = Page::with(['dates', 'subjects', 'item', 'parent'])
+                        ->where('parent_item_id', $item->id)
                         ->ordered();
+
+        $item->setRelation('pages', $pages);
 
         return view('public.documents.show', [
             'item' => $item,

@@ -29,10 +29,15 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
 
     public function pages()
     {
-        if(Str::of(optional($this->type)->name)->exactly(['Autobiographies', 'Journals'])){
+        /*if(Str::of(optional($this->type)->name)->exactly(['Autobiographies', 'Journals'])){
             return $this->hasManyThrough(Page::class, Item::class)->orderBy('order', 'ASC');
         }else{
             return $this->hasMany(Page::class)->orderBy('order', 'ASC');
+        }*/
+        if(array_key_exists('id', $this->attributes) && Page::where('item_id', $this->attributes['id'])->count() > 0){
+            return $this->hasMany(Page::class)->orderBy('order', 'ASC');
+        }else{
+            return $this->hasManyThrough(Page::class, Item::class)->orderBy('order', 'ASC');
         }
     }
 

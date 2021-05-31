@@ -25,7 +25,7 @@ class SubjectImport implements ToCollection, WithHeadingRow
 
             foreach(explode(';', $row['categories']) as $subjectCategory){
                 if($category = $categories->firstWhere('name', $subjectCategory)){
-                    $category->subjects()->attach($subject);
+                    $category->subjects()->syncWithoutDetaching($subject);
                 }
             }
         }

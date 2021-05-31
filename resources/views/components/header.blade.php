@@ -5,13 +5,13 @@
 >
     <div class="relative max-w-7xl mx-auto">
 
-        <div class="justify-between items-center px-4 py-6 sm:px-6 md:justify-start md:space-x-10">
+        <div class="justify-between items-center px-4 py-2 xl:py-6 sm:px-6 md:justify-start md:space-x-10">
             <!--<div class="relative max-w-7xl mx-auto flex justify-between items-center px-4 py-6 sm:px-6 md:justify-start md:space-x-10">-->
             <div class="md:flex-1 md:flex md:items-center md:justify-between">
                 <div class="hidden md:flex space-x-10">
                     <a href="/" class="flex">
                         <span class="sr-only">{{ config('app.name', 'Laravel') }}</span>
-                        <img class="h-10 md:h-36 w-auto "
+                        <img class="h-10 md:h-20 xl:h-36 w-auto "
                              src="{{ asset('img/logo.png') }}"
                              alt="{{ config('app.name', 'Laravel') }}" />
                     </a>
@@ -21,14 +21,14 @@
                     <div class="relative">
                         <div class="relative">
                             <div class="grid grid-cols-1 md:flex justify-center md:justify-end">
-                                <div class="md:-mt-6 md:mb-2 md:mb-12 md:pr-8 py-0.5">
+                                <div class="md:-mt-0 xl:-mt-6 md:mb-2 md:mb-12 md:pr-8 py-0.5">
                                     <a class="bg-highlight px-4 py-2 text-white text-lg hover:text-secondary block md:inline text-center"
                                        data-formkit-toggle="7ce7f1665b"
                                        href="https://wilford-woodruff-papers.ck.page/7ce7f1665b">
                                         Subscribe for Updates
                                     </a>
                                 </div>
-                                <div class="md:-mt-8 mb-12 mr-0"
+                                <div class="md:-mt-2 xl:-mt-8 mb-12 mr-0"
                                      id="search">
                                     <div>
                                         <form action="{{ route('search') }}" id="search-form">
@@ -65,7 +65,7 @@
                                     </svg>
                                 </button>
                             </div>
-                            <h1 class="font-serif text-2xl md:text-6xl font-medium text-highlight">
+                            <h1 class="font-serif text-2xl md:text-3xl xl:text-6xl font-medium text-highlight">
                                 {{ config('app.name', 'Laravel') }}
                             </h1>
                         </div>
@@ -252,6 +252,11 @@
                                    role="menuitem">
                                     Volunteer
                                 </a>
+                                <a href="{{ route('work-with-us') }}"
+                                   class="block px-4 py-2 text-secondary font-medium hover:bg-gray-100"
+                                   role="menuitem">
+                                    Work with Us
+                                </a>
                                 <a href="/s/wilford-woodruff-papers/page/contribute-documents"
                                    class="block px-4 py-2 text-secondary font-medium hover:bg-gray-100"
                                    role="menuitem">
@@ -308,7 +313,7 @@
 
 
 
-                    <div class="relative inline-block text-left">
+                    <div class="submenu relative inline-block text-left">
                             <span x-on:mouseenter="showAbout = false; showMedia = true; showDonate = false; showGetInvolved = false;"
                                   x-on:click="showMedia = true; showDonate = false; showGetInvolved = false;"
                                   x-on:click.away="showMedia = false"
@@ -319,8 +324,8 @@
                         <div x-show="showMedia"
                              x-on:mouseleave="showMedia = false"
                              x-cloak
-                             class="origin-top-right absolute -right-4 mt-2 w-72 shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
-                            <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                             class="origin-top-right absolute -right-4 mt-2 w-72 shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10 p-4">
+                            {{--<div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                                 <a href="{{ route('media.articles') }}"
                                    class="block px-4 py-2 text-secondary font-medium hover:bg-gray-100"
                                    role="menuitem">
@@ -356,6 +361,66 @@
                                        role="menuitem">
                                         News Releases
                                     </a>-->
+                            </div>--}}
+
+                            <h3 class="px-3 text-xs font-semibold text-primary uppercase tracking-wider" id="media-library-headline">
+                                Media Library
+                            </h3>
+                            <div class="mt-1 space-y-1 pb-4 pl-4" aria-labelledby="media-library-headline">
+                                <a href="{{ route('media.articles') }}"
+                                   class="group flex items-center px-3 py-2 text-sm font-medium text-secondary @if(request()->is('media/articles*')) active @else @endif">
+                                    <span class="truncate">
+                                        Articles
+                                    </span>
+                                </a>
+                                <a href="{{ route('media.photos') }}"
+                                   class="group flex items-center px-3 py-2 text-sm font-medium text-secondary @if(request()->is('media/photos*')) active @else @endif">
+                                    <span class="truncate">
+                                        Photos
+                                    </span>
+                                </a>
+                                <a href="{{ route('media.podcasts') }}"
+                                   class="group flex items-center px-3 py-2 text-sm font-medium text-secondary @if(request()->is('media/podcasts')) active @else @endif">
+                                    <span class="truncate">
+                                        Podcasts
+                                    </span>
+                                </a>
+                                <a href="{{ route('media.videos') }}"
+                                   class="group flex items-center px-3 py-2 text-sm font-medium text-secondary @if(request()->is('media/videos')) active @else @endif">
+                                    <span class="truncate">
+                                        Videos
+                                    </span>
+                                </a>
+                            </div>
+                            <h3 class="px-3 text-xs font-semibold text-primary uppercase tracking-wider" id="media-press-center-headline">
+                                Media Center
+                            </h3>
+                            <div class="mt-1 space-y-1 pb-4 pl-4" aria-labelledby="media-press-center-headline">
+                                <a href="{{ route('media.kit') }}"
+                                   class="group flex items-center px-3 py-2 text-sm font-medium text-secondary @if(request()->is('media/media-kit')) active @else @endif">
+                                    <span class="truncate">
+                                        Media Kit
+                                    </span>
+                                </a>
+                                <a href="{{ route('media.requests') }}"
+                                   class="group flex items-center px-3 py-2 text-sm font-medium text-secondary @if(request()->is('media/requests')) active @else @endif">
+                                    <span class="truncate">
+                                        Media Requests
+                                    </span>
+                                </a>
+                            <!--
+                <a href="/s/wilford-woodruff-papers/page/news-releases"
+                   class="group flex items-center px-3 py-2 text-sm font-medium <?php /*if(strpos($this->serverUrl(true), '/page/news-releases')){ echo 'text-white bg-secondary hover:text-gray-900 hover:bg-gray-50'; } else { echo 'text-secondary hover:text-gray-900 hover:bg-gray-50'; } */?>">
+                                <span class="truncate">
+                                    News Releases
+                                </span>
+                </a>-->
+                                <a href="{{ route('media.news') }}"
+                                   class="group flex items-center px-3 py-2 text-sm font-medium text-secondary @if(request()->is('media/news')) active @else @endif">
+                                    <span class="truncate">
+                                        Newsroom
+                                    </span>
+                                </a>
                             </div>
                         </div>
                     </div>

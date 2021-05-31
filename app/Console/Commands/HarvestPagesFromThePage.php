@@ -7,6 +7,7 @@ use App\Models\Item;
 use App\Models\Page;
 use App\Models\Subject;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use PHPHtmlParser\Dom;
@@ -51,10 +52,12 @@ class HarvestPagesFromThePage extends Command
         }
 
         $items->each(function($item, $key){
+            logger()->info($item->ftp_id);
             $response = Http::get($item->ftp_id);
             $canvases = $response->json('sequences.0.canvases');
-
+            logger()->info("Canvases: ");
             foreach($canvases as $key => $canvas){
+                logger()->info($canvas['@id']);
                 $page = Page::updateOrCreate([
                     'item_id' => $item->id,
                     'ftp_id' => $canvas['@id'],
@@ -68,12 +71,13 @@ class HarvestPagesFromThePage extends Command
                                     ? $canvas['related'][0]['@id']
                                     : ''
                 ]);
-
+                logger()->info('Clear media');
                 $page->clearMediaCollection();
+                logger()->info($canvas['images'][0]['resource']['@id']);
                 $page->addMediaFromUrl($canvas['images'][0]['resource']['@id'])->toMediaCollection();
 
                 $page->subjects()->detach();
-
+                logger()->info('Subjects');
                 $subjects = [];
                 Str::of($page->transcript)->replaceMatches('/(?:\[\[)(.*?)(?:\]\])/', function ($match) use (&$subjects) {
                     $subjects[] = Str::of($match[0])->trim('[[]]')->explode('|')->first();
@@ -89,6 +93,7 @@ class HarvestPagesFromThePage extends Command
                 }
 
                 $page->dates()->delete();
+                logger()->info('Dates');
 
                 $dates = $this->extractDates($page->transcript);
 
@@ -97,6 +102,8 @@ class HarvestPagesFromThePage extends Command
                     $d->date = $date;
                     $page->dates()->save($d);
                 }
+
+                logger()->info("Done");
             }
             if($this->option('enable') == true){
                 $item->enabled = 1;
@@ -104,7 +111,7 @@ class HarvestPagesFromThePage extends Command
             }
         });
 
-
+        Artisan::call('pages:order');
 
         return 0;
     }

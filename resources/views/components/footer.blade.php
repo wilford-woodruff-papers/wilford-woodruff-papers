@@ -81,6 +81,12 @@
                         </li>
 
                         <li>
+                            <a href="{{ route('work-with-us') }}" class="text-base text-white hover:text-highlight">
+                                Work with Us
+                            </a>
+                        </li>
+
+                        <li>
                             <a href="/s/wilford-woodruff-papers/page/contribute-documents" class="text-base text-white hover:text-highlight">
                                 Contribute Documents
                             </a>

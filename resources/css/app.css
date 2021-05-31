@@ -36,7 +36,7 @@ nav.sub-menu ul {
 }
 
 .page-title {
-    @apply font-serif md:text-5xl italic text-secondary py-8 px-4;
+    @apply font-serif md:text-3xl italic text-secondary py-8 px-4 text-center;
 }
 
 .section-header, .section-title {

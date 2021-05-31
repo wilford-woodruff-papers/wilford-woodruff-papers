@@ -65,9 +65,15 @@
             <div class="mt-1 space-y-1 pb-4 pl-4" aria-labelledby="media-library-headline">
                 <a href="{{ route('volunteer') }}"
                    class="group flex items-center px-3 py-2 text-sm font-medium @if(request()->is('volunteer')) active @else @endif">
-                <span class="truncate">
-                    Volunteer
-                </span>
+                    <span class="truncate">
+                        Volunteer
+                    </span>
+                </a>
+                <a href="{{ route('work-with-us') }}"
+                   class="group flex items-center px-3 py-2 text-sm font-medium @if(request()->is('work-with-us')) active @else @endif">
+                    <span class="truncate">
+                        Work with Us
+                    </span>
                 </a>
                 <!--
                 <a href="/s/wilford-woodruff-papers/page/transcribe"

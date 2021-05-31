@@ -85,6 +85,46 @@
             .tl-menubar-button {
                 color: black;
             }
+            div.tl-timegroup:nth-child(5){
+                background-color: rgba(11,40,54,.2) !important;
+            }
+            div.tl-timegroup:nth-child(5) .tl-timegroup-message{
+                color: rgba(11,40,54,1) !important;
+            }
+            div.tl-timegroup:nth-child(6){
+                background-color: rgba(11,40,54,.25) !important;
+            }
+            div.tl-timegroup:nth-child(6) .tl-timegroup-message{
+                color: rgba(11,40,54,1) !important;
+            }
+            div.tl-timegroup:nth-child(7){
+                background-color: rgba(11,40,54,.3) !important;
+            }
+            div.tl-timegroup:nth-child(7) .tl-timegroup-message{
+                color: rgba(11,40,54,1) !important;
+            }
+            div.tl-timegroup:nth-child(8){
+                background-color: rgba(11,40,54,.35) !important;
+            }
+            div.tl-timegroup:nth-child(8) .tl-timegroup-message{
+                color: rgba(11,40,54,1) !important;
+            }
+            div.tl-timegroup:nth-child(9){
+                background-color: rgba(11,40,54,.4) !important;
+            }
+            div.tl-timegroup:nth-child(9) .tl-timegroup-message{
+                color: rgba(11,40,54,1) !important;
+            }
+
+            .tl-timemarker.tl-timemarker-active .tl-timemarker-content-container,
+            .tl-timemarker .tl-timemarker-content-container:hover{
+                background-color: rgba(11,40,54,1) !important;
+            }
+
+            .tl-timemarker.tl-timemarker-active .tl-timemarker-content-container .tl-timemarker-content .tl-timemarker-text .tl-headline,
+            .tl-timemarker .tl-timemarker-content-container:hover .tl-timemarker-content .tl-timemarker-text .tl-headline{
+                color: #ffffff !important;
+            }
         </style>
     @endpush
     @push('scripts')

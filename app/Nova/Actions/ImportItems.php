@@ -2,21 +2,20 @@
 
 namespace App\Nova\Actions;
 
-use App\Imports\BiographyImport;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Nova\Actions\Action;
 use Laravel\Nova\Fields\ActionFields;
 use Laravel\Nova\Fields\File;
 use Laravel\Nova\Http\Requests\ActionRequest;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Maatwebsite\Excel\Facades\Excel;
 
-class ImportBiographies extends Action
+class ImportItems extends Action
 {
     use InteractsWithQueue, Queueable, SerializesModels;
 
@@ -31,9 +30,9 @@ class ImportBiographies extends Action
      */
     public function handle(ActionFields $fields, Collection $models)
     {
-        Excel::import(new BiographyImport, $fields->file);
+        Artisan::call('import:items');
 
-        return Action::message('Biographies imported successfully');
+        return Action::message('Items imported successfully');
     }
 
     /**
@@ -44,7 +43,7 @@ class ImportBiographies extends Action
     public function fields()
     {
         return [
-            File::make('File')->rules('required'),
+
         ];
     }
 }

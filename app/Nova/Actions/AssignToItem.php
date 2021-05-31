@@ -2,25 +2,24 @@
 
 namespace App\Nova\Actions;
 
-use App\Imports\BiographyImport;
+use App\Events\DiscussionPostCreated;
+use App\Models\Item;
+use App\Models\Page;
+use App\Models\Post;
+use App\Models\Review;
+use App\Models\Type;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Artisan;
 use Laravel\Nova\Actions\Action;
 use Laravel\Nova\Fields\ActionFields;
-use Laravel\Nova\Fields\File;
-use Laravel\Nova\Http\Requests\ActionRequest;
-use Laravel\Nova\Http\Requests\NovaRequest;
-use Maatwebsite\Excel\Facades\Excel;
+use Laravel\Nova\Fields\Select;
 
-class ImportBiographies extends Action
+class AssignToItem extends Action
 {
-    use InteractsWithQueue, Queueable, SerializesModels;
-
-    public $standalone = true;
+    use InteractsWithQueue, Queueable;
 
     /**
      * Perform the action on the given models.
@@ -31,9 +30,12 @@ class ImportBiographies extends Action
      */
     public function handle(ActionFields $fields, Collection $models)
     {
-        Excel::import(new BiographyImport, $fields->file);
-
-        return Action::message('Biographies imported successfully');
+        $item = Item::findOrFail($fields->item);
+        foreach ($models as $model) {
+            $model->item()->associate($item);
+            $model->save();
+        }
+        Artisan::call('pages:order');
     }
 
     /**
@@ -44,7 +46,9 @@ class ImportBiographies extends Action
     public function fields()
     {
         return [
-            File::make('File')->rules('required'),
+            Select::make('Item')->options(
+                Item::whereIn('type_id', Type::where('name', 'NOT LIKE', '%Section%')->pluck('id')->all())->get()->pluck('name', 'id')
+            )
         ];
     }
 }

@@ -39,6 +39,6 @@ class Type extends Filter
      */
     public function options(Request $request)
     {
-        return ['Not Set' => -1] + \App\Models\Type::get()->pluck('id', 'name')->all();
+        return ['Not Set' => -1] + \App\Models\Type::orderBy('name')->get()->pluck('id', 'name')->all();
     }
 }

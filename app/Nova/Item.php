@@ -3,9 +3,11 @@
 namespace App\Nova;
 
 use App\Nova\Actions\AssignDocumentType;
+use App\Nova\Actions\AssignToItem;
 use App\Nova\Actions\Enable;
 use App\Nova\Actions\ImportPage;
 use App\Nova\Actions\ImportPages;
+use App\Nova\Actions\ImportItems;
 use App\Nova\Actions\ImportSubjects;
 use App\Nova\Filters\Status;
 use Illuminate\Http\Request;
@@ -45,6 +47,18 @@ class Item extends Resource
         'id',
         'name',
     ];
+
+    /**
+     * Build an "index" query for the given resource.
+     *
+     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        return $query->orderBy('name');
+    }
 
     /**
      * Get the fields displayed by the resource.
@@ -115,8 +129,10 @@ class Item extends Resource
     {
         return [
             new AssignDocumentType,
+            new AssignToItem,
             new Enable,
             new ImportPages,
+            new ImportItems,
         ];
     }
 }

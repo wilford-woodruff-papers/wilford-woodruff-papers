@@ -99,6 +99,8 @@
                                             aria-label="Sort by">
                                         <option value="added:desc" @if(request()->get('sort') == 'added:desc') selected="" @endif>Added to Collection (Newest to Oldest)</option>
                                         <option value="added:asc" @if(request()->get('sort') == 'added:asc') selected="" @endif>Added to Collection (Oldest to Newest)</option>
+                                        <option value="created:desc" @if(request()->get('sort') == 'created:desc') selected="" @endif>Created (Newest to Oldest)</option>
+                                        <option value="created:asc" @if(request()->get('sort') == 'created:asc') selected="" @endif>Created (Oldest to Newest)</option>
                                         <option value="title:asc" @if(request()->get('sort') == 'title:asc') selected="" @endif>Title (A-Z)</option>
                                         <option value="title:desc" @if(request()->get('sort') == 'title:desc') selected="" @endif>Title (Z-A)</option>
                                     </select>
@@ -129,7 +131,6 @@
 
                 </ul>
             @else
-                <!-- This example requires Tailwind CSS v2.0+ -->
                 <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-24 max-w-6xl mx-auto">
                     <div class="flex">
                         <div class="flex-shrink-0">
