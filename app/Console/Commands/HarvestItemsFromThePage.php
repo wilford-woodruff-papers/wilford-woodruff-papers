@@ -44,11 +44,12 @@ class HarvestItemsFromThePage extends Command
         $manifests = $response->json()['manifests'];
 
         foreach($manifests as $key => $item){
-            $item = Item::updateOrCreate([
+            $document = Item::updateOrCreate([
                 'ftp_id' => $item['@id'],
             ], [
                 'name' => $item['label'],
             ]);
+            $document->touch();
         };
 
         return 0;

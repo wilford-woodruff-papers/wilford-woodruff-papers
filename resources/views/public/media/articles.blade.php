@@ -22,7 +22,11 @@
                                             {{ $article->title }}
                                         </p>
                                         <p class="mt-3 text-base text-gray-500">
-                                            {!! Str::of(strip_tags($article->description))->limit(400) !!}
+                                            @if(! empty($article->excerpt))
+                                                {!! $article->excerpt !!}
+                                            @else
+                                                {!! \Illuminate\Support\Str::of(strip_tags($article->description))->limit(500, ' ...') !!}
+                                            @endif
                                         </p>
                                     </a>
                                     <div class="mt-3">

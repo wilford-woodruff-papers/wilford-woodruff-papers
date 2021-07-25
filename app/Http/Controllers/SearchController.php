@@ -45,7 +45,7 @@ class SearchController extends Controller
         }
 
         return view('public.search', [
-            'types' => Type::get(),
+            'types' => Type::where('name', 'NOT LIKE', '%Sections%')->get(),
             'pages' => $pages->paginate(20),
             'dates' => [
                 'min' => Date::where('dateable_type', Page::class)->orderBy('date', 'ASC')->first(),

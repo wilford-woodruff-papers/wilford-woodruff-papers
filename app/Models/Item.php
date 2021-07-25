@@ -21,6 +21,9 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
 
     protected $dates = [
         'added_to_collection_at',
+        'sort_date',
+        'first_date',
+        'imported_at',
     ];
 
     protected $casts = [

@@ -35,21 +35,24 @@ class ItemController extends Controller
                 case 'title':
                     $items = $items->orderBy('name', $direction);
                     break;
-                case 'created':
-                    $items = $items->orderBy('first_date', $direction);
+                case 'added':
+                    $items = $items->orderBy('added_to_collection_at', $direction);
                     break;
                 default:
-                    $items = $items->orderBy('added_to_collection_at', $direction);
+                    $items = $items->orderBy('sort_date', $direction);
+
             }
         }else{
-            $items = $items->orderBy('added_to_collection_at', 'DESC');
+            $items = $items->orderBy('sort_date', 'ASC');
         }
 
         return view('public.documents.index', [
             'types' => Type::whereNull('type_id')
                                 ->withCount(['items' => function(Builder $query){
                                     $query->where('enabled', 1);
-                                }])->get(),
+                                }])
+                                ->orderBy('name', 'ASC')
+                                ->get(),
             'items' => $items->paginate(25),
         ]);
     }

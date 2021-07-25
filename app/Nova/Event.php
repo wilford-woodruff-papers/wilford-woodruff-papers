@@ -63,11 +63,12 @@ class Event extends Resource
             ID::make(__('ID'), 'id')->sortable(),
             Text::make(__('Description'), 'text')->sortable(),
             Date::make(__('Date'), 'start_at')->sortable(),
-            /*MorphToMany::make('pages')->fields(function(){
-                return [
-                    Item::class,
-                    Photo::class,
-                ];
+            MorphToMany::make('Photos'),
+                /*->fields(function(){
+                    return [
+                        Item::class,
+                        Photo::class,
+                    ];
             })->nullable(),*/
         ];
     }

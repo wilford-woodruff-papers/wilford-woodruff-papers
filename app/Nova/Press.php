@@ -2,14 +2,17 @@
 
 namespace App\Nova;
 
+use Emilianotisato\NovaTinyMCE\NovaTinyMCE;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Trix;
+use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Nova;
 
 class Press extends Resource
 {
@@ -55,10 +58,20 @@ class Press extends Resource
                 'Video' => 'Video',
             ])->sortable(),
             Date::make(__('Date'), 'date')->sortable(),
-            Text::make(__('Title'), 'title')->sortable(),
+            Text::make(__('Title'), 'title')->resolveUsing(function ($title) {
+                return Str::of($title)->limit('50', ' ...');
+            })->sortable(),
+            Text::make(__('Subtitle'), 'subtitle')->resolveUsing(function ($subtitle) {
+                return Str::of($subtitle)->limit('50', ' ...');
+            })->sortable(),
             // Text::make(__('Slug'), 'slug')->hideWhenCreating()->sortable(),
-            Trix::make('description')->alwaysShow(),
-            Text::make('link')->hideFromIndex(),
+            Textarea::make('Excerpt'),
+            NovaTinyMCE::make('Description')->options([
+                'use_lfm' => true,
+                'height' => 500,
+            ])->alwaysShow(),
+            Text::make('Link')->hideFromIndex(),
+            Textarea::make('Embed')->hideFromIndex(),
             HasMany::make('Media'),
         ];
     }

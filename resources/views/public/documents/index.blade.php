@@ -7,7 +7,14 @@
         <div class="grid grid-cols-12">
             <div class="col-span-12 md:col-span-3">
                 <ul class="submenu divide-y divide-gray-200">
-
+                    <li class="flex">
+                        <a class="py-4 block w-full text-gray-900 hover:bg-gray-100 @if(empty(request()->get('type'))) active @else @endif"
+                           href="{{ route('documents') }}">
+                            <div class="ml-3">
+                                <p class="text-lg font-medium">All</p>
+                            </div>
+                        </a>
+                    </li>
                     @foreach($types as $type)
                         <li class="flex">
                             <a class="py-4 block w-full text-gray-900 hover:bg-gray-100 @if($type->id == request()->get('type')) active @else @endif"

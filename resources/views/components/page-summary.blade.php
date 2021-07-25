@@ -57,18 +57,11 @@
                 </div>
             @endif
         </div>
-        @if(auth()->check() && auth()->user()->hasRole('Super Admin'))
+        @hasanyrole('Editor|Admin|Super Admin')
             <div class="ml-3">
                 <p class="text-sm text-gray-900">Real name: {{ $page->name }}</p>
                 <p class="text-sm text-gray-900">Item: {{ $page->item->name }}</p>
-                @if($page->dates->count() > 0)
-                    <p class="">Dates: {{ $page->dates->map(function($date){
-                        return '<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800">'
-                                    . $date->date->format('F j, Y')
-                                . '</span>';
-                    })->join(" ") }}</p>
-                @endif
             </div>
-        @endif
+        @endhasanyrole
     </div>
 </li>

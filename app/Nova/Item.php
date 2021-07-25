@@ -13,6 +13,7 @@ use App\Nova\Filters\Status;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\HasManyThrough;
 use Laravel\Nova\Fields\ID;
@@ -71,15 +72,18 @@ class Item extends Resource
         return [
             Boolean::make('Enabled')->sortable(),
             ID::make(__('ID'), 'id')->sortable(),
-            BelongsTo::make('Item')->nullable()->sortable(),
+            Date::make('Last Imported', 'imported_at')->sortable(),
             Text::make(__('Name'), 'name')->help('Field is overwritten on import')->sortable(),
             BelongsTo::make('Type')->sortable(),
+            Date::make('Date', 'sort_date')->sortable(),
+
             Text::make('Preview', function () {
                 return '<a href="'.route('documents.show', ['item' => $this]).'" class="no-underline dim text-primary font-bold" target="_preview">Preview</a>';
             })->asHtml(),
             HasMany::make('Items'),
             HasMany::make('Pages'),
             MorphToMany::make(__('Events')),
+            BelongsTo::make('Item')->nullable()->sortable(),
         ];
     }
 
@@ -105,6 +109,7 @@ class Item extends Resource
         return [
             new Status,
             new \App\Nova\Filters\Type,
+            new \App\Nova\Filters\LastImported,
         ];
     }
 

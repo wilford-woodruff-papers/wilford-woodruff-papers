@@ -29,6 +29,10 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
         'uuid' => EfficientUuid::class,
     ];
 
+    protected $dates = [
+        'imported_at',
+    ];
+
     public function item()
     {
         return $this->belongsTo(Item::class);

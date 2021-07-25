@@ -20,7 +20,7 @@ class SubjectImport implements ToCollection, WithHeadingRow
         foreach ($rows as $row)
         {
             $subject = Subject::firstOrCreate([
-                'name' => trim($row['title']),
+                'name' => trim(html_entity_decode($row['title'])),
             ]);
 
             foreach(explode(';', $row['categories']) as $subjectCategory){

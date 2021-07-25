@@ -123,6 +123,11 @@ input[class^="numeric-"], select[class^="numeric-"]{
     @apply my-2;
 }
 
+.content.videos iframe{
+    width: 100% !important;
+    height: 480px !important;
+}
+
 .article a {
     @apply text-secondary underline;
 }

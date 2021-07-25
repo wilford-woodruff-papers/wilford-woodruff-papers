@@ -120,7 +120,7 @@
         </div>
 
         <div class="">
-            @if($pages->count() > 0)
+            @if($pages->total() > 0)
                 <ul class="divide-y divide-gray-200">
 
                     @foreach($pages as $page)

@@ -13,10 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::get('/', \App\Http\Controllers\HomeController::class)->name('home');
 Route::get('/search', \App\Http\Controllers\SearchController::class)->name('search');
 Route::get('/documents', [\App\Http\Controllers\ItemController::class, 'index'])->name('documents');
 Route::get('/dates/{year?}/{month?}', [\App\Http\Controllers\ItemController::class, 'dates'])->name('documents.dates');
@@ -49,6 +46,10 @@ Route::get('/media/newsroom', [\App\Http\Controllers\MediaController::class, 'ne
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+    \UniSharp\LaravelFilemanager\Lfm::routes();
+});
 
 
 Route::get('/s/wilford-woodruff-papers/documents', function (){

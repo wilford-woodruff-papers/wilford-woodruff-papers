@@ -101,6 +101,7 @@
 
                 <div class="grid grid-flow-col auto-cols-max gap-4 mb-4 px-2"
                      x-show="!q"
+                     x-cloak
                 >
                     @foreach($alpha as $letter => $group)
                         <div class="grid grid-cols-1 md:grid-cols-5 gap-8"
@@ -126,6 +127,7 @@
 
                 <div class="grid grid-flow-col auto-cols-max px-2"
                      x-show="q"
+                     x-cloak
                 >
                     <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
                         <template x-for="person in filteredPeople" :key="person.url">
@@ -158,7 +160,7 @@
                                     }">
                 <div class="flow-root">
                     <div class="-mb-8">
-                        @foreach($wives->groupBy('marriage_year')->sort() as $year => $marriages)
+                        @foreach($wives->groupBy('marriage_year')->sortBy('marriage_year') as $year => $marriages)
                             @foreach($marriages as $wife)
                                 <div>
                                     <div class="relative pb-8"><span aria-hidden="true" class="absolute top-5 left-5 -ml-px h-full w-0.5 bg-gray-200">&nbsp;</span>
