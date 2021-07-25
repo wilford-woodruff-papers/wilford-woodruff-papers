@@ -15,4 +15,9 @@ class GetInvolvedController extends Controller
     {
         return view('public.get-involved.contribute');
     }
+
+    public function workWithUs(Request $request)
+    {
+        return view('public.get-involved.work-with-us');
+    }
 }

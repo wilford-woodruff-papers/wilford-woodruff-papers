@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Date;
 use App\Models\Item;
 use App\Models\Page;
 use App\Models\Type;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Spatie\MediaLibrary\MediaCollections\Exceptions\UnreachableUrl;
 
 class ItemController extends Controller
 {
@@ -32,19 +35,75 @@ class ItemController extends Controller
                 case 'title':
                     $items = $items->orderBy('name', $direction);
                     break;
-                default:
+                case 'added':
                     $items = $items->orderBy('added_to_collection_at', $direction);
+                    break;
+                default:
+                    $items = $items->orderBy('sort_date', $direction);
+
             }
         }else{
-            $items = $items->orderBy('added_to_collection_at', 'DESC');
+            $items = $items->orderBy('sort_date', 'ASC');
         }
 
         return view('public.documents.index', [
             'types' => Type::whereNull('type_id')
                                 ->withCount(['items' => function(Builder $query){
                                     $query->where('enabled', 1);
-                                }])->get(),
+                                }])
+                                ->orderBy('name', 'ASC')
+                                ->get(),
             'items' => $items->paginate(25),
+        ]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function dates(Request $request, $year = null, $month = null)
+    {
+        $months = null;
+        $pages = null;
+        $years = Date::select(DB::raw('Distinct(YEAR(date)) as year'))
+                        ->orderBy('year', 'ASC')
+                        ->get();
+
+        if(! empty($year)){
+            $months = Date::select(DB::raw('Distinct(MONTH(date)) as month'))
+                        ->whereYear('date', $year)
+                        ->orderBy('month', 'ASC')
+                        ->get();
+
+        }
+
+        if(! empty($year) && ! empty($month)){
+            /*$items = Item::whereNull('item_id')
+                            ->whereHas('pages', function (Builder $query) use ($year, $month) {
+                                $query->whereHas('dates', function (Builder $query) use ($year, $month) {
+                                    $query->whereYear('date', $year)
+                                        ->whereMonth('date', $month);
+                                });
+                            })
+                            ->with('type')
+                            ->whereEnabled(1)
+                            ->get();*/
+            $pages = Page::whereHas('dates', function (Builder $query) use ($year, $month) {
+                            $query->whereYear('date', $year)
+                                ->whereMonth('date', $month);
+                            })
+                            ->get();
+        }
+
+        return view('public.documents.dates', [
+            'types' => Type::whereNull('type_id')
+                ->withCount(['items' => function(Builder $query){
+                    $query->where('enabled', 1);
+                }])->get(),
+            'years' => $years,
+            'months' => $months,
+            'pages' => $pages,
         ]);
     }
 
@@ -77,8 +136,11 @@ class ItemController extends Controller
      */
     public function show(Item $item)
     {
-        $pages = Page::where('parent_item_id', $item->id)
+        $pages = Page::with(['dates', 'subjects', 'item', 'parent'])
+                        ->where('parent_item_id', $item->id)
                         ->ordered();
+
+        $item->setRelation('pages', $pages);
 
         return view('public.documents.show', [
             'item' => $item,

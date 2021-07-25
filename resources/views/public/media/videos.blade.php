@@ -6,7 +6,7 @@
                     <div class="col-span-12 md:col-span-3 px-2 py-16">
                         <x-submenu area="Media"/>
                     </div>
-                    <div class="content col-span-12 md:col-span-9">
+                    <div class="content videos col-span-12 md:col-span-9">
                         <h2>Videos</h2>
 
                         <div class="mt-12 max-w-lg mx-auto grid gap-5 lg:grid-cols-1 lg:max-w-none px-4">

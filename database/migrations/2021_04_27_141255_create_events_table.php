@@ -15,12 +15,19 @@ class CreateEventsTable extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->string('headline');
-            $table->mediumText('text');
-            $table->date('start_at');
-            $table->date('end_at');
-            $table->string('type');
-            $table->string('group');
+            $table->string('headline')->nullable();
+            $table->mediumText('text')->nullable();
+            $table->date('start_at')->nullable();
+            $table->date('end_at')->nullable();
+            $table->string('start_year');
+            $table->string('start_month')->nullable();
+            $table->string('start_day')->nullable();
+            $table->string('end_year')->nullable();
+            $table->string('end_month')->nullable();
+            $table->string('end_day')->nullable();
+            $table->string('type')->nullable();
+            $table->string('group')->nullable();
+            $table->boolean('imported')->default(0);
             $table->timestamps();
         });
 

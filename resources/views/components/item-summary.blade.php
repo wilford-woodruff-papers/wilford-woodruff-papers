@@ -10,9 +10,6 @@
                 <p class="text-lg font-medium text-secondary pb-1">{{ $item->name }}</p>
                 <p>{{ optional($item->type)->name }}</p>
             </div>
-            <div class="ml-3">
-                <p class="text-sm text-gray-900"></p>
-            </div>
         </a>
     </div>
 </li>

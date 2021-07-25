@@ -36,7 +36,7 @@ nav.sub-menu ul {
 }
 
 .page-title {
-    @apply font-serif md:text-5xl italic text-secondary py-8 px-4;
+    @apply font-serif md:text-3xl italic text-secondary py-8 px-4 text-center;
 }
 
 .section-header, .section-title {
@@ -80,7 +80,7 @@ nav.sub-menu ul {
     @apply text-secondary hover:underline !important;
 }
 
-.property .values .value p{
+.property .values .value p, .property p{
     @apply mt-4 !important;
 }
 
@@ -110,3 +110,29 @@ input[class^="numeric-"], select[class^="numeric-"]{
 .submenu a.active{
     @apply text-white bg-secondary hover:text-gray-900 hover:bg-gray-50;
  }
+
+.content ul {
+    @apply list-disc my-1 pl-12;
+}
+
+.content ol {
+    @apply list-decimal my-1 pl-12;
+}
+
+.content p, .content div {
+    @apply my-2;
+}
+
+.content.videos iframe{
+    width: 100% !important;
+    height: 480px !important;
+}
+
+.article a {
+    @apply text-secondary underline;
+}
+
+.tl-timemarker .tl-timemarker-content-container .tl-timemarker-content .tl-timemarker-text h2.tl-headline,
+.tl-timemarker .tl-timemarker-content-container .tl-timemarker-content .tl-timemarker-text h2.tl-headline p {
+    @apply text-black;
+}

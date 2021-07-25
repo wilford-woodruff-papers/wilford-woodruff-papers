@@ -22,7 +22,7 @@
                                                 </svg>
                                                 <a href="#{{ Str::of($person->name)->slug() }}" class="ml-3 cursor-pointer">
                                                 <span class="text-base font-medium text-secondary">
-                                                    {{ $person->name }} @if(! empty($person->title)), {{ $person->title }}@endif
+                                                    {{ $person->name }}@if(! empty($person->title)), {{ $person->title }}@endif
                                                 </span>
                                                 </a>
                                             </div>
