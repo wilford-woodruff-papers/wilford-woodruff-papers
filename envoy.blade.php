@@ -17,7 +17,7 @@
 @task('prod', ['on' => 'web'])
     cd /home/wilfordw/production_laravel_app
     git pull origin main --ff-only
-    
+
     composer install
     php artisan migrate --force
 @endtask
