@@ -8,7 +8,9 @@
                     </div>
                     <div class="content col-span-12 md:col-span-9">
                         <h2>Donate Online</h2>
-                        <iframe class="border-0" src="https://wp.wilfordwoodruffpapers.org/donate/" style="height: 1800px; width: 100%;"></iframe>
+                        {{--<iframe class="border-0" src="https://wp.wilfordwoodruffpapers.org/donate/" style="height: 1800px; width: 100%;"></iframe>--}}
+                        <script src="https://app.giveforms.com/widget.js" type="text/javascript"></script>
+                        <iframe src="https://app.giveforms.com/campaigns/wilfordwoodruffpapersfoundation/default-giveform" id="giveforms-form-embed" name="giveforms" height="1200px" width="100%" style="min-width: 320px; border: 0;" allowpaymentrequest="true"></iframe>
                     </div>
                 </div>
             </div>

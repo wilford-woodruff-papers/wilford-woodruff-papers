@@ -112,3 +112,11 @@ function get_word_count( $str ) {
         )
     );
 }
+
+function monthName($monthNum){
+    if(empty($monthNum)){
+        return '';
+    }
+    $dateObj   = DateTime::createFromFormat('!m', $monthNum);
+    return $dateObj->format('F');
+}

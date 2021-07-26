@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
-use Anaseqal\NovaImport\NovaImport;
+use App\Models\User;
+use App\Nova\Metrics\NewPages;
+use App\Nova\Metrics\PublishedItems;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Cards\Help;
 use Laravel\Nova\Nova;
@@ -43,9 +45,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function gate()
     {
         Gate::define('viewNova', function ($user) {
-            return in_array($user->email, [
-                'jon.fackrell@wilfordwoodruffpapers.org',
-            ]);
+            return in_array($user->email, User::role(['Editor', 'Admin', 'Super Admin'])->pluck('email')->all());
         });
     }
 
@@ -57,7 +57,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function cards()
     {
         return [
-            new Help(),
+            new PublishedItems(),
+            new NewPages(),
         ];
     }
 
@@ -79,7 +80,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function tools()
     {
         return [
-            new NovaImport,
+
         ];
     }
 

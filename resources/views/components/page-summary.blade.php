@@ -6,7 +6,7 @@
     </div>
     <div class="col-span-6 py-2 px-4">
         <p class="text-lg font-medium text-secondary pb-1 capitalize">
-            <a href="{{ route('pages.show', ['item' => $page->item, 'page' => $page]) }}">Page {{ $page->order }}</a>
+            <a href="{{ route('pages.show', ['item' => $page->parent, 'page' => $page]) }}">Page {{ $page->order }}</a>
         </p>
         <p class="text-base font-medium ml-2">
             <span class="text-gray-600">Part of </span>
@@ -14,9 +14,9 @@
                 <a href="{{ route('documents.show', ['item' => $page->parent]) }}">{{ $page->parent->name }}</a>
             </span>
         </p>
-        @if($page->item->type)
+        {{--@if($page->item->type)
             <p class="text-base text-primary ml-2">{{ $page->item->type->name }}</p>
-        @endif
+        @endif--}}
         <div class="text-sm text-gray-500 px-4 py-2">
             @php
                 $description = '';
@@ -31,8 +31,37 @@
                     $description = str_replace(['[[', ']]'], '', strip_tags( $description ) );
                 }
             @endphp
-            {!! $description !!}
+
+            @if(! empty($description))
+                <div class="mb-1 font-bold">
+                    Excerpt:
+                </div>
+                {!! $description !!}
+            @endif
+
             {{--{!! Str::of( strip_tags( $page->text() ) )->words(50) !!}--}}
+            @if($page->dates->count() > 0)
+                <div class="mt-3 grid grid-cols-12">
+                    <div class="col-span-1 font-bold">
+                        Dates:
+                    </div>
+                    <div class="col-span-11">
+                        <div class="grid grid-cols-4 gap-1">
+                            {!! $page->dates->sortBy('date')->map(function($date){
+                                return '<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800">'
+                                            . $date->date->format('F j, Y')
+                                        . '</span>';
+                            })->join(" ") !!}
+                        </div>
+                    </div>
+                </div>
+            @endif
         </div>
+        @hasanyrole('Editor|Admin|Super Admin')
+            <div class="ml-3">
+                <p class="text-sm text-gray-900">Real name: {{ $page->name }}</p>
+                <p class="text-sm text-gray-900">Item: {{ $page->item->name }}</p>
+            </div>
+        @endhasanyrole
     </div>
 </li>

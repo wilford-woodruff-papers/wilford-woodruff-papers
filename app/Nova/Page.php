@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\MorphToMany;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -60,6 +61,7 @@ class Page extends Resource
             })->asHtml(),
             Trix::make(__('Transcript'), 'transcript')->help('Field is overwritten on import')->alwaysShow(),
             HasMany::make('Media'),
+            MorphToMany::make(__('Events')),
         ];
     }
 

@@ -40,6 +40,18 @@
                             </div>
                         </div>
                     @endif
+                    @if(auth()->check() && auth()->user()->hasRole('Super Admin'))
+                        @if(! empty($item->count() > 0))
+                            <div class="property">
+                                <h4>Sections ({{ $item->items->count() }})</h4>
+                                @foreach($item->items->sortBy('order') as $section)
+                                    <div class="value">
+                                        {{ $section->name }}
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
+                    @endif
                     @if($subjects)
                         <div class="property">
                             <h4>

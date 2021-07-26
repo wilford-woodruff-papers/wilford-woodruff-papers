@@ -7,6 +7,7 @@ use App\Nova\Actions\ImportSubjects;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\MorphToMany;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -49,6 +50,7 @@ class Photo extends Resource
             ID::make(__('ID'), 'id')->sortable(),
             Text::make(__('Name'), 'name')->sortable(),
             HasMany::make('Media'),
+            MorphToMany::make(__('Events')),
         ];
     }
 

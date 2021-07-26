@@ -21,6 +21,9 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
 
     protected $dates = [
         'added_to_collection_at',
+        'sort_date',
+        'first_date',
+        'imported_at',
     ];
 
     protected $casts = [
@@ -29,10 +32,15 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
 
     public function pages()
     {
-        if(Str::of($this->type->name)->contains(['Autobiographies', 'Journals'])){
+        /*if(Str::of(optional($this->type)->name)->exactly(['Autobiographies', 'Journals'])){
             return $this->hasManyThrough(Page::class, Item::class)->orderBy('order', 'ASC');
         }else{
             return $this->hasMany(Page::class)->orderBy('order', 'ASC');
+        }*/
+        if(array_key_exists('id', $this->attributes) && Page::where('item_id', $this->attributes['id'])->count() > 0){
+            return $this->hasMany(Page::class)->orderBy('order', 'ASC');
+        }else{
+            return $this->hasManyThrough(Page::class, Item::class)->orderBy('order', 'ASC');
         }
     }
 
@@ -81,6 +89,14 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
     public function buildSortQuery()
     {
         return static::query()->where('item_id', $this->item_id);
+    }
+
+    /**
+     * Get all of the events that are assigned this item.
+     */
+    public function events()
+    {
+        return $this->morphToMany(Event::class, 'timelineable');
     }
 
     /*protected static function booted()

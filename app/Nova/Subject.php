@@ -93,8 +93,8 @@ class Subject extends Resource
     public function actions(Request $request)
     {
         return [
-            new ImportBiographies,
             new ImportSubjects,
+            new ImportBiographies,
         ];
     }
 }

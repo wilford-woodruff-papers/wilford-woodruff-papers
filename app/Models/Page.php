@@ -29,6 +29,10 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
         'uuid' => EfficientUuid::class,
     ];
 
+    protected $dates = [
+        'imported_at',
+    ];
+
     public function item()
     {
         return $this->belongsTo(Item::class);
@@ -82,11 +86,24 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
 
     public function buildSortQuery()
     {
-        return static::query()->where('parent_item_id', $this->parent->id);
+        if(! empty($this->attributes['parent_item_id'])){
+            return static::query()->where('parent_item_id', $this->parent->id);
+        }else{
+            return static::query()->where('item_id', $this->attributes['item_id']);
+        }
+
     }
 
     protected $attributeModifiers = [
         'uuid' => Base64Encoder::class,
     ];
+
+    /**
+     * Get all of the events that are assigned this page.
+     */
+    public function events()
+    {
+        return $this->morphToMany(Event::class, 'timelineable');
+    }
 
 }

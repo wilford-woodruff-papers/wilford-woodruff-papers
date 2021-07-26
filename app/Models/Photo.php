@@ -41,4 +41,12 @@ class Photo extends Model implements HasMedia
             ->sharpen(10);
     }
 
+    /**
+     * Get all of the events that are assigned this item.
+     */
+    public function events()
+    {
+        return $this->morphToMany(Event::class, 'timelineable');
+    }
+
 }
