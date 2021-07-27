@@ -17,9 +17,12 @@ class PeopleController extends Controller
     public function index()
     {
         return view('public.people', [
-            'subjects' => Subject::whereEnabled(1)->whereHas('category', function (Builder $query) {
-                                    $query->where('name', 'People');
-                                })->get(),
+            'subjects' => Subject::whereEnabled(1)
+                            ->whereHas('category', function (Builder $query) {
+                                $query->where('name', 'People');
+                            })
+                            ->whereHas('pages')
+                            ->get(),
             'wives' => Wife::with('person', 'children')->get(),
         ]);
     }
