@@ -19,7 +19,10 @@ class SearchController extends Controller
     public function __invoke(Request $request)
     {
         $pages = new Page;
-        $pages = $pages->with('item');
+        $pages = $pages->with('item')
+                        ->whereHas('item', function (Builder $query) {
+                            $query->where('enabled', 1);
+                        });
 
         if($request->has('q')){
             $pages = $pages->where(function($query) use ($request) {
