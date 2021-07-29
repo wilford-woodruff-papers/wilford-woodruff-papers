@@ -65,7 +65,7 @@ class RouteServiceProvider extends ServiceProvider
         });
 
         Route::bind('article', function ($article) {
-            if(is_integer($article)){
+            if(is_numeric($article)){
                 return Press::where('id', $article)->first();
             }
             return Press::where('slug', $article)->first();
