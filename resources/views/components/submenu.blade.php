@@ -109,7 +109,7 @@
             </h3>
             <div class="mt-1 space-y-1 pb-4 pl-4" aria-labelledby="media-library-headline">
                 <a href="{{ route('media.articles') }}"
-                   class="group flex items-center px-3 py-2 text-sm font-medium  @if(request()->is('media/articles*')) active @else @endif">
+                   class="group flex items-center px-3 py-2 text-sm font-medium  @if(request()->is('media/article*')) active @else @endif">
                     <span class="truncate">
                         Articles
                     </span>
@@ -127,7 +127,7 @@
                     </span>
                 </a>
                 <a href="{{ route('media.videos') }}"
-                   class="group flex items-center px-3 py-2 text-sm font-medium @if(request()->is('media/videos')) active @else @endif">
+                   class="group flex items-center px-3 py-2 text-sm font-medium @if(request()->is('media/video*')) active @else @endif">
                     <span class="truncate">
                         Videos
                     </span>

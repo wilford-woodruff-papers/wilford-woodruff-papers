@@ -57,6 +57,13 @@ class MediaController extends Controller
         ]);
     }
 
+    public function video(Request $request, Press $video)
+    {
+        return view('public.media.video', [
+            'video' => $video,
+        ]);
+    }
+
     public function newsroom(Request $request)
     {
         return view('public.media.newsroom', [

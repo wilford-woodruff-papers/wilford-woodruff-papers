@@ -61,6 +61,7 @@ class Press extends Resource
             Text::make(__('Title'), 'title')->resolveUsing(function ($title) {
                 return Str::of($title)->limit('50', ' ...');
             })->sortable(),
+            Text::make(__('Slug'), 'slug')->hideFromIndex()->hideWhenCreating()->sortable(),
             Text::make(__('Subtitle'), 'subtitle')->resolveUsing(function ($subtitle) {
                 return Str::of($subtitle)->limit('50', ' ...');
             })->sortable(),

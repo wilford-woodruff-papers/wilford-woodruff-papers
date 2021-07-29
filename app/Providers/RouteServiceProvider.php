@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Item;
 use App\Models\Page;
 use App\Models\Photo;
+use App\Models\Press;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -61,6 +62,13 @@ class RouteServiceProvider extends ServiceProvider
 
         Route::bind('photo', function ($photo) {
             return Photo::whereUuid($photo)->first();
+        });
+
+        Route::bind('article', function ($article) {
+            if(is_integer($article)){
+                return Press::where('id', $article)->first();
+            }
+            return Press::where('slug', $article)->first();
         });
     }
 

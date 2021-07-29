@@ -23,8 +23,10 @@
                                     </div>
                                     <div class="flex-1 bg-white p-6 flex flex-col justify-between">
                                         <div class="flex-1">
-                                            <p class="text-xl font-semibold text-gray-900">
-                                                {{ $video->title }}
+                                            <p class="text-xl font-semibold text-secondary">
+                                                <a href="{{ route('media.video', ['video' => $video]) }}" class="mt-2 block">
+                                                    {{ $video->title }}
+                                                </a>
                                             </p>
                                             <p class="">
                                                 {{ $video->subtitle }}
