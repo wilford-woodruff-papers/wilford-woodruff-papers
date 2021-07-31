@@ -57,14 +57,40 @@
             <script>
                 var people = @json($people);
 
+                function trim (s, c) {
+                    if (c === "]") c = "\\]";
+                    if (c === "^") c = "\\^";
+                    if (c === "\\") c = "\\\\";
+                    return s.replace(new RegExp(
+                        "^[" + c + "]+|[" + c + "]+$", "g"
+                    ), "");
+                }
+
                 function search(){
                     return {
                         tab: '{{ array_key_first($alpha) }}',
                         q: null,
                         filteredPeople: [],
                         filter() {
-                            this.filteredPeople = people.filter( person => person.full_name.toUpperCase().indexOf(this.q.toUpperCase()) > -1 );
+                            this.filteredPeople = people.filter( person => this.checkName(person.full_name) );
                         },
+                        checkName(full_name) {
+                            let match = false;
+                            full_name = full_name.toUpperCase().split(" ");
+                            if(full_name.length == 1){
+                                match = trim(full_name).indexOf(this.q.toUpperCase()) > -1;
+                            } else if(full_name.length == 2) {
+                                match = (trim(full_name[0], ',').indexOf(this.q.toUpperCase()) > -1) && (trim(full_name[1], ',').indexOf(this.q.toUpperCase()) > -1);
+                            } else if(full_name.length > 2) {
+                                for(name of full_name){
+                                    if(trim(name, ',').indexOf(this.q.toUpperCase()) > -1){
+                                        match = true;
+                                    }
+                                }
+                            }
+
+                            return match;
+                        }
                     }
                 }
             </script>
