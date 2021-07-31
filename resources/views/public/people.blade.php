@@ -72,23 +72,24 @@
                         q: null,
                         filteredPeople: [],
                         filter() {
-                            this.filteredPeople = people.filter( person => this.checkName(person.full_name) );
+                            this.filteredPeople = people.filter( person => this.checkName(person.full_name, trim(this.q.toUpperCase(), " ").split(" ") ) );
                         },
-                        checkName(full_name) {
+                        checkName(full_name, term) {
                             let match = false;
-                            full_name = full_name.toUpperCase().split(" ");
-                            if(full_name.length == 1){
-                                match = trim(full_name).indexOf(this.q.toUpperCase()) > -1;
-                            } else if(full_name.length == 2) {
-                                match = (trim(full_name[0], ',').indexOf(this.q.toUpperCase()) > -1) && (trim(full_name[1], ',').indexOf(this.q.toUpperCase()) > -1);
-                            } else if(full_name.length > 2) {
-                                for(name of full_name){
-                                    if(trim(name, ',').indexOf(this.q.toUpperCase()) > -1){
+                            full_name = full_name.toUpperCase();
+                            console.log(full_name);
+                            console.log(term);
+                            if(term.length == 1){
+                                match = full_name.indexOf(term[0]) > -1;
+                            } else if(term.length == 2) {
+                                match = (full_name.indexOf(trim(term[0], ',')) > -1) && (full_name.indexOf(trim(term[1], ',')) > -1);
+                            } else if(term.length > 2) {
+                                for(name of term){
+                                    if(full_name.indexOf(trim(name, ',')) > -1){
                                         match = true;
                                     }
                                 }
                             }
-
                             return match;
                         }
                     }
@@ -101,7 +102,7 @@
                 <div class="max-w-7xl text-center mb-8">
                     <input class="max-w-xl w-full shadow-sm sm:max-w-xl sm:text-sm border-gray-300"
                            x-model="q"
-                           x-on:keyup="filter()"
+                           x-on:keyup.debounce.500ms="filter()"
                            type="search"
                            name="q"
                            value=""
