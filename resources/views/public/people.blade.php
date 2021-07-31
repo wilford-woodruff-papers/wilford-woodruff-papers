@@ -77,8 +77,6 @@
                         checkName(full_name, term) {
                             let match = false;
                             full_name = full_name.toUpperCase();
-                            console.log(full_name);
-                            console.log(term);
                             if(term.length == 1){
                                 match = full_name.indexOf(term[0]) > -1;
                             } else if(term.length == 2) {
