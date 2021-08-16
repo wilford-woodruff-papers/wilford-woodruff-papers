@@ -27,7 +27,10 @@
                         <div class="bg-white pt-4 pb-8 px-4 sm:px-6 lg:pb-12 lg:px-8">
                             <div class="relative max-w-lg mx-auto lg:max-w-7xl">
                                 <div class="mb-8">
-                                    <p class="text-primary text-lg">Wilford Woodruff was an apostle of the Lord Jesus Christ for fifty-nine years. To acknowledge God&#39;s direction in his daily life, Wilford documented nearly every testimony he bore, every mission on which he embarked, every person he baptized or blessed, and every temple ordinance he performed in the Lord's service. Our mission is to collect, transcribe, publish, and digitally preserve Wilford Woodruff&#39;s records to proclaim that Jesus Christ has restored his gospel and continues to reveal his will through his prophets.</p>
+                                    <p class="text-primary text-lg">Our mission, by 2030, is to digitally preserve and publish Wilford Woodruff’s faithful eyewitness account of the Restoration of the Gospel of Jesus Christ from 1833 to 1898.</p>
+                                </div>
+                                <div class="mb-8">
+                                    <p class="text-primary text-lg">Our purpose in making Wilford Woodruff’s faithful records universally accessible is to inspire all people, especially the rising generation, to study and increase their faith in Jesus Christ, understand and honor sacred temple covenants, and thereby receive the blessings of exaltation with their families.</p>
                                 </div>
                             </div>
                         </div>
