@@ -20,9 +20,9 @@
                                 </a>
                             </p>
                             <p>
-                                <span class="font-bold">Director of Philanthropy</span> - We are looking for an experienced Director of Philanthropy to support the mission of the Foundation by coordinating, correlating, and leading the fundraising and donor interaction activities of the Foundation. The Director of Philanthropy reports to the President of the Foundation.
+                                <span class="font-bold">Philanthropy Coordinator</span> - We are looking for an experienced Philanthropy Coordinator to support the mission of the Foundation by correlating the fundraising efforts and leading the donor interaction activities of the Foundation. The Philanthropy Coordinator reports to the President of the Foundation.
                                 <br />
-                                <a href="/files/positions/Director of Philanthropy Job Descripton.pdf"
+                                <a href="/files/positions/Philanthropy Coordinator Job Description.pdf"
                                    class="text-base font-semibold text-secondary hover:text-highlight"
                                    target="job_description"
                                 >
