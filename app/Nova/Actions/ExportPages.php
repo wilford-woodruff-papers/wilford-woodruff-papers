@@ -50,7 +50,7 @@ class ExportPages extends DownloadExcel implements WithMapping, WithHeadings
             $page->parent->name,
             $page->uuid,
             $page->name,
-            route('pages.show', ['item' => $page->item->id , 'page' => $page->id]),
+            route('pages.show', ['item' => $page->item->uuid , 'page' => $page->uuid]),
             $page->transcript,
             strip_tags($page->transcript),
         ];
