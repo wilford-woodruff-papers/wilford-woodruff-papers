@@ -24,6 +24,7 @@ class ExportPages extends DownloadExcel implements WithMapping, WithHeadings
     {
         return [
             'Internal ID',
+            'Document Type',
             'Parent ID',
             'Parent Name',
             'UUID',
@@ -44,6 +45,7 @@ class ExportPages extends DownloadExcel implements WithMapping, WithHeadings
         $page->load('item');
         return [
             $page->id,
+            optional(optional($page->parent)->type)->name,
             $page->parent_item_id,
             $page->parent->name,
             $page->uuid,
