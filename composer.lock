@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "99d1e286effa5cc1aaf11636236de206",
+    "content-hash": "d0a50c6fa5dd1af3fbab69e6b8c79897",
     "packages": [
         {
             "name": "alexpechkarev/geometry-library",
@@ -2715,6 +2715,70 @@
             "time": "2021-01-06T19:20:22+00:00"
         },
         {
+            "name": "laravie/serialize-queries",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravie/serialize-queries.git",
+                "reference": "28a02c387f04bf167db816a9fce87e5d80bbe0e6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravie/serialize-queries/zipball/28a02c387f04bf167db816a9fce87e5d80bbe0e6",
+                "reference": "28a02c387f04bf167db816a9fce87e5d80bbe0e6",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^5.8 || ^6.0 || ^7.0 || ^8.0",
+                "illuminate/queue": "^5.8 || ^6.0 || ^7.0 || ^8.0",
+                "opis/closure": "^3.4.2",
+                "php": "^7.1 || ^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~3.8.6 || ^4.16 || ^5.18 || ^6.17"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravie\\SerializesQuery\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mior Muhammad Zaki",
+                    "email": "crynobone@gmail.com"
+                }
+            ],
+            "description": "Serializable Laravel Query Builder",
+            "support": {
+                "issues": "https://github.com/laravie/serialize-queries/issues",
+                "source": "https://github.com/laravie/serialize-queries/tree/v1.0.0"
+            },
+            "funding": [
+                {
+                    "url": "https://paypal.me/crynobone",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://liberapay.com/crynobone",
+                    "type": "liberapay"
+                }
+            ],
+            "time": "2021-08-01T10:00:52+00:00"
+        },
+        {
             "name": "league/commonmark",
             "version": "1.5.7",
             "source": {
@@ -3180,6 +3244,64 @@
                 }
             ],
             "time": "2021-03-16T11:56:39+00:00"
+        },
+        {
+            "name": "maatwebsite/laravel-nova-excel",
+            "version": "1.2.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Maatwebsite/Laravel-Nova-Excel.git",
+                "reference": "9912e8d520967b629c038321d671d41185f9330c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Maatwebsite/Laravel-Nova-Excel/zipball/9912e8d520967b629c038321d671d41185f9330c",
+                "reference": "9912e8d520967b629c038321d671d41185f9330c",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/nova": "*",
+                "laravie/serialize-queries": "^0.3|^1.0",
+                "maatwebsite/excel": "^3.1",
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Maatwebsite\\LaravelNovaExcel\\LaravelNovaExcelServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Maatwebsite\\LaravelNovaExcel\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Patrick Brouwers",
+                    "email": "patrick@maatwebsite.nl"
+                }
+            ],
+            "description": "Supercharged Excel exports for Laravel Nova Resources",
+            "keywords": [
+                "PHPExcel",
+                "actions",
+                "laravel",
+                "laravel-nova",
+                "nova",
+                "phpspreadsheet"
+            ],
+            "support": {
+                "issues": "https://github.com/Maatwebsite/Laravel-Nova-Excel/issues",
+                "source": "https://github.com/Maatwebsite/Laravel-Nova-Excel/tree/1.2.7"
+            },
+            "time": "2021-08-16T11:36:02+00:00"
         },
         {
             "name": "maennchen/zipstream-php",
@@ -8848,7 +8970,7 @@
         },
         {
             "name": "wwp/items",
-            "version": "dev-feature/new-timeline",
+            "version": "dev-develop",
             "dist": {
                 "type": "path",
                 "url": "./nova-components/Items",

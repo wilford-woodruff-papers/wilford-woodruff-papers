@@ -26,6 +26,7 @@
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.0",
         "maatwebsite/excel": "^3.1",
+        "maatwebsite/laravel-nova-excel": "^1.2",
         "owen-it/laravel-auditing": "^12.0",
         "paquettg/php-html-parser": "^3.1",
         "spatie/eloquent-sortable": "^3.11",
