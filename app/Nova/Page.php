@@ -2,6 +2,8 @@
 
 namespace App\Nova;
 
+use App\Exports\PageExport;
+use App\Nova\Actions\ExportPages;
 use App\Nova\Actions\ImportSubjects;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
@@ -53,8 +55,11 @@ class Page extends Resource
             ID::make(__('ID'), 'id')->sortable(),
             BelongsTo::make('Item'),
             Text::make(__('Name'), 'name')->help('Field is overwritten on import')->sortable(),
-            Text::make('Preview', function () {
-                return '<a href="'.route('pages.show', ['item' => $this->item, 'page' => $this]).'" class="no-underline dim text-primary font-bold" target="_preview">Preview</a>';
+            ($this->item) ?
+                Text::make('Preview', function () {
+                    return '<a href="'.route('pages.show', ['item' => $this->item, 'page' => $this]).'" class="no-underline dim text-primary font-bold" target="_preview">Preview</a>';
+                })->asHtml() : Text::make('Preview', function () {
+                return '<a href="#" class="no-underline dim text-primary font-bold" target="_preview">Preview</a>';
             })->asHtml(),
             Text::make('FTP', function () {
                 return '<a href="' . $this->ftp_link . '" class="no-underline dim text-primary font-bold" target="_preview">FTP</a>';
@@ -106,6 +111,9 @@ class Page extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            (new ExportPages)
+                ->askForWriterType(),
+        ];
     }
 }
