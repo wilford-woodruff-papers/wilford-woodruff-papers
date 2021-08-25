@@ -130,7 +130,7 @@
                      x-cloak
                 >
                     @foreach($alpha as $letter => $group)
-                        <div class="grid grid-cols-1 gap-2"
+                        <div class="grid grid-cols-1"
                              x-show="tab == '{{ $letter }}'"
                         >
 
@@ -155,7 +155,7 @@
                      x-show="q"
                      x-cloak
                 >
-                    <div class="grid grid-cols-1 gap-2">
+                    <div class="grid grid-cols-1">
                         <template x-for="person in filteredPeople" :key="person.url">
                             <div class="">
                                 <a class="text-secondary popup"
