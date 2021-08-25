@@ -25,10 +25,10 @@
 
     function lastNameSort($a, $b)
     {
-        if ($a['last_name'] == $b['last_name']) {
+        if ($a['full_name'] == $b['full_name']) {
             return 0;
         }
-        return ($a['last_name'] < $b['last_name']) ? -1 : 1;
+        return ($a['full_name'] < $b['full_name']) ? -1 : 1;
     }
 
     ksort($alpha);
@@ -129,7 +129,7 @@
                      x-cloak
                 >
                     @foreach($alpha as $letter => $group)
-                        <div class="grid grid-cols-1 md:grid-cols-5 gap-8"
+                        <div class="grid grid-cols-1 gap-2"
                              x-show="tab == '{{ $letter }}'"
                         >
 
@@ -154,7 +154,7 @@
                      x-show="q"
                      x-cloak
                 >
-                    <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                    <div class="grid grid-cols-1 gap-2">
                         <template x-for="person in filteredPeople" :key="person.url">
                             <div class="">
                                 <a class="text-secondary popup"
