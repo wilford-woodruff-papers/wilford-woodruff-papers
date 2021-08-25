@@ -66,6 +66,12 @@
                             </a>
                         </li>
 
+                        {{--<li>
+                            <a href="{{ route('') }}" class="text-base text-white hover:text-highlight">
+                                Contact Us
+                            </a>
+                        </li>--}}
+
                     </ul>
                 </div>
                 <div class="mt-12 md:mt-0">
