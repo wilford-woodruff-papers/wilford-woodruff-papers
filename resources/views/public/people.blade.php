@@ -17,6 +17,7 @@
             #'url' => '/s/'.$page->params['site-slug'].'/page/'.$page->params['page-slug'],
         ];
         $subject['full_name'] = $subject['first_name'] .' '.$subject['last_name'];
+        $subject['sort_name'] = $subject['last_name'] .' '.$subject['first_name'];
 
         $alpha[$index][] = $subject;
         $people[] = $subject;
@@ -25,10 +26,10 @@
 
     function lastNameSort($a, $b)
     {
-        if ($a['full_name'] == $b['full_name']) {
+        if ($a['sort_name'] == $b['sort_name']) {
             return 0;
         }
-        return ($a['full_name'] < $b['full_name']) ? -1 : 1;
+        return ($a['sort_name'] < $b['sort_name']) ? -1 : 1;
     }
 
     ksort($alpha);
