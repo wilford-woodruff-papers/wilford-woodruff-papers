@@ -49,7 +49,7 @@
                                     </div>
                                 </div>
 
-                                @foreach($team->boardmembers as $person)
+                                @foreach($team->boardmembers->sortBy('order') as $person)
                                     <div class="mt-12 px-8 md:px-2">
                                         <div class="space-y-12 sm:divide-y sm:divide-gray-200 sm:space-y-0 sm:-mt-8 lg:gap-x-8 lg:space-y-0" x-max="1">
 
