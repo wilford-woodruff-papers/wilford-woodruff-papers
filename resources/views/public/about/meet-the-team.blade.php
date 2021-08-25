@@ -15,7 +15,7 @@
                                         {{ $team->name }}
                                     </h3>
                                     <div class="divide-y divide-gray-200">
-                                        @foreach($team->boardmembers as $person)
+                                        @foreach($team->boardmembers->sortBy('order') as $person)
                                             <div class="pt-4 pb-4 flex items-center">
                                                 <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
