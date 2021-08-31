@@ -40,7 +40,7 @@
                             </div>
                         </div>
                     @endif
-                    @if(auth()->check() && auth()->user()->hasRole('Super Admin'))
+                    @hasanyrole('Editor|Admin|Super Admin')
                         @if(! empty($item->count() > 0))
                             <div class="property">
                                 <h4>Sections ({{ $item->items->count() }})</h4>
@@ -51,7 +51,7 @@
                                 @endforeach
                             </div>
                         @endif
-                    @endif
+                    @endhasanyrole
                     @if($subjects)
                         <div class="property">
                             <h4>
