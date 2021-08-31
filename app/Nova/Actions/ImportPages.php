@@ -113,10 +113,10 @@ class ImportPages extends Action
                             logger()->info("Done");
                             unset($page);
                         }
-                        /*if($this->option('enable') == true){
+                        if($this->option('enable') == true || $this->option('enable') == 1){
                             $item->enabled = 1;
                             $item->save();
-                        }*/
+                        }
                     }
                 } catch (\Exception $e) {
                     logger()->error($e->getMessage());
@@ -140,7 +140,6 @@ class ImportPages extends Action
         return [
             Select::make('Status')->options([
                 1 => 'Enable',
-                0 => 'Disable',
             ])
         ];
     }
