@@ -23,6 +23,12 @@ class PeopleController extends Controller
                             })
                             ->whereHas('pages')
                             ->get(),
+        ]);
+    }
+
+    public function family()
+    {
+        return view('public.family', [
             'wives' => Wife::with('person', 'children')->get(),
         ]);
     }
