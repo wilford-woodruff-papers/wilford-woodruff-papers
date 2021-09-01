@@ -174,10 +174,7 @@
         </div>
     </div>
     <div x-data="{
-                showAbout: false,
-                showMedia: false,
-                showDonate: false,
-                showGetInvolved: false,
+                dropdown: null
              }"
          class="bg-secondary py-2 hidden md:block">
         <div class="relative max-w-7xl mx-auto">
@@ -189,24 +186,74 @@
                                             ]);
                                             */?>
                     <a href="/s/wilford-woodruff-papers/documents">Documents</a>
-                    <a href="/s/wilford-woodruff-papers/page/people">People</a>
+                    <div class="relative inline-block text-left">
+                        <span x-on:mouseenter="dropdown = 'people'"
+                              x-on:click="dropdown = 'people'"
+                              x-on:click.away="dropdown = null"
+                              class="text-base font-medium text-primary md:text-white md:hover:text-highlight uppercase"
+                        >
+                            People
+                        </span>
+                        <div x-show="dropdown == 'people'"
+                             x-on:mouseleave="dropdown = null"
+                             x-cloak
+                             class="origin-top-right absolute -right-4 mt-2 w-72 shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
+                            <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                                <a href="{{ route('people') }}"
+                                   class="block px-4 py-2 text-secondary font-medium hover:bg-gray-100"
+                                   role="menuitem">
+                                    People Mentioned in Wilford Woodruff's Papers
+                                </a>
+                                <a href="{{ route('wives-and-children') }}"
+                                   class="block px-4 py-2 text-secondary font-medium hover:bg-gray-100"
+                                   role="menuitem">
+                                    Wilford Woodruff's Wives and Children
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                     <a href="/s/wilford-woodruff-papers/page/places">Places</a>
-                    <a href="/s/wilford-woodruff-papers/page/timeline" class="hidden lg:inline-block">Timeline</a>
+                    <div class="relative inline-block text-left">
+                        <span x-on:mouseenter="dropdown = 'timeline'"
+                              x-on:click="dropdown = 'timeline'"
+                              x-on:click.away="dropdown = null"
+                              class="text-base font-medium text-primary md:text-white md:hover:text-highlight uppercase"
+                        >
+                            Timeline
+                        </span>
+                        <div x-show="dropdown == 'timeline'"
+                             x-on:mouseleave="dropdown = null"
+                             x-cloak
+                             class="origin-top-right absolute -right-4 mt-2 w-72 shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
+                            <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                                <a href="{{ route('timeline') }}"
+                                   class="block px-4 py-2 text-secondary font-medium hover:bg-gray-100"
+                                   role="menuitem">
+                                    Timeline of Events
+                                </a>
+                                <a href="{{ route('miraculously-preserved-life') }}"
+                                   class="block px-4 py-2 text-secondary font-medium hover:bg-gray-100"
+                                   role="menuitem">
+                                    Wilford Woodruff’s Miraculously Preserved Life
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                     <a href="/s/wilford-woodruff-papers/media">Search</a>
                 </div>
                 <div class="flex space-x-4 md:space-x-10  mt-4 flex md:mt-0 md:ml-4">
                     {{--<a href="/s/wilford-woodruff-papers/page/about">About</a>--}}
 
                     <div class="relative inline-block text-left">
-                            <span x-on:mouseenter="showAbout = true; showMedia = false; showDonate = false; showGetInvolved = false;"
-                                  x-on:click="showAbout = true; showMedia = false; showDonate = false; showGetInvolved = false;"
-                                  x-on:click.away="showAbout = false"
+                            <span x-on:mouseenter="dropdown = 'about'"
+                                  x-on:click="dropdown = 'about'"
+                                  x-on:click.away="dropdown = null"
                                   class="text-base font-medium text-primary md:text-white md:hover:text-highlight uppercase"
                             >
                                 About
                             </span>
-                        <div x-show="showAbout"
-                             x-on:mouseleave="showAbout = false"
+                        <div x-show="dropdown == 'about'"
+                             x-on:mouseleave="dropdown = null"
                              x-cloak
                              class="origin-top-right absolute -right-4 mt-2 w-72 shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
                             <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
@@ -240,15 +287,15 @@
                     </div>
 
                     <div class="relative inline-block text-left">
-                            <span x-on:mouseenter="showAbout = false; showMedia = false; showDonate = false; showGetInvolved = true;"
-                                  x-on:click="showAbout = false; showMedia = false; showDonate = false; showGetInvolved = true;"
-                                  x-on:click.away="showGetInvolved = false"
+                            <span x-on:mouseenter="dropdown = 'get-involved'"
+                                  x-on:click="dropdown = 'get-involved'"
+                                  x-on:click.away="dropdown = null"
                                   class="text-base font-medium text-primary md:text-white md:hover:text-highlight uppercase"
                             >
                                 Get Involved
                             </span>
-                        <div x-show="showGetInvolved"
-                             x-on:mouseleave="showGetInvolved = false"
+                        <div x-show="dropdown == 'get-involved'"
+                             x-on:mouseleave="dropdown = null"
                              x-cloak
                              class="origin-top-right absolute -right-4 mt-2 w-72 shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
                             <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
@@ -319,15 +366,15 @@
 
 
                     <div class="submenu relative inline-block text-left">
-                            <span x-on:mouseenter="showAbout = false; showMedia = true; showDonate = false; showGetInvolved = false;"
-                                  x-on:click="showMedia = true; showDonate = false; showGetInvolved = false;"
-                                  x-on:click.away="showMedia = false"
+                            <span x-on:mouseenter="dropdown = 'media'"
+                                  x-on:click="dropdown = 'media'"
+                                  x-on:click.away="dropdown = null"
                                   class="text-base font-medium text-primary md:text-white md:hover:text-highlight uppercase hidden lg:inline-block"
                             >
                                 Media
                             </span>
-                        <div x-show="showMedia"
-                             x-on:mouseleave="showMedia = false"
+                        <div x-show="dropdown == 'media'"
+                             x-on:mouseleave="dropdown = null"
                              x-cloak
                              class="origin-top-right absolute -right-4 mt-2 w-72 shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10 p-4">
                             {{--<div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">

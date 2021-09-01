@@ -21,6 +21,7 @@ Route::get('/documents/{item}', [\App\Http\Controllers\ItemController::class, 's
 Route::get('/documents/{item}/page/{page}', [\App\Http\Controllers\PageController::class, 'show'])->name('pages.show');
 Route::get('/subjects/{subject}', [\App\Http\Controllers\SubjectController::class, 'show'])->name('subjects.show');
 Route::get('/people', [\App\Http\Controllers\PeopleController::class, 'index'])->name('people');
+Route::get('/wives-and-children', [\App\Http\Controllers\PeopleController::class, 'family'])->name('wives-and-children');
 Route::get('/places', [\App\Http\Controllers\PlaceController::class, 'index'])->name('places');
 Route::get('/timeline', [\App\Http\Controllers\TimelineController::class, 'index'])->name('timeline');
 Route::get('/miraculously-preserved-life', \App\Http\Controllers\MiraculouslyPreservedLife::class)->name('miraculously-preserved-life');
