@@ -44,7 +44,7 @@ class ImportPages extends Action
                             $query->whereNull('imported_at')
                                     ->orWhere('imported_at', '<', now('America/Denver')->subHours(6));
                         });
-        $items->chunkById(10, function($items){
+        $items->chunkById(10, function($items) use ($fields){
             $items->each(function($item, $key){
 
                 try{
@@ -113,7 +113,7 @@ class ImportPages extends Action
                             logger()->info("Done");
                             unset($page);
                         }
-                        if($this->option('enable') == true || $this->option('enable') == 1){
+                        if($fields->status == true || $fields->status == 1){
                             $item->enabled = 1;
                             $item->save();
                         }
