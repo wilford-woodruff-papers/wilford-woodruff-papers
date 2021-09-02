@@ -26,12 +26,12 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('import:items')
                  ->dailyAt('1:00 AM')
-                 ->timezone('Americas/Denver')
+                 ->timezone('America/Denver')
                  ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org');
 
         $schedule->command('import:pages')
                  ->weeklyOn(5, '2:00 AM')
-                 ->timezone('Americas/Denver')
+                 ->timezone('America/Denver')
                  ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org');
     }
 

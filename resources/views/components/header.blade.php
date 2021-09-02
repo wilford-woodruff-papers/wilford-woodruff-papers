@@ -277,6 +277,11 @@
                                    role="menuitem">
                                     Frequently Asked Questions
                                 </a>
+                                <a href="{{ route('contact-us') }}"
+                                   class="block px-4 py-2 text-secondary font-medium hover:bg-gray-100"
+                                   role="menuitem">
+                                    Contact Us
+                                </a>
                                 {{--<a href="{{ route('') }}"
                                    class="block px-4 py-2 text-secondary font-medium hover:bg-gray-100"
                                    role="menuitem">

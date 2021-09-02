@@ -48,7 +48,7 @@
 
     <div class="max-w-7xl mx-auto px-4">
 
-        <div class="content col-span-12 px-8 py-6">
+        <div class="col-span-12 px-8 py-6">
 
             <div class="page-title">Recognize Wilford's influence in the lives of the individuals he interacted with</div>
 
@@ -96,7 +96,7 @@
             </script>
 
             <div x-data="search()"
-                 class="mb-12">
+                 class="mt-12 mb-12">
 
                 <div class="max-w-7xl text-center mb-8">
                     <input class="max-w-xl w-full shadow-sm sm:max-w-xl sm:text-sm border-gray-300"
@@ -130,7 +130,7 @@
                      x-cloak
                 >
                     @foreach($alpha as $letter => $group)
-                        <div class="grid grid-cols-3 gap-4"
+                        <div class="grid grid-cols-1 md:grid-cols-3 md:gap-4"
                              x-show="tab == '{{ $letter }}'"
                         >
 
