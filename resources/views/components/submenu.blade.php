@@ -31,6 +31,12 @@
                                 Frequently Asked Questions
                             </span>
                 </a>
+                <a href="{{ route('contact-us') }}"
+                   class="group flex items-center px-3 py-2 text-sm font-medium @if(request()->is('contact-us')) active @else @endif">
+                            <span class="truncate">
+                                Contact Us
+                            </span>
+                </a>
             </div>
             @break
 

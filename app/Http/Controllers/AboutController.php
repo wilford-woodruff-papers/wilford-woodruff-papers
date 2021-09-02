@@ -31,4 +31,9 @@ class AboutController extends Controller
             'faqs' => Faq::all(),
         ]);
     }
+
+    public function contact(Request $request)
+    {
+        return view('public.contact-us');
+    }
 }
