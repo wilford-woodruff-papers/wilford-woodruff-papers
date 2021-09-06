@@ -47,7 +47,7 @@ class HarvestPagesFromThePage extends Command
     public function handle()
     {
         if(empty($itemId = $this->argument('item'))){
-            $items = Item::whereEnabled(true)->whereNotNull('ftp_id')->orderBy('id', 'ASC');
+            $items = Item::whereEnabled(true)->whereNotNull('ftp_id');
         }else{
             $items = Item::whereId($itemId)->whereNotNull('ftp_id');
         }
