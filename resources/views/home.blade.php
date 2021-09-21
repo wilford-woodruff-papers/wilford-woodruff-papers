@@ -49,7 +49,7 @@
         </div>
     </div>
 
-    {{--<div class="bg-white">
+    <div class="bg-white">
         <div class="max-w-7xl mx-auto pt-8 md:pt-16 px-12 pb-4 xl:pt-16  md:px-24 md:pb-8">
             <div class="">
                 <p class="uppercase text-secondary font-semibold">
@@ -74,7 +74,7 @@
                 </a>
             </div>
         </div>
-    </div>--}}
+    </div>
 
     <div class="bg-primary">
         <div class="max-w-7xl mx-auto pt-8 md:pt-16 px-12 pb-4 xl:pt-24 md:px-36 md:pb-8">
