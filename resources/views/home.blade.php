@@ -27,7 +27,7 @@
         </div>
     </div>
 
-    <div class="bg-white">
+    {{--<div class="bg-white">
         <div class="max-w-7xl mx-auto pt-8 md:pt-16 px-12 pb-4 xl:pt-16  md:px-24 md:pb-8">
             <div class="">
                 <p class="uppercase text-secondary font-semibold">
@@ -50,6 +50,26 @@
                    class="text-secondary font-semibold">
                     Read more &gt;
                 </a>
+            </div>
+        </div>
+    </div>--}}
+
+    <div class="bg-white mt-4">
+        <div class="max-w-7xl mx-auto pt-8 md:pt-16 px-12 pb-4 xl:pt-16  md:px-24 md:pb-8">
+            <div class="">
+                <div class="max-w-full md:max-w-5xl h-auto mx-auto">
+                    <a href="https://zoom.us/meeting/register/tJModOmhqDgiHd0in9L7HcddA62IeuI92i1Z"
+                       target="_blank">
+                        <img src="{{ asset('img/2021-10-10.png') }}" alt="Devotional with Elder LeGrand R. Curtis, Jr."/>
+                    </a>
+                </div>
+                <div class="w-full text-center mt-4">
+                    <a href="https://zoom.us/meeting/register/tJModOmhqDgiHd0in9L7HcddA62IeuI92i1Z"
+                       target="_blank"
+                       class="bg-secondary text-white font-semibold text-center px-6 py-3">
+                        Register for Zoom &gt;
+                    </a>
+                </div>
             </div>
         </div>
     </div>

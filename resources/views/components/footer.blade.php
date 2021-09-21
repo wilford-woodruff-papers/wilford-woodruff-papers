@@ -34,7 +34,7 @@
                    class="cursor-pointer"
                 >
                     <div class="text-white">
-                        Do you know of any of Wilford Woodruff documents that we might not have heard about? Tell us
+                        Do you know of any Wilford Woodruff documents that we might not have? Please tell us.
                     </div>
                 </a>
             </div>
