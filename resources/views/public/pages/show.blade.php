@@ -118,7 +118,7 @@
                 <h4>
                     Transcript
                 </h4>
-                <div class="metadata">
+                <div class="metadata font-serif">
                     {!! $page->text() !!}
                 </div>
             </div>
