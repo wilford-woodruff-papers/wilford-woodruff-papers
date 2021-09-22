@@ -48,32 +48,34 @@
         </div>
     </div>
 
-    <div class="bg-white">
-        <div class="max-w-7xl mx-auto pt-8 md:pt-16 px-12 pb-4 xl:pt-16  md:px-24 md:pb-8">
-            <div class="">
-                <p class="uppercase text-secondary font-semibold">
-                    Article
-                </p>
-                <h2 class="text-4xl">
-                    {{ $article->title }}
-                </h2>
-                <p class="text-gray-600">
-                    {{ $article->date->toFormattedDateString() }}
-                </p>
-                <p class="text-base my-4">
-                    @if(! empty($article->excerpt))
-                        {!! $article->excerpt !!}
-                    @else
-                        {!! \Illuminate\Support\Str::of(strip_tags($article->description))->limit(500, ' ...') !!}
-                    @endif
-                </p>
-                <a href="{{ route('media.article', ['article' => $article]) }}"
-                   class="text-secondary font-semibold">
-                    Read more &gt;
-                </a>
+    @if(! empty($article))
+        <div class="bg-white">
+            <div class="max-w-7xl mx-auto pt-8 md:pt-16 px-12 pb-4 xl:pt-16  md:px-24 md:pb-8">
+                <div class="">
+                    <p class="uppercase text-secondary font-semibold">
+                        Article
+                    </p>
+                    <h2 class="text-4xl">
+                        {{ $article->title }}
+                    </h2>
+                    <p class="text-gray-600">
+                        {{ $article->date->toFormattedDateString() }}
+                    </p>
+                    <p class="text-base my-4">
+                        @if(! empty($article->excerpt))
+                            {!! $article->excerpt !!}
+                        @else
+                            {!! \Illuminate\Support\Str::of(strip_tags($article->description))->limit(500, ' ...') !!}
+                        @endif
+                    </p>
+                    <a href="{{ route('media.article', ['article' => $article]) }}"
+                       class="text-secondary font-semibold">
+                        Read more &gt;
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
+    @endif
 
     <div class="bg-white mt-4">
         <div class="max-w-7xl mx-auto pt-8 md:pt-16 px-12 pb-4 xl:pt-16  md:px-24 md:pb-8">
