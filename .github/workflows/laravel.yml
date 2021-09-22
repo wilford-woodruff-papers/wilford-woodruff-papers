@@ -31,8 +31,10 @@ jobs:
         APP_URL: "http://127.0.0.1:8000"
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
-        DB_CONNECTION: sqlite
-        DB_DATABASE: database/database.sqlite
+        DB_CONNECTION: mysql
+        DB_DATABASE: laravel
+        DB_USERNAME: root
+        DB_PASSWORD: root
         CACHE_DRIVER: array
         SESSION_DRIVER: array
         QUEUE_DRIVER: sync
