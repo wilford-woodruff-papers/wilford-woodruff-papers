@@ -28,17 +28,17 @@ jobs:
       run: |
           sudo systemctl start mysql
           mysql --user="root" --password="root" -e "CREATE DATABASE laravel;"
+    - name: Run Laravel Server
+      run: php artisan serve --no-reload &
+      env:
+        APP_URL: "http://127.0.0.1:8000"
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       run: vendor/bin/phpunit
     - name: Upgrade Chrome Driver
       run: php artisan dusk:chrome-driver `/opt/google/chrome/chrome --version | cut -d " " -f3 | cut -d "." -f1`
     - name: Start Chrome Driver
       run: ./vendor/laravel/dusk/bin/chromedriver-linux &
-    - name: Run Laravel Server
-      run: php artisan serve &
     - name: Run Dusk Tests
-      env:
-        APP_URL: "http://127.0.0.1:8000"
       run: php artisan dusk
     - name: Upload Screenshots
       if: failure()
