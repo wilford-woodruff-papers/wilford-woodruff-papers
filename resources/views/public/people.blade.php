@@ -38,17 +38,17 @@
 @endphp
 <x-guest-layout>
 
-    <div class="bg-cover bg-top" style="background-image: url({{ asset('img/banners/people.png') }})">
-        <div class="max-w-7xl mx-auto py-4 xl:py-12">
-            <h1 class="text-white text-4xl md:text-6xl xl:text-8xl">
+    <div class="bg-top bg-cover" style="background-image: url({{ asset('img/banners/people.png') }})">
+        <div class="py-4 mx-auto max-w-7xl xl:py-12">
+            <h1 class="text-4xl text-white md:text-6xl xl:text-8xl">
                 People Mentioned in Wilford Woodruff's Papers
             </h1>
         </div>
     </div>
 
-    <div class="max-w-7xl mx-auto px-4">
+    <div class="px-4 mx-auto max-w-7xl">
 
-        <div class="col-span-12 px-8 py-6">
+        <div class="col-span-12 py-6 px-8">
 
             <div class="page-title">Recognize Wilford's influence in the lives of the individuals he interacted with</div>
 
@@ -98,8 +98,8 @@
             <div x-data="search()"
                  class="mt-12 mb-12">
 
-                <div class="max-w-7xl text-center mb-8">
-                    <input class="max-w-xl w-full shadow-sm sm:max-w-xl sm:text-sm border-gray-300"
+                <div class="mb-8 max-w-7xl text-center">
+                    <input class="w-full max-w-xl border-gray-300 shadow-sm sm:max-w-xl sm:text-sm"
                            x-model="q"
                            x-on:keyup.debounce.500ms="filter()"
                            type="search"
@@ -115,7 +115,7 @@
                          x-show="!q"
                     >
                         @foreach($alpha as $letter => $group)
-                        <div class="text-xl font-semibold cursor-pointer pt-2 px-2 pb-1 hover:text-secondary hover:border-b-2 hover:border-secondary"
+                        <div class="px-2 pt-2 pb-1 text-xl font-semibold cursor-pointer hover:text-secondary hover:border-b-2 hover:border-secondary"
                              x-on:click="tab = '{{ $letter }}'"
                              :class="{ 'text-secondary border-b-2 border-secondary': tab == '{{ $letter }}'}"
                         >
@@ -125,7 +125,7 @@
                     </div>
                 </div>
 
-                <div class=" mb-4 px-2"
+                <div class="px-2 mb-4"
                      x-show="!q"
                      x-cloak
                 >
