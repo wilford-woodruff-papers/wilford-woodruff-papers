@@ -17,7 +17,7 @@
         {{--@if($page->item->type)
             <p class="text-base text-primary ml-2">{{ $page->item->type->name }}</p>
         @endif--}}
-        <div class="text-sm text-gray-500 px-4 py-2">
+        <div class="font-serif text-sm text-gray-500 px-4 py-2">
             @php
                 $description = '';
                 if(! empty( request('q'))){
