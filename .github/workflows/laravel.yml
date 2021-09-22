@@ -39,11 +39,22 @@ jobs:
         SESSION_DRIVER: array
         QUEUE_DRIVER: sync
       run: vendor/bin/phpunit
+    - name: Stop Laravel Server
+      run: php artisan stop &
     - name: Upgrade Chrome Driver
       run: php artisan dusk:chrome-driver `/opt/google/chrome/chrome --version | cut -d " " -f3 | cut -d "." -f1`
     - name: Start Chrome Driver
       run: ./vendor/laravel/dusk/bin/chromedriver-linux &
     - name: Run Dusk Tests
+      env:
+        APP_URL: "http://127.0.0.1:8000"
+        DB_CONNECTION: mysql
+        DB_DATABASE: laravel
+        DB_USERNAME: root
+        DB_PASSWORD: root
+        CACHE_DRIVER: array
+        SESSION_DRIVER: array
+        QUEUE_DRIVER: sync
       run: php artisan dusk
     - name: Upload logs
       if: failure()
