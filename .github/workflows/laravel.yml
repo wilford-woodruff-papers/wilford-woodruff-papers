@@ -43,6 +43,12 @@ jobs:
       run: ./vendor/laravel/dusk/bin/chromedriver-linux &
     - name: Run Dusk Tests
       run: php artisan dusk
+    - name: Upload logs
+      if: failure()
+      uses: actions/upload-artifact@v2
+      with:
+        name: logs
+        path: storage/logs
     - name: Upload Screenshots
       if: failure()
       uses: actions/upload-artifact@v2
