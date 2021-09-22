@@ -1,8 +1,8 @@
 <a href="{{ route($route) }}">
     <div class="p-4 bg-polaroid">
-        <div class="w-full h-48 xl:h-96 bg-cover bg-top" style="background-image: url({{ asset($image) }})">
+        <div class="w-full h-48 bg-top bg-cover xl:h-96" style="background-image: url({{ asset($image) }})">
         </div>
-        <div class="text-base md:text-xl font-serif pt-4 text-secondary font-bold italic text-center">
+        <div class="pt-4 font-serif text-base italic font-bold text-center md:text-xl text-secondary">
             {{ $name }}
         </div>
     </div>

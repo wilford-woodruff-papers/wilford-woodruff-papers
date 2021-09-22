@@ -1,11 +1,11 @@
 <x-guest-layout>
 
-    <div class="max-w-7xl mx-auto px-4">
+    <div class="px-4 mx-auto max-w-7xl">
 
         <div class="page-title">Wilford Woodruff's Miraculously Preserved Life</div>
     </div>
-    <div class="max-w-7xl mx-auto px-4">
-        <div class="col-span-12 px-8 py-6">
+    <div class="px-4 mx-auto max-w-7xl">
+        <div class="col-span-12 py-6 px-8">
             <h1 class="sr-only">Wilford Woodruff's Miraculously Preserved Life</h1>
 
             <div class="flow-root mb-24">
@@ -13,11 +13,11 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3">
+                            <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
-                                    <img class="h-20 w-20 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/boiling-water.jpg') }}" alt="">
+                                    <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/boiling-water.jpg') }}" alt="">
                                 </div>
-                                <div class="min-w-0 flex-1">
+                                <div class="flex-1 min-w-0">
                                     <div>
                                         <div class="text-2xl font-medium text-gray-900">
                                             1810
@@ -36,11 +36,11 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3">
+                            <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
-                                    <img class="h-20 w-20 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/barn.jpg') }}" alt="">
+                                    <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/barn.jpg') }}" alt="">
                                 </div>
-                                <div class="min-w-0 flex-1">
+                                <div class="flex-1 min-w-0">
                                     <div>
                                         <div class="text-2xl font-medium text-gray-900">
                                             1812
@@ -59,18 +59,18 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3 ml-5">
+                            <div class="flex relative items-start ml-5 space-x-3">
                                 <div>
                                     <div class="relative px-1">
-                                        <div class="h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white flex items-center justify-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <div class="flex justify-center items-center w-8 h-8 bg-gray-100 rounded-full ring-8 ring-white">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
                                             </svg>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="min-w-0 flex-1 py-1">
-                                    <div class="text-lg text-gray-700 ml-5">
+                                <div class="flex-1 py-1 min-w-0">
+                                    <div class="ml-5 text-lg text-gray-700">
                                         <p>
                                             Broke his arm when he fell down the stairs when playing at home.
                                         </p>
@@ -83,18 +83,18 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3 ml-5">
+                            <div class="flex relative items-start ml-5 space-x-3">
                                 <div>
                                     <div class="relative px-1">
-                                        <div class="h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white flex items-center justify-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <div class="flex justify-center items-center w-8 h-8 bg-gray-100 rounded-full ring-8 ring-white">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
                                             </svg>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="min-w-0 flex-1 py-1">
-                                    <div class="text-lg text-gray-700 ml-5">
+                                <div class="flex-1 py-1 min-w-0">
+                                    <div class="ml-5 text-lg text-gray-700">
                                         <p>
                                             Broke his other arm falling off uncle's porch.
                                         </p>
@@ -107,11 +107,11 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3">
+                            <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
-                                    <img class="h-20 w-20 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/bull.jpg') }}" alt="">
+                                    <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/bull.jpg') }}" alt="">
                                 </div>
-                                <div class="min-w-0 flex-1">
+                                <div class="flex-1 min-w-0">
                                     <div>
                                         <div class="text-2xl font-medium text-gray-900">
                                             1813
@@ -130,11 +130,11 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3">
+                            <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
-                                    <img class="h-20 w-20 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/logs.jpg') }}" alt="">
+                                    <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/logs.jpg') }}" alt="">
                                 </div>
-                                <div class="min-w-0 flex-1">
+                                <div class="flex-1 min-w-0">
                                     <div>
                                         <div class="text-2xl font-medium text-gray-900">
                                             1814
@@ -153,18 +153,18 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3 ml-5">
+                            <div class="flex relative items-start ml-5 space-x-3">
                                 <div>
                                     <div class="relative px-1">
-                                        <div class="h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white flex items-center justify-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <div class="flex justify-center items-center w-8 h-8 bg-gray-100 rounded-full ring-8 ring-white">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
                                             </svg>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="min-w-0 flex-1 py-1">
-                                    <div class="text-lg text-gray-700 ml-5">
+                                <div class="flex-1 py-1 min-w-0">
+                                    <div class="ml-5 text-lg text-gray-700">
                                         <p>
                                             Kicked in the abdomen by an ox.
                                         </p>
@@ -177,18 +177,18 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3 ml-5">
+                            <div class="flex relative items-start ml-5 space-x-3">
                                 <div>
                                     <div class="relative px-1">
-                                        <div class="h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white flex items-center justify-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <div class="flex justify-center items-center w-8 h-8 bg-gray-100 rounded-full ring-8 ring-white">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
                                             </svg>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="min-w-0 flex-1 py-1">
-                                    <div class="text-lg text-gray-700 ml-5">
+                                <div class="flex-1 py-1 min-w-0">
+                                    <div class="ml-5 text-lg text-gray-700">
                                         <p>
                                             Saved from suffocation after wagonload of hay he stacked incorrectly overturned on top of him.
                                         </p>
@@ -201,11 +201,11 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3">
+                            <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
-                                    <img class="h-20 w-20 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/wagon.jpg') }}" alt="">
+                                    <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/wagon.jpg') }}" alt="">
                                 </div>
-                                <div class="min-w-0 flex-1">
+                                <div class="flex-1 min-w-0">
                                     <div>
                                         <div class="text-2xl font-medium text-gray-900">
                                             1815
@@ -224,11 +224,11 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3">
+                            <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
-                                    <img class="h-20 w-20 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/tree.jpg') }}" alt="">
+                                    <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/tree.jpg') }}" alt="">
                                 </div>
-                                <div class="min-w-0 flex-1">
+                                <div class="flex-1 min-w-0">
                                     <div>
                                         <div class="text-2xl font-medium text-gray-900">
                                             1816
@@ -247,11 +247,11 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3">
+                            <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
-                                    <img class="h-20 w-20 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/water.jpg') }}" alt="">
+                                    <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/water.jpg') }}" alt="">
                                 </div>
-                                <div class="min-w-0 flex-1">
+                                <div class="flex-1 min-w-0">
                                     <div>
                                         <div class="text-2xl font-medium text-gray-900">
                                             1819
@@ -270,11 +270,11 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3">
+                            <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
-                                    <img class="h-20 w-20 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/snow.jpg') }}" alt="">
+                                    <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/snow.jpg') }}" alt="">
                                 </div>
-                                <div class="min-w-0 flex-1">
+                                <div class="flex-1 min-w-0">
                                     <div>
                                         <div class="text-2xl font-medium text-gray-900">
                                             1820
@@ -293,11 +293,11 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3">
+                            <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
-                                    <img class="h-20 w-20 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/ax.jpg') }}" alt="">
+                                    <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/ax.jpg') }}" alt="">
                                 </div>
-                                <div class="min-w-0 flex-1">
+                                <div class="flex-1 min-w-0">
                                     <div>
                                         <div class="text-2xl font-medium text-gray-900">
                                             1821
@@ -316,11 +316,11 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3">
+                            <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
-                                    <img class="h-20 w-20 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/dog.jpg') }}" alt="">
+                                    <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/dog.jpg') }}" alt="">
                                 </div>
-                                <div class="min-w-0 flex-1">
+                                <div class="flex-1 min-w-0">
                                     <div>
                                         <div class="text-2xl font-medium text-gray-900">
                                             1822
@@ -339,11 +339,11 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3">
+                            <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
-                                    <img class="h-20 w-20 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/horse.jpg') }}" alt="">
+                                    <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/horse.jpg') }}" alt="">
                                 </div>
-                                <div class="min-w-0 flex-1">
+                                <div class="flex-1 min-w-0">
                                     <div>
                                         <div class="text-2xl font-medium text-gray-900">
                                             1823
@@ -362,11 +362,11 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3">
+                            <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
-                                    <img class="h-20 w-20 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/logpile.jpg') }}" alt="">
+                                    <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/logpile.jpg') }}" alt="">
                                 </div>
-                                <div class="min-w-0 flex-1">
+                                <div class="flex-1 min-w-0">
                                     <div>
                                         <div class="text-2xl font-medium text-gray-900">
                                             1827
@@ -385,23 +385,23 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3 ml-5">
+                            <div class="flex relative items-start ml-5 space-x-3">
                                 <div>
                                     <div class="relative px-1">
-                                        <div class="h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white flex items-center justify-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <div class="flex justify-center items-center w-8 h-8 bg-gray-100 rounded-full ring-8 ring-white">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
                                             </svg>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="min-w-0 flex-1 py-1">
+                                <div class="flex-1 py-1 min-w-0">
                                     <div>
                                         <div class="ml-5 text-2xl font-medium text-gray-900">
                                             1831
                                         </div>
                                     </div>
-                                    <div class="text-lg text-gray-700 ml-5">
+                                    <div class="ml-5 text-lg text-gray-700">
                                         <p>
                                             Almost crushed when helping to de-ice the wheel of sawmill.
                                         </p>
@@ -414,18 +414,18 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3 ml-5">
+                            <div class="flex relative items-start ml-5 space-x-3">
                                 <div>
                                     <div class="relative px-1">
-                                        <div class="h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white flex items-center justify-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <div class="flex justify-center items-center w-8 h-8 bg-gray-100 rounded-full ring-8 ring-white">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
                                             </svg>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="min-w-0 flex-1 py-1">
-                                    <div class="text-lg text-gray-700 ml-5">
+                                <div class="flex-1 py-1 min-w-0">
+                                    <div class="ml-5 text-lg text-gray-700">
                                         <p>
                                             Suffered a severe bout of pneumonia.
                                         </p>
@@ -438,11 +438,11 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3">
+                            <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
-                                    <img class="h-20 w-20 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/horse-team.jpg') }}" alt="">
+                                    <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/horse-team.jpg') }}" alt="">
                                 </div>
-                                <div class="min-w-0 flex-1">
+                                <div class="flex-1 min-w-0">
                                     <div>
                                         <div class="text-2xl font-medium text-gray-900">
                                             1833
@@ -461,11 +461,11 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3">
+                            <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
-                                    <img class="h-20 w-20 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/rifle.jpg') }}" alt="">
+                                    <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/rifle.jpg') }}" alt="">
                                 </div>
-                                <div class="min-w-0 flex-1">
+                                <div class="flex-1 min-w-0">
                                     <div>
                                         <div class="text-2xl font-medium text-gray-900">
                                             1834
@@ -484,18 +484,18 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3 ml-5">
+                            <div class="flex relative items-start ml-5 space-x-3">
                                 <div>
                                     <div class="relative px-1">
-                                        <div class="h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white flex items-center justify-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <div class="flex justify-center items-center w-8 h-8 bg-gray-100 rounded-full ring-8 ring-white">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
                                             </svg>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="min-w-0 flex-1 py-1">
-                                    <div class="text-lg text-gray-700 ml-5">
+                                <div class="flex-1 py-1 min-w-0">
+                                    <div class="ml-5 text-lg text-gray-700">
                                         <p>
                                             A heavily-loaded musket pointed at his chest was accidentally discharged, but misfired.
                                         </p>
@@ -508,11 +508,11 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3">
+                            <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
-                                    <img class="h-20 w-20 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/black-bear.jpg') }}" alt="">
+                                    <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/black-bear.jpg') }}" alt="">
                                 </div>
-                                <div class="min-w-0 flex-1">
+                                <div class="flex-1 min-w-0">
                                     <div>
                                         <div class="text-2xl font-medium text-gray-900">
                                             1835
@@ -531,18 +531,18 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3 ml-5">
+                            <div class="flex relative items-start ml-5 space-x-3">
                                 <div>
                                     <div class="relative px-1">
-                                        <div class="h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white flex items-center justify-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <div class="flex justify-center items-center w-8 h-8 bg-gray-100 rounded-full ring-8 ring-white">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
                                             </svg>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="min-w-0 flex-1 py-1">
-                                    <div class="text-lg text-gray-700 ml-5">
+                                <div class="flex-1 py-1 min-w-0">
+                                    <div class="ml-5 text-lg text-gray-700">
                                         <p>
                                             Rescued by divine intervention after wandering for 5 hours in a tremendous storm.
                                         </p>
@@ -555,11 +555,11 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3">
+                            <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
-                                    <img class="h-20 w-20 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/tornado.jpg') }}" alt="">
+                                    <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/tornado.jpg') }}" alt="">
                                 </div>
-                                <div class="min-w-0 flex-1">
+                                <div class="flex-1 min-w-0">
                                     <div>
                                         <div class="text-2xl font-medium text-gray-900">
                                             1835
@@ -578,11 +578,11 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3">
+                            <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
-                                    <img class="h-20 w-20 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/wagon.jpg') }}" alt="">
+                                    <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/wagon.jpg') }}" alt="">
                                 </div>
-                                <div class="min-w-0 flex-1">
+                                <div class="flex-1 min-w-0">
                                     <div>
                                         <div class="text-2xl font-medium text-gray-900">
                                             1839
@@ -601,18 +601,18 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3 ml-5">
+                            <div class="flex relative items-start ml-5 space-x-3">
                                 <div>
                                     <div class="relative px-1">
-                                        <div class="h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white flex items-center justify-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <div class="flex justify-center items-center w-8 h-8 bg-gray-100 rounded-full ring-8 ring-white">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
                                             </svg>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="min-w-0 flex-1 py-1">
-                                    <div class="text-lg text-gray-700 ml-5">
+                                <div class="flex-1 py-1 min-w-0">
+                                    <div class="ml-5 text-lg text-gray-700">
                                         <p>
                                             Contracted malaria but left for England to serve his mission with members of Quorum of 12.
                                         </p>
@@ -625,11 +625,11 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3">
+                            <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
-                                    <img class="h-20 w-20 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/shipwreck.jpg') }}" alt="">
+                                    <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/shipwreck.jpg') }}" alt="">
                                 </div>
-                                <div class="min-w-0 flex-1">
+                                <div class="flex-1 min-w-0">
                                     <div>
                                         <div class="text-2xl font-medium text-gray-900">
                                             1841
@@ -648,11 +648,11 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3">
+                            <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
-                                    <img class="h-20 w-20 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/bed.jpg') }}" alt="">
+                                    <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/bed.jpg') }}" alt="">
                                 </div>
-                                <div class="min-w-0 flex-1">
+                                <div class="flex-1 min-w-0">
                                     <div>
                                         <div class="text-2xl font-medium text-gray-900">
                                             1842
@@ -671,11 +671,11 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3">
+                            <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
-                                    <img class="h-20 w-20 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/train.jpg') }}" alt="">
+                                    <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/train.jpg') }}" alt="">
                                 </div>
-                                <div class="min-w-0 flex-1">
+                                <div class="flex-1 min-w-0">
                                     <div>
                                         <div class="text-2xl font-medium text-gray-900">
                                             1843
@@ -694,11 +694,11 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3">
+                            <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
-                                    <img class="h-20 w-20 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/fire.jpg') }}" alt="">
+                                    <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/fire.jpg') }}" alt="">
                                 </div>
-                                <div class="min-w-0 flex-1">
+                                <div class="flex-1 min-w-0">
                                     <div>
                                         <div class="text-2xl font-medium text-gray-900">
                                             1844
@@ -717,11 +717,11 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3">
+                            <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
-                                    <img class="h-20 w-20 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/sunk-ship.jpg') }}" alt="">
+                                    <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/sunk-ship.jpg') }}" alt="">
                                 </div>
-                                <div class="min-w-0 flex-1">
+                                <div class="flex-1 min-w-0">
                                     <div>
                                         <div class="text-2xl font-medium text-gray-900">
                                             1845
@@ -740,11 +740,11 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3">
+                            <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
-                                    <img class="h-20 w-20 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/fallen-tree.jpg') }}" alt="">
+                                    <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/fallen-tree.jpg') }}" alt="">
                                 </div>
-                                <div class="min-w-0 flex-1">
+                                <div class="flex-1 min-w-0">
                                     <div>
                                         <div class="text-2xl font-medium text-gray-900">
                                             1846
@@ -763,18 +763,18 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3 ml-5">
+                            <div class="flex relative items-start ml-5 space-x-3">
                                 <div>
                                     <div class="relative px-1">
-                                        <div class="h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white flex items-center justify-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <div class="flex justify-center items-center w-8 h-8 bg-gray-100 rounded-full ring-8 ring-white">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
                                             </svg>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="min-w-0 flex-1 py-1">
-                                    <div class="text-lg text-gray-700 ml-5">
+                                <div class="flex-1 py-1 min-w-0">
+                                    <div class="ml-5 text-lg text-gray-700">
                                         <p>
                                             Hit in the head by mob throwing rocks at him while baptizing; later baptized some of mob.
                                         </p>
@@ -787,11 +787,11 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3">
+                            <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
-                                    <img class="h-20 w-20 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/shipwreck.jpg') }}" alt="">
+                                    <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/shipwreck.jpg') }}" alt="">
                                 </div>
-                                <div class="min-w-0 flex-1">
+                                <div class="flex-1 min-w-0">
                                     <div>
                                         <div class="text-2xl font-medium text-gray-900">
                                             1848
@@ -810,18 +810,18 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3 ml-5">
+                            <div class="flex relative items-start ml-5 space-x-3">
                                 <div>
                                     <div class="relative px-1">
-                                        <div class="h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white flex items-center justify-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <div class="flex justify-center items-center w-8 h-8 bg-gray-100 rounded-full ring-8 ring-white">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
                                             </svg>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="min-w-0 flex-1 py-1">
-                                    <div class="text-lg text-gray-700 ml-5">
+                                <div class="flex-1 py-1 min-w-0">
+                                    <div class="ml-5 text-lg text-gray-700">
                                         <p>
                                             Inspired to move carriage & family from spot near tree; 30 minutes later whirlwind uprooted tree.
                                         </p>
@@ -834,11 +834,11 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3">
+                            <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
-                                    <img class="h-20 w-20 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/bed.jpg') }}" alt="">
+                                    <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/bed.jpg') }}" alt="">
                                 </div>
-                                <div class="min-w-0 flex-1">
+                                <div class="flex-1 min-w-0">
                                     <div>
                                         <div class="text-2xl font-medium text-gray-900">
                                             1856
@@ -857,11 +857,11 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3">
+                            <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
-                                    <img class="h-20 w-20 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/lamp.jpg') }}" alt="">
+                                    <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/lamp.jpg') }}" alt="">
                                 </div>
-                                <div class="min-w-0 flex-1">
+                                <div class="flex-1 min-w-0">
                                     <div>
                                         <div class="text-2xl font-medium text-gray-900">
                                             1859
@@ -880,11 +880,11 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3">
+                            <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
-                                    <img class="h-20 w-20 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/steamboat.jpg') }}" alt="">
+                                    <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/steamboat.jpg') }}" alt="">
                                 </div>
-                                <div class="min-w-0 flex-1">
+                                <div class="flex-1 min-w-0">
                                     <div>
                                         <div class="text-2xl font-medium text-gray-900">
                                             1872
@@ -903,11 +903,11 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3">
+                            <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
-                                    <img class="h-20 w-20 rounded-full bg-gray-400 flex items-center justify-center ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/bed.jpg') }}" alt="">
+                                    <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/bed.jpg') }}" alt="">
                                 </div>
-                                <div class="min-w-0 flex-1">
+                                <div class="flex-1 min-w-0">
                                     <div>
                                         <div class="text-2xl font-medium text-gray-900">
                                             1873
@@ -926,23 +926,23 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3 ml-5">
+                            <div class="flex relative items-start ml-5 space-x-3">
                                 <div>
                                     <div class="relative px-1">
-                                        <div class="h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white flex items-center justify-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <div class="flex justify-center items-center w-8 h-8 bg-gray-100 rounded-full ring-8 ring-white">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
                                             </svg>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="min-w-0 flex-1 py-1">
+                                <div class="flex-1 py-1 min-w-0">
                                     <div>
                                         <div class="ml-5 text-2xl font-medium text-gray-900">
                                             1879
                                         </div>
                                     </div>
-                                    <div class="text-lg text-gray-700 ml-5">
+                                    <div class="ml-5 text-lg text-gray-700">
                                         <p>
                                             Severe bout of bilious colic; attacks took his breath away didn't think he'd live through one more.
                                         </p>
@@ -955,23 +955,23 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3 ml-5">
+                            <div class="flex relative items-start ml-5 space-x-3">
                                 <div>
                                     <div class="relative px-1">
-                                        <div class="h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white flex items-center justify-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <div class="flex justify-center items-center w-8 h-8 bg-gray-100 rounded-full ring-8 ring-white">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
                                             </svg>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="min-w-0 flex-1 py-1">
+                                <div class="flex-1 py-1 min-w-0">
                                     <div>
                                         <div class="ml-5 text-2xl font-medium text-gray-900">
                                             1886
                                         </div>
                                     </div>
-                                    <div class="text-lg text-gray-700 ml-5">
+                                    <div class="ml-5 text-lg text-gray-700">
                                         <p>
                                             Mild heart attack or stroke; couldn't see or speak for about 30 minutes; blessing restored him.
                                         </p>
@@ -984,23 +984,23 @@
                     <li>
                         <div class="relative pb-8">
                             <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
-                            <div class="relative flex items-start space-x-3 ml-5">
+                            <div class="flex relative items-start ml-5 space-x-3">
                                 <div>
                                     <div class="relative px-1">
-                                        <div class="h-8 w-8 bg-gray-100 rounded-full ring-8 ring-white flex items-center justify-center">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <div class="flex justify-center items-center w-8 h-8 bg-gray-100 rounded-full ring-8 ring-white">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
                                             </svg>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="min-w-0 flex-1 py-1">
+                                <div class="flex-1 py-1 min-w-0">
                                     <div>
                                         <div class="ml-5 text-2xl font-medium text-gray-900">
                                             1893
                                         </div>
                                     </div>
-                                    <div class="text-lg text-gray-700 ml-5">
+                                    <div class="ml-5 text-lg text-gray-700">
                                         <p>
                                             Severest bout of bilious colic “lay at the point of death;” prayers of Saints saved him.
                                         </p>
