@@ -50,6 +50,7 @@ class HarvestItemsFromThePage extends Command
                 'name' => $item['label'],
             ]);
             $document->touch();
+            $this->info('Imported: ' . $document->name);
         };
 
         return 0;
