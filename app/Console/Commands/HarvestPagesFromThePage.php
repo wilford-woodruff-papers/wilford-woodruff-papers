@@ -60,10 +60,7 @@ class HarvestPagesFromThePage extends Command
                     logger()->info($item->id);
                     logger()->info($item->name);
                     logger()->info($item->ftp_id);
-                    $response = Http::withOptions([
-                        'stream' => true,
-                        'version' => '1.0',
-                    ])->get($item->ftp_id);
+                    $response = Http::get($item->ftp_id);
                     $canvases = $response->json('sequences.0.canvases');
                     if(! empty($canvases)){
                         logger()->info("Canvases: ");
@@ -76,10 +73,7 @@ class HarvestPagesFromThePage extends Command
                                 'name' => $canvas['label'],
                                 'transcript' => $this->convertSubjectTags(
                                     ( array_key_exists('otherContent', $canvas) )
-                                        ? Http::withOptions([
-                                                'stream' => true,
-                                                'version' => '1.0',
-                                            ])->get($canvas['otherContent'][0]['@id'])->json('resources.0.resource.chars')
+                                        ? Http::get($canvas['otherContent'][0]['@id'])->json('resources.0.resource.chars')
                                         : '' ),
                                 'ftp_link' => ( array_key_exists('related', $canvas) )
                                     ? $canvas['related'][0]['@id']
@@ -128,14 +122,13 @@ class HarvestPagesFromThePage extends Command
                             logger()->info("Done");
                             unset($page);
                         }
-                        if($this->option('enable') == true){
-                            $item->enabled = 1;
-                            $item->save();
-                        }
                     }
                 } catch (\Exception $e) {
                     logger()->error($e->getMessage());
                 }
+
+                $item->imported_at = now('America/Denver');
+                $item->save();
             });
         }, $column = 'id');
 
