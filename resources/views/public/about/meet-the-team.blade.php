@@ -71,7 +71,7 @@
                                                                 @endif
                                                             </div>
                                                             <div class="text-lg">
-                                                                <img class="object-cover shadow-lg rounded-full h-40 w-40 md:hidden block" src="{{ $person->image }}" alt="">
+                                                                <img class="object-cover shadow-lg rounded-full h-40 w-40 md:hidden block" src="{{ Storage::disk('board_members')->url($person->image) }}" alt="">
                                                                 <p class="text-gray-500">{{ $person->bio }}</p>
                                                             </div>
                                                         </div>
