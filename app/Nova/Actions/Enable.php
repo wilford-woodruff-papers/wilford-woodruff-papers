@@ -27,8 +27,10 @@ class Enable extends Action
     public function handle(ActionFields $fields, Collection $models)
     {
         foreach ($models as $model) {
+            if($model->enabled == 0){
+                $model->added_to_collection_at = now();
+            }
             $model->enabled = $fields->status;
-            $model->added_to_collection_at = now();
             $model->save();
         }
     }
