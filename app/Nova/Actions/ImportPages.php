@@ -114,6 +114,9 @@ class ImportPages extends Action
                             unset($page);
                         }
                         if($fields->status == true || $fields->status == 1){
+                            if($item->enabled == 0){
+                                $item->added_to_collection_at = now();
+                            }
                             $item->enabled = 1;
                             $item->save();
                         }
