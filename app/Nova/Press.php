@@ -58,9 +58,7 @@ class Press extends Resource
                 'Video' => 'Video',
             ])->sortable(),
             Date::make(__('Date'), 'date')->sortable(),
-            Text::make(__('Title'), 'title')->resolveUsing(function ($title) {
-                return Str::of($title)->limit('50', ' ...');
-            })->sortable(),
+            Text::make(__('Title'), 'title')->sortable(),
             Text::make(__('Slug'), 'slug')->hideFromIndex()->hideWhenCreating()->sortable(),
             Text::make(__('Subtitle'), 'subtitle')->resolveUsing(function ($subtitle) {
                 return Str::of($subtitle)->limit('50', ' ...');
