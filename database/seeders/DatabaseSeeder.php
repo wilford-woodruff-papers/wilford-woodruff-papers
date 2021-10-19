@@ -76,7 +76,7 @@ class DatabaseSeeder extends Seeder
         Artisan::call('import:news');
         Artisan::call('import:items');
 
-        $letter = Item::where('name', 'Letter to Phebe Whittemore Carter Woodruff, September 30, 1839')->first();
+        $letter = Item::where('name', 'Letter to Phebe Whittemore Carter Woodruff, 30 September 1839')->first();
         $letter->type()->associate(Type::whereName('Letters')->first());
         $letter->save();
         $journal = Item::where('name', 'Journal (September 9, 1836–December 31, 1836)')->first();
@@ -85,7 +85,7 @@ class DatabaseSeeder extends Seeder
 
         Item::whereIn('name', [
                     'Journal (September 9, 1836–December 31, 1836)',
-                    'Letter to Phebe Whittemore Carter Woodruff, September 30, 1839',
+                    'Letter to Phebe Whittemore Carter Woodruff, 30 September 1839',
                 ])
                 ->update(['enabled' => 1]);
 
