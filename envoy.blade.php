@@ -18,7 +18,6 @@
 @task('prod', ['on' => 'web'])
     cd /home/wilfordw/production_laravel_app
 
-    composer config http-basic.nova.laravel.com ${NOVA_USERNAME} ${NOVA_PASSWORD}
     git pull origin main --ff-only
 
     cp -R /home/wilfordw/production_laravel_app/public/css/* /home/wilfordw/public_html/css
@@ -28,8 +27,8 @@
     cp -R /home/wilfordw/production_laravel_app/public/favicon/* /home/wilfordw/public_html/favicon
     cp -R /home/wilfordw/production_laravel_app/public/vendor/* /home/wilfordw/public_html/vendor
 
-    composer install
-    php artisan migrate --force
-    php artisan route:cache
-    php artisan storage:link
+    composer install --ignore-platform-reqs
+    ea-php80 artisan migrate --force
+    ea-php80 artisan route:cache
+    ea-php80 artisan storage:link
 @endtask
