@@ -12,7 +12,10 @@ use Spatie\Sluggable\SlugOptions;
 
 class JobOpportunity extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditable
 {
-    use Auditable, HasFactory, HasSlug,InteractsWithMedia;
+    use Auditable;
+    use HasFactory;
+    use HasSlug;
+    use InteractsWithMedia;
 
     protected $guarded = ['id'];
 

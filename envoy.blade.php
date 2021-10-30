@@ -17,6 +17,8 @@
 
 @task('prod', ['on' => 'web'])
     cd /home/wilfordw/production_laravel_app
+
+    composer config http-basic.nova.laravel.com ${NOVA_USERNAME} ${NOVA_PASSWORD}
     git pull origin main --ff-only
 
     cp -R /home/wilfordw/production_laravel_app/public/css/* /home/wilfordw/public_html/css
