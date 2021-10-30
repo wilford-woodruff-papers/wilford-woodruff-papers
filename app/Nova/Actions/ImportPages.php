@@ -71,11 +71,13 @@ class ImportPages extends Action
                                     : ''
                             ]);
                             logger()->info('Clear media');
-                            $page->clearMediaCollection();
+                            //$page->clearMediaCollection();
                             logger()->info($canvas['images'][0]['resource']['@id']);
                             logger()->info(route('pages.show', ['item' => $item, 'page' => $page]));
 
-                            if(! empty($canvas['images'][0]['resource']['@id'])){
+                            if(! $page->hasMedia()
+                                && ! empty($canvas['images'][0]['resource']['@id']))
+                            {
                                 $page->addMediaFromUrl($canvas['images'][0]['resource']['@id'])->toMediaCollection();
                             }
 
