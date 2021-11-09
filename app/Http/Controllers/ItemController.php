@@ -28,7 +28,8 @@ class ItemController extends Controller
                         ->whereNotNull('decade')
                         ->groupBy('decade');
         if($request->has('type') && ($request->get('type') == Type::firstWhere('name', 'Letters')->id)){
-            $decades = $decades->get();
+            $decades = $decades->where('type_id', $request->get('type'))
+                               ->get();
         }
         $items = Item::whereNull('item_id')
                         ->with('type')
