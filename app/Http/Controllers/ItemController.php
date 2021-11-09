@@ -24,6 +24,7 @@ class ItemController extends Controller
         //$decades = Decade::orderBy('beginning_year')->get();
         $decades = DB::table('items')
                         ->select('decade', DB::raw('count(*) as total'))
+                        ->where('enabled', 1)
                         ->whereNotNull('decade')
                         ->groupBy('decade');
         if($request->has('type') && ($request->get('type') == Type::firstWhere('name', 'Letters')->id)){
