@@ -133,6 +133,7 @@ class ImportPages extends Action
         }, $column = 'id');
 
         Artisan::call('pages:order');
+        Artisan::call('dates:cache');
     }
 
     /**

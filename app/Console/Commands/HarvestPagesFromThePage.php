@@ -133,6 +133,7 @@ class HarvestPagesFromThePage extends Command
         }, $column = 'id');
 
         Artisan::call('pages:order');
+        Artisan::call('dates:cache');
 
         return 0;
     }

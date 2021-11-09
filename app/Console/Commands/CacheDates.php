@@ -46,12 +46,18 @@ class CacheDates extends Command
                 $dates = $dates->concat($page->dates);
             });
             $item->first_date = optional($dates->sortBy('date')->first())->date;
+            if($item->first_date){
+                $item->decade = floor($item->first_date->year/10)*10;
+            }
             $item->save();
         });
 
         $items = Item::has('items')->get();
         $items->each(function($item){
             $item->first_date = optional($item->items->sortBy('date')->first())->first_date;
+            if($item->first_date){
+                $item->decade = floor($item->first_date->year/10)*10;
+            }
             $item->save();
         });
     }
