@@ -21,7 +21,6 @@ class ItemController extends Controller
      */
     public function index(Request $request)
     {
-        //$decades = Decade::orderBy('beginning_year')->get();
         $decades = DB::table('items')
                         ->select('decade', DB::raw('count(*) as total'))
                         ->whereEnabled(1)
@@ -29,6 +28,17 @@ class ItemController extends Controller
                         ->groupBy('decade');
         if($request->has('type') && ($request->get('type') == Type::firstWhere('name', 'Letters')->id)){
             $decades = $decades->where('type_id', $request->get('type'))
+                               ->get();
+        }
+
+        $years = DB::table('items')
+                        ->select('year', DB::raw('count(*) as total'))
+                        ->whereEnabled(1)
+                        ->whereNotNull('year')
+                        ->groupBy('year');
+        if($request->has('decade')){
+            $years = $years->where('type_id', $request->get('type'))
+                               ->where('decade', $request->get('decade'))
                                ->get();
         }
         $items = Item::whereNull('item_id')
@@ -70,6 +80,7 @@ class ItemController extends Controller
                                 ->get(),
             'items' => $items->paginate(25),
             'decades' => $decades,
+            'years' => $years,
         ]);
     }
 
