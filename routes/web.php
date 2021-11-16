@@ -55,7 +55,9 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::group(['prefix' => 'filemanager', 'middleware' => ['web', 'auth']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });
-
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
+    \UniSharp\LaravelFilemanager\Lfm::routes();
+});
 
 Route::get('/s/wilford-woodruff-papers/documents', function (){
     return redirect()->route('documents');

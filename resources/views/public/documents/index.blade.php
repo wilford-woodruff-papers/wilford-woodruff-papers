@@ -100,7 +100,23 @@
                                             </svg>
                                         </span>
                                     </a>
-
+                                    @if(request()->has('decade') && request()->get('decade') == $decade->decade)
+                                        <div class="pl-8">
+                                            @foreach($years as $year)
+                                                <a class="@if(request()->get('year') == $year->year) bg-gray-200 text-gray-900 @else text-gray-600 hover:bg-gray-50 hover:text-gray-900 @endif flex items-center pl-3 py-2 text-base font-medium"
+                                                   href="{{ route('documents', ['type' => $type, 'decade' => $decade->decade, 'year' => $year->year]) }}">
+                                                    <span class="truncate">
+                                                      {{ $year->year }} ({{ $year->total }})
+                                                    </span>
+                                                            <span class="ml-auto inline-block py-0.5 px-3 text-xs">
+                                                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                                        </svg>
+                                                    </span>
+                                                </a>
+                                            @endforeach
+                                        </div>
+                                    @endif
                                 @endforeach
                             @endif
                         </nav>
