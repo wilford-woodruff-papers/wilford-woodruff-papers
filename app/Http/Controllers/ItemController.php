@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Date;
+use App\Models\Decade;
 use App\Models\Item;
 use App\Models\Page;
 use App\Models\Type;
@@ -20,12 +21,26 @@ class ItemController extends Controller
      */
     public function index(Request $request)
     {
+        //$decades = Decade::orderBy('beginning_year')->get();
+        $decades = DB::table('items')
+                        ->select('decade', DB::raw('count(*) as total'))
+                        ->whereEnabled(1)
+                        ->whereNotNull('decade')
+                        ->groupBy('decade');
+        if($request->has('type') && ($request->get('type') == Type::firstWhere('name', 'Letters')->id)){
+            $decades = $decades->where('type_id', $request->get('type'))
+                               ->get();
+        }
         $items = Item::whereNull('item_id')
                         ->with('type')
                         ->whereEnabled(1);
 
         if($request->has('type')){
             $items = $items->where('type_id', $request->get('type'));
+        }
+
+        if($request->has('decade')){
+            $items = $items->where('decade', $request->get('decade'));
         }
 
         if($request->has('sort')){
@@ -54,6 +69,7 @@ class ItemController extends Controller
                                 ->orderBy('name', 'ASC')
                                 ->get(),
             'items' => $items->paginate(25),
+            'decades' => $decades,
         ]);
     }
 

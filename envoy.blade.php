@@ -10,9 +10,10 @@
 @task('dev', ['on' => 'web'])
     cd /home/wilfordw/dev.wilfordwoodruffpapers.org/develop
     git pull origin develop --ff-only
-    composer install
-    php artisan migrate --force
-    php artisan route:cache
+
+    composer install --ignore-platform-reqs
+    ea-php80 artisan migrate --force
+    ea-php80 artisan route:cache
 @endtask
 
 @task('prod', ['on' => 'web'])
