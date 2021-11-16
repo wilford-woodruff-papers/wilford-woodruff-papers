@@ -83,11 +83,11 @@
                         </form>
                     </div>
                 </div>
-                <div class="grid grid-flow-col grid-cols-4 gap-6">
-                    <div class="col-span-1 px-4 pt-6">
-                        <!-- This example requires Tailwind CSS v2.0+ -->
-                        <nav class="space-y-1" aria-label="Decade filter">
-                            @if(request()->has('type') && (request()->get('type') == \App\Models\Type::firstWhere('name', 'Letters')->id))
+                <div class="grid grid-flow-col grid-cols-3 lg:grid-cols-4 gap-6">
+                    @if(request()->has('type') && (request()->get('type') == \App\Models\Type::firstWhere('name', 'Letters')->id))
+                        <div class="col-span-1 px-4 pt-6">
+                            <!-- This example requires Tailwind CSS v2.0+ -->
+                            <nav class="space-y-1" aria-label="Decade filter">
                                 @foreach($decades as $decade)
                                     <a class="@if(request()->get('decade') == $decade->decade) bg-gray-200 text-gray-900 @else text-gray-600 hover:bg-gray-50 hover:text-gray-900 @endif flex items-center pl-3 py-2 text-base font-medium"
                                        href="{{ route('documents', ['type' => $type, 'decade' => $decade->decade]) }}">
@@ -101,7 +101,7 @@
                                         </span>
                                     </a>
                                     @if(request()->has('decade') && request()->get('decade') == $decade->decade)
-                                        <div class="pl-8">
+                                        <div class="pl-4">
                                             @foreach($years as $year)
                                                 <a class="@if(request()->get('year') == $year->year) bg-gray-200 text-gray-900 @else text-gray-600 hover:bg-gray-50 hover:text-gray-900 @endif flex items-center pl-3 py-2 text-base font-medium"
                                                    href="{{ route('documents', ['type' => $type, 'decade' => $decade->decade, 'year' => $year->year]) }}">
@@ -118,10 +118,10 @@
                                         </div>
                                     @endif
                                 @endforeach
-                            @endif
-                        </nav>
-                    </div>
-                    <div class="col-span-3">
+                            </nav>
+                        </div>
+                    @endif
+                    <div class="col-span-2 lg:col-span-3">
                         <ul class="divide-y divide-gray-200 px-4">
                             @if($items->count() > 0)
                                 @foreach($items as $item)
