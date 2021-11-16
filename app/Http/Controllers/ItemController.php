@@ -41,6 +41,7 @@ class ItemController extends Controller
                                ->where('decade', $request->get('decade'))
                                ->get();
         }
+
         $items = Item::whereNull('item_id')
                         ->with('type')
                         ->whereEnabled(1);
