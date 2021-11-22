@@ -76,7 +76,7 @@
                     </span>
                 </a>
                 <a href="/work-with-us/internship-opportunities"
-                   class="group flex items-center px-3 py-2 text-sm font-medium @if(request()->is('internship-opportunities')) active @else @endif">
+                   class="group flex items-center px-3 py-2 text-sm font-medium @if(request()->is('*/internship-opportunities')) active @else @endif">
                     <span class="truncate">
                         Internships
                     </span>
