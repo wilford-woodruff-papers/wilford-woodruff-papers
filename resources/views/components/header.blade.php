@@ -309,10 +309,15 @@
                                    role="menuitem">
                                     Volunteer
                                 </a>
+                                <a href="/work-with-us/internship-opportunities"
+                                   class="block px-4 py-2 text-secondary font-medium hover:bg-gray-100"
+                                   role="menuitem">
+                                    Internships
+                                </a>
                                 <a href="{{ route('work-with-us') }}"
                                    class="block px-4 py-2 text-secondary font-medium hover:bg-gray-100"
                                    role="menuitem">
-                                    Job Opportunities
+                                    Career
                                 </a>
                                 <a href="/s/wilford-woodruff-papers/page/contribute-documents"
                                    class="block px-4 py-2 text-secondary font-medium hover:bg-gray-100"
