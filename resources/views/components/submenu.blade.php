@@ -75,10 +75,16 @@
                         Volunteer
                     </span>
                 </a>
+                <a href="/work-with-us/internship-opportunities"
+                   class="group flex items-center px-3 py-2 text-sm font-medium @if(request()->is('work-with-us')) active @else @endif">
+                    <span class="truncate">
+                        Internships
+                    </span>
+                </a>
                 <a href="{{ route('work-with-us') }}"
                    class="group flex items-center px-3 py-2 text-sm font-medium @if(request()->is('work-with-us')) active @else @endif">
                     <span class="truncate">
-                        Job & Volunteer Opportunities
+                        Career
                     </span>
                 </a>
                 <!--

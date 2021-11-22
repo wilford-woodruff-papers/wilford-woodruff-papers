@@ -42,7 +42,7 @@
                             @else
                                 <div class="mt-3">
                                     <p class="font-bold">
-                                        We currently don't have any openings.
+                                        We don't have any open positions at this time. If you'd like to submit your resume to have on file for future opportunities send it to us at <a href="mailto:contact@wilfordwoodruffpapers.org" class="text-base font-semibold text-secondary hover:text-highlight">contact@wilfordwoodruffpapers.org</a>.
                                     </p>
                                 </div>
                             @endif

@@ -93,8 +93,14 @@
                         </li>
 
                         <li>
+                            <a href="/work-with-us/internship-opportunities" class="text-base text-white hover:text-highlight">
+                                Internships
+                            </a>
+                        </li>
+
+                        <li>
                             <a href="{{ route('work-with-us') }}" class="text-base text-white hover:text-highlight">
-                                Job Opportunities
+                                Career
                             </a>
                         </li>
 

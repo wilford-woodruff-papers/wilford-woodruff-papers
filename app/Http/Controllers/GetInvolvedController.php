@@ -20,7 +20,7 @@ class GetInvolvedController extends Controller
     public function workWithUs(Request $request)
     {
         return view('public.get-involved.work-with-us', [
-            'opportunities' => JobOpportunity::where('start_at', '<', now())->where('end_at', '>', now())->get(),
+            'opportunities' => JobOpportunity::where('title', '!=', 'Internship Opportunities')->where('start_at', '<', now())->where('end_at', '>', now())->get(),
         ]);
     }
 
