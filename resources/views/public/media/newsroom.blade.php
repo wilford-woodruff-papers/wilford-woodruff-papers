@@ -22,7 +22,7 @@
                                             {{ $article->title }}
                                         </p>
                                         <p class="mt-3 text-base text-gray-500">
-                                            {!! $article->description !!}
+                                            {!! strlen($article->excerpt) > 6 ? $article->excerpt : $article->description !!}
                                         </p>
                                     </a>
                                     <div class="mt-3">
