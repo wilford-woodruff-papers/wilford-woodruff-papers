@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Filters\PressType;
 use Emilianotisato\NovaTinyMCE\NovaTinyMCE;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -94,7 +95,9 @@ class Press extends Resource
      */
     public function filters(Request $request)
     {
-        return [];
+        return [
+            new PressType,
+        ];
     }
 
     /**
