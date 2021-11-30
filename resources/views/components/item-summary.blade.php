@@ -11,7 +11,7 @@
     <div class="col-span-6 py-2">
         <a href="{{ route('documents.show', ['item' => $item]) }}">
             <div class="ml-3">
-                <p class="text-lg font-medium text-secondary pb-1">{{ $item->name }}</p>
+                <p class="text-lg font-medium text-secondary pb-1">{{ \Illuminate\Support\Str::of($item->name)->replaceMatches('/\[.*?\]/', '')->trim() }}</p>
                 <p>{{ optional($item->type)->name }}</p>
             </div>
         </a>

@@ -14,7 +14,7 @@
             <div class="text-4xl text-primary font-semibold my-4 border-b-2 border-gray-300">
                 <h2>
                     <span class="title">
-                        {{ $item->name }}
+                        {{ \Illuminate\Support\Str::of($item->name)->replaceMatches('/\[.*?\]/', '')->trim() }}
                     </span>
                 </h2>
             </div>
@@ -26,7 +26,7 @@
                         </h4>
                         <div class="values">
                             <div class="value" lang="">
-                                {{ $item->name }}
+                                {{ \Illuminate\Support\Str::of($item->name)->replaceMatches('/\[.*?\]/', '')->trim() }}
                             </div>
                         </div>
                     </div>
