@@ -42,10 +42,10 @@ class ImportPages extends Action
                         ->whereNotNull('ftp_id')
                         ->where(function ($query) {
                             $query->whereNull('imported_at')
-                                    ->orWhere('imported_at', '<', now('America/Denver')->subHours(6));
+                                ->orWhere('imported_at', '<', now('America/Denver')->subHours(6));
                         });
         $items->chunkById(10, function($items) use ($fields){
-            $items->each(function($item, $key){
+            $items->each(function($item, $key) use ($fields){
 
                 try{
                     logger()->info($item->id);
@@ -70,14 +70,16 @@ class ImportPages extends Action
                                     ? $canvas['related'][0]['@id']
                                     : ''
                             ]);
-                            logger()->info('Clear media');
-                            //$page->clearMediaCollection();
-                            logger()->info($canvas['images'][0]['resource']['@id']);
+
                             logger()->info(route('pages.show', ['item' => $item, 'page' => $page]));
 
-                            if(! $page->hasMedia()
+                            if((! $page->hasMedia() || ($fields->reimport_images == true || $fields->reimport_images == 1))
                                 && ! empty($canvas['images'][0]['resource']['@id']))
                             {
+                                logger()->info('Clear media');
+                                $page->clearMediaCollection();
+                                logger()->info('Import Images');
+                                logger()->info($canvas['images'][0]['resource']['@id']);
                                 $page->addMediaFromUrl($canvas['images'][0]['resource']['@id'])->toMediaCollection();
                             }
 
@@ -146,6 +148,9 @@ class ImportPages extends Action
         return [
             Select::make('Status')->options([
                 1 => 'Enable',
+            ]),
+            Select::make('Reimport Images')->options([
+                1 => 'Yes',
             ])
         ];
     }
