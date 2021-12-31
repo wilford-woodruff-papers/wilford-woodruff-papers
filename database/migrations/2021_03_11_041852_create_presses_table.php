@@ -22,7 +22,7 @@ class CreatePressesTable extends Migration
             $table->date('date');
             $table->string('link', 2048)->nullable();
             $table->string('embed', 2048)->nullable();
-            $table->string('transcript')->nullable();
+            $table->longText('transcript')->nullable();
             $table->timestamps();
         });
     }

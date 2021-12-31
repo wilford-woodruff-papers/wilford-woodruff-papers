@@ -24,6 +24,14 @@
                                     </p>
                                 </div>
                             </div>
+                            <div class="p-6">
+                                <p class="text-xl font-semibold text-gray-900">
+                                    Transcript
+                                </p>
+                                <div class="mt-8">
+                                    {!! $video->transcript !!}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
