@@ -37,7 +37,7 @@
                                     @endif
                                 </div>
                                 @if(strlen($podcast->transcript) > 10)
-                                    <div class="mt-6">
+                                    <div class="pt-6">
                                         <p class="text-xl font-semibold text-gray-900">
                                             Transcript
                                         </p>
