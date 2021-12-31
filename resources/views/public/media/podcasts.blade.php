@@ -17,7 +17,9 @@
                                     </p>
                                     <a href="{{ $podcast->link }}" class="mt-2 block" target="_podcast">
                                         <p class="text-xl font-semibold text-primary">
-                                            {{ $podcast->title }}
+                                            <a href="{{ route('media.podcast', ['podcast' => $podcast]) }}" class="mt-2 block">
+                                                {{ $podcast->title }}
+                                            </a>
                                         </p>
                                         <p>
                                             {{ $podcast->subtitle }}
