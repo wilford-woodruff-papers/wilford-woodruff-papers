@@ -38,14 +38,6 @@
                                                 Listen now
                                             </a>
                                         @endif
-                                        @if(! empty($podcast->transcript))
-                                            <a href="{{ $podcast->transcript }}"
-                                               class="text-base font-semibold text-secondary hover:text-highlight"
-                                               target="_transcript"
-                                            >
-                                                View Transcript
-                                            </a>
-                                        @endif
                                     </div>
                                 </div>
                             </div>
