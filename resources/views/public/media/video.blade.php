@@ -29,7 +29,7 @@
                                     Transcript
                                 </p>
                                 <div class="mt-8">
-                                    {!! $video->embed !!}
+                                    {!! $video->transcript !!}
                                 </div>
                             </div>
                         </div>
