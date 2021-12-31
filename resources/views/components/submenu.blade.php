@@ -133,7 +133,7 @@
                     </span>
                 </a>
                 <a href="{{ route('media.podcasts') }}"
-                   class="group flex items-center px-3 py-2 text-sm font-medium @if(request()->is('media/podcasts')) active @else @endif">
+                   class="group flex items-center px-3 py-2 text-sm font-medium @if(request()->is('media/podcast*')) active @else @endif">
                     <span class="truncate">
                         Podcasts
                     </span>
