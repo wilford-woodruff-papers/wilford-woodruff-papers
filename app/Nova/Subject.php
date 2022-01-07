@@ -2,9 +2,12 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\ExportSubjects;
 use App\Nova\Actions\ImportBiographies;
 use App\Nova\Actions\ImportSubjects;
+use App\Nova\Filters\SubjectType;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -48,6 +51,7 @@ class Subject extends Resource
             ID::make(__('ID'), 'id')->sortable(),
             Text::make(__('Name'), 'name')->sortable(),
             Text::make(__('Slug'), 'slug')->hideWhenCreating()->sortable(),
+            BelongsToMany::make('Category'),
         ];
     }
 
@@ -70,7 +74,9 @@ class Subject extends Resource
      */
     public function filters(Request $request)
     {
-        return [];
+        return [
+            new SubjectType,
+        ];
     }
 
     /**
@@ -95,6 +101,8 @@ class Subject extends Resource
         return [
             new ImportSubjects,
             new ImportBiographies,
+            (new ExportSubjects)
+                ->askForWriterType(),
         ];
     }
 }
