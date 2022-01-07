@@ -9,6 +9,11 @@ class Child extends Model
 {
     use HasFactory;
 
+    public function person()
+    {
+        return $this->belongsTo(Subject::class);
+    }
+
     public function mother()
     {
         return $this->belongsTo(Wife::class);
