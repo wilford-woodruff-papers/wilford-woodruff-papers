@@ -3,7 +3,7 @@
 <div class="relative @if($child->gender == 'F') rounded-lg border-t-2 border-pink-400 @else rounded-lg border-t-2 border-blue-500 @endif">
     <div class="relative rounded-lg border-l border-r border-b border-gray-300 bg-white px-3 py-2 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500" x-on:mouseenter="flyoutOpen = 'child_{{ $child->id }}'" x-on:mouseleave="flyoutOpen = null">
         <div class="flex-1 min-w-0">
-            <p class="text-lg font-medium text-gray-900"><a class="focus:outline-none" href="{{ optional($child->person)->slug }}">{{ $child->name }}</a></p>
+            <p class="text-lg font-medium text-gray-900"><a class="focus:outline-none" href="/subjects/{{ optional($child->person)->slug }}">{{ $child->name }}</a></p>
 
             <p class="text-sm text-gray-500 truncate"><a class="focus:outline-none" href="#"><span>{{ $child->birthdate }}</span> - <span>{{ $child->deathdate }}</span> </a></p>
         </div>
@@ -14,7 +14,7 @@
     >
         <div class="shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden">
             <div class="relative grid gap-2 bg-white px-5 py-6 sm:gap-2 sm:p-8">
-                <a class="text-lg text-primary font-medium border-b border-gray-200" href="{{ optional($child->person)->slug }}">
+                <a class="text-lg text-primary font-medium border-b border-gray-200" href="/subjects/{{ optional($child->person)->slug }}">
                     {{ $child->name }}
                 </a>
                 <div class="relative grid grid-cols-7">
