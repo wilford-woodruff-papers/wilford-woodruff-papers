@@ -53,7 +53,7 @@
             <div class="page-title">Recognize Wilford's influence in the lives of the individuals he interacted with</div>
 
             <h2 class="section-title">People Mentioned in Wilford Woodruff's Papers</h2>
-            <p class="text-black">Explore the biographical sketches of the many people who interacted with Wilford Woodruff. Discover their stories through Wilford Woodruff's daily journal entries and their correspondence with him.</p>
+            <p class="text-black">Explore the biographical sketches of the many people who interacted with Wilford Woodruff. Discover their stories through Wilford Woodruff's daily journal entries and their correspondence with him. This list reflects only those people identified in published documents. The information in this list is updated quarterly as new documents are published on this site.</p>
 
             <script>
                 var people = @json($people);
