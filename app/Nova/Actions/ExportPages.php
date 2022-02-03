@@ -29,7 +29,8 @@ class ExportPages extends DownloadExcel implements WithMapping, WithHeadings
             'Parent Name',
             'UUID',
             'Name',
-            'URL',
+            'Website URL',
+            'Image URL',
             'Original Transcript',
             'Text Only Transcript',
         ];
@@ -51,6 +52,7 @@ class ExportPages extends DownloadExcel implements WithMapping, WithHeadings
             $page->uuid,
             $page->name,
             route('pages.show', ['item' => $page->item->uuid , 'page' => $page->uuid]),
+            optional($page->getFirstMedia())->getUrl(),
             $page->transcript,
             strip_tags($page->transcript),
         ];
