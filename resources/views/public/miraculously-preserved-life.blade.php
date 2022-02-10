@@ -236,7 +236,7 @@
                                     </div>
                                     <div class="mt-7 text-lg text-gray-700">
                                         <p>
-                                            Well 15 feet from a tree, landed flat on his back, knocked unconscious; cousin thought he was dead so he ran home to tell his parents. Wilford recovered and met his family on their way to retrieve his body.
+                                            Fell 15 feet from a tree, landed flat on his back, knocked unconscious; cousin thought he was dead so he ran home to tell his parents. Wilford recovered and met his family on their way to retrieve his body.
                                         </p>
                                     </div>
                                 </div>
