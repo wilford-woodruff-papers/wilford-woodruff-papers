@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Date;
 use App\Models\Page;
+use App\Models\Subject;
 use App\Models\Type;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -54,6 +55,11 @@ class SearchController extends Controller
                 'min' => Date::where('dateable_type', Page::class)->orderBy('date', 'ASC')->first(),
                 'max' => Date::where('dateable_type', Page::class)->orderBy('date', 'DESC')->first(),
             ],
+            'people' => $request->has('people')
+                ? Subject::whereEnabled(1)
+                    ->whereHas('category', function (Builder $query) {
+                        $query->where('name', 'People');
+                    })->where('name', 'LIKE', '%'. $request->get('q') . '%')->get() : collect(),
         ]);
     }
 }

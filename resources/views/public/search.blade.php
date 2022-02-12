@@ -28,7 +28,7 @@
                                            name="types[]"
                                            type="checkbox"
                                            value="{{ $type->id }}"
-                                           @if(empty(request('types')) || in_array($type->id, request('types'))) checked="checked" @endif
+                                           @if((empty(request('types')) && request('people') != 1) || (request('types') && in_array($type->id, request('types')))) checked="checked" @endif
                                            class="focus:ring-secondary h-4 w-4 text-secondary border-gray-300">
                                 </div>
                                 <div class="ml-3 text-sm">
@@ -36,6 +36,19 @@
                                 </div>
                             </div>
                         @endforeach
+                        <div class="relative flex items-start">
+                            <div class="flex items-center h-5">
+                                <input id="type-people"
+                                       name="people"
+                                       type="checkbox"
+                                       value="1"
+                                       @if(empty(request('types')) || request('people') == 1) checked="checked" @endif
+                                       class="focus:ring-secondary h-4 w-4 text-secondary border-gray-300">
+                            </div>
+                            <div class="ml-3 text-sm">
+                                <label for="people" class="font-medium text-gray-700">People</label>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="space-y-6 sm:space-y-5">
@@ -119,7 +132,27 @@
             </div>
         </div>
 
-        <div class="">
+        @if($people->count() > 0)
+            <div class="px-4">
+                <h2 class="text-primary text-2xl font-serif mt-4 mb-4 border-b border-gray-300">
+                    People
+                </h2>
+                <ul class="divide-y divide-gray-200">
+
+                    @foreach($people as $person)
+
+                        <x-person-summary :person="$person" />
+
+                    @endforeach
+
+                </ul>
+            </div>
+        @endif
+
+        <div class="px-4">
+            <h2 class="text-primary text-2xl font-serif mt-4 mb-4 border-b border-gray-300">
+                Documents
+            </h2>
             @if($pages->total() > 0)
                 <ul class="divide-y divide-gray-200">
 
