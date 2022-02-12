@@ -40,6 +40,13 @@
                                                            value="{{ request('q') }}"
                                                            placeholder="Search website"
                                                            aria-label="Search website">
+                                                    <input type="hidden" name="people" value="1" />
+                                                    @foreach(\App\Models\Type::all() as $type)
+                                                        <input type="hidden"
+                                                               name="types[]"
+                                                               type="checkbox"
+                                                               value="{{ $type->id }}" />
+                                                    @endforeach
                                                 </div>
                                                 <button class="-ml-px relative inline-flex items-center space-x-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white hover:bg-gray-100 focus:outline-none focus:ring-2">
                                                     <svg class="h-5 w-5 text-secondary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
