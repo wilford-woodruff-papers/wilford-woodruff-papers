@@ -12,7 +12,7 @@ class SubjectController extends Controller
     public function show(Subject $subject)
     {
         if(! empty($subject->redirect_to)){
-            $subject = Subject::findOrFail($subject->redirect_to);
+            return redirect()->route('subjects.show', ['subject' => Subject::findOrFail($subject->redirect_to)]);
         }
 
         if(request()->ajax()){
