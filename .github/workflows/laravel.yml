@@ -22,7 +22,7 @@ jobs:
     - name: Install Composer Dependencies
       run: |
             shopt -s expand_aliases
-            alias "ea-php80"="php"
+            alias "php"="ea-php80"
             composer config "http-basic.nova.laravel.com" "${{ secrets.NOVA_USERNAME }}" "${{ secrets.NOVA_PASSWORD }}"
             composer install --no-progress --prefer-dist --optimize-autoloader
     - name: Generate Application Key
