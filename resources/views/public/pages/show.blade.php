@@ -109,6 +109,9 @@
                 <div class="values">
                     <div class="value" lang="">
                         Page {{ $page->order }}
+                        @hasanyrole('Editor|Admin|Super Admin')
+                            <a href="{{ $page->ftp_link }}" class="text-secondary" target="_blank">View</a>
+                        @endhasanyrole
                     </div>
                 </div>
             </div>
