@@ -110,7 +110,9 @@
                     <div class="value" lang="">
                         Page {{ $page->order }}
                         @hasanyrole('Editor|Admin|Super Admin')
-                            <a href="{{ $page->ftp_link }}" class="text-secondary" target="_blank">View</a>
+                            <div>
+                                <a href="{{ $page->ftp_link }}" class="text-secondary ml-4" target="_blank">View in FTP</a>
+                            </div>
                         @endhasanyrole
                     </div>
                 </div>
