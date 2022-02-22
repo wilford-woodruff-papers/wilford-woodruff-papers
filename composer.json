@@ -78,16 +78,16 @@
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "${PHP_VERSION} artisan package:discover --ansi"
+            "ea-php80 artisan package:discover --ansi || php artisan package:discover --ansi"
         ],
         "post-root-package-install": [
-            "${PHP_VERSION} -r \"file_exists('.env') || copy('.env.example', '.env');\""
+            "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
         ],
         "post-create-project-cmd": [
-            "${PHP_VERSION} artisan key:generate --ansi"
+            "php artisan key:generate --ansi"
         ],
         "post-update-cmd": [
-            "${PHP_VERSION} artisan nova:publish"
+            "ea-php80 artisan nova:publish || php artisan nova:publish"
         ]
     },
     "repositories": [
