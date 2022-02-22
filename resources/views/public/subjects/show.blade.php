@@ -7,7 +7,7 @@
             <div class="blocks">
                 <div class="grid grid-cols-12 py-12">
                     <div class="content col-span-12 px-8 py-6">
-                        <h2>{{ $subject->name }}</h2>
+                        <h2>{!! $subject->name !!}</h2>
                         <p>
                             {!! $subject->bio !!}
                         </p>
