@@ -146,7 +146,7 @@ class HarvestPagesFromThePage extends Command
         $links = $dom->find('a');
         foreach($links as $link){
             //dd($link->outerHtml(), $link->getAttribute('title'), $link->innerHtml());
-            $transcript = $transcript->replace($link->outerHtml(), '[['. $link->getAttribute('title') .'|'. $link->innerHtml() .']]');
+            $transcript = $transcript->replace($link->outerHtml(), '[['. html_entity_decode($link->getAttribute('title')) .'|'. $link->innerHtml() .']]');
         }
         return $transcript;
     }
