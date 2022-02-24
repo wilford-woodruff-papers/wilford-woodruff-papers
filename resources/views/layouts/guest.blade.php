@@ -28,6 +28,7 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+        @livewireStyles
         @stack('styles')
         <style>
             [x-cloak] {
@@ -36,7 +37,8 @@
         </style>
 
         <!-- Scripts -->
-        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.1/dist/alpine.min.js" defer></script>
+        @livewireScripts
+        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js" defer></script>
         <script src="{{ mix('js/app.js') }}" defer></script>
         <script async data-uid="a6d02620a7" src="https://wilford-woodruff-papers.ck.page/a6d02620a7/index.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
@@ -48,7 +50,6 @@
             {{ $slot }}
         </div>
     </body>
-
     <x-subject-modal />
     <x-footer />
     <x-google />

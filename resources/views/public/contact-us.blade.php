@@ -8,7 +8,7 @@
                     </div>
                     <div class="content col-span-12 md:col-span-9">
                         <h2>Contact Us</h2>
-                        <iframe class="border-0" src="https://wp.wilfordwoodruffpapers.org/contact-us-2/" style="height: 1100px; width: 100%;"></iframe>
+                        <livewire:forms.contact />
                     </div>
                 </div>
             </div>

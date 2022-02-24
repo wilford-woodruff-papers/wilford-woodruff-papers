@@ -48,5 +48,7 @@ function dragElement(element, direction)
 }
 
 $(function () {
-    dragElement( document.getElementById("separator"), "H" );
+    if(document.getElementById("document-viewer")){
+        dragElement( document.getElementById("separator"), "H" );
+    }
 });
