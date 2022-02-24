@@ -20,7 +20,7 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "intervention/image": "^2.5",
         "laravel/framework": "^8.12",
-        "laravel/jetstream": "^2.2",
+        "laravel/jetstream": "^2.6",
         "laravel/nova": "*",
         "laravel/sanctum": "^2.6",
         "laravel/tinker": "^2.5",
@@ -47,12 +47,17 @@
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.2",
         "nunomaduro/collision": "^5.0",
+        "pestphp/pest": "^1.21",
+        "pestphp/pest-plugin-laravel": "^1.2",
         "phpunit/phpunit": "^9.3.3"
     },
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
     },
     "extra": {
         "laravel": {

@@ -14,7 +14,7 @@ class AddNameToWivesTable extends Migration
     public function up()
     {
         Schema::table('wives', function (Blueprint $table) {
-            $table->string('name')->after('person_id');
+            $table->string('name')->nullable()->after('person_id');
         });
     }
 
