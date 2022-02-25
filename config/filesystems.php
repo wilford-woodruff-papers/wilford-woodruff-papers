@@ -49,6 +49,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'submissions' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/submissions'),
+            'url' => env('APP_URL').'/storage/submissions',
+            'visibility' => 'public',
+        ],
+
         'job_opportunities' => [
             'driver' => 'local',
             'root' => storage_path('app/public/job-opportunities'),

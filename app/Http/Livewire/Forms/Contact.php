@@ -7,7 +7,6 @@ use Livewire\Component;
 
 class Contact extends Component
 {
-
     public $email;
 
     public $firstName;
@@ -39,6 +38,7 @@ class Contact extends Component
         $this->validate();
 
         Submission::create([
+            'form' => 'Contact',
             'first_name' => $this->firstName,
             'last_name' => $this->lastName,
             'email' => $this->email,
