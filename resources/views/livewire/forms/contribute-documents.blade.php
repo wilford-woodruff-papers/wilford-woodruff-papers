@@ -1,5 +1,4 @@
 <div>
-
     <div x-data="{
             attach: 'No'
         }"
@@ -140,5 +139,4 @@
             </div>
         </div>
     </div>
-
 </div>
