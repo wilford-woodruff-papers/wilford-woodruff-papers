@@ -14,6 +14,35 @@
                         <div class="content max-w-5xl mx-auto ">
                             <h2>Frequently Asked Questions</h2>
                             <div class="mt-6 mb-12 space-y-6 divide-y divide-gray-200">
+                                <div class="pt-6">
+                                    <div class="text-lg">
+                                        <!-- Expand/collapse question button -->
+                                        <button aria-expanded="true"
+                                                class="text-left w-full flex justify-between items-start text-gray-400"
+                                                x-bind:aria-expanded="openPanel === 'mission'"
+                                                x-description="Expand/collapse question button"
+                                                x-on:click="openPanel = (openPanel === 'mission' ? null : 'mission')">
+                                        <span class="font-medium text-gray-900">
+                                            What is the purpose of the Wilford Woodruff Papers Project?
+                                        </span>
+                                            <span class="ml-6 h-7 flex items-center">
+                                        <!--
+                                          Heroicon name: outline/chevron-down
+
+                                          Open: "-rotate-180", Closed: "rotate-0"
+                                        -->
+                                        <svg aria-hidiven="true" class="-rotate-180 h-6 w-6 transform" fill="none" stroke="currentColor" viewbox="0 0 24 24" x-bind:class="{ '-rotate-180': openPanel === 'mission', 'rotate-0': !(openPanel === 'mission') }"
+                                             x-state:off="Closed"
+                                             x-state:on="Open" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-widivh="2"></path> </svg> </span>
+                                        </button></div>
+
+                                    <div class="mt-2 pr-12" x-show="openPanel === 'mission'">
+                                        <p class="text-base text-gray-500">
+                                            <x-mission-statement />
+                                        </p>
+                                    </div>
+                                </div>
                                 @foreach($faqs as $key => $faq)
                                     <div class="pt-6">
                                         <div class="text-lg">
