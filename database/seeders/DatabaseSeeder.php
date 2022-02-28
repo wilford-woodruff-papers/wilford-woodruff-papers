@@ -50,9 +50,9 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Topics'],
         ]);
 
-        Artisan::call('import:subjects');
-        Artisan::call('import:bios');
-        Artisan::call('import:family');
+        //Artisan::call('import:subjects');
+        //Artisan::call('import:bios');
+        //Artisan::call('import:family');
 
         Team::insert([
             ['name' => 'Board of Directors'],
@@ -61,7 +61,7 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Advisors'],
         ]);
 
-        Artisan::call('import:team');
+        //Artisan::call('import:team');
 
         /*$photos = Photo::factory()
                         ->count(3)
@@ -71,9 +71,9 @@ class DatabaseSeeder extends Seeder
             $photo->addMediaFromUrl('https://wilfordwoodruffpapers.org/files/medium/8ff5ef10524521faea83c55ac813b16251c0c992.jpg')->toMediaCollection();
         }*/
 
-        Artisan::call('import:podcasts');
-        Artisan::call('import:videos');
-        Artisan::call('import:news');
+        //Artisan::call('import:podcasts');
+        //Artisan::call('import:videos');
+        //Artisan::call('import:news');
         Artisan::call('import:items');
 
         $letter = Item::where('name', 'Letter to Phebe Whittemore Carter Woodruff, 30 September 1839')->first();
@@ -90,6 +90,6 @@ class DatabaseSeeder extends Seeder
                 ->update(['enabled' => 1]);
 
         Artisan::call('import:pages');
-        Artisan::call('import:faqs');
+        //Artisan::call('import:faqs');
     }
 }

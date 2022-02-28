@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
@@ -43,11 +44,15 @@ class Submission extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            Text::make('Salutation'),
+            Text::make('Form')->readonly(true)->sortable(),
+            Text::make('Salutation')->hideFromIndex(),
             Text::make('First Name')->sortable(),
             Text::make('Last Name')->sortable(),
-            Text::make('Email')->sortable(),
+            Text::make('Email')->displayUsing(function ($value){
+                return "<a href='mailto:$value'>$value</a>";
+            })->asHtml()->sortable(),
             Textarea::make('Message')->readonly(true)->alwaysShow(),
+            File::make('File')->disk('submissions')->sortable(),
         ];
     }
 

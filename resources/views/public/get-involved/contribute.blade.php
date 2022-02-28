@@ -8,7 +8,7 @@
                     </div>
                     <div class="content col-span-12 md:col-span-9">
                         <h2>Contribute Documents</h2>
-                        <iframe class="border-0" src="https://wp.wilfordwoodruffpapers.org/contribute-documents/" style="height: 1300px; width: 100%;"></iframe>
+                        <livewire:forms.contribute-documents />
                     </div>
                 </div>
             </div>

@@ -39,6 +39,7 @@ class Contact extends Component
         $this->validate();
 
         Submission::create([
+            'form' => 'Contact',
             'first_name' => $this->firstName,
             'last_name' => $this->lastName,
             'email' => $this->email,
