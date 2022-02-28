@@ -28,17 +28,17 @@
     </div>
 
 
-    {{--<div class="bg-white mt-4 mb-8">
+    <div class="bg-white mt-4 mb-8">
         <div class="max-w-7xl mx-auto pt-8 md:pt-16 px-12 pb-4 xl:pt-16  md:px-24 md:pb-8">
             <div class="">
                 <div class="max-w-full md:max-w-5xl h-auto mx-auto">
-                    <a href="http://info.wilfordwoodruffpapers.org/webinar-registration-page1631055710681"
+                    <a href="https://zoom.us/webinar/register/WN_SUN6BiU9S9WLX-3OY7GXxQ?fbclid=IwAR0hak7ua3bjf-oaclKVha7d2FZg125AeYqvP_uvMgJKQDqDmPkXX1cnqyQ"
                        target="_blank">
-                        <img src="{{ asset('img/2021-10-10.png') }}" alt="Devotional with Elder LeGrand R. Curtis, Jr."/>
+                        <img src="{{ asset('img/2022-03-06.png') }}" alt="Devotional with Elder LeGrand R. Curtis, Jr."/>
                     </a>
                 </div>
                 <div class="w-full text-center mt-4">
-                    <a href="http://info.wilfordwoodruffpapers.org/webinar-registration-page1631055710681"
+                    <a href="https://zoom.us/webinar/register/WN_SUN6BiU9S9WLX-3OY7GXxQ?fbclid=IwAR0hak7ua3bjf-oaclKVha7d2FZg125AeYqvP_uvMgJKQDqDmPkXX1cnqyQ"
                        target="_blank"
                        class="bg-secondary text-white font-semibold text-center px-6 py-3">
                         RSVP here &gt;
@@ -46,7 +46,7 @@
                 </div>
             </div>
         </div>
-    </div>--}}
+    </div>
 
     @if(! empty($article))
         <div class="bg-white">
