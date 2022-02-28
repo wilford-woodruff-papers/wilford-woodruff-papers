@@ -50,9 +50,10 @@ class Submission extends Resource
             Text::make('Last Name')->sortable(),
             Text::make('Email')->displayUsing(function ($value){
                 return "<a href='mailto:$value'>$value</a>";
-            })->asHtml()->sortable(),
+            })->asHtml(),
+            Text::make('Phone'),
             Textarea::make('Message')->readonly(true)->alwaysShow(),
-            File::make('File')->disk('submissions')->sortable(),
+            File::make('File')->disk('submissions'),
         ];
     }
 
