@@ -1,7 +1,7 @@
 <x-guest-layout>
     <div id="content" role="main"
          x-data="{
-                openPanel: 0
+                openPanel: 'mission'
             }"
     >
         <div class="max-w-7xl mx-auto px-4">
