@@ -69,7 +69,7 @@ class ItemController extends Controller
 
             }
         }else{
-            $items = $items->orderBy('sort_date', 'ASC');
+            $items = $items->orderBy('added_to_collection_at', 'DESC');
         }
 
         return view('public.documents.index', [
