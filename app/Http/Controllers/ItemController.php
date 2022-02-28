@@ -56,7 +56,7 @@ class ItemController extends Controller
 
         if($request->has('sort')){
             $sort = explode(":", $request->get('sort'));
-            $direction = ($sort[1] == 'desc'? 'DESC' : 'ASC');
+            $direction = ($sort[1] == 'asc'? 'ASC' : 'DESC');
             switch($sort[0]){
                 case 'title':
                     $items = $items->orderBy('name', $direction);
