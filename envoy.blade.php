@@ -28,7 +28,7 @@
     cp -R /home/wilfordw/production_laravel_app/public/favicon/* /home/wilfordw/public_html/favicon
     cp -R /home/wilfordw/production_laravel_app/public/vendor/* /home/wilfordw/public_html/vendor
 
-    composer install --ignore-platform-reqs
+    composer install --ignore-platform-reqs --no-dev
     ea-php80 artisan migrate --force
     ea-php80 artisan route:cache
     ea-php80 artisan storage:link
