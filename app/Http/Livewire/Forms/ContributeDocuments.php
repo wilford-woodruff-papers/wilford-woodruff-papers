@@ -2,7 +2,10 @@
 
 namespace App\Http\Livewire\Forms;
 
+use App\Mail\ContactFormSubmitted;
 use App\Models\Submission;
+use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -63,6 +66,9 @@ class ContributeDocuments extends Component
             $submission->file = $this->file->store('files', 'submissions');
             $submission->save();
         }
+
+        Mail::to(User::whereIn('email', explode('|', config('wwp.form_emails.contact')))->get())
+            ->send(new ContactFormSubmitted($submission));
 
         $this->success = true;
     }
