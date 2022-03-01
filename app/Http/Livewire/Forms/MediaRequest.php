@@ -2,7 +2,10 @@
 
 namespace App\Http\Livewire\Forms;
 
+use App\Mail\MediaRequested;
 use App\Models\Submission;
+use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 
 class MediaRequest extends Component
@@ -73,6 +76,9 @@ class MediaRequest extends Component
             'phone' => $this->phone,
             'salutation' => $this->salutation,
         ]);
+
+        Mail::to(User::whereIn('email', explode('|', config('wwp.form_emails.media_request')))->get())
+                ->send(new MediaRequested($submission));
 
         $this->success = true;
     }
