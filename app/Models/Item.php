@@ -10,14 +10,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Encoders\Base64Encoder;
-use Parental\HasChildren;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 
 class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortable
 {
     use Auditable, GeneratesUuid, HasFactory, SortableTrait;
-    use HasChildren;
 
     protected $guarded = ['id'];
 
@@ -32,7 +30,19 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
         'uuid' => EfficientUuid::class,
     ];
 
-    protected $childColumn = 'parental_type';
+    public function pages()
+    {
+        /*if(Str::of(optional($this->type)->name)->exactly(['Autobiographies', 'Journals'])){
+            return $this->hasManyThrough(Page::class, Item::class)->orderBy('order', 'ASC');
+        }else{
+            return $this->hasMany(Page::class)->orderBy('order', 'ASC');
+        }*/
+        if(array_key_exists('id', $this->attributes) && Page::where('item_id', $this->attributes['id'])->count() > 0){
+            return $this->hasMany(Page::class)->orderBy('order', 'ASC');
+        }else{
+            return $this->hasManyThrough(Page::class, Item::class)->orderBy('order', 'ASC');
+        }
+    }
 
     public function items()
     {
