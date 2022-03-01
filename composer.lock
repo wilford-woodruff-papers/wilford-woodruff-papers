@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5b5dbab530c1797f21043e64593bf234",
+    "content-hash": "b7136d3fa5f164712867696e05a41b67",
     "packages": [
         {
             "name": "alexpechkarev/geometry-library",
@@ -535,6 +535,57 @@
                 "source": "https://github.com/cakephp/chronos"
             },
             "time": "2021-10-17T02:44:05+00:00"
+        },
+        {
+            "name": "calebporzio/parental",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/calebporzio/parental.git",
+                "reference": "2ca278206b08657a012ce06182394bd59b06ded9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/calebporzio/parental/zipball/2ca278206b08657a012ce06182394bd59b06ded9",
+                "reference": "2ca278206b08657a012ce06182394bd59b06ded9",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^8.0",
+                "illuminate/events": "^8.0",
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.0",
+                "phpunit/phpunit": "^8.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Parental\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Caleb Porzio",
+                    "email": "calebporzio@gmail.com"
+                }
+            ],
+            "description": "A simple eloquent trait that allows relationships to be accessed through child models.",
+            "support": {
+                "source": "https://github.com/calebporzio/parental/tree/v1.0.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/calebporzio",
+                    "type": "github"
+                }
+            ],
+            "time": "2021-10-08T07:44:57+00:00"
         },
         {
             "name": "clue/stream-filter",
@@ -12710,7 +12761,7 @@
         },
         {
             "name": "wwp/items",
-            "version": "dev-feature/youtube_embed_code",
+            "version": "dev-develop",
             "dist": {
                 "type": "path",
                 "url": "./nova-components/Items",
