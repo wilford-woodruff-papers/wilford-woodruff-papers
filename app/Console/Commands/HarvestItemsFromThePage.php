@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Item;
+use App\Models\Document;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 
@@ -42,16 +42,17 @@ class HarvestItemsFromThePage extends Command
         $response = Http::get('https://fromthepage.com/iiif/collection/970');
 
         $manifests = $response->json()['manifests'];
-
+        $count = 0;
         foreach($manifests as $key => $item){
-            $document = Item::updateOrCreate([
+            $document = Document::updateOrCreate([
                 'ftp_id' => $item['@id'],
             ], [
                 'name' => $item['label'],
             ]);
             $document->touch();
-            $this->info('Imported: ' . $document->name);
+            $count = $count + 1;
         };
+        $this->info("Imported $count documents");
 
         return 0;
     }
