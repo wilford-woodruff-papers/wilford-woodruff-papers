@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Models\Press;
 use Illuminate\View\Component;
 
 class ArticlePreviewCarousel extends Component
@@ -23,6 +24,12 @@ class ArticlePreviewCarousel extends Component
      */
     public function render()
     {
-        return view('components.article-preview-carousel');
+        return view('components.article-preview-carousel', [
+            'medias' => Press::select('id', 'type', 'title', 'cover_image', 'slug')
+                                //->whereNotNull('cover_image')
+                                ->limit(6)
+                                ->orderBy('created_at', 'DESC')
+                                ->get(),
+        ]);
     }
 }

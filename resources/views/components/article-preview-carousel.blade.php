@@ -74,7 +74,7 @@
                 <span class="sr-only">Skip to previous slide page</span>
             </button>
 
-            <span id="carousel-content-label" class="sr-only" hidden>Carousel</span>
+            <span id="carousel-content-label" class="sr-only" hidden>Recent Media</span>
 
             <ul
                 x-ref="slider"
@@ -83,41 +83,14 @@
                 aria-labelledby="carousel-content-label"
                 class="flex w-full overflow-x-scroll snap-x snap-mandatory"
             >
-                <li x-bind="disableNextAndPreviousButtons" class="snap-start w-1/3 shrink-0 flex flex-col items-center justify-center p-2" role="option">
-                    <img class="mt-2 w-full" src="https://picsum.photos/400/200?random=1" alt="placeholder image">
-
-                    <button x-bind="focusableWhenVisible" class="px-4 py-2 text-sm">Do Something</button>
-                </li>
-
-                <li x-bind="disableNextAndPreviousButtons" class="snap-start w-1/3 shrink-0 flex flex-col items-center justify-center p-2" role="option">
-                    <img class="mt-2 w-full" src="https://picsum.photos/400/200?random=2" alt="placeholder image">
-
-                    <button x-bind="focusableWhenVisible" class="px-4 py-2 text-sm">Do Something</button>
-                </li>
-
-                <li x-bind="disableNextAndPreviousButtons" class="snap-start w-1/3 shrink-0 flex flex-col items-center justify-center p-2" role="option">
-                    <img class="mt-2 w-full" src="https://picsum.photos/400/200?random=3" alt="placeholder image">
-
-                    <button x-bind="focusableWhenVisible" class="px-4 py-2 text-sm">Do Something</button>
-                </li>
-
-                <li x-bind="disableNextAndPreviousButtons" class="snap-start w-1/3 shrink-0 flex flex-col items-center justify-center p-2" role="option">
-                    <img class="mt-2 w-full" src="https://picsum.photos/400/200?random=4" alt="placeholder image">
-
-                    <button x-bind="focusableWhenVisible" class="px-4 py-2 text-sm">Do Something</button>
-                </li>
-
-                <li x-bind="disableNextAndPreviousButtons" class="snap-start w-1/3 shrink-0 flex flex-col items-center justify-center p-2" role="option">
-                    <img class="mt-2 w-full" src="https://picsum.photos/400/200?random=5" alt="placeholder image">
-
-                    <button x-bind="focusableWhenVisible" class="px-4 py-2 text-sm">Do Something</button>
-                </li>
-
-                <li x-bind="disableNextAndPreviousButtons" class="snap-start w-1/3 shrink-0 flex flex-col items-center justify-center p-2" role="option">
-                    <img class="mt-2 w-full" src="https://picsum.photos/400/200?random=6" alt="placeholder image">
-
-                    <button x-bind="focusableWhenVisible" class="px-4 py-2 text-sm">Do Something</button>
-                </li>
+                @foreach($medias as $media)
+                    <li x-bind="disableNextAndPreviousButtons" class="snap-start w-1/3 shrink-0 flex flex-col items-center justify-center p-2" role="option">
+                        <a href="{{ $media->url->show }}">
+                            <img class="mt-2 w-full" src="https://picsum.photos/400/200?random=1" alt="{{ $media->title }}">
+                        </a>
+                        <button x-bind="focusableWhenVisible" class="px-4 py-2 text-sm">Do Something</button>
+                    </li>
+                @endforeach
             </ul>
 
             <!-- Next Button -->
