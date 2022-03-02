@@ -87,8 +87,7 @@ return [
     */
 
     'links' => [
-        '/home/wilfordw/public_html/storage' => storage_path('app/public'),
-        '/home/wilfordw/dev.wilfordwoodruffpapers.org/develop/public/storage' => storage_path('app/public'),
+        public_path('storage') => storage_path('app/public'),
     ],
 
 ];
