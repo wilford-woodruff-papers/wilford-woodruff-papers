@@ -7,6 +7,7 @@ use Emilianotisato\NovaTinyMCE\NovaTinyMCE;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Laravel\Nova\Fields\Date;
+use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
@@ -58,6 +59,7 @@ class Press extends Resource
                 'Podcast' => 'Podcast',
                 'Video' => 'Video',
             ])->sortable(),
+            File::make(__('Cover Image'), 'cover_image')->disk('media'),
             Date::make(__('Date'), 'date')->sortable(),
             Text::make(__('Title'), 'title')->sortable(),
             Text::make(__('Slug'), 'slug')->hideFromIndex()->hideWhenCreating()->sortable(),
