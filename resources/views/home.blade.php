@@ -47,6 +47,10 @@
         </div>
     </div>
 
+    <div class="max-w-7xl mx-auto pt-8 md:pt-16 px-12 pb-4 xl:pt-16  md:px-24 md:pb-8">
+        <x-article-preview-carousel />
+    </div>
+
     @if(! empty($article))
         <div class="bg-white">
             <div class="max-w-7xl mx-auto pt-8 md:pt-16 px-12 pb-4 xl:pt-16  md:px-24 md:pb-8">
