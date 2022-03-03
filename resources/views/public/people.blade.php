@@ -8,6 +8,8 @@
         } elseif(\Illuminate\Support\Str::of($person->name)->contains('Sr.')) {
             $name_suffix = 'Sr.';
             $name = \Illuminate\Support\Str::of($person->name)->replace('Sr.', '');
+        } else {
+            $name = $person->name;
         }
         $name = explode(' ', $name);
         $index = substr(end($name), 0, 1);
