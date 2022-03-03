@@ -2,8 +2,13 @@
     $alpha = [];
     $people = [];
     foreach ($subjects as $person) {
-        $name_suffix = explode(',', $person->name);
-        $name = array_shift($name_suffix);
+        if(\Illuminate\Support\Str::of($person->name)->contains('Jr.')) {
+            $name_suffix = 'Jr.';
+            $name = \Illuminate\Support\Str::of($person->name)->replace('Jr.', '');
+        } elseif(\Illuminate\Support\Str::of($person->name)->contains('Sr.')) {
+            $name_suffix = 'Sr.';
+            $name = \Illuminate\Support\Str::of($person->name)->replace('Sr.', '');
+        }
         $name = explode(' ', $name);
         $index = substr(end($name), 0, 1);
         if(! array_key_exists($index, $alpha)){
