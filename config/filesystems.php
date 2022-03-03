@@ -49,6 +49,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'media' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/media'),
+            'url' => env('APP_URL').'/storage/media',
+            'visibility' => 'public',
+        ],
+
         'submissions' => [
             'driver' => 'local',
             'root' => storage_path('app/public/submissions'),

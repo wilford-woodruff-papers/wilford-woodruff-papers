@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Presenters\Presses\UrlPresenter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Auditable;
@@ -19,6 +20,15 @@ class Press extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Audita
     protected $dates = [
         'date',
     ];
+
+    protected $appends = [
+        'url'
+    ];
+
+    public function getUrlAttribute()
+    {
+        return new UrlPresenter($this);
+    }
 
     /**
      * Get the options for generating the slug.

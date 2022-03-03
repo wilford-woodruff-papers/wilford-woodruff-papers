@@ -2,8 +2,16 @@
     $alpha = [];
     $people = [];
     foreach ($subjects as $person) {
-        $name_suffix = explode(',', $person->name);
-        $name = array_shift($name_suffix);
+        $name_suffix = '';
+        if(\Illuminate\Support\Str::of($person->name)->contains('Jr.')) {
+            $name_suffix = 'Jr.';
+            $name = \Illuminate\Support\Str::of($person->name)->replace('Jr.', '')->rtrim(', ');
+        } elseif(\Illuminate\Support\Str::of($person->name)->contains('Sr.')) {
+            $name_suffix = 'Sr.';
+            $name = \Illuminate\Support\Str::of($person->name)->replace('Sr.', '')->rtrim(', ');
+        } else {
+            $name = $person->name;
+        }
         $name = explode(' ', $name);
         $index = substr(end($name), 0, 1);
         if(! array_key_exists($index, $alpha)){
@@ -12,7 +20,7 @@
 
         $subject = [
             'last_name' => array_pop($name),
-            'first_name' => implode(" ", $name) . (! empty($name_suffix)? ' ('.trim(implode(', ', $name_suffix)).')':''),
+            'first_name' => implode(" ", $name) . (! empty($name_suffix) ? ' (' . $name_suffix . ')' : ''),
             'url' => route('subjects.show', ['subject' => $person]),
             #'url' => '/s/'.$page->params['site-slug'].'/page/'.$page->params['page-slug'],
         ];

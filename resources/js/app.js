@@ -1,6 +1,11 @@
 require('./bootstrap');
 
-require('alpinejs');
+import Alpine from 'alpinejs'
+import intersect from '@alpinejs/intersect'
+
+window.Alpine = Alpine
+Alpine.plugin(intersect)
+Alpine.start()
 
 // A function is used for dragging and moving
 function dragElement(element, direction)

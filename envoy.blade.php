@@ -31,5 +31,4 @@
     composer install --ignore-platform-reqs --no-dev
     ea-php80 artisan migrate --force
     ea-php80 artisan route:cache
-    ea-php80 artisan storage:link
 @endtask
