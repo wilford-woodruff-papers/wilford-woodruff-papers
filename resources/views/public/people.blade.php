@@ -3,7 +3,10 @@
     $people = [];
     foreach ($subjects as $person) {
         $name_suffix = '';
-        $year = \Illuminate\Support\Str::of($person->name)->afterLast(',')->trim();
+        $year = '';
+        if(\Illuminate\Support\Str::of($person->name)->contains(', b.')){
+            $year = \Illuminate\Support\Str::of($person->name)->afterLast(',')->trim();
+        }
         if(\Illuminate\Support\Str::of($person->name)->contains('Jr.')) {
             $name_suffix = 'Jr.';
             $name = \Illuminate\Support\Str::of($person->name)->beforeLast(',')->replace('Jr.', '')->rtrim(', ');
