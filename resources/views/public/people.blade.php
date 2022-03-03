@@ -5,10 +5,10 @@
         $name_suffix = '';
         if(\Illuminate\Support\Str::of($person->name)->contains('Jr.')) {
             $name_suffix = 'Jr.';
-            $name = \Illuminate\Support\Str::of($person->name)->replace('Jr.', '');
+            $name = \Illuminate\Support\Str::of($person->name)->replace('Jr.', '')->rtrim(', ');
         } elseif(\Illuminate\Support\Str::of($person->name)->contains('Sr.')) {
             $name_suffix = 'Sr.';
-            $name = \Illuminate\Support\Str::of($person->name)->replace('Sr.', '');
+            $name = \Illuminate\Support\Str::of($person->name)->replace('Sr.', '')->rtrim(', ');
         } else {
             $name = $person->name;
         }
