@@ -111,7 +111,8 @@
                         Page {{ $page->order }}
                         @hasanyrole('Editor|Admin|Super Admin')
                             <div>
-                                <a href="{{ $page->ftp_link }}" class="text-secondary ml-4" target="_blank">View in FTP</a>
+                                <a href="{{ $page->ftp_link }}" class="text-secondary" target="_blank">View in FTP</a>
+                                <a href="/nova/resources/items/{{ $page->item->id }}" class="text-secondary ml-4" target="_blank">View Item in Nova</a>
                             </div>
                         @endhasanyrole
                     </div>
