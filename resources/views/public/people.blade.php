@@ -20,7 +20,7 @@
 
         $subject = [
             'last_name' => array_pop($name),
-            'first_name' => implode(" ", $name) . (! empty($name_suffix) ? ', ' . $name_suffix : ''),
+            'first_name' => implode(" ", $name) . (! empty($name_suffix) ? ' (' . $name_suffix . ')' : ''),
             'url' => route('subjects.show', ['subject' => $person]),
             #'url' => '/s/'.$page->params['site-slug'].'/page/'.$page->params['page-slug'],
         ];
