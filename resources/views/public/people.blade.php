@@ -11,7 +11,7 @@
             $name_suffix = 'Sr.';
             $name = \Illuminate\Support\Str::of($person->name)->beforeLast(',')->replace('Sr.', '')->rtrim(', ');
         } else {
-            $name = $person->name;
+            $name = \Illuminate\Support\Str::of($person->name)->beforeLast(',');
         }
         $name = explode(' ', $name);
         $index = substr(end($name), 0, 1);
