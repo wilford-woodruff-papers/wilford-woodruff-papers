@@ -2,36 +2,31 @@
 
 namespace App\Nova;
 
-use App\Nova\Filters\PressType;
 use Emilianotisato\NovaTinyMCE\NovaTinyMCE;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\File;
-use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Laravel\Nova\Nova;
 
-class Press extends Resource
+class Podcast extends Resource
 {
-    public static $group = 'Website';
+    public static $group = 'Media';
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\Models\Press::class;
+    public static $model = \App\Models\Podcast::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
      * @var string
      */
-    public static $title = 'title';
+    public static $title = 'id';
 
     /**
      * The columns that should be searched.
@@ -40,7 +35,6 @@ class Press extends Resource
      */
     public static $search = [
         'id',
-        'title',
     ];
 
     /**
@@ -53,33 +47,42 @@ class Press extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            Select::make(__('Type'))->options([
-                'Article' => 'Article',
-                'News' => 'News',
-                'Podcast' => 'Podcast',
-                'Video' => 'Video',
-            ])->sortable(),
-            File::make(__('Cover Image'), 'cover_image')->disk('media'),
-            Date::make(__('Date'), 'date')->sortable(),
-            Text::make(__('Title'), 'title')->sortable(),
-            Text::make(__('Slug'), 'slug')->hideFromIndex()->hideWhenCreating()->sortable(),
-            Text::make(__('Subtitle'), 'subtitle')->resolveUsing(function ($subtitle) {
-                return Str::of($subtitle)->limit('50', ' ...');
-            })->sortable(),
-            // Text::make(__('Slug'), 'slug')->hideWhenCreating()->sortable(),
-            Textarea::make('Excerpt'),
-            NovaTinyMCE::make('Description')->options([
-                'use_lfm' => true,
-                'height' => 500,
-            ])->alwaysShow(),
+            File::make(__('Cover Image'), 'cover_image')
+                ->disk('media')
+                ->help('A cover image is required to display videos on the homepage'),
+            Text::make(__('Title'), 'title')
+                ->required(true)
+                ->sortable(),
+            Text::make(__('Slug'), 'slug')
+                ->hideFromIndex()
+                ->hideWhenCreating()
+                ->sortable()
+                ->help('The slug is automatically generated, but can be updated if needed to make the URL more user friendly. It must be unique.'),
+            Date::make(__('Publish At'), 'date')
+                ->required(true)
+                ->sortable(),
+            Text::make(__('Host(s) / Guest(s)'), 'subtitle')
+                ->displayUsing(function ($subtitle) {
+                    return Str::of($subtitle)->limit('50', ' ...');
+                })
+                ->sortable(),
+            NovaTinyMCE::make('Summary', 'description')
+                ->options([
+                    'height' => 500,
+                ])
+                ->alwaysShow(),
+            Text::make('Link', 'embed')
+                ->required(true)
+                ->hideFromIndex()
+                ->help('Paste the link to the podcast here. If link is for YouTube, it will be embedded automatically.'),
+            Text::make('Embed Code', 'embed')
+                ->hideFromIndex()
+                ->help('If the podcast provides an alternate embed code, paste it here.'),
             NovaTinyMCE::make('Transcript')
                 ->options([
                     'height' => 500,
                 ])
                 ->alwaysShow(),
-            Text::make('Link')->hideFromIndex(),
-            Textarea::make('Embed')->hideFromIndex(),
-            HasMany::make('Media'),
         ];
     }
 
@@ -102,9 +105,7 @@ class Press extends Resource
      */
     public function filters(Request $request)
     {
-        return [
-            new PressType,
-        ];
+        return [];
     }
 
     /**

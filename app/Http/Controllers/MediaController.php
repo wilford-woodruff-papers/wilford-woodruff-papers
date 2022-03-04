@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
+use App\Models\News;
 use App\Models\Photo;
+use App\Models\Podcast;
 use App\Models\Press;
+use App\Models\Video;
 use Illuminate\Http\Request;
 
 class MediaController extends Controller
@@ -11,8 +15,7 @@ class MediaController extends Controller
     public function articles(Request $request)
     {
         return view('public.media.articles', [
-            'articles' => Press::whereType('ARTICLE')
-                                    ->orderBy('date', 'DESC')
+            'articles' => Article::latest('date')
                                     ->paginate(10),
         ]);
     }
@@ -41,9 +44,8 @@ class MediaController extends Controller
     public function podcasts(Request $request)
     {
         return view('public.media.podcasts', [
-            'podcasts' => Press::whereType('PODCAST')
-                                    ->orderBy('date', 'DESC')
-                                    ->get(),
+            'podcasts' => Podcast::latest('date')
+                                    ->paginate(10),
         ]);
     }
 
@@ -57,10 +59,9 @@ class MediaController extends Controller
     public function videos(Request $request)
     {
         return view('public.media.videos', [
-            'videos' => Press::whereType('VIDEO')
-                                ->orderBy('date', 'DESC')
+            'videos' => Video::latest('date')
                                 ->orderBy('title', 'ASC')
-                                ->get(),
+                                ->paginate(10),
         ]);
     }
 
@@ -74,9 +75,8 @@ class MediaController extends Controller
     public function newsroom(Request $request)
     {
         return view('public.media.newsroom', [
-            'articles' => Press::whereType('NEWS')
-                                ->orderBy('date', 'DESC')
-                                ->get(),
+            'articles' => News::latest('date')
+                                ->paginate(10),
         ]);
     }
 

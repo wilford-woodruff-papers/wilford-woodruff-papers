@@ -50,7 +50,7 @@
             },
         },
     }"
-        class="flex flex-col w-full"
+        class="flex flex-col w-full article-preview-carousel"
     >
         <div
             x-on:keydown.right="next"
@@ -65,12 +65,13 @@
             <!-- Prev Button -->
             <button
                 x-on:click="prev"
-                class="text-6xl"
+                class="text-3xl"
                 :aria-disabled="atBeginning"
                 :tabindex="atEnd ? -1 : 0"
                 :class="{ 'opacity-50 cursor-not-allowed': atBeginning }"
             >
-                <span aria-hidden="true">❮</span>
+                <span class="p-6 text-white bg-secondary"
+                      aria-hidden="true">❮</span>
                 <span class="sr-only">Skip to previous slide page</span>
             </button>
 
@@ -85,10 +86,10 @@
             >
                 @foreach($medias as $media)
                     <li x-bind="disableNextAndPreviousButtons" class="snap-start w-1/3 shrink-0 flex flex-col items-center justify-center p-2" role="option">
-                        <a href="{{ $media->url->show }}">
-                            <img class="mt-2 w-full" src="https://picsum.photos/400/200?random=1" alt="{{ $media->title }}">
+                        <a href="{{ $media->url->show }}" title="{{ $media->title }}">
+                            <img class="mt-2 w-full" src="{{ $media->cover_image }}" alt="{{ $media->title }}">
                         </a>
-                        <button x-bind="focusableWhenVisible" class="px-4 py-2 text-sm">Do Something</button>
+                        {{--<button x-bind="focusableWhenVisible" class="px-4 py-2 text-sm">Do Something</button>--}}
                     </li>
                 @endforeach
             </ul>
@@ -96,12 +97,13 @@
             <!-- Next Button -->
             <button
                 x-on:click="next"
-                class="text-6xl"
+                class="text-3xl"
                 :aria-disabled="atEnd"
                 :tabindex="atEnd ? -1 : 0"
                 :class="{ 'opacity-50 cursor-not-allowed': atEnd }"
             >
-                <span aria-hidden="true">❯</span>
+                <span class="p-6 text-white bg-secondary"
+                      aria-hidden="true">❯</span>
                 <span class="sr-only">Skip to next slide page</span>
             </button>
         </div>
