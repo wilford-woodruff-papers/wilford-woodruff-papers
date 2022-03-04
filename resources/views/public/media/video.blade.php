@@ -9,7 +9,7 @@
                     <div class="videos content col-span-12 md:col-span-9">
                         <div class="flex flex-col shadow-lg overflow-hidden">
                             <div class="flex-shrink-0">
-                                {!! $video->embed !!}
+                                <iframe style="width: 100%; height: 480px;" src="{{ $video->embed_link }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                             </div>
                             <div class="flex-1 bg-white p-6 flex flex-col justify-between">
                                 <div class="flex-1">

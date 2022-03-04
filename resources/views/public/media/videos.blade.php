@@ -19,7 +19,7 @@
                                            target="_blank">
                                             <img class="h-48 w-full object-cover" src="/files/asset/videos/treasure-box.jpg" alt="">
                                         </a>-->
-                                        {!! $video->embed !!}
+                                        <iframe style="width: 100%; height: 480px;" src="{{ $video->embed_link }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                     </div>
                                     <div class="flex-1 bg-white p-6 flex flex-col justify-between">
                                         <div class="flex-1">

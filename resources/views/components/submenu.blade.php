@@ -169,7 +169,7 @@
                                 </span>
                 </a>-->
                 <a href="{{ route('media.news') }}"
-                   class="group flex items-center px-3 py-2 text-sm font-medium @if(request()->is('media/news')) active @else @endif">
+                   class="group flex items-center px-3 py-2 text-sm font-medium @if(request()->is('media/newsroom')) active @else @endif">
                     <span class="truncate">
                         Newsroom
                     </span>
