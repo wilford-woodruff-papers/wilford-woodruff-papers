@@ -27,7 +27,7 @@ class SearchController extends Controller
 
         if($request->has('q')){
             $pages = $pages->where(function($query) use ($request) {
-                                $query->where('name', 'LIKE', '%'.$request->get('q').'%')
+                                $query->whereRelation('item', 'name', 'LIKE', '%'.$request->get('q').'%')
                                       ->orWhere('transcript', 'LIKE', '%'.$request->get('q').'%');
                             });
         }
