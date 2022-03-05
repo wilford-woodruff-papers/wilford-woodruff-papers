@@ -14,7 +14,7 @@
         <p class="ml-2 text-base font-medium">
             <span class="text-gray-600">Part of </span>
             <span class="text-secondary">
-                <a href="{{ route('documents.show', ['item' => $page->parent]) }}">{{ $page->parent->name }}</a>
+                <a href="{{ route('documents.show', ['item' => $page->parent]) }}">{{ \Illuminate\Support\Str::of($page->parent->name)->replaceMatches('/\[.*?\]/', '')->trim() }}</a>
             </span>
         </p>
         {{--@if($page->item->type)
