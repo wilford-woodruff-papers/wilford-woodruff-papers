@@ -12,9 +12,9 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
-class Press extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditable
+class Press extends Model implements HasMedia
 {
-    use Auditable, HasFactory, HasSlug, InteractsWithMedia;
+    use HasFactory, HasSlug, InteractsWithMedia;
     use HasChildren;
 
     protected $guarded = ['id'];
