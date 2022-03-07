@@ -100,7 +100,9 @@
             "php artisan key:generate --ansi"
         ],
         "post-update-cmd": [
-            "ea-php80 artisan nova:publish || php artisan nova:publish"
+            "ea-php80 artisan nova:publish || php artisan nova:publish",
+            "@php artisan horizon:publish --ansi",
+            "@php artisan telescope:publish --ansi"
         ]
     },
     "repositories": [
