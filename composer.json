@@ -39,6 +39,7 @@
         "spatie/laravel-activitylog": "^3.17",
         "spatie/laravel-medialibrary": "^9.0.0",
         "spatie/laravel-permission": "^4.0",
+        "spatie/laravel-ray": "^1.29",
         "spatie/laravel-sluggable": "^2.6",
         "syrian-open-source/laravel-youtube-iframe-generator": "^1.1",
         "unisharp/laravel-filemanager": "^2.2",

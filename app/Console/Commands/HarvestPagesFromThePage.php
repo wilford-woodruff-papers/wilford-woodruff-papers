@@ -52,88 +52,90 @@ class HarvestPagesFromThePage extends Command
             $items = Item::whereId($itemId)->whereNotNull('ftp_id');
         }
 
+        try{
+            $items->chunkById(10, function($items){
+                $items->each(function($item, $key){
 
-        $items->chunkById(10, function($items){
-            $items->each(function($item, $key){
 
-                try{
-                    logger()->info($item->id);
-                    logger()->info($item->name);
-                    logger()->info($item->ftp_id);
-                    $response = Http::get($item->ftp_id);
-                    $canvases = $response->json('sequences.0.canvases');
-                    if(! empty($canvases)){
-                        logger()->info("Canvases: ");
-                        foreach($canvases as $key => $canvas){
-                            logger()->info($canvas['@id']);
-                            $page = Page::updateOrCreate([
-                                'item_id' => $item->id,
-                                'ftp_id' => $canvas['@id'],
-                            ], [
-                                'name' => $canvas['label'],
-                                'transcript' => $this->convertSubjectTags(
-                                    ( array_key_exists('otherContent', $canvas) )
-                                        ? Http::get($canvas['otherContent'][0]['@id'])->json('resources.0.resource.chars')
-                                        : '' ),
-                                'ftp_link' => ( array_key_exists('related', $canvas) )
-                                    ? $canvas['related'][0]['@id']
-                                    : ''
-                            ]);
-                            logger()->info('Clear media');
-                            $page->clearMediaCollection();
-                            logger()->info($canvas['images'][0]['resource']['@id']);
-                            logger()->info(route('pages.show', ['item' => $item, 'page' => $page]));
-
-                            if(! empty($canvas['images'][0]['resource']['@id'])){
-                                $page->addMediaFromUrl($canvas['images'][0]['resource']['@id'])->toMediaCollection();
-                            }
-
-                            $page->subjects()->detach();
-                            logger()->info('Subjects');
-                            $subjects = [];
-                            Str::of($page->transcript)->replaceMatches('/(?:\[\[)(.*?)(?:\]\])/', function ($match) use (&$subjects) {
-                                $subjects[] = Str::of($match[0])->trim('[[]]')->explode('|')->first();
-                                return '[['.$match[0].']]';
-                            });
-                            foreach($subjects as $subject){
-                                $subject = Subject::firstOrCreate([
-                                    'name' => $subject,
+                        ray($item->id);
+                        ray($item->name);
+                        ray($item->ftp_id);
+                        $response = Http::get($item->ftp_id);
+                        $canvases = $response->json('sequences.0.canvases');
+                        if(! empty($canvases)){
+                            ray("Canvases: ");
+                            foreach($canvases as $key => $canvas){
+                                ray($canvas['@id']);
+                                $page = Page::updateOrCreate([
+                                    'item_id' => $item->id,
+                                    'ftp_id' => $canvas['@id'],
+                                ], [
+                                    'name' => $canvas['label'],
+                                    'transcript' => $this->convertSubjectTags(
+                                        ( array_key_exists('otherContent', $canvas) )
+                                            ? Http::get($canvas['otherContent'][0]['@id'])->json('resources.0.resource.chars')
+                                            : '' ),
+                                    'ftp_link' => ( array_key_exists('related', $canvas) )
+                                        ? $canvas['related'][0]['@id']
+                                        : ''
                                 ]);
-                                $subject->enabled = 1;
-                                $subject->save();
-                                $page->subjects()->syncWithoutDetaching($subject->id);
-                            }
+                                ray('Clear media');
+                                $page->clearMediaCollection();
+                                ray($canvas['images'][0]['resource']['@id']);
+                                ray(route('pages.show', ['item' => $item, 'page' => $page]));
 
-                            $page->dates()->delete();
-                            logger()->info('Dates');
-
-                            $dates = $this->extractDates($page->transcript);
-
-                            foreach($dates as $date){
-                                try{
-                                    $d = new Date;
-                                    $d->date = $date;
-                                    $page->dates()->save($d);
-                                }catch(\Exception $e){
-                                    logger()->error($e->getMessage());
-                                    logger()->info($page->id);
+                                if(! empty($canvas['images'][0]['resource']['@id'])){
+                                    $page->addMediaFromUrl($canvas['images'][0]['resource']['@id'])->toMediaCollection();
                                 }
+
+                                $page->subjects()->detach();
+                                ray('Subjects');
+                                $subjects = [];
+                                Str::of($page->transcript)->replaceMatches('/(?:\[\[)(.*?)(?:\]\])/', function ($match) use (&$subjects) {
+                                    $subjects[] = Str::of($match[0])->trim('[[]]')->explode('|')->first();
+                                    return '[['.$match[0].']]';
+                                });
+                                foreach($subjects as $subject){
+                                    $subject = Subject::firstOrCreate([
+                                        'name' => $subject,
+                                    ]);
+                                    $subject->enabled = 1;
+                                    $subject->save();
+                                    $page->subjects()->syncWithoutDetaching($subject->id);
+                                }
+
+                                $page->dates()->delete();
+                                ray('Dates');
+
+                                $dates = $this->extractDates($page->transcript);
+
+                                foreach($dates as $date){
+                                    try{
+                                        $d = new Date;
+                                        $d->date = $date;
+                                        $page->dates()->save($d);
+                                    }catch(\Exception $e){
+                                        logger()->error($e->getMessage());
+                                        ray($page->id);
+                                    }
+                                }
+                                ray("Done");
+                                unset($page);
                             }
-                            logger()->info("Done");
-                            unset($page);
                         }
-                    }
-                } catch (\Exception $e) {
-                    logger()->error($e->getMessage());
-                }
 
-                $item->imported_at = now('America/Denver');
-                $item->save();
-            });
-        }, $column = 'id');
+                    $item->imported_at = now('America/Denver');
+                    $item->save();
+                });
+            }, $column = 'id');
 
-        Artisan::call('pages:order');
-        Artisan::call('dates:cache');
+            Artisan::call('pages:order');
+            Artisan::call('dates:cache');
+        }catch(\Exception $e){
+            ray($e->getMessage());
+        }
+
+
 
         return 0;
     }
