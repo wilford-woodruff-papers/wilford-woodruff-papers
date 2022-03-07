@@ -33,6 +33,8 @@ class Kernel extends ConsoleKernel
                  ->weeklyOn(5, '2:00 AM')
                  ->timezone('America/Denver')
                  ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org');
+
+        $schedule->command('telescope:prune --hours=48')->daily();
     }
 
     /**

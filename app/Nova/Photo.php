@@ -96,7 +96,7 @@ class Photo extends Resource
     public function actions(Request $request)
     {
         return [
-            new ImportPhotos,
+
         ];
     }
 }

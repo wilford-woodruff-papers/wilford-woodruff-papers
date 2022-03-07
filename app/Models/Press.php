@@ -23,15 +23,6 @@ class Press extends Model implements HasMedia
         'date',
     ];
 
-    protected $appends = [
-        'url'
-    ];
-
-    public function getUrlAttribute()
-    {
-        return new UrlPresenter($this);
-    }
-
     /**
      * Get the options for generating the slug.
      */
