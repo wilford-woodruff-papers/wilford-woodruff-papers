@@ -20,6 +20,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function boot()
     {
         parent::boot();
+
+        $this->app->register(\Parental\Providers\NovaResourceProvider::class);
     }
 
     /**
