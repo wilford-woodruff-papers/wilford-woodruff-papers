@@ -59,7 +59,7 @@
                                                                         @foreach($event->pages as $page)
                                                                             <div>
                                                                                 <a class="text-secondary"
-                                                                                   href="{{ route('pages.show', ['page'=> $page]) }}"
+                                                                                   href="{{ route('pages.show', ['item' => $page->parent, 'page'=> $page]) }}"
                                                                                    target="_blank">
                                                                                     Page {{ $page->order }} from {{ $page->parent->name }}
                                                                                 </a>
@@ -94,7 +94,7 @@
                                                                         @foreach($event->pages as $page)
                                                                             <div>
                                                                                 <a class="text-secondary"
-                                                                                   href="{{ route('pages.show', ['page'=> $page]) }}"
+                                                                                   href="{{ route('pages.show', ['item' => $page->parent, 'page'=> $page]) }}"
                                                                                    target="_blank">
                                                                                     Page {{ $page->order }} from {{ $page->parent->name }}
                                                                                 </a>
