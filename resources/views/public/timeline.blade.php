@@ -25,6 +25,9 @@
                                                     Date
                                                 </th>
                                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+
+                                                </th>
+                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                     Description
                                                 </th>
                                             </tr>
@@ -40,8 +43,30 @@
                                                                     - @if($event->end_month) {{ $event->end_at->toFormattedDateString() }} @else {{ $event->end_year }} @endif
                                                                 @endif
                                                             </td>
+                                                            <td>
+                                                                @if($event->photos->count() > 0)
+                                                                    <img class="h-12 w-auto"
+                                                                         src="{{ $event->photos->first()->getFirstMediaUrl('default','thumb') }}"
+                                                                         alt=""/>
+                                                                @endif
+                                                            </td>
                                                             <td class="px-6 py-4 whitespace-normal text-sm text-gray-500">
-                                                                {!! $event->text !!}
+                                                                <div>
+                                                                    {!! $event->text !!}
+                                                                </div>
+                                                                @if($event->pages->count() > 0)
+                                                                    <div class="mt-2">
+                                                                        @foreach($event->pages as $page)
+                                                                            <div>
+                                                                                <a class="text-secondary"
+                                                                                   href="{{ route('pages.show', ['page'=> $page]) }}"
+                                                                                   target="_blank">
+                                                                                    Page {{ $page->order }} from {{ $page->parent->name }}
+                                                                                </a>
+                                                                            </div>
+                                                                        @endforeach
+                                                                    </div>
+                                                                @endif
                                                             </td>
                                                         </tr>
                                                     @else
@@ -53,8 +78,30 @@
                                                                     - @if($event->end_month) {{ $event->end_at->toFormattedDateString() }} @else {{ $event->end_year }} @endif
                                                                 @endif
                                                             </td>
+                                                            <td>
+                                                                @if($event->photos->count() > 0)
+                                                                    <img class="h-12 w-auto"
+                                                                         src="{{ $event->photos->first()->getFirstMediaUrl('default','thumb') }}"
+                                                                         alt=""/>
+                                                                @endif
+                                                            </td>
                                                             <td class="px-6 py-4 whitespace-normal text-sm text-gray-500">
-                                                                {!! $event->text !!}
+                                                                <div>
+                                                                    {!! $event->text !!}
+                                                                </div>
+                                                                @if($event->pages->count() > 0)
+                                                                    <div class="mt-2">
+                                                                        @foreach($event->pages as $page)
+                                                                            <div>
+                                                                                <a class="text-secondary"
+                                                                                   href="{{ route('pages.show', ['page'=> $page]) }}"
+                                                                                   target="_blank">
+                                                                                    Page {{ $page->order }} from {{ $page->parent->name }}
+                                                                                </a>
+                                                                            </div>
+                                                                        @endforeach
+                                                                    </div>
+                                                                @endif
                                                             </td>
                                                         </tr>
                                                     @endif

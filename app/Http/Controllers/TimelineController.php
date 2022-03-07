@@ -16,7 +16,10 @@ class TimelineController extends Controller
      */
     public function index()
     {
-        $events = Event::orderBy('start_at')->get();
+        $events = Event::query()
+                            ->with('photos', 'pages.parent')
+                            ->orderBy('start_at')
+                            ->get();
         return view('public.timeline', [
             'events' => $events,
             'timeline_json' => [
