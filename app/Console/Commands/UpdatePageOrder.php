@@ -51,6 +51,14 @@ class UpdatePageOrder extends Command
                     $page->save();
                 });
                 Page::setNewOrder($pages->pluck('id')->all());
+
+                $item->fresh();
+                $pages = $item->pages;
+                $pages->each(function($page) use ($item){
+                    $page->full_name = $item->name . ': Page' . $page->order;
+                    $page->save();
+                });
+
             }
         });
 
@@ -68,6 +76,13 @@ class UpdatePageOrder extends Command
             $this->info('Item: ' . $item->id);
             $this->info(implode(', ', $itemPages->pluck('id')->all()));
             Page::setNewOrder($itemPages->pluck('id')->all());
+
+            $item->fresh();
+            $pages = $item->pages;
+            $pages->each(function($page) use ($item){
+                $page->full_name = $item->name . ': Page' . $page->order;
+                $page->save();
+            });
         });
 
     }

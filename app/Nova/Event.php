@@ -64,7 +64,7 @@ class Event extends Resource
             Text::make(__('Description'), 'text')->sortable(),
             Date::make(__('Date'), 'start_at')->sortable(),
             MorphToMany::make('Photos'),
-            MorphToMany::make('Pages'),
+            MorphToMany::make('Pages')->searchable(),
                 /*->fields(function(){
                     return [
                         Item::class,

@@ -80,7 +80,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function tools()
     {
         return [
-
+            \ChrisWare\NovaBreadcrumbs\NovaBreadcrumbs::make(),
         ];
     }
 
