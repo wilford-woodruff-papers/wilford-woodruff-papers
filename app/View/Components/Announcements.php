@@ -26,7 +26,11 @@ class Announcements extends Component
     {
         $now = now('America/Denver');
         return view('components.announcements', [
-            'announcements' => Announcement::where('start_publishing_at', '<', $now)->where('end_publishing_at', '>', $now)->get(),
+            'announcements' => Announcement::query()
+                                ->where('start_publishing_at', '<', $now)
+                                ->where('end_publishing_at', '>', $now)
+                                ->orderBy('end_publishing_at', 'ASC')
+                                ->get(),
         ]);
     }
 }
