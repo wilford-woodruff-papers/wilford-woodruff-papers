@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -30,6 +31,7 @@ class ContactFormSubmitted extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.forms.contact-form-submitted');
+        return $this->markdown('emails.forms.contact-form-submitted')
+            ->cc(User::role('Super Admin')->pluck('email')->all());
     }
 }
