@@ -164,10 +164,11 @@ class ItemController extends Controller
      */
     public function show(Item $item)
     {
-        $pages = Page::with(['dates', 'subjects', 'item', 'parent'])
+        $pages = Page::with(['dates', 'subjects', 'parent'])
                         ->where('parent_item_id', $item->id)
                         ->ordered();
 
+        $item->setRelation('item', $item);
         $item->setRelation('pages', $pages);
 
         return view('public.documents.show', [
