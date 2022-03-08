@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use App\Nova\Actions\ImportPhotos;
 use App\Nova\Actions\ImportSubjects;
+use DmitryBubyakin\NovaMedialibraryField\Fields\Medialibrary;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
@@ -36,6 +37,7 @@ class Photo extends Resource
     public static $search = [
         'id',
         'title',
+        'description',
     ];
 
     /**
@@ -48,8 +50,24 @@ class Photo extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            Text::make(__('Name'), 'name')->sortable(),
-            HasMany::make('Media'),
+            Text::make(__('Title'), 'title')
+                ->required(true)
+                ->sortable(),
+            Text::make(__('Date'), 'date')
+                ->sortable()
+                ->placeholder('Ex. 1898-09-08, 1890s, 1907'),
+            Text::make(__('Description'), 'description')
+                ->hideFromIndex(),
+            Medialibrary::make('Image', 'default'),
+            Text::make(__('Artist or Photographer'), 'artist_or_photographer')
+                ->hideFromIndex(),
+            Text::make(__('Location'), 'location'),
+            Text::make(__('Journal Reference'), 'journal_reference')
+                ->hideFromIndex(),
+            Text::make(__('Identification Source'), 'identification_source')
+                ->hideFromIndex(),
+            Text::make(__('Notes'), 'notes')
+                ->hideFromIndex(),
             MorphToMany::make(__('Events')),
         ];
     }
