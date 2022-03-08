@@ -48,6 +48,10 @@
                                                                     <img class="h-12 w-auto"
                                                                          src="{{ $event->photos->first()->getFirstMediaUrl('default','thumb') }}"
                                                                          alt=""/>
+                                                                @elseif($event->media->count() > 0)
+                                                                    <img class="h-12 w-auto"
+                                                                         src="{{ $event->getFirstMediaUrl('default','thumb') }}"
+                                                                         alt=""/>
                                                                 @endif
                                                             </td>
                                                             <td class="px-6 py-4 whitespace-normal text-sm text-gray-500">
@@ -82,6 +86,10 @@
                                                                 @if($event->photos->count() > 0)
                                                                     <img class="h-12 w-auto"
                                                                          src="{{ $event->photos->first()->getFirstMediaUrl('default','thumb') }}"
+                                                                         alt=""/>
+                                                                @elseif($event->media->count() > 0)
+                                                                    <img class="h-12 w-auto"
+                                                                         src="{{ $event->getFirstMediaUrl('default','thumb') }}"
                                                                          alt=""/>
                                                                 @endif
                                                             </td>
