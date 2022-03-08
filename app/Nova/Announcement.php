@@ -72,7 +72,6 @@ class Announcement extends Resource
                 ->required(true)
                 ->sortable(),
             DateTime::make(__('Stop Showing'), 'end_publishing_at')
-                ->required(true)
                 ->sortable(),
             Text::make('Preview', function ($model) {
                     return '<a href="' . route('announcements.show', ['announcement' => $model->slug]) . '" target="_blank">Preview</a>';
