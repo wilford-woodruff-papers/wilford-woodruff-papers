@@ -35,6 +35,10 @@ nav.sub-menu ul {
     @apply text-primary text-4xl font-serif mt-4 mb-8 border-b border-gray-300;
 }
 
+.content h3 {
+    @apply text-primary text-3xl font-serif mt-8 mb-0;
+}
+
 .page-title {
     @apply font-serif md:text-3xl italic text-secondary py-8 px-4 text-center;
 }

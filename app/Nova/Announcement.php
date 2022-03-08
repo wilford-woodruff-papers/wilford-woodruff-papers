@@ -9,6 +9,7 @@ use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -47,12 +48,21 @@ class Announcement extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
+            Select::make('Type', 'type')->options([
+                'index_only' => 'Only on index page of announcements',
+                'homepage_top' => 'In top section of homepage',
+                'homepage_bottom' => 'In bottom section of homepage',
+            ]),
             File::make(__('Image'), 'image')
                 ->required(true)
                 ->disk('announcements'),
             Text::make(__('Title'), 'title')
                 ->required(true)
                 ->sortable(),
+            Text::make(__('Slug'), 'slug')
+                ->hideFromIndex()
+                ->hideWhenCreating()
+                ->help('The slug is automatically generated, but can be updated if needed to make the URL more user friendly. It must be unique.'),
             NovaTinyMCE::make('Description', 'description')
                 ->options([
                     'height' => 500,
@@ -62,8 +72,11 @@ class Announcement extends Resource
                 ->required(true)
                 ->sortable(),
             DateTime::make(__('Stop Showing'), 'end_publishing_at')
-                ->required(true)
                 ->sortable(),
+            Text::make('Preview', function ($model) {
+                    return '<a href="' . route('announcements.show', ['announcement' => $model->slug]) . '" target="_blank">Preview</a>';
+                })
+                ->asHtml(),
             Text::make('Link')
                 ->hideFromIndex(),
             Text::make(__('Button Text'), 'button_text')

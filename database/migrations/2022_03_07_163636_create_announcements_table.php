@@ -19,7 +19,7 @@ class CreateAnnouncementsTable extends Migration
             $table->mediumText('description')->nullable();
             $table->string('image')->nullable();
             $table->dateTime('start_publishing_at');
-            $table->dateTime('end_publishing_at');
+            $table->dateTime('end_publishing_at')->nullable();
             $table->string('link', 2048)->nullable();
             $table->string('button_text', 2048)->nullable();
             $table->string('button_link', 2048)->nullable();

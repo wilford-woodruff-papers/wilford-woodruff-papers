@@ -29,7 +29,7 @@
 
     {{--<x-landing-page-buttons />--}}
 
-    <x-announcements />
+    <x-top-announcements />
 
     <div class="max-w-7xl mx-auto pt-8 md:pt-16 px-12 pb-4 xl:pt-16  md:px-24 md:pb-8">
         <x-article-preview-carousel />
@@ -89,6 +89,8 @@
         <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&family=Source+Serif+Pro&display=swap" rel="stylesheet">
     @endpush--}}
+
+    <x-bottom-announcements />
 
 </x-guest-layout>
 
