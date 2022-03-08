@@ -16,7 +16,7 @@ class CreatePhotosTable extends Migration
         Schema::create('photos', function (Blueprint $table) {
             $table->id();
             $table->efficientUuid('uuid')->index();
-            $table->string('filename')->index();
+            $table->string('filename')->nullable()->index();
             $table->string('title')->nullable();
             $table->mediumText('description')->nullable();
             $table->string('date')->nullable();
