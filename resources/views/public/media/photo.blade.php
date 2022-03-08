@@ -18,87 +18,94 @@
                                     <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                                         <table class="min-w-full divide-y divide-gray-200">
                                             <tbody>
-
-                                                <!-- Odd row -->
-                                                <tr class="bg-white">
-                                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                        Description
-                                                    </td>
-                                                    <td class="px-6 py-4 text-sm text-gray-500">
-                                                        {{ $photo->description }}
-                                                    </td>
-                                                </tr>
-
-                                                <!-- Even row -->
-                                                <tr class="bg-gray-50">
-                                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                        Date
-                                                    </td>
-                                                    <td class="px-6 py-4 text-sm text-gray-500">
-                                                        {{ optional($photo->date)->format('m d, Y') }}
-                                                    </td>
-                                                </tr>
-
-                                                <!-- Odd row -->
-                                                <tr class="bg-white">
-                                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                        Artist or Photographer
-                                                    </td>
-                                                    <td class="px-6 py-4 text-sm text-gray-500">
-                                                        {{ $photo->artist_or_photographer }}
-                                                    </td>
-                                                </tr>
-
-                                                <!-- Even row -->
-                                                <tr class="bg-gray-50">
-                                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                        Location
-                                                    </td>
-                                                    <td class="px-6 py-4 text-sm text-gray-500">
-                                                        {{ $photo->location }}
-                                                    </td>
-                                                </tr>
-
-                                                <!-- Odd row -->
-                                                <tr class="bg-white">
-                                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                        Journal Reference
-                                                    </td>
-                                                    <td class="px-6 py-4 text-sm text-gray-500">
-                                                        {{ $photo->journal_reference }}
-                                                    </td>
-                                                </tr>
-
-                                                <!-- Even row -->
-                                                <tr class="bg-gray-50">
-                                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                        Identification / Source of Image
-                                                    </td>
-                                                    <td class="px-6 py-4 text-sm text-gray-500">
-                                                        {{ $photo->identification_source }}
-                                                    </td>
-                                                </tr>
-
-                                                <!-- Odd row -->
-                                                <tr class="bg-white">
-                                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                        Photo Editor
-                                                    </td>
-                                                    <td class="px-6 py-4 text-sm text-gray-500">
-                                                        {{ $photo->editor }}
-                                                    </td>
-                                                </tr>
-
-                                                <!-- Even row -->
-                                                <tr class="bg-gray-50">
-                                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                        Notes
-                                                    </td>
-                                                    <td class="px-6 py-4 text-sm text-gray-500">
-                                                        {{ $photo->notes }}
-                                                    </td>
-                                                </tr>
-
+                                                @if(! empty($photo->description))
+                                                    <!-- Odd row -->
+                                                    <tr class="bg-white">
+                                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                            Description
+                                                        </td>
+                                                        <td class="px-6 py-4 text-sm text-gray-500">
+                                                            {{ $photo->description }}
+                                                        </td>
+                                                    </tr>
+                                                @endif
+                                                @if(! empty($photo->date))
+                                                    <!-- Even row -->
+                                                    <tr class="bg-gray-50">
+                                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                            Date
+                                                        </td>
+                                                        <td class="px-6 py-4 text-sm text-gray-500">
+                                                            {{ optional($photo->date)->format('m d, Y') ?? $photo->date  }}
+                                                        </td>
+                                                    </tr>
+                                                @endif
+                                                @if(! empty($photo->artist_or_photographer))
+                                                    <!-- Odd row -->
+                                                    <tr class="bg-white">
+                                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                            Artist or Photographer
+                                                        </td>
+                                                        <td class="px-6 py-4 text-sm text-gray-500">
+                                                            {{ $photo->artist_or_photographer }}
+                                                        </td>
+                                                    </tr>
+                                                @endif
+                                                @if(! empty($photo->location))
+                                                    <!-- Even row -->
+                                                    <tr class="bg-gray-50">
+                                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                            Location
+                                                        </td>
+                                                        <td class="px-6 py-4 text-sm text-gray-500">
+                                                            {{ $photo->location }}
+                                                        </td>
+                                                    </tr>
+                                                @endif
+                                                @if(! empty($photo->journal_reference))
+                                                    <!-- Odd row -->
+                                                    <tr class="bg-white">
+                                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                            Journal Reference
+                                                        </td>
+                                                        <td class="px-6 py-4 text-sm text-gray-500">
+                                                            {{ $photo->journal_reference }}
+                                                        </td>
+                                                    </tr>
+                                                @endif
+                                                @if(! empty($photo->identification_source))
+                                                    <!-- Even row -->
+                                                    <tr class="bg-gray-50">
+                                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                            Identification / Source of Image
+                                                        </td>
+                                                        <td class="px-6 py-4 text-sm text-gray-500">
+                                                            {{ $photo->identification_source }}
+                                                        </td>
+                                                    </tr>
+                                                @endif
+                                                @if(! empty($photo->editor))
+                                                    <!-- Odd row -->
+                                                    <tr class="bg-white">
+                                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                            Photo Editor
+                                                        </td>
+                                                        <td class="px-6 py-4 text-sm text-gray-500">
+                                                            {{ $photo->editor }}
+                                                        </td>
+                                                    </tr>
+                                                @endif
+                                                @if(! empty($photo->notes))
+                                                    <!-- Even row -->
+                                                    <tr class="bg-gray-50">
+                                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                            Notes
+                                                        </td>
+                                                        <td class="px-6 py-4 text-sm text-gray-500">
+                                                            {{ $photo->notes }}
+                                                        </td>
+                                                    </tr>
+                                                @endif
 
                                             </tbody>
                                         </table>
