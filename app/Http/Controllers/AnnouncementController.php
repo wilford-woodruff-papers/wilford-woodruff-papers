@@ -22,7 +22,7 @@ class AnnouncementController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Announcement $announcement
      * @return \Illuminate\Http\Response
      */
     public function show(Announcement $announcement)
