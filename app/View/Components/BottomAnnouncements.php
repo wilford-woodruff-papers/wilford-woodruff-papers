@@ -5,7 +5,7 @@ namespace App\View\Components;
 use App\Models\Announcement;
 use Illuminate\View\Component;
 
-class Announcements extends Component
+class BottomAnnouncements extends Component
 {
     /**
      * Create a new component instance.
@@ -27,6 +27,7 @@ class Announcements extends Component
         $now = now('America/Denver');
         return view('components.announcements', [
             'announcements' => Announcement::query()
+                                ->where('type', 'homepage_bottom')
                                 ->where('start_publishing_at', '<', $now)
                                 ->where('end_publishing_at', '>', $now)
                                 ->orderBy('end_publishing_at', 'ASC')
