@@ -8,9 +8,9 @@
                     </div>
                     <div class="content col-span-12 md:col-span-9">
                         <h2>Photos</h2>
-                        <ul class="space-y-12 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-12 sm:space-y-0 lg:grid-cols-3 lg:gap-x-8 my-12" x-max="1">
+                        <ul class="!list-none space-y-12 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-12 sm:space-y-0 lg:grid-cols-3 lg:gap-x-8 my-12" x-max="1">
                             @foreach($photos as $key => $photo)
-                            <li>
+                            <li class="">
                                 <a href="{{ route('media.photos.show', ['photo' => $photo->uuid]) }}"
                                    class="space-y-4">
                                     <div class="aspect-w-3 aspect-h-2 bg-cover bg-center h-72"
@@ -19,8 +19,8 @@
                                     </div>
 
                                     <div class="space-y-2">
-                                        <div class="text-lg leading-6 font-medium space-y-1">
-                                            <h3 class="text-secondary text-lg">
+                                        <div class="text-lg leading-6 space-y-1">
+                                            <h3 class="!text-secondary !text-lg font-medium">
                                                 {{ $photo->title }}
                                             </h3>
                                             <p class="text-gray-600">
