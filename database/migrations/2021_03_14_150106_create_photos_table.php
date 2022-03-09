@@ -23,7 +23,7 @@ class CreatePhotosTable extends Migration
             $table->string('artist_or_photographer')->nullable();
             $table->string('location')->nullable();
             $table->mediumText('journal_reference')->nullable();
-            $table->mediumText('identification_source')->nullable();
+            $table->mediumText('identification')->nullable();
             $table->string('editor')->nullable();
             $table->mediumText('notes')->nullable();
             $table->timestamps();
