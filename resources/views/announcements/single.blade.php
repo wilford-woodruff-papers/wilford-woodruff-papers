@@ -1,6 +1,6 @@
 <div class="">
     @if(! empty($announcement->image))
-        <div class="max-w-full md:max-w-5xl h-auto mx-auto">
+        <div class="max-w-full md:max-w-7xl h-auto mx-auto">
             <a href="{{ $announcement->link }}"
                target="_blank">
                 <img src="{{ \Illuminate\Support\Facades\Storage::disk('announcements')->url($announcement->image) }}" alt="{{ $announcement->title }}"/>
