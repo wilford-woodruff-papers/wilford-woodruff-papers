@@ -57,7 +57,7 @@
                                                             <td>
                                                                 @if($event->photos->count() > 0)
                                                                     <a class="text-secondary"
-                                                                       href="{{ route('media.photos.show', ['item' => $event->photos->first()->getFirstMedia()]) }}"
+                                                                       href="{{ route('media.photos.show', ['photo' => $event->photos->first()->getFirstMedia()]) }}"
                                                                        target="_timeline"
                                                                     >
                                                                         <img class="h-12 w-auto"
