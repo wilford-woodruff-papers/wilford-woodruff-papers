@@ -31,9 +31,9 @@
 
     <x-top-announcements />
 
-    <div class="max-w-7xl mx-auto pt-8 md:pt-16 px-12 pb-4 xl:pt-16  md:px-24 md:pb-8">
-        <x-article-preview-carousel />
-    </div>
+
+    <x-article-preview-carousel />
+
 
     @if(! empty($article))
         <div class="bg-white">
