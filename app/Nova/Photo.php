@@ -64,7 +64,9 @@ class Photo extends Resource
             Text::make(__('Location'), 'location'),
             Text::make(__('Journal Reference'), 'journal_reference')
                 ->hideFromIndex(),
-            Text::make(__('Identification Source'), 'identification_source')
+            Text::make(__('Identification'), 'identification')
+                ->hideFromIndex(),
+            Text::make(__('Source'), 'source')
                 ->hideFromIndex(),
             Text::make(__('Notes'), 'notes')
                 ->hideFromIndex(),

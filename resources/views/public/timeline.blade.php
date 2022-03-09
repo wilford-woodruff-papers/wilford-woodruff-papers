@@ -38,16 +38,39 @@
                                                         <!-- Odd row -->
                                                         <tr class="bg-white">
                                                             <td class="px-6 py-4 whitespace-normal text-sm font-medium text-gray-900">
+                                                                @if($event->pages->count() > 0)
+                                                                    <a class="text-secondary"
+                                                                       href="{{ route('pages.show', ['item' => $event->pages->first()->parent->uuid, 'page' => $event->pages->first()->uuid]) }}"
+                                                                       target="_timeline"
+                                                                    >
+                                                                @endif
+
                                                                 @if($event->start_month) {{ $event->start_at->toFormattedDateString() }} @else {{ $event->start_year }} @endif
                                                                 @if($event->end_at)
                                                                     - @if($event->end_month) {{ $event->end_at->toFormattedDateString() }} @else {{ $event->end_year }} @endif
                                                                 @endif
+
+                                                                @if($event->pages->count() > 0)
+                                                                    </a>
+                                                                @endif
                                                             </td>
                                                             <td>
                                                                 @if($event->photos->count() > 0)
-                                                                    <img class="h-12 w-auto"
-                                                                         src="{{ $event->photos->first()->getFirstMediaUrl('default','thumb') }}"
-                                                                         alt=""/>
+                                                                    <a class="text-secondary"
+                                                                       href="{{ route('media.photos.show', ['photo' => $event->photos->first()->uuid]) }}"
+                                                                       target="_timeline"
+                                                                    >
+                                                                        <img class="h-12 w-auto"
+                                                                             src="{{ $event->photos->first()->getFirstMediaUrl('default','thumb') }}"
+                                                                             alt=""/>
+                                                                    </a>
+                                                                @elseif($event->pages->count() > 0)
+                                                                    <a class="text-secondary"
+                                                                       href="{{ route('pages.show', ['item' => $event->pages->first()->parent->uuid, 'page' => $event->pages->first()->uuid]) }}">
+                                                                        <img class="h-12 w-auto"
+                                                                             src="{{ $event->pages->first()->getFirstMediaUrl('default','thumb') }}"
+                                                                             alt=""/>
+                                                                    </a>
                                                                 @elseif($event->media->count() > 0)
                                                                     <img class="h-12 w-auto"
                                                                          src="{{ $event->getFirstMediaUrl('default','thumb') }}"
@@ -58,7 +81,7 @@
                                                                 <div>
                                                                     {!! $event->text !!}
                                                                 </div>
-                                                                @if($event->pages->count() > 0)
+                                                                {{--@if($event->pages->count() > 0)
                                                                     <div class="mt-2">
                                                                         @foreach($event->pages as $page)
                                                                             <div>
@@ -70,7 +93,7 @@
                                                                             </div>
                                                                         @endforeach
                                                                     </div>
-                                                                @endif
+                                                                @endif--}}
                                                             </td>
                                                         </tr>
                                                     @else

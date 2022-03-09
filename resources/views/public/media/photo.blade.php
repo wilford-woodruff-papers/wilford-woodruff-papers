@@ -73,14 +73,30 @@
                                                         </td>
                                                     </tr>
                                                 @endif
-                                                @if(! empty($photo->identification_source))
+                                                @if(! empty($photo->identification))
                                                     <!-- Even row -->
                                                     <tr class="bg-gray-50">
                                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                                            Identification / Source of Image
+                                                            Identification of Image
                                                         </td>
                                                         <td class="px-6 py-4 text-sm text-gray-500">
-                                                            {{ $photo->identification_source }}
+                                                            {{ $photo->identification }}
+                                                        </td>
+                                                    </tr>
+                                                @endif
+                                                @if(! empty($photo->source))
+                                                    <!-- Even row -->
+                                                    <tr class="bg-gray-50">
+                                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                            Source of Image
+                                                        </td>
+                                                        <td class="px-6 py-4 text-sm text-gray-500">
+                                                            <a href="{{ $photo->source }}"
+                                                               class="text-secondary"
+                                                               target="_photo_source"
+                                                            >
+                                                                {{ $photo->source }}
+                                                            </a>
                                                         </td>
                                                     </tr>
                                                 @endif
