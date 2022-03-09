@@ -14,7 +14,7 @@ class AddSourceColumnToPhotosTable extends Migration
     public function up()
     {
         Schema::table('photos', function (Blueprint $table) {
-            $table->mediumText('source')->nullable();
+            $table->mediumText('source')->after('identification')->nullable();
         });
     }
 
