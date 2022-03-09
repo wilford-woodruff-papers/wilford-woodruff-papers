@@ -1,10 +1,14 @@
 <div class="">
     @if(! empty($announcement->image))
         <div class="max-w-full md:max-w-7xl h-auto mx-auto">
-            <a href="{{ $announcement->link }}"
-               target="_blank">
+            @if(! empty($announcement->link))
+                <a href="{{ $announcement->link }}"
+                   target="_blank">
+            @endif
                 <img src="{{ \Illuminate\Support\Facades\Storage::disk('announcements')->url($announcement->image) }}" alt="{{ $announcement->title }}"/>
-            </a>
+            @if(! empty($announcement->link))
+                </a>
+            @endif
         </div>
     @endif
     @if(! empty($announcement->description))
