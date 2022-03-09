@@ -48,6 +48,22 @@ class SearchController extends Controller
             });
         }
 
+        if($request->has('q') || $request->has('types') || $request->has('min_date') || $request->has('max_date')){
+            try{
+                activity('search')
+                    ->event('search')
+                    ->withProperties([
+                        'types' => Type::whereIn('id', $request->get('types'))->pluck('name')->all(),
+                        'min_date' => $request->get('min_date'),
+                        'max_date' => $request->get('max_date'),
+                    ])
+                    ->log($request->get('q'));
+            } catch (\Exception $e) {
+                logger()->error($e->getMessage());
+            }
+
+        }
+
         return view('public.search', [
             'types' => Type::where('name', 'NOT LIKE', '%Sections%')->get(),
             'pages' => $pages->paginate(20),

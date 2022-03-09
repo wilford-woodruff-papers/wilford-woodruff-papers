@@ -38,7 +38,7 @@
         "paquettg/php-html-parser": "^3.1",
         "ramsey/uuid": "^4.2",
         "spatie/eloquent-sortable": "^3.11",
-        "spatie/laravel-activitylog": "^3.17",
+        "spatie/laravel-activitylog": "^4.4",
         "spatie/laravel-medialibrary": "^9.0.0",
         "spatie/laravel-permission": "^4.0",
         "spatie/laravel-ray": "^1.29",
