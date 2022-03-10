@@ -35,6 +35,38 @@ class Kernel extends ConsoleKernel
                  ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org');
 
         $schedule->command('telescope:prune --hours=48')->daily();
+
+        /* Calculate Stats */
+
+        $schedule->command('stats:published-site-documents')
+                ->monthlyOn(1, '2:00 AM')
+                ->timezone('America/Denver')
+                ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org')
+                ->pingOnSuccess('http://beats.envoyer.io/heartbeat/DG1hTtM5eymywll');
+
+        $schedule->command('stats:published-site-pages')
+                ->monthlyOn(1, '2:05 AM')
+                ->timezone('America/Denver')
+                ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org')
+                ->pingOnSuccess('http://beats.envoyer.io/heartbeat/gvKBVBtoHgXsLjB');
+
+        $schedule->command('stats:published-site-subjects')
+                ->monthlyOn(1, '2:10 AM')
+                ->timezone('America/Denver')
+                ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org')
+                ->pingOnSuccess('http://beats.envoyer.io/heartbeat/IHQdtqMiFKrkEjQ');
+
+        $schedule->command('stats:site-searches')
+                ->monthlyOn(1, '2:15 AM')
+                ->timezone('America/Denver')
+                ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org')
+                ->pingOnSuccess('http://beats.envoyer.io/heartbeat/RpoCfrCRWiDH7MT');
+
+        $schedule->command('stats:uploaded-ftp-documents')
+                ->monthlyOn(1, '2:20 AM')
+                ->timezone('America/Denver')
+                ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org')
+                ->pingOnSuccess('http://beats.envoyer.io/heartbeat/gy8BXgNsc8HoO7e');
     }
 
     /**
