@@ -52,11 +52,11 @@ class SearchController extends Controller
             try{
                 activity('search')
                     ->event('search')
-                    ->withProperties([
-                        'types' => Type::whereIn('id', $request->get('types'))->pluck('name')->all(),
-                        'min_date' => $request->get('min_date'),
-                        'max_date' => $request->get('max_date'),
-                    ])
+                    ->withProperties(array_merge(
+                        ['types' => Type::whereIn('id', $request->get('types'))->pluck('name')->all()],
+                        $request->except('types'),
+                        ['referrer' => $request->headers->get('referer')]
+                    ))
                     ->log($request->get('q'));
             } catch (\Exception $e) {
                 logger()->error($e->getMessage());
