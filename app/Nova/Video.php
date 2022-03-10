@@ -10,6 +10,7 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Spatie\TagsField\Tags;
 
 class Video extends Resource
 {
@@ -26,7 +27,7 @@ class Video extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'title';
 
     /**
      * The columns that should be searched.
@@ -35,6 +36,7 @@ class Video extends Resource
      */
     public static $search = [
         'id',
+        'title',
     ];
 
     /**
@@ -65,6 +67,10 @@ class Video extends Resource
                 ->required(true)
                 ->hideFromIndex()
                 ->help('Paste the YouTube URL in this box (not the embed code).'),
+            Tags::make('Category', 'tags')
+                ->type('videos')
+                ->withMeta(['placeholder' => 'Add categories...'])
+                ->help('Type a category and hit \'Enter\' to add it. Existing tags will appear below the box as you type and can be clicked to add.'),
             NovaTinyMCE::make('Transcript')
                 ->options([
                     'height' => 500,
