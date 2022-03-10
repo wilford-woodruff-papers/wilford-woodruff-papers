@@ -4,6 +4,7 @@ namespace App\Console\Commands\Stats;
 
 use App\Models\Item;
 use App\Models\Stat;
+use App\Models\Type;
 use Illuminate\Console\Command;
 
 class PublishedSiteDocuments extends Command
@@ -40,9 +41,9 @@ class PublishedSiteDocuments extends Command
     public function handle()
     {
         $itemCount = Item::query()
-                        ->doesntHave('items')
-                        ->where('enabled', 1)
-                        ->count();
+                            ->whereIn('type_id', Type::whereNull('type_id')->pluck('id')->all())
+                            ->where('enabled', 1)
+                            ->count();
 
         $previousStat = Stat::query()
                             ->where('name', 'published-site-documents')
