@@ -5,6 +5,7 @@ namespace App\Console\Commands\Stats;
 use App\Models\Item;
 use App\Models\Stat;
 use App\Models\Type;
+
 use Illuminate\Console\Command;
 
 class PublishedSiteDocuments extends Command
