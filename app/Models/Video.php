@@ -10,6 +10,7 @@ use Parental\HasParent;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Sluggable\HasSlug;
+use Spatie\Tags\HasTags;
 
 class Video extends Press implements HasMedia, \OwenIt\Auditing\Contracts\Auditable
 {
@@ -17,6 +18,7 @@ class Video extends Press implements HasMedia, \OwenIt\Auditing\Contracts\Audita
     use HasFactory;
     use HasParent;
     use HasSlug;
+    use HasTags;
     use InteractsWithMedia;
 
     function getEmbedLinkAttribute()

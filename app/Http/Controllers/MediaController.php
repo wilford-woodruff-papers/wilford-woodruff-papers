@@ -61,6 +61,9 @@ class MediaController extends Controller
         return view('public.media.videos', [
             'videos' => Video::latest('date')
                                 ->orderBy('title', 'ASC')
+                                ->when($request->has('tag'), function ($query) use ($request){
+                                    $query->withAnyTags($request->get('tag'), 'videos');
+                                })
                                 ->paginate(10),
         ]);
     }
