@@ -17,7 +17,9 @@
                                     <p class="text-sm text-gray-500">
                                         <time datetime="{{ $article->date }}">{{ $article->date->format('M j, Y') }}</time>
                                     </p>
-                                    <a href="{{ route('media.article', ['article' => $article]) }}" class="mt-2 block">
+                                    <a href="{{ $article->url() }}" class="mt-2 block"
+                                        @if(! empty($article->link)) target="_blank" @endif
+                                    >
                                         <p class="text-xl font-semibold text-primary">
                                             {{ $article->title }}
                                         </p>
@@ -30,8 +32,9 @@
                                         </p>
                                     </a>
                                     <div class="mt-3">
-                                        <a href="{{ route('media.article', ['article' => $article]) }}"
+                                        <a href="{{ $article->url() }}"
                                            class="text-base font-semibold text-secondary hover:text-highlight"
+                                           @if(! empty($article->link)) target="_blank" @endif
                                         >
                                             Read more &gt;
                                         </a>

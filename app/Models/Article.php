@@ -16,4 +16,11 @@ class Article extends Press implements HasMedia, \OwenIt\Auditing\Contracts\Audi
     use HasParent;
     use HasSlug;
     use InteractsWithMedia;
+
+    public function url()
+    {
+        return ! empty($this->attributes['link'])
+                ? $this->attributes['link']
+                : route('media.article', ['article' => $this->slug]);
+    }
 }
