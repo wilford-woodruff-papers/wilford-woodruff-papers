@@ -1,6 +1,6 @@
 <x-guest-layout>
 
-    <div class="bg-cover bg-center h-24 md:h-36 xl:h-72"
+    <div class="bg-cover bg-center h-24 md:h-28 xl:h-32"
          style="background-image: url({{ asset('img/banners/home.jpg') }})">
         <div class="max-w-7xl mx-auto">
 
@@ -9,18 +9,18 @@
 
     <div class="">
         <div class="max-w-7xl mx-auto grid grid-cols-12">
-            <div class="col-span-12 md:col-span-5 md:col-start-8">
+            <div class="col-span-12 md:col-span-4 md:col-start-9">
                 <div class="relative">
-                    <div class="md:absolute -mt-24 md:-mt-28 xl:-mt-56">
-                        <img class="mx-auto w-48 md:w-64 xl:w-96 h-auto"
+                    <div class="md:absolute -mt-24 md:-mt-24 xl:-mt-24">
+                        <img class="mx-auto w-52 md:w-56 xl:w-62 h-auto px-2"
                              src="{{ asset('img/wilford-woodruff.png') }}"
                              alt=""/>
                     </div>
                 </div>
 
             </div>
-            <div class="col-span-12 md:col-span-7 md:col-start-1">
-                <p class="font-serif text-2xl md:text-4xl leading-relaxed italic text-primary py-4 px-4 md:py-6 xl:py-12 md:px-24">
+            <div class="col-span-12 md:col-span-8 md:col-start-1">
+                <p class="font-serif text-2xl md:text-3xl leading-relaxed italic text-primary py-4 px-4 md:py-4 xl:py-8 md:px-24">
                     Explore Wilford Woodruff's powerful eyewitness account of the Restoration
                 </p>
             </div>
@@ -37,7 +37,7 @@
 
     @if(! empty($article))
         <div class="bg-white">
-            <div class="max-w-7xl mx-auto pt-8 md:pt-8 px-12 pb-4 xl:pt-8  md:px-24 md:pb-8">
+            <div class="max-w-7xl mx-auto pt-4 md:pt-4 px-12 pb-4 xl:pt-4 md:px-24 md:pb-8">
                 <div class="">
                     <p class="uppercase text-secondary font-semibold">
                         Article

@@ -66,6 +66,9 @@ class Article extends Resource
                     return Str::of($subtitle)->limit('50', ' ...');
                 })
                 ->sortable(),
+            Text::make(__('Publisher Name'), 'publisher')
+                ->sortable()
+                ->help('Examples: Meridian Magazine, Work + Wonder, The LDS Women Project, Digital Journal, Deseret News, Y Magazine. Used for link when linking to external site.'),
             NovaTinyMCE::make('Excerpt')
                 ->options([
                     'height' => 500,
