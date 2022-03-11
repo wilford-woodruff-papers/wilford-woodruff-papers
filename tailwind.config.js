@@ -17,6 +17,10 @@ module.exports = {
             colors: {
                 'primary': {
                     'DEFAULT': '#0B2836',
+                    '10': 'rgb(11, 40, 54, .1)',
+                    '20': 'rgb(11, 40, 54, .2)',
+                    '50': 'rgb(11, 40, 54, .5)',
+                    '80': 'rgb(11, 40, 54, .8)',
                 },
                 'secondary': {
                     'DEFAULT': '#792310',
@@ -46,6 +50,7 @@ module.exports = {
     },
 
     plugins: [
+        require('@tailwindcss/aspect-ratio'),
         require('@tailwindcss/forms'),
         require('@tailwindcss/typography')
     ],

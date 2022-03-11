@@ -27,13 +27,15 @@
         </div>
     </div>
 
-    {{--<x-landing-page-buttons />--}}
+    @if(app()->environment(['local','development']))
+        {{--<x-home-page-buttons />--}}
+    @endif
 
     <x-top-announcements />
 
-
-    <x-article-preview-carousel />
-
+    @if(app()->environment(['local','development']))
+        <x-article-preview-carousel />
+    @endif
 
     @if(! empty($article))
         <div class="bg-white">
@@ -74,6 +76,12 @@
             </div>
         </div>
     </div>
+
+    @if(app()->environment(['local','development']))
+        <x-home.book />
+
+        <x-home.video />
+    @endif
 
     <div class="mt-4 md:my-12">
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 xl:grid-cols-2 gap-2 px-4 md:px-12 md:gap-4 md:px-40">
