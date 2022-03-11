@@ -61,12 +61,14 @@ class News extends Resource
             Date::make(__('Publish At'), 'date')
                 ->required(true)
                 ->sortable(),
-            Text::make(__('Publisher Name'), 'subtitle')
+            Text::make(__('Author Name(s)'), 'subtitle')
                 ->displayUsing(function ($subtitle) {
                     return Str::of($subtitle)->limit('50', ' ...');
                 })
+                ->sortable(),
+            Text::make(__('Publisher Name'), 'publisher')
                 ->sortable()
-                ->help('Examples: Meridian Magazine, Work + Wonder, The LDS Women Project, Digital Journal, Deseret News, Y Magazine'),
+                ->help('Examples: Meridian Magazine, Work + Wonder, The LDS Women Project, Digital Journal, Deseret News, Y Magazine. Used for link when linking to external site.'),
             Text::make('Link')
                 ->hideFromIndex(),
             NovaTinyMCE::make('Summary', 'description')
