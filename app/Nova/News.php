@@ -68,6 +68,7 @@ class News extends Resource
                 ->sortable(),
             Text::make(__('Publisher Name'), 'publisher')
                 ->sortable()
+                ->required(true)
                 ->help('Examples: Meridian Magazine, Work + Wonder, The LDS Women Project, Digital Journal, Deseret News, Y Magazine. Used for link when linking to external site.'),
             Text::make('Link')
                 ->hideFromIndex(),

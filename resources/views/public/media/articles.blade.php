@@ -36,7 +36,12 @@
                                            class="text-base font-semibold text-secondary hover:text-highlight"
                                            @if(! empty($article->link)) target="_blank" @endif
                                         >
-                                            Read more &gt;
+                                            @if(! empty($article->publisher))
+                                                Read more on {{ $article->publisher }} &gt;
+                                            @else
+                                                Read more &gt;
+                                            @endif
+
                                         </a>
                                     </div>
                                 </div>

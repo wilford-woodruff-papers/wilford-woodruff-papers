@@ -30,7 +30,7 @@
                                            class="text-base font-semibold text-secondary hover:text-highlight"
                                            target="_news"
                                         >
-                                            More on {{ $article->subtitle }} &gt;
+                                            More on {{ $article->publisher }} &gt;
                                         </a>
                                     </div>
                                 </div>
