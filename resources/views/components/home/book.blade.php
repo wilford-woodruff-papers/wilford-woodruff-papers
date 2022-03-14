@@ -4,7 +4,7 @@
             <div class="relative lg:-my-8">
                 <div aria-hidden="true" class="absolute inset-x-0 top-0 h-1/2 bg-white lg:hidden"></div>
                 <div class="mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:p-0 lg:h-full">
-                    <div class="aspect-w-10 aspect-h-6 rounded-xl lg:shadow-xl lg:overflow-hidden sm:aspect-w-16 sm:aspect-h-7 lg:aspect-none lg:h-full">
+                    <div class="aspect-w-10 aspect-h-6  lg:shadow-xl lg:overflow-hidden sm:aspect-w-16 sm:aspect-h-7 lg:aspect-none lg:h-full">
                         <a href="https://www.amazon.com/Wilford-Woodruffs-Witness-Development-Doctrine/dp/0615835325"
                            target="_blank">
                             <img class="mx-auto object-cover lg:mx-0 lg:h-full lg:w-full"

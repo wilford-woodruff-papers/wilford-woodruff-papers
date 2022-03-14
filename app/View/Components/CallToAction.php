@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class HomePageButtons extends Component
+class CallToAction extends Component
 {
     /**
      * Create a new component instance.
@@ -23,30 +23,26 @@ class HomePageButtons extends Component
      */
     public function render()
     {
-        $pages = [
+        $links = [
             [
                 'image' => 'https://picsum.photos/300/300',
-                'title' => 'Search',
-                'link' => route('landing-areas.search'),
+                'title' => 'Volunteer Today',
+                'link' => route('volunteer'),
             ],
             [
                 'image' => 'https://picsum.photos/300/300',
-                'title' => 'Ponder',
-                'link' => route('landing-areas.ponder'),
+                'title' => 'Donate Now',
+                'link' => route('donate.online'),
             ],
             [
                 'image' => 'https://picsum.photos/300/300',
-                'title' => 'Serve',
-                'link' => route('landing-areas.serve'),
-            ],
-            [
-                'image' => 'https://picsum.photos/300/300',
-                'title' => 'Testify',
-                'link' => route('landing-areas.testify'),
+                'title' => 'Sign Up for Updates',
+                'link' => 'https://updates.wilfordwoodruffpapers.org/posts',
             ],
         ];
-        return view('components.home.buttons', [
-            'pages' => $pages,
+
+        return view('components.home.call-to-action', [
+            'links' => $links,
         ]);
     }
 }
