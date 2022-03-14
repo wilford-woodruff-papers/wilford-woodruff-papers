@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Events\ContactFormSubmitted;
+use App\Events\ItemSelectedForImport;
 use App\Listeners\AddSubscriberToConvertKit;
+use App\Listeners\ImportItemFromFtp;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -22,6 +24,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         ContactFormSubmitted::class => [
             AddSubscriberToConvertKit::class,
+        ],
+        ItemSelectedForImport::class => [
+            ImportItemFromFtp::class,
         ]
     ];
 
