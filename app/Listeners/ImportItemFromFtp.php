@@ -15,6 +15,8 @@ use PHPHtmlParser\Dom;
 
 class ImportItemFromFtp implements ShouldQueue
 {
+    use InteractsWithQueue;
+    
     /**
      * Create the event listener.
      *
