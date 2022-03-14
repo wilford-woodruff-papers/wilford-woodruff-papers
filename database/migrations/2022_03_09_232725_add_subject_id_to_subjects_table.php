@@ -14,7 +14,7 @@ class AddSubjectIdToSubjectsTable extends Migration
     public function up()
     {
         Schema::table('subjects', function (Blueprint $table) {
-            $table->foreignIdFor(\App\Models\Subject::class);
+            $table->foreignIdFor(\App\Models\Subject::class)->nullable();
         });
     }
 
