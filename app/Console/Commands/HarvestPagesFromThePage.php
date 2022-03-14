@@ -56,16 +56,12 @@ class HarvestPagesFromThePage extends Command
             $items->chunkById(10, function($items){
                 $items->each(function($item, $key){
 
-
-                        ray($item->id);
-                        ray($item->name);
-                        ray($item->ftp_id);
                         $response = Http::get($item->ftp_id);
                         $canvases = $response->json('sequences.0.canvases');
                         if(! empty($canvases)){
-                            ray("Canvases: ");
+
                             foreach($canvases as $key => $canvas){
-                                ray($canvas['@id']);
+
                                 $page = Page::updateOrCreate([
                                     'item_id' => $item->id,
                                     'ftp_id' => $canvas['@id'],
@@ -79,17 +75,18 @@ class HarvestPagesFromThePage extends Command
                                         ? $canvas['related'][0]['@id']
                                         : ''
                                 ]);
-                                ray('Clear media');
-                                $page->clearMediaCollection();
-                                ray($canvas['images'][0]['resource']['@id']);
-                                ray(route('pages.show', ['item' => $item, 'page' => $page]));
 
-                                if(! empty($canvas['images'][0]['resource']['@id'])){
-                                    $page->addMediaFromUrl($canvas['images'][0]['resource']['@id'])->toMediaCollection();
+                                if(! $page->hasMedia()){
+                                    $page->clearMediaCollection();
+
+                                    if(! empty($canvas['images'][0]['resource']['@id'])){
+                                        $page->addMediaFromUrl($canvas['images'][0]['resource']['@id'])->toMediaCollection();
+                                    }
                                 }
 
+
                                 $page->subjects()->detach();
-                                ray('Subjects');
+
                                 $subjects = [];
                                 Str::of($page->transcript)->replaceMatches('/(?:\[\[)(.*?)(?:\]\])/', function ($match) use (&$subjects) {
                                     $subjects[] = Str::of($match[0])->trim('[[]]')->explode('|')->first();
@@ -105,7 +102,6 @@ class HarvestPagesFromThePage extends Command
                                 }
 
                                 $page->dates()->delete();
-                                ray('Dates');
 
                                 $dates = $this->extractDates($page->transcript);
 
@@ -116,10 +112,9 @@ class HarvestPagesFromThePage extends Command
                                         $page->dates()->save($d);
                                     }catch(\Exception $e){
                                         logger()->error($e->getMessage());
-                                        ray($page->id);
                                     }
                                 }
-                                ray("Done");
+
                                 unset($page);
                             }
                         }
