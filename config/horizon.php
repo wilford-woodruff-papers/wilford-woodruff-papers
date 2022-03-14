@@ -193,5 +193,12 @@ return [
                 'maxProcesses' => 3,
             ],
         ],
+
+        'development' => [
+            'supervisor-1' => [
+                'maxProcesses' => 3,
+                'queue' => ['development'],
+            ],
+        ],
     ],
 ];
