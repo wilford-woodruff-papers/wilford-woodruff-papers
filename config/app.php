@@ -167,7 +167,6 @@ return [
          */
 
         Dyrynda\Database\LaravelEfficientUuidServiceProvider::class,
-        \App\Providers\HorizonServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -181,6 +180,8 @@ return [
         App\Providers\TelescopeServiceProvider::class,
         App\Providers\FortifyServiceProvider::class,
         App\Providers\JetstreamServiceProvider::class,
+
+        \App\Providers\HorizonServiceProvider::class,
 
     ],
 
