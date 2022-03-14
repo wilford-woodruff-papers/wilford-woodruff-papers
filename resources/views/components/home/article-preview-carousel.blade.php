@@ -88,7 +88,7 @@
                         @foreach($medias as $media)
                             <li x-bind="disableNextAndPreviousButtons" class="snap-start w-1/3 shrink-0 flex flex-col items-center justify-center p-2" role="option">
                                 <a href="{{ route('media.'.Str::of($media->type)->lower(), $media->slug) }}" title="{{ $media->title }}">
-                                    <img class="mt-2 w-full" src="{{ $media->cover_image }}" alt="{{ $media->title }}">
+                                    <img class="mt-2 w-full" src="{{ \Illuminate\Support\Facades\Storage::disk('media')->url($media->cover_image)  }}" alt="{{ $media->title }}">
                                 </a>
                                 {{--<button x-bind="focusableWhenVisible" class="px-4 py-2 text-sm">Do Something</button>--}}
                             </li>

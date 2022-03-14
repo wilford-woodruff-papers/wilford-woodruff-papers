@@ -139,6 +139,12 @@
                         </li>
 
                         <li>
+                            <a href="https://updates.wilfordwoodruffpapers.org/posts" class="text-base text-white hover:text-highlight">
+                                 Updates
+                            </a>
+                        </li>
+
+                        <li>
                             <a href="/s/wilford-woodruff-papers/page/videos" class="text-base text-white hover:text-highlight">
                                 Videos
                             </a>
