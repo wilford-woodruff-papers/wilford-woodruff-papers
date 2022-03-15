@@ -6,6 +6,7 @@ use App\Models\Date;
 use App\Models\Item;
 use App\Models\Page;
 use App\Models\Subject;
+use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -18,7 +19,7 @@ use PHPHtmlParser\Dom;
 
 class ImportItemFromFtp implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Batchable, Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected Item $item;
 
@@ -39,6 +40,11 @@ class ImportItemFromFtp implements ShouldQueue
      */
     public function handle()
     {
+        if ($this->batch()->cancelled()) {
+            // Determine if the batch has been cancelled...
+            return;
+        }
+
         $item = $this->item;
         $response = Http::get($item->ftp_id);
         $canvases = $response->json('sequences.0.canvases');
