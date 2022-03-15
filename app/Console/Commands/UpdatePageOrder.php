@@ -84,6 +84,6 @@ class UpdatePageOrder extends Command
                 $page->save();
             });
         });
-
+        logger()->info('Page Order Updated: ' . now());
     }
 }

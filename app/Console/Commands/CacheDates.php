@@ -62,5 +62,7 @@ class CacheDates extends Command
             }
             $item->save();
         });
+
+        logger()->info('Dates Cached: ' . now());
     }
 }
