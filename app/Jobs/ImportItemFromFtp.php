@@ -1,41 +1,45 @@
 <?php
 
-namespace App\Listeners;
+namespace App\Jobs;
 
-use App\Events\ItemSelectedForImport;
 use App\Models\Date;
+use App\Models\Item;
 use App\Models\Page;
 use App\Models\Subject;
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Support\Facades\Artisan;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use PHPHtmlParser\Dom;
 
 class ImportItemFromFtp implements ShouldQueue
 {
-    use InteractsWithQueue;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
+    protected Item $item;
 
     /**
-     * Create the event listener.
+     * Create a new job instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Item $item)
     {
-        //
+        $this->item = $item;
     }
 
     /**
-     * Handle the event.
+     * Execute the job.
      *
-     * @param  \App\Events\ItemSelectedForImport  $event
      * @return void
      */
-    public function handle(ItemSelectedForImport $event)
+    public function handle()
     {
-        $item = $event->item;
+        $item = $this->item;
         $response = Http::get($item->ftp_id);
         $canvases = $response->json('sequences.0.canvases');
         if(! empty($canvases)){
@@ -63,7 +67,6 @@ class ImportItemFromFtp implements ShouldQueue
                         $page->addMediaFromUrl($canvas['images'][0]['resource']['@id'])->toMediaCollection();
                     }
                 }
-
 
                 $page->subjects()->detach();
 
@@ -101,10 +104,6 @@ class ImportItemFromFtp implements ShouldQueue
 
         $item->imported_at = now('America/Denver');
         $item->save();
-
-        // These need to be move as to not run after every item import
-        Artisan::call('pages:order');
-        Artisan::call('dates:cache');
     }
 
     private function convertSubjectTags($transcript)
