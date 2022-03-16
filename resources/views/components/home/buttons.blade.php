@@ -8,7 +8,7 @@
                             <div class="image-child absolute h-full w-full z-10 bg-cover bg-center z-0" style="background-image: url({{ $page['image'] }})">
 
                             </div>
-                            <div class="text-center w-full py-3 z-10 text-white text-xl font-medium bg-primary-50">
+                            <div class="text-center w-full py-3 z-10 text-white text-xl font-medium bg-primary-50 uppercase">
                                 {{ $page['title'] }}
                             </div>
                         </div>
