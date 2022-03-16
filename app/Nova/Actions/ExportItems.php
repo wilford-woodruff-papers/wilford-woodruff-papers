@@ -16,7 +16,6 @@ use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 
 class ExportItems extends DownloadExcel implements WithMapping, WithHeadings
 {
-
     /**
      * @return array
      */
@@ -45,8 +44,7 @@ class ExportItems extends DownloadExcel implements WithMapping, WithHeadings
             $item->enabled,
             $item->name,
             route('documents.show', ['item' => $item->uuid]),
-            $item->ftp_id
+            $item->ftp_id,
         ];
     }
-
 }

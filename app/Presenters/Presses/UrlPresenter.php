@@ -2,12 +2,11 @@
 
 namespace App\Presenters\Presses;
 
-
 use App\Models\Press;
 use Illuminate\Support\Str;
 
-class UrlPresenter {
-
+class UrlPresenter
+{
     protected $database;
 
     public function __construct(Press $press)
@@ -17,10 +16,10 @@ class UrlPresenter {
 
     public function __get($key)
     {
-        if(method_exists($this, $key))
-        {
+        if (method_exists($this, $key)) {
             return $this->$key();
         }
+
         return $this->$key;
     }
 

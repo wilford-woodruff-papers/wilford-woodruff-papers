@@ -39,14 +39,13 @@ class LoadNews extends Command
     public function handle()
     {
         $news = $this->getNews();
-        foreach($news as $key => $article){
+        foreach ($news as $key => $article) {
             $article['type'] = 'NEWS';
             $press = Press::create($article);
         }
 
         return 0;
     }
-
 
     private function getNews()
     {
@@ -83,6 +82,6 @@ class LoadNews extends Command
                 "link":"https://latterdaysaintmag.com/the-wilford-woodruff-papers-how-a-team-of-individuals-are-making-possible-the-impossible",
                 "embed":""
             }
-        ]',true);
+        ]', true);
     }
 }

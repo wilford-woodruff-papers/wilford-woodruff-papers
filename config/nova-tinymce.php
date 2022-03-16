@@ -17,12 +17,12 @@ return [
         'skin_url' => '/vendor/tinymce/skins/ui/oxide',
         'path_absolute' => '/',
         'plugins' => [
-            'lists preview hr anchor pagebreak image wordcount fullscreen directionality paste textpattern link code'
+            'lists preview hr anchor pagebreak image wordcount fullscreen directionality paste textpattern link code',
         ],
         'toolbar' => 'undo redo | styleselect | bold italic forecolor backcolor | alignleft aligncenter alignright alignjustify | link image | bullist numlist outdent indent | code',
         'relative_urls' => false,
         'link_context_toolbar' => true,
         'use_lfm' => true,
-        'lfm_url' => 'filemanager'
+        'lfm_url' => 'filemanager',
     ],
 ];

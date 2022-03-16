@@ -85,7 +85,7 @@ class MediaRequest extends Component
 
     public function spamFilter()
     {
-        if(! empty($this->role)){
+        if (! empty($this->role)) {
             abort(422, 'Error processing form');
         }
     }

@@ -42,8 +42,8 @@ class PublishedSitePages extends Command
     public function handle()
     {
         $itemCount = Page::query()
-                            ->whereHas('item', function(Builder $query){
-                                $query->where('enabled',1);
+                            ->whereHas('item', function (Builder $query) {
+                                $query->where('enabled', 1);
                             })
                             ->count();
 
@@ -53,7 +53,7 @@ class PublishedSitePages extends Command
                             ->latest()
                             ->first();
 
-        if(! empty($previousStat)) {
+        if (! empty($previousStat)) {
             $difference = $itemCount - $previousStat->value;
         } else {
             $difference = $itemCount;

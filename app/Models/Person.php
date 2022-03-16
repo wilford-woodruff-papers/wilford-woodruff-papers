@@ -22,6 +22,7 @@ class Person extends Model
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
     }
+
     /**
      * Get the route key for the model.
      *

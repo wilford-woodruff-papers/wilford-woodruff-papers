@@ -27,7 +27,7 @@ class Enable extends Action
     public function handle(ActionFields $fields, Collection $models)
     {
         foreach ($models as $model) {
-            if($model->enabled == 0){
+            if ($model->enabled == 0) {
                 $model->added_to_collection_at = now();
             }
             $model->enabled = $fields->status;
@@ -46,7 +46,7 @@ class Enable extends Action
             Select::make('Status')->options([
                 1 => 'Enable',
                 0 => 'Disable',
-            ])
+            ]),
         ];
     }
 }

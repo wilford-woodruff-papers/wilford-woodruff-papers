@@ -19,19 +19,20 @@ class NewPages extends Value
     public function calculate(NovaRequest $request)
     {
         $pages = new Page;
-        if($request->range > 0){
-            $pages = $pages->whereHas('item', function(Builder $query) use ($request){
+        if ($request->range > 0) {
+            $pages = $pages->whereHas('item', function (Builder $query) use ($request) {
                 $query->where('type_id', $request->range)
-                    ->where('enabled',1);
+                    ->where('enabled', 1);
             });
-        }else{
-            $pages = $pages->whereHas('item', function(Builder $query) use ($request){
+        } else {
+            $pages = $pages->whereHas('item', function (Builder $query) use ($request) {
                 $query->whereIn('type_id', array_keys($this->ranges()))
-                    ->where('enabled',1);
+                    ->where('enabled', 1);
             });
         }
+
         return $this->result($pages->count())
-            ->format("0,0");
+            ->format('0,0');
     }
 
     /**

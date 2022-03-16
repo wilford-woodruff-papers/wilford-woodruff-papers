@@ -40,9 +40,9 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
 
     public function parent()
     {
-        if(! empty($this->item) && empty($this->item->item_id)){
+        if (! empty($this->item) && empty($this->item->item_id)) {
             return $this->item();
-        }else{
+        } else {
             return $this->belongsTo(Item::class, 'parent_item_id');
         }
     }
@@ -60,9 +60,8 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
     public function text()
     {
         return Str::of($this->transcript)->replaceMatches('/(?:\[\[)(.*?)(?:\]\])/', function ($match) {
-            return '<a href="/subjects/' . Str::of(Str::of($match[1])->explode("|")->first())->slug() . '" class="text-secondary popup">'. Str::of($match[1])->explode("|")->last() .'</a>';
+            return '<a href="/subjects/'.Str::of(Str::of($match[1])->explode('|')->first())->slug().'" class="text-secondary popup">'.Str::of($match[1])->explode('|')->last().'</a>';
         });
-
     }
 
     public function getRouteKeyName()
@@ -78,7 +77,6 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
             ->sharpen(10);
     }
 
-
     public $sortable = [
         'order_column_name' => 'order',
         'sort_when_creating' => true,
@@ -86,12 +84,11 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
 
     public function buildSortQuery()
     {
-        if(! empty($this->attributes['parent_item_id'])){
+        if (! empty($this->attributes['parent_item_id'])) {
             return static::query()->where('parent_item_id', $this->parent->id);
-        }else{
+        } else {
             return static::query()->where('item_id', $this->attributes['item_id']);
         }
-
     }
 
     protected $attributeModifiers = [
@@ -105,5 +102,4 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
     {
         return $this->morphToMany(Event::class, 'timelineable');
     }
-
 }

@@ -34,7 +34,6 @@ class Photo extends Model implements HasMedia
 
     public function registerMediaConversions(Media $media = null): void
     {
-
         $this->addMediaConversion('web')
             ->width(1472)
             ->height(928)
@@ -53,5 +52,4 @@ class Photo extends Model implements HasMedia
     {
         return $this->morphToMany(Event::class, 'timelineable');
     }
-
 }

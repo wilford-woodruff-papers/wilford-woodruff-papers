@@ -33,6 +33,7 @@ class JobOpportunity extends Model implements HasMedia, \OwenIt\Auditing\Contrac
             ->generateSlugsFrom('title')
             ->saveSlugsTo('slug');
     }
+
     /**
      * Get the route key for the model.
      *

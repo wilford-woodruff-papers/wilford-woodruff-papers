@@ -33,6 +33,7 @@ class Press extends Model implements HasMedia
             ->generateSlugsFrom('title')
             ->saveSlugsTo('slug');
     }
+
     /**
      * Get the route key for the model.
      *

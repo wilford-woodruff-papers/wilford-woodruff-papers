@@ -39,14 +39,13 @@ class LoadPodcasts extends Command
     public function handle()
     {
         $podcasts = $this->getPodcasts();
-        foreach($podcasts as $key => $podcast){
+        foreach ($podcasts as $key => $podcast) {
             $podcast['type'] = 'PODCAST';
             $press = Press::create($podcast);
         }
 
         return 0;
     }
-
 
     private function getPodcasts()
     {
@@ -107,6 +106,6 @@ class LoadPodcasts extends Command
                 "link":"https://www.fairlatterdaysaints.org/blog/2021/01/31/fair-voice-podcast-27-wilford-woodruff-papers-part-2",
                 "embed":"<iframe height=\'100\' src=\'https://drive.google.com/file/d/1t9_KvZ8tZT7qdAh1KliSUbgINjS7aLrO/preview\' style=\'border: none; height: 100px;\' width=\'480\'></iframe>"
             }
-        ]',true);
+        ]', true);
     }
 }

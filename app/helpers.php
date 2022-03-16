@@ -57,7 +57,7 @@ function str_highlight($text, $needle, $options = null, $highlight = null)
 
     // Case sensitivity
 
-    if (!($options & STR_HIGHLIGHT_CASESENS)) {
+    if (! ($options & STR_HIGHLIGHT_CASESENS)) {
         $pattern .= 'i';
         $sl_pattern .= 'i';
     }
@@ -69,7 +69,7 @@ function str_highlight($text, $needle, $options = null, $highlight = null)
         // Escape needle with optional whole word check
 
         if ($options & STR_HIGHLIGHT_WHOLEWD) {
-            $needle_s = '\b' . $needle_s . '\b';
+            $needle_s = '\b'.$needle_s.'\b';
         }
 
         // Strip links
@@ -86,23 +86,25 @@ function str_highlight($text, $needle, $options = null, $highlight = null)
     return $text;
 }
 
-function get_snippet( $str, $wordCount = 10 ) {
+function get_snippet($str, $wordCount = 10)
+{
     return implode(
         '',
         array_slice(
             preg_split(
                 '/([\s,\.;\?\!]+)/',
                 $str,
-                $wordCount*2+1,
+                $wordCount * 2 + 1,
                 PREG_SPLIT_DELIM_CAPTURE
             ),
             0,
-            $wordCount*2-1
+            $wordCount * 2 - 1
         )
     );
 }
 
-function get_word_count( $str ) {
+function get_word_count($str)
+{
     return count(
         preg_split(
             '/([\s,\.;\?\!]+)/',
@@ -113,10 +115,12 @@ function get_word_count( $str ) {
     );
 }
 
-function monthName($monthNum){
-    if(empty($monthNum)){
+function monthName($monthNum)
+{
+    if (empty($monthNum)) {
         return '';
     }
-    $dateObj   = DateTime::createFromFormat('!m', $monthNum);
+    $dateObj = DateTime::createFromFormat('!m', $monthNum);
+
     return $dateObj->format('F');
 }

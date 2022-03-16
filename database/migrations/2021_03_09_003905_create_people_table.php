@@ -13,7 +13,6 @@ class CreatePeopleTable extends Migration
      */
     public function up()
     {
-
         Schema::create('wives', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('person_id');
@@ -34,8 +33,6 @@ class CreatePeopleTable extends Migration
                     ->references('id')
                     ->on('subjects');
         });
-
-
 
         Schema::create('children', function (Blueprint $table) {
             $table->id();

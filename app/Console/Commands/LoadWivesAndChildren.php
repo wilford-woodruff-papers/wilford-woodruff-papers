@@ -42,8 +42,8 @@ class LoadWivesAndChildren extends Command
     {
         $wives = $this->getFamily();
 
-        foreach($wives as $person){
-            if(! $subject = Subject::whereSlug($person['link'])->first()){
+        foreach ($wives as $person) {
+            if (! $subject = Subject::whereSlug($person['link'])->first()) {
                 $subject = Subject::create(['name' => $person['name']]);
             }
             $wife = new Wife();
@@ -62,7 +62,7 @@ class LoadWivesAndChildren extends Command
 
             $wife->save();
 
-            foreach($person['children'] as $personchild){
+            foreach ($person['children'] as $personchild) {
                 $child = new Child();
                 $child->name = $personchild['name'];
                 $child->gender = $personchild['gender'];
@@ -74,7 +74,6 @@ class LoadWivesAndChildren extends Command
                 $wife->children()->save($child);
             }
         }
-
 
         return 0;
     }

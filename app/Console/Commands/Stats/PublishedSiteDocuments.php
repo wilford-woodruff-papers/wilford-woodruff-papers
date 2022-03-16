@@ -5,7 +5,6 @@ namespace App\Console\Commands\Stats;
 use App\Models\Item;
 use App\Models\Stat;
 use App\Models\Type;
-
 use Illuminate\Console\Command;
 
 class PublishedSiteDocuments extends Command
@@ -52,7 +51,7 @@ class PublishedSiteDocuments extends Command
                             ->latest()
                             ->first();
 
-        if(! empty($previousStat)) {
+        if (! empty($previousStat)) {
             $difference = $itemCount - $previousStat->value;
         } else {
             $difference = $itemCount;

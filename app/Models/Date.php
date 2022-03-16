@@ -19,5 +19,4 @@ class Date extends Model
     protected $dates = [
         'date',
     ];
-
 }

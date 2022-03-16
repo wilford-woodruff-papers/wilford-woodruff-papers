@@ -16,7 +16,6 @@ use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 
 class ExportPages extends DownloadExcel implements WithMapping, WithHeadings
 {
-
     /**
      * @return array
      */
@@ -44,6 +43,7 @@ class ExportPages extends DownloadExcel implements WithMapping, WithHeadings
     public function map($page): array
     {
         $page->load('item');
+
         return [
             $page->id,
             optional(optional($page->parent)->type)->name,
@@ -51,11 +51,10 @@ class ExportPages extends DownloadExcel implements WithMapping, WithHeadings
             $page->parent->name,
             $page->uuid,
             $page->name,
-            route('pages.show', ['item' => $page->item->uuid , 'page' => $page->uuid]),
+            route('pages.show', ['item' => $page->item->uuid, 'page' => $page->uuid]),
             optional($page->getFirstMedia())->getUrl(),
             $page->transcript,
             strip_tags($page->transcript),
         ];
     }
-
 }

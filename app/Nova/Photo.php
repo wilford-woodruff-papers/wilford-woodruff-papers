@@ -15,6 +15,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 class Photo extends Resource
 {
     public static $group = 'Website';
+
     /**
      * The model the resource corresponds to.
      *

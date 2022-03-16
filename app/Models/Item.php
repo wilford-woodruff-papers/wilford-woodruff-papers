@@ -38,29 +38,30 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
         }else{
             return $this->hasMany(Page::class)->orderBy('order', 'ASC');
         }*/
-        if(array_key_exists('id', $this->attributes) && Page::where('item_id', $this->attributes['id'])->count() > 0){
+        if (array_key_exists('id', $this->attributes) && Page::where('item_id', $this->attributes['id'])->count() > 0) {
             return $this->hasMany(Page::class)->orderBy('order', 'ASC');
-        }else{
-            return $this->hasManyThrough(Page::class, Item::class)->orderBy('order', 'ASC');
+        } else {
+            return $this->hasManyThrough(Page::class, self::class)->orderBy('order', 'ASC');
         }
     }
 
     public function items()
     {
-        return $this->hasMany(Item::class)->orderBy('order', 'ASC');
+        return $this->hasMany(self::class)->orderBy('order', 'ASC');
     }
 
     public function item()
     {
-        return $this->belongsTo(Item::class);
+        return $this->belongsTo(self::class);
     }
 
     public function parent()
     {
-        if(empty($this->item_id)){
+        if (empty($this->item_id)) {
             return $this;
         }
-        return Item::findOrFail($this->item_id);
+
+        return self::findOrFail($this->item_id);
     }
 
     public function type()

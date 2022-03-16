@@ -20,13 +20,14 @@ class PublishedItems extends Value
     public function calculate(NovaRequest $request)
     {
         $items = new Item;
-        if($request->range > 0){
+        if ($request->range > 0) {
             $items = $items->where('type_id', $request->range);
-        }else{
+        } else {
             $items = $items->whereIn('type_id', array_keys($this->ranges()));
         }
+
         return $this->result($items->where('enabled', 1)->count())
-            ->format("0,0");
+            ->format('0,0');
     }
 
     /**

@@ -18,7 +18,7 @@ class AddSlugToPressesTable extends Migration
         });
 
         $presses = \App\Models\Press::all();
-        $presses->each(function($press){
+        $presses->each(function ($press) {
             $press->generateSlug();
             $press->save();
         });

@@ -12,6 +12,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 class Medium extends Resource
 {
     public static $displayInNavigation = false;
+
     /**
      * The model the resource corresponds to.
      *

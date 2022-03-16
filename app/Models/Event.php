@@ -63,7 +63,7 @@ class Event extends Model implements HasMedia
             'month' => $this->start_at->month,
             'day' => $this->start_at->day,
         ];
-        if(! empty($this->end_at)){
+        if (! empty($this->end_at)) {
             $event['end_date'] = [
                 'year' => $this->end_at->year,
                 'month' => $this->end_at->month,
@@ -76,15 +76,15 @@ class Event extends Model implements HasMedia
             'text' => $this->text,
         ];
 
-        if($this->media->count() > 0){
+        if ($this->media->count() > 0) {
             $event['media'] = [
                 'url' => $this->getFirstMediaUrl(),
-                'thumbnail' => $this->getFirstMediaUrl('default','thumb'),
+                'thumbnail' => $this->getFirstMediaUrl('default', 'thumb'),
             ];
-        }else if($this->photos->count() > 0){
+        } elseif ($this->photos->count() > 0) {
             $event['media'] = [
                 'url' => $this->photos->first()->getFirstMediaUrl(),
-                'thumbnail' => $this->photos->first()->getFirstMediaUrl('default','thumb'),
+                'thumbnail' => $this->photos->first()->getFirstMediaUrl('default', 'thumb'),
             ];
         }
 

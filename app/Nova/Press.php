@@ -19,6 +19,7 @@ use Laravel\Nova\Nova;
 class Press extends Resource
 {
     public static $displayInNavigation = false;
+
     /**
      * The model the resource corresponds to.
      *

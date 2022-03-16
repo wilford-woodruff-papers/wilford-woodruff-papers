@@ -13,19 +13,18 @@ class AddItemNameToPageTable extends Migration
      */
     public function up()
     {
-        try{
+        try {
             Schema::table('pages', function (Blueprint $table) {
                 $table->text('full_name')->nullable();
             });
 
-            \App\Models\Page::with('parent')->chunkById(100, function($pages){
-                $pages->each(function($page, $key){
-                    $page->full_name = $page->parent->name . ': Page' . $page->order;
+            \App\Models\Page::with('parent')->chunkById(100, function ($pages) {
+                $pages->each(function ($page, $key) {
+                    $page->full_name = $page->parent->name.': Page'.$page->order;
                     $page->save();
                 });
             }, $column = 'id');
-
-        }catch(Exception $e){
+        } catch (Exception $e) {
             logger()->error($e->getMessage());
             $this->down();
             throw $e;

@@ -14,6 +14,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 class News extends Resource
 {
     public static $group = 'Media';
+
     /**
      * The model the resource corresponds to.
      *

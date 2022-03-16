@@ -45,9 +45,9 @@ class Geolocation extends Command
             $query->where('name', 'Places');
         })->get();
 
-        foreach ($places as $place){
+        foreach ($places as $place) {
             $response = \GoogleMaps::load('geocoding')
-                            ->setParam (['address' => $place->name])
+                            ->setParam(['address' => $place->name])
                             ->get();
             $place->geolocation = json_decode($response, true)['results'][0];
             $place->save();

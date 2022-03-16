@@ -13,7 +13,6 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class JobOpportunity extends Resource
 {
-
     public static $group = 'Website';
 
     /**
