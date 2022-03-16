@@ -26,12 +26,10 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
     protected $guarded = ['id'];
 
     protected $casts = [
+        'imported_at' => 'datetime',
         'uuid' => EfficientUuid::class,
     ];
 
-    protected $dates = [
-        'imported_at',
-    ];
 
     public function item()
     {

@@ -20,14 +20,12 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
 
     protected $guarded = ['id'];
 
-    protected $dates = [
-        'added_to_collection_at',
-        'sort_date',
-        'first_date',
-        'imported_at',
-    ];
 
     protected $casts = [
+        'added_to_collection_at' => 'datetime',
+        'sort_date' => 'datetime',
+        'first_date' => 'datetime',
+        'imported_at' => 'datetime',
         'uuid' => EfficientUuid::class,
     ];
 

@@ -19,9 +19,8 @@ class Press extends Model implements HasMedia
     use HasChildren;
 
     protected $guarded = ['id'];
-
-    protected $dates = [
-        'date',
+    protected $casts = [
+        'date' => 'datetime',
     ];
 
     /**

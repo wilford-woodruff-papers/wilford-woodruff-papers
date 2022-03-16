@@ -18,10 +18,9 @@ class JobOpportunity extends Model implements HasMedia, \OwenIt\Auditing\Contrac
     use InteractsWithMedia;
 
     protected $guarded = ['id'];
-
-    protected $dates = [
-        'start_at',
-        'end_at',
+    protected $casts = [
+        'start_at' => 'datetime',
+        'end_at' => 'datetime',
     ];
 
     /**

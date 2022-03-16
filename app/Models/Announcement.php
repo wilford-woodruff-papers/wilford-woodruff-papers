@@ -11,10 +11,9 @@ class Announcement extends Model
 {
     use HasFactory;
     use HasSlug;
-
-    protected $dates = [
-        'start_publishing_at',
-        'end_publishing_at',
+    protected $casts = [
+        'start_publishing_at' => 'datetime',
+        'end_publishing_at' => 'datetime',
     ];
 
     /**
