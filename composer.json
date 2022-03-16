@@ -17,7 +17,6 @@
         "dyrynda/laravel-efficient-uuid": "^4.5",
         "dyrynda/laravel-model-uuid": "^6.6",
         "emilianotisato/nova-tinymce": "^1.2",
-        "froala/nova-froala-field": "^3.4",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^2.7",
         "laravel/framework": "^9.5",
@@ -28,13 +27,13 @@
         "laravel/telescope": "^4.8",
         "laravel/tinker": "^2.7",
         "league/flysystem-aws-s3-v3": "^3.0",
-        "livewire/livewire": "^2.0",
+        "livewire/livewire": "^2.10",
         "maatwebsite/excel": "^3.1",
         "maatwebsite/laravel-nova-excel": "^1.2",
         "mailersend/laravel-driver": "^2.0",
         "owen-it/laravel-auditing": "^13.0",
         "paquettg/php-html-parser": "^3.1",
-        "pos-lifestyle/laravel-nova-date-range-filter": "^1.3",
+        "pos-lifestyle/laravel-nova-date-range-filter": "dev-master",
         "ramsey/uuid": "^4.2",
         "spatie/eloquent-sortable": "^4.0",
         "spatie/laravel-activitylog": "^4.4",
@@ -53,7 +52,6 @@
         "fakerphp/faker": "^1.9.1",
         "laravel/dusk": "^6.22",
         "laravel/envoy": "^2.8",
-        "laravel/sail": "^1.13",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^6.1",
         "pestphp/pest": "^1.21",
@@ -117,6 +115,10 @@
         {
             "type": "path",
             "url": "./nova-components/Items"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/bernhardh/laravel-nova-date-range-filter.git"
         }
     ]
 }
