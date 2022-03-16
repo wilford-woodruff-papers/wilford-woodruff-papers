@@ -44,7 +44,7 @@ class ExportItems extends DownloadExcel implements WithMapping, WithHeadings
             $item->type->name,
             $item->enabled,
             $item->name,
-            route('item.show', ['item' => $item->uuid]),
+            route('documents.show', ['item' => $item->uuid]),
             $item->ftp_id
         ];
     }
