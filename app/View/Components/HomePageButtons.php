@@ -25,24 +25,24 @@ class HomePageButtons extends Component
     {
         $pages = [
             [
-                'image' => 'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80',
-                'title' => '',
-                'link' => '',
+                'image' => asset('img/home/documents.jpg'),
+                'title' => 'Search',
+                'link' => route('landing-areas.search'),
             ],
             [
-                'image' => 'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80',
-                'title' => '',
-                'link' => '',
+                'image' => asset('img/home/people.jpg'),
+                'title' => 'Ponder',
+                'link' => route('landing-areas.ponder'),
             ],
             [
-                'image' => 'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80',
-                'title' => '',
-                'link' => '',
+                'image' => asset('img/home/places.jpg'),
+                'title' => 'Serve',
+                'link' => route('landing-areas.serve'),
             ],
             [
-                'image' => 'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80',
-                'title' => '',
-                'link' => '',
+                'image' => asset('img/home/historical-context.jpg'),
+                'title' => 'Testify',
+                'link' => route('landing-areas.testify'),
             ],
         ];
         return view('components.home.buttons', [

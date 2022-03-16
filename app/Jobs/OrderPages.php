@@ -1,46 +1,37 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Jobs;
 
 use App\Models\Item;
 use App\Models\Page;
-use Illuminate\Console\Command;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
 
-class UpdatePageOrder extends Command
+class OrderPages implements ShouldQueue
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'pages:order';
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Update parent IDs and sort order';
-
-    /**
-     * Create a new command instance.
+     * Create a new job instance.
      *
      * @return void
      */
     public function __construct()
     {
-        parent::__construct();
+        //
     }
 
     /**
-     * Execute the console command.
+     * Execute the job.
      *
-     * @return int
+     * @return void
      */
     public function handle()
     {
-
         $items = Item::doesntHave('items')->get();
         $items->each(function($item){
             if($item->enabled){
@@ -73,8 +64,8 @@ class UpdatePageOrder extends Command
                 $page->type_id = $item->parent()->type_id;
                 $page->save();
             });
-            $this->info('Item: ' . $item->id);
-            $this->info(implode(', ', $itemPages->pluck('id')->all()));
+            //$this->info('Item: ' . $item->id);
+            //$this->info(implode(', ', $itemPages->pluck('id')->all()));
             Page::setNewOrder($itemPages->pluck('id')->all());
 
             $item->fresh();
@@ -84,6 +75,7 @@ class UpdatePageOrder extends Command
                 $page->save();
             });
         });
+
         logger()->info('Page Order Updated: ' . now());
     }
 }

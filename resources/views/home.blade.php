@@ -28,7 +28,7 @@
     </div>
 
     @if(app()->environment(['local','development']))
-        {{--<x-home-page-buttons />--}}
+        <x-home-page-buttons />
     @endif
 
     <x-top-announcements />
@@ -84,7 +84,11 @@
     @if(app()->environment(['local','development']))
         <x-home.book />
 
-        <x-home.video />
+        <div class="py-12">
+            <x-home.video />
+        </div>
+
+        <x-call-to-action />
     @endif
 
     @if(app()->environment(['production']))
@@ -102,6 +106,10 @@
         <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&family=Source+Serif+Pro&display=swap" rel="stylesheet">
     @endpush--}}
+
+    @if(app()->environment(['local','development']))
+        <x-progress />
+    @endif
 
     <x-bottom-announcements />
 
