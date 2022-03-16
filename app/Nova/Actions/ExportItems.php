@@ -41,7 +41,7 @@ class ExportItems extends DownloadExcel implements WithMapping, WithHeadings
     {
         return [
             $item->id,
-            $item->type->name,
+            $item->type?->name,
             $item->enabled,
             $item->name,
             route('documents.show', ['item' => $item->uuid]),

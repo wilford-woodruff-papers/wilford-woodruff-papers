@@ -78,8 +78,10 @@ class Item extends Resource
             BelongsTo::make('Type')->sortable(),
             Date::make('Date', 'sort_date')->sortable(),
 
-            Text::make('Preview', function () {
-                return '<a href="'.route('documents.show', ['item' => $this]).'" class="no-underline dim text-primary font-bold" target="_preview">Preview</a>';
+            Text::make('Preview', function ($item) {
+                if($item->uuid){
+                    return '<a href="'.route('documents.show', ['item' => $item->uuid]).'" class="no-underline dim text-primary font-bold" target="_preview">Preview</a>';
+                }
             })->asHtml(),
             HasMany::make('Items'),
             HasMany::make('Pages'),
