@@ -161,3 +161,15 @@ input[class^="numeric-"], select[class^="numeric-"]{
 {
     background-color: rgba(0,0,0,0.6);
 }
+
+.image-parent:hover .image-child,
+.image-parent:focus .image-child {
+    @apply transform transition duration-500 scale-125;
+}
+
+.image-child {
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    -o-transition: all .5s;
+    transition: all .5s;
+}

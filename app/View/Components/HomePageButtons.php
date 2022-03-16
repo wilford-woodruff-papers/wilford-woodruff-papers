@@ -25,22 +25,22 @@ class HomePageButtons extends Component
     {
         $pages = [
             [
-                'image' => 'https://picsum.photos/300/300',
+                'image' => asset('img/home/documents.jpg'),
                 'title' => 'Search',
                 'link' => route('landing-areas.search'),
             ],
             [
-                'image' => 'https://picsum.photos/300/300',
+                'image' => asset('img/home/people.jpg'),
                 'title' => 'Ponder',
                 'link' => route('landing-areas.ponder'),
             ],
             [
-                'image' => 'https://picsum.photos/300/300',
+                'image' => asset('img/home/places.jpg'),
                 'title' => 'Serve',
                 'link' => route('landing-areas.serve'),
             ],
             [
-                'image' => 'https://picsum.photos/300/300',
+                'image' => asset('img/home/historical-context.jpg'),
                 'title' => 'Testify',
                 'link' => route('landing-areas.testify'),
             ],

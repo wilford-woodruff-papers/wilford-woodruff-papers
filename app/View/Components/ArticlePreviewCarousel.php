@@ -25,7 +25,7 @@ class ArticlePreviewCarousel extends Component
     public function render()
     {
         return view('components.home.article-preview-carousel', [
-            'medias' => Press::select('id', 'type', 'title', 'cover_image', 'slug')
+            'medias' => Press::select('id', 'type', 'title', 'cover_image', 'slug', 'date', 'subtitle')
                                 ->whereNotNull('cover_image')
                                 ->limit(6)
                                 ->orderBy('created_at', 'DESC')
