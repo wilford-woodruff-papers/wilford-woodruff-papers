@@ -64,8 +64,8 @@ class OrderPages implements ShouldQueue
                 $page->type_id = $item->parent()->type_id;
                 $page->save();
             });
-            $this->info('Item: ' . $item->id);
-            $this->info(implode(', ', $itemPages->pluck('id')->all()));
+            //$this->info('Item: ' . $item->id);
+            //$this->info(implode(', ', $itemPages->pluck('id')->all()));
             Page::setNewOrder($itemPages->pluck('id')->all());
 
             $item->fresh();
