@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePagesTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -55,4 +55,4 @@ class CreatePagesTable extends Migration
         Schema::dropIfExists('page_subject');
         Schema::dropIfExists('pages');
     }
-}
+};
