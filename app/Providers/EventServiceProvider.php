@@ -25,9 +25,6 @@ class EventServiceProvider extends ServiceProvider
         ContactFormSubmitted::class => [
             AddSubscriberToConvertKit::class,
         ],
-        ItemSelectedForImport::class => [
-            ImportItemFromFtp::class,
-        ]
     ];
 
     /**
