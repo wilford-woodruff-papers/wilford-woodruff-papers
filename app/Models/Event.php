@@ -16,6 +16,7 @@ class Event extends Model implements HasMedia
     protected $guarded = [
         'id',
     ];
+
     protected $casts = [
         'start_at' => 'datetime',
         'end_at' => 'datetime',

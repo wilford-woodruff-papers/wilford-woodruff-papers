@@ -15,6 +15,7 @@ class Date extends Model
     {
         return $this->morphTo();
     }
+
     protected $casts = [
         'date' => 'datetime',
     ];
