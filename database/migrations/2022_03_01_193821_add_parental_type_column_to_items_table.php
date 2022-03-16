@@ -19,10 +19,10 @@ class AddParentalTypeColumnToItemsTable extends Migration
             });
 
             \App\Models\Item::whereHas('items')->get()->each(function ($item) {
-                $item->update(['parental_type' => 'App\Models\Set']);
+                $item->update(['parental_type' => \App\Models\Set::class]);
             });
             \App\Models\Item::doesntHave('items')->get()->each(function ($item) {
-                $item->update(['parental_type' => 'App\Models\Document']);
+                $item->update(['parental_type' => \App\Models\Document::class]);
             });
         } catch (Exception $e) {
             logger()->error($e->getMessage());
