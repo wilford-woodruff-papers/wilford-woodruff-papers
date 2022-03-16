@@ -74,7 +74,7 @@ class HarvestPagesFromThePage extends Command
                     ->dispatch();
         })
             ->name('Import Pages')
-            ->allowsFailures()
+            ->allowFailures()
             ->dispatch();
 
         $this->info('Batch ID: ' . $batch->id);
