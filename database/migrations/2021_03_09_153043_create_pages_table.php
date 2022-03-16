@@ -5,8 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePagesTable extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -35,7 +34,7 @@ class CreatePagesTable extends Migration
             $table->unsignedBigInteger('subject_id');
             $table->primary(['page_id', 'subject_id']);
         });
-        if(config('database.default') == 'mysql'){
+        if (config('database.default') == 'mysql') {
             DB::statement('ALTER TABLE `pages` ADD FULLTEXT INDEX page_transcript_index (name, transcript)');
         }
     }
@@ -47,12 +46,12 @@ class CreatePagesTable extends Migration
      */
     public function down()
     {
-        if(config('database.default') == 'mysql'){
-            Schema::table('pages', function($table) {
+        if (config('database.default') == 'mysql') {
+            Schema::table('pages', function ($table) {
                 $table->dropIndex('page_transcript_index');
             });
         }
         Schema::dropIfExists('page_subject');
         Schema::dropIfExists('pages');
     }
-}
+};

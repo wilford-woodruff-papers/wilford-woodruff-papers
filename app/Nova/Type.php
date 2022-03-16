@@ -13,6 +13,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 class Type extends Resource
 {
     public static $group = 'Metadata';
+
     /**
      * The model the resource corresponds to.
      *

@@ -48,7 +48,7 @@ class Submission extends Resource
             Text::make('Salutation')->hideFromIndex(),
             Text::make('First Name')->sortable(),
             Text::make('Last Name')->sortable(),
-            Text::make('Email')->displayUsing(function ($value){
+            Text::make('Email')->displayUsing(function ($value) {
                 return "<a href='mailto:$value'>$value</a>";
             })->asHtml(),
             Text::make('Phone'),

@@ -13,7 +13,6 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class BoardMember extends Resource
 {
-
     public static $displayInNavigation = false;
 
     /**

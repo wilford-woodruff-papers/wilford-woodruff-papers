@@ -25,31 +25,31 @@ class SearchController extends Controller
                             $query->where('enabled', 1);
                         });
 
-        if($request->has('q')){
-            $pages = $pages->where(function($query) use ($request) {
-                                $query->whereRelation('item', 'name', 'LIKE', '%'.$request->get('q').'%')
+        if ($request->has('q')) {
+            $pages = $pages->where(function ($query) use ($request) {
+                $query->whereRelation('item', 'name', 'LIKE', '%'.$request->get('q').'%')
                                       ->orWhere('transcript', 'LIKE', '%'.$request->get('q').'%');
-                            });
+            });
         }
 
-        if($request->has('types')){
+        if ($request->has('types')) {
             $pages = $pages->whereIn('type_id', $request->get('types'));
         }
 
-        if($request->get('use_min_date') == "true" && $request->has('min_date')){
+        if ($request->get('use_min_date') == 'true' && $request->has('min_date')) {
             $pages = $pages->whereHas('dates', function (Builder $query) use ($request) {
                 $query->where('date', '>=', $request->get('min_date'));
             });
         }
 
-        if($request->get('use_max_date') == "true" && $request->has('max_date')){
+        if ($request->get('use_max_date') == 'true' && $request->has('max_date')) {
             $pages = $pages->whereHas('dates', function (Builder $query) use ($request) {
                 $query->where('date', '<=', $request->get('max_date'));
             });
         }
 
-        if($request->has('q') || $request->has('types') || $request->has('min_date') || $request->has('max_date')){
-            try{
+        if ($request->has('q') || $request->has('types') || $request->has('min_date') || $request->has('max_date')) {
+            try {
                 activity('search')
                     ->event('search')
                     ->withProperties(array_merge(
@@ -61,7 +61,6 @@ class SearchController extends Controller
             } catch (\Exception $e) {
                 logger()->error($e->getMessage());
             }
-
         }
 
         return view('public.search', [
@@ -75,7 +74,7 @@ class SearchController extends Controller
                 ? Subject::whereEnabled(1)
                     ->whereHas('category', function (Builder $query) {
                         $query->where('name', 'People');
-                    })->where('name', 'LIKE', '%'. $request->get('q') . '%')->get() : collect(),
+                    })->where('name', 'LIKE', '%'.$request->get('q').'%')->get() : collect(),
         ]);
     }
 }

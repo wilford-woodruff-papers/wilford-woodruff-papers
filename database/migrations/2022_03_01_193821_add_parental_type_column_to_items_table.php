@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddParentalTypeColumnToItemsTable extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -13,18 +12,18 @@ class AddParentalTypeColumnToItemsTable extends Migration
      */
     public function up()
     {
-        try{
+        try {
             Schema::table('items', function (Blueprint $table) {
                 $table->string('parental_type')->after('id')->nullable();
             });
 
-            \App\Models\Item::whereHas('items')->get()->each(function ($item){
-                $item->update(['parental_type' => 'App\Models\Set']);
+            \App\Models\Item::whereHas('items')->get()->each(function ($item) {
+                $item->update(['parental_type' => \App\Models\Set::class]);
             });
-            \App\Models\Item::doesntHave('items')->get()->each(function ($item){
-                $item->update(['parental_type' => 'App\Models\Document']);
+            \App\Models\Item::doesntHave('items')->get()->each(function ($item) {
+                $item->update(['parental_type' => \App\Models\Document::class]);
             });
-        }catch(Exception $e){
+        } catch (Exception $e) {
             logger()->error($e->getMessage());
             $this->down();
             throw $e;
@@ -42,4 +41,4 @@ class AddParentalTypeColumnToItemsTable extends Migration
             $table->dropColumn('parental_type');
         });
     }
-}
+};

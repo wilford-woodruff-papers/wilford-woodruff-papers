@@ -45,6 +45,7 @@ class HomePageButtons extends Component
                 'link' => route('landing-areas.testify'),
             ],
         ];
+
         return view('components.home.buttons', [
             'pages' => $pages,
         ]);

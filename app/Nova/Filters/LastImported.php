@@ -25,13 +25,14 @@ class LastImported extends Filter
      */
     public function apply(Request $request, $query, $value)
     {
-        if($value == -1){
+        if ($value == -1) {
             return $query;
         }
+
         return $query->where(function ($query) use ($value) {
-                    $query->whereNull('imported_at')
+            $query->whereNull('imported_at')
                             ->orWhere('imported_at', '<', now('America/Denver')->subDays($value));
-                });
+        });
     }
 
     /**

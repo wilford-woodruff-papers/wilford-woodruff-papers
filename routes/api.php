@@ -18,5 +18,4 @@ use Illuminate\Support\Facades\Route;
     return $request->user();
 });*/
 
-
 /*Route::get('/subjects/{subject}', [\App\Http\Controllers\SubjectController::class, 'show'])->name('api.subjects.show');*/

@@ -11,20 +11,19 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 class SubjectImport implements ToCollection, WithHeadingRow
 {
     /**
-    * @param Collection $collection
-    */
+     * @param Collection $collection
+     */
     public function collection(Collection $rows)
     {
         $categories = Category::all();
 
-        foreach ($rows as $row)
-        {
+        foreach ($rows as $row) {
             $subject = Subject::firstOrCreate([
                 'name' => trim(html_entity_decode($row['title'])),
             ]);
 
-            foreach(explode(';', $row['categories']) as $subjectCategory){
-                if($category = $categories->firstWhere('name', $subjectCategory)){
+            foreach (explode(';', $row['categories']) as $subjectCategory) {
+                if ($category = $categories->firstWhere('name', $subjectCategory)) {
                     $category->subjects()->syncWithoutDetaching($subject);
                 }
             }

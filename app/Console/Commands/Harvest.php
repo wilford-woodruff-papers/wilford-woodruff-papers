@@ -42,23 +42,22 @@ class Harvest extends Command
      */
     public function handle()
     {
-        $response = Http::get( 'https://fromthepage.com/iiif/collection/970' );
+        $response = Http::get('https://fromthepage.com/iiif/collection/970');
 
         collect(
-            data_get( $response, 'manifests', [] )
-        )->each(function ($manifest, $key){
+            data_get($response, 'manifests', [])
+        )->each(function ($manifest, $key) {
             $document = Item::updateOrCreate([
                 'ftp_id' => $manifest['@id'],
             ], [
                 'name' => $manifest['label'],
             ]);
 
-            $this->info('Imported: ' . $document->name);
-
+            $this->info('Imported: '.$document->name);
 
             collect(
-                Http::get( $manifest['@id'] )->json('sequences.0.canvases', [])
-            )->each(function($canvas, $key) use ($manifest){
+                Http::get($manifest['@id'])->json('sequences.0.canvases', [])
+            )->each(function ($canvas, $key) use ($manifest) {
                 // Add or update the page
                 $page = Page::updateOrCreate([
                     'item_id' => Item::where('ftp_id', $manifest['@id'])->firstOrFail()->id,
@@ -66,26 +65,24 @@ class Harvest extends Command
                 ], [
                     'name' => $canvas['label'],
                     'transcript' => $this->convertSubjectTags(
-                        Http::get( data_get( $canvas, 'otherContent.0.@id', '') )->json('resources.0.resource.chars', '')
+                        Http::get(data_get($canvas, 'otherContent.0.@id', ''))->json('resources.0.resource.chars', '')
                     ),
-                    'ftp_link' => data_get( $canvas, 'related.0.@id', '' )
+                    'ftp_link' => data_get($canvas, 'related.0.@id', ''),
                 ]);
 
                 // Add image to page
-                if( ! $page->hasMedia()
-                    && data_get( $canvas, 'images.0.resource.@id', false )
-                ){
+                if (! $page->hasMedia()
+                    && data_get($canvas, 'images.0.resource.@id', false)
+                ) {
                     $page->addMediaFromUrl(
-                        data_get( $canvas, 'images.0.resource.@id' )
+                        data_get($canvas, 'images.0.resource.@id')
                     )->toMediaCollection();
                 }
 
-                $this->info('Imported: ' . $page->name);
-
+                $this->info('Imported: '.$page->name);
             });
 
             dd('Exit');
-
         });
 
         return Command::SUCCESS;
@@ -97,12 +94,13 @@ class Harvest extends Command
         $dom->loadStr($transcript);
         $transcript = Str::of($transcript);
         $links = $dom->find('a');
-        foreach($links as $link){
+        foreach ($links as $link) {
             $transcript = $transcript->replace(
                 $link->outerHtml(),
-                '[['. $link->getAttribute('title') .'|'. $link->innerHtml() .']]'
+                '[['.$link->getAttribute('title').'|'.$link->innerHtml().']]'
             );
         }
+
         return $transcript;
     }
 }

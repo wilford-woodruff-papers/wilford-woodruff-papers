@@ -17,6 +17,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 class Page extends Resource
 {
     public static $group = 'Documents';
+
     /**
      * The model the resource corresponds to.
      *
@@ -40,7 +41,7 @@ class Page extends Resource
         'id',
         'full_name',
         'transcript',
-        'uuid'
+        'uuid',
     ];
 
     /**
@@ -59,10 +60,10 @@ class Page extends Resource
                 Text::make('Preview', function () {
                     return '<a href="'.route('pages.show', ['item' => $this->item, 'page' => $this]).'" class="no-underline dim text-primary font-bold" target="_preview">Preview</a>';
                 })->asHtml() : Text::make('Preview', function () {
-                return '<a href="#" class="no-underline dim text-primary font-bold" target="_preview">Preview</a>';
-            })->asHtml(),
+                    return '<a href="#" class="no-underline dim text-primary font-bold" target="_preview">Preview</a>';
+                })->asHtml(),
             Text::make('FTP', function () {
-                return '<a href="' . $this->ftp_link . '" class="no-underline dim text-primary font-bold" target="_preview">FTP</a>';
+                return '<a href="'.$this->ftp_link.'" class="no-underline dim text-primary font-bold" target="_preview">FTP</a>';
             })->asHtml(),
             Trix::make(__('Transcript'), 'transcript')->help('Field is overwritten on import')->alwaysShow(),
             HasMany::make('Media'),

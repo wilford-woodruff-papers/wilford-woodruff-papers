@@ -18,7 +18,6 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Event extends Resource
 {
-
     public static $group = 'Website';
 
     public static function label()
@@ -65,7 +64,7 @@ class Event extends Resource
             Date::make(__('Date'), 'start_at')->sortable(),
             MorphToMany::make('Photos'),
             MorphToMany::make('Pages')->searchable(),
-                /*->fields(function(){
+            /*->fields(function(){
                     return [
                         Item::class,
                         Photo::class,

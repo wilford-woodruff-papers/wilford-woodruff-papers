@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddSlugToPressesTable extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -18,7 +17,7 @@ class AddSlugToPressesTable extends Migration
         });
 
         $presses = \App\Models\Press::all();
-        $presses->each(function($press){
+        $presses->each(function ($press) {
             $press->generateSlug();
             $press->save();
         });
@@ -35,4 +34,4 @@ class AddSlugToPressesTable extends Migration
             $table->dropColumn('slug');
         });
     }
-}
+};

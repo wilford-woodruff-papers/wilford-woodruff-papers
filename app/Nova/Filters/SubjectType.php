@@ -26,13 +26,13 @@ class SubjectType extends Filter
      */
     public function apply(Request $request, $query, $value)
     {
-        if($value == -1){
-
-        }else {
+        if ($value == -1) {
+        } else {
             $query = $query->whereHas('category', function (Builder $query) use ($value) {
                 $query->where('id', $value);
             });
         }
+
         return $query;
     }
 

@@ -56,7 +56,7 @@ class PublishedSiteSubjects extends Command
                             ->latest()
                             ->first();
 
-        if(! empty($previousPeopleStat)) {
+        if (! empty($previousPeopleStat)) {
             $peopleDifference = $peopleCount - $previousPeopleStat->value;
         } else {
             $peopleDifference = $peopleCount;
@@ -85,7 +85,7 @@ class PublishedSiteSubjects extends Command
                             ->latest()
                             ->first();
 
-        if(! empty($previousPlacesStat)) {
+        if (! empty($previousPlacesStat)) {
             $placesDifference = $placesCount - $previousPlacesStat->value;
         } else {
             $placesDifference = $placesCount;

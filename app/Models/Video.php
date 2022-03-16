@@ -21,7 +21,7 @@ class Video extends Press implements HasMedia, \OwenIt\Auditing\Contracts\Audita
     use HasTags;
     use InteractsWithMedia;
 
-    function getEmbedLinkAttribute()
+    public function getEmbedLinkAttribute()
     {
         return Str::of($this->attributes['link'])->replace('watch?v=', 'embed/')->replaceFirst('&', '?');
     }

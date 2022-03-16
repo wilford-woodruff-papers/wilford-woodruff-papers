@@ -15,6 +15,7 @@ class ContactFormSubmitted
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $email;
+
     public $formId;
 
     /**

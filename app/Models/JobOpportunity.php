@@ -19,9 +19,9 @@ class JobOpportunity extends Model implements HasMedia, \OwenIt\Auditing\Contrac
 
     protected $guarded = ['id'];
 
-    protected $dates = [
-        'start_at',
-        'end_at',
+    protected $casts = [
+        'start_at' => 'datetime',
+        'end_at' => 'datetime',
     ];
 
     /**
@@ -33,6 +33,7 @@ class JobOpportunity extends Model implements HasMedia, \OwenIt\Auditing\Contrac
             ->generateSlugsFrom('title')
             ->saveSlugsTo('slug');
     }
+
     /**
      * Get the route key for the model.
      *

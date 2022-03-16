@@ -12,13 +12,12 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 class TimelineImport implements ToCollection, WithHeadingRow
 {
     /**
-    * @param Collection $collection
-    */
+     * @param Collection $collection
+     */
     public function collection(Collection $rows)
     {
-        foreach ($rows as $row)
-        {
-            if(! empty($this->getField($row['year']))){
+        foreach ($rows as $row) {
+            if (! empty($this->getField($row['year']))) {
                 $event = Event::create([
                     'headline' => $this->getField($row['headline']),
                     'text' => $this->getField($row['text']),
@@ -36,13 +35,12 @@ class TimelineImport implements ToCollection, WithHeadingRow
                     'group' => $this->getField($row['group']),
                 ]);
 
-                if(! empty($this->getField($row['media']))){
-                    try{
+                if (! empty($this->getField($row['media']))) {
+                    try {
                         $event->addMediaFromUrl(Str::of($this->getField($row['media']))->trim()->replace(' ', '%20'))->toMediaCollection();
-                    }catch (\Exception $e){
-                        logger()->info('Image could not be downloaded: ' . $this->getField($row['media']));
+                    } catch (\Exception $e) {
+                        logger()->info('Image could not be downloaded: '.$this->getField($row['media']));
                     }
-
                 }
             }
         }
@@ -52,7 +50,7 @@ class TimelineImport implements ToCollection, WithHeadingRow
     {
         $field = trim($field);
 
-        if(empty($field) && ! empty($default)){
+        if (empty($field) && ! empty($default)) {
             $field = $default;
         }
 

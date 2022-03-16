@@ -41,9 +41,9 @@ class LoadTeam extends Command
     {
         $teams = $this->getTeam();
 
-        foreach($teams as $key => $team){
+        foreach ($teams as $key => $team) {
             $t = Team::whereName($key)->first();
-            foreach($team as $person){
+            foreach ($team as $person) {
                 $member = new BoardMember;
                 $member->name = $person['name'];
                 $member->title = $person['title'];
@@ -56,7 +56,6 @@ class LoadTeam extends Command
 
         return 0;
     }
-
 
     private function getTeam()
     {
@@ -95,6 +94,6 @@ class LoadTeam extends Command
 		{"name": "R. Eric Smith", "title": "", "image": "https://wp.wilfordwoodruffpapers.org/wp-content/uploads/2020/07/R-Eric-Smith_crop-scaled-e1597238586102-1344x1536.jpg", "bio": "Eric is a general editor of the Joseph Smith Papers Project, the editorial manager of the Publications Division of the Church History Department of The Church of Jesus Christ of Latter-day Saints, and a member of the Church History Department Editorial Board. He received a BA in English from Brigham Young University and a JD from the University of Utah and practiced law in Salt Lake City before becoming at editor for the Curriculum Department of the Church. With Matthew J. Grow, Eric coedited The Council of Fifty: What the Records Reveal about Mormon History (2017).  He is grateful tor the opportunity to lend his documentary editing expertise to the Wilford Woodruff Papers project."},
 		{"name": "Mark B. Woodruff", "title": "", "image": "https://wp.wilfordwoodruffpapers.org/wp-content/uploads/2021/01/Mark-B-Woodruff-1233x1536.jpg", "bio": "Mark serves as Executive Secretary to President Russell M. Nelson, President of the Provo Utah Oak Hills Stake, and as a sealer in the Provo Temple. His previous positions include Assistant to the Commissioner and Secretary to the Church Board of Education, Director of Missionary Services for the Missionary Department, and Director of the BYU Public Affairs Office. He earned both his PhD and MBA degrees from Brigham Young University. Mark also served as mission president of the Brazil Recife Mission with his wife Peggy Petersen Woodruff. He is a descendant of Wilford Woodruff and a past president of the Wilford Woodruff Family Association."},
 		{"name": "Steven C. Wheelwright", "title": "", "image": "/files/asset/bio/s-c-wheelwright.jpg", "bio": "After graduating from the University of Utah, Steve Wheelwright received an MBA and a PhD from The Stanford University Graduate School of Business. During his academic career, Steve taught at INSEAD, a private business school in Fontainebleau, France, the Stanford Graduate School of Business where he also served as the Chair of the Strategic Management Dept., and the Harvard Business School where he also served as a Senior Associate Dean overseeing the MBA program, then overseeing Faculty Planning and Development, and concluding as Chairman of HBS Publishing. Since his retirement from Harvard, he and his wife, Margaret Steele Wheelwright, presided over the England London Mission, served one year at BYU-Idaho, presided over BYU-Hawaii for 8 years, and presided over the Boston Temple, where they became deeply interested in Wilford Woodruff\'s contributions to the temple ordinances after reading Jennifer Mackley\'s book, Wilford Woodruff\'s Witness: The Development of Temple Doctrine. They are grateful for the blessing it is to have access to Wilford Woodruff\'s writings on this topic and want to assist this effort so everyone can learn from his documents and revelations. Steve and Margaret have 5 children, 20 grandchildren, and 2 great-grandchildren, with more on the way. They live in Oakley, Utah."}
-	]}',true);
+	]}', true);
     }
 }

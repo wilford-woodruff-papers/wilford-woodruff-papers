@@ -25,6 +25,7 @@ class TopAnnouncements extends Component
     public function render()
     {
         $now = now('America/Denver');
+
         return view('components.announcements', [
             'announcements' => Announcement::query()
                                 ->where('type', 'homepage_top')

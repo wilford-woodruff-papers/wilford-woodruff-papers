@@ -48,7 +48,7 @@ class AssignToItem extends Action
         return [
             Select::make('Item')->options(
                 Item::whereIn('type_id', Type::where('name', 'NOT LIKE', '%Section%')->pluck('id')->all())->get()->pluck('name', 'id')
-            )
+            ),
         ];
     }
 }

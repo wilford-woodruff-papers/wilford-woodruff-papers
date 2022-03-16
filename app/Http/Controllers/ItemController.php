@@ -26,7 +26,7 @@ class ItemController extends Controller
                         ->whereEnabled(1)
                         ->whereNotNull('decade')
                         ->groupBy('decade');
-        if($request->has('type') && ($request->get('type') == Type::firstWhere('name', 'Letters')->id)){
+        if ($request->has('type') && ($request->get('type') == Type::firstWhere('name', 'Letters')->id)) {
             $decades = $decades->where('type_id', $request->get('type'))
                                ->get();
         }
@@ -36,7 +36,7 @@ class ItemController extends Controller
                         ->whereEnabled(1)
                         ->whereNotNull('year')
                         ->groupBy('year');
-        if($request->has('decade')){
+        if ($request->has('decade')) {
             $years = $years->where('type_id', $request->get('type'))
                                ->where('decade', $request->get('decade'))
                                ->get();
@@ -46,18 +46,18 @@ class ItemController extends Controller
                         ->with('type')
                         ->whereEnabled(1);
 
-        if($request->has('type')){
+        if ($request->has('type')) {
             $items = $items->where('type_id', $request->get('type'));
         }
 
-        if($request->has('decade')){
+        if ($request->has('decade')) {
             $items = $items->where('decade', $request->get('decade'));
         }
 
-        if($request->has('sort')){
-            $sort = explode(":", $request->get('sort'));
-            $direction = ($sort[1] == 'asc'? 'ASC' : 'DESC');
-            switch($sort[0]){
+        if ($request->has('sort')) {
+            $sort = explode(':', $request->get('sort'));
+            $direction = ($sort[1] == 'asc' ? 'ASC' : 'DESC');
+            switch ($sort[0]) {
                 case 'title':
                     $items = $items->orderBy('name', $direction);
                     break;
@@ -68,13 +68,13 @@ class ItemController extends Controller
                     $items = $items->orderBy('sort_date', $direction);
 
             }
-        }else{
+        } else {
             $items = $items->orderBy('added_to_collection_at', 'DESC');
         }
 
         return view('public.documents.index', [
             'types' => Type::whereNull('type_id')
-                                ->withCount(['items' => function(Builder $query){
+                                ->withCount(['items' => function (Builder $query) {
                                     $query->where('enabled', 1);
                                 }])
                                 ->orderBy('name', 'ASC')
@@ -98,15 +98,14 @@ class ItemController extends Controller
                         ->orderBy('year', 'ASC')
                         ->get();
 
-        if(! empty($year)){
+        if (! empty($year)) {
             $months = Date::select(DB::raw('Distinct(MONTH(date)) as month'))
                         ->whereYear('date', $year)
                         ->orderBy('month', 'ASC')
                         ->get();
-
         }
 
-        if(! empty($year) && ! empty($month)){
+        if (! empty($year) && ! empty($month)) {
             /*$items = Item::whereNull('item_id')
                             ->whereHas('pages', function (Builder $query) use ($year, $month) {
                                 $query->whereHas('dates', function (Builder $query) use ($year, $month) {
@@ -118,15 +117,15 @@ class ItemController extends Controller
                             ->whereEnabled(1)
                             ->get();*/
             $pages = Page::whereHas('dates', function (Builder $query) use ($year, $month) {
-                            $query->whereYear('date', $year)
+                $query->whereYear('date', $year)
                                 ->whereMonth('date', $month);
-                            })
+            })
                             ->get();
         }
 
         return view('public.documents.dates', [
             'types' => Type::whereNull('type_id')
-                ->withCount(['items' => function(Builder $query){
+                ->withCount(['items' => function (Builder $query) {
                     $query->where('enabled', 1);
                 }])->get(),
             'years' => $years,
