@@ -67,9 +67,14 @@ class HarvestPagesFromThePage extends Command
         $batch = Bus::batch($jobs)
             ->then(function (Batch $batch) {
                 // All jobs completed successfully...
-                Artisan::call('pages:order');
-                Artisan::call('dates:cache');
+                Bus::chain([
+                    new \App\Jobs\OrderPages(),
+                    new \App\Jobs\CacheDates(),
+                ])
+                    ->dispatch();
         })
+            ->name('Import Pages')
+            ->allowsFailures()
             ->dispatch();
 
         $this->info('Batch ID: ' . $batch->id);
