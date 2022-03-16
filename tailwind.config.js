@@ -31,6 +31,10 @@ module.exports = {
                 'polaroid': {
                     'DEFAULT': '#F0EDDE',
                 },
+                'white': {
+                    'DEFAULT': '#FFFFFF',
+                    '80': 'rgb(255, 255, 255, .8)',
+                },
             },
             width: {
                 '112': '28rem',

@@ -34,7 +34,7 @@
                     <div class="relative max-w-md mx-auto py-12 px-4 space-y-6 sm:max-w-3xl sm:py-16 sm:px-6 lg:max-w-none lg:p-0 lg:col-start-2 lg:col-span-6">
                         {{--<h2 class="text-3xl font-extrabold text-white" id="join-heading">Join our team</h2>--}}
                         <p class="text-3xl text-white text-justify">
-                            Our purpose in making Wilford Woodruff’s records universally accessible is to inspire all people, especially the rising generation, to study and increase their faith in Jesus Christ, understand and honor sacred temple covenants, and thereby receive the blessings of exaltation with their families.
+                            TBD
                         </p>
                     </div>
                 </div>
