@@ -5,6 +5,7 @@ namespace App\Nova;
 use App\Nova\Actions\AssignDocumentType;
 use App\Nova\Actions\AssignToItem;
 use App\Nova\Actions\Enable;
+use App\Nova\Actions\ExportItems;
 use App\Nova\Actions\ImportPage;
 use App\Nova\Actions\ImportPages;
 use App\Nova\Actions\ImportItems;
@@ -136,6 +137,7 @@ class Item extends Resource
             new AssignDocumentType,
             new AssignToItem,
             new Enable,
+            (new ExportItems())->askForWriterType(),
             new ImportPages,
             new ImportItems,
         ];
