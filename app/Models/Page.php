@@ -56,11 +56,18 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
 
     public function getPageDateRangeAttribute()
     {
+        // Is not a Journal so return page #
+        if($this->item?->type !== Type::whereName('Journal Sections')->first()->id){
+            return 'p. ' . $this->order;
+        }
+        // Has one or more dates
         if($this->dates()->get()->count() == 1){
             return $this->dates()->get()->first()->date->format('F j, Y');
         } elseif ($this->dates()->get()->count() > 1) {
             return $this->dates()->get()->first()->date->format('F j, Y') . ' - ' .  $this->dates()->get()->last()->date->format('F j, Y');
         }
+        // Does not have a date so grab the last date on a previous page with dates
+        // If there are none, return a page #. This is most likely to happen in the first few pages of a journal
         if($page = Page::has('dates')->where('parent_item_id', $this->parent_item_id)->where('order', '<', $this->order)->orderBy('order', 'DESC')->first()){
             return $page->dates()->get()->sortBy('date')->last()->date->format('F j, Y');
         } else {
