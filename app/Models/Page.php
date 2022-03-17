@@ -54,6 +54,20 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
         return $this->morphMany(Date::class, 'dateable');
     }
 
+    public function getPageDateRangeAttribute()
+    {
+        if($this->dates()->get()->count() == 1){
+            return $this->dates()->get()->first()->date->format('F j, Y');
+        } elseif ($this->dates()->get()->count() > 1) {
+            return $this->dates()->get()->first()->date->format('F j, Y') . ' - ' .  $this->dates()->get()->last()->date->format('F j, Y');
+        }
+        if($page = Page::has('dates')->where('parent_item_id', $this->parent_item_id)->where('order', '<', $this->order)->orderBy('order', 'ASC')->first()){
+            return $page->dates()->get()->sortBy('date')->first()->date->format('F j, Y');
+        } else {
+            return 'p. ' . $this->order;
+        }
+    }
+
     public function text()
     {
         return Str::of($this->transcript)->replaceMatches('/(?:\[\[)(.*?)(?:\]\])/', function ($match) {

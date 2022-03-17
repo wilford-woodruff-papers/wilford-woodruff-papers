@@ -167,7 +167,7 @@
                     Cite this page
                 </h4>
                 <div class="values">
-                    "{{ \Illuminate\Support\Str::of($item->name)->replaceMatches('/\[.*?\]/', '')->trim() }}," p. {{ $pages->where('order', '<', $page->order)->count() + 1 }}, The Wilford Woodruff Papers, accessed {{ now()->format('F j, Y') }}, {{ URL::current() }}
+                    "{{ \Illuminate\Support\Str::of($item->name)->replaceMatches('/\[.*?\]/', '')->trim() }}," {{ $page->page_date_range }}, The Wilford Woodruff Papers, accessed {{ now()->format('F j, Y') }}, {{ URL::current() }}
                 </div>
             </div>
         </div>
