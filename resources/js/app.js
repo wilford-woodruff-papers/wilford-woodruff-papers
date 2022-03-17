@@ -3,6 +3,10 @@ require('./bootstrap');
 import Alpine from 'alpinejs'
 import intersect from '@alpinejs/intersect'
 
+window.rangy = require('./rangy-core');
+window.classapplier = require('./rangy-classapplier');
+window.highlighter = require('./rangy-highlighter');
+
 window.Alpine = Alpine
 Alpine.plugin(intersect)
 Alpine.start()

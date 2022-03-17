@@ -125,7 +125,11 @@
                     Transcript
                 </h4>
                 <div class="font-serif metadata">
-                    {!! $page->text() !!}
+                    @hasanyrole('Editor|Admin|Super Admin')
+                        <livewire:transcript :page="$page" />
+                    @else
+                        {!! $page->text() !!}
+                    @endhasanyrole
                 </div>
             </div>
 
