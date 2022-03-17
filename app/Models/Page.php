@@ -62,7 +62,7 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
             return $this->dates()->get()->first()->date->format('F j, Y') . ' - ' .  $this->dates()->get()->last()->date->format('F j, Y');
         }
         if($page = Page::has('dates')->where('parent_item_id', $this->parent_item_id)->where('order', '<', $this->order)->orderBy('order', 'DESC')->first()){
-            return $page->dates()->get()->sortBy('date')->first()->date->format('F j, Y');
+            return $page->dates()->get()->sortBy('date')->last()->date->format('F j, Y');
         } else {
             return 'p. ' . $this->order;
         }
