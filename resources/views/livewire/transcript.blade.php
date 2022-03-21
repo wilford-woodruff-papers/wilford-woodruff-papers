@@ -21,7 +21,7 @@
             {{-- TODO: Load all quotes for the page and highlight them. Might need to use https://www.npmjs.com/package/text-annotator, but watch out for html entities --}}
         }"
          x-on:mouseup="captureSelection()"
-         id="transcript"
+         id="transcript-text"
     >
         {!! $page->text() !!}
     </div>
