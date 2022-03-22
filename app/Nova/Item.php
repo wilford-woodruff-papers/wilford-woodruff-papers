@@ -63,6 +63,8 @@ class Item extends Resource
         return $query->orderBy('name');
     }
 
+    public static $with = ['item', 'type'];
+
     /**
      * Get the fields displayed by the resource.
      *
@@ -84,10 +86,15 @@ class Item extends Resource
                     return '<a href="'.route('documents.show', ['item' => $item->uuid]).'" class="no-underline dim text-primary font-bold" target="_preview">Preview</a>';
                 }
             })->asHtml(),
-            HasMany::make('Items'),
-            HasMany::make('Pages'),
-            MorphToMany::make(__('Events')),
-            BelongsTo::make('Item')->nullable()->sortable(),
+            HasMany::make('Items')
+                ->hideFromIndex(),
+            HasMany::make('Pages')
+                ->hideFromIndex(),
+            MorphToMany::make(__('Events'))
+                ->hideFromIndex(),
+            BelongsTo::make('Item')
+                ->nullable()
+                ->sortable(),
         ];
     }
 
