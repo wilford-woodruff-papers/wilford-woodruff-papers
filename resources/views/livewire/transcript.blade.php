@@ -19,7 +19,7 @@
                                 quotes.forEach(function(quote){
                                     let lines = quote.text.split(/\r?\n/);
                                     lines.forEach(function(line){
-                                        var highlightIndex = annotator.search((line))
+                                        var highlightIndex = annotator.search((line), {caseSensitive: true})
                                         if (highlightIndex !== -1) {
                                             document.getElementById('transcript-text').innerHTML = annotator.highlight(highlightIndex);
                                         }

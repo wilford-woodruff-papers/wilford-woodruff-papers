@@ -27,6 +27,6 @@ class Quote extends Model
 
     public function topics()
     {
-        return $this->belongsToMany(Subject::class);
+        return $this->belongsToMany(Subject::class)->withPivot(['approved_at', 'approved_by', 'created_at', 'created_by']);
     }
 }

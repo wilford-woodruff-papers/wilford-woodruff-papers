@@ -39,7 +39,7 @@ class Subject extends Model
 
     public function quotes()
     {
-        return $this->belongsToMany(Quote::class);
+        return $this->belongsToMany(Quote::class)->withPivot(['approved_at', 'approved_by', 'created_at', 'created_by']);
     }
 
     /**
