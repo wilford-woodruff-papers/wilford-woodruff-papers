@@ -46,7 +46,11 @@
                             Article
                         </p>
                         <h2 class="text-4xl">
-                            {{ $article->title }}
+                            <a href="{{ $article->url() }}"
+                               @if(! empty($article->link)) target="_blank" @endif
+                            >
+                                {{ $article->title }}
+                            </a>
                         </h2>
                         <p class="text-gray-600">
                             {{ $article->date->toFormattedDateString() }}
@@ -58,8 +62,10 @@
                                 {!! \Illuminate\Support\Str::of(strip_tags($article->description))->limit(500, ' ...') !!}
                             @endif
                         </p>
-                        <a href="{{ route('media.article', ['article' => $article]) }}"
-                           class="text-secondary font-semibold">
+                        <a href="{{ $article->url() }}"
+                           class="text-secondary font-semibold"
+                           @if(! empty($article->link)) target="_blank" @endif
+                        >
                             Read more &gt;
                         </a>
                     </div>
