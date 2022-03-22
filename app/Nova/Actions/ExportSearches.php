@@ -16,7 +16,6 @@ use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 
 class ExportSearches extends DownloadExcel implements WithMapping, WithHeadings
 {
-
     /**
      * @return array
      */
@@ -29,7 +28,7 @@ class ExportSearches extends DownloadExcel implements WithMapping, WithHeadings
             'Included People',
             'Page',
             'Referrer',
-            'Data'
+            'Data',
         ];
     }
 
@@ -50,5 +49,4 @@ class ExportSearches extends DownloadExcel implements WithMapping, WithHeadings
             $activity->properties,
         ];
     }
-
 }

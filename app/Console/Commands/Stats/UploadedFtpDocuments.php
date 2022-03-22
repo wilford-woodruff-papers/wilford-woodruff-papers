@@ -54,7 +54,7 @@ class UploadedFtpDocuments extends Command
                             ->latest()
                             ->first();
 
-        if(! empty($previousStat)) {
+        if (! empty($previousStat)) {
             $difference = $itemCount - $previousStat->value;
         } else {
             $difference = $itemCount;
@@ -72,7 +72,7 @@ class UploadedFtpDocuments extends Command
 
         $manifestCount = 0;
 
-        $manifests->each(function($manifest) use (&$manifestCount){
+        $manifests->each(function ($manifest) use (&$manifestCount) {
             $manifestCount = $manifestCount + count(Http::get($manifest['@id'])->json('sequences.0.canvases', []));
         });
 
@@ -82,7 +82,7 @@ class UploadedFtpDocuments extends Command
                                 ->latest()
                                 ->first();
 
-        if(! empty($previousPageStat)) {
+        if (! empty($previousPageStat)) {
             $pageDifference = $manifestCount - $previousPageStat->value;
         } else {
             $pageDifference = $manifestCount;

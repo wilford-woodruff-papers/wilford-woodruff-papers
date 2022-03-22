@@ -57,77 +57,79 @@ Route::get('/media/newsroom', [\App\Http\Controllers\MediaController::class, 'ne
 Route::get('/announcements', [\App\Http\Controllers\AnnouncementController::class, 'index'])->name('announcements');
 Route::get('/announcements/{announcement}', [\App\Http\Controllers\AnnouncementController::class, 'show'])->name('announcements.show');
 
+Route::get('/quotes/page/{page}', [\App\Http\Controllers\QuoteController::class, 'index'])->name('quotes.page.show');
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
-Route::group(['prefix' => 'filemanager', 'middleware' => ['web', 'auth']], function () {
+Route::prefix('filemanager')->middleware('web', 'auth')->group(function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });
 /*Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });*/
 
-Route::get('/s/wilford-woodruff-papers/documents', function (){
+Route::get('/s/wilford-woodruff-papers/documents', function () {
     return redirect()->route('documents');
 });
-Route::get('/s/wilford-woodruff-papers/page/people', function (){
+Route::get('/s/wilford-woodruff-papers/page/people', function () {
     return redirect()->route('people');
 });
-Route::get('/s/wilford-woodruff-papers/page/places', function (){
+Route::get('/s/wilford-woodruff-papers/page/places', function () {
     return redirect()->route('places');
 });
-Route::get('/s/wilford-woodruff-papers/page/timeline', function (){
+Route::get('/s/wilford-woodruff-papers/page/timeline', function () {
     return redirect()->route('timeline');
 });
-Route::get('/s/wilford-woodruff-papers/page/meet-the-team', function (){
+Route::get('/s/wilford-woodruff-papers/page/meet-the-team', function () {
     return redirect()->route('team');
 });
-Route::get('/s/wilford-woodruff-papers/page/donate-online', function (){
+Route::get('/s/wilford-woodruff-papers/page/donate-online', function () {
     return redirect()->route('donate.online');
 });
-Route::get('/s/wilford-woodruff-papers/page/donation-questions', function (){
+Route::get('/s/wilford-woodruff-papers/page/donation-questions', function () {
     return redirect()->route('donate.questions');
 });
-Route::get('/s/wilford-woodruff-papers/page/volunteer', function (){
+Route::get('/s/wilford-woodruff-papers/page/volunteer', function () {
     return redirect()->route('volunteer');
 });
-Route::get('/s/wilford-woodruff-papers/page/contribute-documents', function (){
+Route::get('/s/wilford-woodruff-papers/page/contribute-documents', function () {
     return redirect()->route('contribute-documents');
 });
-Route::get('/s/wilford-woodruff-papers/page/about', function (){
+Route::get('/s/wilford-woodruff-papers/page/about', function () {
     return redirect()->route('about');
 });
-Route::get('/s/wilford-woodruff-papers/page/meet-the-team', function (){
+Route::get('/s/wilford-woodruff-papers/page/meet-the-team', function () {
     return redirect()->route('about.meet-the-team');
 });
-Route::get('/s/wilford-woodruff-papers/page/editorial-method', function (){
+Route::get('/s/wilford-woodruff-papers/page/editorial-method', function () {
     return redirect()->route('about.editorial-method');
 });
-Route::get('/s/wilford-woodruff-papers/page/newsroom', function (){
+Route::get('/s/wilford-woodruff-papers/page/newsroom', function () {
     return redirect()->route('media.news');
 });
-Route::get('/s/wilford-woodruff-papers/page/media-requests', function (){
+Route::get('/s/wilford-woodruff-papers/page/media-requests', function () {
     return redirect()->route('media.requests');
 });
-Route::get('/s/wilford-woodruff-papers/page/media-kit', function (){
+Route::get('/s/wilford-woodruff-papers/page/media-kit', function () {
     return redirect()->route('media.kit');
 });
-Route::get('/s/wilford-woodruff-papers/page/videos', function (){
+Route::get('/s/wilford-woodruff-papers/page/videos', function () {
     return redirect()->route('media.videos');
 });
-Route::get('/s/wilford-woodruff-papers/page/podcasts', function (){
+Route::get('/s/wilford-woodruff-papers/page/podcasts', function () {
     return redirect()->route('media.podcasts');
 });
-Route::get('/s/wilford-woodruff-papers/photos', function (){
+Route::get('/s/wilford-woodruff-papers/photos', function () {
     return redirect()->route('media.photos');
 });
-Route::get('/s/wilford-woodruff-papers/media', function (){
+Route::get('/s/wilford-woodruff-papers/media', function () {
     return redirect()->route('search');
 });
-Route::get('/s/wilford-woodruff-papers/item/search', function (){
+Route::get('/s/wilford-woodruff-papers/item/search', function () {
     return redirect()->route('search');
 });
-Route::get('/s/wilford-woodruff-papers/page/frequently-asked-questions', function (){
+Route::get('/s/wilford-woodruff-papers/page/frequently-asked-questions', function () {
     return redirect()->route('about.frequently-asked-questions');
 });

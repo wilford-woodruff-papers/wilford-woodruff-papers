@@ -25,9 +25,10 @@ class Type extends Filter
      */
     public function apply(Request $request, $query, $value)
     {
-        if($value == -1){
+        if ($value == -1) {
             return $query->whereNull('type_id');
         }
+
         return $query->where('type_id', $value);
     }
 

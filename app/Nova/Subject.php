@@ -17,6 +17,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 class Subject extends Resource
 {
     public static $group = 'Metadata';
+
     /**
      * The model the resource corresponds to.
      *
@@ -54,10 +55,10 @@ class Subject extends Resource
             Text::make(__('Name'), 'name')->sortable(),
             Text::make(__('Slug'), 'slug')->hideWhenCreating()->sortable(),
             BelongsToMany::make('Category'),
-            BelongsTo::make('Parent Subject', 'parent', Subject::class)
+            BelongsTo::make('Parent Subject', 'parent', self::class)
                 ->nullable()
                 ->searchable(),
-            HasMany::make('Subjects', 'children', Subject::class),
+            HasMany::make('Subjects', 'children', self::class),
         ];
     }
 

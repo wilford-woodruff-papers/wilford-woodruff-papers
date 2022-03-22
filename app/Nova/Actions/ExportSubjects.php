@@ -16,7 +16,6 @@ use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 
 class ExportSubjects extends DownloadExcel implements WithMapping, WithHeadings
 {
-
     /**
      * @return array
      */
@@ -45,9 +44,8 @@ class ExportSubjects extends DownloadExcel implements WithMapping, WithHeadings
             $subject->name,
             $subject->category->pluck('name')->join(';'),
             $subject->pages_count,
-            config('app.url') . '/subjects/' . $subject->slug,
+            config('app.url').'/subjects/'.$subject->slug,
             $subject->bio,
         ];
     }
-
 }

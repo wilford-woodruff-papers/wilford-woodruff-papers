@@ -62,7 +62,7 @@ class ContributeDocuments extends Component
             'message' => $this->message,
         ]);
 
-        if($this->file){
+        if ($this->file) {
             $submission->file = $this->file->store('files', 'submissions');
             $submission->save();
         }
@@ -75,7 +75,7 @@ class ContributeDocuments extends Component
 
     public function spamFilter()
     {
-        if(! empty($this->role)){
+        if (! empty($this->role)) {
             abort(422, 'Error processing form');
         }
     }

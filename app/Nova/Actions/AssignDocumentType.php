@@ -46,7 +46,7 @@ class AssignDocumentType extends Action
         return [
             Select::make('Document Type')->options(
                 Type::get()->pluck('name', 'id')
-            )
+            ),
         ];
     }
 }

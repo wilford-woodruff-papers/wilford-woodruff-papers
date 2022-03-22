@@ -40,29 +40,29 @@ class CacheDates extends Command
     public function handle()
     {
         $items = Item::doesntHave('items')->get();
-        $items->each(function($item){
+        $items->each(function ($item) {
             $dates = collect();
-            $item->pages->each(function($page) use (&$dates, $item){
+            $item->pages->each(function ($page) use (&$dates, $item) {
                 $dates = $dates->concat($page->dates);
             });
             $item->first_date = optional($dates->sortBy('date')->first())->date;
-            if($item->first_date){
-                $item->decade = floor($item->first_date->year/10)*10;
+            if ($item->first_date) {
+                $item->decade = floor($item->first_date->year / 10) * 10;
                 $item->year = $item->first_date->year;
             }
             $item->save();
         });
 
         $items = Item::has('items')->get();
-        $items->each(function($item){
+        $items->each(function ($item) {
             $item->first_date = optional($item->items->sortBy('date')->first())->first_date;
-            if($item->first_date){
-                $item->decade = floor($item->first_date->year/10)*10;
+            if ($item->first_date) {
+                $item->decade = floor($item->first_date->year / 10) * 10;
                 $item->year = $item->first_date->year;
             }
             $item->save();
         });
 
-        logger()->info('Dates Cached: ' . now());
+        logger()->info('Dates Cached: '.now());
     }
 }

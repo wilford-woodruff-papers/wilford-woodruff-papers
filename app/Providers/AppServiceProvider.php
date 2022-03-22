@@ -27,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+
         if (! app()->environment('production')) {
             Mail::alwaysTo(User::role('Super Admin')->first()->email);
         }

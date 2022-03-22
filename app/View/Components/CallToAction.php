@@ -25,17 +25,17 @@ class CallToAction extends Component
     {
         $links = [
             [
-                'image' => 'https://picsum.photos/300/300',
+                'image' => 'https://wilford-woodruff-papers.nyc3.digitaloceanspaces.com/245/conversions/82-CHL-PH-1872_b0000_f0001_i0001_00001-Valley-House-Hotel-9-1908-cropped-thumb.jpg',
                 'title' => 'Volunteer Today',
                 'link' => route('volunteer'),
             ],
             [
-                'image' => 'https://picsum.photos/300/300',
+                'image' => 'https://wilford-woodruff-papers.nyc3.digitaloceanspaces.com/246/conversions/Woodruff-Home-in-Nauvoo-LOC-thumb.jpg',
                 'title' => 'Donate Now',
                 'link' => route('donate.online'),
             ],
             [
-                'image' => 'https://picsum.photos/300/300',
+                'image' => 'https://wilford-woodruff-papers.nyc3.digitaloceanspaces.com/243/conversions/WW-July-24-1898-in-Pioneer-Park-thumb.jpg',
                 'title' => 'Sign Up for Updates',
                 'link' => 'https://updates.wilfordwoodruffpapers.org/posts',
             ],

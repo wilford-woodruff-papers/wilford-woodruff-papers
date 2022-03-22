@@ -53,12 +53,11 @@ class SiteSearches extends Command
                             ->latest()
                             ->first();
 
-        if(! empty($previousStat)) {
+        if (! empty($previousStat)) {
             $difference = $itemCount - $previousStat->value;
         } else {
             $difference = $itemCount;
         }
-
 
         Stat::create([
             'name' => 'site-searches',

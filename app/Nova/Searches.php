@@ -14,8 +14,8 @@ use Spatie\Activitylog\Models\Activity;
 
 class Searches extends Resource
 {
-
     public static $group = 'Website';
+
     /**
      * The model the resource corresponds to.
      *

@@ -45,13 +45,13 @@ class HarvestPagesFromThePage extends Command
                         ->whereEnabled(true)
                         ->whereNotNull('ftp_id');
 
-        if(! empty($itemId = $this->argument('item'))){
+        if (! empty($itemId = $this->argument('item'))) {
             $items = $items->whereId($itemId);
         }
 
         $items = $items->get();
         $jobs = [];
-        foreach($items as $item){
+        foreach ($items as $item) {
             $jobs[] = new ImportItemFromFtp($item);
         }
 
@@ -63,15 +63,13 @@ class HarvestPagesFromThePage extends Command
                     new \App\Jobs\CacheDates(),
                 ])
                     ->dispatch();
-        })
+            })
             ->name('Import Pages')
             ->allowFailures()
             ->dispatch();
 
-        $this->info('Batch ID: ' . $batch->id);
+        $this->info('Batch ID: '.$batch->id);
 
         return 0;
     }
-
-
 }

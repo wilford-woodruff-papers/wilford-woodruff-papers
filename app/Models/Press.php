@@ -20,8 +20,8 @@ class Press extends Model implements HasMedia
 
     protected $guarded = ['id'];
 
-    protected $dates = [
-        'date',
+    protected $casts = [
+        'date' => 'datetime',
     ];
 
     /**
@@ -33,6 +33,7 @@ class Press extends Model implements HasMedia
             ->generateSlugsFrom('title')
             ->saveSlugsTo('slug');
     }
+
     /**
      * Get the route key for the model.
      *

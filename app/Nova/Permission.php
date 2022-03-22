@@ -10,6 +10,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 class Permission extends Resource
 {
     public static $group = 'Admin';
+
     /**
      * The model the resource corresponds to.
      *

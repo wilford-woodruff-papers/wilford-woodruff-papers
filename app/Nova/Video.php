@@ -15,6 +15,7 @@ use Spatie\TagsField\Tags;
 class Video extends Resource
 {
     public static $group = 'Media';
+
     /**
      * The model the resource corresponds to.
      *

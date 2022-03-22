@@ -10,7 +10,6 @@ use Livewire\Component;
 
 class Contact extends Component
 {
-
     public $email;
 
     public $firstName;
@@ -57,7 +56,7 @@ class Contact extends Component
 
     public function spamFilter()
     {
-        if(! empty($this->role)){
+        if (! empty($this->role)) {
             abort(422, 'Error processing form');
         }
     }

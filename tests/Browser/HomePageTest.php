@@ -11,6 +11,7 @@ use Tests\DuskTestCase;
 class HomePageTest extends DuskTestCase
 {
     use RefreshDatabase;
+
     /**
      * A Dusk test example.
      *

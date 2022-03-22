@@ -43,7 +43,7 @@ class HarvestItemsFromThePage extends Command
 
         $manifests = $response->json()['manifests'];
         $count = 0;
-        foreach($manifests as $key => $item){
+        foreach ($manifests as $key => $item) {
             $document = Document::updateOrCreate([
                 'ftp_id' => $item['@id'],
             ], [
@@ -51,7 +51,7 @@ class HarvestItemsFromThePage extends Command
             ]);
             $document->touch();
             $count = $count + 1;
-        };
+        }
         $this->info("Imported $count documents");
 
         return 0;

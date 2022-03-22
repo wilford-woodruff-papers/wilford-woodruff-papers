@@ -91,9 +91,18 @@
                                     <div class="flex flex-col shrink-0 shadow-lg overflow-hidden w-full h-full">
                                         <div class="flex-shrink-0">
                                             <a href="{{ route('media.'.Str::of($media->type)->lower(), $media->slug) }}">
-                                                <img class="h-48 w-full object-cover"
+                                                {{--<img class="h-48 w-full object-cover"
                                                      src="{{ \Illuminate\Support\Facades\Storage::disk('media')->url($media->cover_image)  }}"
-                                                     alt="{{ $media->title }}">
+                                                     alt="{{ $media->title }}">--}}
+                                                <div class="image-parent relative h-48 w-full overflow-hidden inline-block flex items-center bg-primary-50">
+                                                    <div class="image-child absolute h-full w-full z-10 bg-cover bg-center z-0" style="background-image: url({{ \Illuminate\Support\Facades\Storage::disk('media')->url($media->cover_image)  }})">
+
+                                                    </div>
+                                                    <div class="w-full py-3 z-10 text-secondary text-xl font-medium bg-white-80 uppercase flex flex-row items-center justify-center">
+                                                        {!! $media->icon !!}
+                                                        {{ $media->call_to_action }}
+                                                    </div>
+                                                </div>
                                             </a>
                                         </div>
                                         <div class="flex-1 bg-white p-6 flex flex-col justify-between">
@@ -111,18 +120,18 @@
                                                     </div>
                                                 </div>
                                                 <a href="{{ route('media.'.Str::of($media->type)->lower(), $media->slug) }}" class="block mt-2">
-                                                    <p class="text-xl font-semibold text-gray-900">
+                                                    <p class="text-lg font-semibold text-gray-900">
                                                         {{ Str::of($media->title)->limit(50, '...') }}
                                                     </p>
                                                 </a>
                                             </div>
-                                            <div class="mt-6 flex items-center">
-                                                <div class="flex-shrink-0">
-                                                    <img class="h-10 w-10 rounded-full" src="{{ asset('img/logo.png') }}" alt="">
-                                                </div>
+                                            <div class="mt-3 flex items-center">
                                                 <div class="ml-3">
                                                     <p class="text-sm font-medium text-gray-900">
                                                         {{ $media->subtitle }}
+                                                    </p>
+                                                    <p class="text-sm font-medium text-gray-900">
+                                                        {{ $media->publisher }}
                                                     </p>
                                                 </div>
                                             </div>

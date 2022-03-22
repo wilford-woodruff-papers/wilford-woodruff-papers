@@ -20,6 +20,7 @@ class TimelineController extends Controller
                             ->with('photos', 'pages.parent')
                             ->orderBy('start_at')
                             ->get();
+
         return view('public.timeline', [
             'events' => $events,
             'timeline_json' => [

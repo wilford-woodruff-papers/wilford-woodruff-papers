@@ -25,10 +25,10 @@ class DatabaseSeeder extends Seeder
             'email' => 'jon.fackrell@wilfordwoodruffpapers.org',
         ])->create();
 
-        foreach(['Autobiographies', 'Discourses', 'Journals', 'Letters'] as $type) {
+        foreach (['Autobiographies', 'Discourses', 'Journals', 'Letters'] as $type) {
             Type::factory([
-                    'name' => $type,
-                ])
+                'name' => $type,
+            ])
                 /*->has(
                     Item::factory()
                         ->count(3)
@@ -84,9 +84,9 @@ class DatabaseSeeder extends Seeder
         $journal->save();
 
         Item::whereIn('name', [
-                    'Journal (September 9, 1836–December 31, 1836)',
-                    'Letter to Phebe Whittemore Carter Woodruff, 30 September 1839',
-                ])
+            'Journal (September 9, 1836–December 31, 1836)',
+            'Letter to Phebe Whittemore Carter Woodruff, 30 September 1839',
+        ])
                 ->update(['enabled' => 1]);
 
         Artisan::call('import:pages');

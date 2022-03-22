@@ -40,13 +40,12 @@ class LoadFaqs extends Command
     public function handle()
     {
         $faqs = $this->getFaqs();
-        foreach($faqs as $key => $faq){
+        foreach ($faqs as $key => $faq) {
             $new = Faq::create($faq);
         }
 
         return 0;
     }
-
 
     private function getFaqs()
     {
@@ -107,6 +106,6 @@ class LoadFaqs extends Command
     "question": "What will my donation will pay for?",
                 "answer": "<p>Donations fund the digitization, transcription, and verification of Wilford Woodruff\'s papers. Documentary editing of this quality is a painstaking and laborious process. It begins with accurate transcription of handwritten documents. Then teams of two read and verify every word and mark on every page to ensure accuracy. In addition, research is done to identify each person and place mentioned in the documents. Then the names mentioned in the documents are linked  to biographies, and places mentioned are linked to a mapping system. These reference materials enable users to better search and understand the documents. Donations cover the creation and maintenance of the content management system, including the website, to store and display the documents. The Foundation is able to accomplish most of its work without paying for physical office space or administrative staff.</p><p>Donors have access to annual report of expenditures and metrics showing the project\'s progress and success</p>"
             }
-        ]',true);
+        ]', true);
     }
 }

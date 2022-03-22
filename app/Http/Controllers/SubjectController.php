@@ -11,19 +11,19 @@ class SubjectController extends Controller
 {
     public function show(Subject $subject)
     {
-        if(! empty($subject->redirect_to)){
+        if (! empty($subject->redirect_to)) {
             return redirect()->route('subjects.show', ['subject' => Subject::findOrFail($subject->redirect_to)]);
         }
 
-        if(request()->ajax()){
+        if (request()->ajax()) {
             return $subject;
         }
 
         return view('public.subjects.show', [
             'subject' => $subject,
             'pages' => Page::whereHas('subjects', function (Builder $query) use ($subject) {
-                            $query->where('id', $subject->id);
-                        })->paginate(10),
+                $query->where('id', $subject->id);
+            })->paginate(10),
         ]);
     }
 }

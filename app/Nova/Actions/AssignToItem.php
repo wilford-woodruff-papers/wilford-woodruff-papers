@@ -15,6 +15,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Artisan;
 use Laravel\Nova\Actions\Action;
 use Laravel\Nova\Fields\ActionFields;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
 
 class AssignToItem extends Action
@@ -46,9 +47,7 @@ class AssignToItem extends Action
     public function fields()
     {
         return [
-            Select::make('Item')->options(
-                Item::whereIn('type_id', Type::where('name', 'NOT LIKE', '%Section%')->pluck('id')->all())->get()->pluck('name', 'id')
-            )
+            Number::make('Item ID', 'item'),
         ];
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-
 use App\Imports\PhotoImport;
 use Illuminate\Console\Command;
 use Maatwebsite\Excel\Facades\Excel;

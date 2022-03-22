@@ -6,9 +6,9 @@ use App\Nova\Actions\AssignDocumentType;
 use App\Nova\Actions\AssignToItem;
 use App\Nova\Actions\Enable;
 use App\Nova\Actions\ExportItems;
+use App\Nova\Actions\ImportItems;
 use App\Nova\Actions\ImportPage;
 use App\Nova\Actions\ImportPages;
-use App\Nova\Actions\ImportItems;
 use App\Nova\Actions\ImportSubjects;
 use App\Nova\Filters\Status;
 use Illuminate\Http\Request;
@@ -26,6 +26,7 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 class Item extends Resource
 {
     public static $group = 'Documents';
+
     /**
      * The model the resource corresponds to.
      *
@@ -62,6 +63,8 @@ class Item extends Resource
         return $query->orderBy('name');
     }
 
+    public static $with = ['item', 'type'];
+
     /**
      * Get the fields displayed by the resource.
      *
@@ -79,14 +82,19 @@ class Item extends Resource
             Date::make('Date', 'sort_date')->sortable(),
 
             Text::make('Preview', function ($item) {
-                if($item->uuid){
+                if ($item->uuid) {
                     return '<a href="'.route('documents.show', ['item' => $item->uuid]).'" class="no-underline dim text-primary font-bold" target="_preview">Preview</a>';
                 }
             })->asHtml(),
-            HasMany::make('Items'),
-            HasMany::make('Pages'),
-            MorphToMany::make(__('Events')),
-            BelongsTo::make('Item')->nullable()->sortable(),
+            HasMany::make('Items')
+                ->hideFromIndex(),
+            HasMany::make('Pages')
+                ->hideFromIndex(),
+            MorphToMany::make(__('Events'))
+                ->hideFromIndex(),
+            BelongsTo::make('Item')
+                ->nullable()
+                ->sortable(),
         ];
     }
 

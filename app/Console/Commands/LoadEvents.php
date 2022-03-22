@@ -42,7 +42,7 @@ class LoadEvents extends Command
     public function handle()
     {
         $events = Event::where('imported', 1)->get();
-        $events->each(function($event){
+        $events->each(function ($event) {
             $event->clearMediaCollection();
             $event->delete();
         });

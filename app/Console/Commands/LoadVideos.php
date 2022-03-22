@@ -39,14 +39,13 @@ class LoadVideos extends Command
     public function handle()
     {
         $videos = $this->getVideos();
-        foreach($videos as $key => $video){
+        foreach ($videos as $key => $video) {
             $video['type'] = 'VIDEO';
             $press = Press::create($video);
         }
 
         return 0;
     }
-
 
     private function getVideos()
     {
@@ -115,6 +114,6 @@ class LoadVideos extends Command
                 "link":"",
                 "embed":"<iframe style=\'width: 100%; height: 480px;\' src=\'https://www.youtube.com/embed/n-awaZrXlzs?rel=0\' frameborder=\'0\' allow=\'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\' allowfullscreen></iframe>"
             }
-        ]',true);
+        ]', true);
     }
 }

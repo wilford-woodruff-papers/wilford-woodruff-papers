@@ -14,7 +14,7 @@ class Subject extends Model
     protected $guarded = ['id'];
 
     protected $casts = [
-        'geolocation' => 'array'
+        'geolocation' => 'array',
     ];
 
     public function category()
@@ -29,12 +29,17 @@ class Subject extends Model
 
     public function parent()
     {
-        return $this->belongsTo(Subject::class);
+        return $this->belongsTo(self::class);
     }
 
     public function children()
     {
-        return $this->hasMany(Subject::class);
+        return $this->hasMany(self::class);
+    }
+
+    public function quotes()
+    {
+        return $this->belongsToMany(Quote::class)->withPivot(['approved_at', 'approved_by', 'created_at', 'created_by']);
     }
 
     /**
@@ -46,6 +51,7 @@ class Subject extends Model
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
     }
+
     /**
      * Get the route key for the model.
      *
@@ -69,8 +75,8 @@ class Subject extends Model
         return $url;
     }
 
-    private function zoomLevel(){
+    private function zoomLevel()
+    {
         return in_array('continent', $this->geolocation['types']) ? '2' : '6';
     }
-
 }
