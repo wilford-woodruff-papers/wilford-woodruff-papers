@@ -46,7 +46,9 @@
                             Article
                         </p>
                         <h2 class="text-4xl">
-                            <a href="{{ $article->url() }}">
+                            <a href="{{ $article->url() }}"
+                               @if(! empty($article->link)) target="_blank" @endif
+                            >
                                 {{ $article->title }}
                             </a>
                         </h2>
@@ -61,7 +63,9 @@
                             @endif
                         </p>
                         <a href="{{ $article->url() }}"
-                           class="text-secondary font-semibold">
+                           class="text-secondary font-semibold"
+                           @if(! empty($article->link)) target="_blank" @endif
+                        >
                             Read more &gt;
                         </a>
                     </div>
