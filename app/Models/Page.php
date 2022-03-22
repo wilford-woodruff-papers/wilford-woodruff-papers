@@ -49,6 +49,11 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
         return $this->belongsToMany(Subject::class);
     }
 
+    public function quotes()
+    {
+        return $this->hasMany(Quote::class);
+    }
+
     public function dates()
     {
         return $this->morphMany(Date::class, 'dateable');
@@ -81,7 +86,7 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
     {
         return Str::of($this->transcript)->replaceMatches('/(?:\[\[)(.*?)(?:\]\])/', function ($match) {
             return '<a href="/subjects/'.Str::of(Str::of($match[1])->explode('|')->first())->slug().'" class="text-secondary popup">'.Str::of($match[1])->explode('|')->last().'</a>';
-        });
+        })->replace('&amp;', '&');
     }
 
     public function getRouteKeyName()

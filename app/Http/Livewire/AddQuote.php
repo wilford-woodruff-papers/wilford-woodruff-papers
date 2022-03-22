@@ -4,6 +4,8 @@ namespace App\Http\Livewire;
 
 use App\Models\Page;
 use App\Models\Quote;
+use App\Models\Subject;
+use Illuminate\Support\Str;
 use LivewireUI\Modal\ModalComponent;
 
 class AddQuote extends ModalComponent
@@ -11,6 +13,8 @@ class AddQuote extends ModalComponent
     public $page;
 
     public $selection;
+
+    public $selectedTopics = [];
 
     public function mount($page, $selection)
     {
@@ -21,7 +25,13 @@ class AddQuote extends ModalComponent
 
     public function render()
     {
-        return view('livewire.add-quote');
+        return view('livewire.add-quote', [
+            'topics' => Subject::query()
+                ->whereRelation('category', 'name', 'Topics')
+                ->orderBy('name')
+                ->pluck('name', 'id')
+                ->all()
+        ]);
     }
 
     public function save()
@@ -29,8 +39,9 @@ class AddQuote extends ModalComponent
 
         $quote = Quote::create([
             'page_id' => $this->page->id,
-            'text' => $this->selection,
+            'text' => Str::of($this->selection)->replace('&', '&amp;'),
         ]);
+        $quote->topics()->syncWithoutDetaching($this->selectedTopics);
         $this->dispatchBrowserEvent('deselect');
         $this->closeModal();
     }

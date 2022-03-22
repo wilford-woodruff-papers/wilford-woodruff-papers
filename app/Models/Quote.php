@@ -19,4 +19,14 @@ class Quote extends Model
     {
         return $this->morphMany(Content::class, 'contentable');
     }
+
+    public function page()
+    {
+        return $this->belongsTo(Page::class);
+    }
+
+    public function topics()
+    {
+        return $this->belongsToMany(Subject::class);
+    }
 }

@@ -64,6 +64,9 @@
             <div class="ml-3">
                 <p class="text-sm text-gray-900">Real name: {{ $page->name }}</p>
                 <p class="text-sm text-gray-900">Item: {{ $page->item->name }}</p>
+                @if($page->quotes_count > 0)
+                    <p class="text-sm text-gray-900">Quotes: {{ $page->quotes_count }}</p>
+                @endif
             </div>
         @endhasanyrole
     </div>

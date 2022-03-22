@@ -164,6 +164,7 @@ class ItemController extends Controller
     public function show(Item $item)
     {
         $pages = Page::with(['dates', 'subjects', 'parent'])
+                        ->withCount('quotes')
                         ->where('parent_item_id', $item->id)
                         ->ordered();
 

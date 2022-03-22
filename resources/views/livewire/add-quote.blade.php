@@ -1,5 +1,39 @@
 <div>
-    <div class="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
+    <div x-data="{
+            multiple: true,
+            selectedTopics: @entangle('selectedTopics').defer,
+            value: [],
+            options: [
+                @foreach($topics as $key => $topic) {'value': {{ $key }}, 'label': '{{ addslashes($topic) }}'}, @endforeach
+            ],
+            init() {
+                this.$nextTick(() => {
+                    let choices = new Choices(this.$refs.select)
+
+                    let refreshChoices = () => {
+                        let selection = this.multiple ? this.value : [this.value]
+
+                        choices.clearStore()
+                        choices.setChoices(this.options.map(({ value, label }) => ({
+                            value,
+                            label,
+                            selected: selection.includes(value),
+                        })))
+                    }
+
+                    refreshChoices()
+
+                    this.$refs.select.addEventListener('change', () => {
+                        this.value = choices.getValue(true)
+                        this.selectedTopics = choices.getValue(true)
+                    })
+
+                    this.$watch('value', () => refreshChoices())
+                    this.$watch('options', () => refreshChoices())
+                })
+            }
+        }"
+         class="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
         <form wire:submit.prevent="save"
               action="#"
               method="POST">
@@ -17,6 +51,19 @@
                                 <div class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 p-2 block w-full sm:text-sm border border-gray-300"
                                 >
                                     {{ $selection }}
+                                </div>
+                            </div>
+                            <p class="mt-2 text-sm text-gray-500"></p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-6">
+                        <div class="col-span-3">
+                            <label for="topics" class="block text-sm font-medium text-gray-700"> Topics </label>
+                            <div class="mt-1">
+                                <div class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 p-2 block w-full sm:text-sm border border-gray-300"
+                                >
+                                    <select x-ref="select" :multiple="multiple"></select>
                                 </div>
                             </div>
                             <p class="mt-2 text-sm text-gray-500"></p>

@@ -37,6 +37,11 @@ class Subject extends Model
         return $this->hasMany(self::class);
     }
 
+    public function quotes()
+    {
+        return $this->belongsToMany(Quote::class);
+    }
+
     /**
      * Get the options for generating the slug.
      */

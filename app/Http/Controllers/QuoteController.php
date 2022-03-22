@@ -12,9 +12,15 @@ class QuoteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $quotes = Quote::query();
+
+        if($request->has('page')){
+            $quotes = $quotes->where('page_id', $request->get('page'));
+        }
+
+        return $quotes->get();
     }
 
     /**
