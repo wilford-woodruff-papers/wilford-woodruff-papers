@@ -3,7 +3,7 @@
     <div class="max-w-7xl mx-auto">
 
         <div class="my-12 mx-4 bg-gray-200 py-2 px-12">
-            <form action="{{ route('search') }}" method="GET">
+            <form action="{{ route('advanced-search') }}" method="GET">
                 <div class="space-y-6 sm:space-y-5">
                     <div class="sm:grid sm:grid-cols-4 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:py-4">
                         <label for="q"

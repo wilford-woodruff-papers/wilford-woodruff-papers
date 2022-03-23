@@ -31,7 +31,7 @@
                                 <div class="md:-mt-2 xl:-mt-8 mb-12 mr-0"
                                      id="search">
                                     <div>
-                                        <form action="{{ route('search') }}" id="search-form">
+                                        <form action="{{ route('advanced-search') }}" id="search-form">
                                             <div class="mt-1 flex shadow-sm max-w-full">
                                                 <div class="relative flex items-stretch flex-grow focus-within:z-10">
                                                     <input class="block w-full rounded-none pl-2 sm:text-sm border-white"

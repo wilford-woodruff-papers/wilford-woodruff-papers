@@ -1410,6 +1410,9 @@ select {
 .h-72 {
   height: 18rem;
 }
+.h-32 {
+  height: 8rem;
+}
 .max-h-60 {
   max-height: 15rem;
 }
@@ -1491,6 +1494,9 @@ select {
 .w-2 {
   width: 0.5rem;
 }
+.w-32 {
+  width: 8rem;
+}
 .min-w-0 {
   min-width: 0px;
 }
@@ -1546,6 +1552,9 @@ select {
   flex-shrink: 0;
 }
 .flex-grow {
+  flex-grow: 1;
+}
+.grow {
   flex-grow: 1;
 }
 .origin-top-left {
@@ -2342,6 +2351,10 @@ select {
 .\!text-lg {
   font-size: 1.125rem !important;
   line-height: 1.75rem !important;
+}
+.text-5xl {
+  font-size: 3rem;
+  line-height: 1;
 }
 .font-medium {
   font-weight: 500;
@@ -3812,6 +3825,10 @@ input[class^="numeric-"], select[class^="numeric-"] {
     height: 9rem;
   }
 
+  .md\:h-64 {
+    height: 16rem;
+  }
+
   .md\:w-3\/5 {
     width: 60%;
   }
@@ -3826,6 +3843,14 @@ input[class^="numeric-"], select[class^="numeric-"] {
 
   .md\:w-1\/2 {
     width: 50%;
+  }
+
+  .md\:w-64 {
+    width: 16rem;
+  }
+
+  .md\:w-32 {
+    width: 8rem;
   }
 
   .md\:max-w-7xl {
