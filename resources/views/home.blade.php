@@ -93,6 +93,8 @@
         <div class="py-12">
             <x-home.video />
         </div>
+    
+        <x-home.purpose />
 
         <x-call-to-action />
     @endif
@@ -114,7 +116,6 @@
     @endpush--}}
 
     @if(app()->environment(['local','development']))
-        <x-home.purpose />
         <x-progress />
     @endif
 
