@@ -1,6 +1,6 @@
 <div>
     @if($medias->count() > 0)
-        <div class="max-w-7xl mx-auto pt-8 md:pt-16 px-12 pb-4 xl:pt-16  md:px-24 md:pb-8 hidden md:block">
+        <div class="max-w-7xl mx-auto pt-8 md:pt-12 px-12 pb-4 xl:pt-12  md:px-24 md:pb-8 hidden md:block">
             <div
                 x-data="{
                 skip: 3,

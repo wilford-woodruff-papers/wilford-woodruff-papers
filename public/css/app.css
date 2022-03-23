@@ -3952,6 +3952,10 @@ input[class^="numeric-"], select[class^="numeric-"] {
     padding-left: 4rem;
   }
 
+  .md\:pt-12 {
+    padding-top: 3rem;
+  }
+
   .md\:text-4xl {
     font-size: 2.25rem;
     line-height: 2.5rem;
@@ -4339,6 +4343,10 @@ input[class^="numeric-"], select[class^="numeric-"] {
 
   .xl\:pt-24 {
     padding-top: 6rem;
+  }
+
+  .xl\:pt-12 {
+    padding-top: 3rem;
   }
 
   .xl\:text-3xl {
