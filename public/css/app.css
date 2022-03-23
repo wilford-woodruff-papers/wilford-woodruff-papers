@@ -3981,6 +3981,10 @@ input[class^="numeric-"], select[class^="numeric-"] {
     padding-top: 3rem;
   }
 
+  .md\:pt-8 {
+    padding-top: 2rem;
+  }
+
   .md\:text-4xl {
     font-size: 2.25rem;
     line-height: 2.5rem;
