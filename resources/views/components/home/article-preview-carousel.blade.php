@@ -3,7 +3,7 @@
         <div class="max-w-7xl mx-auto pt-8 md:pt-12 px-12 pb-4 xl:pt-12  md:px-24 md:pb-8 hidden md:block">
             <div class="grid grid-cols-3">
                 <div class="font-extrabold">
-                    <h2 class="uppercase pb-1 border-b-4 border-highlight">What's New</h2>
+                    <h2 class="text-3xl uppercase pb-1 border-b-4 border-highlight">What's New</h2>
                 </div>
             </div>
             <div
