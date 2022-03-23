@@ -6,8 +6,8 @@
                 <div class="relative z-10 lg:col-start-9 lg:row-start-1 lg:col-span-4 lg:py-16 lg:bg-transparent">
                     <div class="absolute inset-x-0 h-1/2 bg-gray-50 lg:hidden" aria-hidden="true"></div>
                     <div class="max-w-md mx-auto px-4 sm:max-w-3xl sm:px-6 lg:max-w-none lg:p-0">
-                        <div class="aspect-w-10 aspect-h-6 sm:aspect-w-2 sm:aspect-h-1 lg:aspect-w-1">
-                            <img class="object-cover object-center shadow-2xl" src="https://picsum.photos/300/300" alt="">
+                        <div class="">
+                            <img class="object-cover object-center shadow-2xl" src="https://nyc3.digitaloceanspaces.com/wilford-woodruff-papers/img/progress-1.png" alt="">
                         </div>
                     </div>
                 </div>
@@ -33,9 +33,11 @@
                     </div>
                     <div class="relative max-w-md mx-auto py-12 px-4 space-y-6 sm:max-w-3xl sm:py-16 sm:px-6 lg:max-w-none lg:p-0 lg:col-start-2 lg:col-span-6">
                         {{--<h2 class="text-3xl font-extrabold text-white" id="join-heading">Join our team</h2>--}}
-                        <p class="text-3xl text-white text-justify">
-                            TBD
-                        </p>
+                        <div class="max-w-md mx-auto px-4 sm:max-w-3xl sm:px-6 lg:max-w-none lg:p-0">
+                            <div class="">
+                                <img class="object-cover object-center shadow-2xl" src="https://nyc3.digitaloceanspaces.com/wilford-woodruff-papers/img/progress-2.png" alt="">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
