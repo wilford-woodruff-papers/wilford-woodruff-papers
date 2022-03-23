@@ -93,7 +93,7 @@
             From: "opacity-100 scale-100"
             To: "opacity-0 scale-95"
         -->
-        <div class="absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden z-10 md:hidden"
+        <div class="absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden z-20 md:hidden"
              x-show="mobileMenuOpen"
              x-cloak
         >
@@ -211,7 +211,7 @@
                         <div x-show="dropdown == 'people'"
                              x-on:mouseleave="dropdown = null"
                              x-cloak
-                             class="origin-top-right absolute -right-4 mt-2 w-72 shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
+                             class="origin-top-right absolute -right-4 mt-2 w-72 shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-20">
                             <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                                 <a href="{{ route('people') }}"
                                    class="block px-4 py-2 text-secondary font-medium hover:bg-gray-100"
@@ -238,7 +238,7 @@
                         <div x-show="dropdown == 'timeline'"
                              x-on:mouseleave="dropdown = null"
                              x-cloak
-                             class="origin-top-right absolute -right-4 mt-2 w-72 shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
+                             class="origin-top-right absolute -right-4 mt-2 w-72 shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-20">
                             <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                                 <a href="{{ route('timeline') }}"
                                    class="block px-4 py-2 text-secondary font-medium hover:bg-gray-100"
@@ -269,7 +269,7 @@
                         <div x-show="dropdown == 'about'"
                              x-on:mouseleave="dropdown = null"
                              x-cloak
-                             class="origin-top-right absolute -right-4 mt-2 w-72 shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
+                             class="origin-top-right absolute -right-4 mt-2 w-72 shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-20">
                             <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                                 <a href="{{ route('about') }}"
                                    class="block px-4 py-2 text-secondary font-medium hover:bg-gray-100"
@@ -316,7 +316,7 @@
                         <div x-show="dropdown == 'get-involved'"
                              x-on:mouseleave="dropdown = null"
                              x-cloak
-                             class="origin-top-right absolute -right-4 mt-2 w-72 shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
+                             class="origin-top-right absolute -right-4 mt-2 w-72 shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-20">
                             <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                                 <a href="/s/wilford-woodruff-papers/page/volunteer"
                                    class="block px-4 py-2 text-secondary font-medium hover:bg-gray-100"
@@ -353,7 +353,7 @@
                         <div x-show="showAbout"
                              x-on:mouseleave="showAbout = false"
                              x-cloak
-                             class="origin-top-right absolute -right-4 mt-2 w-60 shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
+                             class="origin-top-right absolute -right-4 mt-2 w-60 shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-20">
                             <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                                 <a x-on:mouseenter="showMedia = false; showDonate = false; showGetInvolved = false;"
                                    href="/s/wilford-woodruff-papers/page/about"
@@ -400,7 +400,7 @@
                         <div x-show="dropdown == 'media'"
                              x-on:mouseleave="dropdown = null"
                              x-cloak
-                             class="origin-top-right absolute -right-4 mt-2 w-72 shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10 p-4">
+                             class="origin-top-right absolute -right-4 mt-2 w-72 shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-20 p-4">
                             {{--<div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                                 <a href="{{ route('media.articles') }}"
                                    class="block px-4 py-2 text-secondary font-medium hover:bg-gray-100"
@@ -527,7 +527,7 @@
                         <div x-show="showDonate"
                              x-on:mouseleave="showDonate = false"
                              x-cloak
-                             class="origin-top-right absolute -right-4 mt-2 w-40 shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-10">
+                             class="origin-top-right absolute -right-4 mt-2 w-40 shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-20">
                             <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                                 <a href="/s/wilford-woodruff-papers/page/donate-online"
                                    class="block px-4 py-2 text-secondary font-medium hover:bg-gray-100"
