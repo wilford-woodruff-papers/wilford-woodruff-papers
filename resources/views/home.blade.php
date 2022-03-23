@@ -31,11 +31,11 @@
         <x-home-page-buttons />
     @endif
 
-    <x-top-announcements />
-
     @if(app()->environment(['local','development']))
         <x-article-preview-carousel />
     @endif
+
+    <x-top-announcements />
 
     @if(app()->environment(['production']))
         @if(! empty($article))
