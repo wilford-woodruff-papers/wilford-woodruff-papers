@@ -2,8 +2,11 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\ImportItemFromFtp;
 use App\Models\Item;
+use Illuminate\Bus\Batch;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Http;
 
 class ImportNewPageContributions extends Command
@@ -30,7 +33,8 @@ class ImportNewPageContributions extends Command
     public function handle()
     {
         // Todo: Set start and end times
-        $response = Http::get('https://fromthepage.com/iiif/contributions/woodruff/2022-02-21T23:53:03+00:00/2022-03-22T23:53:03+00:00');
+        $now = now('America/Denver');
+        $response = Http::get('https://fromthepage.com/iiif/contributions/woodruff/' . $now->subHours(24)->tz('UTC')->toIso8601String() . '/' . $now->tz('UTC')->toIso8601String());
 
         $manifests = collect($response->json('manifests', []));
 
@@ -39,7 +43,27 @@ class ImportNewPageContributions extends Command
             ->whereIn('ftp_id', $manifests->pluck('@id'))
             ->get();
 
-        ray($items);
+        if($items->count() > 0){
+            $jobs = [];
+            foreach ($items as $item) {
+                $jobs[] = new ImportItemFromFtp($item);
+            }
+
+            $batch = Bus::batch($jobs)
+                ->then(function (Batch $batch) {
+                    // All jobs completed successfully...
+                    Bus::chain([
+                        new \App\Jobs\OrderPages(),
+                        new \App\Jobs\CacheDates(),
+                    ])
+                        ->dispatch();
+                })
+                ->name('Import New Pages Contributions')
+                ->allowFailures()
+                ->dispatch();
+
+            $this->info('Batch ID: '.$batch->id);
+        }
 
         return 0;
     }
