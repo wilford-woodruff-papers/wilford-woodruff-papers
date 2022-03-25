@@ -9359,10 +9359,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;function _type
       /*
       This is a workaround for a bug where IE returns the wrong container element from the TextRange's parentElement()
       method. For example, in the following (where pipes denote the selection boundaries):
-        <ul id="ul"><li id="a">| a </li><li id="b"> b |</li></ul>
-        var range = document.selection.createRange();
+       <ul id="ul"><li id="a">| a </li><li id="b"> b |</li></ul>
+       var range = document.selection.createRange();
       alert(range.parentElement().id); // Should alert "ul" but alerts "b"
-        This method returns the common ancestor node of the following:
+       This method returns the common ancestor node of the following:
       - the parentElement() of the textRange
       - the parentElement() of the textRange after calling collapse(true)
       - the parentElement() of the textRange after calling collapse(false)
@@ -9470,10 +9470,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;function _type
             For the particular case of a boundary within a text node containing rendered line breaks (within a
             <pre> element, for example), we need a slightly complicated approach to get the boundary's offset in
             IE. The facts:
-              - Each line break is represented as \r in the text node's data/nodeValue properties
+             - Each line break is represented as \r in the text node's data/nodeValue properties
             - Each line break is represented as \r\n in the TextRange's 'text' property
             - The 'text' property of the TextRange does not contain trailing line breaks
-              To get round the problem presented by the final fact above, we can use the fact that TextRange's
+             To get round the problem presented by the final fact above, we can use the fact that TextRange's
             moveStart() and moveEnd() methods return the actual number of characters moved, which is not
             necessarily the same as the number of characters it was instructed to move. The simplest approach is
             to use this to store the characters moved when moving both the start and end of the range to the
@@ -9481,12 +9481,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;function _type
             "move-negative-gazillion" method). However, this is extremely slow when the document is large and
             the range is near the end of it. Clearly doing the mirror image (i.e. moving the range boundaries to
             the end of the document) has the same problem.
-              Another approach that works is to use moveStart() to move the start boundary of the range up to the
+             Another approach that works is to use moveStart() to move the start boundary of the range up to the
             end boundary one character at a time and incrementing a counter with the value returned by the
             moveStart() call. However, the check for whether the start boundary has reached the end boundary is
             expensive, so this method is slow (although unlike "move-negative-gazillion" is largely unaffected
             by the location of the range within the document).
-              The approach used below is a hybrid of the two methods above. It uses the fact that a string
+             The approach used below is a hybrid of the two methods above. It uses the fact that a string
             containing the TextRange's 'text' property with each \r\n converted to a single \r character cannot
             be longer than the text of the TextRange, so the start of the range is moved that length initially
             and then a character at a time to make up for any trailing line breaks not contained in the 'text'

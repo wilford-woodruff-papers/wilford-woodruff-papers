@@ -7,7 +7,7 @@
                            type="search"
                            name="q"
                            value="{{ request('q') }}"
-                           placeholder="Search website"
+                           placeholder="Search..."
                            aria-label="Search website">
                     <input type="hidden" name="people" value="1" />
                     @foreach(\App\Models\Type::all() as $type)
