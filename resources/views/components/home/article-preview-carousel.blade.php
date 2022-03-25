@@ -1,7 +1,7 @@
 <div>
     @if($medias->count() > 0)
         <div class="max-w-7xl mx-auto pt-8 md:pt-12 px-12 pb-4 xl:pt-12  md:px-24 md:pb-8 hidden md:block">
-            <div class="grid grid-cols-3">
+            <div class="grid grid-cols-3 pb-4">
                 <div class="font-extrabold">
                     <h2 class="text-3xl uppercase pb-1 border-b-4 border-highlight">What's New</h2>
                 </div>
@@ -64,7 +64,7 @@
                     tabindex="0"
                     role="region"
                     aria-labelledby="carousel-label"
-                    class="flex space-x-6"
+                    class="flex space-x-3"
                 >
                     <h2 id="carousel-label" class="sr-only" hidden>Carousel</h2>
 
@@ -76,7 +76,7 @@
                         :tabindex="atEnd ? -1 : 0"
                         :class="{ 'opacity-50 cursor-not-allowed': atBeginning }"
                     >
-                        <span class="p-6 text-white bg-secondary"
+                        <span class="p-4 text-secondary font-extrabold"
                               aria-hidden="true">❮</span>
                         <span class="sr-only">Skip to previous slide page</span>
                     </button>
@@ -157,7 +157,7 @@
                         :tabindex="atEnd ? -1 : 0"
                         :class="{ 'opacity-50 cursor-not-allowed': atEnd }"
                     >
-                        <span class="p-6 text-white bg-secondary"
+                        <span class="p-4 text-secondary font-extrabold"
                               aria-hidden="true">❯</span>
                         <span class="sr-only">Skip to next slide page</span>
                     </button>
