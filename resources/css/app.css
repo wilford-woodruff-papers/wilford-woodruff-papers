@@ -15,6 +15,12 @@
     opacity: 0;
 }
 
+/* Convert Kit Overrides */
+.formkit-sticky-bar {
+    @apply z-50;
+}
+/* Convert Kit Overrides */
+
 h1 {
     @apply font-serif;
 }
