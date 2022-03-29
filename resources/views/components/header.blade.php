@@ -124,11 +124,11 @@
                         <nav class="grid gap-6">
                             <a href="{{ route('documents') }}">Documents</a>
                             <a href="{{ route('people') }}">People</a>
-                            <a href="/s/wilford-woodruff-papers/page/places">Places</a>
-                            <a href="/s/wilford-woodruff-papers/page/timeline">Timeline</a>
-                            <a href="/s/wilford-woodruff-papers/media">Search</a>
-                            <a href="/s/wilford-woodruff-papers/page/donate-online">Donate</a>
-                            <a href="/s/wilford-woodruff-papers/page/volunteer">Get Involved</a>
+                            <a href="{{ route('places') }}">Places</a>
+                            <a href="{{ route('timeline') }}">Timeline</a>
+                            <a href="{{ route('advanced-search') }}">Search</a>
+                            <a href="{{ route('donate.online') }}">Donate</a>
+                            <a href="{{ route('volunteer') }}">Get Involved</a>
                         </nav>
                     </div>
                 </div>
@@ -136,19 +136,19 @@
                     <div class="grid grid-cols-2 gap-y-4 gap-x-8">
 
                         <div class="grid grid-cols-1 gap-y-6">
-                            <a href="/s/wilford-woodruff-papers/page/about" class="text-base font-medium text-gray-900 hover:text-gray-700">
+                            <a href="{{ route('about') }}" class="text-base font-medium text-gray-900 hover:text-gray-700">
                                 About
                             </a>
 
-                            <a href="/s/wilford-woodruff-papers/page/volunteer" class="text-base font-medium text-gray-900 hover:text-gray-700">
+                            <a href="{{ route('volunteer') }}" class="text-base font-medium text-gray-900 hover:text-gray-700">
                                 Volunteer
                             </a>
 
-                            <a href="/s/wilford-woodruff-papers/page/meet-the-team" class="text-base font-medium text-gray-900 hover:text-gray-700">
+                            <a href="{{ route('about.meet-the-team') }}" class="text-base font-medium text-gray-900 hover:text-gray-700">
                                 Meet the Team
                             </a>
 
-                            <a href="/s/wilford-woodruff-papers/page/editorial-method" class="text-base font-medium text-gray-900 hover:text-gray-700">
+                            <a href="{{ route('about.editorial-method') }}" class="text-base font-medium text-gray-900 hover:text-gray-700">
                                 Editorial Method
                             </a>
                         </div>
@@ -158,20 +158,12 @@
                                 Articles
                             </a>
 
-                            <a href="/s/wilford-woodruff-papers/photos" class="text-base font-medium text-gray-900 hover:text-gray-700">
+                            <a href="{{ route('media.photos') }}" class="text-base font-medium text-gray-900 hover:text-gray-700">
                                 Photos
                             </a>
 
-                            <a href="/s/wilford-woodruff-papers/page/podcasts" class="text-base font-medium text-gray-900 hover:text-gray-700">
+                            <a href="{{ route('media.podcasts') }}" class="text-base font-medium text-gray-900 hover:text-gray-700">
                                 Podcasts
-                            </a>
-
-                            <a href="/s/wilford-woodruff-papers/page/videos" class="text-base font-medium text-gray-900 hover:text-gray-700">
-                                Videos
-                            </a>
-
-                            <a href="/s/wilford-woodruff-papers/page/newsroom" class="text-base font-medium text-gray-900 hover:text-gray-700">
-                                Newsroom
                             </a>
 
                             <a href="https://updates.wilfordwoodruffpapers.org/posts"
@@ -179,6 +171,14 @@
                                target="_newsletter"
                             >
                                 Updates
+                            </a>
+
+                            <a href="{{ route('media.videos') }}" class="text-base font-medium text-gray-900 hover:text-gray-700">
+                                Videos
+                            </a>
+
+                            <a href="{{ route('media.news') }}" class="text-base font-medium text-gray-900 hover:text-gray-700">
+                                Newsroom
                             </a>
                         </div>
 
@@ -199,7 +199,7 @@
                                                 'maxDepth' => $this->themeSetting('nav_depth') - 1
                                             ]);
                                             */?>
-                    <a href="/s/wilford-woodruff-papers/documents">Documents</a>
+                    <a href="{{ route('documents') }}">Documents</a>
                     <div class="relative inline-block text-left">
                         <span x-on:mouseenter="dropdown = 'people'"
                               x-on:click="dropdown = 'people'"
@@ -226,7 +226,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="/s/wilford-woodruff-papers/page/places">Places</a>
+                    <a href="{{ route('places') }}">Places</a>
                     <div class="relative inline-block text-left">
                         <span x-on:mouseenter="dropdown = 'timeline'"
                               x-on:click="dropdown = 'timeline'"
@@ -253,7 +253,7 @@
                             </div>
                         </div>
                     </div>
-                    <a href="/s/wilford-woodruff-papers/media">Search</a>
+                    <a href="{{ route('advanced-search') }}">Search</a>
                 </div>
                 <div class="flex space-x-4 md:space-x-10  mt-4 flex md:mt-0 md:ml-4">
                     {{--<a href="/s/wilford-woodruff-papers/page/about">About</a>--}}
@@ -318,7 +318,7 @@
                              x-cloak
                              class="origin-top-right absolute -right-4 mt-2 w-72 shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-20">
                             <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                                <a href="/s/wilford-woodruff-papers/page/volunteer"
+                                <a href="{{ route('volunteer') }}"
                                    class="block px-4 py-2 text-secondary font-medium hover:bg-gray-100"
                                    role="menuitem">
                                     Volunteer
@@ -333,7 +333,7 @@
                                    role="menuitem">
                                     Career
                                 </a>
-                                <a href="/s/wilford-woodruff-papers/page/contribute-documents"
+                                <a href="{{ route('contribute-documents') }}"
                                    class="block px-4 py-2 text-secondary font-medium hover:bg-gray-100"
                                    role="menuitem">
                                     Contribute Documents
@@ -510,7 +510,7 @@
                     </div>
 
                     <div class="relative inline-block text-left">
-                        <a href="/s/wilford-woodruff-papers/page/donate-online"
+                        <a href="{{ route('donate.online') }}"
                            class="text-base font-medium text-primary md:text-white md:hover:text-highlight uppercase border-2 border-white md:hover:border-highlight rounded-md py-1 px-2"
                         >Donate</a>
                     </div>

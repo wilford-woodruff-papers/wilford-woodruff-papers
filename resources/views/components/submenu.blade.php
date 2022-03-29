@@ -138,6 +138,12 @@
                         Podcasts
                     </span>
                 </a>
+                <a href="https://updates.wilfordwoodruffpapers.org/posts"
+                   class="group flex items-center px-3 py-2 text-sm font-medium @if(request()->is('media/podcast*')) active @else @endif">
+                    <span class="truncate">
+                        Updates
+                    </span>
+                </a>
                 <a href="{{ route('media.videos') }}"
                    class="group flex items-center px-3 py-2 text-sm font-medium @if(request()->is('media/video*')) active @else @endif">
                     <span class="truncate">

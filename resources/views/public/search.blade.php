@@ -52,10 +52,10 @@
                     </div>
                 </div>
                 <div class="space-y-6 sm:space-y-5">
-                    <div class="grid grid-cols-2 mt-0 sm:pb-5">
-                        <div class="px-8">
-                            <div class="block text-lg font-medium text-primary sm:mt-px sm:pt-2">
-                                <div class="mt-4 sm:mt-0 sm:col-span-2">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 mt-0 sm:pb-5">
+                        <div class="px-8 grid grid-cols-1 sm:grid-cols-2">
+                            <div class="text-lg font-medium text-primary sm:mt-px sm:pt-2">
+                                <div class="mt-4 sm:mt-0">
                                     <div class="max-w-lg space-y-4">
                                         <div class="relative flex items-start">
                                             <div class="flex items-center h-5">
@@ -68,7 +68,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-span-6 sm:col-span-6 lg:col-span-2">
+                            <div class="">
                                 <label for="min_date" class="block text-sm font-medium text-gray-700 sr-only">Date comes after</label>
                                 <input type="date"
                                        name="min_date"
@@ -77,9 +77,9 @@
                                        class="mt-1 focus:ring-gray-500 focus:border-gray-500 block w-full shadow-sm sm:text-sm border-gray-300">
                             </div>
                         </div>
-                        <div class="px-8">
-                            <div class="block text-lg font-medium text-primary sm:mt-px sm:pt-2">
-                                <div class="mt-4 sm:mt-0 sm:col-span-2">
+                        <div class="px-8 grid grid-cols-1 sm:grid-cols-2">
+                            <div class="text-lg font-medium text-primary sm:mt-px sm:pt-2">
+                                <div class="mt-4 sm:mt-0">
                                     <div class="max-w-lg space-y-4">
                                         <div class="relative flex items-start">
                                             <div class="flex items-center h-5">
@@ -92,7 +92,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-span-6 sm:col-span-6 lg:col-span-2">
+                            <div class="">
                                 <label for="max_date" class="block text-sm font-medium text-gray-700 sr-only">Date comes before</label>
                                 <input type="date"
                                        name="max_date"
@@ -101,26 +101,26 @@
                                        class="mt-1 focus:ring-gray-500 focus:border-gray-500 block w-full shadow-sm sm:text-sm border-gray-300">
                             </div>
                         </div>
-                        <div class="mt-4 mx-8 col-span-2" id="page-actions">
-                            <div class="grid grid-cols-2">
-                                <div>
-                                    <input class="inline-flex items-center relative inline-flex items-center px-12 py-2 border border-secondary text-sm font-medium text-white bg-secondary hover:text-highlight cursor-pointer" type="submit" name="submit" value="Search">
-                                </div>
-                                <div class=" grid justify-items-end">
-                                    <select class="max-w-xs mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:ring-secondary focus:border-secondary sm:text-sm"
-                                            name="sort"
-                                            aria-label="Sort by">
-                                        <option value="added:desc" @if(request()->get('sort') == 'added:desc') selected="" @endif>Added to Collection (Newest to Oldest)</option>
-                                        <option value="added:asc" @if(request()->get('sort') == 'added:asc') selected="" @endif>Added to Collection (Oldest to Newest)</option>
-                                        <option value="created:desc" @if(request()->get('sort') == 'created:desc') selected="" @endif>Created (Newest to Oldest)</option>
-                                        <option value="created:asc" @if(request()->get('sort') == 'created:asc') selected="" @endif>Created (Oldest to Newest)</option>
-                                        <option value="title:asc" @if(request()->get('sort') == 'title:asc') selected="" @endif>Title (A-Z)</option>
-                                        <option value="title:desc" @if(request()->get('sort') == 'title:desc') selected="" @endif>Title (Z-A)</option>
-                                    </select>
-                                </div>
+                    </div>
+                    <div class="mt-4 mx-8 col-span-2" id="page-actions">
+                        <div class="grid grid-cols-2">
+                            <div>
+                                <input class="inline-flex items-center relative inline-flex items-center px-2 sm:px-12 py-3 border border-secondary text-sm font-medium text-white bg-secondary hover:text-highlight cursor-pointer" type="submit" name="submit" value="Search">
                             </div>
-
+                            <div class="grid justify-items-end">
+                                <select class="max-w-xs block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:ring-secondary focus:border-secondary sm:text-sm"
+                                        name="sort"
+                                        aria-label="Sort by">
+                                    <option value="added:desc" @if(request()->get('sort') == 'added:desc') selected="" @endif>Added to Collection (Newest to Oldest)</option>
+                                    <option value="added:asc" @if(request()->get('sort') == 'added:asc') selected="" @endif>Added to Collection (Oldest to Newest)</option>
+                                    <option value="created:desc" @if(request()->get('sort') == 'created:desc') selected="" @endif>Created (Newest to Oldest)</option>
+                                    <option value="created:asc" @if(request()->get('sort') == 'created:asc') selected="" @endif>Created (Oldest to Newest)</option>
+                                    <option value="title:asc" @if(request()->get('sort') == 'title:asc') selected="" @endif>Title (A-Z)</option>
+                                    <option value="title:desc" @if(request()->get('sort') == 'title:desc') selected="" @endif>Title (Z-A)</option>
+                                </select>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </form>

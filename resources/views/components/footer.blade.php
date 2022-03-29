@@ -36,7 +36,7 @@
                 </div>
             </div>
             <div class="col-span-1 md:col-span-2 mt-4 md:pl-16 text-lg">
-                <a href="/s/wilford-woodruff-papers/page/contribute-documents"
+                <a href="{{ route('contribute-documents') }}"
                    class="cursor-pointer"
                 >
                     <div class="text-white">
@@ -55,19 +55,19 @@
                     <ul class="mt-4 space-y-4">
 
                         <li>
-                            <a href="/s/wilford-woodruff-papers/page/about" class="text-base text-white hover:text-highlight">
+                            <a href="{{ route('about') }}" class="text-base text-white hover:text-highlight">
                                 Our Mission & Story
                             </a>
                         </li>
 
                         <li>
-                            <a href="/s/wilford-woodruff-papers/page/meet-the-team" class="text-base text-white hover:text-highlight">
+                            <a href="{{ route('about.meet-the-team') }}" class="text-base text-white hover:text-highlight">
                                 Meet the Team
                             </a>
                         </li>
 
                         <li>
-                            <a href="/s/wilford-woodruff-papers/page/frequently-asked-questions" class="text-base text-white hover:text-highlight">
+                            <a href="{{ route('about.frequently-asked-questions') }}" class="text-base text-white hover:text-highlight">
                                 Frequently Asked Questions
                             </a>
                         </li>
@@ -93,7 +93,7 @@
                     <ul class="mt-4 space-y-4">
 
                         <li>
-                            <a href="/s/wilford-woodruff-papers/page/volunteer" class="text-base text-white hover:text-highlight">
+                            <a href="{{ route('volunteer') }}" class="text-base text-white hover:text-highlight">
                                 Volunteer
                             </a>
                         </li>
@@ -111,13 +111,13 @@
                         </li>
 
                         <li>
-                            <a href="/s/wilford-woodruff-papers/page/contribute-documents" class="text-base text-white hover:text-highlight">
+                            <a href="{{ route('contribute-documents') }}" class="text-base text-white hover:text-highlight">
                                 Contribute Documents
                             </a>
                         </li>
 
                         <li class="pt-2">
-                            <a href="/s/wilford-woodruff-papers/page/donate-online" class="text-base py-2 px-4 border-2 border-highlight text-white bg-highlight">
+                            <a href="{{ route('donate.online') }}" class="text-base py-2 px-4 border-2 border-highlight text-white bg-highlight">
                                 Donate Online
                             </a>
                         </li>
@@ -133,13 +133,13 @@
                     <ul class="mt-4 space-y-4">
 
                         <li>
-                            <a href="/s/wilford-woodruff-papers/photos" class="text-base text-white hover:text-highlight">
+                            <a href="{{ route('media.photos') }}" class="text-base text-white hover:text-highlight">
                                 Photos
                             </a>
                         </li>
 
                         <li>
-                            <a href="/s/wilford-woodruff-papers/page/podcasts" class="text-base text-white hover:text-highlight">
+                            <a href="{{ route('media.podcasts') }}" class="text-base text-white hover:text-highlight">
                                 Podcasts
                             </a>
                         </li>
@@ -151,19 +151,19 @@
                         </li>
 
                         <li>
-                            <a href="/s/wilford-woodruff-papers/page/videos" class="text-base text-white hover:text-highlight">
+                            <a href="{{ route('media.videos') }}" class="text-base text-white hover:text-highlight">
                                 Videos
                             </a>
                         </li>
 
                         <li>
-                            <a href="/s/wilford-woodruff-papers/page/media-kit" class="text-base text-white hover:text-highlight">
+                            <a href="{{ route('media.kit') }}" class="text-base text-white hover:text-highlight">
                                 Media Kit
                             </a>
                         </li>
 
                         <li>
-                            <a href="/s/wilford-woodruff-papers/page/newsroom" class="text-base text-white hover:text-highlight">
+                            <a href="{{ route('media.news') }}" class="text-base text-white hover:text-highlight">
                                 Newsroom
                             </a>
                         </li>
