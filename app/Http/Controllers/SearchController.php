@@ -57,7 +57,7 @@ class SearchController extends Controller
                         $request->except('types'),
                         ['referrer' => $request->headers->get('referer')]
                     ))
-                    ->log($request->get('q', '*'));
+                    ->log((! empty($request->get('q')) ? $request->get('q') : '*'));
             } catch (\Exception $e) {
                 logger()->error($e->getMessage());
             }
