@@ -31,11 +31,11 @@
         <x-home-page-buttons />
     @endif
 
-    <x-top-announcements />
-
     @if(app()->environment(['local','development']))
         <x-article-preview-carousel />
     @endif
+
+    <x-top-announcements />
 
     @if(app()->environment(['production']))
         @if(! empty($article))
@@ -94,6 +94,8 @@
             <x-home.video />
         </div>
 
+        <x-home.purpose />
+
         <x-call-to-action />
     @endif
 
@@ -114,7 +116,6 @@
     @endpush--}}
 
     @if(app()->environment(['local','development']))
-        <x-home.purpose />
         <x-progress />
     @endif
 

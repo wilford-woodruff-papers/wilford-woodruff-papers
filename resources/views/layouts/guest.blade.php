@@ -53,8 +53,12 @@
     </body>
     <x-subject-modal />
     <x-footer />
-    <x-google />
-    <x-facebook-pixel />
+
+    @if(app()->environment(['production']))
+        <x-google />
+        <x-facebook-pixel />
+    @endif
+
     <script async data-uid="7ce7f1665b" src="https://wilford-woodruff-papers.ck.page/7ce7f1665b/index.js"></script>
 
     @stack('scripts')
