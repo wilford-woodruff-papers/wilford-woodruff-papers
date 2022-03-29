@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', \App\Http\Controllers\HomeController::class)->name('home');
-Route::get('/advanced-search', \App\Http\Controllers\SearchController::class)->name('advanced-search');
+Route::get('/search', \App\Http\Controllers\SearchController::class)->name('search');
 Route::get('/documents', [\App\Http\Controllers\ItemController::class, 'index'])->name('documents');
 Route::get('/dates/{year?}/{month?}', [\App\Http\Controllers\ItemController::class, 'dates'])->name('documents.dates');
 Route::get('/documents/{item}', [\App\Http\Controllers\ItemController::class, 'show'])->name('documents.show');
@@ -37,10 +37,10 @@ Route::get('/about/editorial-method', [\App\Http\Controllers\AboutController::cl
 Route::get('/about/frequently-asked-questions', [\App\Http\Controllers\AboutController::class, 'faqs'])->name('about.frequently-asked-questions');
 Route::get('/contact-us', [\App\Http\Controllers\AboutController::class, 'contact'])->name('contact-us');
 
-Route::get('/search', [\App\Http\Controllers\LandingAreasController::class, 'search'])->name('landing-areas.search');
-Route::get('/ponder', [\App\Http\Controllers\LandingAreasController::class, 'ponder'])->name('landing-areas.ponder');
-Route::get('/serve', [\App\Http\Controllers\LandingAreasController::class, 'serve'])->name('landing-areas.serve');
-Route::get('/testify', [\App\Http\Controllers\LandingAreasController::class, 'testify'])->name('landing-areas.testify');
+Route::get('/engage/search', [\App\Http\Controllers\LandingAreasController::class, 'search'])->name('landing-areas.search');
+Route::get('/engage/ponder', [\App\Http\Controllers\LandingAreasController::class, 'ponder'])->name('landing-areas.ponder');
+Route::get('/engage/serve', [\App\Http\Controllers\LandingAreasController::class, 'serve'])->name('landing-areas.serve');
+Route::get('/engage/testify', [\App\Http\Controllers\LandingAreasController::class, 'testify'])->name('landing-areas.testify');
 
 Route::get('/media/articles', [\App\Http\Controllers\MediaController::class, 'articles'])->name('media.articles');
 Route::get('/media/articles/{article}', [\App\Http\Controllers\MediaController::class, 'article'])->name('media.article');
@@ -125,10 +125,10 @@ Route::get('/s/wilford-woodruff-papers/photos', function () {
     return redirect()->route('media.photos');
 });
 Route::get('/s/wilford-woodruff-papers/media', function () {
-    return redirect()->route('advanced-search');
+    return redirect()->route('search');
 });
 Route::get('/s/wilford-woodruff-papers/item/search', function () {
-    return redirect()->route('advanced-search');
+    return redirect()->route('search');
 });
 Route::get('/s/wilford-woodruff-papers/page/frequently-asked-questions', function () {
     return redirect()->route('about.frequently-asked-questions');

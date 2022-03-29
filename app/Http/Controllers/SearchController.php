@@ -70,7 +70,7 @@ class SearchController extends Controller
                 'min' => Date::where('dateable_type', Page::class)->orderBy('date', 'ASC')->first(),
                 'max' => Date::where('dateable_type', Page::class)->orderBy('date', 'DESC')->first(),
             ],
-            'people' => $request->has('people')
+            'people' => ($request->has('people') && ! empty($request->get('q')))
                 ? Subject::whereEnabled(1)
                     ->whereHas('category', function (Builder $query) {
                         $query->where('name', 'People');
