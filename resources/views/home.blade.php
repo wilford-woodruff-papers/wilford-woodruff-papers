@@ -116,7 +116,6 @@
     @endpush--}}
 
     @if(app()->environment(['local','development']))
-        <x-home.purpose />
         <x-progress />
     @endif
 
