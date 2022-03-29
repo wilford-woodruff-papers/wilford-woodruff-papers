@@ -37,7 +37,9 @@ Route::get('/about/editorial-method', [\App\Http\Controllers\AboutController::cl
 Route::get('/about/frequently-asked-questions', [\App\Http\Controllers\AboutController::class, 'faqs'])->name('about.frequently-asked-questions');
 Route::get('/contact-us', [\App\Http\Controllers\AboutController::class, 'contact'])->name('contact-us');
 
-//Route::get('/search', [\App\Http\Controllers\LandingAreasController::class, 'search'])->name('landing-areas.search');
+if(app()->environment(['development', 'local'])){
+    Route::get('/search', [\App\Http\Controllers\LandingAreasController::class, 'search'])->name('landing-areas.search');
+}
 Route::get('/ponder', [\App\Http\Controllers\LandingAreasController::class, 'ponder'])->name('landing-areas.ponder');
 Route::get('/serve', [\App\Http\Controllers\LandingAreasController::class, 'serve'])->name('landing-areas.serve');
 Route::get('/testify', [\App\Http\Controllers\LandingAreasController::class, 'testify'])->name('landing-areas.testify');
@@ -130,9 +132,11 @@ Route::get('/s/wilford-woodruff-papers/media', function () {
 Route::get('/s/wilford-woodruff-papers/item/search', function () {
     return redirect()->route('advanced-search');
 });
-Route::get('/search', function () {
-    return redirect()->route('advanced-search');
-});
+if(app()->environment('production')) {
+    Route::get('/search', function () {
+        return redirect()->route('advanced-search');
+    });
+}
 Route::get('/s/wilford-woodruff-papers/page/frequently-asked-questions', function () {
     return redirect()->route('about.frequently-asked-questions');
 });

@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
 
         if (! app()->environment('production')) {
-            Mail::alwaysTo(User::role('Super Admin')->first()->email);
+            Mail::alwaysTo('test@wilfordwoodruffpapers.org');
         }
     }
 }
