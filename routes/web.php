@@ -140,3 +140,11 @@ if(app()->environment('production')) {
 Route::get('/s/wilford-woodruff-papers/page/frequently-asked-questions', function () {
     return redirect()->route('about.frequently-asked-questions');
 });
+
+
+Route::middleware(['auth:sanctum', 'verified'])
+    ->get('/admin/dashboard/document/{item}/page/{page}', [\App\Http\Controllers\Admin\PageController::class, 'show'])
+    ->name('admin.dashboard.page');
+Route::middleware(['auth:sanctum', 'verified'])
+    ->get('/admin/dashboard', \App\Http\Controllers\Admin\DashboardController::class)
+    ->name('admin.dashboard');

@@ -127,4 +127,14 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
     {
         return $this->morphToMany(Event::class, 'timelineable');
     }
+
+    public function actions()
+    {
+        return $this->morphMany(Action::class, 'actionable');
+    }
+
+    public function admin_comments()
+    {
+        return $this->morphMany(AdminComment::class, 'admincommentable')->latest();
+    }
 }

@@ -107,4 +107,14 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
             ]);
         });
     }*/
+
+    public function actions()
+    {
+        return $this->morphMany(Action::class, 'actionable');
+    }
+
+    public function admin_comments()
+    {
+        return $this->morphMany(AdminComment::class, 'admincommentable');
+    }
 }
