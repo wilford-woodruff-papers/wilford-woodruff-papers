@@ -10,8 +10,8 @@
 
                             </div>
                             <div class="text-center w-full h-full grid items-center py-3 z-10 text-white {{ $textSize ?? 'text-xl md:text-5xl' }} font-medium bg-primary-30 uppercase">
-                                <div class="p-0 -mt-4">
-                                    <span class="text-2xl py-2 px-4 border border-white w-auto inline rounded-full bg-primary-60">
+                                <div class="p-0 md:-mt-4">
+                                    <span class="text-xl md:text-2xl py-2 px-4 border border-white w-auto inline rounded-full bg-primary-60">
                                         {{ $page['title'] }}
                                     </span>
                                 </div>
