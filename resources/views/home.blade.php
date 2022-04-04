@@ -27,15 +27,19 @@
         </div>
     </div>
 
+    <x-top-announcements />
+
     @if(app()->environment(['local','development']))
         <x-home-page-buttons />
+
+        <div class="py-12">
+            <x-home.video />
+        </div>
     @endif
 
     @if(app()->environment(['local','development']))
         <x-article-preview-carousel />
     @endif
-
-    <x-top-announcements />
 
     @if(app()->environment(['production']))
         @if(! empty($article))
@@ -90,13 +94,9 @@
     @if(app()->environment(['local','development']))
         <x-home.book />
 
-        <div class="py-12">
-            <x-home.video />
-        </div>
+        <x-call-to-action />
 
         <x-home.purpose />
-
-        <x-call-to-action />
     @endif
 
     @if(app()->environment(['production']))

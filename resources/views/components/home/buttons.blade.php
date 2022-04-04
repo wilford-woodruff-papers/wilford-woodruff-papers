@@ -10,7 +10,11 @@
 
                             </div>
                             <div class="text-center w-full h-full grid items-center py-3 z-10 text-white {{ $textSize ?? 'text-xl md:text-5xl' }} font-medium bg-primary-50 uppercase">
-                                {{ $page['title'] }}
+                                <div class="p-0 -mt-4">
+                                    <span class="text-2xl py-2 px-4 border border-white w-auto inline rounded-full bg-primary-60">
+                                        {{ $page['title'] }}
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         {{--<img class="mx-auto xl:w-56 xl:h-56  z-0" src="{{ $page['image'] }}" alt="">--}}

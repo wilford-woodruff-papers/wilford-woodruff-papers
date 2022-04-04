@@ -39,6 +39,16 @@ class CallToAction extends Component
                 'title' => 'Sign Up for Updates',
                 'link' => 'https://updates.wilfordwoodruffpapers.org/posts',
             ],
+            [
+                'image' => 'https://wilfordwoodruffpapers.org/img/banners/home.jpg',
+                'title' => 'Share Documents',
+                'link' => route('contribute-documents'),
+            ],
+            [
+                'image' => 'https://wilford-woodruff-papers.nyc3.digitaloceanspaces.com/237/conversions/WW-in-Alaska-cropped-thumb.jpg',
+                'title' => 'Join the Team',
+                'link' => route('work-with-us'),
+            ],
         ];
 
         return view('components.home.call-to-action', [
