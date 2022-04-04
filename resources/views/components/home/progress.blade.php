@@ -2,20 +2,23 @@
     <div class="max-w-7xl mx-auto pt-4 md:pt-4 px-4 pb-4 xl:pt-4 md:pb-8 hidden md:block">
         <div class="grid grid-cols-3 pb-4">
             <div class="font-extrabold">
-                <h2 class="text-3xl uppercase pb-1 border-b-4 border-highlight">Get Involved</h2>
+                <h2 class="text-3xl uppercase pb-1 border-b-4 border-highlight">Progress</h2>
             </div>
         </div>
     </div>
-    <div class="max-w-7xl mx-auto px-4 pb-4 md:px-4 md:pb-8">
-        <div class="grid md:grid-cols-2 gap-5">
-            <div class="px-2 mx-auto">
-                <img class="object-cover object-center shadow-2xl" src="https://nyc3.digitaloceanspaces.com/wilford-woodruff-papers/img/progress-1.png" alt="">
-            </div>
-            <div class="px-2 mx-auto">
-                <img class="object-cover object-center shadow-2xl" src="https://nyc3.digitaloceanspaces.com/wilford-woodruff-papers/img/progress-2.png" alt="">
+    <div class="bg-cover bg-center bg-opacity-70" style="background-image: url({{ asset('img/banners/home.jpg') }})">
+        <div class="max-w-7xl mx-auto px-4 py-4 md:px-4 md:py-8">
+            <div class="grid md:grid-cols-2 gap-5">
+                <div class="px-2 mx-auto">
+                    <img class="object-cover object-center shadow-2xl" src="https://nyc3.digitaloceanspaces.com/wilford-woodruff-papers/img/progress-1.png" alt="">
+                </div>
+                <div class="px-2 mx-auto">
+                    <img class="object-cover object-center shadow-2xl" src="https://nyc3.digitaloceanspaces.com/wilford-woodruff-papers/img/progress-2.png" alt="">
+                </div>
             </div>
         </div>
     </div>
+
 
 
     {{--<div class="relative py-16 bg-white">
