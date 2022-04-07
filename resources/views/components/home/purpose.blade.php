@@ -6,7 +6,7 @@
                     <h2 class="uppercase pb-1 border-b-4 border-highlight">Purpose</h2>
                 </div>
             </div>
-            <p class="uppercase py-4 px-4 text-2xl text-center pt-8">
+            <p class="uppercase font-semibold py-4 px-4 text-2xl text-center pt-8">
                 Our purpose in making Wilford Woodruff’s records universally accessible is to inspire all people, especially the rising generation, to study and increase their faith in Jesus Christ, understand and honor sacred temple covenants, and thereby receive the blessings of exaltation with their families.
             </p>
         </div>

@@ -1261,6 +1261,10 @@ select {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
 }
+.my-8 {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
 .ml-3 {
   margin-left: 0.75rem;
 }
@@ -4656,6 +4660,10 @@ input[class^="numeric-"], select[class^="numeric-"] {
 
   .lg\:p-0 {
     padding: 0px;
+  }
+
+  .lg\:p-12 {
+    padding: 3rem;
   }
 
   .lg\:px-8 {
