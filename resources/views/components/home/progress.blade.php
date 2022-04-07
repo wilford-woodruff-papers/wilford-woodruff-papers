@@ -6,7 +6,7 @@
             </div>
         </div>
     </div>
-    <div class="bg-cover bg-center bg-opacity-70" style="background-image: url({{ asset('img/banners/home.jpg') }})">
+    <div class="bg-cover bg-bottom bg-opacity-70" style="background-image: url({{ asset('img/banners/progress.jpg') }})">
         <div class="max-w-7xl mx-auto px-4 py-4 md:px-4 md:py-8">
             <div class="grid md:grid-cols-2 gap-5">
                 <div class="px-2 mx-auto">

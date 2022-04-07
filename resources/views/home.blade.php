@@ -7,7 +7,7 @@
         </div>
     </div>
 
-    <div class="">
+    {{--<div class="">
         <div class="max-w-7xl mx-auto grid grid-cols-12">
             <div class="col-span-12 md:col-span-4 md:col-start-9">
                 <div class="relative">
@@ -25,7 +25,7 @@
                 </p>
             </div>
         </div>
-    </div>
+    </div>--}}
 
     <x-top-announcements />
 

@@ -33,12 +33,9 @@
                 </div>
 
                 <div class="mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 lg:px-0 lg:max-w-none">
-                    <a href="https://www.amazon.com/Wilford-Woodruffs-Witness-Development-Doctrine/dp/0615835325"
-                       target="_blank"
-                       class="py-3 px-6 text-lg text-white bg-secondary"
-                    >
+                    <x-links.primary href="https://www.amazon.com/Wilford-Woodruffs-Witness-Development-Doctrine/dp/0615835325" target="_blank">
                         Buy Now
-                    </a>
+                    </x-links.primary>
                 </div>
             </div>
         </div>

@@ -16,7 +16,7 @@
                                 <div class="image-child absolute h-full w-full z-10 bg-cover bg-center z-0" style="background-image: url({{ $link['image'] }})">
 
                                 </div>
-                                <div class="h-full w-full py-3 px-4 z-10 text-white text-xl font-medium bg-gradient-to-t from-primary uppercase flex flex-row items-end justify-start">
+                                <div class="h-full w-full py-3 px-4 z-10 text-white text-lg font-medium bg-gradient-to-t from-primary uppercase flex flex-row items-end justify-start">
                                     <div>
                                         <p>{{ $link['title'] }}</p>
                                         <p>
