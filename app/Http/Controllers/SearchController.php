@@ -63,6 +63,20 @@ class SearchController extends Controller
             }
         }
 
+        if($request->has('people') && ! empty($request->get('q'))){
+            $people = Subject::whereEnabled(1)
+                                ->whereHas('category', function (Builder $query) {
+                                    $query->where('name', 'People');
+                                });
+            $names = str($request->get('q'))->explode(" ");
+            foreach ($names as $name){
+                $people = $people->where('name', 'LIKE', '%'. str($name)->trim('.') .'%');
+            }
+            $people = $people->get();
+        }else{
+            $people = collect();
+        }
+
         return view('public.search', [
             'types' => Type::where('name', 'NOT LIKE', '%Sections%')->get(),
             'pages' => $pages->paginate(20),
@@ -70,11 +84,7 @@ class SearchController extends Controller
                 'min' => Date::where('dateable_type', Page::class)->orderBy('date', 'ASC')->first(),
                 'max' => Date::where('dateable_type', Page::class)->orderBy('date', 'DESC')->first(),
             ],
-            'people' => ($request->has('people') && ! empty($request->get('q')))
-                ? Subject::whereEnabled(1)
-                    ->whereHas('category', function (Builder $query) {
-                        $query->where('name', 'People');
-                    })->where('name', 'LIKE', '%'.$request->get('q').'%')->get() : collect(),
+            'people' => $people,
         ]);
     }
 }
