@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Item;
-use App\Models\Page;
-use App\Models\User;
+use App\Models\Quote;
 use Illuminate\Http\Request;
 
-class PageController extends Controller
+class QuoteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +15,7 @@ class PageController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.dashboard.quotes.index');
     }
 
     /**
@@ -44,25 +42,21 @@ class PageController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Page  $page
+     * @param  \App\Models\Quote  $quote
      * @return \Illuminate\Http\Response
      */
-    public function show(Item $item, Page $page)
+    public function show(Quote $quote)
     {
-        $page->load('actions', 'actions.assignee', 'actions.finisher', 'activities');
-        return view('admin.dashboard.page', [
-            'item' => $item,
-            'page' => $page,
-        ]);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Page  $page
+     * @param  \App\Models\Quote  $quote
      * @return \Illuminate\Http\Response
      */
-    public function edit(Page $page)
+    public function edit(Quote $quote)
     {
         //
     }
@@ -71,10 +65,10 @@ class PageController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Page  $page
+     * @param  \App\Models\Quote  $quote
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Page $page)
+    public function update(Request $request, Quote $quote)
     {
         //
     }
@@ -82,10 +76,10 @@ class PageController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Page  $page
+     * @param  \App\Models\Quote  $quote
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Page $page)
+    public function destroy(Quote $quote)
     {
         //
     }

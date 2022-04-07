@@ -179,3 +179,7 @@ input[class^="numeric-"], select[class^="numeric-"]{
     -o-transition: all .5s;
     transition: all .5s;
 }
+
+.activity .user{
+    @apply font-medium text-gray-900;
+}

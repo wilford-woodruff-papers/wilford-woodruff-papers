@@ -29,8 +29,6 @@ class Comments extends Component
 
     public function render()
     {
-        $this->model->load('admin_comments');
-
         return view('livewire.admin.comments', [
             'comments' => $this->readyToLoad === true
                 ? $this->model->admin_comments

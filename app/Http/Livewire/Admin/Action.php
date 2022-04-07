@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\Page;
 use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -35,13 +36,24 @@ class Action extends Component
         $this->action->assigned_at = now();
         $this->action->save();
         $this->action = $this->action->fresh(['assignee', 'finisher']);
+        activity('activity')
+            ->on(Page::find($this->action->actionable_id))
+            ->event('assigned')
+            ->log($this->action->description . ' assigned to <span class="user">' . $this->action->assignee->name . '</span>');
     }
 
     public function updatedFinisher($value)
     {
+        if(empty($this->action->assigned_to)){
+            $this->updatedAssignee($value);
+        }
         $this->action->completed_by = $value;
         $this->action->completed_at = now();
         $this->action->save();
         $this->action = $this->action->fresh(['assignee', 'finisher']);
+        activity('activity')
+            ->on(Page::find($this->action->actionable_id))
+            ->event('completed')
+            ->log($this->action->description . ' completed by <span class="user">' . $this->action->finisher->name . '</span>');
     }
 }

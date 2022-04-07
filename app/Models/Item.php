@@ -11,12 +11,16 @@ use Illuminate\Support\Str;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Encoders\Base64Encoder;
 use Parental\HasChildren;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Models\Activity;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 
 class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortable
 {
     use Auditable, GeneratesUuid, HasFactory, SortableTrait;
+    use LogsActivity;
 
     protected $guarded = ['id'];
 
@@ -108,9 +112,35 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
         });
     }*/
 
+    public function activities()
+    {
+        return $this->morphMany(Activity::class, 'subject');
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->dontLogIfAttributesChangedOnly(['transcript']);
+    }
+
     public function actions()
     {
         return $this->morphMany(Action::class, 'actionable');
+    }
+
+    public function pending_actions()
+    {
+        return $this->morphMany(Action::class, 'actionable')->where('assigned_to', auth()->id())->whereNull('completed_at');
+    }
+
+    public function page_actions()
+    {
+        return $this->hasManyThrough(Action::class, Page::class, 'item_id', 'actionable_id');
+    }
+
+    public function pending_page_actions()
+    {
+        return $this->hasManyThrough(Action::class, Page::class, 'item_id', 'actionable_id')->where('assigned_to', auth()->id())->whereNull('completed_at');
     }
 
     public function admin_comments()

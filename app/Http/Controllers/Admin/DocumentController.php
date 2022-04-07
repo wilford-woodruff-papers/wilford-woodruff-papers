@@ -8,7 +8,7 @@ use App\Models\Page;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class PageController extends Controller
+class DocumentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class PageController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.dashboard.documents.index');
     }
 
     /**
@@ -44,15 +44,23 @@ class PageController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Page  $page
+     * @param  \App\Models\Item  $item
      * @return \Illuminate\Http\Response
      */
-    public function show(Item $item, Page $page)
+    public function show(Item $item)
     {
-        $page->load('actions', 'actions.assignee', 'actions.finisher', 'activities');
-        return view('admin.dashboard.page', [
+        /*$item->load(['actions' => function($query){
+            return $query->whereNotNull('actions.completed_at');
+        }], ['actions.assignee' => function($query){
+            return $query->whereNotNull('actions.completed_at');
+        }], ['actions.finisher' => function($query){
+            return $query->whereNotNull('actions.completed_at');
+        }], 'activities');*/
+
+        $item->load(['actions.assignee', 'actions.finisher', 'activities']);
+
+        return view('admin.dashboard.documents.show', [
             'item' => $item,
-            'page' => $page,
         ]);
     }
 

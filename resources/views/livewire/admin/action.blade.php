@@ -12,7 +12,7 @@
                 <div class="ml-4">
                     <div class="font-medium text-gray-900">{{ $action->assignee->name }}</div>
                     <div class="text-gray-500">{{ str($action->assignee->email)->before('@') }}</div>
-                    <div class="text-gray-500">{{ $action->assigned_at?->toDayDateTimeString() }}</div>
+                    <div class="text-gray-500">{{ $action->assigned_at?->tz('America/Denver')->toDayDateTimeString() }}</div>
                 </div>
             </div>
         @else
@@ -33,7 +33,7 @@
                 <div class="ml-4">
                     <div class="font-medium text-gray-900">{{ $action->finisher->name }}</div>
                     <div class="text-gray-500">{{ str($action->finisher->email)->before('@') }}</div>
-                    <div class="text-gray-500">{{ $action->completed_at?->toDayDateTimeString() }}</div>
+                    <div class="text-gray-500">{{ $action->completed_at?->tz('America/Denver')->toDayDateTimeString() }}</div>
                 </div>
             </div>
         @else
