@@ -1253,6 +1253,10 @@ select {
   margin-top: 1.25rem;
   margin-bottom: 1.25rem;
 }
+.my-8 {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
 .my-2 {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
@@ -1260,10 +1264,6 @@ select {
 .mx-2 {
   margin-left: 0.5rem;
   margin-right: 0.5rem;
-}
-.my-8 {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
 }
 .ml-3 {
   margin-left: 0.75rem;
@@ -1385,6 +1385,12 @@ select {
 .-mt-px {
   margin-top: -1px;
 }
+.-ml-0\.5 {
+  margin-left: -0.125rem;
+}
+.-ml-0 {
+  margin-left: -0px;
+}
 .mr-6 {
   margin-right: 1.5rem;
 }
@@ -1411,12 +1417,6 @@ select {
 }
 .ml-5 {
   margin-left: 1.25rem;
-}
-.-ml-0\.5 {
-  margin-left: -0.125rem;
-}
-.-ml-0 {
-  margin-left: -0px;
 }
 .block {
   display: block;
@@ -1601,14 +1601,14 @@ select {
 .w-0\.5 {
   width: 0.125rem;
 }
+.w-2 {
+  width: 0.5rem;
+}
 .w-32 {
   width: 8rem;
 }
 .w-screen {
   width: 100vw;
-}
-.w-2 {
-  width: 0.5rem;
 }
 .min-w-0 {
   min-width: 0px;
@@ -2228,6 +2228,12 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(220 252 231 / var(--tw-bg-opacity));
 }
+.bg-primary-30 {
+  background-color: rgb(11, 40, 54, .3);
+}
+.bg-primary-60 {
+  background-color: rgb(11, 40, 54, .6);
+}
 .bg-yellow-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(254 249 195 / var(--tw-bg-opacity));
@@ -2240,12 +2246,6 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(240 237 222 / var(--tw-bg-opacity));
 }
-.bg-primary-30 {
-  background-color: rgb(11, 40, 54, .3);
-}
-.bg-primary-60 {
-  background-color: rgb(11, 40, 54, .6);
-}
 .bg-opacity-25 {
   --tw-bg-opacity: 0.25;
 }
@@ -2254,9 +2254,6 @@ select {
 }
 .bg-gradient-to-r {
   background-image: linear-gradient(to right, var(--tw-gradient-stops));
-}
-.bg-gradient-to-l {
-  background-image: linear-gradient(to left, var(--tw-gradient-stops));
 }
 .bg-gradient-to-t {
   background-image: linear-gradient(to top, var(--tw-gradient-stops));
@@ -2268,9 +2265,6 @@ select {
 .from-primary {
   --tw-gradient-from: #0B2836;
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(11 40 54 / 0));
-}
-.via-primary {
-  --tw-gradient-stops: var(--tw-gradient-from), #0B2836, var(--tw-gradient-to, rgb(11 40 54 / 0));
 }
 .to-primary {
   --tw-gradient-to: #0B2836;
@@ -2375,13 +2369,13 @@ select {
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
 }
-.px-12 {
-  padding-left: 3rem;
-  padding-right: 3rem;
-}
 .px-8 {
   padding-left: 2rem;
   padding-right: 2rem;
+}
+.px-12 {
+  padding-left: 3rem;
+  padding-right: 3rem;
 }
 .py-16 {
   padding-top: 4rem;
@@ -4002,11 +3996,6 @@ input[class^="numeric-"], select[class^="numeric-"] {
     padding-right: 3rem;
   }
 
-  .sm\:py-16 {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
-  }
-
   .sm\:px-4 {
     padding-left: 1rem;
     padding-right: 1rem;
@@ -4015,6 +4004,11 @@ input[class^="numeric-"], select[class^="numeric-"] {
   .sm\:py-5 {
     padding-top: 1.25rem;
     padding-bottom: 1.25rem;
+  }
+
+  .sm\:py-16 {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
   }
 
   .sm\:py-8 {
@@ -4317,9 +4311,9 @@ input[class^="numeric-"], select[class^="numeric-"] {
     border-left-width: 1px;
   }
 
-  .md\:px-36 {
-    padding-left: 9rem;
-    padding-right: 9rem;
+  .md\:px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 
   .md\:px-24 {
@@ -4330,6 +4324,11 @@ input[class^="numeric-"], select[class^="numeric-"] {
   .md\:py-4 {
     padding-top: 1rem;
     padding-bottom: 1rem;
+  }
+
+  .md\:px-36 {
+    padding-left: 9rem;
+    padding-right: 9rem;
   }
 
   .md\:px-12 {
@@ -4345,11 +4344,6 @@ input[class^="numeric-"], select[class^="numeric-"] {
   .md\:px-6 {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
-  }
-
-  .md\:px-4 {
-    padding-left: 1rem;
-    padding-right: 1rem;
   }
 
   .md\:py-8 {
@@ -4410,14 +4404,14 @@ input[class^="numeric-"], select[class^="numeric-"] {
     line-height: 1;
   }
 
-  .md\:text-xl {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-  }
-
   .md\:text-2xl {
     font-size: 1.5rem;
     line-height: 2rem;
+  }
+
+  .md\:text-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
   }
 
   .md\:text-white {
@@ -4469,14 +4463,6 @@ input[class^="numeric-"], select[class^="numeric-"] {
     grid-column: span 2 / span 2;
   }
 
-  .lg\:col-span-10 {
-    grid-column: span 10 / span 10;
-  }
-
-  .lg\:col-span-6 {
-    grid-column: span 6 / span 6;
-  }
-
   .lg\:col-span-9 {
     grid-column: span 9 / span 9;
   }
@@ -4489,8 +4475,20 @@ input[class^="numeric-"], select[class^="numeric-"] {
     grid-column: span 3 / span 3;
   }
 
+  .lg\:col-span-10 {
+    grid-column: span 10 / span 10;
+  }
+
+  .lg\:col-span-6 {
+    grid-column: span 6 / span 6;
+  }
+
   .lg\:col-start-1 {
     grid-column-start: 1;
+  }
+
+  .lg\:col-start-3 {
+    grid-column-start: 3;
   }
 
   .lg\:col-start-9 {
@@ -4499,10 +4497,6 @@ input[class^="numeric-"], select[class^="numeric-"] {
 
   .lg\:col-start-2 {
     grid-column-start: 2;
-  }
-
-  .lg\:col-start-3 {
-    grid-column-start: 3;
   }
 
   .lg\:row-start-1 {
@@ -4593,20 +4587,20 @@ input[class^="numeric-"], select[class^="numeric-"] {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .lg\:grid-cols-12 {
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-  }
-
   .lg\:grid-cols-5 {
     grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .lg\:grid-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 
   .lg\:grid-cols-4 {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
-  .lg\:grid-cols-1 {
-    grid-template-columns: repeat(1, minmax(0, 1fr));
+  .lg\:grid-cols-12 {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
   }
 
   .lg\:items-center {
@@ -4681,14 +4675,14 @@ input[class^="numeric-"], select[class^="numeric-"] {
     padding-bottom: 5rem;
   }
 
-  .lg\:py-16 {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
-  }
-
   .lg\:py-12 {
     padding-top: 3rem;
     padding-bottom: 3rem;
+  }
+
+  .lg\:py-16 {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
   }
 
   .lg\:pb-0 {
