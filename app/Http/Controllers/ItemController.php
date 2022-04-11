@@ -178,6 +178,26 @@ class ItemController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Item  $item
+     * @return \Illuminate\Http\Response
+     */
+    public function transcript(Item $item)
+    {
+        $pages = Page::query()
+                        ->where('parent_item_id', $item->id)
+                        ->ordered()
+                        ->get();
+
+        $item->setRelation('pages', $pages);
+
+        return view('public.documents.full-transcript', [
+            'item' => $item,
+        ]);
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Item  $item

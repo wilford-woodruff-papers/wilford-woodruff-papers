@@ -7,35 +7,41 @@
         </div>
     </div>
 
-    <div class="">
-        <div class="max-w-7xl mx-auto grid grid-cols-12">
-            <div class="col-span-12 md:col-span-4 md:col-start-9">
-                <div class="relative">
-                    <div class="md:absolute -mt-24 md:-mt-24 xl:-mt-24">
-                        <img class="mx-auto w-52 md:w-56 xl:w-62 h-auto px-2"
-                             src="{{ asset('img/wilford-woodruff.png') }}"
-                             alt=""/>
+    @if(app()->environment(['production']))
+        <div class="">
+            <div class="max-w-7xl mx-auto grid grid-cols-12">
+                <div class="col-span-12 md:col-span-4 md:col-start-9">
+                    <div class="relative">
+                        <div class="md:absolute -mt-24 md:-mt-24 xl:-mt-24">
+                            <img class="mx-auto w-52 md:w-56 xl:w-62 h-auto px-2"
+                                 src="{{ asset('img/wilford-woodruff.png') }}"
+                                 alt=""/>
+                        </div>
                     </div>
-                </div>
 
-            </div>
-            <div class="col-span-12 md:col-span-8 md:col-start-1">
-                <p class="font-serif text-2xl md:text-3xl leading-relaxed italic text-primary py-4 px-4 md:py-4 xl:py-8 md:px-24">
-                    Explore Wilford Woodruff's powerful eyewitness account of the Restoration
-                </p>
+                </div>
+                <div class="col-span-12 md:col-span-8 md:col-start-1">
+                    <p class="font-serif text-2xl md:text-3xl leading-relaxed italic text-primary py-4 px-4 md:py-4 xl:py-8 md:px-24">
+                        Explore Wilford Woodruff's powerful eyewitness account of the Restoration
+                    </p>
+                </div>
             </div>
         </div>
-    </div>
+    @endif
+
+    <x-top-announcements />
 
     @if(app()->environment(['local','development']))
         <x-home-page-buttons />
+
+        <div class="py-12">
+            <x-home.video />
+        </div>
     @endif
 
     @if(app()->environment(['local','development']))
         <x-article-preview-carousel />
     @endif
-
-    <x-top-announcements />
 
     @if(app()->environment(['production']))
         @if(! empty($article))
@@ -90,13 +96,9 @@
     @if(app()->environment(['local','development']))
         <x-home.book />
 
-        <div class="py-12">
-            <x-home.video />
-        </div>
+        <x-call-to-action />
 
         <x-home.purpose />
-
-        <x-call-to-action />
     @endif
 
     @if(app()->environment(['production']))

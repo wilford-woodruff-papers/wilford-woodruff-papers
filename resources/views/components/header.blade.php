@@ -11,9 +11,16 @@
                 <div class="hidden md:flex space-x-10">
                     <a href="/" class="flex">
                         <span class="sr-only">{{ config('app.name', 'Laravel') }}</span>
-                        <img class="h-10 md:h-20 xl:h-36 w-auto "
-                             src="{{ asset('img/logo.png') }}"
-                             alt="{{ config('app.name', 'Laravel') }}" />
+                        @if(app()->environment(['production']))
+                            <img class="h-10 md:h-20 xl:h-36 w-auto "
+                                 src="{{ asset('img/logo.png') }}"
+                                 alt="{{ config('app.name', 'Laravel') }}" />
+                        @endif
+                        @if(app()->environment(['local','development']))
+                            <img class="h-10 md:h-20 xl:h-36 w-auto "
+                                 src="{{ asset('img/image-logo.png') }}"
+                                 alt="{{ config('app.name', 'Laravel') }}" />
+                        @endif
                     </a>
                 </div>
                 <!--<div class="flex items-center md:ml-12">-->

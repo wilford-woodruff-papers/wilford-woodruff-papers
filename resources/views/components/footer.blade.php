@@ -170,9 +170,9 @@
 
                     </ul>
                 </div>
-                <div class="col-span-1 md:col-span-2">
+                {{--<div class="col-span-1 md:col-span-2">
                     <script async data-uid="3502e7bc3f" src="https://wilford-woodruff-papers.ck.page/3502e7bc3f/index.js"></script>
-                </div>
+                </div>--}}
             </div>
         </div>
 
@@ -205,12 +205,5 @@
                 Wilford Woodruff Papers &copy <?= date('Y') ?> All Rights Reserved.
             </div>
         </div>
-    <!--<p class="mt-8 text-center text-base text-gray-400">
-                <?php /*if ($footerContent = $this->themeSetting('footer')): */?>
-    <?php /*echo $footerContent; */?>
-    <?php /*else: */?>
-    <?php /*echo $this->translate('Powered by Omeka S'); */?>
-    <?php /*endif; */?>
-        </p>-->
     </div>
 </footer>

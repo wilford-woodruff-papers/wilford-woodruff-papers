@@ -38,6 +38,14 @@
                                     {{ $item->type->name }}
                                 </a>
                             </div>
+                            <div class="my-8">
+                                <x-links.primary
+                                    href="{{ route('documents.show.transcript', ['item' => $item->uuid]) }}"
+                                    target="_blank"
+                                >
+                                    View Full Transcript
+                                </x-links.primary>
+                            </div>
                         </div>
                     @endif
                     @hasanyrole('Editor|Admin|Super Admin')
