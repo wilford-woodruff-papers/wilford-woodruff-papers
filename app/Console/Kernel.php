@@ -31,7 +31,7 @@ class Kernel extends ConsoleKernel
                  ->dailyAt('1:10 AM')
                  ->timezone('America/Denver')
                  ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org')
-                 ->pingOnSuccess('http://beats.envoyer.io/heartbeat/NBAuq5yMAJvwwS4	');
+                 ->pingOnSuccess('http://beats.envoyer.io/heartbeat/NBAuq5yMAJvwwS4');
 
         $schedule->command('telescope:prune --hours=48')->daily();
 

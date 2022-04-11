@@ -34,7 +34,9 @@ class ImportNewPageContributions extends Command
     {
         // Todo: Set start and end times
         $now = now('America/Denver');
-        $response = Http::get('https://fromthepage.com/iiif/contributions/woodruff/' . $now->subHours(24)->tz('UTC')->toIso8601String() . '/' . $now->tz('UTC')->toIso8601String());
+        $url = 'https://fromthepage.com/iiif/contributions/woodruff/' . $now->subHours(24)->tz('UTC')->toIso8601String() . '/' . $now->tz('UTC')->toIso8601String();
+        logger()->info('Getting new contributions from: ' . $url);
+        $response = Http::get($url);
 
         $manifests = collect($response->json('manifests', []));
 
@@ -47,6 +49,7 @@ class ImportNewPageContributions extends Command
             $jobs = [];
             foreach ($items as $item) {
                 $jobs[] = new ImportItemFromFtp($item);
+                logger()->info('Queuing: ' . $item->name);
             }
 
             $batch = Bus::batch($jobs)
