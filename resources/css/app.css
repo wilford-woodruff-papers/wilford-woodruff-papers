@@ -114,11 +114,11 @@ input[class^="numeric-"], select[class^="numeric-"]{
     @apply px-6 py-4 text-base font-medium text-gray-900 !important;
 }
 
-.submenu a, .submenu span{
+.submenu a, .submenu > span{
     @apply text-secondary hover:text-gray-900 hover:bg-gray-50;
 }
 
-.submenu a.active, .submenu span.active{
+.submenu a.active, .submenu > span.active, .submenu li > span.active{
     @apply text-white bg-secondary;
  }
 
