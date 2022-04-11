@@ -47,16 +47,6 @@ class Browse extends Component
 
     public function render()
     {
-        $items = Item::query()
-            ->with('type')
-            ->whereNull('item_id')
-            ->whereEnabled(1)
-            ->orderBy($this->sortColumn(), $this->sortDirection())
-            ->when(data_get($this->filters, 'search'), fn($query, $q) => $query->where('name', 'LIKE', '%' . $q . '%'))
-            ->when(data_get($this->filters, 'type'), fn($query, $type) => $query->where('type_id', $type))
-            ->when(data_get($this->filters, 'decade'), fn($query, $decade) => $query->where('decade', $decade))
-            ->when(data_get($this->filters, 'year'), fn($query, $year) => $query->where('year', $year));
-
         if (data_get($this->filters, 'type') == Type::firstWhere('name', 'Letters')->id) {
             $this->decades = DB::table('items')
                 ->select('decade', DB::raw('count(*) as total'))
@@ -66,8 +56,10 @@ class Browse extends Component
                 ->groupBy('decade');
             $this->decades = $this->decades->where('type_id', data_get($this->filters, 'type'))
                 ->get();
+        }else{
+            $this->filters['decade'] = null;
+            $this->filters['year'] = null;
         }
-
 
         if (data_get($this->filters, 'decade')) {
             $this->years = DB::table('items')
@@ -81,7 +73,15 @@ class Browse extends Component
                 ->get();
         }
 
-
+        $items = Item::query()
+            ->with('type')
+            ->whereNull('item_id')
+            ->whereEnabled(1)
+            ->orderBy($this->sortColumn(), $this->sortDirection())
+            ->when(data_get($this->filters, 'search'), fn($query, $q) => $query->where('name', 'LIKE', '%' . $q . '%'))
+            ->when(data_get($this->filters, 'type'), fn($query, $type) => $query->where('type_id', $type))
+            ->when(data_get($this->filters, 'decade'), fn($query, $decade) => $query->where('decade', $decade))
+            ->when(data_get($this->filters, 'year'), fn($query, $year) => $query->where('year', $year));
 
         return view('livewire.documents.browse', [
             'items' => $items->paginate(25),
