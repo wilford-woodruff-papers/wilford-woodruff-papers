@@ -396,7 +396,7 @@
 
 
 
-                    <div class="submenu relative inline-block text-left">
+                    <div class="relative inline-block text-left">
                             <span x-on:mouseenter="dropdown = 'media'"
                                   x-on:click="dropdown = 'media'"
                                   x-on:click.away="dropdown = null"
