@@ -5,40 +5,40 @@
             value: [],
             options: [
                 @foreach($topics as $key => $topic) {'value': {{ $key }}, 'label': '{{ addslashes($topic) }}'}, @endforeach
-            ],
-            init() {
-                this.$nextTick(() => {
-                    let choices = new Choices(this.$refs.select)
+        ],
+        init() {
+            this.$nextTick(() => {
+                let choices = new Choices(this.$refs.select)
 
-                    let refreshChoices = () => {
-                        let selection = this.multiple ? this.value : [this.value]
+                let refreshChoices = () => {
+                    let selection = this.multiple ? this.value : [this.value]
 
-                        choices.clearStore()
-                        choices.setChoices(this.options.map(({ value, label }) => ({
-                            value,
-                            label,
-                            selected: selection.includes(value),
-                        })))
-                    }
+                    choices.clearStore()
+                    choices.setChoices(this.options.map(({ value, label }) => ({
+                        value,
+                        label,
+                        selected: selection.includes(value),
+                    })))
+                }
 
-                    refreshChoices()
+                refreshChoices()
 
-                    this.$refs.select.addEventListener('change', () => {
-                        this.value = choices.getValue(true)
-                        this.selectedTopics = choices.getValue(true)
-                    })
-
-                    this.$watch('value', () => refreshChoices())
-                    this.$watch('options', () => refreshChoices())
+                this.$refs.select.addEventListener('change', () => {
+                    this.value = choices.getValue(true)
+                    this.selectedTopics = choices.getValue(true)
                 })
-            },
-            close: function(){
-                Livewire.emit('closeModal');
-                rangy.getSelection().removeAllRanges();
-                $('.highlight').removeClass('highlight');
-                $dispatch('close-options');
-            }
-        }"
+
+                this.$watch('value', () => refreshChoices())
+                this.$watch('options', () => refreshChoices())
+            })
+        },
+        close: function(){
+            Livewire.emit('closeModal');
+            rangy.getSelection().removeAllRanges();
+            $('.highlight').removeClass('highlight');
+            $dispatch('close-options');
+        }
+    }"
          class="space-y-6 sm:px-6 lg:px-0 lg:col-span-9">
         <form wire:submit.prevent="save"
               action="#"
@@ -46,7 +46,7 @@
             <div class="shadow sm:rounded-md sm:overflow-hidden">
                 <div class="bg-white py-6 px-4 space-y-6 sm:p-6">
                     <div>
-                        <h3 class="text-lg leading-6 font-medium text-gray-900">Save Quote</h3>
+                        <h3 class="text-lg leading-6 font-medium text-gray-900">Save Theme</h3>
                         <p class="mt-1 text-sm text-gray-500"></p>
                     </div>
 
