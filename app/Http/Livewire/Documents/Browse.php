@@ -35,18 +35,20 @@ class Browse extends Component
 
     public function mount()
     {
-        $this->types = Type::whereNull('type_id')
-                                ->withCount(['items' => function (Builder $query) {
-                                    $query->where('enabled', 1);
-                                }])
-                                ->orderBy('name', 'ASC')
-                                ->get();
         $this->decades = collect([]);
         $this->years = collect([]);
     }
 
     public function render()
     {
+        $this->types = Type::whereNull('type_id')
+            ->withCount(['items' => function (Builder $query) {
+                $query->when(data_get($this->filters, 'search'), fn($query, $q) => $query->where('name', 'LIKE', '%' . $q . '%'))
+                        ->where('enabled', 1);
+            }])
+            ->orderBy('name', 'ASC')
+            ->get();
+
         if (data_get($this->filters, 'type') == Type::firstWhere('name', 'Letters')->id) {
             $this->decades = DB::table('items')
                 ->select('decade', DB::raw('count(*) as total'))
@@ -89,7 +91,7 @@ class Browse extends Component
             ->layout('layouts.guest');
     }
 
-    public function updateSearch()
+    public function submit()
     {
 
     }

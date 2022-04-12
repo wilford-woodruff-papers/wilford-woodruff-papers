@@ -9,8 +9,7 @@
                 <ul class="submenu divide-y divide-gray-200">
                     <li wire:click="$set('filters.type', '')"
                         class="flex">
-                        <span class="py-4 block w-full text-gray-900 hover:bg-gray-100 @if(empty($filters['type'])) active @else @endif"
-                           href="{{ route('documents') }}">
+                        <span class="py-4 block w-full text-gray-900 hover:bg-gray-100 @if(empty($filters['type'])) active @else @endif">
                             <div class="ml-3">
                                 <p class="text-lg font-medium">All</p>
                             </div>
@@ -41,7 +40,7 @@
             </div>
             <div class="col-span-12 md:col-span-9">
                 <div>
-                    <form wire:submit.prevent="updateSearch">
+                    <form wire:submit.prevent="submit">
                         <div class="pl-3">
                             <label for="search" class="sr-only">Search term</label>
                             <div class="mt-1 relative rounded-md shadow-sm">
