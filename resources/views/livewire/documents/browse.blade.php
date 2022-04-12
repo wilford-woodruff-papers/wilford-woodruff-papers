@@ -9,12 +9,12 @@
                 <ul class="submenu divide-y divide-gray-200">
                     <li wire:click="$set('filters.type', '')"
                         class="flex">
-                        <a class="py-4 block w-full text-gray-900 hover:bg-gray-100 @if(empty($filters['type'])) active @else @endif"
+                        <span class="py-4 block w-full text-gray-900 hover:bg-gray-100 @if(empty($filters['type'])) active @else @endif"
                            href="{{ route('documents') }}">
                             <div class="ml-3">
                                 <p class="text-lg font-medium">All</p>
                             </div>
-                        </a>
+                        </span>
                     </li>
                     @foreach($types as $t)
                         <li wire:click="$set('filters.type', {{ $t->id }})"
