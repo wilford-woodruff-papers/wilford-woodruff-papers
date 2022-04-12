@@ -9,7 +9,7 @@
                 <ul class="submenu divide-y divide-gray-200">
                     <li wire:click="$set('filters.type', '')"
                         class="flex">
-                        <span class="py-4 block w-full text-gray-900 hover:bg-gray-100 @if(empty($filters['type'])) active @else @endif">
+                        <span class="cursor-pointer py-4 block w-full text-gray-900 hover:bg-gray-100 @if(empty($filters['type'])) active @else @endif">
                             <div class="ml-3">
                                 <p class="text-lg font-medium">All</p>
                             </div>
@@ -19,7 +19,7 @@
                         <li wire:click="$set('filters.type', {{ $t->id }})"
                             class="flex">
                             <span class="cursor-pointer py-4 block w-full text-gray-900 hover:bg-gray-100 @if($t->id == data_get($filters, 'type')) active @else @endif">
-                                <div wire:ignore class="ml-3">
+                                <div class="ml-3">
                                     <p class="text-lg font-medium">{{ $t->name }} ({{ $t->items_count }})</p>
                                 </div>
                             </span>

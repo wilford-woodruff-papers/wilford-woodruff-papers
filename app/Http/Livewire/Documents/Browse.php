@@ -35,6 +35,16 @@ class Browse extends Component
 
     public function mount()
     {
+        if (empty(data_get($this->filters, 'search'))) {
+            $this->types = Type::whereNull('type_id')
+                ->withCount(['items' => function (Builder $query) {
+                    $query->where('enabled', 1);
+                }])
+                ->orderBy('name', 'ASC')
+                ->get();
+        }
+
+
         $this->decades = collect([]);
         $this->years = collect([]);
     }
