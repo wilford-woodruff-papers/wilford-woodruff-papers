@@ -1,4 +1,4 @@
-<div class="">
+<div class="bg-white">
     <div class="flex flex-col shadow-lg overflow-hidden">
         <div class="flex-shrink-0">
             @if(! empty($announcement->image))

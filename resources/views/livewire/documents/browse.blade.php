@@ -50,7 +50,7 @@
                                     </svg>
                                 </div>
                                 <input wire:model.defer="filters.search"
-                                       type="search"
+                                       type="text"
                                        name="search"
                                        id="search"
                                        class="focus:ring-secondary focus:border-secondary block w-full pl-9 sm:text-sm border-gray-300"
@@ -223,7 +223,7 @@
 
                 <div wire:loading.remove
                      class="my-4 px-8">
-                    {!! $items->withQueryString()->links('vendor.pagination.tailwind') !!}
+                    {!! $items->links() !!}
                 </div>
 
             {{--<nav class="bg-white px-4 py-3 flex items-center justify-between sm:px-6" role="navigation" aria-label="Pagination">

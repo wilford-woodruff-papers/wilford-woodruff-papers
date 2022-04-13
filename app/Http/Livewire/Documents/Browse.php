@@ -53,7 +53,6 @@ class Browse extends Component
 
     public function render()
     {
-        ray(data_get($this->filters, 'type'));
         $this->types = Type::whereNull('type_id')
             ->withCount(['items' => function (Builder $query) {
                 $query->when(data_get($this->filters, 'search'), function($query, $q) {
@@ -107,14 +106,14 @@ class Browse extends Component
             ->when(data_get($this->filters, 'year'), fn($query, $year) => $query->where('year', $year));
 
         return view('livewire.documents.browse', [
-            'items' => $items->paginate(25),
+            'items' => $items->paginate(10),
         ])
             ->layout('layouts.guest');
     }
 
     public function submit()
     {
-        ray(data_get($this->filters, 'type'));
+
     }
 
     private function sortColumn()
