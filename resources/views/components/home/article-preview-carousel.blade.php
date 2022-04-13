@@ -1,7 +1,7 @@
 <div>
     @if($medias->count() > 0)
         <div class="max-w-7xl mx-auto pt-8 md:pt-12 px-4 pb-4 xl:pt-12 md:pb-8 hidden md:block">
-            <div class="grid grid-cols-3 pb-4">
+            <div class="grid grid-cols-3 pb-8">
                 <div class="font-extrabold">
                     <h2 class="text-3xl uppercase pb-1 border-b-4 border-highlight">What's New</h2>
                 </div>
