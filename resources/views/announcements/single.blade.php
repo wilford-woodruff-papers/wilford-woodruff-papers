@@ -7,7 +7,9 @@
                         <a href="{{ $announcement->link }}"
                            target="_blank">
                             @endif
-                            <img src="{{ \Illuminate\Support\Facades\Storage::disk('announcements')->url($announcement->image) }}" alt="{{ $announcement->title }}"/>
+                            <img class="w-full h-auto"
+                                 src="{{ \Illuminate\Support\Facades\Storage::disk('announcements')->url($announcement->image) }}"
+                                 alt="{{ $announcement->title }}"/>
                             @if(! empty($announcement->link))
                         </a>
                     @endif
