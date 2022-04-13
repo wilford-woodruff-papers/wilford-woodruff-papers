@@ -1,8 +1,8 @@
-<div class="pb-4 md:pb-8">
+<div class="max-w-7xl mx-auto pb-4 md:pb-8">
     <div class="announcements">
         @foreach($announcements as $announcement)
             <div class="mb-2 @if(! $loop->first) hidden @endif">
-                <div class="max-w-7xl mx-auto pt-8 md:pt-8 px-6 xl:pt-8 md:px-6">
+                <div class="pt-8 md:pt-8 px-6 xl:pt-8 md:px-6">
                     @include('announcements.single', ['announcement' => $announcement])
                 </div>
             </div>
