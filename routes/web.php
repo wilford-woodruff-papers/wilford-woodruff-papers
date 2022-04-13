@@ -18,8 +18,13 @@ Route::get('/advanced-search', \App\Http\Controllers\SearchController::class)->n
 // Route::get('/documents', [\App\Http\Controllers\ItemController::class, 'index'])->name('documents');
 Route::get('/documents', \App\Http\Livewire\Documents\Browse::class)->name('documents');
 Route::get('/dates/{year?}/{month?}', [\App\Http\Controllers\ItemController::class, 'dates'])->name('documents.dates');
-Route::get('/documents/{item}', [\App\Http\Controllers\ItemController::class, 'show'])->name('documents.show');
-//Route::get('/documents/{item}', \App\Http\Livewire\Documents\Show::class)->name('documents.show');
+
+if(app()->environment(['local'])){
+    Route::get('/documents/{item}', \App\Http\Livewire\Documents\Show::class)->name('documents.show');
+}else{
+    Route::get('/documents/{item}', [\App\Http\Controllers\ItemController::class, 'show'])->name('documents.show');
+}
+
 Route::get('/documents/{item}/transcript', [\App\Http\Controllers\ItemController::class, 'transcript'])->name('documents.show.transcript');
 Route::get('/documents/{item}/page/{page}', [\App\Http\Controllers\PageController::class, 'show'])->name('pages.show');
 Route::get('/subjects/{subject}', [\App\Http\Controllers\SubjectController::class, 'show'])->name('subjects.show');
