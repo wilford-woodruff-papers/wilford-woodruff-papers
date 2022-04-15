@@ -31,21 +31,28 @@ class Browse extends Component
 
     protected $queryString = ['filters'];
 
+    protected $rules = [
+        'filters' => 'max:100',
+    ];
+
     public function updatedFilters() {
         $this->resetPage();
     }
 
+    public function updatingFilters() {
+        logger()->info(data_get($this->filters, 'search'));
+    }
+
     public function mount()
     {
-        if (empty(data_get($this->filters, 'search'))) {
+        /*if (empty(data_get($this->filters, 'search'))) {
             $this->types = Type::whereNull('type_id')
                 ->withCount(['items' => function (Builder $query) {
                     $query->where('enabled', 1);
                 }])
                 ->orderBy('name', 'ASC')
                 ->get();
-        }
-
+        }*/
 
         $this->decades = collect([]);
         $this->years = collect([]);
@@ -54,14 +61,14 @@ class Browse extends Component
     public function render()
     {
         $this->types = Type::whereNull('type_id')
-            ->withCount(['items' => function (Builder $query) {
-                $query->when(data_get($this->filters, 'search'), function($query, $q) {
-                            $query->where('name', 'LIKE', '%' . $q . '%');
-                        })
-                        ->where('enabled', 1);
-            }])
-            ->orderBy('name', 'ASC')
-            ->get();
+                                ->withCount(['items' => function (Builder $query) {
+                                    $query->when(data_get($this->filters, 'search'), function($query, $q) {
+                                                $query->where('name', 'LIKE', '%' . $q . '%');
+                                            })
+                                            ->where('enabled', 1);
+                                }])
+                                ->orderBy('name', 'ASC')
+                                ->get();
 
         if (data_get($this->filters, 'type') == Type::firstWhere('name', 'Letters')->id) {
             $this->decades = DB::table('items')
