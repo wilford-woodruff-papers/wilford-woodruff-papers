@@ -31,19 +31,28 @@ class Browse extends Component
 
     protected $queryString = ['filters'];
 
-    public function updatedFilters() { $this->resetPage(); }
+    protected $rules = [
+        'filters' => 'max:100',
+    ];
+
+    public function updatedFilters() {
+        $this->resetPage();
+    }
+
+    public function updatingFilters() {
+        logger()->info(data_get($this->filters, 'search'));
+    }
 
     public function mount()
     {
-        if (empty(data_get($this->filters, 'search'))) {
+        /*if (empty(data_get($this->filters, 'search'))) {
             $this->types = Type::whereNull('type_id')
                 ->withCount(['items' => function (Builder $query) {
                     $query->where('enabled', 1);
                 }])
                 ->orderBy('name', 'ASC')
                 ->get();
-        }
-
+        }*/
 
         $this->decades = collect([]);
         $this->years = collect([]);
@@ -52,17 +61,21 @@ class Browse extends Component
     public function render()
     {
         $this->types = Type::whereNull('type_id')
-            ->withCount(['items' => function (Builder $query) {
-                $query->when(data_get($this->filters, 'search'), fn($query, $q) => $query->where('name', 'LIKE', '%' . $q . '%'))
-                        ->where('enabled', 1);
-            }])
-            ->orderBy('name', 'ASC')
-            ->get();
+                                ->withCount(['items' => function (Builder $query) {
+                                    $query->when(data_get($this->filters, 'search'), function($query, $q) {
+                                                $query->where('name', 'LIKE', '%' . $q . '%');
+                                            })
+                                            ->where('enabled', 1);
+                                }])
+                                ->orderBy('name', 'ASC')
+                                ->get();
 
         if (data_get($this->filters, 'type') == Type::firstWhere('name', 'Letters')->id) {
             $this->decades = DB::table('items')
                 ->select('decade', DB::raw('count(*) as total'))
-                ->when(data_get($this->filters, 'search'), fn($query, $q) => $query->where('name', 'LIKE', '%' . $q . '%'))
+                ->when(data_get($this->filters, 'search'), function($query, $q) {
+                    $query->where('name', 'LIKE', '%' . $q . '%');
+                })
                 ->whereEnabled(1)
                 ->whereNotNull('decade')
                 ->groupBy('decade');
@@ -76,7 +89,9 @@ class Browse extends Component
         if (data_get($this->filters, 'decade')) {
             $this->years = DB::table('items')
                 ->select('year', DB::raw('count(*) as total'))
-                ->when(data_get($this->filters, 'search'), fn($query, $q) => $query->where('name', 'LIKE', '%' . $q . '%'))
+                ->when(data_get($this->filters, 'search'), function($query, $q) {
+                    $query->where('name', 'LIKE', '%' . $q . '%');
+                })
                 ->whereEnabled(1)
                 ->whereNotNull('year')
                 ->groupBy('year');
@@ -90,13 +105,15 @@ class Browse extends Component
             ->whereNull('item_id')
             ->whereEnabled(1)
             ->orderBy($this->sortColumn(), $this->sortDirection())
-            ->when(data_get($this->filters, 'search'), fn($query, $q) => $query->where('name', 'LIKE', '%' . $q . '%'))
+            ->when(data_get($this->filters, 'search'), function($query, $q) {
+                $query->where('name', 'LIKE', '%' . $q . '%');
+            })
             ->when(data_get($this->filters, 'type'), fn($query, $type) => $query->where('type_id', $type))
             ->when(data_get($this->filters, 'decade'), fn($query, $decade) => $query->where('decade', $decade))
             ->when(data_get($this->filters, 'year'), fn($query, $year) => $query->where('year', $year));
 
         return view('livewire.documents.browse', [
-            'items' => $items->paginate(25),
+            'items' => $items->paginate(10),
         ])
             ->layout('layouts.guest');
     }

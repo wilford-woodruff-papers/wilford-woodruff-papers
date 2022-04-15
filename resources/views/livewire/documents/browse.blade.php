@@ -49,12 +49,13 @@
                                         <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
                                     </svg>
                                 </div>
-                                <input wire:model.defer="filters.search"
-                                       type="search"
-                                       name="search"
-                                       id="search"
-                                       class="focus:ring-secondary focus:border-secondary block w-full pl-9 sm:text-sm border-gray-300"
-                                       placeholder="Search">
+                                <div>
+                                    <input wire:model.defer="filters.search"
+                                           type="text"
+                                           id="search"
+                                           class="focus:ring-secondary focus:border-secondary block w-full pl-9 sm:text-sm border-gray-300"
+                                           placeholder="Search" />
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -223,7 +224,7 @@
 
                 <div wire:loading.remove
                      class="my-4 px-8">
-                    {!! $items->withQueryString()->links('vendor.pagination.tailwind') !!}
+                    {!! $items->links() !!}
                 </div>
 
             {{--<nav class="bg-white px-4 py-3 flex items-center justify-between sm:px-6" role="navigation" aria-label="Pagination">

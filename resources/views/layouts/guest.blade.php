@@ -36,7 +36,7 @@
             }
         </style>
 
-        <!-- Scripts -->       
+        <!-- Scripts -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
         {{--<script async data-uid="a6d02620a7" src="https://wilford-woodruff-papers.ck.page/a6d02620a7/index.js"></script>--}}
 
@@ -46,20 +46,24 @@
         <div class="font-sans text-gray-900 antialiased">
             {{ $slot }}
         </div>
+
+        <x-subject-modal />
+        <x-footer />
+
+        @if(app()->environment(['production']))
+            <x-google />
+            <x-facebook-pixel />
+        @endif
+
+
+        @livewireScripts
+        @livewire('livewire-ui-modal')
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js" charset="utf-8"></script>
+        <script src="{{ mix('js/app.js') }}"></script>
+        @stack('scripts')
+        @if(! in_array(Route::currentRouteName(), ['documents', 'documents.show']))
+            <script async data-uid="7ce7f1665b" src="https://wilford-woodruff-papers.ck.page/7ce7f1665b/index.js"></script>
+        @endif
     </body>
-    <x-subject-modal />
-    <x-footer />
-
-    @if(app()->environment(['production']))
-        <x-google />
-        <x-facebook-pixel />
-    @endif
-
-    <script async data-uid="7ce7f1665b" src="https://wilford-woodruff-papers.ck.page/7ce7f1665b/index.js"></script>
-    @livewireScripts
-    @livewire('livewire-ui-modal')
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js" charset="utf-8"></script>
-    <script src="{{ mix('js/app.js') }}"></script>
-    @stack('scripts')
 </html>

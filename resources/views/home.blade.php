@@ -1,6 +1,6 @@
 <x-guest-layout>
 
-    <div class="bg-cover bg-center h-24 md:h-28 xl:h-32"
+    <div class="bg-cover bg-center h-24 md:h-28 xl:h-48"
          style="background-image: url({{ asset('img/banners/home.jpg') }})">
         <div class="max-w-7xl mx-auto">
 
@@ -29,7 +29,10 @@
         </div>
     @endif
 
-    <x-top-announcements />
+    <div class="-mt-40">
+        <x-top-announcements />
+    </div>
+
 
     @if(app()->environment(['local','development']))
         <x-home-page-buttons />

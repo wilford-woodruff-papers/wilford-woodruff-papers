@@ -32,9 +32,15 @@
                     </blockquote>
                 </div>
 
-                <div class="mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 lg:px-0 lg:max-w-none">
+                <div class="flex gap-x-6 mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 lg:px-0 lg:max-w-none">
                     <x-links.primary href="https://www.amazon.com/Wilford-Woodruffs-Witness-Development-Doctrine/dp/0615835325" target="_blank">
-                        Buy Now
+                        Print Book
+                    </x-links.primary>
+                    <x-links.primary href="https://www.amazon.com/Wilford-Woodruffs-Witness-Development-Doctrine/dp/0615835325" target="_blank">
+                        eBook
+                    </x-links.primary>
+                    <x-links.primary href="https://www.amazon.com/Wilford-Woodruffs-Witness-Development-Doctrine/dp/0615835325" target="_blank">
+                        Audiobook
                     </x-links.primary>
                 </div>
             </div>
