@@ -180,3 +180,8 @@ input[class^="numeric-"], select[class^="numeric-"]{
     -o-transition: all .5s;
     transition: all .5s;
 }
+
+
+.slick-dots li button:before {
+    font-size: 10px !important;
+}

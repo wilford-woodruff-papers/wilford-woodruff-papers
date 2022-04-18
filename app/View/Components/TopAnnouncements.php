@@ -33,6 +33,7 @@ class TopAnnouncements extends Component
                                 ->where('end_publishing_at', '>', $now)
                                 ->orderBy('end_publishing_at', 'ASC')
                                 ->get(),
+            'position' => 'top',
         ]);
     }
 }
