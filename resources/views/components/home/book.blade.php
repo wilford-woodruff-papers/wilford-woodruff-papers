@@ -1,4 +1,11 @@
 <div class="relative py-16">
+    <div class="lg:mx-auto lg:max-w-7xl mb-16">
+        <div class="grid grid-cols-3 pb-4">
+            <div class="font-extrabold">
+                <h2 class="text-3xl uppercase pb-1 border-b-4 border-highlight">Read the Book</h2>
+            </div>
+        </div>
+    </div>
     <div class="pb-16 bg-gradient-to-r from-primary-50 to-primary lg:pb-0 lg:z-10 lg:relative">
         <div class="lg:mx-auto lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-3 lg:gap-8">
             <div class="relative lg:-my-8">

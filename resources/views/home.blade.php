@@ -29,7 +29,7 @@
         </div>
     @endif
 
-    <div class="-mt-40">
+    <div class="-mt-24 md:-mt-30 xl:-mt-40">
         <x-top-announcements />
     </div>
 
