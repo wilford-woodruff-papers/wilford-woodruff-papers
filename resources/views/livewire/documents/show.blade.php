@@ -92,7 +92,8 @@
                         </form>
                     </div>
 
-                    <ul class="divide-y divide-gray-200">
+                    <ul wire:loading.remove
+                        class="divide-y divide-gray-200">
 
                         @foreach($pages as $page)
 
@@ -101,7 +102,29 @@
                         @endforeach
 
                     </ul>
-                    <div class="my-4 px-8">
+                    <ul class="divide-y divide-gray-200 px-4">
+                        @foreach([1, 2, 3, 4, 5] as $placeholder)
+                            <li class="py-4 grid grid-cols-7">
+                                <div class="col-span-1 pl-4">
+                                    <div data-placeholder class="mr-2 my-2 h-20 w-20 overflow-hidden relative bg-gray-200">
+
+                                    </div>
+                                </div>
+                                <div class="col-span-6 py-2 pl-4">
+                                    <div class="flex flex-col justify-between">
+                                        <div data-placeholder class="mb-2 h-8 w-40 overflow-hidden relative bg-gray-200">
+
+                                        </div>
+                                        <div data-placeholder class="h-6 w-40 overflow-hidden relative bg-gray-200">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        @endforeach
+                    </ul>
+                    <div wire:loading.remove
+                         class="my-4 px-8">
                         {!! $pages->links() !!}
                     </div>
                 </div>
