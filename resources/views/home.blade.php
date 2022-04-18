@@ -29,9 +29,15 @@
         </div>
     @endif
 
-    <div class="-mt-24 md:-mt-30 xl:-mt-40">
-        <x-top-announcements />
-    </div>
+    @if(app()->environment(['local','development']))
+        <div class="-mt-24 md:-mt-30 xl:-mt-40">
+            <x-top-announcements />
+        </div>
+    @else
+        <div>
+            <x-top-announcements />
+        </div>
+    @endif
 
 
     @if(app()->environment(['local','development']))
