@@ -102,7 +102,8 @@
                         @endforeach
 
                     </ul>
-                    <ul class="divide-y divide-gray-200 px-4">
+                    <ul wire:loading
+                        class="divide-y divide-gray-200 px-4">
                         @foreach([1, 2, 3, 4, 5] as $placeholder)
                             <li class="py-4 grid grid-cols-7">
                                 <div class="col-span-1 pl-4">
