@@ -1,14 +1,16 @@
 <div>
     <div class="-12">
         <div class="max-w-7xl text-center">
-            <input wire:model="search"
-                   class="max-w-xl w-full shadow-sm sm:max-w-xl sm:text-sm border-gray-300"
-                   type="search"
-                   name="q"
-                   value=""
-                   placeholder="Search Places"
-                   aria-label="Search Places"
-            >
+            <form wire:submit.prevent="submit">
+                <input wire:model.defer="search"
+                       class="max-w-xl w-full shadow-sm sm:max-w-xl sm:text-sm border-gray-300"
+                       type="search"
+                       name="q"
+                       value=""
+                       placeholder="Search Places"
+                       aria-label="Search Places"
+                >
+            </form>
         </div>
 
         <div class="h-16">

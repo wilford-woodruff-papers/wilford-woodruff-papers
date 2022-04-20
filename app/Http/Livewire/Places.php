@@ -12,7 +12,7 @@ class Places extends Component
 
     public $search = null;
 
-    protected $queryString = ['letter' => ['except' => 'a'], 'search'];
+    protected $queryString = ['letter' => ['except' => 'A'], 'search'];
 
     public function mount()
     {
@@ -40,8 +40,18 @@ class Places extends Component
             ->layout('layouts.guest');
     }
 
+    public function submit()
+    {
+
+    }
+
     public function updatedSearch()
     {
         $this->letter = null;
+    }
+
+    public function updatedLetter()
+    {
+        $this->search = null;
     }
 }
