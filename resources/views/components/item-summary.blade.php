@@ -12,7 +12,7 @@
         <a href="{{ route('documents.show', ['item' => $item]) }}">
             <div class="ml-3">
                 <p class="text-lg font-medium text-secondary pb-1">{{ \Illuminate\Support\Str::of($item->name)->replaceMatches('/\[.*?\]/', '')->trim() }}</p>
-                <p>{{ optional($item->type)->name }}</p>
+                <p>{{ str($item->type?->name)->singular() }}</p>
             </div>
         </a>
     </div>

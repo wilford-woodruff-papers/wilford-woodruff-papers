@@ -26,7 +26,7 @@
                             <h4>Document Type</h4>
                             <div class="value">
                                 <a href="{{ route('documents', ['type' => $item->type]) }}">
-                                    {{ $item->type->name }}
+                                    {{ str($item->type->name)->singular() }}
                                 </a>
                             </div>
                             <div class="my-8">
