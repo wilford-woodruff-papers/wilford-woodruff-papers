@@ -120,7 +120,7 @@
                         </li>
 
                         <li class="pt-2">
-                            <a href="{{ route('donate.online') }}" class="text-base py-2 px-4 border-2 border-highlight text-white bg-highlight">
+                            <a href="{{ route('donate.online') }}" class="text-base py-2 px-4 border-2 border-highlight text-white bg-highlight uppercase">
                                 Donate Online
                             </a>
                         </li>
