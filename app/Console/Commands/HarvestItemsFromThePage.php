@@ -49,7 +49,10 @@ class HarvestItemsFromThePage extends Command
             ], [
                 'name' => $item['label'],
             ]);
-            $document->touch();
+            if(data_get($item, 'service.pctComplete', 0) == 100.0){
+                $document->enabled = true;
+            }
+            $document->save();
             $count = $count + 1;
         }
         $this->info("Imported $count documents");
