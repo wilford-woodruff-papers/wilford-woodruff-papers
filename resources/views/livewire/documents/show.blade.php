@@ -86,7 +86,7 @@
                                            name="search"
                                            id="search"
                                            class="focus:ring-secondary focus:border-secondary block w-full pl-9 sm:text-sm border-gray-300"
-                                           placeholder="Search">
+                                           placeholder="Search page content">
                                 </div>
                             </div>
                         </form>
