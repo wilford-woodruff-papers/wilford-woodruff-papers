@@ -8,6 +8,8 @@ return [
 
         'contact' => env('CONTACT_FORM'),
 
+        'testify' => env('TESTIFY_FORM'),
+
     ],
 
 ];
