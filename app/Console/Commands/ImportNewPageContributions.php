@@ -33,8 +33,9 @@ class ImportNewPageContributions extends Command
     public function handle()
     {
         // Todo: Set start and end times
-        $now = now('America/Denver');
-        $url = 'https://fromthepage.com/iiif/contributions/woodruff/' . $now->subHours(24)->tz('UTC')->toIso8601String() . '/' . $now->tz('UTC')->toIso8601String();
+        $start = now('America/Denver')->subHours(24)->tz('UTC');
+        $end = now('America/Denver')->tz('UTC');
+        $url = 'https://fromthepage.com/iiif/contributions/woodruff/' . $start->toIso8601String() . '/' . $end->toIso8601String();
         logger()->info('Getting new contributions from: ' . $url);
         $response = Http::get($url);
 
