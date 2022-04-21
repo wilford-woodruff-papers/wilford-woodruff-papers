@@ -26,7 +26,7 @@
         </div>
 
         <div wire:loading.remove
-             class="grid grid-cols-1 gap-1 mb-4 px-2">
+             class="grid grid-cols-1 md:grid-cols-3 gap-1 mb-4 px-2">
             @forelse($people as $key => $person)
                 <div class="">
                     <a class="text-secondary popup"
