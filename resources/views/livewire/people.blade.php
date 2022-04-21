@@ -43,10 +43,14 @@
         </div>
         <div wire:loading
              class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4 px-2">
-            @foreach([1, 2, 3, 4, 5] as $placeholder)
-                <div class="col-span-1">
+            @foreach(range(1, 15) as $placeholder)
+                <div class="">
                     <div data-placeholder class="mr-2 my-2 h-6 w-80 overflow-hidden relative bg-gray-200">
-
+                        <a class="text-secondary popup"
+                           href="#"
+                        >
+                            &nbsp;
+                        </a>
                     </div>
                 </div>
             @endforeach
