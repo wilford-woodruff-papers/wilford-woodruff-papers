@@ -79,9 +79,11 @@
                                     </svg>
                                 </button>
                             </div>
-                            <h1 class="font-serif text-2xl md:text-3xl xl:text-6xl font-medium text-highlight">
-                                {{ config('app.name', 'Laravel') }}
-                            </h1>
+                            @if(app()->environment(['production']))
+                                <h1 class="font-serif text-2xl md:text-3xl xl:text-6xl font-medium text-highlight">
+                                    {{ config('app.name', 'Laravel') }}
+                                </h1>
+                            @endif
                         </div>
                     </div>
                 </div>
