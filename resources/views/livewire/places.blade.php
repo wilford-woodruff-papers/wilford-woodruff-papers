@@ -46,7 +46,6 @@
             @foreach(range(1, 10) as $placeholder)
                 <div class="col-span-1">
                     <div data-placeholder class="mr-2 h-6 w-80 overflow-hidden relative bg-gray-200 animate-pulse">
-
                     </div>
                 </div>
             @endforeach
