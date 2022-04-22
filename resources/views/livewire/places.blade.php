@@ -14,7 +14,7 @@
         </div>
 
         <div class="h-16">
-            <div class="grid grid-flow-col auto-cols-max gap-4 mb-4"
+            <div class="grid grid-flow-col auto-cols-max gap-4 mb-4 overflow-x-scroll"
             >
                 @foreach(range('A', 'Z') as $l)
                     <div wire:click="$set('letter', '{{ $l }}')"
