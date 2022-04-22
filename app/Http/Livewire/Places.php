@@ -29,7 +29,12 @@ class Places extends Component
                                 $query->where('name', 'Places');
                             })
                             ->when($this->letter, fn($query, $letter) => $query->where('name', 'LIKE', $letter.'%'))
-                            ->when($this->search, fn($query, $search) => $query->where('name', 'LIKE', '%'.$search.'%'))
+                            ->when($this->search, function($query, $search) {
+                                $names = str($search)->explode(" ");
+                                foreach ($names as $name){
+                                    $query = $query->where('name', 'LIKE', '%'.str($name)->trim(',')->toString().'%');
+                                }
+                            })
                             ->whereHas('pages')
                             ->orderBy('name', 'ASC')
                             ->get();

@@ -29,7 +29,12 @@ class People extends Component
                                 $query->where('name', 'People');
                             })
                             ->when($this->letter, fn($query, $letter) => $query->where('last_name', 'LIKE', $letter.'%'))
-                            ->when($this->search, fn($query, $search) => $query->where('name', 'LIKE', '%'.$search.'%'))
+                            ->when($this->search, function($query, $search) {
+                                $names = str($search)->explode(" ");
+                                foreach ($names as $name){
+                                    $query = $query->where('name', 'LIKE', '%'.str($name)->trim(',')->toString().'%');
+                                }
+                            })
                             ->whereHas('pages')
                             ->orderBy('last_name', 'ASC')
                             ->orderBy('name', 'ASC')
