@@ -17,7 +17,7 @@
                                             {{ $page['title'] }}
                                         </div>
                                         @if(array_key_exists('description', $page))
-                                            <div class="hidden uppercase group-hover:block text-lg md:text-xl ">
+                                            <div class="hidden uppercase group-hover:block text-lg md:text-xl">
                                                 {!! $page['description'] !!}
                                             </div>
                                         @endif
