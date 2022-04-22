@@ -26,7 +26,7 @@
         </div>
 
         <div wire:loading.remove
-             class="grid grid-cols-1 md:grid-cols-3 gap-1 mb-4 px-2">
+             class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1 mb-4 px-2">
             @forelse($people as $key => $person)
                 <div class="">
                     <a class="text-secondary popup"
@@ -42,7 +42,7 @@
             @endforelse
         </div>
         <div wire:loading
-             class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4 px-2">
+             class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-4 px-2">
             @foreach(range(1, 15) as $placeholder)
                 <div class="">
                     <div data-placeholder class="mr-2 my-2 h-6 w-80 overflow-hidden relative bg-gray-200">
