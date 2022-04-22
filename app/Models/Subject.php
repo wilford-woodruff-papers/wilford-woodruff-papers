@@ -79,4 +79,27 @@ class Subject extends Model
     {
         return in_array('continent', $this->geolocation['types']) ? '2' : '6';
     }
+
+    public function calculateNames()
+    {
+        $name_suffix = '';
+        $year = '';
+
+        if(str($this->name)->contains(', b.')){
+            $year = str($this->name)->afterLast(',')->trim();
+        }
+        if(str($this->name)->contains('Jr.')) {
+            $name_suffix = 'Jr.';
+            $name = str($this->name)->beforeLast(',')->replace('Jr.', '')->rtrim(', ');
+        } elseif(str($this->name)->contains('Sr.')) {
+            $name_suffix = 'Sr.';
+            $name = str($this->name)->beforeLast(',')->replace('Sr.', '')->rtrim(', ');
+        } else {
+            $name = str($this->name)->beforeLast(',');
+        }
+
+        $name = explode(' ', $name);
+        $this->attributes['last_name'] = array_pop($name);
+        $this->attributes['first_name'] = implode(" ", $name) . (! empty($year) ? ', ' . $year . ' ' : '') . (! empty($name_suffix) ? ' (' . $name_suffix . ')' : '');
+    }
 }

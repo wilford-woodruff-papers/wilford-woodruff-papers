@@ -29,7 +29,7 @@
                         <div class="relative">
                             <div class="grid grid-cols-1 md:flex justify-center md:justify-end">
                                 <div class="md:-mt-0 xl:-mt-6 md:mb-2 md:mb-12 md:pr-8 py-0.5">
-                                    <a class="bg-highlight px-4 py-2 text-white text-lg hover:text-secondary block md:inline text-center"
+                                    <a class="bg-highlight px-4 py-2 text-white text-lg hover:text-secondary block md:inline text-center uppercase"
                                        data-formkit-toggle="7ce7f1665b"
                                        href="https://wilford-woodruff-papers.ck.page/7ce7f1665b">
                                         Subscribe for Updates
@@ -79,9 +79,11 @@
                                     </svg>
                                 </button>
                             </div>
-                            <h1 class="font-serif text-2xl md:text-3xl xl:text-6xl font-medium text-highlight">
-                                {{ config('app.name', 'Laravel') }}
-                            </h1>
+                            @if(app()->environment(['production']))
+                                <h1 class="font-serif text-2xl md:text-3xl xl:text-6xl font-medium text-highlight">
+                                    {{ config('app.name', 'Laravel') }}
+                                </h1>
+                            @endif
                         </div>
                     </div>
                 </div>

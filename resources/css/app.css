@@ -185,3 +185,11 @@ input[class^="numeric-"], select[class^="numeric-"]{
 .slick-dots li button:before {
     font-size: 10px !important;
 }
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}

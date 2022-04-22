@@ -6,7 +6,7 @@
         <div class="font-serif text-3xl md:text-5xl font-medium text-highlight">
             {{ config('app.name', 'Laravel') }}
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 mt-12">
+        <div class="grid grid-cols-1 md:grid-cols-4 mt-12">
             <div>
                 <div class="justify-center mt-4 md:mr-8"
                      id="search">
@@ -38,7 +38,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-span-1 md:col-span-2 mt-4 md:pl-16 text-lg">
+            {{--<div class="col-span-1 md:col-span-2 mt-4 md:pl-16 text-lg">
                 <a href="{{ route('contribute-documents') }}"
                    class="cursor-pointer"
                 >
@@ -46,7 +46,7 @@
                         Do you know of any Wilford Woodruff documents that we might not have? Please tell us.
                     </div>
                 </a>
-            </div>
+            </div>--}}
         </div>
 
         <div class="mt-12 grid grid-cols-2 gap-8 xl:col-span-2">
@@ -89,6 +89,50 @@
 
                     </ul>
                 </div>
+
+                <div class="mt-12 md:mt-0">
+                    <h3 class="text-sm font-semibold text-white tracking-wider uppercase">
+                        Explore
+                    </h3>
+                    <ul class="mt-4 space-y-4">
+
+                        <li>
+                            <a href="{{ route('documents') }}" class="text-base text-white hover:text-highlight">
+                                Documents
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{{ route('people') }}" class="text-base text-white hover:text-highlight">
+                                People
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{{ route('places') }}" class="text-base text-white hover:text-highlight">
+                                Places
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{{ route('timeline') }}" class="text-base text-white hover:text-highlight">
+                                Timeline
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{{ route('advanced-search') }}" class="text-base text-white hover:text-highlight">
+                                Search
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+
+
+            </div>
+
+            <div class="md:grid md:grid-cols-2 md:gap-8">
                 <div class="mt-12 md:mt-0">
                     <h3 class="text-sm font-semibold text-white tracking-wider uppercase">
                         Get Involved
@@ -120,15 +164,13 @@
                         </li>
 
                         <li class="pt-2">
-                            <a href="{{ route('donate.online') }}" class="text-base py-2 px-4 border-2 border-highlight text-white bg-highlight">
+                            <a href="{{ route('donate.online') }}" class="text-base py-2 px-4 border-2 border-highlight text-white bg-highlight uppercase">
                                 Donate Online
                             </a>
                         </li>
 
                     </ul>
                 </div>
-            </div>
-            <div class="md:grid md:grid-cols-3 md:gap-8">
                 <div>
                     <h3 class="text-sm font-semibold text-white tracking-wider uppercase">
                         Media
@@ -205,7 +247,7 @@
                 </div>
             </div>
             <div>
-                Wilford Woodruff Papers &copy <?= date('Y') ?> All Rights Reserved.
+                Wilford Woodruff Papers Foundation &copy {{ date('Y') }} All Rights Reserved.
             </div>
         </div>
     </div>

@@ -6,7 +6,7 @@
             </div>
         </div>
     </div>
-    <div class="pb-16 bg-gradient-to-r from-primary-50 to-primary lg:pb-0 lg:z-10 lg:relative">
+    <div class="pb-16 bg-primary lg:pb-0 lg:z-10 lg:relative">
         <div class="lg:mx-auto lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-3 lg:gap-8">
             <div class="relative lg:-my-8">
                 <div aria-hidden="true" class="absolute inset-x-0 top-0 h-1/2 bg-white lg:hidden"></div>
@@ -40,15 +40,15 @@
                 </div>
 
                 <div class="flex gap-x-6 mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 lg:px-0 lg:max-w-none">
-                    <x-links.primary href="https://www.amazon.com/Wilford-Woodruffs-Witness-Development-Doctrine/dp/0615835325" target="_blank">
+                    <x-links.hightlight href="https://www.amazon.com/Wilford-Woodruffs-Witness-Development-Doctrine/dp/0615835325" target="_blank">
                         Print Book
-                    </x-links.primary>
-                    <x-links.primary href="https://www.amazon.com/Wilford-Woodruffs-Witness-Development-Doctrine/dp/0615835325" target="_blank">
+                    </x-links.hightlight>
+                    <x-links.hightlight href="https://www.amazon.com/Wilford-Woodruffs-Witness-Development-Doctrine/dp/0615835325" target="_blank">
                         eBook
-                    </x-links.primary>
-                    <x-links.primary href="https://www.amazon.com/Wilford-Woodruffs-Witness-Development-Doctrine/dp/0615835325" target="_blank">
+                    </x-links.hightlight>
+                    <x-links.hightlight href="https://www.amazon.com/Wilford-Woodruffs-Witness-Development-Doctrine/dp/0615835325" target="_blank">
                         Audiobook
-                    </x-links.primary>
+                    </x-links.hightlight>
                 </div>
             </div>
         </div>

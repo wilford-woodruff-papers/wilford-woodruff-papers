@@ -33,7 +33,7 @@ class HomePageButtons extends Component
             [
                 'image' => asset('img/home/people.jpg'),
                 'title' => 'Ponder',
-                'description' => 'Learn how the writings apply to your life: connect, explore, dig deeper',
+                'description' => 'Learn how the writings apply to your life:<br />connect & explore',
                 'link' => route('landing-areas.ponder'),
             ],
             [

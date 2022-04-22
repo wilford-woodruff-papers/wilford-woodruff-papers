@@ -41,7 +41,7 @@
 
 
     @if(app()->environment(['local','development']))
-        <div class="bg-gray-100">
+        <div class="">
             <x-home-page-buttons />
         </div>
 

@@ -15,14 +15,7 @@ class PlaceController extends Controller
      */
     public function index()
     {
-        return view('public.places', [
-            'subjects' => Subject::whereEnabled(1)
-                            ->whereHas('category', function (Builder $query) {
-                                $query->where('name', 'Places');
-                            })
-                            ->whereHas('pages')
-                            ->get(),
-        ]);
+        return view('public.places');
     }
 
     /**
