@@ -1,4 +1,4 @@
-@if($announcements->count() > 1)
+<div>
     <div class="max-w-7xl mx-auto pb-4 md:pb-8">
         <div class="{{ $position }}-announcements">
             @foreach($announcements as $announcement)
@@ -9,8 +9,8 @@
                 </div>
             @endforeach
         </div>
-
-
+    </div>
+    @if($announcements->count() > 1)
         @push('styles')
             <link rel="stylesheet" type="text/css" href="/css/slick.css"/>
             <link rel="stylesheet" type="text/css" href="/css/slick-theme.css"/>
@@ -32,5 +32,5 @@
                 });
             </script>
         @endpush
-    </div>
-@endif
+    @endif
+</div>
