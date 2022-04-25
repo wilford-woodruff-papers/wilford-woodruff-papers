@@ -8,7 +8,7 @@
             </div>
         </div>
 
-        <div class="max-w-5xl mx-auto bg-gray-200 py-4 px-8">
+        <div class="max-w-5xl mx-auto bg-primary py-4 px-8">
             <div class="">
                 <x-search />
             </div>

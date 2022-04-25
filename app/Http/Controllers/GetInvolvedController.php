@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class GetInvolvedController extends Controller
 {
+    public function index(Request $request)
+    {
+        return view('public.get-involved.index');
+    }
+
     public function volunteer(Request $request)
     {
         return view('public.get-involved.volunteer');

@@ -40,7 +40,7 @@ class HomePageButtons extends Component
                 'image' => asset('img/home/places.jpg'),
                 'title' => 'Serve',
                 'description' => 'Get involved in the Project',
-                'link' => route('landing-areas.serve'),
+                'link' => route('get-involved.index'),
             ],
             [
                 'image' => asset('img/home/historical-context.jpg'),

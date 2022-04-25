@@ -27,7 +27,7 @@ class CallToAction extends Component
             [
                 'image' => 'https://wilford-woodruff-papers.nyc3.digitaloceanspaces.com/245/conversions/82-CHL-PH-1872_b0000_f0001_i0001_00001-Valley-House-Hotel-9-1908-cropped-thumb.jpg',
                 'title' => 'Get Involved',
-                'link' => route('volunteer'),
+                'link' => route('get-involved.index'),
             ],
             [
                 'image' => 'https://wilford-woodruff-papers.nyc3.digitaloceanspaces.com/246/conversions/Woodruff-Home-in-Nauvoo-LOC-thumb.jpg',
