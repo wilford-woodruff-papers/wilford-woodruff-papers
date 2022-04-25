@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Maize\Markable\Markable;
+use Maize\Markable\Models\Like;
 use OwenIt\Auditing\Auditable;
 use Parental\HasParent;
 use Spatie\MediaLibrary\HasMedia;
@@ -20,6 +22,11 @@ class Video extends Press implements HasMedia, \OwenIt\Auditing\Contracts\Audita
     use HasSlug;
     use HasTags;
     use InteractsWithMedia;
+    use Markable;
+
+    protected static $marks = [
+        Like::class,
+    ];
 
     public function getEmbedLinkAttribute()
     {

@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Maize\Markable\Markable;
+use Maize\Markable\Models\Like;
 use OwenIt\Auditing\Auditable;
 use Parental\HasParent;
 use Spatie\MediaLibrary\HasMedia;
@@ -17,6 +19,11 @@ class News extends Press implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
     use HasParent;
     use HasSlug;
     use InteractsWithMedia;
+    use Markable;
+
+    protected static $marks = [
+        Like::class,
+    ];
 
     public function getCallToActionAttribute()
     {

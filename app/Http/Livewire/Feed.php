@@ -3,7 +3,9 @@
 namespace App\Http\Livewire;
 
 use App\Models\Press;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Maize\Markable\Models\Like;
 
 class Feed extends Component
 {
@@ -27,4 +29,18 @@ class Feed extends Component
     {
         $this->perPage += 10;
     }
+
+
+    public function login()
+    {
+        session(['url.intended' => route('landing-areas.ponder')]);
+
+        return redirect()->route('login');
+    }
+
+    public function toggleLike($id)
+    {
+        Like::toggle(Press::find($id), Auth::user());
+    }
+
 }

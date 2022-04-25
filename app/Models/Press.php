@@ -5,6 +5,8 @@ namespace App\Models;
 use App\Presenters\Presses\UrlPresenter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Maize\Markable\Markable;
+use Maize\Markable\Models\Like;
 use OwenIt\Auditing\Auditable;
 use Parental\HasChildren;
 use Spatie\MediaLibrary\HasMedia;
@@ -17,6 +19,7 @@ class Press extends Model implements HasMedia
 {
     use HasFactory, HasSlug, InteractsWithMedia;
     use HasChildren;
+    use Markable;
 
     protected $guarded = ['id'];
 
