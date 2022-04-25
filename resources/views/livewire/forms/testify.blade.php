@@ -11,7 +11,7 @@
                                id="role"
                                value="">
                         <div>
-                            <label for="first-name" class="block text-sm font-medium text-gray-700">First name</label>
+                            <label for="first-name" class="block text-sm font-medium text-gray-700">Display name</label>
                             <div class="mt-1">
                                 <input wire:model.defer="firstName"
                                        type="text"
@@ -24,19 +24,6 @@
                             @error('firstName') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
                         </div>
                         <div>
-                            <label for="last-name" class="block text-sm font-medium text-gray-700">Last name</label>
-                            <div class="mt-1">
-                                <input wire:model.defer="lastName"
-                                       type="text"
-                                       id="last-name"
-                                       autocomplete="family-name"
-                                       value=""
-                                       required
-                                       class="py-3 px-4 block w-full shadow-sm focus:ring-secondary focus:border-secondary @error('lastName') border-red-500 @else border-gray-300 @enderror">
-                            </div>
-                            @error('lastName') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
-                        </div>
-                        <div class="sm:col-span-2">
                             <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
                             <div class="mt-1">
                                 <input wire:model.defer="email"
@@ -62,7 +49,7 @@
                         </div>
                         <div class="sm:col-span-2">
                             <button type="submit"
-                                    class="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent shadow-sm text-base font-medium text-white bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary">Submit</button>
+                                    class="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent shadow-sm text-base uppercase font-medium text-white bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary">Submit</button>
                         </div>
                     </form>
                 @elseif($success === true)

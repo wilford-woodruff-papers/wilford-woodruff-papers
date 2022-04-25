@@ -15,9 +15,9 @@
         </div>
 
         <div class="max-w-5xl mx-auto mt-12">
-            <div class="grid grid-cols-3 pb-4 -mb-12">
-                <div class="font-extrabold col-start-2">
-                    <h2 class="text-2xl uppercase pb-1 border-b-4 border-highlight text-center">Share Your Testimony</h2>
+            <div class="pb-4 px-6">
+                <div class="font-extrabold max-w-3xl mx-auto">
+                    <h2 class="text-2xl uppercase pb-1 border-b-4 border-highlight text-center">Share Your Testimony of Wilford Woodruff and his Teachings</h2>
                 </div>
             </div>
             <livewire:forms.testify />
