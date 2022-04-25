@@ -123,7 +123,7 @@
                                                 x-on:click.outside="close($refs.button)"
                                                 :id="$id('dropdown-button')"
                                                 style="display: none;"
-                                                class="absolute right-0 bottom-10 mt-2 w-56 shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                                                class="absolute z-10 right-0 bottom-10 mt-2 w-56 shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                                             >
                                                 <div class="px-4 py-2">
                                                     Share
