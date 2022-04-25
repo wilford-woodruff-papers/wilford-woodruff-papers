@@ -23,6 +23,10 @@
             <x-ponder-page-buttons />
         </div>
 
+        <div class="max-w-5xl mx-auto mt-12">
+            <livewire:feed />
+        </div>
+
     </div>
 
 </x-guest-layout>

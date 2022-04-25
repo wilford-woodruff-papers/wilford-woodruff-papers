@@ -139,7 +139,7 @@
                     </span>
                 </a>
                 <a href="https://updates.wilfordwoodruffpapers.org/posts"
-                   class="group flex items-center px-3 py-2 text-sm font-medium @if(request()->is('media/podcast*')) active @else @endif">
+                   class="group flex items-center px-3 py-2 text-sm font-medium @if(request()->is('media/updates*')) active @else @endif">
                     <span class="truncate">
                         Updates
                     </span>
