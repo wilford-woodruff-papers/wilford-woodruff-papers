@@ -12,7 +12,10 @@ class Feed extends Component
 
     public function render()
     {
-        $articles = Press::paginate($this->perPage);
+        $articles = Press::query()
+                            ->select('id', 'type', 'title', 'cover_image', 'slug', 'date', 'subtitle')
+                            ->orderBy('created_at', 'DESC')
+                            ->paginate($this->perPage);
 
         return view('livewire.feed', [
             'articles' => $articles,
