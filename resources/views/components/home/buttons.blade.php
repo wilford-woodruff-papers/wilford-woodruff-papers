@@ -1,5 +1,5 @@
 <div class="">
-    <div class="mx-auto py-12 px-4 max-w-7xl sm:px-6 lg:px-8 lg:py-12 mt-4">
+    <div class="mx-auto px-4 max-w-7xl sm:px-6 lg:px-8 mt-4">
         <div class="space-y-12">
             <ul role="list" class="grid grid-cols-2 sm:grid-cols-4 sm:gap-3 sm:space-y-0 lg:gap-4">
                 @foreach($pages as $page)
