@@ -299,7 +299,7 @@
         </div>
         <div class="col-span-0 sm:col-span-1 pt-1">
             @if($popular->count() > 0)
-                <div class="border border-gray-200 px-2">
+                <div class="border border-gray-200 px-2 sticky top-10">
                     <h2 class="text-xl font-medium pt-4 text-gray-800 pl-4">
                         Popular
                     </h2>
