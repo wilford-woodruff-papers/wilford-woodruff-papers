@@ -62,7 +62,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js" charset="utf-8"></script>
         <script src="{{ mix('js/app.js') }}"></script>
         @stack('scripts')
-        @if(! in_array(Route::currentRouteName(), ['documents', 'documents.show', 'places', 'people']))
+        @if(! in_array(Route::currentRouteName(), ['documents', 'documents.show', 'places', 'people', 'landing-areas.ponder']))
             <script async data-uid="7ce7f1665b" src="https://wilford-woodruff-papers.ck.page/7ce7f1665b/index.js"></script>
         @endif
     </body>
