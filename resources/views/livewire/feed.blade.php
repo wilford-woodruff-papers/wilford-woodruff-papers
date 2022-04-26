@@ -15,7 +15,7 @@
     }"
      x-init="observe">
     <div class="grid grid-cols-3 gap-x-3">
-        <div class="col-span-2">
+        <div class="col-span-3 sm:col-span-2">
             <form wire:submit.prevent="submit">
                 <div class="mb-6">
                 <label for="email" class="sr-only">Search candidates</label>
@@ -297,7 +297,7 @@
                 @endif
             </div>
         </div>
-        <div class="pt-1">
+        <div class="col-span-0 sm:col-span-1 pt-1">
             @if($popular->count() > 0)
                 <div class="border border-gray-200 px-2">
                     <h2 class="text-xl font-medium pt-4 text-gray-800 pl-4">
