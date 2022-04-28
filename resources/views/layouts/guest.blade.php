@@ -62,7 +62,11 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js" charset="utf-8"></script>
         <script src="{{ mix('js/app.js') }}"></script>
         @stack('scripts')
-        @if(! in_array(Route::currentRouteName(), ['documents', 'documents.show', 'places', 'people', 'landing-areas.ponder', 'landing-areas.ponder.press', 'contact-us', 'contribute-documents', 'donate.questions', 'media.requests']))
+        {{--@if(! in_array(Route::currentRouteName(), ['documents', 'documents.show', 'places', 'people', 'landing-areas.ponder', 'landing-areas.ponder.press', 'contact-us', 'contribute-documents', 'donate.questions', 'media.requests']))
+            <script async data-uid="7ce7f1665b" src="https://wilford-woodruff-papers.ck.page/7ce7f1665b/index.js"></script>
+        @endif--}}
+
+        @if(in_array(Route::currentRouteName(), ['home']))
             <script async data-uid="7ce7f1665b" src="https://wilford-woodruff-papers.ck.page/7ce7f1665b/index.js"></script>
         @endif
     </body>
