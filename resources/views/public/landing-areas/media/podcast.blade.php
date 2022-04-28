@@ -3,7 +3,9 @@
         {!! $press->title !!}
     </h2>
     <div class="">
-        @if(! empty($press->link))
+        @if(! empty($press->embed))
+            {!! $press->embed !!}
+        @elseif(! empty($press->link))
             <p class="text-center mb-2">
                 <a href="{{ $press->link }}"
                    target="_blank"
