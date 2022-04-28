@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "96a94e0691c0f3759e05838f5b96b5a3",
+    "content-hash": "f71fb77ab29b2b748b129a4de4bc96f4",
     "packages": [
         {
             "name": "alexpechkarev/geometry-library",
@@ -4743,6 +4743,87 @@
                 "source": "https://github.com/mailersend/mailersend-php/tree/v0.5.0"
             },
             "time": "2022-02-01T10:07:00+00:00"
+        },
+        {
+            "name": "maize-tech/laravel-markable",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/maize-tech/laravel-markable.git",
+                "reference": "846a5b3cc88f5a79dec52fc00a0ae92a3a47f344"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/maize-tech/laravel-markable/zipball/846a5b3cc88f5a79dec52fc00a0ae92a3a47f344",
+                "reference": "846a5b3cc88f5a79dec52fc00a0ae92a3a47f344",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^8.0|^9.0",
+                "illuminate/support": "^8.0|^9.0",
+                "php": "^7.4|^8.0",
+                "spatie/laravel-package-tools": "^1.11.3"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.7",
+                "orchestra/testbench": "^6.23|^7.0",
+                "phpunit/phpunit": "^9.5",
+                "spatie/laravel-ray": "^1.29",
+                "vimeo/psalm": "^4.22"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Maize\\Markable\\MarkableServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Maize\\Markable\\": "src",
+                    "Maize\\Markable\\Database\\Factories\\": "database/factories"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Enrico De Lazzari",
+                    "email": "enrico.delazzari@h-farm.com",
+                    "homepage": "https://innovation.h-farm.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Riccardo Dalla Via",
+                    "email": "riccardo.dallavia@h-farm.com",
+                    "homepage": "https://innovation.h-farm.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel Markable",
+            "homepage": "https://github.com/maize-tech/laravel-markable",
+            "keywords": [
+                "Favorites",
+                "bookmarks",
+                "laravel",
+                "likes",
+                "maize-tech",
+                "markable"
+            ],
+            "support": {
+                "issues": "https://github.com/maize-tech/laravel-markable/issues",
+                "source": "https://github.com/maize-tech/laravel-markable/tree/1.0.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/maize-tech",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-04-05T10:03:07+00:00"
         },
         {
             "name": "markbaker/complex",
@@ -13383,7 +13464,7 @@
         },
         {
             "name": "wwp/items",
-            "version": "dev-main",
+            "version": "dev-develop",
             "dist": {
                 "type": "path",
                 "url": "./nova-components/Items",

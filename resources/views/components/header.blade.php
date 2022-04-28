@@ -137,7 +137,7 @@
                             <a href="{{ route('timeline') }}">Timeline</a>
                             <a href="{{ route('advanced-search') }}">Search</a>
                             <a href="{{ route('donate.online') }}">Donate</a>
-                            <a href="{{ route('volunteer') }}">Get Involved</a>
+                            <a href="{{ route('get-involved.index') }}">Get Involved</a>
                         </nav>
                     </div>
                 </div>
@@ -315,13 +315,15 @@
                     </div>
 
                     <div class="relative inline-block text-left">
-                            <span x-on:mouseenter="dropdown = 'get-involved'"
-                                  x-on:click="dropdown = 'get-involved'"
-                                  x-on:click.away="dropdown = null"
-                                  class="text-base font-medium text-primary md:text-white md:hover:text-highlight uppercase"
+                            <a href="{{ route('get-involved.index') }}"
+                               x-on:mouseenter="dropdown = 'get-involved'"
+                               x-on:click="dropdown = 'get-involved'"
+                               x-on:click.away="dropdown = null"
+                               class="text-base font-medium text-primary md:text-white md:hover:text-highlight uppercase"
+                               role="menuitem"
                             >
                                 Get Involved
-                            </span>
+                            </a>
                         <div x-show="dropdown == 'get-involved'"
                              x-on:mouseleave="dropdown = null"
                              x-cloak

@@ -39,6 +39,9 @@
         </div>
     @endif
 
+    @if(app()->environment(['local','development']))
+        <x-article-preview-carousel />
+    @endif
 
     @if(app()->environment(['local','development']))
         <div class="">
@@ -48,10 +51,6 @@
         <div class="py-12">
             <x-home.video />
         </div>
-    @endif
-
-    @if(app()->environment(['local','development']))
-        <x-article-preview-carousel />
     @endif
 
     @if(app()->environment(['production']))
