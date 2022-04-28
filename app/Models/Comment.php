@@ -27,7 +27,8 @@ class Comment extends Model
                         ->where(function(Builder $query){
                             $query->where('status', 1)
                                 ->orWhere('user_id', Auth::id());
-                        });
+                        })
+                        ->orderBy('created_at', 'DESC');
     }
 
     protected static $marks = [
