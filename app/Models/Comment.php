@@ -6,10 +6,13 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Maize\Markable\Markable;
+use Maize\Markable\Models\Like;
 
 class Comment extends Model
 {
     use HasFactory;
+    use Markable;
 
     protected $guarded = ['id'];
 
@@ -26,4 +29,8 @@ class Comment extends Model
                                 ->orWhere('user_id', Auth::id());
                         });
     }
+
+    protected static $marks = [
+        Like::class,
+    ];
 }

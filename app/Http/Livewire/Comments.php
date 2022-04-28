@@ -3,8 +3,10 @@
 namespace App\Http\Livewire;
 
 use App\Models\Comment;
+use App\Models\Press;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Maize\Markable\Models\Like;
 
 class Comments extends Component
 {
@@ -38,5 +40,36 @@ class Comments extends Component
         $this->model->comments()->save($comment);
         $this->model->refresh();
         $this->comment = '';
+    }
+
+    public function login()
+    {
+        session(['url.intended' => route('landing-areas.ponder.press', ['press' => $this->model])]);
+
+        return redirect()->route('login');
+    }
+
+    public function toggleLike($id)
+    {
+        Like::toggle($press = Press::find($id), Auth::user());
+        $press->total_likes = Like::count($press);
+        $press->last_liked_at = now();
+        $press->save();
+    }
+
+    public function toggleCommentLike($id)
+    {
+        Like::toggle($comment = Comment::find($id), Auth::user());
+        $comment->total_likes = Like::count($comment);
+        $comment->save();
+    }
+
+    public function deleteComment($id)
+    {
+        $comment = Comment::find($id);
+        if($comment->user_id == Auth::id()){
+            $comment->delete();
+        }
+        $this->model->refresh();
     }
 }
