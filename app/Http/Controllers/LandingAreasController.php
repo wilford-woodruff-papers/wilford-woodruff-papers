@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Press;
 use Illuminate\Http\Request;
 
 class LandingAreasController extends Controller
@@ -11,9 +12,18 @@ class LandingAreasController extends Controller
         return view('public.landing-areas.search');
     }
 
-    public function ponder(Request $request)
+    public function ponder(Request $request, $press = null)
     {
-        return view('public.landing-areas.ponder');
+        return view('public.landing-areas.ponder', [
+            'press' => $press,
+        ]);
+    }
+
+    public function press(Request $request, Press $press)
+    {
+        return view('public.landing-areas.media.show', [
+            'press' => $press,
+        ]);
     }
 
     public function serve(Request $request)

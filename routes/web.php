@@ -46,6 +46,7 @@ if(app()->environment(['development', 'local'])){
     Route::get('/search', [\App\Http\Controllers\LandingAreasController::class, 'search'])->name('landing-areas.search');
 }
 Route::get('/ponder', [\App\Http\Controllers\LandingAreasController::class, 'ponder'])->name('landing-areas.ponder');
+Route::get('/ponder/{press?}', [\App\Http\Controllers\LandingAreasController::class, 'ponder'])->name('landing-areas.ponder.press');
 Route::get('/serve', [\App\Http\Controllers\LandingAreasController::class, 'serve'])->name('landing-areas.serve');
 Route::get('/testify', [\App\Http\Controllers\LandingAreasController::class, 'testify'])->name('landing-areas.testify');
 

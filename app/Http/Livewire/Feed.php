@@ -10,6 +10,8 @@ use Maize\Markable\Models\Like;
 class Feed extends Component
 {
 
+    public $showPress = null;
+
     public $perPage = 10;
 
     public $filters = [
@@ -23,6 +25,11 @@ class Feed extends Component
         'filters' => 'max:100',
     ];
 
+    public function mount($press)
+    {
+        $this->showPress = $press;
+    }
+
     public function render()
     {
         $articles = Press::query()
@@ -31,7 +38,12 @@ class Feed extends Component
                             ->when(data_get($this->filters, 'search'), function($query, $q) {
                                 $query->where('title', 'LIKE', '%' . $q . '%');
                             })
-                            ->when(data_get($this->filters, 'type'), fn($query, $type) => $query->whereIn('type', $type))
+                            ->when(data_get($this->filters, 'type'), function($query, $type) {
+                                if(! is_array($type)){
+                                    $type = [$type];
+                                }
+                                $query->whereIn('type', $type);
+                            })
                             ->paginate($this->perPage);
 
         $popular = Press::query()
