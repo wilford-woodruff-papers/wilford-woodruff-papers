@@ -194,6 +194,11 @@ input[class^="numeric-"], select[class^="numeric-"]{
     scrollbar-width: none;
 }
 
+
+.press-modal .article a
+{
+    @apply text-secondary;
+}
 /*
  *  Feed preview scroll bar style
  */
