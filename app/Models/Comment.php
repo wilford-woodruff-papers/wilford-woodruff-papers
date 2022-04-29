@@ -34,4 +34,5 @@ class Comment extends Model
     protected static $marks = [
         Like::class,
     ];
+
 }
