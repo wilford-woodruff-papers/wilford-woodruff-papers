@@ -31,7 +31,7 @@ class PressModal extends ModalComponent
     }
 
     protected static array $maxWidths = [
-        '7xl' => 'max-w-7xl 2xl:max-w-7xl',
+        '7xl' => 'max-w-7xl',
     ];
 
     public function login()
