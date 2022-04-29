@@ -36,7 +36,8 @@ class Press extends Model implements HasMedia
                             $query->where('status', 1)
                                     ->orWhere('user_id', Auth::id());
                         })
-                        ->whereNull('parent_id');
+                        ->whereNull('parent_id')
+                        ->orderBy('created_at', 'DESC');
     }
 
     /**

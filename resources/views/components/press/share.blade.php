@@ -111,10 +111,10 @@
                 @endguest
             </div>
         </div>
-    </div>
-    <div class="grid justify-items-end">
-        @if(($count = \Maize\Markable\Models\Like::count($media)) > 0)
-            {{ $count }} {{ str('Like')->plural($count) }}
-        @endif
+        <div class="grid justify-items-end">
+            @if(($count = \Maize\Markable\Models\Like::count($media)) > 0)
+                {{ $count }} {{ str('Like')->plural($count) }}
+            @endif
+        </div>
     </div>
 </div>

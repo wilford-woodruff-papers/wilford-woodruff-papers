@@ -3,32 +3,33 @@
 }"
      class="flex flex-col h-full">
     <div class="flex-none fixed-top p-4 border-b border-gray-200">
-        Top
+        Comments
     </div>
-    <div class="grow p-4">
-        <div class="p-6">
-            <div class="mt-6 flow-root">
-                <ul role="list" class="-my-4 divide-y divide-gray-200">
-                    @foreach($model->comments as $comment)
-                        <x-comments.comment :comment="$comment"/>
-                    @endforeach
-                </ul>
-            </div>
+    <div class="grow px-4 pb-4">
+        <div class="mt-6 flow-root">
+            <ul role="list" class="-my-4 divide-y divide-gray-200 px-2">
+                @foreach($model->comments as $comment)
+                    <x-comments.comment :comment="$comment"/>
+                @endforeach
+            </ul>
         </div>
     </div>
     <div class="flex-none fixed-bottom p-4 border-t border-gray-200">
-        <div class="flex justify-end mb-4">
+        <div class="flex justify-between mb-4">
+            <div>
+                <span class="text-xs font-medium text-gray-500">{{ $model->created_at->diffForHumans() }}</span>
+            </div>
             <x-press.share :media="$model" :showCommentIcon="false"/>
         </div>
         <div>
             <form wire:submit.prevent="save()">
-                <div class="flex mt-1">
+                <div class="flex mt-1 gap-x-2">
                     <div class="flex-1">
                         <textarea wire:model.debounce.300ms="comment"
                                   rows="4"
                                   name="comment"
                                   id="comment"
-                                  class="block w-full sm:text-sm border-0 h-16 resize-none focus:ring-white"
+                                  class="block w-full sm:text-sm border border-gray-200 h-16 resize-none focus:ring-white"
                                   placeholder="Add a comment..."
                         ></textarea>
                     </div>
