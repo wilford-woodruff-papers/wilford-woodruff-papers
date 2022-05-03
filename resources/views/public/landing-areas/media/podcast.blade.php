@@ -32,10 +32,10 @@
         </div>
     @endif
 @else
-    <a href="{{ $media->link }}"
+    <a href="{{ $press->link }}"
        target="_blank"
     >
-        <img src="{{ \Illuminate\Support\Facades\Storage::disk('media')->url($media->cover_image)  }}"
+        <img src="{{ \Illuminate\Support\Facades\Storage::disk('media')->url($press->cover_image)  }}"
              class="w-full h-auto"
         />
     </a>
