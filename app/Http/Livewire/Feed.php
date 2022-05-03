@@ -33,7 +33,7 @@ class Feed extends Component
     public function render()
     {
         $articles = Press::query()
-                            ->select('id', 'type', 'title', 'cover_image', 'slug', 'date', 'subtitle', 'external_link_only')
+                            ->select('id', 'type', 'title', 'cover_image', 'slug', 'date', 'subtitle', 'external_link_only', 'link')
                             ->orderBy('created_at', 'DESC')
                             ->when(data_get($this->filters, 'search'), function($query, $q) {
                                 $query->where('title', 'LIKE', '%' . $q . '%');
@@ -47,7 +47,7 @@ class Feed extends Component
                             ->paginate($this->perPage);
 
         $popular = Press::query()
-                            ->select('id', 'type', 'title', 'cover_image', 'slug', 'date', 'subtitle', 'external_link_only')
+                            ->select('id', 'type', 'title', 'cover_image', 'slug', 'date', 'subtitle', 'external_link_only', 'link')
                             ->whereNotNull('last_liked_at')
                             ->orderBy('last_liked_at', 'DESC')
                             ->limit(5)
