@@ -215,7 +215,7 @@
                     </h2>
                     <div class="grid grid-cols-1 gap-4">
                         @foreach($popular as $article)
-                            @if($media->external_link_only)
+                            @if($article->external_link_only)
                                 <a href="{{ $article->link }}"
                                    target="_blank"
                                 >
