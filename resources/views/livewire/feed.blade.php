@@ -215,8 +215,14 @@
                     </h2>
                     <div class="grid grid-cols-1 gap-4">
                         @foreach($popular as $article)
-                            <div wire:click="$emit('openModal', 'press-modal', {{ json_encode(["press" => $article->id]) }})"
-                                 class="cursor-pointer">
+                            @if($media->external_link_only)
+                                <a href="{{ $article->link }}"
+                                   target="_blank"
+                                >
+                            @else
+                                <div wire:click="$emit('openModal', 'press-modal', {{ json_encode(["press" => $article->id]) }})"
+                                     class="cursor-pointer">
+                            @endif
                                 {{--<a href="{{ route('landing-areas.ponder.press', $article->slug) }}">--}}
                                     <div class="relative bg-white px-2 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-secondary">
                                         <div class="flex-shrink-0 h-14 w-14 bg-cover bg-center"
@@ -231,7 +237,11 @@
                                         </div>
                                     </div>
                                 {{--</a>--}}
-                            </div>
+                            @if($article->external_link_only)
+                                </a>
+                            @else
+                                </div>
+                            @endif
                         @endforeach
                     </div>
                 </div>
