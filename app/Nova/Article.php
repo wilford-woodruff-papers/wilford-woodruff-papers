@@ -5,6 +5,7 @@ namespace App\Nova;
 use Emilianotisato\NovaTinyMCE\NovaTinyMCE;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\ID;
@@ -87,6 +88,7 @@ class Article extends Resource
             Text::make('Link')
                 ->hideFromIndex()
                 ->help('A link to the article should be provided if the Article is published on an external site.'),
+            Boolean::make('Open in New Window?', 'external_link_only'),
         ];
     }
 

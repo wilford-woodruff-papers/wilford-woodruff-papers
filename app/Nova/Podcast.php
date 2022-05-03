@@ -5,6 +5,7 @@ namespace App\Nova;
 use Emilianotisato\NovaTinyMCE\NovaTinyMCE;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\ID;
@@ -77,6 +78,7 @@ class Podcast extends Resource
                 ->required(true)
                 ->hideFromIndex()
                 ->help('Paste the link to the podcast here. If link is for YouTube, it will be embedded automatically.'),
+            Boolean::make('Open in New Window?', 'external_link_only'),
             Text::make('Embed Code', 'embed')
                 ->hideFromIndex()
                 ->help('If the podcast provides an alternate embed code, paste it here.'),

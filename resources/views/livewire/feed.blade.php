@@ -121,8 +121,15 @@
             <div class="grid grid-flow-row gap-y-4">
                 @foreach ($articles as $media)
                     <div class="flex flex-col shrink-0 shadow-lg overflow-hidden w-full h-full">
-                        <div wire:click="$emit('openModal', 'press-modal', {{ json_encode(["press" => $media->id]) }})"
-                             class="flex-shrink-0 cursor-pointer">
+                        @if($media->external_link_only)
+                            <a href="{{ $media->link }}"
+                               target="_blank"
+                            >
+                        @else
+                            <div wire:click="$emit('openModal', 'press-modal', {{ json_encode(["press" => $media->id]) }})"
+                                 class="flex-shrink-0 cursor-pointer">
+                        @endif
+
                             {{--<a href="{{ route('media.'.Str::of($media->type)->lower(), $media->slug) }}">--}}
                                 {{--<img class="h-48 w-full object-cover"
                                      src="{{ \Illuminate\Support\Facades\Storage::disk('media')->url($media->cover_image)  }}"
@@ -137,10 +144,21 @@
                                     </div>
                                 </div>
                             {{--</a>--}}
-                        </div>
+                        @if($media->external_link_only)
+                            </a>
+                        @else
+                            </div>
+                        @endif
+
                         <div class="flex-1 bg-white p-6 flex flex-col justify-between">
-                            <div wire:click="$emit('openModal', 'press-modal', {{ json_encode(["press" => $media->id]) }})"
-                                 class="flex-1 cursor-pointer">
+                            @if($media->external_link_only)
+                                <a href="{{ $media->link }}"
+                                   target="_blank"
+                                >
+                            @else
+                                <div wire:click="$emit('openModal', 'press-modal', {{ json_encode(["press" => $media->id]) }})"
+                                     class="flex-1 cursor-pointer">
+                            @endif
                                 <div class="flex justify-between">
                                     <p class="text-sm font-medium text-secondary">
                                         {{--<a href="{{ route('media.'.Str::of($media->type)->lower(), $media->slug) }}" class="hover:underline">--}}
@@ -158,7 +176,11 @@
                                         {{ Str::of($media->title)->limit(75, '...') }}
                                     </p>
                                 {{--</a>--}}
-                            </div>
+                            @if($media->external_link_only)
+                                </a>
+                            @else
+                                </div>
+                            @endif
                             <div class="mt-3 flex items-center justify-between">
                                 <div wire:click="$emit('openModal', 'press-modal', {{ json_encode(["press" => $media->id]) }})"
                                      class="ml-3 cursor-pointer">
