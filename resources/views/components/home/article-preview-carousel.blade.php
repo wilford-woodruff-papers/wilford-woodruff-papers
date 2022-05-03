@@ -95,7 +95,7 @@
                                 {{--<a href="{{ route('media.'.Str::of($media->type)->lower(), $media->slug) }}" title="{{ $media->title }}">--}}
                                     <div class="flex flex-col shrink-0 shadow-lg overflow-hidden w-full h-full">
                                         <div class="flex-shrink-0">
-                                            <a href="{{ route('media.'.Str::of($media->type)->lower(), $media->slug) }}">
+                                            <a href="{{ route('landing-areas.ponder.press', ['press' => $media->slug]) }}">
                                                 {{--<img class="h-48 w-full object-cover"
                                                      src="{{ \Illuminate\Support\Facades\Storage::disk('media')->url($media->cover_image)  }}"
                                                      alt="{{ $media->title }}">--}}
@@ -114,7 +114,7 @@
                                             <div class="flex-1">
                                                 <div class="flex justify-between">
                                                     <p class="text-sm font-medium text-secondary">
-                                                        <a href="{{ route('media.'.Str::of($media->type)->lower(), $media->slug) }}" class="hover:underline">
+                                                        <a href="{{ route('landing-areas.ponder.press', ['press' => $media->slug]) }}" class="hover:underline">
                                                             {{ $media->type }}
                                                         </a>
                                                     </p>
@@ -124,7 +124,7 @@
                                                         </time>
                                                     </div>
                                                 </div>
-                                                <a href="{{ route('media.'.Str::of($media->type)->lower(), $media->slug) }}" class="block mt-2">
+                                                <a href="{{ route('landing-areas.ponder.press', ['press' => $media->slug]) }}" class="block mt-2">
                                                     <p class="text-lg font-semibold text-gray-900">
                                                         {{ Str::of($media->title)->limit(50, '...') }}
                                                     </p>
