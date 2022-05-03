@@ -9,6 +9,7 @@ use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -53,7 +54,7 @@ class Announcement extends Resource
                 'homepage_top' => 'In top section of homepage',
                 'homepage_bottom' => 'In bottom section of homepage',
             ]),
-            File::make(__('Image'), 'image')
+            Image::make(__('Image'), 'image')
                 ->required(true)
                 ->disk('announcements'),
             Text::make(__('Title'), 'title')
