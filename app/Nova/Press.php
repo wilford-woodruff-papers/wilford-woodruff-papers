@@ -10,6 +10,7 @@ use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
@@ -60,7 +61,7 @@ class Press extends Resource
                 'Podcast' => 'Podcast',
                 'Video' => 'Video',
             ])->sortable(),
-            File::make(__('Cover Image'), 'cover_image')->disk('media'),
+            Image::make(__('Cover Image'), 'cover_image')->disk('media'),
             Date::make(__('Date'), 'date')->sortable(),
             Text::make(__('Title'), 'title')->sortable(),
             Text::make(__('Slug'), 'slug')->hideFromIndex()->hideWhenCreating()->sortable(),
