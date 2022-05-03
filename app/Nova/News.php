@@ -5,6 +5,7 @@ namespace App\Nova;
 use Emilianotisato\NovaTinyMCE\NovaTinyMCE;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\ID;
@@ -74,6 +75,7 @@ class News extends Resource
                 ->help('Examples: Meridian Magazine, Work + Wonder, The LDS Women Project, Digital Journal, Deseret News, Y Magazine. Used for link when linking to external site.'),
             Text::make('Link')
                 ->hideFromIndex(),
+            Boolean::make('Open in New Window?', 'external_link_only'),
             NovaTinyMCE::make('Summary', 'description')
                 ->options([
                     'height' => 500,
