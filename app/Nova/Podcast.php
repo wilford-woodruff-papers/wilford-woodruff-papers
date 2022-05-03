@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -48,7 +49,7 @@ class Podcast extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            File::make(__('Cover Image'), 'cover_image')
+            Image::make(__('Cover Image'), 'cover_image')
                 ->disk('media')
                 ->help('A cover image is required to display videos on the homepage'),
             Text::make(__('Title'), 'title')
