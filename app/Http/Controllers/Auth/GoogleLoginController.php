@@ -55,6 +55,8 @@ class GoogleLoginController extends Controller
 
         auth()->login($user);
 
-        return redirect()->route('home', true);
+        $home = session('url.intended') ?? '/';
+
+        return redirect()->intended($home);
     }
 }
