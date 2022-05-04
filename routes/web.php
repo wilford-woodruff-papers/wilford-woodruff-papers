@@ -75,6 +75,11 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::prefix('filemanager')->middleware('web', 'auth')->group(function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });
+
+Route::get('login/google', [\App\Http\Controllers\Auth\GoogleLoginController::class, 'redirectToProvider'])->name('login.google');
+Route::get('login/google/callback', [\App\Http\Controllers\Auth\GoogleLoginController::class, 'handleProviderCallback']);
+
+
 /*Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });*/

@@ -25,6 +25,9 @@ class EventServiceProvider extends ServiceProvider
         ContactFormSubmitted::class => [
             AddSubscriberToConvertKit::class,
         ],
+        \SocialiteProviders\Manager\SocialiteWasCalled::class => [
+            \SocialiteProviders\Google\GoogleExtendSocialite::class.'@handle',
+        ],
     ];
 
     /**
