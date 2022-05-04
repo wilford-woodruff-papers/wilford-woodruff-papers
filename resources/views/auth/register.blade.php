@@ -65,7 +65,7 @@
                 <span class="px-2 bg-white text-sm text-gray-500"> or </span>
             </div>
         </div>
-        <div>
+        <div class="gap-y-4">
             <div>
                 <a href="{{ route('login.google') }}" type="button" class="inline-flex items-center justify-center px-4 py-2 w-full border border-transparent shadow-md text-sm font-medium text-gray-500 bg-white hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
                     <!-- Google Icon -->
