@@ -34,7 +34,7 @@ class Feed extends Component
     {
         $articles = Press::query()
                             ->select('id', 'type', 'title', 'cover_image', 'slug', 'date', 'subtitle', 'external_link_only', 'link')
-                            ->orderBy('created_at', 'DESC')
+                            ->orderBy('date', 'DESC')
                             ->when(data_get($this->filters, 'search'), function($query, $q) {
                                 $query->where('title', 'LIKE', '%' . $q . '%');
                             })
