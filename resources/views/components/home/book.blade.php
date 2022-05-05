@@ -1,6 +1,6 @@
 <div class="relative py-16">
     <div class="lg:mx-auto lg:max-w-7xl mb-16">
-        <div class="grid grid-cols-3 pb-4">
+        <div class="px-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 pb-4">
             <div class="font-extrabold">
                 <h2 class="text-3xl uppercase pb-1 border-b-4 border-highlight">Read the Book</h2>
             </div>

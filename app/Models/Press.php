@@ -65,5 +65,6 @@ class Press extends Model implements HasMedia
         'News' => News::class,
         'Podcast' => Podcast::class,
         'Video' => Video::class,
+        'Social' => SocialMedia::class,
     ];
 }

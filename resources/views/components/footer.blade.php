@@ -49,8 +49,8 @@
             </div>--}}
         </div>
 
-        <div class="mt-12 grid grid-cols-2 gap-8 xl:col-span-2">
-            <div class="md:grid md:grid-cols-2 md:gap-8">
+        <div class="mt-12 grid grid-cols-2 gap-8 xl:col-span-2 ">
+            <div class="grid md:grid-cols-2 gap-y-8">
                 <div>
                     <h3 class="text-sm font-semibold text-white tracking-wider uppercase">
                         About
@@ -90,7 +90,7 @@
                     </ul>
                 </div>
 
-                <div class="mt-12 md:mt-0">
+                <div>
                     <h3 class="text-sm font-semibold text-white tracking-wider uppercase">
                         Explore
                     </h3>
@@ -132,12 +132,12 @@
 
             </div>
 
-            <div class="md:grid md:grid-cols-2 md:gap-8">
-                <div class="mt-12 md:mt-0">
+            <div class="grid md:grid-cols-2 gap-y-8">
+                <div class="">
                     <h3 class="text-sm font-semibold text-white tracking-wider uppercase">
                         Get Involved
                     </h3>
-                    <ul class="mt-4 space-y-4">
+                    <ul class="my-4 space-y-4">
 
                         <li>
                             <a href="{{ route('volunteer') }}" class="text-base text-white hover:text-highlight">

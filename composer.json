@@ -14,6 +14,7 @@
         "calebporzio/parental": "^1.1",
         "chris-ware/nova-breadcrumbs": "^2.3",
         "dmitrybubyakin/nova-medialibrary-field": "^3.3",
+        "dymantic/laravel-instagram-feed": "^3.1",
         "dyrynda/laravel-efficient-uuid": "^4.5",
         "dyrynda/laravel-model-uuid": "^6.6",
         "emilianotisato/nova-tinymce": "^1.2",
