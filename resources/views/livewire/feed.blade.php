@@ -136,7 +136,7 @@
                                 {{--<img class="h-48 w-full object-cover"
                                      src="{{ \Illuminate\Support\Facades\Storage::disk('media')->url($media->cover_image)  }}"
                                      alt="{{ $media->title }}">--}}
-                                <div class="image-parent relative h-80 w-full overflow-hidden inline-block flex items-center bg-primary-50">
+                                <div class="image-parent relative h-128 w-full overflow-hidden inline-block flex items-center bg-primary-50">
                                     <div class="image-child absolute h-full w-full z-10 bg-cover bg-center z-0" style="background-image: url({{ \Illuminate\Support\Facades\Storage::disk('media')->url($media->cover_image)  }})">
 
                                     </div>
