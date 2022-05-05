@@ -43,11 +43,11 @@
                     <x-links.hightlight href="https://www.amazon.com/Wilford-Woodruffs-Witness-Development-Doctrine/dp/0615835325" target="_blank">
                         Print Book
                     </x-links.hightlight>
-                    <x-links.hightlight href="https://www.amazon.com/Wilford-Woodruffs-Witness-Development-Doctrine/dp/0615835325" target="_blank">
-                        eBook
+                    <x-links.hightlight href="#" target="_blank">
+                        eBook (Coming Soon)
                     </x-links.hightlight>
-                    <x-links.hightlight href="https://www.amazon.com/Wilford-Woodruffs-Witness-Development-Doctrine/dp/0615835325" target="_blank">
-                        Audiobook
+                    <x-links.hightlight href="#" target="_blank">
+                        Audiobook (Coming Soon)
                     </x-links.hightlight>
                 </div>
             </div>
