@@ -43,10 +43,10 @@
                     <x-links.hightlight href="https://www.amazon.com/Wilford-Woodruffs-Witness-Development-Doctrine/dp/0615835325" target="_blank">
                         Print Book
                     </x-links.hightlight>
-                    <x-links.hightlight href="#" target="_blank">
+                    <x-links.hightlight href="#" target="_blank" onclick="javascript: return false;">
                         eBook (Coming Soon)
                     </x-links.hightlight>
-                    <x-links.hightlight href="#" target="_blank">
+                    <x-links.hightlight href="#" target="_blank" onclick="javascript: return false;">
                         Audiobook (Coming Soon)
                     </x-links.hightlight>
                 </div>
