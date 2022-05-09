@@ -1,7 +1,7 @@
 <div>
     @if($medias->count() > 0)
         <div class="max-w-7xl mx-auto pt-8 md:pt-12 px-4 pb-4 xl:pt-12 md:pb-8 hidden md:block">
-            <div class="grid grid-cols-3 pb-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 pb-8">
                 <div class="font-extrabold">
                     <h2 class="text-3xl uppercase pb-1 border-b-4 border-highlight">What's New</h2>
                 </div>
@@ -99,7 +99,7 @@
                                                 {{--<img class="h-48 w-full object-cover"
                                                      src="{{ \Illuminate\Support\Facades\Storage::disk('media')->url($media->cover_image)  }}"
                                                      alt="{{ $media->title }}">--}}
-                                                <div class="image-parent relative h-48 w-full overflow-hidden inline-block flex items-center bg-primary-50">
+                                                <div class="image-parent relative h-72 w-full overflow-hidden inline-block flex items-center bg-primary-50">
                                                     <div class="image-child absolute h-full w-full z-10 bg-cover bg-center z-0" style="background-image: url({{ \Illuminate\Support\Facades\Storage::disk('media')->url($media->cover_image)  }})">
 
                                                     </div>
@@ -169,6 +169,11 @@
         </div>
 
         <div class="max-w-7xl mx-auto pt-8 md:pt-16 px-2 pb-4 xl:pt-16  md:px-24 md:pb-8 md:hidden">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 pb-8">
+                <div class="font-extrabold">
+                    <h2 class="text-3xl uppercase pb-1 border-b-4 border-highlight">What's New</h2>
+                </div>
+            </div>
             <div
                 x-data="{
                 skip: 1,
@@ -258,10 +263,19 @@
                                 {{--<a href="{{ route('media.'.Str::of($media->type)->lower(), $media->slug) }}" title="{{ $media->title }}">--}}
                                     <div class="flex flex-col shrink-0 shadow-lg overflow-hidden w-full h-full">
                                         <div class="flex-shrink-0">
-                                            <a href="{{ route('media.'.Str::of($media->type)->lower(), $media->slug) }}">
-                                                <img class="h-48 w-full object-cover"
+                                            <a href="{{ route('landing-areas.ponder.press', ['press' => $media->slug]) }}">
+                                                {{--<img class="h-48 w-full object-cover"
                                                      src="{{ \Illuminate\Support\Facades\Storage::disk('media')->url($media->cover_image)  }}"
-                                                     alt="{{ $media->title }}">
+                                                     alt="{{ $media->title }}">--}}
+                                                <div class="image-parent relative h-72 w-full overflow-hidden inline-block flex items-center bg-primary-50">
+                                                    <div class="image-child absolute h-full w-full z-10 bg-cover bg-center z-0" style="background-image: url({{ \Illuminate\Support\Facades\Storage::disk('media')->url($media->cover_image)  }})">
+
+                                                    </div>
+                                                    <div class="w-full py-3 z-10 text-secondary text-xl font-medium bg-white-80 uppercase flex flex-row items-center justify-center">
+                                                        {!! $media->icon !!}
+                                                        {{ $media->call_to_action }}
+                                                    </div>
+                                                </div>
                                             </a>
                                         </div>
                                         <div class="flex-1 bg-white p-6 flex flex-col justify-between">

@@ -1,6 +1,6 @@
 <div class="relative py-16">
     <div class="lg:mx-auto lg:max-w-7xl mb-16">
-        <div class="grid grid-cols-3 pb-4">
+        <div class="grid px-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 pb-4">
             <div class="font-extrabold">
                 <h2 class="text-3xl uppercase pb-1 border-b-4 border-highlight">Read the Book</h2>
             </div>
@@ -43,11 +43,11 @@
                     <x-links.hightlight href="https://www.amazon.com/Wilford-Woodruffs-Witness-Development-Doctrine/dp/0615835325" target="_blank">
                         Print Book
                     </x-links.hightlight>
-                    <x-links.hightlight href="https://www.amazon.com/Wilford-Woodruffs-Witness-Development-Doctrine/dp/0615835325" target="_blank">
-                        eBook
+                    <x-links.hightlight href="#" target="_blank" onclick="javascript: return false;">
+                        eBook (Coming Soon)
                     </x-links.hightlight>
-                    <x-links.hightlight href="https://www.amazon.com/Wilford-Woodruffs-Witness-Development-Doctrine/dp/0615835325" target="_blank">
-                        Audiobook
+                    <x-links.hightlight href="#" target="_blank" onclick="javascript: return false;">
+                        Audiobook (Coming Soon)
                     </x-links.hightlight>
                 </div>
             </div>

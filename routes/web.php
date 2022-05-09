@@ -78,6 +78,8 @@ Route::prefix('filemanager')->middleware('web', 'auth')->group(function () {
 
 Route::get('login/google', [\App\Http\Controllers\Auth\GoogleLoginController::class, 'redirectToProvider'])->name('login.google');
 Route::get('login/google/callback', [\App\Http\Controllers\Auth\GoogleLoginController::class, 'handleProviderCallback']);
+Route::get('login/facebook', [\App\Http\Controllers\Auth\FacebookLoginController::class, 'redirectToProvider'])->name('login.facebook');
+Route::get('login/facebook/callback', [\App\Http\Controllers\Auth\FacebookLoginController::class, 'handleProviderCallback']);
 
 
 /*Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {

@@ -27,6 +27,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
                         </div>
+                        <label for="search" class="sr-only">Search Articles, Videos, and Pocasts</label>
                         <input wire:model.defer="filters.search"
                                type="search"
                                name="search"
@@ -64,6 +65,7 @@
                                 type="button"
                                 class="-ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-secondary focus:border-secondary"
                         >
+                            <span class="sr-only">Toggle filter options</span>
                             <!-- Heroicon name: solid/adjustments -->
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
@@ -134,7 +136,7 @@
                                 {{--<img class="h-48 w-full object-cover"
                                      src="{{ \Illuminate\Support\Facades\Storage::disk('media')->url($media->cover_image)  }}"
                                      alt="{{ $media->title }}">--}}
-                                <div class="image-parent relative h-80 w-full overflow-hidden inline-block flex items-center bg-primary-50">
+                                <div class="image-parent relative h-128 w-full overflow-hidden inline-block flex items-center bg-primary-50">
                                     <div class="image-child absolute h-full w-full z-10 bg-cover bg-center z-0" style="background-image: url({{ \Illuminate\Support\Facades\Storage::disk('media')->url($media->cover_image)  }})">
 
                                     </div>
@@ -207,7 +209,7 @@
                 @endif
             </div>
         </div>
-        <div class="col-span-0 sm:col-span-1 pt-1">
+        <div class="hidden sm:block sm:col-span-1 pt-1">
             @if($popular->count() > 0)
                 <div class="border border-gray-200 px-2 sticky top-10">
                     <h2 class="text-xl font-medium pt-4 text-gray-800 pl-4">

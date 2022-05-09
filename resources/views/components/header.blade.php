@@ -29,7 +29,7 @@
                         <div class="relative">
                             <div class="grid grid-cols-1 md:flex justify-center md:justify-end">
                                 <div class="md:-mt-0 xl:-mt-6 md:mb-2 md:mb-12 md:pr-8 py-0.5">
-                                    <a class="bg-highlight px-4 py-2 text-white text-lg hover:text-secondary block md:inline text-center uppercase"
+                                    <a class="bg-highlight px-4 py-2 text-white text-lg hover:text-secondary block md:inline text-center uppercase whitespace-nowrap"
                                        data-formkit-toggle="7ce7f1665b"
                                        href="https://wilford-woodruff-papers.ck.page/52a6925518">
                                         Subscribe for Updates
@@ -112,9 +112,16 @@
                         <div>
                             <a href="/" class="flex">
                                 <span class="sr-only">{{ config('app.name', 'Laravel') }}</span>
-                                <img class="h-10 md:h-36 w-auto "
-                                     src="{{ asset('img/logo.png') }}"
-                                     alt="{{ config('app.name', 'Laravel') }}" />
+                                @if(app()->environment(['production']))
+                                    <img class="h-10 md:h-36 w-auto "
+                                         src="{{ asset('img/logo.png') }}"
+                                         alt="{{ config('app.name', 'Laravel') }}" />
+                                @endif
+                                @if(app()->environment(['local','development']))
+                                    <img class="h-10 md:h-36 w-auto "
+                                         src="{{ asset('img/image-logo.png') }}"
+                                         alt="{{ config('app.name', 'Laravel') }}" />
+                                @endif
                             </a>
                         </div>
                         <div class="-mr-2">
