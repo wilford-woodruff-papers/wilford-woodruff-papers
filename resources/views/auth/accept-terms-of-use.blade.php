@@ -8,6 +8,8 @@
         <div class="flex flex-col items-center pt-6 sm:pt-0">
             <div class="w-full sm:max-w-2xl mt-2 py-2 overflow-hidden prose">
                 <form action="{{ route('terms.submit') }}" method="POST">
+                    @csrf
+                    @method('POST')
                     <button type="submit"
                             class="bg-secondary text-white font-semibold py-2 block w-full"
                     >
