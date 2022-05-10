@@ -69,9 +69,7 @@ Route::get('/quotes/page/{page}', [\App\Http\Controllers\QuoteController::class,
 Route::get('/themes/page/{page}', [\App\Http\Controllers\ThemeController::class, 'index'])->name('themes.page.show');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return (\Illuminate\Support\Facades\Auth::user()->hasAnyRole(['Super Admin']))
-        ? view('dashboard')
-        : redirect(route('home'));
+    return redirect()->route('home');
 })->name('dashboard');
 
 Route::prefix('filemanager')->middleware('web', 'auth')->group(function () {
