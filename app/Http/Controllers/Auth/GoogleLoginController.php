@@ -64,7 +64,7 @@ class GoogleLoginController extends Controller
 
             return redirect()->intended($home);
         }else{
-            return redirect()->route('terms.show');
+            return redirect()->route('terms.accept');
         }
 
     }
