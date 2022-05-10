@@ -88,7 +88,7 @@
                             <div class="border-t border-gray-400 px-2 pb-4">
                                 <fieldset class="space-y-4">
                                     <legend class="sr-only">Types</legend>
-                                    @foreach(['Article', 'Podcast', 'Video'] as $type)
+                                    @foreach(['Article', 'News', 'Podcast', 'Video'] as $type)
                                         <div class="relative flex items-start">
                                             <div class="flex items-center h-5">
                                                 <input wire:model="filters.type"
