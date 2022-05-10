@@ -57,8 +57,12 @@ class FacebookLoginController extends Controller
 
         auth()->login($user);
 
-        $home = session('url.intended') ?? '/';
+        if($user->accepted_terms === 1){
+            $home = session('url.intended') ?? '/';
 
-        return redirect()->intended($home);
+            return redirect()->intended($home);
+        }else{
+            return redirect()->route('terms.show');
+        }
     }
 }

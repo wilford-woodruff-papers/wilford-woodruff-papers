@@ -69,7 +69,9 @@ Route::get('/quotes/page/{page}', [\App\Http\Controllers\QuoteController::class,
 Route::get('/themes/page/{page}', [\App\Http\Controllers\ThemeController::class, 'index'])->name('themes.page.show');
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
+    return (\Illuminate\Support\Facades\Auth::user()->hasAnyRole(['Super Admin']))
+        ? view('dashboard')
+        : redirect(route('home'));
 })->name('dashboard');
 
 Route::prefix('filemanager')->middleware('web', 'auth')->group(function () {
@@ -80,6 +82,9 @@ Route::get('login/google', [\App\Http\Controllers\Auth\GoogleLoginController::cl
 Route::get('login/google/callback', [\App\Http\Controllers\Auth\GoogleLoginController::class, 'handleProviderCallback']);
 Route::get('login/facebook', [\App\Http\Controllers\Auth\FacebookLoginController::class, 'redirectToProvider'])->name('login.facebook');
 Route::get('login/facebook/callback', [\App\Http\Controllers\Auth\FacebookLoginController::class, 'handleProviderCallback']);
+
+Route::get('login/terms-of-use', [\App\Http\Controllers\Auth\AcceptTermsOfUseController::class, 'show'])->name('terms.show');
+Route::post('login/terms-of-use', [\App\Http\Controllers\Auth\AcceptTermsOfUseController::class, 'submit'])->name('terms.submit');
 
 
 /*Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
