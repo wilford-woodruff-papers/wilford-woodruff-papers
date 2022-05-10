@@ -48,8 +48,6 @@ class GoogleLoginController extends Controller
                 'email' => $googleUser->getEmail(),
                 'name' => $googleUser->getName(),
                 'password' => Hash::make(Str::uuid()),
-                'provider' => 'google',
-                'provider_id' => $googleUser->getId(),
             ]
         );
 
