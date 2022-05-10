@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -46,6 +47,7 @@ class FacebookLoginController extends Controller
             [
                 'email' => $facebookUser->getEmail(),
                 'name' => $facebookUser->getName(),
+                'password' => Hash::make(Str::uuid()),
             ]
         );
 
