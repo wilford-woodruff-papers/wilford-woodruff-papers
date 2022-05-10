@@ -7,7 +7,7 @@
         </div>
     </div>
 
-    @if(app()->environment(['production']))
+    {{--@if(app()->environment(['production']))
         <div class="">
             <div class="max-w-7xl mx-auto grid grid-cols-12">
                 <div class="col-span-12 md:col-span-4 md:col-start-9">
@@ -27,9 +27,9 @@
                 </div>
             </div>
         </div>
-    @endif
+    @endif--}}
 
-    @if(app()->environment(['local','development']))
+    @if(app()->environment(['production','local','development']))
         <div class="-mt-24 md:-mt-30 xl:-mt-40">
             <x-top-announcements />
         </div>
@@ -39,7 +39,7 @@
         </div>
     @endif
 
-    @if(app()->environment(['local','development']))
+    @if(app()->environment(['production','local','development']))
         <x-article-preview-carousel />
     @endif
 
@@ -47,13 +47,16 @@
         <div class="">
             <x-home-page-buttons />
         </div>
+    @endif
+
+    @if(app()->environment(['production','local','development']))
 
         <div class="py-12">
             <x-home.video />
         </div>
     @endif
 
-    @if(app()->environment(['production']))
+    {{--@if(app()->environment(['production']))
         @if(! empty($article))
             <div class="bg-white">
                 <div class="max-w-7xl mx-auto pt-4 md:pt-4 px-12 pb-4 xl:pt-4 md:px-24 md:pb-8">
@@ -88,9 +91,9 @@
                 </div>
             </div>
         @endif
-    @endif
+    @endif--}}
 
-    @if(app()->environment(['production']))
+    {{--@if(app()->environment(['production']))
         <div class="bg-primary">
             <div class="max-w-7xl mx-auto pt-8 md:pt-16 px-12 pb-4 xl:pt-24 md:px-36 md:pb-8">
                 <div class="text-3xl md:text-4xl xl:text-5xl text-justify text-highlight pb-4 leading-10" style="font-family: 'Italianno', cursive;">
@@ -101,9 +104,9 @@
                 </div>
             </div>
         </div>
-    @endif
+    @endif--}}
 
-    @if(app()->environment(['local','development']))
+    @if(app()->environment(['production','local','development']))
         <x-home.book />
 
         <x-call-to-action />
@@ -111,7 +114,7 @@
         <x-home.purpose />
     @endif
 
-    @if(app()->environment(['production']))
+    {{--@if(app()->environment(['production']))
         <div class="mt-4 md:my-12">
             <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 xl:grid-cols-2 gap-2 px-4 md:px-12 md:gap-4 md:px-40">
                 <x-polaroid route="documents" image="img/home/documents.jpg" name="Documents" />
@@ -120,14 +123,14 @@
                 <x-polaroid route="timeline" image="img/home/historical-context.jpg" name="Timeline" />
             </div>
         </div>
-    @endif
+    @endif--}}
     {{--@push('styles')
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&family=Source+Serif+Pro&display=swap" rel="stylesheet">
     @endpush--}}
 
-    @if(app()->environment(['local','development']))
+    @if(app()->environment(['production','local','development']))
         <x-progress />
     @endif
 

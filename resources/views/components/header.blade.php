@@ -11,16 +11,9 @@
                 <div class="hidden md:flex space-x-10">
                     <a href="/" class="flex">
                         <span class="sr-only">{{ config('app.name', 'Laravel') }}</span>
-                        @if(app()->environment(['production']))
-                            <img class="h-10 md:h-20 xl:h-36 w-auto "
-                                 src="{{ asset('img/logo.png') }}"
-                                 alt="{{ config('app.name', 'Laravel') }}" />
-                        @endif
-                        @if(app()->environment(['local','development']))
-                            <img class="h-10 md:h-20 xl:h-36 w-auto "
-                                 src="{{ asset('img/image-logo.png') }}"
-                                 alt="{{ config('app.name', 'Laravel') }}" />
-                        @endif
+                        <img class="h-10 md:h-20 xl:h-36 w-auto "
+                             src="{{ asset('img/image-logo.png') }}"
+                             alt="{{ config('app.name', 'Laravel') }}" />
                     </a>
                 </div>
                 <!--<div class="flex items-center md:ml-12">-->
@@ -79,11 +72,6 @@
                                     </svg>
                                 </button>
                             </div>
-                            @if(app()->environment(['production']))
-                                <h1 class="font-serif text-2xl md:text-3xl xl:text-6xl font-medium text-highlight">
-                                    {{ config('app.name', 'Laravel') }}
-                                </h1>
-                            @endif
                         </div>
                     </div>
                 </div>
@@ -112,16 +100,9 @@
                         <div>
                             <a href="/" class="flex">
                                 <span class="sr-only">{{ config('app.name', 'Laravel') }}</span>
-                                @if(app()->environment(['production']))
-                                    <img class="h-10 md:h-36 w-auto "
-                                         src="{{ asset('img/logo.png') }}"
-                                         alt="{{ config('app.name', 'Laravel') }}" />
-                                @endif
-                                @if(app()->environment(['local','development']))
-                                    <img class="h-10 md:h-36 w-auto "
-                                         src="{{ asset('img/image-logo.png') }}"
-                                         alt="{{ config('app.name', 'Laravel') }}" />
-                                @endif
+                                <img class="h-10 md:h-36 w-auto "
+                                     src="{{ asset('img/image-logo.png') }}"
+                                     alt="{{ config('app.name', 'Laravel') }}" />
                             </a>
                         </div>
                         <div class="-mr-2">
@@ -145,6 +126,17 @@
                             <a href="{{ route('advanced-search') }}">Search</a>
                             <a href="{{ route('donate.online') }}">Donate</a>
                             <a href="{{ route('get-involved.index') }}">Get Involved</a>
+                            @auth()
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+
+                                    <a href="{{ route('logout') }}"
+                                                         onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                                        {{ __('Log Out') }}
+                                    </a>
+                                </form>
+                            @endauth()
                         </nav>
                     </div>
                 </div>
@@ -532,6 +524,18 @@
                            class="text-base font-medium text-primary md:text-white md:hover:text-highlight uppercase border-2 border-white md:hover:border-highlight rounded-md py-1 px-2"
                         >Donate</a>
                     </div>
+
+                    @auth()
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+
+                            <a href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                                {{ __('Log Out') }}
+                            </a>
+                        </form>
+                    @endauth()
 
                     <!--<div class="relative inline-block text-left">
 
