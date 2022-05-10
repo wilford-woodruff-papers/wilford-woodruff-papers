@@ -48,6 +48,8 @@ class FacebookLoginController extends Controller
                 'email' => $facebookUser->getEmail(),
                 'name' => $facebookUser->getName(),
                 'password' => Hash::make(Str::uuid()),
+                'provider' => 'facebook',
+                'provider_id' => $facebookUser->getId(),
             ]
         );
 
