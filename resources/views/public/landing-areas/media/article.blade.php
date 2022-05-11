@@ -1,8 +1,15 @@
 <div class="p-4">
-    <h2 class="text-xl font-medium py-2 mb-2 border-b border-gray-200">
-        {!! $press->title !!}
-    </h2>
-    <div class="">
+    <div class="border-b border-gray-200">
+        <h2 class="text-xl font-medium pt-2 pb-1">
+            {!! $press->title !!}
+        </h2>
+        {{--@if(! empty($press->subtitle))
+            <p class="text-base font-normal py-1 mb-2">
+                by {{ $press->subtitle }}
+            </p>
+        @endif--}}
+    </div>
+    <div class="py-2">
         @unless($press->external_link_only)
             @if(! empty($press->link))
                 <p class="text-center mb-2">
