@@ -16,6 +16,10 @@ mix.js('resources/js/app.js', 'public/js')
         require('tailwindcss'),
         require('autoprefixer'),
     ])
+    .postCss('resources/css/transcript.css', 'public/css', [
+        require('tailwindcss'),
+        require('autoprefixer'),
+    ])
     .version();
 
 /*if (mix.inProduction()) {
