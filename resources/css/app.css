@@ -78,6 +78,10 @@ nav.sub-menu ul {
     min-width: 10px;
 }
 
+#transcript br + br, #transcript td > br{
+    display: none;
+}
+
 .property h4 {
     @apply text-xl font-medium uppercase mt-2;
 }

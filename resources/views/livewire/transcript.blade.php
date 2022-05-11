@@ -104,8 +104,6 @@
         </div>
     </div>
 
-
-
     @push('scripts')
         <script src="{{ asset('js/text-annotator.min.js') }}"></script>
         <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
