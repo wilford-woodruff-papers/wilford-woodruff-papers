@@ -1,0 +1,43 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+h1 {
+    @apply font-serif;
+}
+
+br + br, td > br{
+    display: none;
+}
+
+date {
+    @apply font-semibold;
+}
+
+table {
+    @apply border-collapse border border-gray-500;
+}
+
+table th, table td {
+    @apply border border-gray-500 p-2;
+}
+
+.property h4 {
+    @apply text-xl font-medium uppercase mt-2;
+}
+
+.property .values {
+    @apply ml-2;
+}
+
+.property .values .value a{
+    @apply text-secondary hover:underline !important;
+}
+
+.property .values .value p, .property p{
+    @apply mt-4 !important;
+}
+
+.property .values .value .unclear{
+    @apply italic;
+}
