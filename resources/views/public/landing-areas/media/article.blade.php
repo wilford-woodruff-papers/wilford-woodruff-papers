@@ -30,7 +30,9 @@
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen></iframe>
             @else
-                {!! $press->description !!}
+                <div class="content">
+                    {!! $press->description !!}
+                </div>
             @endif
         @else
             <a href="{{ $press->link }}"
