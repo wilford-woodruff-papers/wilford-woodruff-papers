@@ -130,7 +130,7 @@
                                                     </p>
                                                 </a>
                                             </div>
-                                            <div class="mt-3 flex items-center">
+                                            {{--<div class="mt-3 flex items-center">
                                                 <div class="ml-3">
                                                     <p class="text-sm font-medium text-gray-900">
                                                         {{ $media->subtitle }}
@@ -139,7 +139,7 @@
                                                         {{ $media->publisher }}
                                                     </p>
                                                 </div>
-                                            </div>
+                                            </div>--}}
                                         </div>
                                     </div>
                                     {{--<img class="mt-2 w-full" src="{{ \Illuminate\Support\Facades\Storage::disk('media')->url($media->cover_image)  }}" alt="{{ $media->title }}">--}}
@@ -298,7 +298,7 @@
                                                     </p>
                                                 </a>
                                             </div>
-                                            <div class="mt-6 flex items-center">
+                                            {{--<div class="mt-6 flex items-center">
                                                 <div class="flex-shrink-0">
                                                     <img class="h-10 w-10 rounded-full" src="{{ asset('img/logo.png') }}" alt="">
                                                 </div>
@@ -307,7 +307,7 @@
                                                         {{ $media->subtitle }}
                                                     </p>
                                                 </div>
-                                            </div>
+                                            </div>--}}
                                         </div>
                                     </div>
                                     {{--<img class="mt-2 w-full" src="{{ \Illuminate\Support\Facades\Storage::disk('media')->url($media->cover_image)  }}" alt="{{ $media->title }}">--}}

@@ -17,7 +17,7 @@
     <div class="flex-none fixed-bottom p-4 border-t border-gray-200">
         <div class="flex justify-between mb-4">
             <div>
-                <span class="text-xs font-medium text-gray-500">{{ $model->created_at->diffForHumans() }}</span>
+                <span class="text-xs font-medium text-gray-500">{{ $model->date->diffForHumans() }}</span>
             </div>
             <x-press.share :media="$model" :showCommentIcon="false"/>
         </div>
