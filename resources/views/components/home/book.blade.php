@@ -22,7 +22,7 @@
                 </div>
             </div>
             <div class="mt-12 lg:m-0 lg:col-span-2 lg:pl-8">
-                <div class="mx-auto max-w-md px-4 py-8 sm:max-w-2xl sm:px-6 lg:px-0 lg:py-20 lg:max-w-none">
+                <div class="mx-auto max-w-md px-4 py-8 sm:max-w-2xl sm:px-6 lg:px-0 md:py-12 xl:py-20 lg:max-w-none">
                     <blockquote>
                         <div>
                             <svg class="h-12 w-12 text-white opacity-25" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true">
@@ -39,16 +39,37 @@
                     </blockquote>
                 </div>
 
-                <div class="flex gap-x-6 mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 lg:px-0 lg:max-w-none">
-                    <x-links.hightlight href="https://www.amazon.com/Wilford-Woodruffs-Witness-Development-Doctrine/dp/0615835325" target="_blank">
-                        Print Book
-                    </x-links.hightlight>
-                    <x-links.hightlight href="#" target="_blank" onclick="javascript: return false;">
-                        eBook (Coming Soon)
-                    </x-links.hightlight>
-                    <x-links.hightlight href="#" target="_blank" onclick="javascript: return false;">
-                        Audiobook (Coming Soon)
-                    </x-links.hightlight>
+                <div class="flex flex-col md:flex-row gap-x-6 gap-y-2 md:gap-y-0 mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 lg:px-0">
+                    <div>
+                        <x-links.hightlight
+                            href="https://www.amazon.com/Wilford-Woodruffs-Witness-Development-Doctrine/dp/0615835325"
+                            target="_blank"
+                            class="flex justify-center"
+                        >
+                            Print Book
+                        </x-links.hightlight>
+                    </div>
+                    <div>
+                        <x-links.hightlight
+                            href="#"
+                            target="_blank"
+                            onclick="javascript: return false;"
+                            class="flex justify-center"
+                        >
+                            eBook (Coming Soon)
+                        </x-links.hightlight>
+                    </div>
+                    <div>
+                        <x-links.hightlight
+                            href="#"
+                            target="_blank"
+                            onclick="javascript: return false;"
+                            class="flex justify-center"
+                        >
+                            Audiobook (Coming Soon)
+                        </x-links.hightlight>
+                    </div>
+
                 </div>
             </div>
         </div>

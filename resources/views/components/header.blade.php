@@ -8,10 +8,10 @@
         <div class="justify-between items-center px-4 py-2 xl:py-6 sm:px-6 md:justify-start md:space-x-10">
             <!--<div class="relative max-w-7xl mx-auto flex justify-between items-center px-4 py-6 sm:px-6 md:justify-start md:space-x-10">-->
             <div class="md:flex-1 md:flex md:items-center md:justify-between">
-                <div class="hidden md:flex space-x-10">
+                <div class="md:flex md:space-x-10 mb-2 md:mb-0">
                     <a href="/" class="flex">
                         <span class="sr-only">{{ config('app.name', 'Laravel') }}</span>
-                        <img class="h-10 md:h-20 xl:h-36 w-auto "
+                        <img class="h-20 md:h-20 xl:h-36 mx-auto w-auto "
                              src="{{ asset('img/image-logo.png') }}"
                              alt="{{ config('app.name', 'Laravel') }}" />
                     </a>
