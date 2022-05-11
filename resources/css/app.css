@@ -135,7 +135,7 @@ input[class^="numeric-"], select[class^="numeric-"]{
 }
 
 .content p, .content div {
-    @apply my-2;
+    @apply my-4;
 }
 
 .content.videos iframe{
