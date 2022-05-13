@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Jobs\SendNewCommentNotification;
 use App\Models\Comment;
 use App\Models\Press;
 use Illuminate\Support\Facades\Auth;
@@ -33,13 +34,15 @@ class Comments extends Component
         $this->validate();
 
         $comment = new Comment;
-        $comment->comment = $this->comment;
+        $comment->comment = strip_tags($this->comment);
 
         $comment->user()->associate(Auth::user());
 
         $this->model->comments()->save($comment);
         $this->model->refresh();
         $this->comment = '';
+
+        new SendNewCommentNotification($comment);
     }
 
     public function login()
