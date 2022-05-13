@@ -44,7 +44,7 @@ class Comment extends Model
     protected static function booted()
     {
         static::created(function ($comment) {
-            new SendNewCommentNotification($comment);
+            SendNewCommentNotification::dispatch($comment);
         });
     }
 
