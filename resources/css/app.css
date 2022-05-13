@@ -185,7 +185,6 @@ input[class^="numeric-"], select[class^="numeric-"]{
     transition: all .5s;
 }
 
-
 .slick-dots li button:before {
     font-size: 10px !important;
 }
@@ -219,7 +218,11 @@ input[class^="numeric-"], select[class^="numeric-"]{
     background-color: #F5F5F5;
 }
 
-.press-modal .overflow-y-scroll::-webkit-scrollbar-thumb
-{
-    background-color: rgba(0,0,0,0.6);
+.press-modal .overflow-y-scroll::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.activity .user{
+    @apply font-medium text-gray-900;
+
 }

@@ -157,3 +157,27 @@ if(app()->environment('production')) {
 Route::get('/s/wilford-woodruff-papers/page/frequently-asked-questions', function () {
     return redirect()->route('about.frequently-asked-questions');
 });
+
+Route::middleware(['auth:sanctum', 'verified'])
+    ->get('/admin/dashboard/quotes', [\App\Http\Controllers\Admin\QuoteController::class, 'index'])
+    ->name('admin.dashboard.quotes.index');
+
+Route::middleware(['auth:sanctum', 'verified'])
+    ->get('/admin/dashboard/quotes/{quote}', [\App\Http\Controllers\Admin\QuoteController::class, 'show'])
+    ->name('admin.dashboard.quotes.show');
+
+Route::middleware(['auth:sanctum', 'verified'])
+    ->get('/admin/dashboard/document', [\App\Http\Controllers\Admin\DocumentController::class, 'index'])
+    ->name('admin.dashboard.document.index');
+
+Route::middleware(['auth:sanctum', 'verified'])
+    ->get('/admin/dashboard/document/{item}', [\App\Http\Controllers\Admin\DocumentController::class, 'show'])
+    ->name('admin.dashboard.document');
+
+Route::middleware(['auth:sanctum', 'verified'])
+    ->get('/admin/dashboard/document/{item}/page/{page}', [\App\Http\Controllers\Admin\PageController::class, 'show'])
+    ->name('admin.dashboard.page');
+
+Route::middleware(['auth:sanctum', 'verified'])
+    ->get('/admin/dashboard', \App\Http\Controllers\Admin\DashboardController::class)
+    ->name('admin.dashboard');
