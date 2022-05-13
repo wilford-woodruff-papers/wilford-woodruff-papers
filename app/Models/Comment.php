@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Jobs\SendNewCommentNotification;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -35,4 +36,19 @@ class Comment extends Model
         Like::class,
     ];
 
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::created(function ($comment) {
+            new SendNewCommentNotification($comment);
+        });
+    }
+
 }
+
+
+
