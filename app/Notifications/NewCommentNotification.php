@@ -45,7 +45,7 @@ class NewCommentNotification extends Notification implements ShouldQueue
     {
         return (new MailMessage)
                     ->line('Please login and approve/deny this new comment:')
-                    ->action('Notification Action', url('/nova/resources/comments/'.$this->comment->id))
+                    ->action('View Comment', url('/nova/resources/comments/'.$this->comment->id))
                     ->line('Thank you!');
     }
 
