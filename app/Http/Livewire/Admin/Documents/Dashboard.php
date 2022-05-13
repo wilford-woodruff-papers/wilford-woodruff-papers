@@ -6,7 +6,9 @@ use App\Http\Livewire\DataTable\WithBulkActions;
 use App\Http\Livewire\DataTable\WithCachedRows;
 use App\Http\Livewire\DataTable\WithPerPagePagination;
 use App\Http\Livewire\DataTable\WithSorting;
+use App\Models\Action;
 use App\Models\Item;
+use App\Models\TargetPublishDate;
 use Livewire\Component;
 
 class Dashboard extends Component
@@ -19,10 +21,14 @@ class Dashboard extends Component
 
     public $showFilters = false;
 
+    public $targetDates = [];
+
     public $filters = [
         'search' => '',
         'status' => '',
         'type' => '',
+        'date-min' => '',
+        'date-max' => '',
     ];
 
     protected $queryString = ['sorts'];
@@ -30,7 +36,7 @@ class Dashboard extends Component
     protected $listeners = ['refreshQuotes' => '$refresh'];
 
     public function mount() {
-
+        $this->targetDates = TargetPublishDate::orderBy('publish_at', 'ASC')->get();
     }
 
     public function updatedFilters() {
@@ -89,5 +95,12 @@ class Dashboard extends Component
         return view('livewire.admin.documents.dashboard', [
             'items' => $this->rows,
         ]);
+    }
+
+    public function flagForPublication($itemId, $dateId)
+    {
+        $item = Item::find($itemId);
+        $targetDate = TargetPublishDate::find($dateId);
+        $item->target_publish_dates()->syncWithoutDetaching($targetDate);
     }
 }

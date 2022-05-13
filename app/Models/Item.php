@@ -147,4 +147,10 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
     {
         return $this->morphMany(AdminComment::class, 'admincommentable');
     }
+
+    public function target_publish_dates()
+    {
+        return $this->belongsToMany(TargetPublishDate::class);
+    }
+
 }

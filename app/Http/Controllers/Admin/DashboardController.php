@@ -18,7 +18,7 @@ class DashboardController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $items = Item::query()
+        $assignedItems = Item::query()
                             ->with('pending_actions', 'pending_page_actions')
                             ->whereHas('pending_actions', function (Builder $query){
                                 $query->where('assigned_to', auth()->id())
@@ -31,7 +31,7 @@ class DashboardController extends Controller
                             ->get();
 
         return view('admin.dashboard', [
-            'items' => $items,
+
         ]);
     }
 }

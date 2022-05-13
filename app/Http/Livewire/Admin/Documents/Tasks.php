@@ -1,0 +1,48 @@
+<?php
+
+namespace App\Http\Livewire\Admin\Documents;
+
+use App\Models\Action;
+use App\Models\Item;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
+use Livewire\Component;
+
+class Tasks extends Component
+{
+    public function render()
+    {
+        $assignedItems = Item::query()
+            ->with('pending_actions', 'pending_page_actions')
+            ->whereHas('pending_actions', function (Builder $query){
+                $query->where('assigned_to', auth()->id())
+                    ->whereNull('completed_at');
+            })
+            ->orWhereHas('pending_page_actions', function (Builder $query){
+                $query->where('assigned_to', auth()->id())
+                    ->whereNull('completed_at');
+            })
+            ->get();
+
+        $unassignedItems = Item::query()
+            ->has('target_publish_dates')
+            ->whereHas('actions', function (Builder $query) {
+                $query->whereNull('assigned_at')
+                    ->whereNull('completed_at');
+            })
+            ->get();
+
+        return view('livewire.admin.documents.tasks', [
+            'assignedItems' => $assignedItems,
+            'unassignedItems' => $unassignedItems,
+        ]);
+    }
+
+    public function claimItemAction($actionId)
+    {
+        $user = Auth::user();
+        $action = Action::find($actionId);
+        $action->assigned_at = now();
+        $user->tasks()->save($action);
+    }
+}

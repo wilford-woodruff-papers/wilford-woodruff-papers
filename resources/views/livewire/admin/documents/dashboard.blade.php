@@ -62,13 +62,13 @@
                     </div>
 
                     <div class="w-1/2 pl-2 space-y-4">
-                        <x-input.group inline for="filter-date-min" label="Minimum Date">
+                        {{--<x-input.group inline for="filter-date-min" label="Minimum Date">
                             <x-input.date wire:model="filters.date-min" id="filter-date-min" placeholder="MM/DD/YYYY" />
                         </x-input.group>
 
                         <x-input.group inline for="filter-date-max" label="Maximum Date">
                             <x-input.date wire:model="filters.date-max" id="filter-date-max" placeholder="MM/DD/YYYY" />
-                        </x-input.group>
+                        </x-input.group>--}}
 
                         <div class="flex justify-end">
                             <x-button.link wire:click="resetFilters" class="p-4">Reset Filters</x-button.link>
@@ -144,7 +144,16 @@
                             </x-admin.quotes.cell>
 
                             <x-admin.quotes.cell>
-                                <x-icon.status :status="$item->enabled" />
+                                @if($item->enabled)
+                                    <x-icon.status :status="$item->enabled" />
+                                @else
+                                    @foreach($targetDates as $targetDate)
+                                        <button wire:click="flagForPublication({{ $item->id }}, {{ $targetDate->id }})">
+                                            {{ $targetDate->publish_at->toFormattedDateString() }}
+                                        </button>
+                                    @endforeach
+                                @endif
+
                             </x-admin.quotes.cell>
 
                             <x-admin.quotes.cell>
