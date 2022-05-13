@@ -41,6 +41,8 @@ class Comments extends Component
         $this->model->comments()->save($comment);
         $this->model->refresh();
         $this->comment = '';
+
+        new SendNewCommentNotification($comment);
     }
 
     public function login()
