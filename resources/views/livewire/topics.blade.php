@@ -7,8 +7,8 @@
                        type="search"
                        name="q"
                        value=""
-                       placeholder="Search Places"
-                       aria-label="Search Places"
+                       placeholder="Search Topics"
+                       aria-label="Search Topics"
                 >
             </form>
         </div>
