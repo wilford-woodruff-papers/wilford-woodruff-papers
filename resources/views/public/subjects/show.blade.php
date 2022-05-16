@@ -11,6 +11,30 @@
                         <p>
                             {!! $subject->bio !!}
                         </p>
+                        @if(! empty($subject->subject_id))
+                            <ul class="ml-1 flex flex-col gap-y-1">
+                                <li>
+                                    <a class="text-secondary popup"
+                                       href="{{ route('subjects.show', ['subject' => $subject->parent])  }}"
+                                    >
+                                        {{ str($subject->parent->name)->title() }}
+                                    </a>
+                                </li>
+                            </ul>
+                        @endif
+                        @if($subject->children->count() > 0)
+                            <ul class="ml-1 flex flex-col gap-y-1">
+                                @foreach($subject->children->sortBy('name') as $subTopic)
+                                    <li>
+                                        <a class="text-secondary popup"
+                                           href="{{ route('subjects.show', ['subject' => $subTopic])  }}"
+                                        >
+                                            {{ str($subTopic->name)->title() }}
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        @endif
                         @if(! empty($subject->geolocation))
                             <img src="{{ $subject->mapUrl() }}"
                                  alt=""
@@ -50,4 +74,16 @@
             </div>
         </div>
     </div>
+    @push('styles')
+        <style>
+            .content ul {
+                list-style-type: none;
+            }
+            .content ul li:before {
+                content: '\2014';
+                position: absolute;
+                margin-left: -20px;
+            }
+        </style>
+    @endpush
 </x-guest-layout>
