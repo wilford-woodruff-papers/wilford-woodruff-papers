@@ -14,7 +14,8 @@
                             </thead>
                             <tbody class="divide-y divide-gray-200 bg-white">
                             @foreach($assignedItems as $item)
-                                <tr class="border-t border-gray-200">
+                                <tr id="assigned_item_{{ $item->id }}"
+                                    class="border-t border-gray-200">
                                     <th colspan="2" scope="colgroup" class="bg-gray-50 px-4 py-2 text-left text-sm font-semibold text-gray-900 sm:px-6">
                                         <a href="{{ route('admin.dashboard.document', ['item' => $item]) }}"
                                            class="font-medium text-indigo-600 capitalize"
@@ -28,7 +29,8 @@
                                 </tr>
                                 @forelse($item->pending_page_actions->groupBy('actionable_id') as $pageActions)
                                     <tr class="border-t border-gray-300">
-                                        <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-12">
+                                        <td id="assigned_page_{{ $pageActions->first()->actionable->id }}"
+                                            class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-12">
                                             <a href="{{ route('admin.dashboard.page', ['item' => $item, 'page' => $pageActions->first()->actionable]) }}"
                                                class="font-medium text-indigo-600 capitalize"
                                             >
@@ -69,7 +71,8 @@
                             </thead>
                             <tbody class="divide-y divide-gray-200 bg-white">
                             @foreach($unassignedItems as $item)
-                                <tr class="border-t border-gray-200">
+                                <tr id="unassigned_item_{{ $item->id }}"
+                                    class="border-t border-gray-200">
                                     <th colspan="2" scope="colgroup" class="bg-gray-50 px-4 py-2 text-left text-sm font-semibold text-gray-900 sm:px-6">
                                         <a href="{{ route('admin.dashboard.document', ['item' => $item]) }}"
                                            class="font-medium text-indigo-600 capitalize"
@@ -78,15 +81,17 @@
                                         </a>
                                     </th>
                                     <th class="bg-gray-50 px-4 py-2 text-left text-sm font-semibold text-gray-900 sm:px-6">
-                                        @foreach($item->actions as $action)
-                                            <button wire:click="claimItemAction({{ $item->id }}, {{ $action->id }})">
+                                        @foreach($item->unassigned_actions as $action)
+                                            <button wire:click="claimItemAction({{ $action->id }})"
+                                                    class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 whitespace-nowrap">
                                                 {{ $action->description }}
                                             </button>
                                         @endforeach
                                     </th>
                                 </tr>
-                                @forelse($item->pending_page_actions->groupBy('actionable_id') as $pageActions)
-                                    <tr class="border-t border-gray-300">
+                                {{--@forelse($item->pending_page_actions->groupBy('actionable_id') as $pageActions)
+                                    <tr id="page_action_{{ $item->id }}"
+                                        class="border-t border-gray-300">
                                         <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-12">
                                             <a href="{{ route('admin.dashboard.page', ['item' => $item, 'page' => $pageActions->first()->actionable]) }}"
                                                class="font-medium text-indigo-600 capitalize"
@@ -103,7 +108,7 @@
                                     </tr>
                                 @empty
 
-                                @endforelse
+                                @endforelse--}}
                             @endforeach
                             </tbody>
                         </table>

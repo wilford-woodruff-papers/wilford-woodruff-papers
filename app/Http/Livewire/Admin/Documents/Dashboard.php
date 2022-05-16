@@ -7,6 +7,7 @@ use App\Http\Livewire\DataTable\WithCachedRows;
 use App\Http\Livewire\DataTable\WithPerPagePagination;
 use App\Http\Livewire\DataTable\WithSorting;
 use App\Models\Action;
+use App\Models\ActionTypes;
 use App\Models\Item;
 use App\Models\TargetPublishDate;
 use Livewire\Component;
@@ -23,6 +24,8 @@ class Dashboard extends Component
 
     public $targetDates = [];
 
+    public $taskTypes= [];
+
     public $filters = [
         'search' => '',
         'status' => '',
@@ -36,7 +39,13 @@ class Dashboard extends Component
     protected $listeners = ['refreshQuotes' => '$refresh'];
 
     public function mount() {
-        $this->targetDates = TargetPublishDate::orderBy('publish_at', 'ASC')->get();
+        $this->targetDates = TargetPublishDate::query()
+            ->where('publish_at', '>', now())
+            ->orderBy('publish_at', 'ASC')
+            ->limit(3)
+            ->get();
+
+        $this->taskTypes = ActionTypes::orderBy('name')->get();
     }
 
     public function updatedFilters() {
@@ -101,6 +110,15 @@ class Dashboard extends Component
     {
         $item = Item::find($itemId);
         $targetDate = TargetPublishDate::find($dateId);
-        $item->target_publish_dates()->syncWithoutDetaching($targetDate);
+        $item->target_publish_dates()->toggle($targetDate);
+    }
+
+    public function addTasks($itemId, $taskTypeId)
+    {
+        $item = Item::find($itemId);
+        $actionType = ActionTypes::find($taskTypeId);
+        $item->actions()->create([
+            'description' => $actionType->name,
+        ]);
     }
 }

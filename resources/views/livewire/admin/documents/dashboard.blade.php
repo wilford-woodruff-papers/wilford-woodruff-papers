@@ -80,6 +80,7 @@
         <div class="space-y-4">
             <x-admin.quotes.table>
                 <x-slot name="head">
+                    <x-admin.quotes.heading></x-admin.quotes.heading>
                     <x-admin.quotes.heading class="pr-0 w-8">
                         <x-input.checkbox wire:model="selectPage" />
                     </x-admin.quotes.heading>
@@ -87,8 +88,10 @@
                     <x-admin.quotes.heading sortable multi-column wire:click="sortBy('amount')" :direction="$sorts['amount'] ?? null"></x-admin.quotes.heading>
                     <x-admin.quotes.heading sortable multi-column wire:click="sortBy('status')" :direction="$sorts['status'] ?? null"></x-admin.quotes.heading>
                     <x-admin.quotes.heading sortable multi-column wire:click="sortBy('date')" :direction="$sorts['date'] ?? null"></x-admin.quotes.heading>
-                    <x-admin.quotes.heading>Published</x-admin.quotes.heading>
+
                     <x-admin.quotes.heading />
+                    <x-admin.quotes.heading />
+                    {{--<x-admin.quotes.heading />--}}
                 </x-slot>
 
                 <x-slot name="body">
@@ -101,7 +104,7 @@
                                         <x-button.link wire:click="selectAll" class="ml-1 text-blue-600">Select All</x-button.link>
                                     </div>
                                 @else
-                                    <span>You are currently selecting all <strong>{{ $items->total() }}</strong> quotes.</span>
+                                    <span>You are currently selecting all <strong>{{ $items->total() }}</strong> items.</span>
                                 @endif
                             </x-admin.quotes.cell>
                         </x-admin.quotes.row>
@@ -109,6 +112,10 @@
 
                     @forelse ($items as $item)
                         <x-admin.quotes.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $item->id }}">
+                            <x-admin.quotes.cell>
+                                <x-icon.status :status="$item->enabled" />
+                            </x-admin.quotes.cell>
+
                             <x-admin.quotes.cell class="pr-0">
                                 <x-input.checkbox wire:model="selected" value="{{ $item->id }}" />
                             </x-admin.quotes.cell>
@@ -144,24 +151,36 @@
                             </x-admin.quotes.cell>
 
                             <x-admin.quotes.cell>
-                                @if($item->enabled)
-                                    <x-icon.status :status="$item->enabled" />
-                                @else
-                                    @foreach($targetDates as $targetDate)
-                                        <button wire:click="flagForPublication({{ $item->id }}, {{ $targetDate->id }})">
-                                            {{ $targetDate->publish_at->toFormattedDateString() }}
-                                        </button>
-                                    @endforeach
-                                @endif
-
+                                <div class="grid grid-flow-col auto-cols-max items-center gap-x-4">
+                                    <div class="flex flex-col gap-y-2">
+                                        @foreach($targetDates as $targetDate)
+                                            <div>
+                                                <button wire:click="flagForPublication({{ $item->id }}, {{ $targetDate->id }})"
+                                                        class="flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded @if($item->target_publish_dates->contains($targetDate)) text-white bg-green-400 hover:bg-green-600 @else text-gray-700 bg-white hover:bg-gray-50 @endif focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 whitespace-nowrap">
+                                                    {{ $targetDate->publish_at->toFormattedDateString() }}
+                                                </button>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    <div class="flex gap-x-2">
+                                        @if($item->active_target_publish_date->count() > 0)
+                                            @foreach($taskTypes as $taskType)
+                                                <button wire:click="addTasks({{ $item->id }}, {{ $taskType->id }})"
+                                                        class="flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 whitespace-nowrap">
+                                                    {{ $taskType->name }}
+                                                </button>
+                                            @endforeach
+                                        @endif
+                                    </div>
+                                </div>
                             </x-admin.quotes.cell>
 
-                            <x-admin.quotes.cell>
-                                {{--<x-button.link wire:click="edit({{ $item->id }})">Edit</x-button.link>--}}
+                            {{--<x-admin.quotes.cell>
+                                --}}{{--<x-button.link wire:click="edit({{ $item->id }})">Edit</x-button.link>--}}{{--
                                 <a class="text-indigo-600"
                                    href="{{ route('admin.dashboard.document', ['item' => $item]) }}"
                                    target="_blank">View</a>
-                            </x-admin.quotes.cell>
+                            </x-admin.quotes.cell>--}}
                         </x-admin.quotes.row>
                     @empty
                         <x-admin.quotes.row>

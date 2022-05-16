@@ -41,8 +41,19 @@ class Tasks extends Component
     public function claimItemAction($actionId)
     {
         $user = Auth::user();
+
         $action = Action::find($actionId);
         $action->assigned_at = now();
         $user->tasks()->save($action);
+
+        $item = $action->actionable;
+        $item->pages->each(function($page) use ($user, $action){
+            $user->tasks()->save(Action::create([
+                'actionable_type' => get_class($page),
+                'actionable_id' => $page->id,
+                'description' => $action->description,
+                'assigned_at' => now(),
+            ]));
+        });
     }
 }

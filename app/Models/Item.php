@@ -7,6 +7,7 @@ use Dyrynda\Database\Support\GeneratesUuid;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Str;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Encoders\Base64Encoder;
@@ -130,17 +131,39 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
 
     public function pending_actions()
     {
-        return $this->morphMany(Action::class, 'actionable')->where('assigned_to', auth()->id())->whereNull('completed_at');
+        return $this->morphMany(Action::class, 'actionable')
+            ->where(
+                'actionable_type',
+                'App\Models\Item'
+            )->where('assigned_to', auth()->id())
+            ->whereNull('completed_at');
+    }
+
+    public function unassigned_actions()
+    {
+        return $this->morphMany(Action::class, 'actionable')
+            ->whereNull('assigned_to')
+            ->whereNull('completed_at');
     }
 
     public function page_actions()
     {
-        return $this->hasManyThrough(Action::class, Page::class, 'item_id', 'actionable_id');
+        return $this->hasManyThrough(Action::class, Page::class, 'item_id', 'actionable_id')
+            ->where(
+                'actionable_type',
+                'App\Models\Page'
+            );
     }
 
     public function pending_page_actions()
     {
-        return $this->hasManyThrough(Action::class, Page::class, 'item_id', 'actionable_id')->where('assigned_to', auth()->id())->whereNull('completed_at');
+        return $this->hasManyThrough(Action::class, Page::class, 'item_id', 'actionable_id')
+            ->where(
+                'actionable_type',
+                'App\Models\Page'
+            )
+            ->where('assigned_to', auth()->id())
+            ->whereNull('completed_at');
     }
 
     public function admin_comments()
@@ -151,6 +174,12 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
     public function target_publish_dates()
     {
         return $this->belongsToMany(TargetPublishDate::class);
+    }
+
+    public function active_target_publish_date()
+    {
+        return $this->belongsToMany(TargetPublishDate::class)
+            ->where('publish_at', '>', now());
     }
 
 }

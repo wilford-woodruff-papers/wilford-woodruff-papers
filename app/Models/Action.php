@@ -9,6 +9,8 @@ class Action extends Model
 {
     use HasFactory;
 
+    protected $guarded = ['id'];
+
     protected $dates = [
         'assigned_at',
         'completed_at',
