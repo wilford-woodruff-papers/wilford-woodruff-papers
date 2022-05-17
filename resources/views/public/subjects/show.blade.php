@@ -17,7 +17,7 @@
                                     <a class="text-secondary popup"
                                        href="{{ route('subjects.show', ['subject' => $subject->parent])  }}"
                                     >
-                                        {{ str($subject->parent->name)->title() }}
+                                        {{ $subject->parent->name }}
                                     </a>
                                 </li>
                             </ul>

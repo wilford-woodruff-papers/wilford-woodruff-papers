@@ -32,7 +32,7 @@
                     <a class="text-secondary popup"
                        href="{{ route('subjects.show', ['subject' => $topic])  }}"
                     >
-                        {{ str($topic->name)->title() }}
+                        {{ $topic->name }}
                     </a>
                     @if($topic->children->count() > 0)
                         <ul class="ml-1 flex flex-col gap-y-1">
@@ -41,7 +41,7 @@
                                     <a class="text-secondary popup"
                                        href="{{ route('subjects.show', ['subject' => $subTopic])  }}"
                                     >
-                                        {{ str($subTopic->name)->title() }}
+                                        {{ $subTopic->name }}
                                     </a>
                                 </li>
                             @endforeach
