@@ -26,7 +26,7 @@ class SubjectController extends Controller
         return view('public.subjects.show', [
             'subject' => $subject,
             'pages' => Page::whereHas('subjects', function (Builder $query) use ($subject) {
-                $query->where('id', $subject->id);
+                $query->where('id', $subject->id); // TODO: Also show pages for all child topics
             })->paginate(10),
         ]);
     }
