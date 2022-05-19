@@ -51,9 +51,28 @@ class Tasks extends Component
             $user->tasks()->save(Action::create([
                 'actionable_type' => get_class($page),
                 'actionable_id' => $page->id,
-                'description' => $action->description,
+                'action_type_id' => $action->action_type_id,
                 'assigned_at' => now(),
             ]));
         });
+    }
+
+    public function markActionComplete($actionId)
+    {
+        $user = Auth::user();
+
+        $action = Action::find($actionId);
+        $action->completed_at = now();
+        $action->completed_by = $user->id;
+        $action->save();
+
+        if($action->actionable_type == Item::class){
+            $item = $action->actionable;
+            $item->pending_page_actions->where('action_type_id', $action->action_type_id)->each(function($action) use ($user){
+                $action->completed_at = now();
+                $action->completed_by = $user->id;
+                $action->save();
+            });
+        }
     }
 }

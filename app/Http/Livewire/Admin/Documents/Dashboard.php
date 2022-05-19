@@ -7,7 +7,7 @@ use App\Http\Livewire\DataTable\WithCachedRows;
 use App\Http\Livewire\DataTable\WithPerPagePagination;
 use App\Http\Livewire\DataTable\WithSorting;
 use App\Models\Action;
-use App\Models\ActionTypes;
+use App\Models\ActionType;
 use App\Models\Item;
 use App\Models\TargetPublishDate;
 use Livewire\Component;
@@ -45,7 +45,7 @@ class Dashboard extends Component
             ->limit(3)
             ->get();
 
-        $this->taskTypes = ActionTypes::orderBy('name')->get();
+        $this->taskTypes = ActionType::orderBy('name')->get();
     }
 
     public function updatedFilters() {
@@ -116,9 +116,9 @@ class Dashboard extends Component
     public function addTasks($itemId, $taskTypeId)
     {
         $item = Item::find($itemId);
-        $actionType = ActionTypes::find($taskTypeId);
+        $actionType = ActionType::find($taskTypeId);
         $item->actions()->create([
-            'description' => $actionType->name,
+            'action_type_id' => $actionType->id,
         ]);
     }
 }

@@ -1,6 +1,6 @@
 <tr>
     <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-        {{ $action->description }}
+        {{ $action->type->name }}
     </td>
 
     <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6">

@@ -21,6 +21,11 @@ class Action extends Model
         return $this->morphTo();
     }
 
+    public function type()
+    {
+        return $this->belongsTo(ActionType::class, 'action_type_id');
+    }
+
     public function assignee()
     {
         return $this->belongsTo(User::class, 'assigned_to');

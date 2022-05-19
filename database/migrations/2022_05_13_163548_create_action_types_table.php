@@ -20,13 +20,13 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        \App\Models\ActionTypes::create([
+        \App\Models\ActionType::create([
             'name' => 'Transcription',
         ]);
-        \App\Models\ActionTypes::create([
+        \App\Models\ActionType::create([
             'name' => 'Stylization',
         ]);
-        \App\Models\ActionTypes::create([
+        \App\Models\ActionType::create([
             'name' => 'Topic Tagging',
         ]);
     }
