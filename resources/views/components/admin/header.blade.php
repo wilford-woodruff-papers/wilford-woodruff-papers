@@ -11,6 +11,7 @@
                     <a href="{{ route('admin.dashboard') }}" class="px-3 py-2 @if(Route::currentRouteName() == 'admin.dashboard') text-indigo-600 @else text-gray-900 @endif text-sm font-medium"> Dashboard </a>
                     <a href="{{ route('admin.dashboard.document.index') }}" class="px-3 py-2  @if(Route::currentRouteName() == 'admin.dashboard.document.index') text-indigo-600 @else text-gray-900 @endif text-sm font-medium"> Documents </a>
                     <a href="{{ route('admin.dashboard.quotes.index') }}" class="px-3 py-2  @if(Route::currentRouteName() == 'admin.dashboard.quotes.index') text-indigo-600 @else text-gray-900 @endif text-sm font-medium"> Quotes </a>
+                    <x-admin.menu.dropdown :text="'ADMIN'" :links="['Target Dates' => route('admin.dashboard.target-publish-dates.index')]"/>
                 </nav>
             </div>
             <div class="flex-1 flex items-center justify-center px-2 lg:ml-6 lg:justify-end">

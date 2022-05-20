@@ -11,6 +11,10 @@ class TargetPublishDate extends Model
 
     protected $dates = ['publish_at'];
 
+    protected $casts = [
+        'publish_at' => 'datetime:Y-m-d',
+    ];
+
     protected $guarded = ['id'];
 
     public function items()

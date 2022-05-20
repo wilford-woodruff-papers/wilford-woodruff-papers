@@ -181,3 +181,7 @@ Route::middleware(['auth:sanctum', 'verified'])
 Route::middleware(['auth:sanctum', 'verified'])
     ->get('/admin/dashboard', \App\Http\Controllers\Admin\DashboardController::class)
     ->name('admin.dashboard');
+
+Route::middleware(['auth:sanctum', 'verified'])
+    ->get('/admin/dashboard/target-publish-dates', \App\Http\Livewire\Admin\TargetPublishDates::class)
+    ->name('admin.dashboard.target-publish-dates.index');
