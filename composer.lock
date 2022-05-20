@@ -13937,7 +13937,7 @@
         },
         {
             "name": "wwp/items",
-            "version": "dev-develop",
+            "version": "dev-feature/content_management",
             "dist": {
                 "type": "path",
                 "url": "./nova-components/Items",

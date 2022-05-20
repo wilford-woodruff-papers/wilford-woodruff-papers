@@ -4,10 +4,16 @@
 
         <div class="">
 
+
+
             <livewire:admin.documents.tasks />
 
         </div>
 
     </div>
+
+    @push('scripts')
+
+    @endpush
 
 </x-admin-layout>
