@@ -58,7 +58,7 @@
 
     <div class="mt-2 flex px-6 pb-4">
         <span class="inline-flex items-center text-sm gap-x-4">
-            <span class="text-xs font-medium text-gray-400">{{ $media->date->diffForHumans() }}</span>
+            {{--<span class="text-xs font-medium text-gray-400">{{ $media->date->diffForHumans() }}</span>--}}
             {{--@if(($count = \Maize\Markable\Models\Like::count($comment)) > 0)
                 <span class="text-xs font-medium text-gray-400">{{ $count }} {{ str('Like')->plural($count) }}</span>
             @endif
