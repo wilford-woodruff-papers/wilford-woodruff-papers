@@ -15,6 +15,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command('import:instagram')
+                 ->everyFourHours();
+
         $schedule->command('import:items')
                  ->dailyAt('1:00 AM')
                  ->timezone('America/Denver')
@@ -66,6 +69,10 @@ class Kernel extends ConsoleKernel
                 ->timezone('America/Denver')
                 ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org')
                 ->pingOnSuccess('http://beats.envoyer.io/heartbeat/gy8BXgNsc8HoO7e');
+
+        $schedule->command('instagram-feed:refresh-tokens')
+                ->lastDayOfMonth()
+                ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org');
     }
 
     /**

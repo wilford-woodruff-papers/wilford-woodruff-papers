@@ -54,6 +54,10 @@ class BoardMember extends Resource
             Text::make(__('Title'), 'title')->sortable(),
             Textarea::make(__('Bio'), 'bio')->alwaysShow(),
             File::make(__('Picture'), 'image')->disk('board_members'),
+            Text::make('Youtube Link', 'video_link')
+                ->required(false)
+                ->hideFromIndex()
+                ->help('Paste the YouTube URL in this box (not the embed code).'),
         ];
     }
 

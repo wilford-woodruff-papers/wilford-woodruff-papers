@@ -6,8 +6,10 @@
                     <div class="col-span-12 md:col-span-3 px-2 py-16">
                         <x-submenu area="Media"/>
                     </div>
-                    <div class="content col-span-12 md:col-span-9">
-                        <h2>Articles</h2>
+                    <div class="col-span-12 md:col-span-9">
+                        <div class="content">
+                            <h2>Articles</h2>
+                        </div>
 
                         <div class="mt-4 grid gap-16 lg:grid-cols-1 lg:gap-y-12">
 
@@ -20,9 +22,14 @@
                                     <a href="{{ $article->url() }}" class="mt-2 block"
                                         @if(! empty($article->link)) target="_blank" @endif
                                     >
-                                        <p class="text-xl font-semibold text-primary">
+                                        <h3 class="text-xl font-semibold text-primary">
                                             {{ $article->title }}
-                                        </p>
+                                        </h3>
+                                        @if(! empty($article->subtitle))
+                                            <span class="text-base font-normal text-primary">
+                                                by {{ $article->subtitle }}
+                                            </span>
+                                        @endif
                                         <p class="mt-3 text-base text-gray-500">
                                             @if(! empty($article->excerpt))
                                                 {!! $article->excerpt !!}

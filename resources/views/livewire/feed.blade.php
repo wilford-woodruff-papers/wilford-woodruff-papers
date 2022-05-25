@@ -88,7 +88,7 @@
                             <div class="border-t border-gray-400 px-2 pb-4">
                                 <fieldset class="space-y-4">
                                     <legend class="sr-only">Types</legend>
-                                    @foreach(['Article', 'News', 'Podcast', 'Video'] as $type)
+                                    @foreach(['Article', 'News', 'Podcast', 'Instagram', 'Video'] as $type)
                                         <div class="relative flex items-start">
                                             <div class="flex items-center h-5">
                                                 <input wire:model="filters.type"
@@ -137,7 +137,7 @@
                                      src="{{ \Illuminate\Support\Facades\Storage::disk('media')->url($media->cover_image)  }}"
                                      alt="{{ $media->title }}">--}}
                                 <div class="image-parent relative h-128 w-full overflow-hidden inline-block flex items-center bg-primary-50">
-                                    <div class="image-child absolute h-full w-full z-10 bg-cover bg-center z-0" style="background-image: url({{ \Illuminate\Support\Facades\Storage::disk('media')->url($media->cover_image)  }})">
+                                    <div class="image-child absolute h-full w-full z-10 bg-cover bg-center z-0" style="background-image: url({{ ($media->type == 'Instagram' ? $media->cover_image : \Illuminate\Support\Facades\Storage::disk('media')->url($media->cover_image)) }})">
 
                                     </div>
                                     <div class="w-full py-3 z-10 text-secondary text-xl font-medium bg-white-80 uppercase flex flex-row items-center justify-center">
@@ -175,7 +175,11 @@
                                 </div>
                                 {{--<a href="{{ route('media.'.Str::of($media->type)->lower(), $media->slug) }}" class="block mt-2">--}}
                                     <p class="text-lg font-semibold text-gray-900">
-                                        {{ Str::of($media->title)->limit(75, '...') }}
+                                        @if($media->type == 'Instagram')
+                                            {{ Str::of($media->excerpt)->limit(75, '...') }}
+                                        @else
+                                            {{ Str::of($media->title)->limit(75, '...') }}
+                                        @endif
                                     </p>
                                 {{--</a>--}}
                             @if($media->external_link_only)
@@ -228,14 +232,20 @@
                                 {{--<a href="{{ route('landing-areas.ponder.press', $article->slug) }}">--}}
                                     <div class="relative bg-white px-2 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-secondary">
                                         <div class="flex-shrink-0 h-14 w-14 bg-cover bg-center"
-                                             style="background-image: url({{ \Illuminate\Support\Facades\Storage::disk('media')->url($article->cover_image)  }})"
+                                             style="background-image: url({{ ($article->type == 'Instagram' ? $article->cover_image : \Illuminate\Support\Facades\Storage::disk('media')->url($article->cover_image))  }})"
                                         >
 
                                         </div>
                                         <div class="flex-1 min-w-0">
                                             <span class="absolute inset-0" aria-hidden="true"></span>
                                             <p class="text-sm font-medium text-secondary">{{ $article->type }}</p>
-                                            <p class="text-base font-medium text-gray-900">{{ Str::of($article->title)->limit(52, '...') }}</p>
+                                            <p class="text-base font-medium text-gray-900">
+                                                @if($article->type == 'Instagram')
+                                                    {{ Str::of($article->excerpt)->limit(52, '...') }}
+                                                @else
+                                                    {{ Str::of($article->title)->limit(52, '...') }}
+                                                @endif
+                                            </p>
                                         </div>
                                     </div>
                                 {{--</a>--}}
@@ -250,7 +260,12 @@
             @endif
         </div>
     </div>
+    @push('styles')
+        <link href="https://vjs.zencdn.net/7.19.2/video-js.css" rel="stylesheet" />
+    @endpush
     @push('scripts')
+        <script src="https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.js"></script>
+        <script src="https://vjs.zencdn.net/7.19.2/video.min.js"></script>
         @if($showPress)
             <script>
                 Livewire.emit( 'openModal', 'press-modal', {"press": '{{ $showPress }}' });

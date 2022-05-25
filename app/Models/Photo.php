@@ -10,11 +10,13 @@ use OwenIt\Auditing\Encoders\Base64Encoder;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\Tags\HasTags;
 
 class Photo extends Model implements HasMedia
 {
     use GeneratesUuid;
     use HasFactory;
+    use HasTags;
     use InteractsWithMedia;
 
     protected $guarded = ['id'];

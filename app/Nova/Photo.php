@@ -11,6 +11,7 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\MorphToMany;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Spatie\TagsField\Tags;
 
 class Photo extends Resource
 {
@@ -71,6 +72,10 @@ class Photo extends Resource
                 ->hideFromIndex(),
             Text::make(__('Notes'), 'notes')
                 ->hideFromIndex(),
+            Tags::make('Category', 'tags')
+                ->type('photos')
+                ->withMeta(['placeholder' => 'Add categories...'])
+                ->help('Type a category and hit \'Enter\' to add it. Existing tags will appear below the box as you type and can be clicked to add.'),
             MorphToMany::make(__('Events')),
         ];
     }
