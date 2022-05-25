@@ -15,6 +15,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command('import:instagram')
+                 ->everyFourHours();
+
         $schedule->command('import:items')
                  ->dailyAt('1:00 AM')
                  ->timezone('America/Denver')

@@ -40,6 +40,11 @@ class Press extends Model implements HasMedia
                         ->orderBy('created_at', 'DESC');
     }
 
+    public function authors()
+    {
+        return $this->belongsToMany(Author::class);
+    }
+
     /**
      * Get the options for generating the slug.
      */
@@ -65,6 +70,6 @@ class Press extends Model implements HasMedia
         'News' => News::class,
         'Podcast' => Podcast::class,
         'Video' => Video::class,
-        'Social' => SocialMedia::class,
+        'Instagram' => SocialMedia::class,
     ];
 }

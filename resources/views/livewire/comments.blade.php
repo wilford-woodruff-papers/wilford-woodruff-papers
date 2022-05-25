@@ -8,6 +8,9 @@
     <div class="grow px-4 pb-4">
         <div class="mt-6 flow-root">
             <ul role="list" class="-my-4 divide-y divide-gray-200 px-2">
+                @if($model->type == 'Instagram')
+                    <x-comments.caption :media="$model"/>
+                @endif
                 @foreach($model->comments as $comment)
                     <x-comments.comment :comment="$comment"/>
                 @endforeach
