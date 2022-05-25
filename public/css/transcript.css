@@ -1270,6 +1270,10 @@ select {
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
+.my-3 {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
 .ml-3 {
   margin-left: 0.75rem;
 }
@@ -2346,6 +2350,9 @@ select {
 }
 .p-0 {
   padding: 0px;
+}
+.p-8 {
+  padding: 2rem;
 }
 .px-4 {
   padding-left: 1rem;

@@ -1905,16 +1905,16 @@
         },
         {
             "name": "dymantic/laravel-instagram-feed",
-            "version": "v3.1.1",
+            "version": "v3.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Dymantic/laravel-instagram-feed.git",
-                "reference": "b1d448cb5d34636ef1869bc96d829cf3353d55c2"
+                "reference": "070ef48145f54c7b3a3fcea62fb8ef475d7bc56b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Dymantic/laravel-instagram-feed/zipball/b1d448cb5d34636ef1869bc96d829cf3353d55c2",
-                "reference": "b1d448cb5d34636ef1869bc96d829cf3353d55c2",
+                "url": "https://api.github.com/repos/Dymantic/laravel-instagram-feed/zipball/070ef48145f54c7b3a3fcea62fb8ef475d7bc56b",
+                "reference": "070ef48145f54c7b3a3fcea62fb8ef475d7bc56b",
                 "shasum": ""
             },
             "require": {
@@ -1957,9 +1957,9 @@
             "description": "Fetches the instagram feed for given authenticated profiles",
             "support": {
                 "issues": "https://github.com/Dymantic/laravel-instagram-feed/issues",
-                "source": "https://github.com/Dymantic/laravel-instagram-feed/tree/v3.1.1"
+                "source": "https://github.com/Dymantic/laravel-instagram-feed/tree/v3.2.0"
             },
-            "time": "2022-02-10T11:07:04+00:00"
+            "time": "2022-05-24T00:41:32+00:00"
         },
         {
             "name": "dyrynda/laravel-efficient-uuid",
