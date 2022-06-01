@@ -90,6 +90,25 @@
                                 <img src="{{ $image['url'] }}"
                                      class=""
                                      alt="">
+                            @elseif($image['type'] == 'video')
+                                <video
+                                    id="my-video"
+                                    class="video-js"
+                                    controls
+                                    preload="auto"
+                                    poster="{{ $press->cover_image }}"
+                                    data-setup="{}"
+                                    style="width: 100%; height: 480px;"
+                                >
+                                    <source src="{{ $image['url'] }} }}" type="video/mp4" />
+                                    <p class="vjs-no-js">
+                                        To view this video please enable JavaScript, and consider upgrading to a
+                                        web browser that
+                                        <a href="https://videojs.com/html5-video-support/" target="_blank"
+                                        >supports HTML5 video</a
+                                        >
+                                    </p>
+                                </video>
                             @endif
                         </li>
                     @endforeach
