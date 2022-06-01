@@ -85,32 +85,13 @@
                     class="flex w-full overflow-x-scroll snap-x snap-mandatory"
                 >
                     @foreach($press->extra_attributes as $image)
-                        <li x-bind="disableNextAndPreviousButtons" class="snap-start w-full shrink-0 flex flex-col items-center justify-center p-2" role="option">
-                            @if($image['type'] == 'image')
+                        @if($image['type'] == 'image')
+                            <li x-bind="disableNextAndPreviousButtons" class="snap-start w-full shrink-0 flex flex-col items-center justify-center p-2" role="option">
                                 <img src="{{ $image['url'] }}"
                                      class=""
                                      alt="">
-                            @elseif($image['type'] == 'video')
-                                <video
-                                    id="my-video"
-                                    class="video-js"
-                                    controls
-                                    preload="auto"
-                                    poster="{{ $press->cover_image }}"
-                                    data-setup="{}"
-                                    style="width: 100%; height: 480px;"
-                                >
-                                    <source src="{{ $image['url'] }} }}" type="video/mp4" />
-                                    <p class="vjs-no-js">
-                                        To view this video please enable JavaScript, and consider upgrading to a
-                                        web browser that
-                                        <a href="https://videojs.com/html5-video-support/" target="_blank"
-                                        >supports HTML5 video</a
-                                        >
-                                    </p>
-                                </video>
-                            @endif
-                        </li>
+                            </li>
+                        @endif
                     @endforeach
                 </ul>
 
