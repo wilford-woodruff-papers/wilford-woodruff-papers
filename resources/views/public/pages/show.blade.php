@@ -125,11 +125,19 @@
                     Transcript
                 </h4>
                 <div class="font-serif metadata">
-                    @hasanyrole('Editor|Admin|Super Admin')
-                        <livewire:transcript :page="$page" />
+                    @if($page->is_blank)
+                        <div class="flex justify-center items-center">
+                            <div>
+                                This page is blank.
+                            </div>
+                        </div>
                     @else
-                        {!! $page->text() !!}
-                    @endhasanyrole
+                        @hasanyrole('Editor|Admin|Super Admin')
+                            <livewire:transcript :page="$page" />
+                        @else
+                            {!! $page->text() !!}
+                        @endhasanyrole
+                    @endif
                 </div>
             </div>
 
