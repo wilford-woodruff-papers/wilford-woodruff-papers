@@ -22,7 +22,7 @@ class IndexPageTopicsCommand extends Command
 
         foreach($topics as $topic){
             $pages = Page::where('transcript', 'LIKE', '%'. $topic->name .'%')->get();
-
+            $this->info($topic->name. ': '.$pages->count());
             foreach($pages as $page){
                 $page->subjects()->syncWithoutDetaching($topic->id);
             }
