@@ -24,12 +24,19 @@ class ArticlePreviewCarousel extends Component
      */
     public function render()
     {
+        $instagram = Press::select('id', 'type', 'title', 'cover_image', 'slug', 'date', 'subtitle', 'excerpt')
+                            ->where('type', 'Instagram')
+                            ->whereNotNull('cover_image')
+                            ->orderBy('date', 'DESC')
+                            ->first();
         return view('components.home.article-preview-carousel', [
             'medias' => Press::select('id', 'type', 'title', 'cover_image', 'slug', 'date', 'subtitle', 'excerpt')
+                                ->where('type', '!=', 'Instagram')
                                 ->whereNotNull('cover_image')
-                                ->limit(6)
+                                ->limit(5)
                                 ->orderBy('date', 'DESC')
-                                ->get(),
+                                ->get()
+                                ->prepend($instagram),
         ]);
     }
 }
