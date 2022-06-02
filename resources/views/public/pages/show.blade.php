@@ -126,7 +126,7 @@
                 </h4>
                 <div class="font-serif metadata">
                     @if($page->is_blank)
-                        <div class="flex justify-center items-center">
+                        <div class="flex justify-center items-center h-64">
                             <div>
                                 This page is blank.
                             </div>

@@ -235,9 +235,6 @@
                     </button>
                 </div>
             </div>
-            @push('scripts')
-                <script src="https://unpkg.com/smoothscroll-polyfill@0.4.4/dist/smoothscroll.js"></script>
-            @endpush
         </div>
         <div class="max-w-7xl mx-auto pb-4 md:pb-8 text-center">
             <x-links.primary href="{{ route('landing-areas.ponder') }}">
