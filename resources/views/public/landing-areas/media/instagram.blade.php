@@ -85,13 +85,13 @@
                     class="flex w-full overflow-x-scroll snap-x snap-mandatory"
                 >
                     @foreach($press->extra_attributes as $image)
-                        <li x-bind="disableNextAndPreviousButtons" class="snap-start w-full shrink-0 flex flex-col items-center justify-center p-2" role="option">
-                            @if($image['type'] == 'image')
+                        @if($image['type'] == 'image')
+                            <li x-bind="disableNextAndPreviousButtons" class="snap-start w-full shrink-0 flex flex-col items-center justify-center p-2" role="option">
                                 <img src="{{ $image['url'] }}"
                                      class=""
                                      alt="">
-                            @endif
-                        </li>
+                            </li>
+                        @endif
                     @endforeach
                 </ul>
 
