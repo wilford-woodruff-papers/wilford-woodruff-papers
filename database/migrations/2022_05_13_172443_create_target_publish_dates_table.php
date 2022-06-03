@@ -20,6 +20,7 @@ return new class extends Migration
         });
 
         Schema::create('item_target_publish_date', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('item_id')->constrained('items')->restrictOnDelete('cascade');
             $table->foreignId('target_publish_date_id')->constrained('target_publish_dates')->restrictOnDelete('cascade');
             $table->primary(['item_id', 'target_publish_date_id']);
