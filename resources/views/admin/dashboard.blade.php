@@ -4,9 +4,13 @@
 
         <div class="">
 
-
-
             <livewire:admin.documents.tasks />
+
+        </div>
+
+        <div class="my-8">
+
+            <livewire:admin.progress />
 
         </div>
 

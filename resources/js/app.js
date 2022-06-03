@@ -2,6 +2,7 @@ require('./bootstrap');
 
 import Alpine from 'alpinejs'
 import intersect from '@alpinejs/intersect'
+import focus from '@alpinejs/focus'
 
 window.rangy = require('./rangy-core');
 window.classapplier = require('./rangy-classapplier');
@@ -9,6 +10,7 @@ window.highlighter = require('./rangy-highlighter');
 
 window.Alpine = Alpine
 Alpine.plugin(intersect)
+Alpine.plugin(focus)
 Alpine.start()
 
 // A function is used for dragging and moving

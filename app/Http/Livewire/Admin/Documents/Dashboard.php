@@ -84,7 +84,7 @@ class Dashboard extends Component
     public function getRowsQueryProperty()
     {
         $query = Item::query()
-            ->with('type')
+            ->with('type', 'target_publish_dates', 'active_target_publish_date', 'actions')
             ->when($this->filters['search'], fn($query, $search) => $query->where('name', 'like', '%'.$search.'%'))
             ->when($this->filters['status'], fn($query, $status) => $query->where('enabled', $status == 'on' ? 1 : 0))
             ->when($this->filters['type'], fn($query, $type) => $query->where('type_id', $type));
