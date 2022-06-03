@@ -107,8 +107,6 @@
     @endif--}}
 
     @if(app()->environment(['production','local','development']))
-        <x-home.book />
-
         <x-call-to-action />
 
         <x-home.purpose />
@@ -135,6 +133,8 @@
     @endif
 
     <x-bottom-announcements />
+
+    <x-home.book />
 
 </x-guest-layout>
 
