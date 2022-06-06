@@ -36,7 +36,9 @@ class ArticlePreviewCarousel extends Component
                                 ->limit(5)
                                 ->orderBy('date', 'DESC')
                                 ->get()
-                                ->prepend($instagram),
+                                ->when($instagram, function ($collection, $instagram) {
+                                    return $collection->prepend($instagram);
+                                }),
         ]);
     }
 }

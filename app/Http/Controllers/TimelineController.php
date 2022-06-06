@@ -26,7 +26,7 @@ class TimelineController extends Controller
             'timeline_json' => [
                 'title' => [
                     'text' => [
-                        'headline' => 'TIMELINE OF WILFORD WOODRUFF\'S LIFE IN THE CONTEXT OF US AND CHURCH HISTORY',
+                        //'headline' => 'TIMELINE OF WILFORD WOODRUFF\'S LIFE IN THE CONTEXT OF US AND CHURCH HISTORY',
                         'text' => '',
                     ],
                     'background' => [
