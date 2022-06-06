@@ -108,8 +108,6 @@
 
     @if(app()->environment(['production','local','development']))
         <x-call-to-action />
-
-        <x-home.purpose />
     @endif
 
     {{--@if(app()->environment(['production']))
@@ -132,9 +130,11 @@
         <x-progress />
     @endif
 
-    <x-bottom-announcements />
-
     <x-home.book />
+
+    <x-home.purpose />
+
+    <x-bottom-announcements />
 
 </x-guest-layout>
 
