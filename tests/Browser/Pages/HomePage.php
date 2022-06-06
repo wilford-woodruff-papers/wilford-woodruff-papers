@@ -24,7 +24,22 @@ class HomePage extends Page
      */
     public function assert(Browser $browser)
     {
-        $browser->assertSee('Documents');
+        $browser->assertSee('DOCUMENTS');
+        $browser->assertSee('PEOPLE');
+        $browser->assertSee('PLACES');
+        $browser->assertSee('TIMELINE');
+        $browser->assertSee('SEARCH');
+        $browser->assertSee('ABOUT');
+        $browser->assertSee('GET INVOLVED');
+        $browser->assertSee('MEDIA');
+        $browser->assertSee('DONATE');
+
+        $browser->assertSee('WHAT IS THE WILFORD WOODRUFF PAPERS PROJECT?');
+        $browser->assertSee('PROGRESS');
+        $browser->assertSee('READ THE BOOK');
+        $browser->assertSee('PURPOSE');
+
+        $browser->assertSee('Wilford Woodruff Papers');
     }
 
     /**

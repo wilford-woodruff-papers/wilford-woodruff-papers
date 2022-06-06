@@ -39,7 +39,7 @@
         </div>
     @endif
 
-    @if(app()->environment(['production','local','development']))
+    @if(app()->environment(['production','local','development', 'testing']))
         <x-article-preview-carousel />
     @endif
 
@@ -49,7 +49,7 @@
         </div>
     @endif
 
-    @if(app()->environment(['production','local','development']))
+    @if(app()->environment(['production','local','development', 'testing']))
 
         <div class="py-12">
             <x-home.video />
