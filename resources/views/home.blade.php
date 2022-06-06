@@ -107,6 +107,10 @@
     @endif--}}
 
     @if(app()->environment(['production','local','development']))
+        <x-progress />
+    @endif
+
+    @if(app()->environment(['production','local','development']))
         <x-call-to-action />
     @endif
 
@@ -126,9 +130,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&family=Source+Serif+Pro&display=swap" rel="stylesheet">
     @endpush--}}
 
-    @if(app()->environment(['production','local','development']))
-        <x-progress />
-    @endif
+
 
     <x-home.book />
 
