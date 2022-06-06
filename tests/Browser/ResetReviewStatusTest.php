@@ -20,7 +20,7 @@ class ResetReviewStatusTest extends DuskTestCase
      */
     public function testResetLetters()
     {
-        set_time_limit(7200);
+        /*set_time_limit(7200);
 
         Role::create(['name'=> 'Super Admin']);
 
@@ -69,6 +69,6 @@ class ResetReviewStatusTest extends DuskTestCase
 
                 }
             }
-        });
+        });*/
     }
 }
