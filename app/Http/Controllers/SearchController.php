@@ -81,8 +81,12 @@ class SearchController extends Controller
             'types' => Type::where('name', 'NOT LIKE', '%Sections%')->get(),
             'pages' => $pages->paginate(20),
             'dates' => [
-                'min' => Date::where('dateable_type', Page::class)->orderBy('date', 'ASC')->first(),
-                'max' => Date::where('dateable_type', Page::class)->orderBy('date', 'DESC')->first(),
+                'min' => Date::where('dateable_type', Page::class)->orderBy('date', 'ASC')->firstOr(function(){
+                    return new Date(['date' => '1800-01-01']);
+                }),
+                'max' => Date::where('dateable_type', Page::class)->orderBy('date', 'DESC')->firstOr(function(){
+                    return new Date(['date' => '1900-01-01']);
+                }),
             ],
             'people' => $people,
         ]);
