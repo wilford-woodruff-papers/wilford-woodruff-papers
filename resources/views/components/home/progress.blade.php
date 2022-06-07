@@ -13,7 +13,7 @@
                     <div class="flex flex-col shadow-lg overflow-hidden">
                         <div class="flex-shrink-0">
                             <div class="max-w-full md:max-w-7xl h-auto mx-auto">
-                                <a href="https://wilfordwoodruffpapers.org/announcements/project-progress-march-1-2022"
+                                <a href="https://wilfordwoodruffpapers.org/announcements/project-progress-june-1-2022"
                                    target="_blank">
                                     <img src="https://nyc3.digitaloceanspaces.com/wilford-woodruff-papers/img/quarterly-progress-report.png" alt="Quarterly Progress Report"/>
                                 </a>

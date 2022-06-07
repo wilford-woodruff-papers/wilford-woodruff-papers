@@ -15,10 +15,14 @@ class IndexPageTopicsCommand extends Command
 
     public function handle()
     {
+        set_time_limit(600);
+
         $topics = Subject::query()
                     ->whereHas('category', function (Builder $query) {
-                        $query->where('name', 'Index');
+                        $query->where('name', 'Topics');
                     });
+
+        $this->info('Topics to index: '. $topics->count());
 
         foreach($topics as $topic){
             $pages = Page::where('transcript', 'LIKE', '%'. $topic->name .'%')->get();
