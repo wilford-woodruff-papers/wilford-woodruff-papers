@@ -36,6 +36,7 @@
         "maatwebsite/laravel-nova-excel": "^1.2",
         "mailersend/laravel-driver": "^2.0",
         "maize-tech/laravel-markable": "^1.0",
+        "michielkempen/nova-order-field": "^2.1",
         "owen-it/laravel-auditing": "^13.0",
         "paquettg/php-html-parser": "^3.1",
         "pos-lifestyle/laravel-nova-date-range-filter": "dev-master",

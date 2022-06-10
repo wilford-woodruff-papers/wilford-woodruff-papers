@@ -10,7 +10,7 @@
                     <div class="col-span-12 md:col-span-3 px-2 py-16">
                         <x-submenu area="About"/>
                     </div>
-                    <div class="content col-span-12 md:col-span-9">
+                    <div class="faq content col-span-12 md:col-span-9">
                         <div class="content max-w-5xl mx-auto ">
                             <h2>Frequently Asked Questions</h2>
                             <div class="mt-6 mb-12 space-y-6 divide-y divide-gray-200">

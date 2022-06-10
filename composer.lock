@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "da4627ad97732f1036af4ac396b066c7",
+    "content-hash": "c75d07ec8d22ad70c3ee8c48d6722a83",
     "packages": [
         {
             "name": "alexpechkarev/geometry-library",
@@ -5248,6 +5248,53 @@
                 "source": "https://github.com/MarkBaker/PHPMatrix/tree/3.0.0"
             },
             "time": "2021-07-01T19:01:15+00:00"
+        },
+        {
+            "name": "michielkempen/nova-order-field",
+            "version": "2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/michielkempen/nova-order-field.git",
+                "reference": "8079ee5a6048af6457101ddc248192c5f76fad36"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/michielkempen/nova-order-field/zipball/8079ee5a6048af6457101ddc248192c5f76fad36",
+                "reference": "8079ee5a6048af6457101ddc248192c5f76fad36",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/nova": "^2.0|^3.0",
+                "php": ">=7.1.0",
+                "spatie/eloquent-sortable": "^3.4|^4.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "MichielKempen\\NovaOrderField\\OrderFieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "MichielKempen\\NovaOrderField\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova field.",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "support": {
+                "issues": "https://github.com/michielkempen/nova-order-field/issues",
+                "source": "https://github.com/michielkempen/nova-order-field/tree/2.1.0"
+            },
+            "time": "2022-01-17T09:16:15+00:00"
         },
         {
             "name": "mobiledetect/mobiledetectlib",
