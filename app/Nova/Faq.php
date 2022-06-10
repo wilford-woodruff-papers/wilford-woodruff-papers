@@ -9,10 +9,16 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use MichielKempen\NovaOrderField\Orderable;
+use MichielKempen\NovaOrderField\OrderField;
 
 class Faq extends Resource
 {
+    use Orderable;
+
     public static $group = 'Website';
+
+    public static $defaultOrderField = 'order_column';
 
     /**
      * The model the resource corresponds to.
@@ -48,6 +54,7 @@ class Faq extends Resource
     public function fields(Request $request)
     {
         return [
+            OrderField::make('Order'),
             ID::make(__('ID'), 'id')->sortable(),
             Text::make(__('Question'), 'question')->sortable(),
             Trix::make(__('Answer'), 'answer'),
