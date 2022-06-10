@@ -28,7 +28,7 @@ class AboutController extends Controller
     public function faqs(Request $request)
     {
         return view('public.about.frequently-asked-questions', [
-            'faqs' => Faq::all(),
+            'faqs' => Faq::orderBy('order_column', 'ASC')->get(),
         ]);
     }
 
