@@ -26,20 +26,22 @@
                                             What is the purpose of the Wilford Woodruff Papers Project?
                                         </span>
                                             <span class="ml-6 h-7 flex items-center">
-                                        <!--
-                                          Heroicon name: outline/chevron-down
+                                                <!--
+                                                  Heroicon name: outline/chevron-down
 
-                                          Open: "-rotate-180", Closed: "rotate-0"
-                                        -->
-                                        <svg aria-hidiven="true" class="-rotate-180 h-6 w-6 transform" fill="none" stroke="currentColor" viewbox="0 0 24 24" x-bind:class="{ '-rotate-180': openPanel === 'mission', 'rotate-0': !(openPanel === 'mission') }"
-                                             x-state:off="Closed"
-                                             x-state:on="Open" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-widivh="2"></path> </svg> </span>
-                                        </button></div>
+                                                  Open: "-rotate-180", Closed: "rotate-0"
+                                                -->
+                                                <svg aria-hidiven="true" class="-rotate-180 h-6 w-6 transform" fill="none" stroke="currentColor" viewbox="0 0 24 24" x-bind:class="{ '-rotate-180': openPanel === 'mission', 'rotate-0': !(openPanel === 'mission') }"
+                                                     x-state:off="Closed"
+                                                     x-state:on="Open" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-widivh="2"></path> </svg>
+                                                </span>
+                                            </button>
+                                    </div>
 
                                     <div class="mt-2 pr-12" x-show="openPanel === 'mission'">
                                         <p class="text-base text-gray-500">
-                                            <x-mission-statement />
+                                            <x-mission-statement :fontStyle="'text-base text-gray-500'"/>
                                         </p>
                                     </div>
                                 </div>
