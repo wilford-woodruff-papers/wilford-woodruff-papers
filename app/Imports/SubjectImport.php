@@ -15,6 +15,8 @@ class SubjectImport implements ToCollection, WithHeadingRow
      */
     public function collection(Collection $rows)
     {
+        set_time_limit(2400);
+
         $categories = Category::all();
 
         foreach ($rows as $row) {
