@@ -83,6 +83,9 @@ Route::get('login/facebook', [\App\Http\Controllers\Auth\FacebookLoginController
 Route::get('login/facebook/callback', [\App\Http\Controllers\Auth\FacebookLoginController::class, 'handleProviderCallback']);
 Route::get('login/instagram/auth', \App\Http\Controllers\Auth\InstagramAuthController::class)->name('login.instagram.auth');
 
+Route::get('login/constantcontact', [\App\Http\Controllers\Auth\ConstantContactController::class, 'redirectToProvider'])->name('login.constantcontact');
+Route::get('login/constantcontact/callback', [\App\Http\Controllers\Auth\ConstantContactController::class, 'handleProviderCallback']);
+
 Route::get('login/terms-of-use', [\App\Http\Controllers\Auth\AcceptTermsOfUseController::class, 'show'])->name('terms.accept');
 Route::post('login/terms-of-use', [\App\Http\Controllers\Auth\AcceptTermsOfUseController::class, 'submit'])->name('terms.submit');
 
