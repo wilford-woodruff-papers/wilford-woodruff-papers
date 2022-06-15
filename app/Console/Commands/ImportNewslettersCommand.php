@@ -25,7 +25,7 @@ class ImportNewslettersCommand extends Command
                             ->get($url);
 
         $newsletters = collect($response->json('campaigns'))->filter(function($item){
-            return $item['type'] == 'NEWSLETTER' && $item['current_status'] == 'Done';
+            return str($item['name'])->contains('Newsletter') && $item['current_status'] == 'Done';
         });
 
         $newsletters->each(function($item) use ($token){
