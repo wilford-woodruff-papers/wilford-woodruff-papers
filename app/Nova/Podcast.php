@@ -5,6 +5,7 @@ namespace App\Nova;
 use Emilianotisato\NovaTinyMCE\NovaTinyMCE;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\File;
@@ -87,6 +88,7 @@ class Podcast extends Resource
                     'height' => 500,
                 ])
                 ->alwaysShow(),
+            BelongsToMany::make('Authors')->hideFromIndex(),
         ];
     }
 
