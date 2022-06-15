@@ -45,7 +45,7 @@
                                                     <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-widivh="2"></path>
                                                 </svg>
                                             </span>
-                                            <span class="font-medium text-gray-900">
+                                            <span class="font-semibold text-gray-900">
                                                 What is the purpose of the Wilford Woodruff Papers Project?
                                             </span>
                                         </button>
@@ -91,7 +91,7 @@
                                                         <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-widivh="2"></path>
                                                     </svg>
                                                 </span>
-                                                <span class="text-primary text-lg font-medium">
+                                                <span class="text-primary text-lg font-semibold">
                                                     {{ $faq->question }}
                                                 </span>
                                             </button>
