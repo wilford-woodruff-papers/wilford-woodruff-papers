@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c75d07ec8d22ad70c3ee8c48d6722a83",
+    "content-hash": "7993e8d312da43d0759282f375a7996c",
     "packages": [
         {
             "name": "alexpechkarev/geometry-library",
@@ -14059,11 +14059,11 @@
         },
         {
             "name": "wwp/items",
-            "version": "dev-develop",
+            "version": "dev-add-sail",
             "dist": {
                 "type": "path",
                 "url": "./nova-components/Items",
-                "reference": "39167a5bf61aa8ea556ea3844de6bf3d4ecd4c66"
+                "reference": "aa6b4ffcc9fa4cf7beb74d39b19586abaa13e05d"
             },
             "require": {
                 "php": ">=7.1.0"
@@ -14757,6 +14757,66 @@
                 "source": "https://github.com/laravel/envoy/tree/v2.8.2"
             },
             "time": "2022-02-08T19:13:03+00:00"
+        },
+        {
+            "name": "laravel/sail",
+            "version": "v1.14.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/sail.git",
+                "reference": "0ea5d683af4d189071efcdb9e83946c10dab82c3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/sail/zipball/0ea5d683af4d189071efcdb9e83946c10dab82c3",
+                "reference": "0ea5d683af4d189071efcdb9e83946c10dab82c3",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "^8.0|^9.0",
+                "illuminate/contracts": "^8.0|^9.0",
+                "illuminate/support": "^8.0|^9.0",
+                "php": "^7.3|^8.0"
+            },
+            "bin": [
+                "bin/sail"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Laravel\\Sail\\SailServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\Sail\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "Docker files for running a basic Laravel application.",
+            "keywords": [
+                "docker",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel/sail/issues",
+                "source": "https://github.com/laravel/sail"
+            },
+            "time": "2022-06-09T07:10:28+00:00"
         },
         {
             "name": "maximebf/debugbar",
