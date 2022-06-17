@@ -42,10 +42,13 @@ return [
         'redirect' => env('FACEBOOK_REDIRECT_URI')
     ],
 
+    'horizon' => [
+        'secret' => env('OBSERVER_HORIZON_SECRET')
+    ],
+
     'constantcontact' => [
         'client_id' => env('CONSTANT_CONTACT_CLIENT_ID'),
         'client_secret' => env('CONSTANT_CONTACT_CLIENT_SECRET'),
         'redirect_uri' => env('CONSTANT_CONTACT_REDIRECT_URI'),
-    ]
-
+    ],
 ];

@@ -42,7 +42,5 @@
         @stack('modals')
 
         @livewireScripts
-
-        <x-constant-contact />
     </body>
 </html>
