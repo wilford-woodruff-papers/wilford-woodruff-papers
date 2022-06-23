@@ -13,17 +13,6 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('newsletters', function (Blueprint $table) {
-            $table->id();
-            $table->string('campaign_id')->nullable();
-            $table->string('subject')->nullable();
-            $table->string('preheader')->nullable();
-            $table->string('primary_image')->nullable();
-            $table->string('link')->nullable();
-            $table->longText('content')->nullable();
-            $table->timestamps();
-        });
-
         Schema::create('oauth', function (Blueprint $table) {
             $table->id();
             $table->string('provider')->unique();
@@ -45,6 +34,5 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('oauth');
-        Schema::dropIfExists('newsletters');
     }
 };

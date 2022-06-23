@@ -174,9 +174,8 @@
                                 Podcasts
                             </a>
 
-                            <a href="https://updates.wilfordwoodruffpapers.org/posts"
+                            <a href="{{ route('updates.index') }}"
                                class="text-base font-medium text-gray-900 hover:text-gray-700"
-                               target="_newsletter"
                             >
                                 Updates
                             </a>
@@ -765,9 +764,8 @@
                                             Podcasts
                                         </span>
                                     </a>
-                                    <a href="https://updates.wilfordwoodruffpapers.org/posts"
+                                    <a href="{{ route('updates.index') }}"
                                        class="group flex items-center px-3 py-2 text-sm font-medium text-secondary whitespace-nowrap"
-                                       target="_newletter"
                                     >
                                         <span class="truncate">
                                             Updates
@@ -878,9 +876,8 @@
                                         Podcasts
                                     </span>
                                 </a>
-                                <a href="https://updates.wilfordwoodruffpapers.org/posts"
+                                <a href="{{ route('updates.index') }}"
                                    class="group flex items-center px-3 py-2 text-sm font-medium text-secondary"
-                                   target="_newletter"
                                 >
                                     <span class="truncate">
                                         Updates

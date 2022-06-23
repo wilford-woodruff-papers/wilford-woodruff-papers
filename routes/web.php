@@ -63,6 +63,9 @@ Route::get('/media/media-kit', [\App\Http\Controllers\MediaController::class, 'k
 Route::get('/media/requests', [\App\Http\Controllers\MediaController::class, 'requests'])->name('media.requests');
 Route::get('/media/newsroom', [\App\Http\Controllers\MediaController::class, 'newsroom'])->name('media.news');
 
+Route::get('/updates', [\App\Http\Controllers\UpdateController::class, 'index'])->name('updates.index');
+Route::get('/updates/{update}', [\App\Http\Controllers\UpdateController::class, 'show'])->name('updates.show');
+
 Route::get('/announcements', [\App\Http\Controllers\AnnouncementController::class, 'index'])->name('announcements');
 Route::get('/announcements/{announcement}', [\App\Http\Controllers\AnnouncementController::class, 'show'])->name('announcements.show');
 

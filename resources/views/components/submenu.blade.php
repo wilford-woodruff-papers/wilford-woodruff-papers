@@ -152,8 +152,8 @@
                         Podcasts
                     </span>
                 </a>
-                <a href="https://updates.wilfordwoodruffpapers.org/posts"
-                   class="group flex items-center px-3 py-2 text-sm font-medium @if(request()->is('media/updates*')) active @else @endif">
+                <a href="{{ route('updates.index') }}"
+                   class="group flex items-center px-3 py-2 text-sm font-medium @if(request()->is('updates*')) active @else @endif">
                     <span class="truncate">
                         Updates
                     </span>

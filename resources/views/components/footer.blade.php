@@ -190,7 +190,7 @@
                         </li>
 
                         <li>
-                            <a href="https://updates.wilfordwoodruffpapers.org/posts" class="text-base text-white hover:text-highlight">
+                            <a href="{{ route('updates.index') }}" class="text-base text-white hover:text-highlight">
                                  Updates
                             </a>
                         </li>
