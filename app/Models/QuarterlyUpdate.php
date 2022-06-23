@@ -8,7 +8,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Sluggable\HasSlug;
 
-class Newsletter extends Update implements HasMedia
+class QuarterlyUpdate extends Update implements HasMedia
 {
     use HasFactory;
     use HasParent;
@@ -17,6 +17,6 @@ class Newsletter extends Update implements HasMedia
 
     public function getUrlAttribute()
     {
-        return $this->link;
+        return route('updates.show', ['update' => $this->slug]);
     }
 }

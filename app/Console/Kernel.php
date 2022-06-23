@@ -73,6 +73,11 @@ class Kernel extends ConsoleKernel
         $schedule->command('instagram-feed:refresh-tokens')
                 ->lastDayOfMonth()
                 ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org');
+
+        $schedule->command('newsletters:import')
+            ->dailyAt('4:10 AM')
+            ->timezone('America/Denver')
+            ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org');
     }
 
     /**
