@@ -78,12 +78,12 @@ class Event extends Model implements HasMedia
 
         if ($this->photos->count() > 0) {
             $event['media'] = [
-                'url' => $this->photos->first()->getFirstMediaUrl(),
+                'url' => $this->photos->first()->getFirstMediaUrl('default', 'thumb'),
                 'thumbnail' => $this->photos->first()->getFirstMediaUrl('default', 'thumb'),
             ];
         } elseif ($this->media->count() > 0) {
             $event['media'] = [
-                'url' => $this->getFirstMediaUrl(),
+                'url' => $this->getFirstMediaUrl('default', 'thumb'),
                 'thumbnail' => $this->getFirstMediaUrl('default', 'thumb'),
             ];
         }
