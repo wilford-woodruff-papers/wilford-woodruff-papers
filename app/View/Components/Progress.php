@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Models\QuarterlyUpdate;
 use Illuminate\View\Component;
 
 class Progress extends Component
@@ -23,6 +24,11 @@ class Progress extends Component
      */
     public function render()
     {
-        return view('components.home.progress');
+        return view('components.home.progress', [
+            'quarterlyUpdate' => QuarterlyUpdate::query()
+                                        ->where('enabled', 1)
+                                        ->orderBy('publish_at', 'DESC')
+                                        ->first(),
+        ]);
     }
 }
