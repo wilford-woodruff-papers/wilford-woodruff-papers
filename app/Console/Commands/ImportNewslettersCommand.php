@@ -40,23 +40,24 @@ class ImportNewslettersCommand extends Command
             ]);
 
             if(! $newsletter->exists){
-                $newsletter->save();
+
                 $url = 'https://api.cc.email/v3/emails/'. $newsletter->campaign_id;
                 $response = Http::withToken($token)
                     ->get($url);
-                $campaign_activity_id = collect($response->json('campaign_activities'))->filter(function($item){
+                if($campaign_activity_id = data_get(collect($response->json('campaign_activities'))->filter(function($item){
                     return $item['role'] == 'primary_email';
-                })->first()['campaign_activity_id'];
+                })->first(), 'campaign_activity_id')){
+                    $url = 'https://api.cc.email/v3/emails/activities/'. $campaign_activity_id . '?include=html_content%2Cpermalink_url';
+                    $response = Http::withToken($token)
+                        ->get($url);
 
-                $url = 'https://api.cc.email/v3/emails/activities/'. $campaign_activity_id . '?include=html_content%2Cpermalink_url';
-                $response = Http::withToken($token)
-                    ->get($url);
-
-                $newsletter->content = $this->replaceImages($response->json('html_content'), $newsletter);
-                $newsletter->subject = $response->json('subject');
-                $newsletter->preheader = $response->json('preheader');
-                $newsletter->link = $response->json('permalink_url');
-                $newsletter->save();
+                    $newsletter->save();
+                    $newsletter->content = $this->replaceImages($response->json('html_content'), $newsletter);
+                    $newsletter->subject = $item['name'];
+                    $newsletter->preheader = $response->json('preheader');
+                    $newsletter->link = $response->json('permalink_url');
+                    $newsletter->save();
+                }               
             }
         });
     }
