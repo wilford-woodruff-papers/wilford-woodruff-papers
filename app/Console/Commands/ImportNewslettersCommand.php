@@ -56,7 +56,7 @@ class ImportNewslettersCommand extends Command
                     $newsletter->preheader = $response->json('preheader');
                     $newsletter->link = $response->json('permalink_url');
                     $newsletter->save();
-                }               
+                }
             }
         });
     }
@@ -74,7 +74,7 @@ class ImportNewslettersCommand extends Command
             if(str($image->getAttribute('src'))->contains('constantcontact')){
                 $localImage = $newsletter
                     ->addMediaFromUrl($image->getAttribute('src'))
-                    ->toMediaCollection('images');
+                    ->toMediaCollection('images', 'updates');
 
                 $content = $content->replace($image->getAttribute('src'), $localImage->getUrl());
             }
