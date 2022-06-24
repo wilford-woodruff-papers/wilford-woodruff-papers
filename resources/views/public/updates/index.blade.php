@@ -32,7 +32,7 @@
                                                     </h2>
                                                     <time datetime="{{ $update->publish_at->toISOString() }}"
                                                           class="-order-1 font-mono text-sm leading-7 text-slate-500">
-                                                        {{ $update->publish_at->format('l j, Y') }}
+                                                        {{ $update->publish_at->format('F j, Y') }}
                                                     </time>
                                                     <p class="mt-1 text-base leading-7 text-slate-700">
                                                         {!! $update->preheader !!}
