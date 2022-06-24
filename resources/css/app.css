@@ -223,3 +223,15 @@ input[class^="numeric-"], select[class^="numeric-"]{
 {
     background-color: rgba(0,0,0,0.6);
 }
+
+/* Begin Constant Contact Inline Form */
+.ctct-inline-form #email_address_field_0 {
+    @apply md:inline-block md:w-1/2;
+}
+.ctct-inline-form #first_name_field_0 {
+    @apply md:inline-block;
+}
+.ctct-inline-form #last_name_field_0 {
+    @apply md:inline-block;
+}
+/* End Constant Contact Inline Form */

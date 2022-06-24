@@ -8,6 +8,11 @@
                 <div class="content">
                     <h2>Updates</h2>
                 </div>
+                <div>
+                    <!-- Begin Constant Contact Inline Form Code -->
+                    <div class="ctct-inline-form" data-form-id="043d0ee9-7e01-4dbd-ac81-34f17e56240c"></div>
+                    <!-- End Constant Contact Inline Form Code -->
+                </div>
                 <div class="divide-y divide-slate-100 sm:mt-4 lg:mt-8">
                     @foreach($updates as $update)
                         <article aria-labelledby="episode-5-title" class="py-4 sm:py-6">
