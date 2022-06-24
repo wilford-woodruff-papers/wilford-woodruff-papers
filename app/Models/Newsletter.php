@@ -19,4 +19,9 @@ class Newsletter extends Update implements HasMedia
     {
         return $this->link;
     }
+
+    public function getPrimaryImageUrlAttribute()
+    {
+        return $this->getFirstMedia('images', ['primary' => true])?->getFullUrl();
+    }
 }

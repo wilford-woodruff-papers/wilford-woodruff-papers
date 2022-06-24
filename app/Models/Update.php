@@ -28,11 +28,6 @@ class Update extends Model implements HasMedia
         'Quarterly' => QuarterlyUpdate::class,
     ];
 
-    public function getPrimaryImageUrlAttribute()
-    {
-        return \Illuminate\Support\Facades\Storage::disk('updates')->url($this->primary_image);
-    }
-
     /**
      * Get the options for generating the slug.
      */

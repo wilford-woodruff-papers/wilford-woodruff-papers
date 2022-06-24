@@ -19,4 +19,9 @@ class QuarterlyUpdate extends Update implements HasMedia
     {
         return route('updates.show', ['update' => $this->slug]);
     }
+
+    public function getPrimaryImageUrlAttribute()
+    {
+        return \Illuminate\Support\Facades\Storage::disk('updates')->url($this->primary_image);
+    }
 }

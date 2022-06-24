@@ -2,6 +2,8 @@
 
 namespace App\Nova;
 
+use DmitryBubyakin\NovaMedialibraryField\Fields\GeneratedConversions;
+use DmitryBubyakin\NovaMedialibraryField\Fields\Medialibrary;
 use Emilianotisato\NovaTinyMCE\NovaTinyMCE;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Boolean;
@@ -50,7 +52,14 @@ class Newsletter extends Resource
             ID::make(__('ID'), 'id')->sortable(),
             Boolean::make('Enabled'),
             DateTime::make('Publish At'),
-            Image::make('Image', 'primary_image')->disk('updates'),
+            Medialibrary::make('Media', 'images', 'updates')->fields(function () {
+                return [
+                    Boolean::make('Primary', 'custom_properties->primary'),
+
+                    GeneratedConversions::make('Conversions')
+                        ->withTooltips(),
+                ];
+            }),
             Text::make('subject'),
             Text::make('preheader')->hideFromIndex(),
             Text::make('link')->hideFromIndex(),
