@@ -23,7 +23,10 @@ Route::get('/documents/{item}', \App\Http\Livewire\Documents\Show::class)->name(
 //Route::get('/documents/{item}', [\App\Http\Controllers\ItemController::class, 'show'])->name('documents.show');
 Route::get('/documents/{item}/transcript', [\App\Http\Controllers\ItemController::class, 'transcript'])->name('documents.show.transcript');
 Route::get('/documents/{item}/page/{page}', [\App\Http\Controllers\PageController::class, 'show'])->name('pages.show');
-Route::get('/subjects/{subject}', [\App\Http\Controllers\SubjectController::class, 'show'])->name('subjects.show');
+Route::get('/subjects/{subject}', [\App\Http\Controllers\SubjectController::class, 'show'])->name('subjects.show')
+        ->missing(function (\Illuminate\Http\Request $request) {
+            return \Illuminate\Support\Facades\Redirect::route('home');
+        });
 Route::get('/people', [\App\Http\Controllers\PeopleController::class, 'index'])->name('people');
 Route::get('/wives-and-children', [\App\Http\Controllers\PeopleController::class, 'family'])->name('wives-and-children');
 Route::get('/places', [\App\Http\Controllers\PlaceController::class, 'index'])->name('places');
