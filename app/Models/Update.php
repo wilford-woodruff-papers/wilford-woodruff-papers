@@ -5,14 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Parental\HasChildren;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
-class Update extends Model
+class Update extends Model implements HasMedia
 {
     use HasChildren;
     use HasFactory;
     use HasSlug;
+    use InteractsWithMedia;
 
     protected $guarded = ['id'];
 
