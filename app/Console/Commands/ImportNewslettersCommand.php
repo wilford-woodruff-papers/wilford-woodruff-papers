@@ -40,7 +40,6 @@ class ImportNewslettersCommand extends Command
             ]);
 
             if(! $newsletter->exists){
-
                 $url = 'https://api.cc.email/v3/emails/'. $newsletter->campaign_id;
                 $response = Http::withToken($token)
                     ->get($url);
