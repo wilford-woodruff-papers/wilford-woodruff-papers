@@ -22,11 +22,11 @@
                         <div class="relative">
                             <div class="grid grid-cols-1 md:flex justify-center md:justify-end">
                                 <div class="md:-mt-0 xl:-mt-6 md:mb-2 md:mb-12 md:pr-8 py-0.5">
-                                    <a class="bg-highlight px-4 py-2 text-white text-lg hover:text-secondary block md:inline text-center uppercase whitespace-nowrap"
+                                    {{--<a class="bg-highlight px-4 py-2 text-white text-lg hover:text-secondary block md:inline text-center uppercase whitespace-nowrap"
                                        data-formkit-toggle="7ce7f1665b"
                                        href="https://wilford-woodruff-papers.ck.page/52a6925518">
                                         Subscribe for Updates
-                                    </a>
+                                    </a>--}}
                                 </div>
                                 <div class="md:-mt-2 xl:-mt-8 mb-12 mr-0"
                                      id="search">
@@ -174,9 +174,8 @@
                                 Podcasts
                             </a>
 
-                            <a href="https://updates.wilfordwoodruffpapers.org/posts"
+                            <a href="{{ route('updates.index') }}"
                                class="text-base font-medium text-gray-900 hover:text-gray-700"
-                               target="_newsletter"
                             >
                                 Updates
                             </a>
@@ -202,12 +201,77 @@
         <div class="relative max-w-7xl mx-auto">
             <nav class="md:flex md:items-center md:justify-between md:ml-4 px-4">
                 <div class="flex space-x-4 md:space-x-10 flex-1 min-w-0">
-                    <?php
-                    /*                        echo $site->publicNav()->menu()->setPartial('common/navigation/link')->render(null, [
-                                                'maxDepth' => $this->themeSetting('nav_depth') - 1
-                                            ]);
-                                            */?>
                     <a href="{{ route('documents') }}">Documents</a>
+                    <div class="flex justify-center">
+                        <div
+                            x-data="{
+                                open: false,
+                                toggle() {
+                                    if (this.open) {
+                                        return this.close()
+                                    }
+
+                                    this.$refs.button.focus()
+
+                                    this.open = true
+                                },
+                                show() {
+                                    this.$refs.button.focus()
+
+                                    this.open = true
+                                },
+                                close(focusAfter) {
+                                    if (! this.open) return
+
+                                    this.open = false
+
+                                    focusAfter && focusAfter.focus()
+                                }
+                            }"
+                            x-on:keydown.escape.prevent.stop="close($refs.button)"
+                            x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
+                            x-id="['dropdown-button']"
+                            class="relative"
+                        >
+                            <!-- Button -->
+                            <button
+                                x-ref="button"
+                                x-on:click="toggle()"
+                                x-on:mouseover="show()"
+                                :aria-expanded="open"
+                                :aria-controls="$id('dropdown-button')"
+                                type="button"
+                                class="text-base font-medium text-primary md:text-white md:hover:text-highlight uppercase"
+                            >
+                                <span>People</span>
+                                {{--<span aria-hidden="true">&darr;</span>--}}
+                            </button>
+
+                            <!-- Panel -->
+                            <div
+                                x-ref="panel"
+                                x-show="open"
+                                x-transition.origin.top.left
+                                x-on:click.outside="close($refs.button)"
+                                :id="$id('dropdown-button')"
+                                style="display: none;"
+                                class="absolute left-0 mt-2 w-auto bg-white shadow-md overflow-hidden z-20"
+                            >
+                                <div>
+                                    <a href="{{ route('people') }}"
+                                       class="block w-full px-4 py-2 text-secondary font-medium hover:bg-gray-100 whitespace-nowrap" >
+                                        People Mentioned in Wilford Woodruff's Papers
+                                    </a>
+
+                                    <a href="{{ route('wives-and-children') }}"
+                                       class="block w-full px-4 py-2 text-secondary font-medium hover:bg-gray-100 whitespace-nowrap" >
+                                        Wilford Woodruff's Wives and Children
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{--<a href="{{ route('documents') }}">Documents</a>
                     <div class="relative inline-block text-left">
                         <span x-on:mouseenter="dropdown = 'people'"
                               x-on:click="dropdown = 'people'"
@@ -233,9 +297,79 @@
                                 </a>
                             </div>
                         </div>
-                    </div>
+                    </div>--}}
                     <a href="{{ route('places') }}">Places</a>
-                    <div class="relative inline-block text-left">
+                    <div class="flex justify-center">
+                        <div
+                            x-data="{
+                                open: false,
+                                toggle() {
+                                    if (this.open) {
+                                        return this.close()
+                                    }
+
+                                    this.$refs.button.focus()
+
+                                    this.open = true
+                                },
+                                show() {
+                                    this.$refs.button.focus()
+
+                                    this.open = true
+                                },
+                                close(focusAfter) {
+                                    if (! this.open) return
+
+                                    this.open = false
+
+                                    focusAfter && focusAfter.focus()
+                                }
+                            }"
+                            x-on:keydown.escape.prevent.stop="close($refs.button)"
+                            x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
+                            x-id="['dropdown-button']"
+                            class="relative"
+                        >
+                            <!-- Button -->
+                            <button
+                                x-ref="button"
+                                x-on:click="toggle()"
+                                x-on:mouseover="show()"
+                                :aria-expanded="open"
+                                :aria-controls="$id('dropdown-button')"
+                                type="button"
+                                class="text-base font-medium text-primary md:text-white md:hover:text-highlight uppercase"
+                            >
+                                <span>Timeline</span>
+                                {{--<span aria-hidden="true">&darr;</span>--}}
+                            </button>
+
+                            <!-- Panel -->
+                            <div
+                                x-ref="panel"
+                                x-show="open"
+                                x-transition.origin.top.left
+                                x-on:click.outside="close($refs.button)"
+                                :id="$id('dropdown-button')"
+                                style="display: none;"
+                                class="absolute left-0 mt-2 w-auto bg-white shadow-md overflow-hidden z-20"
+                            >
+                                <div>
+                                    <a href="{{ route('timeline') }}"
+                                       class="block w-full px-4 py-2 text-secondary font-medium hover:bg-gray-100 whitespace-nowrap" >
+                                        Timeline of Events
+                                    </a>
+
+                                    <a href="{{ route('miraculously-preserved-life') }}"
+                                       class="block w-full px-4 py-2 text-secondary font-medium hover:bg-gray-100 whitespace-nowrap" >
+                                        Wilford Woodruff’s Miraculously Preserved Life
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{--<div class="relative inline-block text-left">
                         <span x-on:mouseenter="dropdown = 'timeline'"
                               x-on:click="dropdown = 'timeline'"
                               x-on:click.away="dropdown = null"
@@ -260,13 +394,93 @@
                                 </a>
                             </div>
                         </div>
-                    </div>
+                    </div>--}}
                     <a href="{{ route('advanced-search') }}">Search</a>
                 </div>
                 <div class="flex space-x-4 md:space-x-10  mt-4 flex md:mt-0 md:ml-4">
                     {{--<a href="/s/wilford-woodruff-papers/page/about">About</a>--}}
+                    <div class="flex justify-center">
+                        <div
+                            x-data="{
+                                open: false,
+                                toggle() {
+                                    if (this.open) {
+                                        return this.close()
+                                    }
 
-                    <div class="relative inline-block text-left">
+                                    this.$refs.button.focus()
+
+                                    this.open = true
+                                },
+                                show() {
+                                    this.$refs.button.focus()
+
+                                    this.open = true
+                                },
+                                close(focusAfter) {
+                                    if (! this.open) return
+
+                                    this.open = false
+
+                                    focusAfter && focusAfter.focus()
+                                }
+                            }"
+                            x-on:keydown.escape.prevent.stop="close($refs.button)"
+                            x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
+                            x-id="['dropdown-button']"
+                            class="relative"
+                        >
+                            <!-- Button -->
+                            <button
+                                x-ref="button"
+                                x-on:click="toggle()"
+                                x-on:mouseover="show()"
+                                :aria-expanded="open"
+                                :aria-controls="$id('dropdown-button')"
+                                type="button"
+                                class="text-base font-medium text-primary md:text-white md:hover:text-highlight uppercase"
+                            >
+                                <span>About</span>
+                                {{--<span aria-hidden="true">&darr;</span>--}}
+                            </button>
+
+                            <!-- Panel -->
+                            <div
+                                x-ref="panel"
+                                x-show="open"
+                                x-transition.origin.top.left
+                                x-on:click.outside="close($refs.button)"
+                                :id="$id('dropdown-button')"
+                                style="display: none;"
+                                class="absolute left-0 mt-2 w-auto bg-white shadow-md overflow-hidden z-20"
+                            >
+                                <div>
+                                    <a href="{{ route('about') }}"
+                                       class="block w-full px-4 py-2 text-secondary font-medium hover:bg-gray-100 whitespace-nowrap" >
+                                        Mission
+                                    </a>
+                                    <a href="{{ route('about.meet-the-team') }}"
+                                       class="block w-full px-4 py-2 text-secondary font-medium hover:bg-gray-100 whitespace-nowrap" >
+                                        Meet the Team
+                                    </a>
+                                    <a href="{{ route('about.editorial-method') }}"
+                                       class="block w-full px-4 py-2 text-secondary font-medium hover:bg-gray-100 whitespace-nowrap" >
+                                        Editorial Method
+                                    </a>
+                                    <a href="{{ route('about.frequently-asked-questions') }}"
+                                       class="block w-full px-4 py-2 text-secondary font-medium hover:bg-gray-100 whitespace-nowrap" >
+                                        Frequently Asked Questions
+                                    </a>
+                                    <a href="{{ route('contact-us') }}"
+                                       class="block w-full px-4 py-2 text-secondary font-medium hover:bg-gray-100 whitespace-nowrap" >
+                                        Contact Us
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{--<div class="relative inline-block text-left">
                             <span x-on:mouseenter="dropdown = 'about'"
                                   x-on:click="dropdown = 'about'"
                                   x-on:click.away="dropdown = null"
@@ -304,16 +518,93 @@
                                    role="menuitem">
                                     Contact Us
                                 </a>
-                                {{--<a href="{{ route('') }}"
+                                --}}{{--<a href="{{ route('') }}"
                                    class="block px-4 py-2 text-secondary font-medium hover:bg-gray-100"
                                    role="menuitem">
                                     Contact Us
-                                </a>--}}
+                                </a>--}}{{--
+                            </div>
+                        </div>
+                    </div>--}}
+
+                    <div class="flex justify-center">
+                        <div
+                            x-data="{
+                                open: false,
+                                toggle() {
+                                    if (this.open) {
+                                        return this.close()
+                                    }
+
+                                    this.$refs.button.focus()
+
+                                    this.open = true
+                                },
+                                show() {
+                                    this.$refs.button.focus()
+
+                                    this.open = true
+                                },
+                                close(focusAfter) {
+                                    if (! this.open) return
+
+                                    this.open = false
+
+                                    focusAfter && focusAfter.focus()
+                                }
+                            }"
+                            x-on:keydown.escape.prevent.stop="close($refs.button)"
+                            x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
+                            x-id="['dropdown-button']"
+                            class="relative"
+                        >
+                            <!-- Button -->
+                            <a href="{{ route('get-involved.index') }}"
+                                x-ref="button"
+                                x-on:click="toggle()"
+                                x-on:mouseover="show()"
+                                :aria-expanded="open"
+                                :aria-controls="$id('dropdown-button')"
+                                type="button"
+                                class="text-base font-medium text-primary md:text-white md:hover:text-highlight uppercase"
+                            >
+                                <span>Get Involved</span>
+                                {{--<span aria-hidden="true">&darr;</span>--}}
+                            </a>
+
+                            <!-- Panel -->
+                            <div
+                                x-ref="panel"
+                                x-show="open"
+                                x-transition.origin.top.left
+                                x-on:click.outside="close($refs.button)"
+                                :id="$id('dropdown-button')"
+                                style="display: none;"
+                                class="absolute left-0 mt-2 w-auto bg-white shadow-md overflow-hidden z-20"
+                            >
+                                <div>
+                                    <a href="{{ route('volunteer') }}"
+                                       class="block w-full px-4 py-2 text-secondary font-medium hover:bg-gray-100 whitespace-nowrap" >
+                                        Volunteer
+                                    </a>
+                                    <a href="/work-with-us/internship-opportunities"
+                                       class="block w-full px-4 py-2 text-secondary font-medium hover:bg-gray-100 whitespace-nowrap" >
+                                        Internships
+                                    </a>
+                                    <a href="{{ route('work-with-us') }}"
+                                       class="block w-full px-4 py-2 text-secondary font-medium hover:bg-gray-100 whitespace-nowrap" >
+                                        Career
+                                    </a>
+                                    <a href="{{ route('contribute-documents') }}"
+                                       class="block w-full px-4 py-2 text-secondary font-medium hover:bg-gray-100 whitespace-nowrap" >
+                                        Contribute Documents
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="relative inline-block text-left">
+                    {{--<div class="relative inline-block text-left">
                             <a href="{{ route('get-involved.index') }}"
                                x-on:mouseenter="dropdown = 'get-involved'"
                                x-on:click="dropdown = 'get-involved'"
@@ -350,7 +641,7 @@
                                 </a>
                             </div>
                         </div>
-                    </div>
+                    </div>--}}
 
                     <!--<div class="relative inline-block text-left">
                         <span x-on:mouseenter="showAbout = true; showMedia = false; showDonate = false; showGetInvolved = false;"
@@ -396,10 +687,124 @@
                         </div>
                     </div>-->
 
+                    <div class="flex justify-center">
+                        <div
+                            x-data="{
+                                open: false,
+                                toggle() {
+                                    if (this.open) {
+                                        return this.close()
+                                    }
+
+                                    this.$refs.button.focus()
+
+                                    this.open = true
+                                },
+                                show() {
+                                    this.$refs.button.focus()
+
+                                    this.open = true
+                                },
+                                close(focusAfter) {
+                                    if (! this.open) return
+
+                                    this.open = false
+
+                                    focusAfter && focusAfter.focus()
+                                }
+                            }"
+                            x-on:keydown.escape.prevent.stop="close($refs.button)"
+                            x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
+                            x-id="['dropdown-button']"
+                            class="relative"
+                        >
+                            <!-- Button -->
+                            <button
+                                x-ref="button"
+                                x-on:click="toggle()"
+                                x-on:mouseover="show()"
+                                :aria-expanded="open"
+                                :aria-controls="$id('dropdown-button')"
+                                type="button"
+                                class="text-base font-medium text-primary md:text-white md:hover:text-highlight uppercase"
+                            >
+                                <span>Media</span>
+                                {{--<span aria-hidden="true">&darr;</span>--}}
+                            </button>
+
+                            <!-- Panel -->
+                            <div
+                                x-ref="panel"
+                                x-show="open"
+                                x-transition.origin.top.left
+                                x-on:click.outside="close($refs.button)"
+                                :id="$id('dropdown-button')"
+                                style="display: none;"
+                                class="absolute right-0 mt-2 w-auto min-w-[300px] bg-white shadow-md overflow-hidden z-20 p-4"
+                            >
+                                <div class="mt-1 space-y-1 pb-4 pl-4" aria-labelledby="media-library-headline">
+                                    <h3 class="text-xs font-semibold text-primary uppercase tracking-wider whitespace-nowrap" id="media-library-headline">
+                                        Media Library
+                                    </h3>
+                                    <a href="{{ route('media.articles') }}"
+                                       class="group flex items-center px-3 py-2 text-sm font-medium text-secondary whitespace-nowrap @if(request()->is('media/articles*')) active @endif">
+                                        <span class="truncate">
+                                            Articles
+                                        </span>
+                                    </a>
+                                    <a href="{{ route('media.photos') }}"
+                                       class="group flex items-center px-3 py-2 text-sm font-medium text-secondary whitespace-nowrap @if(request()->is('media/photos*')) active @endif">
+                                        <span class="truncate">
+                                            Photos
+                                        </span>
+                                    </a>
+                                    <a href="{{ route('media.podcasts') }}"
+                                       class="group flex items-center px-3 py-2 text-sm font-medium text-secondary whitespace-nowrap @if(request()->is('media/podcasts')) active @endif">
+                                        <span class="truncate">
+                                            Podcasts
+                                        </span>
+                                    </a>
+                                    <a href="{{ route('updates.index') }}"
+                                       class="group flex items-center px-3 py-2 text-sm font-medium text-secondary whitespace-nowrap"
+                                    >
+                                        <span class="truncate">
+                                            Updates
+                                        </span>
+                                    </a>
+                                    <a href="{{ route('media.videos') }}"
+                                       class="group flex items-center px-3 py-2 text-sm font-medium text-secondary whitespace-nowrap @if(request()->is('media/videos')) active @endif">
+                                        <span class="truncate">
+                                            Videos
+                                        </span>
+                                    </a>
+                                    <h3 class="pt-4 text-xs font-semibold text-primary uppercase tracking-wider whitespace-nowrap" id="media-library-headline">
+                                        Media Center
+                                    </h3>
+                                    <a href="{{ route('media.kit') }}"
+                                       class="group flex items-center px-3 py-2 text-sm font-medium text-secondary whitespace-nowrap @if(request()->is('media/media-kit')) active @endif">
+                                        <span class="truncate">
+                                            Media Kit
+                                        </span>
+                                    </a>
+                                    <a href="{{ route('media.requests') }}"
+                                       class="group flex items-center px-3 py-2 text-sm font-medium text-secondary whitespace-nowrap @if(request()->is('media/requests')) active @endif">
+                                        <span class="truncate">
+                                            Media Requests
+                                        </span>
+                                    </a>
+                                    <a href="{{ route('media.news') }}"
+                                       class="group flex items-center px-3 py-2 text-sm font-medium text-secondary whitespace-nowrap @if(request()->is('media/news')) active @endif">
+                                        <span class="truncate">
+                                            Newsroom
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
 
-
-                    <div class="relative inline-block text-left">
+                    {{--<div class="relative inline-block text-left">
                             <span x-on:mouseenter="dropdown = 'media'"
                                   x-on:click="dropdown = 'media'"
                                   x-on:click.away="dropdown = null"
@@ -411,7 +816,7 @@
                              x-on:mouseleave="dropdown = null"
                              x-cloak
                              class="origin-top-right absolute -right-4 mt-2 w-72 shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-20 p-4">
-                            {{--<div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                            --}}{{--<div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                                 <a href="{{ route('media.articles') }}"
                                    class="block px-4 py-2 text-secondary font-medium hover:bg-gray-100"
                                    role="menuitem">
@@ -447,7 +852,7 @@
                                        role="menuitem">
                                         News Releases
                                     </a>-->
-                            </div>--}}
+                            </div>--}}{{--
 
                             <h3 class="px-3 text-xs font-semibold text-primary uppercase tracking-wider" id="media-library-headline">
                                 Media Library
@@ -471,9 +876,8 @@
                                         Podcasts
                                     </span>
                                 </a>
-                                <a href="https://updates.wilfordwoodruffpapers.org/posts"
+                                <a href="{{ route('updates.index') }}"
                                    class="group flex items-center px-3 py-2 text-sm font-medium text-secondary"
-                                   target="_newletter"
                                 >
                                     <span class="truncate">
                                         Updates
@@ -517,7 +921,7 @@
                                 </a>
                             </div>
                         </div>
-                    </div>
+                    </div>--}}
 
                     <div class="relative inline-block text-left">
                         <a href="{{ route('donate.online') }}"

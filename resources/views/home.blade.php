@@ -39,7 +39,7 @@
         </div>
     @endif
 
-    @if(app()->environment(['production','local','development']))
+    @if(app()->environment(['production','local','development', 'testing']))
         <x-article-preview-carousel />
     @endif
 
@@ -49,7 +49,7 @@
         </div>
     @endif
 
-    @if(app()->environment(['production','local','development']))
+    @if(app()->environment(['production','local','development', 'testing']))
 
         <div class="py-12">
             <x-home.video />
@@ -107,11 +107,11 @@
     @endif--}}
 
     @if(app()->environment(['production','local','development']))
-        <x-home.book />
+        <x-progress />
+    @endif
 
+    @if(app()->environment(['production','local','development']))
         <x-call-to-action />
-
-        <x-home.purpose />
     @endif
 
     {{--@if(app()->environment(['production']))
@@ -130,9 +130,11 @@
         <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&family=Source+Serif+Pro&display=swap" rel="stylesheet">
     @endpush--}}
 
-    @if(app()->environment(['production','local','development']))
-        <x-progress />
-    @endif
+
+
+    <x-home.book />
+
+    <x-home.purpose />
 
     <x-bottom-announcements />
 

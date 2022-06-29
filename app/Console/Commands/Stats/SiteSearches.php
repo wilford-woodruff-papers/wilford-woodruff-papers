@@ -44,7 +44,7 @@ class SiteSearches extends Command
 
         $itemCount = Activity::query()
                         ->where('log_name', 'search')
-                        ->whereBetween('created_at', [$now->startOfMonth(), $now->endOfMonth()])
+                        ->whereBetween('created_at', [$now->startOfMonth()->toDateString(), $now->endOfMonth()->toDateString()])
                         ->count();
 
         $previousStat = Stat::query()

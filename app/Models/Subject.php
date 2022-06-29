@@ -29,7 +29,7 @@ class Subject extends Model
 
     public function parent()
     {
-        return $this->belongsTo(self::class);
+        return $this->belongsTo(self::class, 'subject_id');
     }
 
     public function children()

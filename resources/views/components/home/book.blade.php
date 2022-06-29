@@ -42,7 +42,7 @@
                 <div class="flex flex-col md:flex-row gap-x-6 gap-y-2 md:gap-y-0 mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 lg:px-0">
                     <div>
                         <x-links.hightlight
-                            href="https://www.amazon.com/Wilford-Woodruffs-Witness-Development-Doctrine/dp/0615835325"
+                            href="https://deseretbook.com/p/wilford-woodruffs-witness-development-temple-doctrine-jennifer-ann-mackley-93480?queryID=26c42ae92599292369fb90df9e68b0ee&variant_id=2215-hardcover"
                             target="_blank"
                             class="flex justify-center"
                         >

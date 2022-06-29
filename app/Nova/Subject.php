@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use App\Nova\Actions\ExportSubjects;
 use App\Nova\Actions\ImportBiographies;
+use App\Nova\Actions\ImportIndexTopics;
 use App\Nova\Actions\ImportSubjects;
 use App\Nova\Filters\SubjectType;
 use Illuminate\Http\Request;
@@ -106,6 +107,7 @@ class Subject extends Resource
     public function actions(Request $request)
     {
         return [
+            new ImportIndexTopics,
             new ImportSubjects,
             new ImportBiographies,
             (new ExportSubjects)

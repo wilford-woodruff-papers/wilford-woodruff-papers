@@ -1,8 +1,6 @@
 <x-guest-layout>
     <div id="content" role="main"
-         x-data="{
-                openPanel: 'mission'
-            }"
+         x-data="{ active: 0 }"
     >
         <div class="max-w-7xl mx-auto px-4">
             <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
@@ -10,67 +8,101 @@
                     <div class="col-span-12 md:col-span-3 px-2 py-16">
                         <x-submenu area="About"/>
                     </div>
-                    <div class="content col-span-12 md:col-span-9">
-                        <div class="content max-w-5xl mx-auto ">
-                            <h2>Frequently Asked Questions</h2>
-                            <div class="mt-6 mb-12 space-y-6 divide-y divide-gray-200">
-                                <div class="pt-6">
-                                    <div class="text-lg">
+                    <div class="faq col-span-12 md:col-span-9">
+                        <div class="max-w-5xl mx-auto ">
+                            <div class="content">
+                                <h2>Frequently Asked Questions</h2>
+                            </div>
+                            <div class="mt-6 mb-12 divide-y divide-gray-200">
+                                <div x-data="{
+                                        id: 0,
+                                        get expanded() {
+                                            return this.active === this.id
+                                        },
+                                        set expanded(value) {
+                                            this.active = value ? this.id : null
+                                        },
+                                    }"
+                                     role="region"
+                                     class="">
+                                    <div class="text-lg py-4 border-l-4 border-white pl-2"
+                                         x-bind:class="{ 'bg-gray-200 border-secondary': active === 0, 'bg-white border-white': !(active === 0) }">
                                         <!-- Expand/collapse question button -->
                                         <button aria-expanded="true"
-                                                class="text-left w-full flex justify-between items-start text-gray-400"
-                                                x-bind:aria-expanded="openPanel === 'mission'"
+                                                class="text-left w-full flex items-start text-gray-400"
                                                 x-description="Expand/collapse question button"
-                                                x-on:click="openPanel = (openPanel === 'mission' ? null : 'mission')">
-                                        <span class="font-medium text-gray-900">
-                                            What is the purpose of the Wilford Woodruff Papers Project?
-                                        </span>
-                                            <span class="ml-6 h-7 flex items-center">
-                                        <!--
-                                          Heroicon name: outline/chevron-down
+                                                x-on:click="expanded = !expanded"
+                                                :aria-expanded="expanded">
+                                            <span class="mr-4 h-7 flex items-center">
+                                                <!--
+                                                  Heroicon name: outline/chevron-down
 
-                                          Open: "-rotate-180", Closed: "rotate-0"
-                                        -->
-                                        <svg aria-hidiven="true" class="-rotate-180 h-6 w-6 transform" fill="none" stroke="currentColor" viewbox="0 0 24 24" x-bind:class="{ '-rotate-180': openPanel === 'mission', 'rotate-0': !(openPanel === 'mission') }"
-                                             x-state:off="Closed"
-                                             x-state:on="Open" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-widivh="2"></path> </svg> </span>
-                                        </button></div>
+                                                  Open: "-rotate-180", Closed: "rotate-0"
+                                                -->
+                                                <svg aria-hidiven="true" class="-rotate-180 h-6 w-6 transform" fill="none" stroke="currentColor" viewbox="0 0 24 24" x-bind:class="{ 'rotate-0 text-secondary': active === 0, '-rotate-90': !(active === 0) }"
+                                                     x-state:off="Closed"
+                                                     x-state:on="Open" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-widivh="2"></path>
+                                                </svg>
+                                            </span>
+                                            <span class="font-semibold text-gray-900">
+                                                What is the purpose of the Wilford Woodruff Papers Project?
+                                            </span>
+                                        </button>
+                                    </div>
 
-                                    <div class="mt-2 pr-12" x-show="openPanel === 'mission'">
-                                        <p class="text-base text-gray-500">
-                                            <x-mission-statement />
-                                        </p>
+                                    <div class="pr-12 pl-12 text-primary text-gray-500"
+                                         x-show="expanded"
+                                         x-collapse
+                                    >
+                                        <x-mission-statement />
                                     </div>
                                 </div>
                                 @foreach($faqs as $key => $faq)
-                                    <div class="pt-6">
-                                        <div class="text-lg">
+                                    <div x-data="{
+                                            id: {{ $faq->id }},
+                                            get expanded() {
+                                                return this.active === this.id
+                                            },
+                                            set expanded(value) {
+                                                this.active = value ? this.id : null
+                                            },
+                                        }"
+                                         role="region"
+                                         class="">
+                                        <div class="text-lg py-4 border-l-4 border-white pl-2"
+                                             x-bind:class="{ 'bg-gray-200 border-secondary': active === {{ $faq->id }}, 'bg-white border-white': !(active === {{ $faq->id }}) }"
+                                        >
                                             <!-- Expand/collapse question button -->
                                             <button aria-expanded="true"
-                                                    class="text-left w-full flex justify-between items-start text-gray-400"
-                                                    x-bind:aria-expanded="openPanel === {{ $key }}"
+                                                    class="text-left w-full flex items-start text-gray-400"
                                                     x-description="Expand/collapse question button"
-                                                    x-on:click="openPanel = (openPanel === {{ $key }} ? null : {{ $key }})">
-                                        <span class="font-medium text-gray-900">
-                                            {{ $faq->question }}
-                                        </span>
-                                                <span class="ml-6 h-7 flex items-center">
-                                        <!--
-                                          Heroicon name: outline/chevron-down
+                                                    x-on:click="expanded = !expanded"
+                                                    :aria-expanded="expanded">
+                                                <span class="mr-4 h-7 flex items-center">
+                                                    <!--
+                                                      Heroicon name: outline/chevron-down
 
-                                          Open: "-rotate-180", Closed: "rotate-0"
-                                        -->
-                                        <svg aria-hidiven="true" class="-rotate-180 h-6 w-6 transform" fill="none" stroke="currentColor" viewbox="0 0 24 24" x-bind:class="{ '-rotate-180': openPanel === {{ $key }}, 'rotate-0': !(openPanel === {{ $key }}) }"
-                                             x-state:off="Closed"
-                                             x-state:on="Open" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-widivh="2"></path> </svg> </span>
-                                            </button></div>
+                                                      Open: "-rotate-180", Closed: "rotate-0"
+                                                    -->
+                                                    <svg aria-hidiven="true" class="-rotate-180 h-6 w-6 transform" fill="none" stroke="currentColor" viewbox="0 0 24 24"    x-bind:class="{ 'rotate-0 text-secondary': active === {{ $faq->id }}, '-rotate-90': !(active === {{ $faq->id }}) }"
+                                                         x-state:off="Closed"
+                                                         x-state:on="Open" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-widivh="2"></path>
+                                                    </svg>
+                                                </span>
+                                                <span class="text-primary text-lg font-semibold">
+                                                    {{ $faq->question }}
+                                                </span>
+                                            </button>
+                                        </div>
 
-                                        <div class="mt-2 pr-12" x-show="openPanel === {{ $key }}">
-                                            <p class="text-base text-gray-500">
-                                                {!! $faq->answer !!}
-                                            </p>
+                                        <div class="py-4 pr-12 pl-12 text-primary text-lg"
+                                             x-show="expanded"
+                                             x-collapse
+                                             x-cloak
+                                        >
+                                            {!! $faq->answer !!}
                                         </div>
                                     </div>
                                 @endforeach

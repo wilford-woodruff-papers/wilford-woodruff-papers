@@ -19,11 +19,21 @@ class SubjectController extends Controller
             return $subject;
         }
 
+        $subject->load(['parent', 'children' => function($query){
+            $query->whereHas('pages');
+        }]);
+
         return view('public.subjects.show', [
             'subject' => $subject,
-            'pages' => Page::whereHas('subjects', function (Builder $query) use ($subject) {
-                $query->where('id', $subject->id);
-            })->paginate(10),
+            'pages' => Page::query()
+                ->where(function($query) use ($subject) {
+                    $query->whereHas('subjects', function (Builder $query) use ($subject) {
+                        $query->where('id', $subject->id);
+                    })->orWhereHas('subjects.children', function (Builder $query) use ($subject) {
+                        $query->where('id', $subject->id);
+                    });
+                })
+                ->paginate(10),
         ]);
     }
 }

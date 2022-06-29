@@ -23,10 +23,14 @@ Route::get('/documents/{item}', \App\Http\Livewire\Documents\Show::class)->name(
 //Route::get('/documents/{item}', [\App\Http\Controllers\ItemController::class, 'show'])->name('documents.show');
 Route::get('/documents/{item}/transcript', [\App\Http\Controllers\ItemController::class, 'transcript'])->name('documents.show.transcript');
 Route::get('/documents/{item}/page/{page}', [\App\Http\Controllers\PageController::class, 'show'])->name('pages.show');
-Route::get('/subjects/{subject}', [\App\Http\Controllers\SubjectController::class, 'show'])->name('subjects.show');
+Route::get('/subjects/{subject}', [\App\Http\Controllers\SubjectController::class, 'show'])->name('subjects.show')
+        ->missing(function (\Illuminate\Http\Request $request) {
+            return \Illuminate\Support\Facades\Redirect::route('home');
+        });
 Route::get('/people', [\App\Http\Controllers\PeopleController::class, 'index'])->name('people');
 Route::get('/wives-and-children', [\App\Http\Controllers\PeopleController::class, 'family'])->name('wives-and-children');
 Route::get('/places', [\App\Http\Controllers\PlaceController::class, 'index'])->name('places');
+Route::get('/topics', [\App\Http\Controllers\TopicController::class, 'index'])->name('topics');
 Route::get('/timeline', [\App\Http\Controllers\TimelineController::class, 'index'])->name('timeline');
 Route::get('/miraculously-preserved-life', \App\Http\Controllers\MiraculouslyPreservedLife::class)->name('miraculously-preserved-life');
 Route::get('/donate-online', [\App\Http\Controllers\DonationController::class, 'online'])->name('donate.online');
@@ -62,6 +66,9 @@ Route::get('/media/media-kit', [\App\Http\Controllers\MediaController::class, 'k
 Route::get('/media/requests', [\App\Http\Controllers\MediaController::class, 'requests'])->name('media.requests');
 Route::get('/media/newsroom', [\App\Http\Controllers\MediaController::class, 'newsroom'])->name('media.news');
 
+Route::get('/updates', [\App\Http\Controllers\UpdateController::class, 'index'])->name('updates.index');
+Route::get('/updates/{update}', [\App\Http\Controllers\UpdateController::class, 'show'])->name('updates.show');
+
 Route::get('/announcements', [\App\Http\Controllers\AnnouncementController::class, 'index'])->name('announcements');
 Route::get('/announcements/{announcement}', [\App\Http\Controllers\AnnouncementController::class, 'show'])->name('announcements.show');
 
@@ -80,6 +87,10 @@ Route::get('login/google', [\App\Http\Controllers\Auth\GoogleLoginController::cl
 Route::get('login/google/callback', [\App\Http\Controllers\Auth\GoogleLoginController::class, 'handleProviderCallback']);
 Route::get('login/facebook', [\App\Http\Controllers\Auth\FacebookLoginController::class, 'redirectToProvider'])->name('login.facebook');
 Route::get('login/facebook/callback', [\App\Http\Controllers\Auth\FacebookLoginController::class, 'handleProviderCallback']);
+Route::get('login/instagram/auth', \App\Http\Controllers\Auth\InstagramAuthController::class)->name('login.instagram.auth');
+
+Route::get('login/constantcontact', [\App\Http\Controllers\Auth\ConstantContactController::class, 'redirectToProvider'])->name('login.constantcontact');
+Route::get('login/constantcontact/callback', [\App\Http\Controllers\Auth\ConstantContactController::class, 'handleProviderCallback']);
 
 Route::get('login/terms-of-use', [\App\Http\Controllers\Auth\AcceptTermsOfUseController::class, 'show'])->name('terms.accept');
 Route::post('login/terms-of-use', [\App\Http\Controllers\Auth\AcceptTermsOfUseController::class, 'submit'])->name('terms.submit');

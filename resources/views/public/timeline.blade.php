@@ -107,9 +107,21 @@
                                                             </td>
                                                             <td>
                                                                 @if($event->photos->count() > 0)
-                                                                    <img class="h-12 w-auto"
-                                                                         src="{{ $event->photos->first()->getFirstMediaUrl('default','thumb') }}"
-                                                                         alt=""/>
+                                                                    <a class="text-secondary"
+                                                                       href="{{ route('media.photos.show', ['photo' => $event->photos->first()->uuid]) }}"
+                                                                       target="_timeline"
+                                                                    >
+                                                                        <img class="h-12 w-auto"
+                                                                             src="{{ $event->photos->first()->getFirstMediaUrl('default','thumb') }}"
+                                                                             alt=""/>
+                                                                    </a>
+                                                                @elseif($event->pages->count() > 0)
+                                                                    <a class="text-secondary"
+                                                                       href="{{ route('pages.show', ['item' => $event->pages->first()->parent->uuid, 'page' => $event->pages->first()->uuid]) }}">
+                                                                        <img class="h-12 w-auto"
+                                                                             src="{{ $event->pages->first()->getFirstMediaUrl('default','thumb') }}"
+                                                                             alt=""/>
+                                                                    </a>
                                                                 @elseif($event->media->count() > 0)
                                                                     <img class="h-12 w-auto"
                                                                          src="{{ $event->getFirstMediaUrl('default','thumb') }}"

@@ -149,7 +149,7 @@
             </div>
         @endif
 
-        <div class="px-4">
+        <div id="results" class="px-4">
             <h2 class="text-primary text-2xl font-serif mt-4 mb-4 border-b border-gray-300">
                 Documents
             </h2>

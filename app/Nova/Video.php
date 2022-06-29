@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use Emilianotisato\NovaTinyMCE\NovaTinyMCE;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\ID;
@@ -78,6 +79,7 @@ class Video extends Resource
                     'height' => 500,
                 ])
                 ->alwaysShow(),
+            BelongsToMany::make('Authors')->hideFromIndex(),
         ];
     }
 

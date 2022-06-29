@@ -62,6 +62,7 @@ class ImportItemFromFtp implements ShouldQueue
                     'ftp_link' => (array_key_exists('related', $canvas))
                         ? $canvas['related'][0]['@id']
                         : '',
+                    'is_blank' => in_array('markedBlank', array_values(data_get($canvas, 'service.pageStatus', []))),
                 ]);
 
                 if (! $page->hasMedia()) {
