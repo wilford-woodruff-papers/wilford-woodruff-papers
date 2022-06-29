@@ -28,6 +28,7 @@ class ItemController extends Controller
                         ->groupBy('decade');
         if ($request->has('type') && ($request->get('type') == Type::firstWhere('name', 'Letters')->id)) {
             $decades = $decades->where('type_id', $request->get('type'))
+                                ->orderBy('decade')
                                ->get();
         }
 
@@ -39,6 +40,7 @@ class ItemController extends Controller
         if ($request->has('decade')) {
             $years = $years->where('type_id', $request->get('type'))
                                ->where('decade', $request->get('decade'))
+                                ->orderBy('year')
                                ->get();
         }
 
