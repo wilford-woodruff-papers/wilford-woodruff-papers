@@ -88,7 +88,7 @@
                         <div class="col-span-1 px-4 pt-6">
                             <!-- This example requires Tailwind CSS v2.0+ -->
                             <nav class="space-y-1" aria-label="Decade filter">
-                                @foreach($decades as $decade)
+                                @foreach($decades->sortBy('decade') as $decade)
                                     <a class="@if(request()->get('decade') == $decade->decade) bg-gray-200 text-gray-900 @else text-gray-600 hover:bg-gray-50 hover:text-gray-900 @endif flex items-center pl-3 py-2 text-base font-medium"
                                        href="{{ route('documents', ['type' => $type, 'decade' => $decade->decade]) }}">
                                         <span class="truncate">
@@ -102,7 +102,7 @@
                                     </a>
                                     @if(request()->has('decade') && request()->get('decade') == $decade->decade)
                                         <div class="pl-4">
-                                            @foreach($years as $year)
+                                            @foreach($years->sortBy('year') as $year)
                                                 <a class="@if(request()->get('year') == $year->year) bg-gray-200 text-gray-900 @else text-gray-600 hover:bg-gray-50 hover:text-gray-900 @endif flex items-center pl-3 py-2 text-base font-medium"
                                                    href="{{ route('documents', ['type' => $type, 'decade' => $decade->decade, 'year' => $year->year]) }}">
                                                     <span class="truncate">
