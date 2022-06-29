@@ -37,7 +37,7 @@ class CallToAction extends Component
             [
                 'image' => 'https://wilford-woodruff-papers.nyc3.digitaloceanspaces.com/243/conversions/WW-July-24-1898-in-Pioneer-Park-thumb.jpg',
                 'title' => 'Sign Up for Updates',
-                'link' => 'https://updates.wilfordwoodruffpapers.org/posts',
+                'link' => route('updates.index'),
             ],
             [
                 'image' => 'https://wilfordwoodruffpapers.org/img/banners/home.jpg',
