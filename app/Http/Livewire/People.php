@@ -31,13 +31,13 @@ class People extends Component
     {
         $people = Subject::query()
                             ->whereEnabled(1)
-                            ->whereHas('category', function (Builder $query) {
+                            ->when($this->category == 'All', fn($query, $category) => $query->whereHas('category', function (Builder $query) {
                                 $query->where('name', 'People');
-                            })
+                            }))
                             ->when($this->category != 'All', fn($query, $category) => $query->whereHas('category', function (Builder $query) {
                                 $query->where('name', $this->category);
                             }))
-                            ->when($this->letter && $this->category == 'All', fn($query, $letter) => $query->where('last_name', 'LIKE', $this->letter.'%'))
+                            ->when($this->letter && $this->category == 'All', fn($query, $letter) => $query->where('last_name', 'REGEXP', '^['.$this->letter.'].*$'))
                             ->when($this->search, function($query, $search) {
                                 $names = str($search)->explode(" ");
                                 foreach ($names as $name){
@@ -68,5 +68,14 @@ class People extends Component
     public function updatedLetter()
     {
         $this->search = null;
+    }
+
+    public function updatedCategory($value)
+    {
+        if($value == 'All'){
+            $this->letter = 'A';
+        }else{
+            $this->letter = null;
+        }
     }
 }
