@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -56,6 +57,11 @@ class Faq extends Resource
         return [
             OrderField::make('Order'),
             ID::make(__('ID'), 'id')->sortable(),
+            Select::make(__('Category'), 'category')->options([
+                'Project' => 'Project',
+                'Documents' => 'Documents',
+                'Funding' => 'Funding',
+            ])->sortable(),
             Text::make(__('Question'), 'question')->sortable(),
             Trix::make(__('Answer'), 'answer'),
         ];
