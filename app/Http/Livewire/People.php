@@ -8,11 +8,17 @@ use Livewire\Component;
 
 class People extends Component
 {
+    public $category = 'All';
+
     public $letter = null;
 
     public $search = null;
 
-    protected $queryString = ['letter' => ['except' => 'A'], 'search'];
+    protected $queryString = [
+        'category' => ['except' => 'All'],
+        'letter' => ['except' => 'A'],
+        'search'
+    ];
 
     public function mount()
     {
@@ -28,7 +34,10 @@ class People extends Component
                             ->whereHas('category', function (Builder $query) {
                                 $query->where('name', 'People');
                             })
-                            ->when($this->letter, fn($query, $letter) => $query->where('last_name', 'LIKE', $letter.'%'))
+                            ->when($this->category != 'All', fn($query, $category) => $query->whereHas('category', function (Builder $query) {
+                                $query->where('name', $this->category);
+                            }))
+                            ->when($this->letter && $this->category == 'All', fn($query, $letter) => $query->where('last_name', 'LIKE', $this->letter.'%'))
                             ->when($this->search, function($query, $search) {
                                 $names = str($search)->explode(" ");
                                 foreach ($names as $name){
