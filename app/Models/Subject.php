@@ -91,15 +91,29 @@ class Subject extends Model
         if(str($this->name)->contains('Jr.')) {
             $name_suffix = 'Jr.';
             $name = str($this->name)->beforeLast(',')->replace('Jr.', '')->rtrim(', ');
-        } elseif(str($this->name)->contains('Sr.')) {
+        } elseif (str($this->name)->contains('Sr.')) {
             $name_suffix = 'Sr.';
             $name = str($this->name)->beforeLast(',')->replace('Sr.', '')->rtrim(', ');
+        } elseif (str($this->name)->contains('(OT)')) {
+            $name_suffix = 'Old Testament';
+            $name = str($this->name)->replace('(OT)', '')->rtrim(', ');
+        }  elseif (str($this->name)->contains('(NT)')) {
+            $name_suffix = 'New Testament';
+            $name = str($this->name)->replace('(NT)', '')->rtrim(', ');
+        }   elseif (str($this->name)->contains('(BofM)')) {
+            $name_suffix = 'Book of Mormon';
+            $name = str($this->name)->replace('(BofM)', '')->rtrim(', ');
         } else {
             $name = str($this->name)->beforeLast(',');
         }
 
         $name = explode(' ', $name);
-        $this->attributes['last_name'] = array_pop($name);
+        if(count($name) > 1){
+            $this->attributes['last_name'] = array_pop($name);
+        } else {
+            $this->attributes['last_name'] = implode(" ", $name) . (! empty($year) ? ', ' . $year . ' ' : '') . (! empty($name_suffix) ? ' (' . $name_suffix . ')' : '');
+
+        }
         $this->attributes['first_name'] = implode(" ", $name) . (! empty($year) ? ', ' . $year . ' ' : '') . (! empty($name_suffix) ? ' (' . $name_suffix . ')' : '');
     }
 }
