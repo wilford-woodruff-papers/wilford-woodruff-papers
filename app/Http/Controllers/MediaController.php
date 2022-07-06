@@ -30,7 +30,10 @@ class MediaController extends Controller
     public function photos(Request $request)
     {
         return view('public.media.photos', [
-            'photos' => Photo::paginate(18),
+            'photos' => Photo::query()
+                                ->when($request->has('tag'), function ($query) use ($request) {
+                                    $query->withAnyTags($request->get('tag'), 'photos');
+                                })->paginate(18),
         ]);
     }
 
