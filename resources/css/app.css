@@ -45,6 +45,10 @@ nav.sub-menu ul {
     @apply text-primary text-3xl font-serif mt-8 mb-0;
 }
 
+.content a {
+    @apply break-words;
+}
+
 .page-title {
     @apply font-serif md:text-3xl italic text-secondary py-8 px-4 text-center;
 }

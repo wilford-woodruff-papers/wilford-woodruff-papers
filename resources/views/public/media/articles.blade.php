@@ -25,10 +25,14 @@
                                         <h3 class="text-xl font-semibold text-primary">
                                             {{ $article->title }}
                                         </h3>
-                                        @if(! empty($article->subtitle))
-                                            <span class="text-base font-normal text-primary">
+                                        @if($article->authors->count())
+                                            <p class="text-base font-normal text-primary">
+                                                by {{ $article->authors->pluck('name')->join(', ', ' and ') }}
+                                            </p>
+                                        @elseif(! empty($article->subtitle))
+                                            <p class="text-base font-normal text-primary">
                                                 by {{ $article->subtitle }}
-                                            </span>
+                                            </p>
                                         @endif
                                         <p class="mt-3 text-base text-gray-500">
                                             @if(! empty($article->excerpt))
