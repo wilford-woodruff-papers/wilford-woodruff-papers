@@ -45,23 +45,6 @@
                             </div>
                         @endif
                     </div>
-                    @if($article->authors->count() > 0)
-                        <div class="col-span-12 my-8 p-4 bg-gray-100 divide-y">
-                            @foreach($article->authors as $author)
-                                <div class="grid grid-cols-4 gap-4 items-center">
-                                    <div class="col-span-4 md:col-span-1 p-4">
-                                        <img src="{{ \Illuminate\Support\Facades\Storage::disk('authors')->url($author->image) }}"
-                                             class="w-64 md:w-full h-auto mx-auto"
-                                             alt="{{ $author->name }}"
-                                        />
-                                    </div>
-                                    <div class="col-span-4 md:col-span-3 px-4">
-                                        {!! $author->description !!}
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    @endif
                 </div>
             </div>
         </div>
