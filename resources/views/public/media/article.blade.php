@@ -8,8 +8,16 @@
                     </div>
                     <div class="article content col-span-12 md:col-span-9">
                         <h2 class="text-lg">{{ $article->title }}</h2>
-
-                        <div class="mt-4 grid gap-16 lg:grid-cols-1 lg:gap-y-12">
+                        @if($article->authors->count())
+                            <p class="text-base font-normal text-primary">
+                                by {{ $article->authors->pluck('name')->join(', ', ' and ') }}
+                            </p>
+                        @elseif(! empty($article->subtitle))
+                            <p class="text-base font-normal text-primary">
+                                by {{ $article->subtitle }}
+                            </p>
+                        @endif
+                        <div class="mt-4">
                             <div>
                                 <p class="text-sm text-gray-500">
                                     <time datetime="{{ $article->date }}">{{ $article->date->format('M j, Y') }}</time>
@@ -20,6 +28,23 @@
                             </div>
                         </div>
                     </div>
+                    @if($article->authors->count() > 0)
+                        <div class="col-span-12 my-8 p-4 bg-gray-100 divide-y">
+                            @foreach($article->authors as $author)
+                                <div class="grid grid-cols-4 gap-4 items-center">
+                                    <div class="col-span-4 md:col-span-1 p-4">
+                                        <img src="{{ \Illuminate\Support\Facades\Storage::disk('authors')->url($author->image) }}"
+                                             class="w-64 md:w-full h-auto mx-auto"
+                                             alt="{{ $author->name }}"
+                                        />
+                                    </div>
+                                    <div class="col-span-4 md:col-span-3 px-4">
+                                        {!! $author->description !!}
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

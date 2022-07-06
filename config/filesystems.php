@@ -56,6 +56,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'authors' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/authors'),
+            'url' => env('APP_URL').'/storage/authors',
+            'visibility' => 'public',
+        ],
+
         'submissions' => [
             'driver' => 'local',
             'root' => storage_path('app/public/submissions'),

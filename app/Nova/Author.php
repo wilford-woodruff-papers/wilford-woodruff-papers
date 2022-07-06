@@ -45,7 +45,7 @@ class Author extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            Image::make('Image'),
+            Image::make('Image')->disk('authors'),
             Text::make('Name'),
             Text::make('Suffix'),
             NovaTinyMCE::make('Description', 'description')
