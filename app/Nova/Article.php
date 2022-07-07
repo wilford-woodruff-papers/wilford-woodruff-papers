@@ -86,6 +86,11 @@ class Article extends Resource
                 ])
                 ->alwaysShow()
                 ->help('The Article text should only be provided if the article was originally published on our site.'),
+            NovaTinyMCE::make('Footnotes')
+                ->options([
+                    'height' => 500,
+                ])
+                ->alwaysShow(),
             Text::make('Link')
                 ->hideFromIndex()
                 ->help('A link to the article should be provided if the Article is published on an external site.'),
