@@ -3,8 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Models\Newsletter;
+use App\Models\Oauth;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use PHPHtmlParser\Dom;
@@ -19,7 +19,9 @@ class ImportNewslettersCommand extends Command
     {
         $url = 'https://api.cc.email/v3/emails?limit=50';
 
-        $oauth = DB::table('oauth')->where('provider', 'Constant Contact')->first();
+        $oauth = Oauth::query()
+                        ->where('provider', 'Constant Contact')
+                        ->first();
 
         if($oauth->expires_at < now()){
             $oauth = $this->refreshToken($oauth);
