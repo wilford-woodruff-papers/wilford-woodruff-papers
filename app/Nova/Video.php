@@ -70,6 +70,11 @@ class Video extends Resource
                 ->required(true)
                 ->hideFromIndex()
                 ->help('Paste the YouTube URL in this box (not the embed code).'),
+            NovaTinyMCE::make('Credits')
+                ->options([
+                    'height' => 500,
+                ])
+                ->alwaysShow(),
             Tags::make('Category', 'tags')
                 ->type('videos')
                 ->withMeta(['placeholder' => 'Add categories...'])
