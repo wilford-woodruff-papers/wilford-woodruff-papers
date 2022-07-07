@@ -36,6 +36,13 @@
                                         </p>
                                     @endif
                                 </div>
+                                @if(! empty($article->credits))
+                                    <div class="my-8 p-4 bg-gray-100 divide-y">
+                                        <div class="px-4">
+                                            {!! $author->credits !!}
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
                             @if(strlen($video->transcript) > 10)
                                 <div class="p-6">

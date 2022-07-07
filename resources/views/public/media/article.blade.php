@@ -44,6 +44,14 @@
                                 @endforeach
                             </div>
                         @endif
+
+                        @if(! empty($article->footnotes))
+                            <div class="mt-4">
+                                <div class="text-sm text-gray-500">
+                                    {!! $article->footnotes !!}
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
