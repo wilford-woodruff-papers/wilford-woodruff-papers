@@ -3,7 +3,6 @@
 namespace App\Http\Livewire;
 
 use App\Models\Page;
-use App\Models\Quote;
 use App\Models\Subject;
 use App\Models\Theme;
 use App\Models\Topic;
