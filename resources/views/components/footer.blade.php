@@ -243,8 +243,26 @@
                     </div>
                 </div>
             </div>
-            <div>
-                Wilford Woodruff Papers Foundation &copy {{ date('Y') }} All Rights Reserved.
+            <div class="md:flex md:justify-between">
+                <div>
+                    Wilford Woodruff Papers Foundation &copy {{ date('Y') }} All Rights Reserved.
+                </div>
+                <div class="py-8 md:py-0">
+                    @if(auth()->guest())
+                        <a href="{{ route('login') }}"
+                           class="text-base text-white hover:text-highlight"
+                        >Sign in</a>
+                    @else
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf()
+                            <a href="{{ route('logout') }}"
+                               class="text-base text-white hover:text-highlight"
+                               onclick="event.preventDefault(); this.closest('form').submit();">
+                                Sign Out
+                            </a>
+                        </form>
+                    @endif
+                </div>
             </div>
         </div>
     </div>

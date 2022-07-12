@@ -132,7 +132,7 @@
                             </div>
                         </div>
                     @else
-                        @hasanyrole('Editor|Admin|Super Admin')
+                        @hasanyrole('Editor|Admin|Super Admin|Tagger')
                             <livewire:transcript :page="$page" />
                         @else
                             {!! $page->text() !!}
