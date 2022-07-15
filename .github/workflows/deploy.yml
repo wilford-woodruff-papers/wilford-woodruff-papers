@@ -79,7 +79,7 @@ jobs:
         env:
           LASSO_ENV: ${{ steps.extract_branch.outputs.branch }}
           DO_SPACES_KEY: ${{ secrets.DO_SPACES_KEY }}
-          DO_SPACES_SECRET: "${{ secrets.DO_SPACES_SECRET }}
+          DO_SPACES_SECRET: ${{ secrets.DO_SPACES_SECRET }}
           DO_SPACES_URL: ${{ secrets.DO_SPACES_URL }}
           DO_SPACES_ENDPOINT: ${{ secrets.DO_SPACES_ENDPOINT }}
           DO_SPACES_REGION: ${{ secrets.DO_SPACES_REGION }}
