@@ -80,12 +80,12 @@ jobs:
         run: php artisan lasso:publish --no-git
         env:
           LASSO_ENV: ${{ steps.extract_branch.outputs.branch }}
-          DO_SPACES_KEY: ${{ secrets.DO_SPACES_KEY }}
-          DO_SPACES_SECRET: ${{ secrets.DO_SPACES_SECRET }}
-          DO_SPACES_URL: ${{ secrets.DO_SPACES_URL }}
-          DO_SPACES_ENDPOINT: ${{ secrets.DO_SPACES_ENDPOINT }}
-          DO_SPACES_REGION: ${{ secrets.DO_SPACES_REGION }}
-          DO_SPACES_BUCKET: ${{ secrets.DO_SPACES_BUCKET }}
+          DO_SPACES_KEY: ${{ secrets.LASSO_DO_SPACES_KEY }}
+          DO_SPACES_SECRET: ${{ secrets.LASSO_DO_SPACES_SECRET }}
+          DO_SPACES_URL: ${{ secrets.LASSO_DO_SPACES_URL }}
+          DO_SPACES_ENDPOINT: ${{ secrets.LASSO_DO_SPACES_ENDPOINT }}
+          DO_SPACES_REGION: ${{ secrets.LASSO_DO_SPACES_REGION }}
+          DO_SPACES_BUCKET: ${{ secrets.LASSO_DO_SPACES_BUCKET }}
 
       - name: Trigger develop deployment
         if: ${{ steps.extract_branch.outputs.branch == 'develop' }}
