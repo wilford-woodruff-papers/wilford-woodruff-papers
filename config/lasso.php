@@ -48,7 +48,7 @@ return [
          * Specify the filesystem Lasso should use to store
          * and retrieve its files.
          */
-        'disk' => 'spaces',
+        'disk' => 'lasso',
 
         /*
          * Specify the directory Lasso should store all of its
