@@ -15,6 +15,32 @@ jobs:
     - uses: actions/checkout@v2
     - name: Copy .env
       run: cp .env.example .env
+    - name: Get npm cache directory
+      id: npm-cache
+      run: echo "::set-output name=dir::$(npm config get cache)"
+
+    - name: Cache npm dependencies
+      uses: actions/cache@v2
+      with:
+        path: ${{ steps.npm-cache.outputs.dir }}
+        # Use package.json for key, if package-lock.json is not committed.
+        # key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+    - name: NPM install and run prod
+      run: |
+        npm install
+        npm run prod
+    - name: Archive NPM artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: npm-assets
+        path: |
+          public/mix-manifest.json
+          public/css/**/*
+          public/js/**/*
+          public/img/**/*
     - name: Create Database
       run: |
           sudo systemctl start mysql
@@ -77,4 +103,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: console
-        path: tests/Browser/console    
+        path: tests/Browser/console
