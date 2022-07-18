@@ -1,0 +1,3 @@
+<div>
+    {!! $testimonial->content !!}
+</div>

@@ -91,6 +91,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'testimonials' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/testimonials'),
+            'url' => env('APP_URL').'/storage/testimonials',
+            'visibility' => 'public',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
@@ -110,6 +117,18 @@ return [
             'bucket' => env('DO_SPACES_BUCKET'),
             'url' => env('DO_SPACES_URL'),
             'endpoint' => env('DO_SPACES_ENDPOINT'),
+            'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
+            'visibility' => 'public',
+        ],
+
+        'lasso' => [
+            'driver' => 's3',
+            'key' => env('LASSO_DO_SPACES_KEY'),
+            'secret' => env('LASSO_DO_SPACES_SECRET'),
+            'region' => env('LASSO_DO_SPACES_REGION'),
+            'bucket' => env('LASSO_DO_SPACES_BUCKET'),
+            'url' => env('LASSO_DO_SPACES_URL'),
+            'endpoint' => env('LASSO_DO_SPACES_ENDPOINT'),
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
             'visibility' => 'public',
         ],
