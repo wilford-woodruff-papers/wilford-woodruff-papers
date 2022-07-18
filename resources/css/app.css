@@ -239,3 +239,24 @@ input[class^="numeric-"], select[class^="numeric-"]{
     @apply md:inline-block;
 }
 /* End Constant Contact Inline Form */
+
+/* Begin Slick Slider */
+.slick-next.slick-arrow::before, .slick-prev.slick-arrow::before {
+    @apply text-secondary !important;
+}
+
+#video-testimonials .slick-track {
+    @apply flex items-center h-[280px] !important;
+}
+#video-testimonials .slick-list {
+    @apply overflow-x-hidden overflow-y-auto;
+}
+#video-testimonials .slick-list .slick-slide {
+    @apply h-auto;
+}
+#video-testimonials .slick-current + .slick-active{
+    @apply transition ease-in-out duration-300;
+    transform: scale(1.6);
+}
+
+/* End Slick Slider */

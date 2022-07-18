@@ -1,7 +1,20 @@
 <div>
 
     <div class="bg-white py-4 px-4 overflow-hidden">
+        <div class="absolute right-4 top-2 z-20">
+            <button wire:click="$emit('closeModal')"
+                    type="button"
+                    class="close text-2xl font-semibold"
+                    aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
         <div class="relative mx-auto">
+            <div>
+                <h2 class="text-2xl border-b-2 pb-2">
+                    Share Your Testimony
+                </h2>
+            </div>
             <div class="mt-12">
                 @if($success === false)
                     <form wire:submit.prevent="save" class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
@@ -105,6 +118,11 @@
                         <p class="p-4 text-xl font-medium">
                             Thank you for sharing your testimony!
                         </p>
+                        <div>
+                            <button onclick="Livewire.emit('closeModal', 'forms.testify')"
+                                    type="dismiss"
+                                    class="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent shadow-sm text-base uppercase font-medium text-white bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary">Close</button>
+                        </div>
                     </div>
                 @endif
             </div>

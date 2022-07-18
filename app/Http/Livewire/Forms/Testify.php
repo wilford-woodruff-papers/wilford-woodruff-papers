@@ -7,8 +7,9 @@ use App\Models\Submission;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
+use LivewireUI\Modal\ModalComponent;
 
-class Testify extends Component
+class Testify extends ModalComponent
 {
     public $age;
 
@@ -38,6 +39,15 @@ class Testify extends Component
         'source' => 'string|max:255',
         'topic' => 'string|max:255',
         'message' => 'required',
+    ];
+
+    public static function modalMaxWidth(): string
+    {
+        return '5xl';
+    }
+
+    protected static array $maxWidths = [
+        '5xl' => 'max-w-5xl',
     ];
 
     public function render()
