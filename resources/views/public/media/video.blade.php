@@ -22,6 +22,9 @@
                                     <p class="">
                                         {!! $video->description !!}
                                     </p>
+                                    <p class="">
+                                        {!! $video->credits !!}
+                                    </p>
                                     @if($video->tags->count() > 0)
                                         <p class="mt-3">
                                             @foreach($video->tags as $tag)
