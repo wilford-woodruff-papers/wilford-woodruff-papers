@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('action_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('action_type_id');
+            $table->unsignedBigInteger('action_type_id')->nullable();
             $table->unsignedInteger('default_days_until_due')->nullable();
-            $table->unsignedInteger('order_column');
+            $table->unsignedInteger('order_column')->nullable();
             $table->timestamps();
         });
 
