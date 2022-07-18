@@ -7,6 +7,7 @@ use App\Nova\Actions\ImportBiographies;
 use App\Nova\Actions\ImportIndexTopics;
 use App\Nova\Actions\ImportSubjects;
 use App\Nova\Filters\SubjectType;
+use Emilianotisato\NovaTinyMCE\NovaTinyMCE;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
@@ -54,7 +55,12 @@ class Subject extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
             Text::make(__('Name'), 'name')->sortable(),
-            Text::make(__('Slug'), 'slug')->hideWhenCreating()->sortable(),
+            Text::make(__('Slug'), 'slug')
+                ->hideFromIndex()
+                ->hideWhenCreating()
+                ->sortable(),
+            NovaTinyMCE::make('Bio')->alwaysShow(),
+            NovaTinyMCE::make('Footnotes')->alwaysShow(),
             BelongsToMany::make('Category'),
             BelongsTo::make('Parent Subject', 'parent', self::class)
                 ->nullable()
