@@ -11,6 +11,9 @@
                 @if($model->type == 'Instagram')
                     <x-comments.caption :media="$model"/>
                 @endif
+                @if($model->type == 'Video')
+                    <x-comments.credits :media="$model"/>
+                @endif
                 @foreach($model->comments as $comment)
                     <x-comments.comment :comment="$comment"/>
                 @endforeach

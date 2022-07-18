@@ -43,9 +43,13 @@
                                             <p class="">
                                                 {{ $video->subtitle }}
                                             </p>
-                                            <p class="">
+                                            <div class="">
                                                 {!! $video->description !!}
-                                            </p>
+                                            </div>
+                                            <div class="">
+                                                {!! $video->credits !!}
+                                            </div>
+
                                             <!--<p class="mt-3 text-base text-gray-500">
                                                 <a href="/files/asset/podcasts/Treasure%20Box.pdf"
                                                    class="text-base font-semibold text-secondary hover:text-highlight"
