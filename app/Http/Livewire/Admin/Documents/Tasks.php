@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin\Documents;
 
 use App\Models\Action;
 use App\Models\Item;
+use App\Models\Type;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -24,11 +25,16 @@ class Tasks extends Component
             })
             ->get();
 
+        $userRoles = auth()->user()->roles;
+
         $unassignedItems = Item::query()
+            ->with('unassigned_actions', 'unassigned_actions.type')
             ->has('target_publish_dates')
             ->whereHas('actions', function (Builder $query) {
                 $query->whereNull('assigned_at')
                     ->whereNull('completed_at');
+            })->whereHas('type', function (Builder $query) use ($userRoles){
+                $query->whereIn('id', Type::query()->role($userRoles->pluck('id')->all())->pluck('id')->all());
             })
             ->get();
 

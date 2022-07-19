@@ -127,10 +127,14 @@
                                         </th>
                                         <th class="bg-gray-50 px-4 py-2 text-left text-sm font-semibold text-gray-900 sm:px-6">
                                             @foreach($item->unassigned_actions as $action)
-                                                <button wire:click="claimItemAction({{ $action->id }})"
-                                                        class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 whitespace-nowrap">
-                                                    {{ $action->type->name }}
-                                                </button>
+                                                @if(empty($action->type->action_type_id) || in_array($action->type->action_type_id, $item->completed_actions->pluck('type.id')->all()) )
+                                                    @if(auth()->user()->hasRole($action->type->roles->pluck('name')->all()))
+                                                        <button wire:click="claimItemAction({{ $action->id }})"
+                                                                class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 whitespace-nowrap">
+                                                            {{ $action->type->name }}
+                                                        </button>
+                                                    @endif
+                                                @endif
                                             @endforeach
                                         </th>
                                     </tr>

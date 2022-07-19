@@ -57,9 +57,15 @@
             <!-- Panel -->
             @foreach($targetsDates as $targetsDate)
                 @php
-                    $types = $targetsDate->items->groupBy(function($item, $key){
-                        return $item->type?->name;
-                    });
+                    $types = $targetsDate
+                                ->items()
+                                ->whereHas('actions.type', function ($query){
+                                    $query->whereIn('id', \App\Models\Type::query()->role(auth()->user()->roles->pluck('id')->all())->pluck('id')->all());
+                                })
+                                ->get()
+                                ->groupBy(function($item, $key){
+                                    return $item->type?->name;
+                                });
                 @endphp
                 <section
                     x-show="isSelected($id('tab', whichChild($el, $el.parentElement)))"
@@ -74,7 +80,7 @@
                             $data = $type->each(function($item, $key) use (&$actions){
                                 return $actions = $actions->merge($item->actions);
                             });
-                            $actions = $actions->groupBy(function($item, $key){
+                            $actions = $actions->sortBy('type.order_column')->groupBy(function($item, $key){
                                 return $item->type->name;
                             });
                         @endphp

@@ -18,9 +18,22 @@ return new class extends Migration
                                     ->get();
 
         $types->each(function($type){
-            \App\Models\Role::create([
+            $role = \App\Models\Role::create([
                 'name' => $type->name . ' Editor',
             ]);
+            $type->assignRole($role);
+            if($type->subType){
+                $type->subType->assignRole($role);
+            }
+        });
+
+        $actionTypes = \App\Models\ActionType::all();
+
+        $actionTypes->each(function($actionType){
+            $role = \App\Models\Role::create([
+                'name' => $actionType->name,
+            ]);
+            $actionType->assignRole($role);
         });
     }
 

@@ -146,6 +146,12 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
             ->whereNull('completed_at');
     }
 
+    public function completed_actions()
+    {
+        return $this->morphMany(Action::class, 'actionable')
+            ->whereNotNull('completed_at');
+    }
+
     public function page_actions()
     {
         return $this->hasManyThrough(Action::class, Page::class, 'item_id', 'actionable_id')

@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use JeffersonSimaoGoncalves\NovaPermission\Nova\Fields\RoleBooleanGroup;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\HasMany;
@@ -61,6 +62,7 @@ class Type extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
             Text::make(__('Name'), 'name')->sortable(),
+            RoleBooleanGroup::make('Roles'),
             HasMany::make('Items'),
             BelongsTo::make('Type')->nullable(),
         ];

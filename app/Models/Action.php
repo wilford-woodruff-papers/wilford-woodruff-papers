@@ -23,7 +23,7 @@ class Action extends Model
 
     public function type()
     {
-        return $this->belongsTo(ActionType::class, 'action_type_id');
+        return $this->belongsTo(ActionType::class, 'action_type_id')->ordered();
     }
 
     public function assignee()
