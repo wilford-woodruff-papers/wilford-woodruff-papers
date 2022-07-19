@@ -238,3 +238,9 @@ input[class^="numeric-"], select[class^="numeric-"]{
     @apply md:inline-block;
 }
 /* End Constant Contact Inline Form */
+
+/* Begin Admin */
+.admin nav [x-ref="panel"] a {
+    @apply text-sm font-medium text-secondary uppercase;
+}
+/* End Admin */

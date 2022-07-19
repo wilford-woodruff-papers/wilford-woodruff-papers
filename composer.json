@@ -22,6 +22,7 @@
         "genealabs/laravel-caffeine": "^9.0",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^2.7",
+        "jeffersonsimaogoncalves/nova-permission": "^4.0",
         "laravel/framework": "^9.5",
         "laravel/horizon": "^5.9",
         "laravel/jetstream": "^2.6",

@@ -83,6 +83,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         return [
             \ChrisWare\NovaBreadcrumbs\NovaBreadcrumbs::make(),
+            \JeffersonSimaoGoncalves\NovaPermission\NovaPermissionTool::make(),
         ];
     }
 

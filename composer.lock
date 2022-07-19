@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7993e8d312da43d0759282f375a7996c",
+    "content-hash": "08bff505e77dcbb06c5a76017a5cdd80",
     "packages": [
         {
             "name": "alexpechkarev/geometry-library",
@@ -3043,6 +3043,52 @@
                 "source": "https://github.com/jbroadway/urlify/tree/1.1.3-stable"
             },
             "time": "2019-06-13T18:30:56+00:00"
+        },
+        {
+            "name": "jeffersonsimaogoncalves/nova-permission",
+            "version": "v4.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jeffersonsimaogoncalves/nova-permission.git",
+                "reference": "e1cc64b6fe5cf7b7ecaab2910c1407790e7f702a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jeffersonsimaogoncalves/nova-permission/zipball/e1cc64b6fe5cf7b7ecaab2910c1407790e7f702a",
+                "reference": "e1cc64b6fe5cf7b7ecaab2910c1407790e7f702a",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4|^8.0",
+                "spatie/laravel-permission": "^3.0|^4.0|^5.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "JeffersonSimaoGoncalves\\NovaPermission\\ToolServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "JeffersonSimaoGoncalves\\NovaPermission\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Laravel Nova tool for Spatie's Permission library.",
+            "keywords": [
+                "laravel",
+                "nova",
+                "spatie-permission"
+            ],
+            "support": {
+                "source": "https://github.com/jeffersonsimaogoncalves/nova-permission/tree/v4.0.2"
+            },
+            "time": "2022-04-03T18:11:33+00:00"
         },
         {
             "name": "jenssegers/agent",
@@ -10312,16 +10358,16 @@
         },
         {
             "name": "spatie/laravel-ray",
-            "version": "1.29.6",
+            "version": "1.29.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-ray.git",
-                "reference": "d9ec9d8550dfab362167c866fbd24d4b0d4d1e02"
+                "reference": "97b8ccdb9975e3339069765417990e89474254ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-ray/zipball/d9ec9d8550dfab362167c866fbd24d4b0d4d1e02",
-                "reference": "d9ec9d8550dfab362167c866fbd24d4b0d4d1e02",
+                "url": "https://api.github.com/repos/spatie/laravel-ray/zipball/97b8ccdb9975e3339069765417990e89474254ee",
+                "reference": "97b8ccdb9975e3339069765417990e89474254ee",
                 "shasum": ""
             },
             "require": {
@@ -10380,7 +10426,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-ray/issues",
-                "source": "https://github.com/spatie/laravel-ray/tree/1.29.6"
+                "source": "https://github.com/spatie/laravel-ray/tree/1.29.7"
             },
             "funding": [
                 {
@@ -10392,7 +10438,7 @@
                     "type": "other"
                 }
             ],
-            "time": "2022-04-15T07:18:37+00:00"
+            "time": "2022-05-27T18:45:58+00:00"
         },
         {
             "name": "spatie/laravel-schemaless-attributes",
