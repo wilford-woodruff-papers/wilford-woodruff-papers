@@ -1,4 +1,7 @@
 <x-guest-layout>
+    <x-slot name="title">
+        {{ strip_tags($subject->name) }} | {{ config('app.name') }}
+    </x-slot>
     <div id="content" role="main">
 
         <div class="max-w-7xl mx-auto px-4">

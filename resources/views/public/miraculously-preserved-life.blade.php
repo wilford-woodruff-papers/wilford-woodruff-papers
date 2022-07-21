@@ -1,5 +1,7 @@
 <x-guest-layout>
-
+    <x-slot name="title">
+        Wilford Woodruff's Miraculously Preserved Life | {{ config('app.name') }}
+    </x-slot>
     <div class="px-4 mx-auto max-w-7xl">
 
         <div class="page-title">Wilford Woodruff's Miraculously Preserved Life</div>

@@ -1,5 +1,7 @@
 <x-guest-layout>
-
+    <x-slot name="title">
+        Serve | {{ config('app.name') }}
+    </x-slot>
     <div class="max-w-7xl py-12 mx-auto">
 
         <div class="max-w-5xl mx-auto">
