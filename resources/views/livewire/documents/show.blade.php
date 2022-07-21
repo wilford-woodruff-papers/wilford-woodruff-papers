@@ -40,16 +40,27 @@
                         </div>
                     @endif
                     @hasanyrole('Editor|Admin|Super Admin')
-                    @if(! empty($item->count() > 0))
-                        <div class="property">
-                            <h4>Sections ({{ $item->items->count() }})</h4>
-                            @foreach($item->items->sortBy('order') as $section)
-                                <div class="value">
-                                    {{ $section->name }}
-                                </div>
-                            @endforeach
-                        </div>
-                    @endif
+                        @if(! empty($item->count() > 0))
+                            <div class="property">
+                                <h4>Sections ({{ $item->items->count() }})</h4>
+                                @if(! empty($filters['section']))
+                                    <div wire:click="$set('filters.section', null)"
+                                         class="bg-gray-200 text-black flex justify-between items-center cursor-pointer px-2 py-1 mr-6 my-2"
+                                    >
+                                        Clear Section Selection
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </div>
+                                @endif
+                                @foreach($item->items->sortBy('order') as $section)
+                                    <div wire:click="$set('filters.section', {{ $section->id }})"
+                                         class="value text-secondary cursor-pointer">
+                                        {{ $section->name }}
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
                     @endhasanyrole
                     @if($subjects)
                         <div class="property">
