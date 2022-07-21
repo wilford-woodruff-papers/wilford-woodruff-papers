@@ -16,7 +16,7 @@
         <meta name="description" content="Explore Wilford Woodruff's powerful eyewitness account of the Restoration"/>
         <meta name="keywords" content="Wilford Woodruff, Restoration, Prophet, The Church of Jesus Christ of Latter-day Saints"/>
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ $title ?? config('app.name') }}</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.gstatic.com">

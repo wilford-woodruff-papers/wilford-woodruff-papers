@@ -1,5 +1,7 @@
 <x-guest-layout>
-
+    <x-slot name="title">
+        Search Documents | {{ config('app.name') }}
+    </x-slot>
     <div class="max-w-7xl mx-auto">
 
         <div class="my-12 mx-4 bg-gray-200 py-2 px-12">

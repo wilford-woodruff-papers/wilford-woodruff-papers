@@ -1,4 +1,7 @@
 <div>
+    <x-slot name="title">
+        {{ $item->parent()?->name }} | {{ config('app.name') }}
+    </x-slot>
     <div id="content" role="main">
 
         <div class="max-w-7xl mx-auto my-12 px-4 lg:px-0">
