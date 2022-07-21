@@ -59,7 +59,13 @@
                                     <div class="max-w-lg space-y-4">
                                         <div class="relative flex items-start">
                                             <div class="flex items-center h-5">
-                                                <input id="use_min_date" name="use_min_date" type="checkbox" value="true" class="focus:secondary h-4 w-4 text-secondary border-gray-300 rounded">
+                                                <input id="use_min_date"
+                                                       name="use_min_date"
+                                                       type="checkbox"
+                                                       value="true"
+                                                       class="focus:secondary h-4 w-4 text-secondary border-gray-300 rounded"
+                                                       @checked(request('use_min_date'))
+                                                >
                                             </div>
                                             <div class="ml-3 mb-3 text-lg">
                                                 <label for="use_min_date" class="font-medium text-primary">Date comes after</label>
@@ -83,7 +89,13 @@
                                     <div class="max-w-lg space-y-4">
                                         <div class="relative flex items-start">
                                             <div class="flex items-center h-5">
-                                                <input id="use_max_date" name="use_max_date" type="checkbox" value="true" class="focus:secondary h-4 w-4 text-secondary border-gray-300 rounded">
+                                                <input id="use_max_date"
+                                                       name="use_max_date"
+                                                       type="checkbox"
+                                                       value="true"
+                                                       class="focus:secondary h-4 w-4 text-secondary border-gray-300 rounded"
+                                                        @checked(request('use_max_date'))
+                                                >
                                             </div>
                                             <div class="ml-3 mb-3 text-lg">
                                                 <label for="use_max_date" class="font-medium text-primary">Date comes before</label>
