@@ -1,4 +1,7 @@
 <x-guest-layout>
+    <x-slot name="title">
+        Testimonials | {{ config('app.name') }}
+    </x-slot>
     <div class="max-w-7xl mx-auto">
         <x-testimonials.video-testimonials :videos="$videos"/>
     </div>

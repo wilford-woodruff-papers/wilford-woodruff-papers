@@ -1,4 +1,7 @@
 <x-guest-layout>
+    <x-slot name="title">
+        Frequently Asked Questions | {{ config('app.name') }}
+    </x-slot>
     <div id="content" role="main"
          x-data="{ active: 0 }"
     >

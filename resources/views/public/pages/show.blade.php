@@ -1,4 +1,7 @@
 <x-guest-layout>
+    <x-slot name="title">
+        {{ 'Page ' . $page->order . $item->parent()?->name }} | {{ config('app.name') }}
+    </x-slot>
     @php
 
     @endphp

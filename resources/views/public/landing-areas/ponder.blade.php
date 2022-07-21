@@ -1,5 +1,7 @@
 <x-guest-layout>
-
+    <x-slot name="title">
+        Ponder | {{ config('app.name') }}
+    </x-slot>
     <div class="max-w-7xl py-12 mx-auto px-2">
 
         <div class="max-w-5xl mx-auto">

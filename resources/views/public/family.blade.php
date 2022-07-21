@@ -1,5 +1,7 @@
 <x-guest-layout>
-
+    <x-slot name="title">
+        Wilford Woodruff's Wives and Children | {{ config('app.name') }}
+    </x-slot>
     <div class="bg-top bg-cover" style="background-image: url({{ asset('img/banners/people.png') }})">
         <div class="py-4 mx-auto max-w-7xl xl:py-12">
             <h1 class="text-4xl text-white md:text-6xl xl:text-8xl">

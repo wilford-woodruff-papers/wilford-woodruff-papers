@@ -1,5 +1,7 @@
 <x-guest-layout>
-
+    <x-slot name="title">
+        Places | {{ config('app.name') }}
+    </x-slot>
     <div class="bg-cover bg-top" style="background-image: url({{ asset('img/banners/places.png') }})">
         <div class="max-w-7xl mx-auto py-4 xl:py-12">
             <h1 class="text-white text-4xl md:text-6xl xl:text-8xl">
