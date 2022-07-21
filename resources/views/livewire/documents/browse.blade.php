@@ -1,4 +1,7 @@
 <div>
+    <x-slot name="title">
+        Browse Documents | {{ config('app.name') }}
+    </x-slot>
     <div class="max-w-7xl mx-auto">
         <div class="page-title">
             Understand the unfolding Restoration through Wilford’s unique eyewitness account

@@ -1,5 +1,7 @@
 <x-guest-layout>
-
+    <x-slot name="title">
+        Timeline of Events | {{ config('app.name') }}
+    </x-slot>
     <div class="max-w-7xl mx-auto px-4">
 
         <div class="page-title">Appreciate Wilford&#39;s experiences in the context of Church and American history</div>

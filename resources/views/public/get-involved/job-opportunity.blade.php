@@ -1,4 +1,7 @@
 <x-guest-layout>
+    <x-slot name="title">
+        {{ $opportunity->title }} | {{ config('app.name') }}
+    </x-slot>
     <div id="content" role="main">
         <div class="max-w-7xl mx-auto px-4">
             <div class="blocks">

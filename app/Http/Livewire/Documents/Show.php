@@ -13,6 +13,7 @@ class Show extends Component
 
     public array $filters = [
         'search' => '',
+        'section' => null,
     ];
 
     public Item $item;
@@ -37,6 +38,9 @@ class Show extends Component
                                 $query->where('name', 'LIKE', '%' . $q . '%')
                                       ->orWhere('transcript', 'LIKE', '%' . $q . '%');
                             });
+                        })
+                        ->when(data_get($this->filters, 'section'), function($query, $q){
+                            $query->where('item_id', $this->filters['section']);
                         })
                         ->ordered();
 
