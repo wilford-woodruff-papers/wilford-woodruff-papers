@@ -57,7 +57,25 @@
 
             </div>
             @if($pages->count() > 1)
-            <div class="absolute top-0 pt-4 w-full h-20 bg-white">
+            <div x-data="{
+                    pages: {
+                        @foreach($pages as $p)
+                            {{ $p->order }} : {
+                                url: '{{ route('pages.show', ['item' => $item, 'page' => $p]) }}'
+                            },
+                        @endforeach
+                    },
+                    page: {{ $page->order }},
+                    total: {{ $pages->count() }},
+                    tooltipStyle (){
+                        return 'left: ' + (Math.floor((this.page / this.total) * 100)).toString() + '%';
+                    },
+                    updateCurrentPage (pageOrder){
+                        console.log(pageOrder);
+                        window.location = this.pages[pageOrder].url;
+                    }
+                }"
+                 class="absolute top-0 pt-4 w-full h-20 bg-white">
                 <div class="flex justify-center items-center m-auto h-16 w-100">
                     <div class="flex-initial px-8">
                        @if (! empty($previousPage = $pages->where('order', '<', $page->order)->sortByDesc('order')->first()))
@@ -68,23 +86,40 @@
                             </a>
                        @endif
                     </div>
-                    <div class="relative flex-1 py-1">
-                        <div class="h-2 bg-gray-200 rounded-full">
-                            <div class="absolute w-0 h-2 rounded-full bg-primary" style="width: {{ floor((($pages->where('order', '<=', $page->order)->count())/$pages->count())*100) }}%;"></div>
-                            <div class="flex absolute top-0 justify-center items-center -ml-2 w-4 h-4 bg-white rounded-full border border-gray-300 shadow cursor-pointer" unselectable="on" onselectstart="return false;" style="left: {{ floor((($pages->where('order', '<=', $page->order)->count())/$pages->count())*100) }}%;">
-                                <div class="relative -mt-2 w-1">
-                                    <div class="absolute left-0 z-40 mb-2 min-w-full opacity-100 bottom-100" style="margin-left: -33px;">
-                                        <div class="relative pr-0 shadow-md">
-                                            <div class="py-1 px-4 -mt-8 text-xs text-white rounded bg-primary truncate">Page {{ $page->order }}</div>
-                                            <svg class="absolute left-0 w-full h-2 text-primary top-100" x="0px" y="0px" viewBox="0 0 255 255" xml:space="preserve">
+
+                    <div class="flex flex-1 flex-col">
+                        <div class="relative py-1 w-full">
+                            <div class="h-2 rounded-full">
+                                <div>
+                                    <div class="relative -mt-2 w-1" x-bind:style="tooltipStyle" style="left: {{ floor((($pages->where('order', '<=', $page->order)->count())/$pages->count())*100) }}%;">
+                                        <div class="absolute z-40 mb-2 min-w-full opacity-100 bottom-100">
+                                            <div class="relative pr-0 shadow-md" style="left: -50%">
+                                                <div class="py-1 px-4 -mt-8 text-xs text-center text-white rounded bg-primary truncate w-[85px]">Page <span x-text="page"></span></div>
+                                                <svg class="absolute left-0 w-full h-2 text-primary top-100" x="0px" y="0px" viewBox="0 0 255 255" xml:space="preserve">
                                                 <polygon class="fill-current" points="0,0 127.5,127.5 255,0"></polygon>
                                             </svg>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        {{-- New Range Slider --}}
+                        <label for="page-range" class="sr-only">Page selection</label>
+                        <input x-model="page"
+                               x-on:input.debounce.500ms="updateCurrentPage($event.target.value)"
+                               id="page-range"
+                               type="range"
+                               min="1"
+                               max="{{ $pages->count() }}"
+                               step="1"
+                               value="{{ $page->order }}"
+                               class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+                        >
+                        {{-- New Range Slider --}}
                     </div>
+
                     <div class="flex-initial px-8">
                         @if (! empty($nextPage = $pages->where('order', '>', $page->order)->sortBy('order')->first()) )
                             {{--$this->hyperlink('Next', $nextMedia->url(), ['class' => 'relative inline-flex items-center px-4 py-2 text-sm font-medium border border-secondary text-sm font-medium text-white bg-secondary hover:text-highlight', 'title' => $translate('Previous'), 'aria-label' => $translate('Previous')]);--}}
