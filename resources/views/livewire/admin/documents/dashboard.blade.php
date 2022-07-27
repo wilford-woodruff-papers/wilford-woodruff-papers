@@ -40,7 +40,7 @@
                     <div class="w-1/2 pr-2 space-y-4">
                         <x-input.group inline for="filter-status" label="Status">
                             <x-input.select wire:model="filters.status" id="filter-status">
-                                <option value="" disabled>Select Status...</option>
+                                <option value=""> -- Any Status -- </option>
                                 <option value="on">Enabled</option>
                                 <option value="off">Disabled</option>
 
@@ -52,7 +52,7 @@
 
                         <x-input.group inline for="filter-type" label="Type">
                             <x-input.select wire:model="filters.type" id="filter-type">
-                                <option value="" disabled>Select Type...</option>
+                                <option value=""> -- Any Type -- </option>
 
                                 @foreach (App\Models\Type::orderBy('name')->get() as $type)
                                     <option value="{{ $type->id }}">{{ $type->name }}</option>

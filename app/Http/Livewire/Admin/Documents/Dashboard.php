@@ -20,7 +20,7 @@ class Dashboard extends Component
 
     public $showEditModal = false;
 
-    public $showFilters = false;
+    public $showFilters = true;
 
     public $targetDates = [];
 
