@@ -14,6 +14,15 @@ class Testimonial extends ModalComponent
         $this->testimonial = \App\Models\Testimonial::findOrFail($testimonial);
     }
 
+    public static function modalMaxWidth(): string
+    {
+        return '5xl';
+    }
+
+    protected static array $maxWidths = [
+        '5xl' => 'max-w-5xl',
+    ];
+
     public function render()
     {
         return view('livewire.testimonial');

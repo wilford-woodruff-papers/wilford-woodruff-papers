@@ -11,28 +11,23 @@ class TestimonialController extends Controller
 {
     public function index()
     {
-        $videos = VideoTestimonial::query()
-            ->whereFeatured(1)
-            ->latest()
-            ->limit(6)
-            ->get();
-        if($videos->count() > 0) {
-            $videos->prepend($videos->pop());
+        $featured = Testimonial::query()
+                                ->whereFeatured(1)
+                                ->latest()
+                                ->limit(10)
+                                ->get();
+
+        if($featured->count() > 0) {
+            $featured->prepend($featured->pop());
         }
 
-        $images = ImageTestimonial::query()
-            ->whereFeatured(1)
-            ->latest()
-            ->limit(3)
-            ->get();
-
         $testimonials = Testimonial::query()
-            ->whereNotIn('id', array_merge(
-                $images->pluck('id')->all(),
-                $videos->pluck('id')->all(),
-            ))
-            ->latest()
-            ->get();
+                            ->whereNotIn('id', array_merge(
+                                $images->pluck('id')->all(),
+                                $videos->pluck('id')->all(),
+                            ))
+                            ->latest()
+                            ->get();
 
         return view('public.landing-areas.testimonials', [
             'videos' => $videos,
