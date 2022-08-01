@@ -23,6 +23,8 @@ class Testify extends ModalComponent
 
     public $message;
 
+    public $phone;
+
     public $role; // Honeypot
 
     public $source;
@@ -33,11 +35,12 @@ class Testify extends ModalComponent
 
     protected $rules = [
         'email' => 'required|email',
+        'phone' => '',
         'firstName' => 'required',
-        'age' => 'integer',
-        'location' => 'string|max:255',
-        'source' => 'string|max:255',
-        'topic' => 'string|max:255',
+        'age' => '',
+        'location' => '',
+        'source' => '',
+        'topic' => '',
         'message' => 'required',
     ];
 
@@ -65,6 +68,7 @@ class Testify extends ModalComponent
             'form' => 'Testify',
             'first_name' => $this->firstName,
             'email' => $this->email,
+            'phone' => $this->phone,
             'message' => view('components.forms.share-testimony-body', [
                 'message' => $this->message,
                 'age' => $this->age,

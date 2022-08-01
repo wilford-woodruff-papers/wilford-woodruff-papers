@@ -23,18 +23,20 @@
                                name="role"
                                id="role"
                                value="">
-                        <div>
-                            <label for="first-name" class="block text-sm font-medium text-gray-700">Display name</label>
-                            <div class="mt-1">
-                                <input wire:model.defer="firstName"
-                                       type="text"
-                                       id="first-name"
-                                       autocomplete="given-name"
-                                       value=""
-                                       required
-                                       class="py-3 px-4 block w-full shadow-sm focus:ring-secondary focus:border-secondary @error('firstName') border-red-500 @else border-gray-300 @enderror">
+                        <div class="sm:col-span-2">
+                            <div>
+                                <label for="first-name" class="block text-sm font-medium text-gray-700">Name</label>
+                                <div class="mt-1">
+                                    <input wire:model.defer="firstName"
+                                           type="text"
+                                           id="first-name"
+                                           autocomplete="given-name"
+                                           value=""
+                                           required
+                                           class="py-3 px-4 block w-full shadow-sm focus:ring-secondary focus:border-secondary @error('firstName') border-red-500 @else border-gray-300 @enderror">
+                                </div>
+                                @error('firstName') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
                             </div>
-                            @error('firstName') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
                         </div>
                         <div>
                             <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
@@ -50,6 +52,18 @@
                             @error('email') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
                         </div>
                         <div>
+                            <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
+                            <div class="mt-1">
+                                <input wire:model.defer="phone"
+                                       type="text"
+                                       id="phone"
+                                       autocomplete="phone"
+                                       value=""
+                                       class="py-3 px-4 block w-full shadow-sm focus:ring-secondary focus:border-secondary @error('phone') border-red-500 @else border-gray-300 @enderror">
+                            </div>
+                            @error('phone') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
+                        </div>
+                        <div class="hidden">
                             <label for="location" class="block text-sm font-medium text-gray-700">Location</label>
                             <div class="mt-1">
                                 <input wire:model.defer="location"
@@ -61,7 +75,7 @@
                             </div>
                             @error('location') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
                         </div>
-                        <div>
+                        <div class="hidden">
                             <label for="age" class="block text-sm font-medium text-gray-700">Age</label>
                             <div class="mt-1">
                                 <input wire:model.defer="age"
@@ -73,7 +87,7 @@
                             </div>
                             @error('age') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
                         </div>
-                        <div class="sm:col-span-2">
+                        <div class="sm:col-span-2 hidden">
                             <label for="source" class="block text-sm font-medium text-gray-700">Source</label>
                             <div class="mt-1">
                                 <input wire:model.defer="source"
@@ -85,7 +99,7 @@
                             </div>
                             @error('source') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
                         </div>
-                        <div class="sm:col-span-2">
+                        <div class="sm:col-span-2 hidden">
                             <label for="topic" class="block text-sm font-medium text-gray-700">Topic</label>
                             <div class="mt-1">
                                 <input wire:model.defer="topic"
@@ -115,7 +129,7 @@
                     </form>
                 @elseif($success === true)
                     <div>
-                        <p class="p-4 text-xl font-medium">
+                        <p class="pb-24 text-xl font-medium">
                             Thank you for sharing your testimony!
                         </p>
                         <div>
