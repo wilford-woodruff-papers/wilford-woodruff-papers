@@ -35,7 +35,7 @@
                                                 <div class="mt-6">
                                                     <span onclick='Livewire.emit("openModal", "testimonial", {{ json_encode(["testimonial" => $testimonial->id]) }})'
                                                           class="inline-flex bg-secondary text-white px-4 py-2 border border-transparent text-base font-medium shadow-sm cursor-pointer">
-                                                        Read more
+                                                        {{ $testimonial->call_to_action }}
                                                     </span>
                                                 </div>
                                             </div>
@@ -55,7 +55,7 @@
                                     <div class="mt-12 sm:mt-16 lg:mt-0">
                                         <div onclick='Livewire.emit("openModal", "testimonial", {{ json_encode(["testimonial" => $testimonial->id]) }})'
                                              class="contents md:block pl-4 -mr-48 sm:pl-6 md:-mr-16 lg:px-0 lg:m-0 lg:relative lg:h-full cursor-pointer">
-                                            <img class="w-56 h-56 md:w-128 md:h-128 mx-auto rounded-xl shadow-xl ring-1 ring-black ring-opacity-5" src="{{ $testimonial->getFirstMediaUrl('images', 'square') }}" alt="{{ $testimonial->name }}">
+                                            <img class="w-56 h-56 md:w-128 md:h-128 mx-auto shadow-xl ring-1 ring-black ring-opacity-5" src="{{ $testimonial->getFirstMediaUrl('images', 'square') }}" alt="{{ $testimonial->name }}">
                                         </div>
                                     </div>
                                 </div>
@@ -75,7 +75,7 @@
                                                 <div class="mt-6">
                                                     <span onclick='Livewire.emit("openModal", "testimonial", {{ json_encode(["testimonial" => $testimonial->id]) }})'
                                                           class="inline-flex bg-secondary text-white px-4 py-2 border border-transparent text-base font-medium shadow-sm cursor-pointer">
-                                                        Read more
+                                                        {{ $testimonial->call_to_action }}
                                                     </span>
                                                 </div>
                                             </div>
@@ -95,7 +95,7 @@
                                     <div class="mt-12 sm:mt-16 lg:mt-0 lg:col-start-1">
                                         <div onclick='Livewire.emit("openModal", "testimonial", {{ json_encode(["testimonial" => $testimonial->id]) }})'
                                              class="contents md:block pr-4 -ml-48 sm:pr-6 md:-ml-16 lg:px-0 lg:m-0 lg:relative lg:h-full cursor-pointer">
-                                            <img class="w-56 h-56 md:w-128 md:h-128 mx-auto rounded-xl shadow-xl ring-1 ring-black ring-opacity-5" src="{{ $testimonial->getFirstMediaUrl('images', 'square') }}" alt="{{ $testimonial->name }}">
+                                            <img class="w-56 h-56 md:w-128 md:h-128 mx-auto shadow-xl ring-1 ring-black ring-opacity-5" src="{{ $testimonial->getFirstMediaUrl('images', 'square') }}" alt="{{ $testimonial->name }}">
                                         </div>
                                     </div>
                                 </div>
