@@ -4,8 +4,9 @@
             <x-admin.quotes.heading class="pr-0 w-8">
                 <x-input.checkbox wire:model="selectPage" />
             </x-admin.quotes.heading>
-            <x-admin.quotes.heading sortable multi-column wire:click="sortBy('title')" :direction="$sorts['title'] ?? null" class="w-full">Title</x-admin.quotes.heading>
-            <x-admin.quotes.heading sortable multi-column wire:click="sortBy('amount')" :direction="$sorts['amount'] ?? null">Amount</x-admin.quotes.heading>
+            <x-admin.quotes.heading sortable multi-column wire:click="sortBy('title')" :direction="$sorts['title'] ?? null" class="max-w-3xl">Document</x-admin.quotes.heading>
+            <x-admin.quotes.heading sortable multi-column wire:click="sortBy('title')" :direction="$sorts['title'] ?? null" class="w-full">Quote</x-admin.quotes.heading>
+            <x-admin.quotes.heading sortable multi-column wire:click="sortBy('amount')" :direction="$sorts['amount'] ?? null">Topics</x-admin.quotes.heading>
             <x-admin.quotes.heading sortable multi-column wire:click="sortBy('status')" :direction="$sorts['status'] ?? null">Status</x-admin.quotes.heading>
             <x-admin.quotes.heading sortable multi-column wire:click="sortBy('date')" :direction="$sorts['date'] ?? null">Date</x-admin.quotes.heading>
             <x-admin.quotes.heading />
@@ -33,7 +34,7 @@
                         <x-input.checkbox wire:model="selected" value="{{ $quote->id }}" />
                     </x-admin.quotes.cell>
 
-                    <x-admin.quotes.cell>
+                    <x-admin.quotes.cell class="max-w-3xl">
                             <span href="#" class="inline-flex space-x-2 truncate text-sm leading-5">
                                 {{--<x-icon.cash class="text-cool-gray-400"/>--}}
 
@@ -44,7 +45,19 @@
                     </x-admin.quotes.cell>
 
                     <x-admin.quotes.cell>
-                        <span class="text-cool-gray-900 font-medium">${{ $quote->amount }} </span> USD
+                            <span href="#" class="block space-x-2 w-[400px] text-sm leading-5">
+                                <p class="text-cool-gray-600 w-[400px]">
+                                    {!! $quote->text !!}
+                                </p>
+                            </span>
+                    </x-admin.quotes.cell>
+
+                    <x-admin.quotes.cell>
+                        <span class="text-cool-gray-900 font-medium">
+                            {!! $quote->topics->pluck('name')->transform(function($topic){
+                                return '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">' . $topic . '</span>';
+}                           )->join('') !!}
+                        </span>
                     </x-admin.quotes.cell>
 
                     <x-admin.quotes.cell>
@@ -54,7 +67,7 @@
                     </x-admin.quotes.cell>
 
                     <x-admin.quotes.cell>
-                        {{ $quote->date_for_humans }}
+                        {{ $quote->created_at->toFormattedDateString() }}
                     </x-admin.quotes.cell>
 
                     <x-admin.quotes.cell>

@@ -195,6 +195,10 @@ Route::group(['middleware' => ['role:Super Admin|Editor']], function () {
         ->name('admin.dashboard');
 
     Route::middleware(['auth:sanctum', 'verified'])
+        ->get('/admin/supervisor/dashboard', [\App\Http\Controllers\Admin\SupervisorController::class, 'index'])
+        ->name('admin.supervisor.dashboard');
+
+    Route::middleware(['auth:sanctum', 'verified'])
         ->get('/admin/dashboard/target-publish-dates', \App\Http\Livewire\Admin\TargetPublishDates::class)
         ->name('admin.dashboard.target-publish-dates.index');
 });

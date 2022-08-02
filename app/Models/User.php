@@ -68,4 +68,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(User::class, 'assigned_to');
     }
+
+    public function pending_actions()
+    {
+        return $this->hasMany(Action::class, 'assigned_to')
+                    ->where(
+                        'actionable_type',
+                        'App\Models\Item'
+                    )
+                    ->whereNull('completed_at');
+    }
 }

@@ -139,6 +139,17 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
             ->whereNull('completed_at');
     }
 
+    public function pending_actions_for_user($userId)
+    {
+        return $this->morphMany(Action::class, 'actionable')
+            ->where(
+                'actionable_type',
+                'App\Models\Item'
+            )->where('assigned_to', $userId)
+            ->whereNull('completed_at')
+            ->get();
+    }
+
     public function unassigned_actions()
     {
         return $this->morphMany(Action::class, 'actionable')
@@ -170,6 +181,18 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
             )
             ->where('assigned_to', auth()->id())
             ->whereNull('completed_at');
+    }
+
+    public function pending_page_actions_for_user($userId)
+    {
+        return $this->hasManyThrough(Action::class, Page::class, 'item_id', 'actionable_id')
+            ->where(
+                'actionable_type',
+                'App\Models\Page'
+            )
+            ->where('assigned_to', $userId)
+            ->whereNull('completed_at')
+            ->get();
     }
 
     public function admin_comments()
