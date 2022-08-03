@@ -27,4 +27,9 @@ class Type extends Model
     {
         return $this->hasOne(self::class);
     }
+
+    public function goal()
+    {
+        return $this->hasOne(Goal::class)->oldestOfMany();
+    }
 }

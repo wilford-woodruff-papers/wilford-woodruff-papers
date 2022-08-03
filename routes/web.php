@@ -199,7 +199,7 @@ Route::group(['middleware' => ['role:Super Admin|Editor']], function () {
         ->name('admin.supervisor.dashboard');
 
     Route::middleware(['auth:sanctum', 'verified'])
-        ->get('/admin/dashboard/target-publish-dates', \App\Http\Livewire\Admin\TargetPublishDates::class)
-        ->name('admin.dashboard.target-publish-dates.index');
+        ->get('/admin/dashboard/goals', \App\Http\Livewire\Admin\Goals::class)
+        ->name('admin.dashboard.goals.index');
 });
 

@@ -34,7 +34,7 @@
             class="-mb-px flex items-stretch"
         >
             <!-- Tab -->
-            @foreach($targetsDates as $targetsDate)
+            @foreach($periods as $period)
                 <li>
                     <button
                         :id="$id('tab', whichChild($el.parentElement, $refs.tablist))"
@@ -47,7 +47,7 @@
                         :class="isSelected($el.id) ? 'border-gray-200 bg-white' : 'border-transparent'"
                         class="inline-flex px-5 py-2.5 border-t border-l border-r rounded-t-md"
                         role="tab"
-                    >{{ $targetsDate->publish_at->toFormattedDateString() }}</button>
+                    >{{ $period->start->toFormattedDateString() }} - {{ $period->end->toFormattedDateString() }}</button>
                 </li>
             @endforeach
         </ul>
@@ -55,18 +55,7 @@
         <!-- Panels -->
         <div role="tabpanels" class="bg-white border border-gray-200 rounded-b-md">
             <!-- Panel -->
-            @foreach($targetsDates as $targetsDate)
-                @php
-                    $types = $targetsDate
-                                ->items()
-                                ->whereHas('actions.type', function ($query){
-                                    $query->whereIn('id', \App\Models\Type::query()->role(auth()->user()->roles->pluck('id')->all())->pluck('id')->all());
-                                })
-                                ->get()
-                                ->groupBy(function($item, $key){
-                                    return $item->type?->name;
-                                });
-                @endphp
+            @foreach($periods as $period)
                 <section
                     x-show="isSelected($id('tab', whichChild($el, $el.parentElement)))"
                     :aria-labelledby="$id('tab', whichChild($el, $el.parentElement))"
@@ -76,33 +65,76 @@
                 >
                     @foreach($types as $key => $type)
                         @php
-                            $actions = collect([]);
+                            /*$actions = collect([]);
                             $data = $type->each(function($item, $key) use (&$actions){
                                 return $actions = $actions->merge($item->actions);
                             });
                             $actions = $actions->sortBy('type.order_column')->groupBy(function($item, $key){
                                 return $item->type->name;
-                            });
+                            });*/
+
+                            // TODO: Completed actions are not filtered to user
+                            $actions = \App\Models\Action::query()
+                                                            ->where(
+                                                                'actionable_type',
+                                                                'App\Models\Item'
+                                                            )
+                                                            //->where('assigned_to', auth()->id())
+                                                            ->whereHasMorph(
+                                                                'actionable',
+                                                                [\App\Models\Item::class],
+                                                                function (\Illuminate\Database\Eloquent\Builder $query) use ($type){
+                                                                    $query->where('type_id', $type->id);
+                                                                }
+                                                            )
+                                                            ->whereBetween('created_at', [$period->start, $period->end])
+                                                            ->get()
+                                                            ->groupBy('action_type_id');
+
+                            // Check for a goal during the time period. If one doesn't exist just use the latest goal
+                            $goals = collect([]);
+                            foreach ($actionTypes as $actionType){
+                                $goals->push(
+                                    \App\Models\Goal::query()
+                                                        ->where('type_id', $type->id)
+                                                        ->where('action_type_id', $actionType->id)
+                                                        ->whereBetween('finish_at', [$period->start, $period->end])
+                                                        ->first()?->target
+                                    ?? (
+                                        \App\Models\Goal::query()
+                                                        ->where('type_id', $type->id)
+                                                        ->where('action_type_id', $actionType->id)
+                                                        ->latest('finish_at')
+                                                        ->first()?->target ?? 0
+                                    )
+                                );
+                            }
+
+                            /*$goals = \App\Models\Goal::query()
+                                                        ->where('type_id', $type->id)
+                                                        ->latest()
+                                                        ->limit($actionTypes->count())
+                                                        ->get()
+                                                        ->sortBy('action_type.order_column');*/
+
                         @endphp
-                        <h2 class="font-medium text-lg">{{ $key }}</h2>
+                        <h2 class="font-medium text-lg">{{ $type->name }}</h2>
                         <div x-data="{
-                        labels: [{{ $actions->keys()->map(function($item, $key){
-                                return "'".$item."'";
+                        labels: [{{ $actionTypes->pluck('name')->map(function($type, $key){
+                                return "'".$type."'";
                             })->join(', ') }}],
                         values: [
                             {
-                                label: 'Pending',
-                                data: [{{ $actions->map(function($item, $key){
-                                    return $item->whereNull('completed_at')->count();
-                                })->join(', ') }}],
-                                backgroundColor: '#EBCCD1' // red
+                                label: 'Goal',
+                                data: [{{ $goals->join(', ') }}],
+                                backgroundColor: 'rgb(11, 40, 54, .5)'
                             },
                             {
                                 label: 'Completed',
                                 data: [{{ $actions->map(function($item, $key){
                                     return $item->whereNotNull('completed_at')->count();
                                 })->join(', ') }}],
-                                backgroundColor: '#D6E9C6' // green
+                                backgroundColor: 'rgba(20, 83, 45, .6)'
                             }
                         ],
                         init() {
@@ -121,19 +153,6 @@
                                             displayColors: false,
                                             callbacks: {
 
-                                            }
-                                        }
-                                    },
-                                    scales: {
-                                        x: {
-                                            stacked: true,
-                                        },
-                                        y: {
-                                            stacked: true,
-                                            ticks: {
-                                              min: 0,
-                                              max: 100,
-                                              stepSize: 1,
                                             }
                                         }
                                     }

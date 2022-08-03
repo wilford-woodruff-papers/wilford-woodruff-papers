@@ -29,7 +29,6 @@ class Tasks extends Component
 
         $unassignedItems = Item::query()
             ->with('unassigned_actions', 'unassigned_actions.type')
-            ->has('target_publish_dates')
             ->whereHas('actions', function (Builder $query) {
                 $query->whereNull('assigned_at')
                     ->whereNull('completed_at');
@@ -80,5 +79,6 @@ class Tasks extends Component
                 $action->save();
             });
         }
+
     }
 }

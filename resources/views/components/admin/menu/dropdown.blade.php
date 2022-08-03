@@ -48,9 +48,11 @@
         >
             <div>
                 @foreach($links as $key => $link)
-                    <a href="{{ $link }}" class="block w-full px-4 py-2 text-left text-sm hover:bg-gray-50 disabled:text-gray-500" >
-                        {{ $key }}
-                    </a>
+                    @if($link['auth'])
+                        <a href="{{ $link['url'] }}" class="block w-full px-4 py-2 text-left text-sm hover:bg-gray-50 disabled:text-gray-500" >
+                            {{ $key }}
+                        </a>
+                    @endif
                 @endforeach
             </div>
 
