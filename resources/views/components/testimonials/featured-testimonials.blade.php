@@ -20,7 +20,7 @@
                     <div onclick='Livewire.emit("openModal", "testimonial", {{ json_encode(["testimonial" => $feature->id]) }})'
                          class="w-[240px] h-[240px] mx-14 cursor-pointer relative group overflow-hidden">
                         <img class="" src="{{ $feature->getFirstMediaUrl('images', 'square') }}" alt="{{ $feature->name }}">
-                        <div class="title absolute bottom-[-100px] left-0 right-0 w-full py-2 text-secondary text-lg font-medium bg-white-80  group-hover:bottom-0 h-auto ease-in-out duration-300 transition-all">
+                        <div class="title absolute bottom-[-200px] left-0 right-0 w-full py-2 text-secondary text-lg font-medium bg-white-80  group-hover:bottom-0 h-auto ease-in-out duration-300 transition-all">
                             <div class="uppercase flex flex-row items-center justify-center">
                                 {!! $feature->icon !!}
                                 {{ $feature->call_to_action }}
