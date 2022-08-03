@@ -256,6 +256,7 @@ input[class^="numeric-"], select[class^="numeric-"]{
 }
 #featured-testimonials .slick-current + .slick-active{
     @apply transition ease-in-out duration-300;
+    transform: scale(1.4);
 }
 #featured-testimonials .slick-current + .slick-active .title div{
     transform: scale(.715);
