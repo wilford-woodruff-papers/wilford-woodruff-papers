@@ -260,5 +260,8 @@ input[class^="numeric-"], select[class^="numeric-"]{
 #featured-testimonials .slick-current + .slick-active .title div{
     transform: scale(.715);
 }
+#featured-testimonials .slick-current + .slick-active .title div{
+    transform: scale(.715);
+}
 
 /* End Slick Slider */
