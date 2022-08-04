@@ -26,18 +26,16 @@
                                     {{ $testimonial->title }}
                                 </h2>
                                 <div class="my-4 border-t border-gray-200 pt-1">
-                                    <blockquote>
-                                        <footer class="mt-3">
-                                            <div class="flex items-center space-x-3">
-                                                <div class="text-sm lg:text-base font-medium text-gray-900">
-                                                    {{ $testimonial->name }}
-                                                </div>
-                                            </div>
-                                        </footer>
-                                    </blockquote>
+                                    <div class="flex items-center space-x-3 mt-3">
+                                        <div class="text-sm lg:text-base font-medium text-gray-900">
+                                            {{ $testimonial->name }}
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="mt-4 text-base lg:text-lg text-gray-800">
-                                    {!! $testimonial->excerpt !!}
+                                    <blockquote>
+                                        {!! $testimonial->excerpt !!}
+                                    </blockquote>
                                 </div>
                                 @if($testimonial->type != 'Video')
                                     <div class="mt-6">

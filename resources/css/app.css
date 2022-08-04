@@ -261,5 +261,27 @@ input[class^="numeric-"], select[class^="numeric-"]{
 #featured-testimonials .slick-current + .slick-active .title div{
     transform: scale(.715);
 }
-
 /* End Slick Slider */
+
+#image-testimonials blockquote p{
+    @apply contents;
+}
+#image-testimonials blockquote {
+    text-indent: -0.45em;
+    @apply px-[.45em];
+}
+@supports ( hanging-punctuation: first) {
+    #image-testimonials blockquote {
+        text-indent: 0;
+        hanging-punctuation: first;
+    }
+}
+#image-testimonials blockquote::before {
+    content: open-quote;
+    @apply text-xl lg:text-3xl;
+}
+#image-testimonials blockquote::after {
+    content: close-quote;
+    @apply text-xl lg:text-3xl;
+}
+
