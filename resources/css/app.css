@@ -246,7 +246,7 @@ input[class^="numeric-"], select[class^="numeric-"]{
 }
 
 #featured-testimonials .slick-track {
-    @apply flex items-center h-[460px] !important;
+    @apply flex items-center h-[230px] md:h-[460px] !important;
 }
 #featured-testimonials .slick-list {
     @apply overflow-x-hidden overflow-y-auto;

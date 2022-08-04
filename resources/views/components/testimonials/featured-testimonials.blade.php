@@ -2,6 +2,7 @@
     @if($featured->count())
         <div x-data="{}"
              x-cloak
+             class=""
         >
             <div class="max-w-7xl mx-auto px-4">
 
@@ -14,7 +15,7 @@
             </div>
 
             <div id="featured-testimonials"
-                 class="py-8"
+                 class="py-2 md:py-8 mx-12"
             >
                 @foreach($featured as $feature)
                     <div onclick='Livewire.emit("openModal", "testimonial", {{ json_encode(["testimonial" => $feature->id]) }})'
@@ -25,7 +26,7 @@
                                 {!! $feature->icon !!}
                                 {{ $feature->call_to_action }}
                             </div>
-                            <div class="flex text-black text-base font-medium py-2 px-4 items-center justify-center">
+                            <div class="flex text-black text-base font-medium py-2 px-4 items-center justify-center text-center">
                                 {!! $feature->title !!}
                             </div>
                         </div>
@@ -46,16 +47,23 @@
                         slidesToShow: 3,
                         responsive: [
                             {
-                                breakpoint: 768,
+                                breakpoint: 1024,
                                 settings: {
                                     arrows: true,
                                     slidesToShow: 3
                                 }
                             },
                             {
+                                breakpoint: 600,
+                                settings: {
+                                    arrows: false,
+                                    slidesToShow: 1
+                                }
+                            },
+                            {
                                 breakpoint: 480,
                                 settings: {
-                                    arrows: true,
+                                    arrows: false,
                                     slidesToShow: 1
                                 }
                             }
