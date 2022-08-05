@@ -189,7 +189,6 @@ input[class^="numeric-"], select[class^="numeric-"]{
     transition: all .5s;
 }
 
-
 .slick-dots li button:before {
     font-size: 10px !important;
 }
@@ -223,9 +222,13 @@ input[class^="numeric-"], select[class^="numeric-"]{
     background-color: #F5F5F5;
 }
 
-.press-modal .overflow-y-scroll::-webkit-scrollbar-thumb
-{
-    background-color: rgba(0,0,0,0.6);
+.press-modal .overflow-y-scroll::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.activity .user{
+    @apply font-medium text-gray-900;
+
 }
 
 /* Begin Constant Contact Inline Form */
@@ -285,3 +288,8 @@ input[class^="numeric-"], select[class^="numeric-"]{
     @apply text-xl lg:text-3xl;
 }
 
+/* Begin Admin */
+.admin nav [x-ref="panel"] a {
+    @apply text-sm font-medium text-secondary uppercase;
+}
+/* End Admin */
