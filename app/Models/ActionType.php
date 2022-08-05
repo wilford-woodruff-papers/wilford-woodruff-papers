@@ -22,4 +22,9 @@ class ActionType extends Model implements Sortable
         'order_column_name' => 'order_column',
         'sort_when_creating' => true,
     ];
+
+    public function scopeFor($query, $type)
+    {
+        return $query->where('type', $type);
+    }
 }

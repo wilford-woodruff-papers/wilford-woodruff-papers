@@ -27,7 +27,7 @@ class Goals extends Component
         }
         $this->goal = new Goal(['finish_at' => now()->endOfMonth()]);
         $this->types = Type::query()->get();
-        $this->actionTypes = ActionType::query()->ordered()->get();
+        $this->actionTypes = ActionType::query()->for('Documents')->ordered()->get();
     }
 
     public function render()

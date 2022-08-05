@@ -6,6 +6,8 @@ use App\Http\Livewire\DataTable\WithBulkActions;
 use App\Http\Livewire\DataTable\WithCachedRows;
 use App\Http\Livewire\DataTable\WithPerPagePagination;
 use App\Http\Livewire\DataTable\WithSorting;
+use App\Models\Action;
+use App\Models\ActionType;
 use App\Models\Quote;
 use Livewire\Component;
 
@@ -82,5 +84,15 @@ class Dashboard extends Component
         return view('livewire.admin.quotes.dashboard', [
             'quotes' => $this->rows,
         ]);
+    }
+
+    public function markActionComplete($quoteId)
+    {
+        $quote = Quote::find($quoteId);
+        $action = Action::create([
+            'action_type_id' => ActionType::for('Quotes')->firstWhere('name', 'Approval')->id,
+            'completed_by' => auth()->id(),
+        ]);
+        $quote->actions()->save($action);
     }
 }

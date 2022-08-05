@@ -30,6 +30,7 @@ class Progress extends Component
                                 ->get();
 
         $this->actionTypes = ActionType::query()
+                                            ->for('Documents')
                                             ->role(auth()->user()->roles)
                                             ->ordered()
                                             ->get();

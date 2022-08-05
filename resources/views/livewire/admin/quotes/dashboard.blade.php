@@ -61,9 +61,18 @@
                     </x-admin.quotes.cell>
 
                     <x-admin.quotes.cell>
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-{{ $quote->status_color }}-100 text-{{ $quote->status_color }}-800 capitalize">
-                                {{ $quote->status }}
-                            </span>
+                        @if($quote->actions->count() > 0)
+                            @foreach($quote->actions as $action)
+                                {{ $action->type->name }} by {{ $action->finisher->name }}
+                            @endforeach
+                        @else
+                            <button wire:click="markActionComplete({{ $quote->id }})"
+                                    class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 whitespace-nowrap"
+                                    title="Mark Approved"
+                            >
+                                Approve
+                            </button>
+                        @endif
                     </x-admin.quotes.cell>
 
                     <x-admin.quotes.cell>

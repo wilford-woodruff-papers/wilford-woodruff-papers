@@ -45,7 +45,7 @@ class Dashboard extends Component
             ->limit(3)
             ->get();
 
-        $this->taskTypes = ActionType::ordered()->get();
+        $this->taskTypes = ActionType::for('Documents')->ordered()->get();
     }
 
     public function updatedFilters() {
