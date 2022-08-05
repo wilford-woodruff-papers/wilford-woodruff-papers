@@ -21,7 +21,6 @@ class Press extends Model implements HasMedia
 {
     use HasFactory, HasSlug, InteractsWithMedia;
     use HasChildren;
-    use Markable;
 
     protected $guarded = ['id'];
 
