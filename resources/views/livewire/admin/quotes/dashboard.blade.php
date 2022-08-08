@@ -54,17 +54,25 @@
                     <x-admin.quotes.cell>
                         <span class="text-cool-gray-900 font-medium">
                             {!! $quote->topics->pluck('name')->transform(function($topic){
-                                return '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">' . $topic . '</span>';
+                                return '<span wire:click="$set(\'filters.topic\', \''. $topic .'\')" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 cursor-pointer">' . $topic . '</span>';
 }                           )->join('') !!}
                         </span>
                     </x-admin.quotes.cell>
 
                     <x-admin.quotes.cell>
-                            <span href="#" class="block space-x-2 w-[400px] text-sm leading-5">
-                                <p class="text-cool-gray-600 w-[400px]">
-                                    {!! $quote->text !!}
-                                </p>
-                            </span>
+                        <span href="#" class="block space-x-2 w-[400px] text-sm leading-5">
+                            <p class="text-cool-gray-600 w-[400px]">
+                                {!! $quote->text !!}
+                            </p>
+                        </span>
+                        <div class="flex pt-2 gap-x-2">
+                            <button wire:click="markActionComplete({{ $quote->id }})"
+                                    class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 whitespace-nowrap"
+                                    title="Mark Approved"
+                            >
+                                Approve
+                            </button>
+                        </div>
                     </x-admin.quotes.cell>
 
                     <x-admin.quotes.cell>
@@ -72,13 +80,6 @@
                             @foreach($quote->actions as $action)
                                 {{ $action->type->name }} by {{ $action->finisher->name }}
                             @endforeach
-                        @else
-                            <button wire:click="markActionComplete({{ $quote->id }})"
-                                    class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 whitespace-nowrap"
-                                    title="Mark Approved"
-                            >
-                                Approve
-                            </button>
                         @endif
                     </x-admin.quotes.cell>
 

@@ -20,9 +20,13 @@ class Dashboard extends Component
     public $showFilters = false;
     public $filters = [
         'text' => '',
+        'topic' => '',
     ];
 
-    protected $queryString = ['sorts'];
+    protected $queryString = [
+        'sorts' => ['except' => ''],
+        'filters' => ['except' => ''],
+    ];
 
     protected $listeners = ['refreshQuotes' => '$refresh'];
 
@@ -67,7 +71,10 @@ class Dashboard extends Component
     {
         $query = Quote::query()
                     ->with('page')
-                    ->when($this->filters['text'], fn($query, $search) => $query->where('text', 'like', '%'.$search.'%'));
+                    ->when($this->filters['text'], fn($query, $search) => $query->where('text', 'like', '%'.$search.'%'))
+                    ->when($this->filters['topic'], fn($query, $topic) => $query->whereRelation(
+                        'topics', 'name', '=', $topic
+                    ));
 
         return $this->applySorting($query);
     }
