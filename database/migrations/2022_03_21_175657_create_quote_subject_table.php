@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\Subject::class);
             $table->timestamps();
             $table->dateTime('approved_at')->nullable();
-                $table->unsignedBigInteger('approved_by')->nullable();
+            $table->unsignedBigInteger('approved_by')->nullable();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->unique(['quote_id', 'subject_id']);
