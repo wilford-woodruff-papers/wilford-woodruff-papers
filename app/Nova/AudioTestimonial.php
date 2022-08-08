@@ -48,6 +48,7 @@ class AudioTestimonial extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
+            Boolean::make('Featured'),
             Text::make(__('Title'), 'title')
                 ->required(true)
                 ->sortable(),
