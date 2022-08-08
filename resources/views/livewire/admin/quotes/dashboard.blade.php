@@ -5,10 +5,9 @@
                 <x-input.checkbox wire:model="selectPage" />
             </x-admin.quotes.heading>
             <x-admin.quotes.heading sortable multi-column wire:click="sortBy('title')" :direction="$sorts['title'] ?? null" class="max-w-3xl">Document</x-admin.quotes.heading>
-            <x-admin.quotes.heading sortable multi-column wire:click="sortBy('title')" :direction="$sorts['title'] ?? null" class="w-full">Quote</x-admin.quotes.heading>
             <x-admin.quotes.heading sortable multi-column wire:click="sortBy('amount')" :direction="$sorts['amount'] ?? null">Topics</x-admin.quotes.heading>
+            <x-admin.quotes.heading sortable multi-column wire:click="sortBy('title')" :direction="$sorts['title'] ?? null" class="w-full">Quote</x-admin.quotes.heading>
             <x-admin.quotes.heading sortable multi-column wire:click="sortBy('status')" :direction="$sorts['status'] ?? null">Status</x-admin.quotes.heading>
-            <x-admin.quotes.heading sortable multi-column wire:click="sortBy('date')" :direction="$sorts['date'] ?? null">Date</x-admin.quotes.heading>
             <x-admin.quotes.heading />
         </x-slot>
 
@@ -35,20 +34,20 @@
                     </x-admin.quotes.cell>
 
                     <x-admin.quotes.cell class="max-w-3xl">
-                            <span href="#" class="inline-flex space-x-2 truncate text-sm leading-5">
+                            <span href="#" class="truncate text-sm leading-5">
                                 {{--<x-icon.cash class="text-cool-gray-400"/>--}}
 
-                                <p class="text-cool-gray-600 truncate">
-                                    {{ $quote->page->full_name }}
-                                </p>
-                            </span>
-                    </x-admin.quotes.cell>
-
-                    <x-admin.quotes.cell>
-                            <span href="#" class="block space-x-2 w-[400px] text-sm leading-5">
-                                <p class="text-cool-gray-600 w-[400px]">
-                                    {!! $quote->text !!}
-                                </p>
+                                <div class="block text-cool-gray-600 truncate">
+                                    <a href="{{ route('pages.show', ['item' => $quote->page->item, 'page' => $quote->page]) }}"
+                                       target="_blank"
+                                       class="text-secondary"
+                                    >
+                                        {{ $quote->page->full_name }}
+                                    </a>
+                                </div>
+                                <div class="block my-2 text-cool-gray-600 truncate">
+                                    Tagged by <span class="font-semibold">{{ $quote->creator->name }}</span> on {{ $quote->created_at->toFormattedDateString() }}
+                                </div>
                             </span>
                     </x-admin.quotes.cell>
 
@@ -58,6 +57,14 @@
                                 return '<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">' . $topic . '</span>';
 }                           )->join('') !!}
                         </span>
+                    </x-admin.quotes.cell>
+
+                    <x-admin.quotes.cell>
+                            <span href="#" class="block space-x-2 w-[400px] text-sm leading-5">
+                                <p class="text-cool-gray-600 w-[400px]">
+                                    {!! $quote->text !!}
+                                </p>
+                            </span>
                     </x-admin.quotes.cell>
 
                     <x-admin.quotes.cell>
@@ -76,11 +83,7 @@
                     </x-admin.quotes.cell>
 
                     <x-admin.quotes.cell>
-                        {{ $quote->created_at->toFormattedDateString() }}
-                    </x-admin.quotes.cell>
-
-                    <x-admin.quotes.cell>
-                        <x-button.link wire:click="edit({{ $quote->id }})">Edit</x-button.link>
+                        {{--<x-button.link wire:click="edit({{ $quote->id }})">Edit</x-button.link>--}}
                     </x-admin.quotes.cell>
                 </x-admin.quotes.row>
             @empty
