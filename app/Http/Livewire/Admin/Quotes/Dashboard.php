@@ -98,8 +98,14 @@ class Dashboard extends Component
         $quote = Quote::find($quoteId);
         $action = Action::create([
             'action_type_id' => ActionType::for('Quotes')->firstWhere('name', 'Approval')->id,
+            'completed_at' => now(),
             'completed_by' => auth()->id(),
         ]);
         $quote->actions()->save($action);
+    }
+
+    public function deleteAction($actionId)
+    {
+        Action::destroy($actionId);
     }
 }

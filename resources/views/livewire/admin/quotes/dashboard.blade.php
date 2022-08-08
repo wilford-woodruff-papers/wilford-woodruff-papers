@@ -7,7 +7,7 @@
             <x-admin.quotes.heading sortable multi-column wire:click="sortBy('title')" :direction="$sorts['title'] ?? null" class="max-w-3xl">Document</x-admin.quotes.heading>
             <x-admin.quotes.heading sortable multi-column wire:click="sortBy('amount')" :direction="$sorts['amount'] ?? null">Topics</x-admin.quotes.heading>
             <x-admin.quotes.heading sortable multi-column wire:click="sortBy('title')" :direction="$sorts['title'] ?? null" class="w-full">Quote</x-admin.quotes.heading>
-            <x-admin.quotes.heading sortable multi-column wire:click="sortBy('status')" :direction="$sorts['status'] ?? null">Status</x-admin.quotes.heading>
+            <x-admin.quotes.heading sortable multi-column wire:click="sortBy('status')" :direction="$sorts['status'] ?? null" class="w-full">Status</x-admin.quotes.heading>
             <x-admin.quotes.heading />
         </x-slot>
 
@@ -78,7 +78,26 @@
                     <x-admin.quotes.cell>
                         @if($quote->actions->count() > 0)
                             @foreach($quote->actions as $action)
-                                {{ $action->type->name }} by {{ $action->finisher->name }}
+                                <div class="flex gap-x-2 items-center w-[200px]">
+                                    <div>
+                                        <div>
+                                            {{ $action->type->name }} by {{ $action->finisher->name }}
+                                        </div>
+                                        <div>
+                                            {{ $action->completed_at->toFormattedDateString() }}
+                                        </div>
+                                    </div>
+                                    @if($action->finisher->id == auth()->id())
+                                        <div wire:click="deleteAction({{ $action->id }})"
+                                             class="cursor-pointer"
+                                        >
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-800" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                        </div>
+                                    @endif
+                                </div>
+
                             @endforeach
                         @endif
                     </x-admin.quotes.cell>
