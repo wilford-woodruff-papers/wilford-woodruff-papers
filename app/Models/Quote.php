@@ -29,4 +29,9 @@ class Quote extends Model
     {
         return $this->belongsToMany(Subject::class)->withPivot(['approved_at', 'approved_by', 'created_at', 'created_by']);
     }
+
+    public function actions()
+    {
+        return $this->morphMany(Action::class, 'actionable');
+    }
 }

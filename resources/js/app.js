@@ -2,6 +2,7 @@ require('./bootstrap');
 
 import Alpine from 'alpinejs'
 import intersect from '@alpinejs/intersect'
+import focus from '@alpinejs/focus'
 import collapse from '@alpinejs/collapse'
 
 window.rangy = require('./rangy-core');
@@ -10,6 +11,7 @@ window.highlighter = require('./rangy-highlighter');
 
 window.Alpine = Alpine
 Alpine.plugin(intersect)
+Alpine.plugin(focus)
 Alpine.plugin(collapse)
 Alpine.start()
 

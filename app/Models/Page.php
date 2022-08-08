@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Encoders\Base64Encoder;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Models\Activity;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 use Spatie\MediaLibrary\HasMedia;
@@ -21,6 +24,7 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
     use GeneratesUuid;
     use HasFactory;
     use InteractsWithMedia;
+    use LogsActivity;
     use SortableTrait;
 
     protected $guarded = ['id'];
@@ -42,6 +46,22 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
         } else {
             return $this->belongsTo(Item::class, 'parent_item_id');
         }
+    }
+
+    public function next()
+    {
+        return Page::where('parent_item_id', $this->attributes['parent_item_id'])
+                        ->where('order', '>', $this->attributes['order'])
+                        ->orderBy('order', 'ASC')
+                        ->first();
+    }
+
+    public function previous()
+    {
+        return Page::where('parent_item_id', $this->attributes['parent_item_id'])
+                        ->where('order', '<', $this->attributes['order'])
+                        ->orderBy('order', 'DESC')
+                        ->first();
     }
 
     public function subjects()
@@ -126,5 +146,26 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
     public function events()
     {
         return $this->morphToMany(Event::class, 'timelineable');
+    }
+
+    public function actions()
+    {
+        return $this->morphMany(Action::class, 'actionable');
+    }
+
+    public function activities()
+    {
+        return $this->morphMany(Activity::class, 'subject');
+    }
+
+    public function admin_comments()
+    {
+        return $this->morphMany(AdminComment::class, 'admincommentable')->latest();
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+                ->dontLogIfAttributesChangedOnly(['transcript']);
     }
 }
