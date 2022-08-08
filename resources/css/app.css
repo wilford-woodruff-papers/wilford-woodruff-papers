@@ -288,6 +288,7 @@ input[class^="numeric-"], select[class^="numeric-"]{
     @apply text-xl lg:text-3xl;
 }
 
+
 /* Begin Admin */
 .admin nav [x-ref="panel"] a {
     @apply text-sm font-medium text-secondary uppercase;
