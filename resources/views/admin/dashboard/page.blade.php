@@ -1,7 +1,7 @@
 <x-admin-layout>
 
     <main x-data="{
-                tab: 'activity'
+                tab: $persist('activity')
             }"
           class="py-10">
         <!-- Page header -->
@@ -75,7 +75,9 @@
             </div>
         </div>
 
-        <div x-show="tab == 'activity'">
+        <div x-show="tab == 'activity'"
+             x-cloak
+        >
             <div class="mt-8 max-w-3xl mx-auto grid grid-cols-1 gap-6 sm:px-6 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-3">
                 <div class="space-y-6 lg:col-start-1 lg:col-span-2">
                     <!-- Description list-->
@@ -103,8 +105,36 @@
                         <img src="{{ $page->getFirstMediaUrl() }}" alt="" />
                     </div>
 
-                    <div>
-                        {!! $page->transcript !!}
+                    <div x-data="{
+                           transcript: $persist('raw')
+                    }">
+                        <div class="grid grid-cols-2 space-x-4 mb-4">
+                            <div x-on:click="transcript='raw'"
+                                 class="px-3 py-2 font-medium text-sm rounded-md text-center"
+                                 :class="transcript=='raw' ? 'bg-indigo-100 text-indigo-700' : 'text-gray-500 hover:text-gray-700 cursor-pointer'"
+                            >
+                                Raw Transcript
+                            </div>
+                            <div x-on:click="transcript='linked'"
+                                 class="px-3 py-2 font-medium text-sm rounded-md text-center"
+                                 :class="transcript=='linked' ? 'bg-indigo-100 text-indigo-700' : 'text-gray-500 hover:text-gray-700 cursor-pointer'"
+                            >
+                                Linked Transcript
+                            </div>
+                        </div>
+                        <div>
+                            <div x-show="transcript=='raw'"
+                                 x-cloak
+                            >
+                                {!! $page->transcript !!}
+                            </div>
+                            <div x-show="transcript=='linked'"
+                                 x-cloak
+                            >
+                                {!! $page->text() !!}
+                            </div>
+                        </div>
+
                     </div>
 
                 </div>
@@ -166,7 +196,12 @@
                                                 @foreach($page->subjects->sortBy('name') as $subject)
                                                     <tr>
                                                         <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                                            {{ $subject->name }}
+                                                            <a href="{{ route('subjects.show', ['subject' => $subject->slug ]) }}"
+                                                               target="_blank"
+                                                               class="text-secondary"
+                                                            >
+                                                                {{ $subject->name }}
+                                                            </a>
                                                         </td>
                                                     </tr>
                                                 @endforeach

@@ -4,6 +4,7 @@ import Alpine from 'alpinejs'
 import intersect from '@alpinejs/intersect'
 import focus from '@alpinejs/focus'
 import collapse from '@alpinejs/collapse'
+import persist from '@alpinejs/persist'
 
 window.rangy = require('./rangy-core');
 window.classapplier = require('./rangy-classapplier');
@@ -13,6 +14,7 @@ window.Alpine = Alpine
 Alpine.plugin(intersect)
 Alpine.plugin(focus)
 Alpine.plugin(collapse)
+Alpine.plugin(persist)
 Alpine.start()
 
 // A function is used for dragging and moving
