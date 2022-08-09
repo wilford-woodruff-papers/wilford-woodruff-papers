@@ -14344,7 +14344,7 @@
         },
         {
             "name": "wwp/items",
-            "version": "dev-develop",
+            "version": "dev-feature/add_art_contest_form",
             "dist": {
                 "type": "path",
                 "url": "./nova-components/Items",

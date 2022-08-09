@@ -10,6 +10,8 @@ return [
 
         'testify' => env('TESTIFY_FORM'),
 
+        'contest_submission' => env('CONTEST_SUBMISSION_FORM'),
+
     ],
 
 ];

@@ -97,6 +97,9 @@ Route::get('login/constantcontact/callback', [\App\Http\Controllers\Auth\Constan
 Route::get('login/terms-of-use', [\App\Http\Controllers\Auth\AcceptTermsOfUseController::class, 'show'])->name('terms.accept');
 Route::post('login/terms-of-use', [\App\Http\Controllers\Auth\AcceptTermsOfUseController::class, 'submit'])->name('terms.submit');
 
+/* Conference Routes */
+
+Route::get('/conference/art-contest-entry-form', \App\Http\Livewire\Forms\ContestSubmissionForm::class)->name('conference.art-contest-entry-form');
 
 /*Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
