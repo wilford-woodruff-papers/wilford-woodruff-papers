@@ -266,7 +266,7 @@ input[class^="numeric-"], select[class^="numeric-"]{
 }
 /* End Slick Slider */
 
-#image-testimonials blockquote p{
+/*#image-testimonials blockquote p{
     @apply contents;
 }
 #image-testimonials blockquote {
@@ -278,15 +278,15 @@ input[class^="numeric-"], select[class^="numeric-"]{
         text-indent: 0;
         hanging-punctuation: first;
     }
-}
-#image-testimonials blockquote::before {
+}*/
+/*#image-testimonials blockquote::before {
     content: open-quote;
     @apply text-xl lg:text-3xl;
 }
 #image-testimonials blockquote::after {
     content: close-quote;
     @apply text-xl lg:text-3xl;
-}
+}*/
 
 
 /* Begin Admin */

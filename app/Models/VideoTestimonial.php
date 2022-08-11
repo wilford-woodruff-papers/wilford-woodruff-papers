@@ -23,7 +23,7 @@ class VideoTestimonial extends Testimonial implements HasMedia
 
     public function getCallToActionAttribute()
     {
-        return 'Watch';
+        return 'Watch full testimony';
     }
 
     public function getIconAttribute()

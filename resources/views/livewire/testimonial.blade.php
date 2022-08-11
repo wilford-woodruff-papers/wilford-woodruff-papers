@@ -10,7 +10,7 @@
         </div>
     @endif
 
-    <div class="p-12">
+    <div class="content p-12">
         <div class="font-semibold text-lg">
             {{ $testimonial->title }}
         </div>

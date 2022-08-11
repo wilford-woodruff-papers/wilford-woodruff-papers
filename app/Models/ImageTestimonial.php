@@ -18,7 +18,7 @@ class ImageTestimonial extends Testimonial implements HasMedia
 
     public function getCallToActionAttribute()
     {
-        return 'Read more';
+        return 'Read full testimony';
     }
 
     public function getIconAttribute()
