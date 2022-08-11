@@ -8,7 +8,7 @@
 
                 <div class="content col-span-12 px-8 pt-6">
 
-                    <div class="page-title">Testimonials</div>
+                    <div class="page-title">Testimonies</div>
 
                 </div>
 

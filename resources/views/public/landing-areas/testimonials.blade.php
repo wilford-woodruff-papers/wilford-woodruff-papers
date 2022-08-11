@@ -1,6 +1,6 @@
 <div>
     <x-slot name="title">
-        Testimonials | {{ config('app.name') }}
+        Testimonies | {{ config('app.name') }}
     </x-slot>
     <div class="max-w-7xl mx-auto">
         <x-testimonials.featured-testimonials :featured="$featured"/>
@@ -8,7 +8,7 @@
     <div>
         <div class="max-w-7xl mx-auto pt-16 pb-4">
             <div onclick="Livewire.emit('openModal', 'forms.testify')"
-                 class="max-w-xl mx-auto px-4 py-2 bg-secondary text-white text-center"
+                 class="max-w-xl mx-auto px-4 py-2 bg-secondary text-white text-center uppercase"
                  role="button">
                 Share your testimony
             </div>

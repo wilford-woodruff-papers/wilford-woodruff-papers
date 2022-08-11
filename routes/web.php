@@ -54,7 +54,7 @@ Route::get('/ponder', [\App\Http\Controllers\LandingAreasController::class, 'pon
 Route::get('/ponder/{press?}', [\App\Http\Controllers\LandingAreasController::class, 'ponder'])->name('landing-areas.ponder.press');
 Route::get('/serve', [\App\Http\Controllers\LandingAreasController::class, 'serve'])->name('landing-areas.serve');
 Route::get('/testify', [\App\Http\Controllers\LandingAreasController::class, 'testify'])->name('landing-areas.testify');
-Route::get('/testimonials', \App\Http\Livewire\Testimonials::class)->name('testimonials.index');
+Route::get('/testimonies', \App\Http\Livewire\Testimonials::class)->name('testimonies.index');
 
 Route::get('/media/articles', [\App\Http\Controllers\MediaController::class, 'articles'])->name('media.articles');
 Route::get('/media/articles/{article}', [\App\Http\Controllers\MediaController::class, 'article'])->name('media.article');

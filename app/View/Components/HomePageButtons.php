@@ -46,7 +46,7 @@ class HomePageButtons extends Component
                 'image' => asset('img/home/historical-context.jpg'),
                 'title' => 'Testify',
                 'description' => 'Share your experience with the Papers',
-                'link' => route('testimonials.index'),
+                'link' => route('testimonies.index'),
             ],
         ];
 

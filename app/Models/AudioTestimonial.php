@@ -15,4 +15,9 @@ class AudioTestimonial extends Testimonial implements HasMedia
     use HasParent;
     use HasSlug;
     use InteractsWithMedia;
+
+    public function getCallToActionAttribute()
+    {
+        return 'Listen to full testimony';
+    }
 }
