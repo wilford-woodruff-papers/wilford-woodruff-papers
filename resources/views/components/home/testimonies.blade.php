@@ -7,7 +7,7 @@
                 </div>
             </div>
         </div>
-        <div class="mb-12 mx-auto max-w-md px-4 grid gap-8 sm:max-w-lg sm:px-6 lg:px-8 lg:max-w-7xl">
+        <div class="mb-12 mx-auto px-4 grid gap-8 sm:px-6 lg:px-8 lg:max-w-7xl">
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4">
                 @foreach($testimonies as $testimony)
                     <a href="{{ route('testimonies.index', ['testimony' => $testimony->slug]) }}">
