@@ -11,12 +11,12 @@ use Maize\Markable\Models\Like;
 class Testimonials extends Component
 {
 
-    public $perPage = 10;
-
     public $filters = [
         'search' => null,
         'type' => [],
     ];
+
+    public $perPage = 10;
 
     protected $queryString = ['filters'];
 
@@ -24,9 +24,15 @@ class Testimonials extends Component
         'filters' => 'max:100',
     ];
 
+    public $showTestimony;
+
     public function mount()
     {
-        //
+        if($slug = request()->get('testimony')){
+            $this->showTestimony = Testimonial::query()
+                                                ->where('slug', $slug)
+                                                ->first();
+        }
     }
 
     public function render()
@@ -46,7 +52,6 @@ class Testimonials extends Component
                                         ->whereNotIn('id', $featured->pluck('id')->all())
                                         ->latest()
                                         ->paginate($this->perPage);
-
 
         return view('public.landing-areas.testimonials', [
             'featured' => $featured,

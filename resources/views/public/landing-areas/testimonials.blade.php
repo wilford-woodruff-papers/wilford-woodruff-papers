@@ -32,4 +32,11 @@
             </a>
         </div>
     </div>
+    @push('scripts')
+        @if($showTestimony)
+            <script>
+                Livewire.emit("openModal", "testimonial", @json(["testimonial" => $showTestimony->id]) );
+            </script>
+        @endif
+    @endpush
 </div>

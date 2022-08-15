@@ -114,6 +114,10 @@
         <x-call-to-action />
     @endif
 
+    @if(app()->environment(['production','local','development']))
+        <x-home-page-testimonies />
+    @endif
+
     {{--@if(app()->environment(['production']))
         <div class="mt-4 md:my-12">
             <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 xl:grid-cols-2 gap-2 px-4 md:px-12 md:gap-4 md:px-40">
