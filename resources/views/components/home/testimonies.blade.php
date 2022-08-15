@@ -13,7 +13,7 @@
                     <a href="{{ route('testimonies.index', ['testimony' => $testimony->slug]) }}">
                         <div {{--onclick='Livewire.emit("openModal", "testimonial", {{ json_encode(["testimonial" => $testimonial->id]) }})'--}}
                              class="h-48 w-48 md:h-64 md:w-64 overflow-hidden border-4 border-gray-300 mx-auto cursor-pointer">
-                            <img src="{{ $testimony->getFirstMediaUrl('images', 'square-thumb') }}"
+                            <img src="{{ $testimony->getFirstMediaUrl('images', 'square') }}"
                                  class="h-48 w-48 md:h-64 md:w-64"
                                  alt="{{ $testimony->name }}"
                                  title="{{ $testimony->name }}"
