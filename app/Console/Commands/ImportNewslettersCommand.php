@@ -54,7 +54,7 @@ class ImportNewslettersCommand extends Command
 
                     $newsletter->save();
                     $newsletter->content = $this->replaceImages($response->json('html_content'), $newsletter);
-                    $newsletter->subject = $item['subject'];
+                    $newsletter->subject = $response->json('subject');
                     $newsletter->preheader = $response->json('preheader');
                     $newsletter->link = $response->json('permalink_url');
                     $newsletter->save();
