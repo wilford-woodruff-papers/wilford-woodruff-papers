@@ -33,7 +33,7 @@ class ImportNewslettersCommand extends Command
                             ->get($url);
 
         $newsletters = collect($response->json('campaigns'))->filter(function($item){
-            return str($item['name'])->contains('Newsletter');
+            return str($item['current_status'])->contains('Done');
         });
 
         $newsletters->each(function($item) use ($token){
@@ -54,7 +54,7 @@ class ImportNewslettersCommand extends Command
 
                     $newsletter->save();
                     $newsletter->content = $this->replaceImages($response->json('html_content'), $newsletter);
-                    $newsletter->subject = $item['name'];
+                    $newsletter->subject = $item['subject'];
                     $newsletter->preheader = $response->json('preheader');
                     $newsletter->link = $response->json('permalink_url');
                     $newsletter->save();
