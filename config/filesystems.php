@@ -91,6 +91,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'contest_submissions' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/contest_submissions'),
+            'url' => env('APP_URL').'/storage/contest_submissions',
+            'visibility' => 'public',
+        ],
+
         'testimonials' => [
             'driver' => 'local',
             'root' => storage_path('app/public/testimonials'),
