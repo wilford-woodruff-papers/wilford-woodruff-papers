@@ -28,7 +28,7 @@ class ImportNewslettersCommand extends Command
         }
 
         $token = $oauth->access_token;
-
+        ray($token);
         $response = Http::withToken($token)
                             ->get($url);
 
@@ -106,8 +106,8 @@ class ImportNewslettersCommand extends Command
                             ->post($url);
 
         $oauth->expires_at = now()->addSeconds($response->json('expires_in'));
-        $oauth->access_token = now()->addSeconds($response->json('access_token'));
-        $oauth->refresh_token = now()->addSeconds($response->json('refresh_token'));
+        $oauth->access_token = $response->json('access_token');
+        $oauth->refresh_token = $response->json('refresh_token');
         $oauth->save();
 
         return $oauth;
