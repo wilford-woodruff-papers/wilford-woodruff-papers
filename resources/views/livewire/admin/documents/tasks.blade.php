@@ -111,6 +111,7 @@
                                 <thead class="bg-gray-50">
                                 <tr>
                                     <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Available Tasks</th>
+                                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Page Count</th>
                                     <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"></th>
                                 </tr>
                                 </thead>
@@ -124,6 +125,9 @@
                                             >
                                                 {{ $item->name }}
                                             </a>
+                                        </th>
+                                        <th class="bg-gray-50 px-4 py-2 text-left text-sm text-gray-900 sm:px-6">
+                                            {{ $item->pages->count() }}
                                         </th>
                                         <th class="bg-gray-50 px-4 py-2 text-left text-sm font-semibold text-gray-900 sm:px-6">
                                             @foreach($item->unassigned_actions as $action)
