@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Models\Item;
-use App\Models\Page;
 use Illuminate\Console\Command;
 
 class CacheDates extends Command
