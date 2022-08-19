@@ -49,12 +49,15 @@ class Contestant extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            BelongsTo::make('Contest Submission', 'submission'),
+            BelongsTo::make('Submission', 'submission', ContestSubmission::class),
             Text::make('First Name')->required(true),
             Text::make('Last Name')->required(true),
-            Text::make('Email')->required(true),
-            Text::make('Phone'),
-            Text::make('Address'),
+            Text::make('Email')->required(true)
+                    ->hideFromIndex(),
+            Text::make('Phone')
+                    ->hideFromIndex(),
+            Text::make('Address')
+                    ->hideFromIndex(),
             Boolean::make('Subscribe to Newsletter', 'subscribe_to_newsletter'),
             Boolean::make('Primary Contact', 'is_primary_contact'),
             Boolean::make('Original Work', 'is_original'),

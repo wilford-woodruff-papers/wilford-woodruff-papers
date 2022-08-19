@@ -83,7 +83,6 @@ class ContestSubmissionForm extends Component
 
         $contestant = new Contestant([
             'email' => $this->email,
-            'file' => 'file|max:20000',
             'first_name' => $this->firstName,
             'last_name' => $this->lastName,
             'phone' => $this->phone,
@@ -96,9 +95,11 @@ class ContestSubmissionForm extends Component
 
         $submission->contestants()->save($contestant);
 
-        if ($this->file) {
-            $submission->addMedia($this->file)
-                        ->toMediaCollection('art');
+        if(! app()->environment(['local'])){
+            if ($this->file) {
+                $submission->addMedia($this->file)
+                    ->toMediaCollection('art');
+            }
         }
 
         /*Mail::to(User::whereIn('email', explode('|', config('wwp.form_emails.contest_submission')))->get())

@@ -20,7 +20,7 @@ class Contestant extends Model
 
     public function submission()
     {
-        return $this->belongsTo(ContestSubmission::class);
+        return $this->belongsTo(ContestSubmission::class, 'contest_submission_id');
     }
 
     public function getFullNameAttribute()
