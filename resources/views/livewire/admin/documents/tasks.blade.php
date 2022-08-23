@@ -12,9 +12,9 @@
                                 <thead class="bg-gray-50">
                                 <tr>
                                     <th></th>
-                                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Tasks</th>
-                                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"></th>
-                                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Assigned</th>
+                                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Document</th>
+                                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Pending Task(s)</th>
+                                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Date Claimed</th>
                                 </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-200 bg-white">
@@ -22,7 +22,7 @@
                                     <tr
                                         id="assigned_item_{{ $item->id }}"
                                         class="border-t border-gray-200">
-                                        <th>
+                                        <th class="bg-gray-50">
                                             @if($item->pending_page_actions->count() > 0)
                                                 <div class="flex items-center justify-center">
                                                     <button x-on:click="open = {{ $item->id }}"
@@ -40,7 +40,7 @@
                                                 </div>
                                             @endif
                                         </th>
-                                        <th colspan="2" scope="colgroup" class="flex items-center bg-gray-50 px-4 py-2 text-left text-sm font-semibold text-gray-900 sm:px-6">
+                                        <th scope="colgroup" class="bg-gray-50 px-4 py-2 text-left text-sm font-semibold text-gray-900 sm:px-6">
                                             <a href="{{ route('admin.dashboard.document', ['item' => $item]) }}"
                                                class="font-medium text-indigo-600 capitalize"
                                             >
@@ -110,9 +110,9 @@
                             <table class="min-w-full divide-y divide-gray-300">
                                 <thead class="bg-gray-50">
                                 <tr>
-                                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Available Tasks</th>
-                                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Page Count</th>
+                                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Document</th>
                                     <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"></th>
+                                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Available Task(s)</th>
                                 </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-200 bg-white">
@@ -125,9 +125,12 @@
                                             >
                                                 {{ $item->name }}
                                             </a>
+                                            <span class="font-normal">
+                                                ({{ $item->pages->count() }} Pages)
+                                            </span>
                                         </th>
                                         <th class="bg-gray-50 px-4 py-2 text-left text-sm text-gray-900 sm:px-6">
-                                            {{ $item->pages->count() }}
+
                                         </th>
                                         <th class="bg-gray-50 px-4 py-2 text-left text-sm font-semibold text-gray-900 sm:px-6">
                                             @foreach($item->unassigned_actions as $action)
