@@ -20,6 +20,7 @@
             <script>
                 $(function(){
                     $('.{{ $position }}-announcements').slick({
+                        arrows: false,
                         autoplay: true,
                         autoplaySpeed: 8000,
                         dots: true,
