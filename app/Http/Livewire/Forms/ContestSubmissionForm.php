@@ -2,12 +2,10 @@
 
 namespace App\Http\Livewire\Forms;
 
-use App\Mail\ContactFormSubmitted;
 use App\Models\Contestant;
 use App\Models\ContestSubmission;
-use App\Models\Submission;
-use App\Models\User;
-use Illuminate\Support\Facades\Mail;
+use App\Notifications\CollaboratorNotification;
+use Illuminate\Support\Facades\Notification;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -19,7 +17,7 @@ class ContestSubmissionForm extends Component
 
     public $appropriate;
 
-    public $category;
+    public $category = '';
 
     public $collaborators;
 
@@ -32,6 +30,8 @@ class ContestSubmissionForm extends Component
     public $firstName;
 
     public $lastName;
+
+    public $medium;
 
     public $original;
 
@@ -49,10 +49,11 @@ class ContestSubmissionForm extends Component
         'address' => 'max:4096',
         'appropriate' => 'required',
         'category' => 'required|string|max:32',
+        'medium' => 'required|string|max:32',
         'collaborators' => 'max:4096',
         'division' => 'required|string|max:32',
         'email' => 'required|email',
-        'file' => 'file|max:20000',
+        'file' => 'max:20000',
         'firstName' => 'required',
         'lastName' => 'required',
         'original' => 'required',
@@ -79,6 +80,8 @@ class ContestSubmissionForm extends Component
             'title' => $this->title,
             'division' => $this->division,
             'category' => $this->category,
+            'medium' => $this->medium,
+            'collaborators' => $this->collaborators,
         ]);
 
         $contestant = new Contestant([
@@ -102,10 +105,35 @@ class ContestSubmissionForm extends Component
             }
         }
 
+        if(! empty($this->collaborators)){
+            $this->notifyCollaborators($submission);
+        }
+
         /*Mail::to(User::whereIn('email', explode('|', config('wwp.form_emails.contest_submission')))->get())
             ->send(new ContactFormSubmitted($submission));*/
 
         $this->success = true;
+    }
+
+    public function notifyCollaborators($submission)
+    {
+       // TODO: Store and send email to collaborators
+        $emails = str($this->collaborators)
+                    ->explode(';')
+                    ->transform(function($item, $key){
+                        return str($item)->trim();
+                    })
+                    ->map(function ($item, $key){
+                        return Contestant::create([
+                            'email' => $item,
+                        ]);
+                    })
+                    ->all()
+        ;
+
+        $contestants = $submission->contestants()->saveMany($emails);
+
+        Notification::send($contestants, new CollaboratorNotification($submission));
     }
 
     public function spamFilter()

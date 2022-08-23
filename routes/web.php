@@ -100,6 +100,7 @@ Route::post('login/terms-of-use', [\App\Http\Controllers\Auth\AcceptTermsOfUseCo
 /* Conference Routes */
 
 Route::get('/conference/art-contest-entry-form', \App\Http\Livewire\Forms\ContestSubmissionForm::class)->name('conference.art-contest-entry-form');
+Route::get('/conference/art-contest-entry-form-collaborator/{submission}', \App\Http\Livewire\Forms\ContestantContactInformationForm::class)->name('conference.art-contest-entry-form-collaborator');
 
 /*Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();

@@ -6,11 +6,13 @@ use Dyrynda\Database\Casts\EfficientUuid;
 use Dyrynda\Database\Support\GeneratesUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class Contestant extends Model
 {
     use GeneratesUuid;
     use HasFactory;
+    use Notifiable;
 
     protected $guarded = ['id'];
 

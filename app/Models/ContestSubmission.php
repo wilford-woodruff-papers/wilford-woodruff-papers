@@ -34,14 +34,27 @@ class ContestSubmission extends Model implements HasMedia
     ];
 
     public static array $categories = [
-        '2-D Art' => '2-D Art',
-        '3-D Art' => '3-D Art',
-        'Digital Art' => 'Digital Art',
+        'Art' => 'Art',
+        'Performance' => 'Performance',
         'Literary Composition' => 'Literary Composition',
-        'Theater' => 'Theater',
-        'Dance' => 'Dance',
-        'Cinema' => 'Cinema',
-        'Musical Composition' => 'Musical Composition',
+    ];
+
+    public static array $medium = [
+        '' => [],
+        'Art' => [
+            '2-D Art' => '2-D Art',
+            '3-D Art' => '3-D Art',
+            'Digital Art' => 'Digital Art',
+        ],
+        'Performance' => [
+            'Theater' => 'Theater',
+            'Dance' => 'Dance',
+            'Cinema' => 'Cinema',
+            'Musical Composition' => 'Musical Composition',
+        ],
+        'Literary Composition' => [
+            'Literary Composition' => 'Literary Composition',
+        ],
     ];
 
     public function contestants()

@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('status')->nullable();
             $table->string('division')->nullable();
             $table->string('category')->nullable();
+            $table->string('medium')->nullable();
+            $table->longText('collaborators')->nullable();
             $table->timestamps();
         });
 

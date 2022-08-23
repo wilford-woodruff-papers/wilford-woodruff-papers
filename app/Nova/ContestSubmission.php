@@ -5,12 +5,10 @@ namespace App\Nova;
 use DmitryBubyakin\NovaMedialibraryField\Fields\GeneratedConversions;
 use DmitryBubyakin\NovaMedialibraryField\Fields\Medialibrary;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest;
 
 class ContestSubmission extends Resource
 {
@@ -60,6 +58,10 @@ class ContestSubmission extends Resource
                 ->required(true),
             Select::make('Category')->options(
                 \App\Models\ContestSubmission::$categories
+            )
+                ->required(true),
+            Select::make('Medium')->options(
+                \App\Models\ContestSubmission::$medium
             )
                 ->required(true),
             Medialibrary::make('Media', 'art', 'contest_submissions')->fields(function () {
