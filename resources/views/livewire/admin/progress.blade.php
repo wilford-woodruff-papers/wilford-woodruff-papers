@@ -88,9 +88,7 @@
                                                                 }
                                                             )
                                                             ->whereBetween('created_at', [$period->start, $period->end])
-                                                            ->get()
-                                                            ->groupBy('action_type_id');
-
+                                                            ->get();
                             // Check for a goal during the time period. If one doesn't exist just use the latest goal
                             $goals = collect([]);
                             foreach ($actionTypes as $actionType){
@@ -117,6 +115,13 @@
                                                         ->get()
                                                         ->sortBy('action_type.order_column');*/
 
+                            $completedActions = collect([]);
+                            $actionTypes->transform(function($item, $key) use ($actions){
+                                $item->action_count = $actions->whereNotNull('completed_at')
+                                                        ->where('action_type_id', $item->id)
+                                                        ->count();
+                                return $item;
+                            });
                         @endphp
                         <h2 class="font-medium text-lg">{{ $type->name }}</h2>
                         <div x-data="{
@@ -131,9 +136,7 @@
                             },
                             {
                                 label: 'Completed',
-                                data: [{{ $actions->map(function($item, $key){
-                                    return $item->whereNotNull('completed_at')->count();
-                                })->join(', ') }}],
+                                data: [{{ $actionTypes->pluck('action_count')->join(', ') }}],
                                 backgroundColor: 'rgba(20, 83, 45, .6)'
                             }
                         ],
