@@ -27,10 +27,14 @@ class AddQuote extends ModalComponent
     {
         return view('livewire.add-quote', [
             'topics' => Subject::query()
-                ->whereRelation('category', 'name', 'Topics')
-                ->orderBy('name')
-                ->pluck('name', 'id')
-                ->all()
+                                    ->where(function($query){
+                                        $query->whereNull('subject_id')
+                                            ->orWhere('subject_id', '!=',0);
+                                    })
+                                    ->whereRelation('category', 'name', 'Topics')
+                                    ->orderBy('name')
+                                    ->pluck('name', 'id')
+                                    ->all()
         ]);
     }
 
