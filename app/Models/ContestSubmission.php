@@ -28,9 +28,8 @@ class ContestSubmission extends Model implements HasMedia
     ];
 
     public static array $divisions = [
-        'High School Student' => 'High School Student',
-        'Undergraduate Student' => 'Undergraduate Student',
-        'Graduate Student' => 'Graduate Student',
+        'Student' => 'STUDENT: High School & Undergraduate Students',
+        'Pre-Professional' => 'PRE-PROFESSIONAL: Graduate & Emerging Professionals',
     ];
 
     public static array $categories = [

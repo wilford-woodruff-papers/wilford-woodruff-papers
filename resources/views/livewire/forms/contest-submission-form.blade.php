@@ -147,6 +147,20 @@
                         </div>
 
                         <div class="">
+                            <label for="connection" class="block text-sm font-medium text-gray-700">Connection to Wilford Woodruff <span class="text-red-700 text-base">*</span></label>
+                            <p class="mt-2 text-sm text-gray-500">
+                                Please include a quote, story, or citation of how your entry relates to Wilford Woodruff.
+                            </p>
+                            <div class="mt-1">
+                                <textarea wire:model.defer="connection"
+                                          id="connection"
+                                          rows="4"
+                                          class="py-3 px-4 block w-full shadow-sm focus:ring-secondary focus:border-secondary border  @error('connection') border-red-500 @else border-gray-300 @enderror"></textarea>
+                            </div>
+                            @error('connection') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
+                        </div>
+
+                        <div class="">
                             <label for="division" class="block text-sm font-medium text-gray-700">Division <span class="text-red-700 text-base">*</span></label>
                             <div class="mt-1">
                                 <select wire:model.defer="division"
@@ -287,6 +301,7 @@
                                 <textarea wire:model.defer="collaborators"
                                           id="collaborators"
                                           rows="4"
+                                          placeholder="john@example.com;jane@example.com"
                                           class="py-3 px-4 block w-full shadow-sm focus:ring-secondary focus:border-secondary border  @error('collaborators') border-red-500 @else border-gray-300 @enderror"></textarea>
                             </div>
                             @error('collaborators') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror

@@ -21,6 +21,8 @@ class ContestSubmissionForm extends Component
 
     public $collaborators;
 
+    public $connection;
+
     public $division;
 
     public $email;
@@ -51,6 +53,7 @@ class ContestSubmissionForm extends Component
         'category' => 'required|string|max:32',
         'medium' => 'required|string|max:32',
         'collaborators' => 'max:4096',
+        'connection' => 'required|max:10000',
         'division' => 'required|string|max:32',
         'email' => 'required|email',
         'file' => 'max:20000',
@@ -82,6 +85,7 @@ class ContestSubmissionForm extends Component
             'category' => $this->category,
             'medium' => $this->medium,
             'collaborators' => $this->collaborators,
+            'connection' => $this->connection,
         ]);
 
         $contestant = new Contestant([

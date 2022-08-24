@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('category')->nullable();
             $table->string('medium')->nullable();
             $table->longText('collaborators')->nullable();
+            $table->longText('connection')->nullable();
             $table->timestamps();
         });
 
