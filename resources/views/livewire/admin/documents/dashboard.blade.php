@@ -43,17 +43,13 @@
                                 <option value=""> -- Any Status -- </option>
                                 <option value="on">Enabled</option>
                                 <option value="off">Disabled</option>
-
-                                {{--@foreach (App\Models\Transaction::STATUSES as $value => $label)
-                                    <option value="{{ $value }}">{{ $label }}</option>
-                                @endforeach--}}
                             </x-input.select>
                         </x-input.group>
-
+                    </div>
+                    <div class="w-1/2 pr-2 space-y-4">
                         <x-input.group inline for="filter-type" label="Type">
                             <x-input.select wire:model="filters.type" id="filter-type">
                                 <option value=""> -- Any Type -- </option>
-
                                 @foreach (App\Models\Type::orderBy('name')->get() as $type)
                                     <option value="{{ $type->id }}">{{ $type->name }}</option>
                                 @endforeach
@@ -152,11 +148,11 @@
 
                             <x-admin.quotes.cell>
                                 <div class="grid grid-flow-col auto-cols-max items-center gap-x-4">
-                                    <div class="flex gap-x-2">
+                                    <div class="grid grid-cols-3 gap-2">
                                         @foreach($taskTypes as $taskType)
                                             <button wire:click="addTasks({{ $item->id }}, {{ $taskType->id }})"
                                                     @class([
-    "flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 whitespace-nowrap",
+    "flex items-center justify-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 whitespace-nowrap",
                                                     'text-gray-700 bg-white hover:bg-gray-50' => ! $item->actions->where('action_type_id', $taskType->id)->count(),
                                                     'text-white bg-gray-500 hover:bg-gray-700' => $item->actions->where('action_type_id', $taskType->id)->whereNull('assigned_at')->whereNull('completed_at')->count(),
                                                     'text-white bg-red-400 hover:bg-red-600' => $item->actions->where('action_type_id', $taskType->id)->whereNotNull('assigned_at')->whereNull('completed_at')->count(),
