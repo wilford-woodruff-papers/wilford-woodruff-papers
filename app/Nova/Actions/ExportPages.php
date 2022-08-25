@@ -2,16 +2,8 @@
 
 namespace App\Nova\Actions;
 
-use App\Exports\PageExport;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Support\Collection;
-use Laravel\Nova\Actions\Action;
-use Laravel\Nova\Fields\ActionFields;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
-use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 
 class ExportPages extends DownloadExcel implements WithMapping, WithHeadings
@@ -29,6 +21,7 @@ class ExportPages extends DownloadExcel implements WithMapping, WithHeadings
             'UUID',
             'Name',
             'Website URL',
+            'Short URL',
             'Image URL',
             'Original Transcript',
             'Text Only Transcript',
@@ -52,6 +45,7 @@ class ExportPages extends DownloadExcel implements WithMapping, WithHeadings
             $page->uuid,
             $page->name,
             route('pages.show', ['item' => $page->item->uuid, 'page' => $page->uuid]),
+            route('short-url.page', ['page' => $page->hashid]),
             $page->getFirstMedia()?->getUrl(),
             $page->transcript,
             strip_tags($page->transcript),
