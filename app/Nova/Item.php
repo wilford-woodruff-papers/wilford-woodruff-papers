@@ -9,18 +9,15 @@ use App\Nova\Actions\ExportItems;
 use App\Nova\Actions\ImportItems;
 use App\Nova\Actions\ImportPage;
 use App\Nova\Actions\ImportPages;
-use App\Nova\Actions\ImportSubjects;
 use App\Nova\Filters\Status;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\HasMany;
-use Laravel\Nova\Fields\HasManyThrough;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\MorphToMany;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Item extends Resource
@@ -85,6 +82,9 @@ class Item extends Resource
                 if ($item->uuid) {
                     return '<a href="'.route('documents.show', ['item' => $item->uuid]).'" class="no-underline dim text-primary font-bold" target="_preview">Preview</a>';
                 }
+            })->asHtml(),
+            Text::make('Short', function () {
+                return '<span href="'.route('short-url.item', ['hashid' => $this->hashid()]).'" class="no-underline dim text-primary font-bold" onclick="copyShortUrlToClipboard(this)">Short</a>';
             })->asHtml(),
             HasMany::make('Items')
                 ->hideFromIndex(),

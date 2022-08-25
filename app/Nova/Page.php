@@ -2,9 +2,7 @@
 
 namespace App\Nova;
 
-use App\Exports\PageExport;
 use App\Nova\Actions\ExportPages;
-use App\Nova\Actions\ImportSubjects;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\HasMany;
@@ -12,7 +10,6 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\MorphToMany;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
-use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Page extends Resource
 {
@@ -62,6 +59,9 @@ class Page extends Resource
                 })->asHtml() : Text::make('Preview', function () {
                     return '<a href="#" class="no-underline dim text-primary font-bold" target="_preview">Preview</a>';
                 })->asHtml(),
+            ($this->item) ? Text::make('Short', function () {
+                return '<span class="no-underline dim text-primary font-bold cursor-pointer" data-url="'.route('short-url.page', ['hashid' => $this->hashid()]).'" onclick="copyShortUrlToClipboard(this)">Short</a>';
+            })->asHtml() : '',
             Text::make('FTP', function () {
                 return '<a href="'.$this->ftp_link.'" class="no-underline dim text-primary font-bold" target="_preview">FTP</a>';
             })->asHtml(),

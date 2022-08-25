@@ -4,14 +4,11 @@ namespace App\Models;
 
 use Dyrynda\Database\Casts\EfficientUuid;
 use Dyrynda\Database\Support\GeneratesUuid;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\Relation;
-use Illuminate\Support\Str;
+use Mtvs\EloquentHashids\HasHashid;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Encoders\Base64Encoder;
-use Parental\HasChildren;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Models\Activity;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -21,6 +18,7 @@ use Spatie\EloquentSortable\SortableTrait;
 class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortable
 {
     use Auditable, GeneratesUuid, HasFactory, SortableTrait;
+    use HasHashid;
     use LogsActivity;
 
     protected $guarded = ['id'];

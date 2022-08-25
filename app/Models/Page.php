@@ -7,6 +7,7 @@ use Dyrynda\Database\Support\GeneratesUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Mtvs\EloquentHashids\HasHashid;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Encoders\Base64Encoder;
 use Spatie\Activitylog\LogOptions;
@@ -23,6 +24,7 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
     use Auditable;
     use GeneratesUuid;
     use HasFactory;
+    use HasHashid;
     use InteractsWithMedia;
     use LogsActivity;
     use SortableTrait;
@@ -33,6 +35,8 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
         'imported_at' => 'datetime',
         'uuid' => EfficientUuid::class,
     ];
+
+    protected $appends = ['hashid'];
 
     public function item()
     {
