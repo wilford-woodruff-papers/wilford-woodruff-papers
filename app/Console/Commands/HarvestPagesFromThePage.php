@@ -42,7 +42,6 @@ class HarvestPagesFromThePage extends Command
     public function handle()
     {
         $items = Item::query()
-                        ->whereEnabled(true)
                         ->whereNotNull('ftp_id');
 
         if (! empty($itemId = $this->argument('item'))) {

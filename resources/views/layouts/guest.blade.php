@@ -62,6 +62,17 @@
         <script src="{{ mix('js/app.js') }}"></script>
         @stack('scripts')
 
+        <script>
+            function copyShortUrlToClipboard(event) {
+                let shortUrl = event.dataset.url;
+                navigator.clipboard.writeText(shortUrl).then(() => {
+                    // Alert the user that the action took place.
+                    // Nobody likes hidden stuff being done under the hood!
+                    console.log(shortUrl + " copied to clipboard");
+                });
+            }
+        </script>
+
         <x-constant-contact />
     </body>
 </html>
