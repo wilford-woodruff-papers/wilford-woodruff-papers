@@ -6,3 +6,13 @@
     v{{ \Laravel\Nova\Nova::version() }}
 </p>--}}
 
+<script>
+    function copyShortUrlToClipboard(event) {
+        let shortUrl = event.dataset.url;
+        navigator.clipboard.writeText(shortUrl).then(() => {
+            // Alert the user that the action took place.
+            // Nobody likes hidden stuff being done under the hood!
+            console.log(shortUrl + " copied to clipboard");
+        });
+    }
+</script>

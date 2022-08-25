@@ -84,7 +84,7 @@ class Item extends Resource
                 }
             })->asHtml(),
             Text::make('Short', function () {
-                return '<a href="'.route('short-url.item', ['item' => $this->hashid()]).'" class="no-underline dim text-primary font-bold" target="_preview">Short</a>';
+                return '<span href="'.route('short-url.item', ['hashid' => $this->hashid()]).'" class="no-underline dim text-primary font-bold" onclick="copyShortUrlToClipboard(this)">Short</a>';
             })->asHtml(),
             HasMany::make('Items')
                 ->hideFromIndex(),

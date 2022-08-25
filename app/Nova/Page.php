@@ -59,9 +59,9 @@ class Page extends Resource
                 })->asHtml() : Text::make('Preview', function () {
                     return '<a href="#" class="no-underline dim text-primary font-bold" target="_preview">Preview</a>';
                 })->asHtml(),
-            Text::make('Short', function () {
-                return '<a href="'.route('short-url.page', ['page' => $this->hashid()]).'" class="no-underline dim text-primary font-bold" target="_preview">Short</a>';
-            })->asHtml(),
+            ($this->item) ? Text::make('Short', function () {
+                return '<span class="no-underline dim text-primary font-bold cursor-pointer" data-url="'.route('short-url.page', ['hashid' => $this->hashid()]).'" onclick="copyShortUrlToClipboard(this)">Short</a>';
+            })->asHtml() : '',
             Text::make('FTP', function () {
                 return '<a href="'.$this->ftp_link.'" class="no-underline dim text-primary font-bold" target="_preview">FTP</a>';
             })->asHtml(),
