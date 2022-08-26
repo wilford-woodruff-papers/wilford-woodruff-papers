@@ -39,6 +39,7 @@
         "maize-tech/laravel-markable": "^1.0",
         "michielkempen/nova-order-field": "^2.1",
         "mtvs/eloquent-hashids": "^3.3",
+        "octopyid/laravel-impersonate": "^3",
         "owen-it/laravel-auditing": "^13.0",
         "paquettg/php-html-parser": "^3.1",
         "pos-lifestyle/laravel-nova-date-range-filter": "dev-master",
