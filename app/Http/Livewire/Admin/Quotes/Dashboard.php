@@ -28,7 +28,9 @@ class Dashboard extends Component
         'filters' => ['except' => ''],
     ];
 
-    protected $listeners = ['refreshQuotes' => '$refresh'];
+    protected $listeners = [
+        'refreshQuotes' => '$refresh',
+    ];
 
     public function mount() {
 
@@ -102,6 +104,20 @@ class Dashboard extends Component
             'completed_by' => auth()->id(),
         ]);
         $quote->actions()->save($action);
+    }
+
+    public function deleteTopic($quoteId, $topicId)
+    {
+        $quote = Quote::find($quoteId);
+
+        $quote->topics()->detach($topicId);
+    }
+
+    public function deleteQuote($quoteId)
+    {
+        Quote::destroy($quoteId);
+
+        $this->render();
     }
 
     public function deleteAction($actionId)

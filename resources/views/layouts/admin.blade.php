@@ -14,6 +14,8 @@
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+
         @livewireStyles
         <style>
             [x-cloak] {
@@ -22,6 +24,7 @@
         </style>
 
         @stack('styles')
+
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
     </head>
@@ -48,7 +51,17 @@
 
         @stack('modals')
         @stack('scripts')
+        <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+        <script>
+            window.onload = function() {
+                // Enable multiple selections in IE
+                try {
+                    document.execCommand("MultipleSelection", true, true);
+                } catch (ex) {}
+            };
+        </script>
 
         @livewireScripts
+        @livewire('livewire-ui-modal')
     </body>
 </html>
