@@ -49,19 +49,21 @@
                                         </th>
                                         <th class="bg-gray-50 px-4 py-2 text-left text-sm font-semibold text-gray-900 sm:px-6">
                                             @foreach($item->pending_actions as $action)
-                                                <button wire:click="markActionComplete({{ $action->id }})"
-                                                        class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 whitespace-nowrap"
-                                                        title="Mark complete"
-                                                >
-                                                    {{ $action->type->name }}
-                                                </button>
+                                                @if($item->pending_page_actions->doesntContain('action_type_id', $action->action_type_id))
+                                                    <button wire:click="markActionComplete({{ $action->id }})"
+                                                            class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 whitespace-nowrap"
+                                                            title="Mark complete"
+                                                    >
+                                                        {{ $action->type->name }}
+                                                    </button>
+                                                @endif
                                             @endforeach
                                         </th>
                                         <th class="bg-gray-50 px-4 py-2 text-left text-sm font-semibold text-gray-900 sm:px-6">
                                             {{ $item->pending_actions->first()->assigned_at->tz('America/Denver')->toDayDateTimeString() }}
                                         </th>
                                     </tr>
-                                    @forelse($item->pending_page_actions->groupBy('actionable_id') as $pageActions)
+                                    @forelse($item->page_actions->groupBy('actionable_id') as $pageActions)
                                         <tr x-show="open == {{ $item->id }}"
                                             x-cloak
                                             class="border-t border-gray-300">
@@ -75,7 +77,7 @@
                                                 </a>
                                             </td>
                                             <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                                @foreach($pageActions as $action)
+                                                @foreach($pageActions->whereNull('completed_at') as $action)
                                                     <button wire:click="markActionComplete({{ $action->id }})"
                                                             class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 whitespace-nowrap"
                                                             title="Mark complete"
@@ -85,7 +87,33 @@
                                                 @endforeach
                                             </td>
                                             <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                                {{ $pageActions->first()->assigned_at->tz('America/Denver')->toDayDateTimeString() }}
+                                                {{--{{ $pageActions->first()->assigned_at->tz('America/Denver')->toDayDateTimeString() }}--}}
+                                                <div>
+                                                    @foreach($pageActions->first()->actionable->completed_actions as $a)
+                                                        <div class="grid grid-cols-9 items-center gap-x-2">
+                                                            <div class="col-span-2 font-semibold">
+                                                                {{ $a->type->name }}
+                                                            </div>
+                                                            <div class="col-span-3">
+                                                                {{ $a->completed_at->tz('America/Denver')->toDayDateTimeString() }}
+                                                            </div>
+                                                            <div class="col-span-2">
+                                                                {{ $a->finisher->name }}
+                                                            </div>
+                                                            <div class="col-span-1">
+                                                                @if($a->finisher->id == auth()->id() || auth()->user()->hasAnyRole($item->roles))
+                                                                    <button wire:click="markActionInComplete({{ $a->id }})"
+                                                                            type="button" class="inline-flex items-center px-2 py-1 my-2 gap-x-2 border border-transparent shadow-sm text-xs leading-4 font-semibold rounded-full text-white bg-red-700 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-700">
+                                                                        <!-- Heroicon name: solid/x -->
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                                        </svg>
+                                                                    </button>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
                                             </td>
                                         </tr>
                                     @empty

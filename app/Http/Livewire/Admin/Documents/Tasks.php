@@ -81,4 +81,15 @@ class Tasks extends Component
         }
 
     }
+
+    public function markActionInComplete($actionId)
+    {
+        $user = Auth::user();
+
+        $action = Action::find($actionId);
+        $action->completed_at = null;
+        $action->completed_by = null;
+        $action->save();
+
+    }
 }
