@@ -90,7 +90,7 @@
                 </button>
                 <button x-on:click="Livewire.emit('openModal', 'add-theme', [{{ $page->id }}, selection.toString()]);"
                         type="button"
-                        class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-secondary hover:text-white focus:z-10 focus:outline-none">
+                        class="hidden -ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-secondary hover:text-white focus:z-10 focus:outline-none">
                     Tag Theme
                 </button>
                 <button x-on:click="cancel"
