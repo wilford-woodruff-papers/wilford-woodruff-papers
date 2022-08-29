@@ -70,7 +70,8 @@ return [
         |
         */
         'fields' => [
-            'name', 'email'
+            'name', 
+            'email',
         ],
 
         'separator'  => ' - ',
