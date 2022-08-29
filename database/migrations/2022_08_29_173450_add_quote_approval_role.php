@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up()
     {
-        $role = \App\Models\Role::firstOrCreate()([
+        $role = \App\Models\Role::firstOrCreate([
             'name' => 'Approve Quotes',
         ]);
     }
