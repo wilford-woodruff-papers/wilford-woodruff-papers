@@ -157,6 +157,12 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
         return $this->morphMany(Action::class, 'actionable');
     }
 
+    public function completed_actions()
+    {
+        return $this->morphMany(Action::class, 'actionable')
+                    ->whereNotNull('completed_at');
+    }
+
     public function activities()
     {
         return $this->morphMany(Activity::class, 'subject');
