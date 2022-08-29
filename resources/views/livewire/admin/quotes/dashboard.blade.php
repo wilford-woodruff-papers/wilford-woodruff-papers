@@ -65,14 +65,16 @@
                                 {!! $quote->text !!}
                             </p>
                         </span>
-                        <div class="flex pt-2 gap-x-2">
-                            <button wire:click="markActionComplete({{ $quote->id }})"
-                                    class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 whitespace-nowrap"
-                                    title="Mark Approved"
-                            >
-                                Approve
-                            </button>
-                        </div>
+                        @hasrole('Approve Quotes')
+                            <div class="flex pt-2 gap-x-2">
+                                <button wire:click="markActionComplete({{ $quote->id }})"
+                                        class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 whitespace-nowrap"
+                                        title="Mark Approved"
+                                >
+                                    Approve
+                                </button>
+                            </div>
+                        @endif
                     </x-admin.quotes.cell>
 
                     <x-admin.quotes.cell>
