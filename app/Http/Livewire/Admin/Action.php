@@ -2,10 +2,10 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\Item;
 use App\Models\Page;
 use App\Models\User;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class Action extends Component
@@ -35,6 +35,20 @@ class Action extends Component
         $this->action->assigned_to = $value;
         $this->action->assigned_at = now();
         $this->action->save();
+
+        $user = User::find($value);
+
+        if($this->action->actionable_type == Item::class){
+            $this->action->actionable->pages->each(function($page) use ($user) {
+                $user->tasks()->save(\App\Models\Action::create([
+                    'actionable_type' => get_class($page),
+                    'actionable_id' => $page->id,
+                    'action_type_id' => $this->action->action_type_id,
+                    'assigned_at' => now(),
+                ]));
+            });
+        }
+
         $this->action = $this->action->fresh(['assignee', 'finisher']);
         activity('activity')
             ->on(Page::find($this->action->actionable_id))
