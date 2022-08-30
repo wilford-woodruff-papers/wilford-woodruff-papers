@@ -35,7 +35,7 @@ class Dashboard extends Component
 
     protected $queryString = [
         'sorts',
-        'filters',
+        'filters' => ['except' => ''],
     ];
 
     protected $listeners = ['refreshQuotes' => '$refresh'];
@@ -87,9 +87,9 @@ class Dashboard extends Component
     {
         $query = Item::query()
             ->with('type', 'target_publish_dates', 'active_target_publish_date', 'actions')
-            ->when(array_key_exists('search', $this->filters), fn($query, $search) => $query->where('name', 'like', '%'.$this->filters['search'].'%'))
-            ->when(array_key_exists('status', $this->filters), fn($query, $status) => $query->where('enabled', $this->filters['status'] == 'on' ? 1 : 0))
-            ->when(array_key_exists('type', $this->filters), fn($query, $type) => $query->where('type_id', $this->filters['type']));
+            ->when(array_key_exists('search', $this->filters) && $this->filters['search'], fn($query, $search) => $query->where('name', 'like', '%'.$this->filters['search'].'%'))
+            ->when(array_key_exists('status', $this->filters) && $this->filters['status'], fn($query, $status) => $query->where('enabled', $this->filters['status'] == 'on' ? 1 : 0))
+            ->when(array_key_exists('type', $this->filters) && $this->filters['type'], fn($query, $type) => $query->where('type_id', $this->filters['type']));
 
         return $this->applySorting($query);
     }
