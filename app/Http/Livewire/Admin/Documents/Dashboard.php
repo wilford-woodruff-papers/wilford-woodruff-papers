@@ -6,7 +6,6 @@ use App\Http\Livewire\DataTable\WithBulkActions;
 use App\Http\Livewire\DataTable\WithCachedRows;
 use App\Http\Livewire\DataTable\WithPerPagePagination;
 use App\Http\Livewire\DataTable\WithSorting;
-use App\Models\Action;
 use App\Models\ActionType;
 use App\Models\Item;
 use App\Models\TargetPublishDate;
@@ -34,7 +33,10 @@ class Dashboard extends Component
         'date-max' => '',
     ];
 
-    protected $queryString = ['sorts'];
+    protected $queryString = [
+        'sorts',
+        'filters',
+    ];
 
     protected $listeners = ['refreshQuotes' => '$refresh'];
 
@@ -85,9 +87,9 @@ class Dashboard extends Component
     {
         $query = Item::query()
             ->with('type', 'target_publish_dates', 'active_target_publish_date', 'actions')
-            ->when($this->filters['search'], fn($query, $search) => $query->where('name', 'like', '%'.$search.'%'))
-            ->when($this->filters['status'], fn($query, $status) => $query->where('enabled', $status == 'on' ? 1 : 0))
-            ->when($this->filters['type'], fn($query, $type) => $query->where('type_id', $type));
+            ->when(array_key_exists('search', $this->filters), fn($query, $search) => $query->where('name', 'like', '%'.$this->filters['search'].'%'))
+            ->when(array_key_exists('status', $this->filters), fn($query, $status) => $query->where('enabled', $this->filters['status'] == 'on' ? 1 : 0))
+            ->when(array_key_exists('type', $this->filters), fn($query, $type) => $query->where('type_id', $this->filters['type']));
 
         return $this->applySorting($query);
     }
