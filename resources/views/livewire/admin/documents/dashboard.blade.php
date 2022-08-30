@@ -50,7 +50,7 @@
                         <x-input.group inline for="filter-type" label="Type">
                             <x-input.select wire:model="filters.type" id="filter-type">
                                 <option value=""> -- Any Type -- </option>
-                                @foreach (App\Models\Type::orderBy('name')->get() as $type)
+                                @foreach (App\Models\Type::whereNull('type_id')->orderBy('name')->get() as $type)
                                     <option value="{{ $type->id }}">{{ $type->name }}</option>
                                 @endforeach
                             </x-input.select>
@@ -86,7 +86,6 @@
                     <x-admin.quotes.heading sortable multi-column wire:click="sortBy('date')" :direction="$sorts['date'] ?? null"></x-admin.quotes.heading>
 
                     <x-admin.quotes.heading />
-                    <x-admin.quotes.heading />
                     {{--<x-admin.quotes.heading />--}}
                 </x-slot>
 
@@ -108,15 +107,15 @@
 
                     @forelse ($items as $item)
                         <x-admin.quotes.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $item->id }}">
-                            <x-admin.quotes.cell>
+                            <x-admin.quotes.cell class="bg-gray-50">
                                 <x-icon.status :status="$item->enabled" />
                             </x-admin.quotes.cell>
 
-                            <x-admin.quotes.cell class="pr-0">
+                            <x-admin.quotes.cell class="bg-gray-50 pr-0">
                                 <x-input.checkbox wire:model="selected" value="{{ $item->id }}" />
                             </x-admin.quotes.cell>
 
-                            <x-admin.quotes.cell>
+                            <x-admin.quotes.cell class="bg-gray-50">
                                 <span href="#" class="inline-flex space-x-2 truncate text-sm leading-5">
                                     {{--<x-icon.cash class="text-cool-gray-400"/>--}}
 
@@ -132,41 +131,67 @@
                                 </span>
                             </x-admin.quotes.cell>
 
-                            <x-admin.quotes.cell>
+                            <x-admin.quotes.cell class="bg-gray-50">
                                 <span class="text-cool-gray-900 font-medium"></span>
                             </x-admin.quotes.cell>
 
-                            <x-admin.quotes.cell>
+                            <x-admin.quotes.cell class="bg-gray-50">
                                     <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-{{ $item->status_color }}-100 text-{{ $item->status_color }}-800 capitalize">
                                         {{ $item->status }}
                                     </span>
                             </x-admin.quotes.cell>
 
-                            <x-admin.quotes.cell>
+                            <x-admin.quotes.cell class="bg-gray-50">
 
                             </x-admin.quotes.cell>
 
-                            <x-admin.quotes.cell>
-                                <div class="grid grid-flow-col auto-cols-max items-center gap-x-4">
-                                    <div class="grid grid-cols-3 gap-2">
-                                        @foreach($taskTypes as $taskType)
-                                            @if(empty($taskType->action_type_id)
-                                                || (! empty($taskType->action_type_id) && $item->completed_actions->contains('action_type_id', $taskType->action_type_id))
-                                            )
-                                                <button wire:click="addTasks({{ $item->id }}, {{ $taskType->id }})"
-                                                        @class([
-        "flex items-center justify-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 whitespace-nowrap",
-                                                        'text-gray-700 bg-white hover:bg-gray-50' => ! $item->actions->where('action_type_id', $taskType->id)->count(),
-                                                        'text-white bg-gray-500 hover:bg-gray-700' => $item->actions->where('action_type_id', $taskType->id)->whereNull('assigned_at')->whereNull('completed_at')->count(),
-                                                        'text-white bg-red-400 hover:bg-red-600' => $item->actions->where('action_type_id', $taskType->id)->whereNotNull('assigned_at')->whereNull('completed_at')->count(),
-                                                        'text-white bg-green-400 hover:bg-green-600' => $item->actions->where('action_type_id', $taskType->id)->whereNotNull('assigned_at')->whereNotNull('completed_at')->count(),
-        ])>
-                                                    {{ $taskType->name }}
-                                                </button>
-                                            @endif
-                                        @endforeach
+                            <x-admin.quotes.cell class="bg-gray-50">
+                                @if($item->items->count() < 1)
+                                    <div class="grid grid-flow-col auto-cols-max items-center gap-x-4">
+                                        <div class="grid grid-cols-3 gap-2">
+                                            @foreach($taskTypes as $taskType)
+                                                @if(empty($taskType->action_type_id)
+                                                    || (! empty($taskType->action_type_id) && $item->completed_actions->contains('action_type_id', $taskType->action_type_id))
+                                                )
+                                                    <button wire:click="addTasks({{ $item->id }}, {{ $taskType->id }})"
+                                                            @class([
+            "flex items-center justify-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 whitespace-nowrap",
+                                                            'text-gray-700 bg-white hover:bg-gray-50' => ! $item->actions->where('action_type_id', $taskType->id)->count(),
+                                                            'text-white bg-gray-500 hover:bg-gray-700' => $item->actions->where('action_type_id', $taskType->id)->whereNull('assigned_at')->whereNull('completed_at')->count(),
+                                                            'text-white bg-red-400 hover:bg-red-600' => $item->actions->where('action_type_id', $taskType->id)->whereNotNull('assigned_at')->whereNull('completed_at')->count(),
+                                                            'text-white bg-green-400 hover:bg-green-600' => $item->actions->where('action_type_id', $taskType->id)->whereNotNull('assigned_at')->whereNotNull('completed_at')->count(),
+            ])>
+                                                        {{ $taskType->name }}
+                                                    </button>
+                                                @endif
+                                            @endforeach
+                                        </div>
                                     </div>
-                                </div>
+                                @else
+                                    <div class="flex justify-end">
+                                        <button x-on:click="open = {{ $item->id }}"
+                                                title="Click to expand pages"
+                                                x-show="open != {{ $item->id }}"
+                                                class="flex items-center  gap-x-2 px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 whitespace-nowrap text-gray-700 bg-white hover:bg-gray-50"
+                                        >
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                            Show Sections
+                                        </button>
+                                        <button x-on:click="open = null"
+                                                title="Click to hide pages"
+                                                x-show="open == {{ $item->id }}"
+                                                x-cloak
+                                                class="flex items-center gap-x-2 px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 whitespace-nowrap text-gray-700 bg-white hover:bg-gray-50"
+                                        >
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                            Hide Sections
+                                        </button>
+                                    </div>
+                                @endif
                             </x-admin.quotes.cell>
 
                             {{--<x-admin.quotes.cell>
@@ -176,6 +201,81 @@
                                    target="_blank">View</a>
                             </x-admin.quotes.cell>--}}
                         </x-admin.quotes.row>
+                        @forelse($item->items as $section)
+                            <x-admin.quotes.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $section->id }}"
+                                x-show="open == {{ $item->id }}"
+                                x-cloak>
+                                <x-admin.quotes.cell>
+                                    <x-icon.status :status="$section->enabled" />
+                                </x-admin.quotes.cell>
+
+                                <x-admin.quotes.cell class="pr-0">
+                                    <x-input.checkbox wire:model="selected" value="{{ $section->id }}" />
+                                </x-admin.quotes.cell>
+
+                                <x-admin.quotes.cell>
+                                    <span href="#" class="inline-flex space-x-2 truncate text-sm leading-5">
+                                        {{--<x-icon.cash class="text-cool-gray-400"/>--}}
+
+                                        <p class="text-cool-gray-600 truncate">
+                                            <a class="text-indigo-600 font-medium"
+                                               href="{{ route('admin.dashboard.document', ['item' => $section]) }}"
+                                               target="_blank">
+                                                {{ $section->name }}
+                                            </a>
+                                            <br />
+                                            <span class="text-cool-gray-900">{{ str($section->type?->name)->singular() }} </span>
+                                        </p>
+                                    </span>
+                                </x-admin.quotes.cell>
+
+                                <x-admin.quotes.cell>
+                                    <span class="text-cool-gray-900 font-medium"></span>
+                                </x-admin.quotes.cell>
+
+                                <x-admin.quotes.cell>
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-{{ $section->status_color }}-100 text-{{ $section->status_color }}-800 capitalize">
+                                        {{ $section->status }}
+                                    </span>
+                                </x-admin.quotes.cell>
+
+                                <x-admin.quotes.cell>
+
+                                </x-admin.quotes.cell>
+
+                                <x-admin.quotes.cell>
+                                    <div class="grid grid-flow-col auto-cols-max items-center gap-x-4">
+                                        <div class="grid grid-cols-3 gap-2">
+                                            @foreach($taskTypes as $taskType)
+                                                @if(empty($taskType->action_type_id)
+                                                    || (! empty($taskType->action_type_id) && $section->completed_actions->contains('action_type_id', $taskType->action_type_id))
+                                                )
+                                                    <button wire:click="addTasks({{ $section->id }}, {{ $taskType->id }})"
+                                                        @class([
+        "flex items-center justify-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 whitespace-nowrap",
+                                                        'text-gray-700 bg-white hover:bg-gray-50' => ! $section->actions->where('action_type_id', $taskType->id)->count(),
+                                                        'text-white bg-gray-500 hover:bg-gray-700' => $section->actions->where('action_type_id', $taskType->id)->whereNull('assigned_at')->whereNull('completed_at')->count(),
+                                                        'text-white bg-red-400 hover:bg-red-600' => $section->actions->where('action_type_id', $taskType->id)->whereNotNull('assigned_at')->whereNull('completed_at')->count(),
+                                                        'text-white bg-green-400 hover:bg-green-600' => $section->actions->where('action_type_id', $taskType->id)->whereNotNull('assigned_at')->whereNotNull('completed_at')->count(),
+        ])>
+                                                        {{ $taskType->name }}
+                                                    </button>
+                                                @endif
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </x-admin.quotes.cell>
+
+                                {{--<x-admin.quotes.cell>
+                                    --}}{{--<x-button.link wire:click="edit({{ $item->id }})">Edit</x-button.link>--}}{{--
+                                    <a class="text-indigo-600"
+                                       href="{{ route('admin.dashboard.document', ['item' => $item]) }}"
+                                       target="_blank">View</a>
+                                </x-admin.quotes.cell>--}}
+                            </x-admin.quotes.row>
+                        @empty
+
+                        @endforelse
                     @empty
                         <x-admin.quotes.row>
                             <x-admin.quotes.cell colspan="6">
