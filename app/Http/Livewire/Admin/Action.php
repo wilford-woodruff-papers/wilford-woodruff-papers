@@ -70,4 +70,27 @@ class Action extends Component
             ->event('completed')
             ->log($this->action->description . ' completed by <span class="user">' . $this->action->finisher->name . '</span>');
     }
+
+    public function unassignAction($actionId)
+    {
+        $this->action->assigned_to = null;
+        $this->action->assigned_at = null;
+        $this->action->save();
+        $this->action = $this->action->fresh(['assignee', 'finisher']);
+
+        if($this->action->actionable_type == Item::class){
+            $this->action->actionable->pages->each(function($page) {
+                foreach ($page->pending_assigned_actions()->where('action_type_id', $this->action->action_type_id)->get() as $task) {
+                    $task->assigned_to = null;
+                    $task->assigned_at = null;
+                    $task->save();
+                }
+            });
+        }
+
+        activity('activity')
+            ->on(Page::find($this->action->actionable_id))
+            ->event('completed')
+            ->log($this->action->description . ' unnassigned by <span class="user">' . auth()->user()->name . '</span>');
+    }
 }
