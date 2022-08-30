@@ -2,6 +2,7 @@
     'Editor',
     'Admin',
     'Super Admin',
+    'Tagger',
 ]))
 
     <div class="w-full bg-black text-white px-8 py-4">
@@ -12,13 +13,19 @@
                      alt="Wilford Woodruff Logo"
                 >
             </li>
-            <li>
-                <a href="/nova"
-                   target="_blank"
-                >
-                    Nova
-                </a>
-            </li>
+            @if(auth()->check() && auth()->user()->hasRole([
+                'Editor',
+                'Admin',
+                'Super Admin',
+            ]))
+                <li>
+                    <a href="/nova"
+                       target="_blank"
+                    >
+                        Nova
+                    </a>
+                </li>
+            @endif
             <li>
                 <a href="{{ route('admin.dashboard') }}"
                    target="_blank"
@@ -33,20 +40,26 @@
                     FromThePage
                 </a>
             </li>
-            <li>
-                <a href="https://analytics.google.com/analytics/web/#/p274180394/reports/intelligenthome"
-                   target="_blank"
-                >
-                    Google Analytics
-                </a>
-            </li>
-            <li>
-                <a href="https://search.google.com/search-console?resource_id=sc-domain:wilfordwoodruffpapers.org"
-                   target="_blank"
-                >
-                    Google Search Console
-                </a>
-            </li>
+            @if(auth()->check() && auth()->user()->hasRole([
+                'Editor',
+                'Admin',
+                'Super Admin',
+            ]))
+                <li>
+                    <a href="https://analytics.google.com/analytics/web/#/p274180394/reports/intelligenthome"
+                       target="_blank"
+                    >
+                        Google Analytics
+                    </a>
+                </li>
+                <li>
+                    <a href="https://search.google.com/search-console?resource_id=sc-domain:wilfordwoodruffpapers.org"
+                       target="_blank"
+                    >
+                        Google Search Console
+                    </a>
+                </li>
+            @endif
             <li>
                 <a href="https://www.facebook.com/wilfordwoodruffpapersfoundation"
                    target="_blank"
