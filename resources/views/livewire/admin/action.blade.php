@@ -15,6 +15,15 @@
                     <div class="text-gray-500">{{ $action->assigned_at?->tz('America/Denver')->toDayDateTimeString() }}</div>
                 </div>
             </div>
+            @if($action->assigned_to == auth()->id() || auth()->user()->hasAnyRole($action->type->roles))
+                <div class="">
+                    <button wire:click="unassignAction({{ $action->id }})"
+                            class="text-red-700"
+                    >
+                        Unassign
+                    </button>
+                </div>
+            @endif
         @else
             <select wire:model="assignee">
                 <option>-- Choose --</option>
