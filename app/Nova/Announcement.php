@@ -4,15 +4,11 @@ namespace App\Nova;
 
 use Emilianotisato\NovaTinyMCE\NovaTinyMCE;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\DateTime;
-use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Announcement extends Resource
 {
