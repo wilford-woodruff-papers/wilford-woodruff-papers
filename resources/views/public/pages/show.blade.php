@@ -264,5 +264,11 @@
 
     </script>
 
+    <style>
+        .overflow-hidden, form .sm\:overflow-hidden {
+            overflow: visible !important;
+        }
+    </style>
+
 </x-guest-layout>
 
