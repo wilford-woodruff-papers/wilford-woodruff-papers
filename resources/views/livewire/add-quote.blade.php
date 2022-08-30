@@ -65,18 +65,36 @@
 
                     <div class="relative flex items-start">
                         <div class="flex h-5 items-center">
-                            <input wire:model.defer="continued"
-                                   id="continued"
-                                   name="continued"
+                            <input wire:model.defer="continuedOnNextPage"
+                                   id="continuedOnNextPage"
+                                   name="continuedOnNextPage"
                                    type="checkbox"
-                                   class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                   class="h-4 w-4 rounded border-gray-300 text-secondary focus:ring-secondary"
                             >
                         </div>
                         <div class="ml-3 text-sm">
-                            <label for="continued"
+                            <label for="continuedOnNextPage"
                                    class="font-medium text-gray-700"
                             >
-                                Continued on next page?
+                                Continued on next page
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="relative flex items-start">
+                        <div class="flex h-5 items-center">
+                            <input wire:model.defer="continuedFromPreviousPage"
+                                   id="continuedFromPreviousPage"
+                                   name="continuedFromPreviousPage"
+                                   type="checkbox"
+                                   class="h-4 w-4 rounded border-gray-300 text-secondary focus:ring-secondary"
+                            >
+                        </div>
+                        <div class="ml-3 text-sm">
+                            <label for="continuedFromPreviousPage"
+                                   class="font-medium text-gray-700"
+                            >
+                                Continued from previous page
                             </label>
                         </div>
                     </div>
