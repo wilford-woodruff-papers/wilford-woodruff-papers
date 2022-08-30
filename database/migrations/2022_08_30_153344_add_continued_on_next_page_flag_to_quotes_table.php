@@ -14,6 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::table('quotes', function (Blueprint $table) {
+            $table->boolean('continued_from_previous_page')
+                ->after('text')
+                ->nullable();
             $table->boolean('continued_on_next_page')
                 ->after('text')
                 ->nullable();
@@ -29,6 +32,9 @@ return new class extends Migration
     {
         Schema::table('quotes', function (Blueprint $table) {
             $table->dropColumn('continued_on_next_page');
+        });
+        Schema::table('quotes', function (Blueprint $table) {
+            $table->dropColumn('continued_from_previous_page');
         });
     }
 };

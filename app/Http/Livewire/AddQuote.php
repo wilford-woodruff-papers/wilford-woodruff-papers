@@ -10,7 +10,9 @@ use LivewireUI\Modal\ModalComponent;
 
 class AddQuote extends ModalComponent
 {
-    public $continued;
+    public $continuedOnNextPage;
+
+    public $continuedFromPreviousPage;
 
     public $page;
 
@@ -46,7 +48,8 @@ class AddQuote extends ModalComponent
         $quote = Quote::create([
             'page_id' => $this->page->id,
             'text' => Str::of($this->selection)->replace('&', '&amp;'),
-            'continued_on_next_page' => $this->continued,
+            'continued_on_next_page' => $this->continuedOnNextPage,
+            'continued_from_previous_page' => $this->continuedFromPreviousPage,
         ]);
         $quote->topics()->syncWithoutDetaching($this->selectedTopics);
         $this->dispatchBrowserEvent('deselect');
