@@ -128,7 +128,7 @@ class ContestSubmissionForm extends Component
                         return str($item)->trim();
                     })
                     ->map(function ($item, $key){
-                        return Contestant::create([
+                        return Contestant::make([
                             'email' => $item,
                         ]);
                     })
