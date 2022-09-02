@@ -60,6 +60,13 @@ class EmailCapture extends Component
 
         $this->validate();
 
+        activity('email')
+            ->event('captured')
+            ->withProperties(
+                ['list_memberships' => $this->listMemberships],
+            )
+            ->log( collect($this->contact)->reject(function($value, $key){ return empty($value); })->implode(',') );
+
         $subscribeToConstantContactAction->execute($this->contact, $this->listMemberships);
 
         $this->success = true;
