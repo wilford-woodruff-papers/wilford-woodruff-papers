@@ -28,7 +28,7 @@
                     <rect width="404" height="392" fill="url(#8228f071-bcee-4ec8-905a-2a059a2cc4fb)" />
                 </svg>--}}
             </div>
-            <div class="mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:max-w-7xl lg:px-8">
+            <div class="mx-auto max-w-xl px-4 sm:max-w-4xl sm:px-6 lg:max-w-7xl lg:px-8">
                 <div class="relative overflow-hidden bg-secondary px-6 py-10 shadow-xl sm:px-12 sm:py-20">
                     <div aria-hidden="true" class="absolute inset-0 -mt-72 sm:-mt-32 md:mt-0">
                         <svg class="absolute inset-0 h-full w-full" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 1463 360">
@@ -40,7 +40,7 @@
                     @if($success)
                         <div class="relative">
                             <div class="sm:text-center">
-                                <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                                <h2 class="text-xl md:text-3xl font-bold tracking-tight text-white sm:text-4xl">
                                     {{ $component['success_title'] }}
                                 </h2>
                                 <p class="mx-auto mt-6 max-w-2xl text-lg text-white">
@@ -50,8 +50,8 @@
                         </div>
                     @else
                         <div class="relative">
-                            <div class="sm:text-center">
-                                <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                            <div class="text-center">
+                                <h2 class="text-xl md:text-3xl font-bold tracking-tight text-white sm:text-4xl">
                                     {{ $component['title'] }}
                                 </h2>
                                 <p class="mx-auto mt-6 max-w-2xl text-lg text-indigo-200">
@@ -76,7 +76,7 @@
                                             wire:loading.class="bg-gray-400"
                                             wire:loading.class.remove="bg-white"
                                             type="submit"
-                                            class="block w-full border border-transparent bg-white px-5 py-3 text-base font-medium text-secondary shadow hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600 sm:px-10">
+                                            class="block w-full border border-transparent bg-white px-5 py-3 text-base font-medium text-secondary shadow hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600 sm:px-10 uppercase">
                                         <span wire:loading.remove>Notify me</span>
                                         <span wire:loading
                                               class="flex items-center px-7"
