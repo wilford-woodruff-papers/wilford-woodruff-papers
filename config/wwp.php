@@ -14,4 +14,12 @@ return [
 
     ],
 
+    'list_memberships' => [
+
+        'conference' => env('CONFERENCE_LIST_ID'),
+
+        'newsletter' => env('NEWSLETTER_LIST_ID'),
+
+    ],
+
 ];
