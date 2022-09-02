@@ -36,7 +36,7 @@
     />
 
     <div class="max-w-7xl mx-auto px-4 py-4 md:py-8">
-        <div class="grid grid-cols-1 md: grid-cols-2 gap-8 items-center">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             <div class="">
                 <a href="https://wilfordwoodruffpapers.org/announcements/2023-building-latter-day-faith-conference-art-contest-rules"
                    target="_blank">
@@ -45,7 +45,7 @@
                          alt="Wilford Woodruff Papers Foundation Building Latter-day Faith 2023 Conference Art Contest">
                 </a>
             </div>
-            <div class="px-8">
+            <div class="px-2 md:px-8">
                 <a href="https://wilfordwoodruffpapers.org/announcements/building-latter-day-faith-conference-call-for-student-paperspresentations" target="_blank">
                     <img class="w-full h-auto"
                          src="https://wilfordwoodruffpapers.org/storage/announcements/W1PxNgXbyOM6SVbW6x1TtnYVBLiZUzBQu6Wab8O1.png"
@@ -75,7 +75,7 @@
     <div class="max-w-7xl mx-auto pt-8 md:pt-12 px-4 pb-4 xl:pt-12 md:pb-4">
         <div class="grid grid-cols-1 pb-4">
             <div class="font-extrabold">
-                <h2 class="text-3xl uppercase pb-1 border-b-4 border-highlight">
+                <h2 class="text-xl md:text-3xl uppercase pb-1 border-b-4 border-highlight">
                     Schedule: Saturday, March 4, 2023
                 </h2>
             </div>
