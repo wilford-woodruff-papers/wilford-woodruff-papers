@@ -12,7 +12,7 @@ class ConstantContactController extends Controller
 {
     public function redirectToProvider(Request $request)
     {
-        $scope = 'campaign_data,contact_data';
+        $scope = 'campaign_data';
         $clientId = config('services.constantcontact.client_id');
         $redirectURI = config('services.constantcontact.redirect_uri');
         $request->session()->put('state', $state = Str::random(40));
