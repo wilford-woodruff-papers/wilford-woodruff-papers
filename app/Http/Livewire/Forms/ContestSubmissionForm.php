@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Forms;
 use App\Models\Contestant;
 use App\Models\ContestSubmission;
 use App\Notifications\CollaboratorNotification;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -33,6 +34,8 @@ class ContestSubmissionForm extends Component
 
     public $lastName;
 
+    public $link;
+
     public $medium;
 
     public $original;
@@ -59,6 +62,7 @@ class ContestSubmissionForm extends Component
         'file' => 'max:20000',
         'firstName' => 'required',
         'lastName' => 'required',
+        'link' => 'max:255',
         'original' => 'required',
         'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
         'subscribeToNewsletter' => '',
@@ -79,39 +83,43 @@ class ContestSubmissionForm extends Component
 
         $this->validate();
 
-        $submission = ContestSubmission::create([
-            'title' => $this->title,
-            'division' => $this->division,
-            'category' => $this->category,
-            'medium' => $this->medium,
-            'collaborators' => $this->collaborators,
-            'connection' => $this->connection,
-        ]);
+        DB::transaction(function (){
+            $submission = ContestSubmission::create([
+                'title' => $this->title,
+                'division' => $this->division,
+                'category' => $this->category,
+                'medium' => $this->medium,
+                'collaborators' => $this->collaborators,
+                'connection' => $this->connection,
+                'link' => $this->link,
+            ]);
 
-        $contestant = new Contestant([
-            'email' => $this->email,
-            'first_name' => $this->firstName,
-            'last_name' => $this->lastName,
-            'phone' => $this->phone,
-            'address' => $this->address,
-            'is_primary_contact' => true,
-            'is_original' => $this->original,
-            'is_appropriate' => $this->appropriate,
-            'subscribe_to_newsletter' => $this->subscribeToNewsletter,
-        ]);
+            $contestant = new Contestant([
+                'email' => $this->email,
+                'first_name' => $this->firstName,
+                'last_name' => $this->lastName,
+                'phone' => $this->phone,
+                'address' => $this->address,
+                'is_primary_contact' => true,
+                'is_original' => $this->original,
+                'is_appropriate' => $this->appropriate,
+                'subscribe_to_newsletter' => $this->subscribeToNewsletter,
+            ]);
 
-        $submission->contestants()->save($contestant);
+            $submission->contestants()->save($contestant);
 
-        if(! app()->environment(['local'])){
-            if ($this->file) {
-                $submission->addMedia($this->file)
-                    ->toMediaCollection('art');
+            if(! app()->environment(['local'])){
+                if ($this->file) {
+                    $submission->addMedia($this->file)
+                        ->toMediaCollection('art');
+                }
             }
-        }
 
-        if(! empty($this->collaborators)){
-            $this->notifyCollaborators($submission);
-        }
+            if(! empty($this->collaborators)){
+                $this->notifyCollaborators($submission);
+            }
+        });
+
 
         /*Mail::to(User::whereIn('email', explode('|', config('wwp.form_emails.contest_submission')))->get())
             ->send(new ContactFormSubmitted($submission));*/

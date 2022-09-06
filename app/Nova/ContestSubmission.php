@@ -64,6 +64,8 @@ class ContestSubmission extends Resource
                 \App\Models\ContestSubmission::$medium
             )
                 ->required(true),
+            Text::make('Link')
+                ->hideFromIndex(),
             Medialibrary::make('Media', 'art', 'contest_submissions')->fields(function () {
                 return [
                     GeneratedConversions::make('Conversions')
