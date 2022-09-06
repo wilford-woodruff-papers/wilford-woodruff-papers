@@ -328,7 +328,7 @@
                                     wire:loading.class="bg-gray-400"
                                     wire:loading.class.remove="bg-white"
                                     type="submit"
-                                    class="block w-full border border-transparent bg-white px-5 py-3 text-base font-medium text-secondary shadow hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600 sm:px-10 uppercase">
+                                    class="block w-full border border-transparent text-white bg-secondary px-5 py-3 text-base font-medium shadow hover:bg-secondary-400 focus:outline-none sm:px-10 uppercase">
                                 <span wire:loading.remove>Submit</span>
                                 <span wire:loading
                                       class="flex items-center px-7"
