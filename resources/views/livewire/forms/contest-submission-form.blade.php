@@ -324,8 +324,21 @@
                             @error('collaborators') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
                         </div>
                         <div class="">
-                            <button type="submit"
-                                    class="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent shadow-sm text-base uppercase font-medium text-white bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary">Submit</button>
+                            <button wire:loading.attr="disabled"
+                                    wire:loading.class="bg-gray-400"
+                                    wire:loading.class.remove="bg-white"
+                                    type="submit"
+                                    class="block w-full border border-transparent bg-white px-5 py-3 text-base font-medium text-secondary shadow hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600 sm:px-10 uppercase">
+                                <span wire:loading.remove>Submit</span>
+                                <span wire:loading
+                                      class="flex items-center px-7"
+                                >
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="animate-spin w-4 h-4">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                                        </svg>
+
+                                    </span>
+                            </button>
                         </div>
                     </form>
                 @elseif($success === true)
