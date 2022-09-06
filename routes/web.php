@@ -13,6 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::domain('{year}.' . config('app.url'))->group(function () {
+    Route::get('/', function ($year) {
+        if($year == '2023'){
+            return redirect()->away(config('app.url') . '/conference/2023-building-latter-day-faith');
+        } else {
+            return redirect()->to(config('app.url'));
+        }
+    });
+});
+
 Route::get('/', \App\Http\Controllers\HomeController::class)->name('home');
 Route::get('/advanced-search', \App\Http\Controllers\SearchController::class)->name('advanced-search');
 // Route::get('/documents', [\App\Http\Controllers\ItemController::class, 'index'])->name('documents');
@@ -109,12 +119,6 @@ Route::get('/conference/art-contest-entry-form-collaborator/{submission}', \App\
 /*Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });*/
-
-Route::domain('2023.wilfordwoodruffpapers.org')->group(function () {
-    Route::get('/', function ($account, $id) {
-        return redirect()->away('https://wilfordwoodruffpapers.org/conference/2023-building-latter-day-faith');
-    });
-});
 
 Route::get('/s/wilford-woodruff-papers/documents', function () {
     return redirect()->route('documents');
