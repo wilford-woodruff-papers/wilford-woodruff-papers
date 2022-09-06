@@ -33,6 +33,8 @@ class ContestSubmissionForm extends Component
 
     public $lastName;
 
+    public $link;
+
     public $medium;
 
     public $original;
@@ -59,6 +61,7 @@ class ContestSubmissionForm extends Component
         'file' => 'max:20000',
         'firstName' => 'required',
         'lastName' => 'required',
+        'link' => 'max:255',
         'original' => 'required',
         'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
         'subscribeToNewsletter' => '',
@@ -86,6 +89,7 @@ class ContestSubmissionForm extends Component
             'medium' => $this->medium,
             'collaborators' => $this->collaborators,
             'connection' => $this->connection,
+            'link' => $this->link,
         ]);
 
         $contestant = new Contestant([

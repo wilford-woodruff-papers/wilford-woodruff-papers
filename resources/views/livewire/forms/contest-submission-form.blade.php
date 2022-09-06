@@ -213,6 +213,23 @@
                             </div>
                         </div>
 
+                        <div>
+                            <div class="grid grid-cols-1 gap-y-6">
+                                <div>
+                                    <label for="link" class="block text-sm font-medium text-gray-700">Link to original artwork</label>
+                                    <div class="mt-1">
+                                        <input wire:model.defer="link"
+                                               id="title"
+                                               type="text"
+                                               value=""
+                                               placeholder="https://"
+                                               class="py-3 px-4 block w-full shadow-sm focus:ring-secondary focus:border-secondary @error('link') border-red-500 @else border-gray-300 @enderror">
+                                    </div>
+                                    @error('link') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="">
                             <label for="attach" class="block text-sm font-medium text-gray-700">Need to attach a file?</label>
                             <div class="mt-1">
