@@ -110,6 +110,12 @@ Route::get('/conference/art-contest-entry-form-collaborator/{submission}', \App\
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });*/
 
+Route::domain('2023.wilfordwoodruffpapers.org')->group(function () {
+    Route::get('/', function ($account, $id) {
+        return redirect()->away('https://wilfordwoodruffpapers.org/conference/2023-building-latter-day-faith');
+    });
+});
+
 Route::get('/s/wilford-woodruff-papers/documents', function () {
     return redirect()->route('documents');
 });
