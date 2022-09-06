@@ -18,7 +18,7 @@
                 March 4, 2023 11:30am - 7:30pm
             </p>
             <p class="text-lg md:text-3xl font-semibold text-center text-black mb-8">
-                Hinckley Building at Brigham Young University
+                @ Brigham Young University
             </p>
         </div>
 
@@ -30,7 +30,7 @@
 
     <livewire:forms.email-capture
         :lists="[config('wwp.list_memberships.conference')]"
-        title="GET NOTIFIED WHEN REGISTRATION OPENS"
+        title="ENTER YOUR EMAIL TO RECEIVE A REMINDER WHEN REGISTRATION OPENS NOVEMBER 1ST"
         success_title="We look forward to seeing you in March!"
         success_description="You should receive an email when the conference registration opens. Check back in October for more conference updates."
     />
@@ -91,8 +91,8 @@
                 <ol role="list"
                     class="space-y-4 bg-white/60 py-8 px-10 text-center shadow-xl shadow-blue-900/5 backdrop-blur">
                     <li aria-label="Registration at 11:30AM - 12:00PM MST">
-                        <h4 class="text-lg md:text-xl font-semibold tracking-tight text-secondary">Registration</h4>
-                        <p class="mt-1 tracking-tight text-secondary"></p>
+                        <h4 class="text-lg md:text-xl font-semibold tracking-tight text-secondary">Check-In \ Registration</h4>
+                        <p class="mt-1 tracking-tight text-black">Art Competition Gallery Display</p>
                         <p class="mt-1 text-base text-slate-500">
                             <time datetime="2023-03-04T11:30PM-07:00">11:30PM</time>
                             -
@@ -103,7 +103,12 @@
                     <li aria-label="Opening Presentation and Lunch at 12:00PM - 1:30PM MST">
                         <div class="mx-auto mb-4 h-px w-48 bg-indigo-500/10"></div>
                         <h4 class="text-lg md:text-xl font-semibold tracking-tight text-secondary">Opening Presentation and Lunch</h4>
-                        <p class="mt-1 tracking-tight text-secondary"></p>
+                        <p class="mt-1 tracking-tight text-black">
+                            <ul class="text-black">
+                                <li>Welcome: Jennifer Ann Mackley</li>
+                                <li>Featured Speaker: Laurel Thatcher Ulrich</li>
+                            </ul>
+                        </p>
                         <p class="mt-1 text-base text-slate-500">
                             <time datetime="2023-03-04T12:00PM-07:00">12:00PM</time>
                             -
@@ -113,8 +118,14 @@
                     </li>
                     <li aria-label="Student Session at 1:30PM - 3:00PM MST">
                         <div class="mx-auto mb-4 h-px w-48 bg-indigo-500/10"></div>
-                        <h4 class="text-lg md:text-xl font-semibold tracking-tight text-secondary">Student Session</h4>
-                        <p class="mt-1 tracking-tight text-secondary"></p>
+                        <h4 class="text-lg md:text-xl font-semibold tracking-tight text-secondary">Student Presentations</h4>
+                        <p class="mt-1 tracking-tight text-black">
+                            <ul class="text-black">
+                                <li>Ellie Hancock: Wilford Woodruff the Historian</li>
+                                <li>Ashlyn Pells: Insights from the Wilford Woodruff Papers</li>
+                                <li>Josh Matson: Understanding Wilford Woodruff’s Symbols</li>
+                            </ul>
+                        </p>
                         <p class="mt-1 text-base text-slate-500">
                             <time datetime="2023-03-04T11:00PM-07:00">1:30PM</time>
                             -
@@ -125,7 +136,13 @@
                     <li aria-label="Afternoon Session at 3:00PM - 4:30PM MST">
                         <div class="mx-auto mb-8 h-px w-48 bg-indigo-500/10"></div>
                         <h4 class="text-lg md:text-xl font-semibold tracking-tight text-secondary">Afternoon Session</h4>
-                        <p class="mt-1 tracking-tight text-secondary"></p>
+                        <p class="mt-1 tracking-tight text-black">
+                            <ul class="text-black">
+                                <li>Kristy Taylor: A Day in the Life of Wilford Woodruff</li>
+                                <li>Steve Wheelwright: Wilford Woodruff, Missionary</li>
+                                <li>Amy Harris: British Context of Wilford Woodruff's Missions</li>
+                            </ul>
+                        </p>
                         <p class="mt-1 text-base text-slate-500">
                             <time datetime="2023-03-04T3:00PM-07:00">3:00PM</time>
                             -
@@ -136,7 +153,7 @@
                     <li aria-label="Special Guest Presentation at 4:30PM - 5:30PM MST">
                         <div class="mx-auto mb-4 h-px w-48 bg-indigo-500/10"></div>
                         <h4 class="text-lg md:text-xl font-semibold tracking-tight text-secondary">Special Guest Presentation</h4>
-                        <p class="mt-1 tracking-tight text-secondary"></p>
+                        <p class="mt-1 tracking-tight text-black">To Be Announced</p>
                         <p class="mt-1 text-base text-slate-500">
                             <time datetime="2023-03-04T4:30PM-07:00">4:30PM</time>
                             -
@@ -147,7 +164,7 @@
                     <li aria-label="Break at 5:30PM - 6:00PM MST">
                         <div class="mx-auto mb-4 h-px w-48 bg-indigo-500/10"></div>
                         <h4 class="text-lg md:text-xl font-semibold tracking-tight text-secondary">Break</h4>
-                        <p class="mt-1 tracking-tight text-secondary"></p>
+                        <p class="mt-1 tracking-tight text-black">Final Audience Voting on Art Competition Entries</p>
                         <p class="mt-1 text-base text-slate-500">
                             <time datetime="2023-03-04T5:30PM-07:00">5:30PM</time>
                             -
@@ -158,7 +175,14 @@
                     <li aria-label="Dinner at 6:00PM - 7:30PM MST">
                         <div class="mx-auto mb-4 h-px w-48 bg-indigo-500/10"></div>
                         <h4 class="text-lg md:text-xl font-semibold tracking-tight text-secondary">Dinner</h4>
-                        <p class="mt-1 tracking-tight text-secondary"></p>
+                        <p class="mt-1 tracking-tight text-black">
+                            <ul class="text-black">
+                                <li>Introduction: Steven C. Harper</li>
+                                <li>Presentation of Carol Sorenson Smith Awards</li>
+                                <li>Special Musical Artist: Alex Melecio</li>
+                                <li>Featured Speaker: To Be Announced</li>
+                            </ul>
+                        </p>
                         <p class="mt-1 text-base text-slate-500">
                             <time datetime="2023-03-04T6:00PM-07:00">6:00PM</time>
                             -
@@ -168,8 +192,8 @@
                     </li>
                     <li aria-label="VIP Reception - By Invitation Only at 7:30PM MST">
                         <div class="mx-auto mb-4 h-px w-48 bg-indigo-500/10"></div>
-                        <h4 class="text-lg md:text-xl font-semibold tracking-tight text-secondary">Special Guest Presentation</h4>
-                        <p class="mt-1 tracking-tight text-secondary">By Invitation Only</p>
+                        <h4 class="text-lg md:text-xl font-semibold tracking-tight text-secondary">VIP Reception</h4>
+                        <p class="mt-1 tracking-tight text-black">By Invitation Only</p>
                         <p class="mt-1 text-base text-slate-500">
                             <time datetime="2023-03-04T7:30PM-07:00">7:30PM</time>
                             MST
