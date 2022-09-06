@@ -1,8 +1,8 @@
 <x-guest-layout>
 
-    <div class="max-w-7xl mx-auto px-4 pb-4 md:pb-8">
+    <div class="max-w-7xl mx-auto px-4 pb-4 md:pb-8 pt-8">
         <img src="{{ asset('img/conferences/2023/logo.png') }}"
-             class="h-96 w-auto mx-auto"
+             class="h-80 w-auto mx-auto"
         />
         <h1 class="sr-only">
             2023 Wilford Woodruff Papers Foundation Conference: Building Latter-day Faith
