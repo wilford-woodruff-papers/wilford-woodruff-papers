@@ -31,7 +31,7 @@
                                     The Wilford Woodruff Papers Foundation makes several internships available each semester to college and high school students through a generous grant from the Sorenson Legacy Foundation. Our interns help with everything from publishing Wilford Woodruff's documents to publishing socila media posts.
                                 </p>
                                 <p>
-                                    <a href="http://wwp.test/work-with-us/internship-opportunities"
+                                    <a href="/work-with-us/internship-opportunities"
                                        class="text-secondary font-medium">
                                         Apply for an Internship >>
                                     </a>
