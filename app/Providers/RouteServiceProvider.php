@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\ContestSubmission;
 use App\Models\Item;
 use App\Models\Page;
 use App\Models\Photo;
@@ -59,6 +60,10 @@ class RouteServiceProvider extends ServiceProvider
             }
 
             return Press::where('slug', $article)->first();
+        });
+
+        Route::bind('submission', function ($submission) {
+            return ContestSubmission::whereUuid($submission->first();
         });
     }
 
