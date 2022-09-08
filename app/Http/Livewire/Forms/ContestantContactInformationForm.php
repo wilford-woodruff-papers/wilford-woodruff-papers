@@ -43,10 +43,11 @@ class ContestantContactInformationForm extends Component
         'subscribeToNewsletter' => '',
     ];
 
-    public function mount($submission, $contestant)
+    public function mount($submission)
     {
-        $this->submission = ContestSubmission::whereUuid($submission);
-        $this->contestant = Contestant::whereUuid($contestant);
+        $this->submission = $submission;
+        $this->contestant = Contestant::whereUuid(request()->get('contestant'))->first();
+        $this->email = $this->contestant->email;
     }
 
     public function render()
@@ -61,20 +62,19 @@ class ContestantContactInformationForm extends Component
 
         $this->validate();
 
-        $contestant = new Contestant([
+        $this->contestant->fill([
             'email' => $this->email,
             'first_name' => $this->firstName,
             'last_name' => $this->lastName,
             'phone' => $this->phone,
             'address' => $this->address,
-            'is_primary_contact' => true,
+            'is_primary_contact' => false,
             'is_original' => $this->original,
             'is_appropriate' => $this->appropriate,
             'subscribe_to_newsletter' => $this->subscribeToNewsletter,
         ]);
 
-        /*Mail::to(User::whereIn('email', explode('|', config('wwp.form_emails.contest_submission')))->get())
-            ->send(new ContactFormSubmitted($submission));*/
+        $this->contestant->save();
 
         $this->success = true;
     }

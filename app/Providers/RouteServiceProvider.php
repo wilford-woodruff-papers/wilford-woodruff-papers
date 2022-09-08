@@ -63,7 +63,7 @@ class RouteServiceProvider extends ServiceProvider
         });
 
         Route::bind('submission', function ($submission) {
-            return ContestSubmission::whereUuid($submission->first());
+            return ContestSubmission::whereUuid($submission)->first();
         });
     }
 
