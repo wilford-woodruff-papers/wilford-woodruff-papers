@@ -43,6 +43,7 @@ class CollaboratorNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
+                    ->replyTo(config('wwp.admin_email'))
                     ->line('We received your submission to the Wilford Woodruff Papers Foundation 2023 Conference Art Contest')
                     ->line('Please click on the link below to update your contact information.')
                     ->action('Update Contact Information', route('conference.art-contest-entry-form-collaborator', [
