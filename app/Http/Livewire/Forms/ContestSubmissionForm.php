@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Forms;
 
+use App\Mail\ContactFormSubmitted;
 use App\Models\Contestant;
 use App\Models\ContestSubmission;
 use App\Models\User;
