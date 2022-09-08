@@ -8,7 +8,12 @@ module.exports = {
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
     ],
-
+    safelist: [
+        {
+            pattern: /bg-(secondary)-(100|200|300|400|500|600|700|800|900)/,
+            variants: ['hover', 'focus'],
+        },
+    ],
     theme: {
         extend: {
             fontFamily: {
