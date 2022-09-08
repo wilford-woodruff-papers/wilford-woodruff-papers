@@ -2,10 +2,13 @@
 
 namespace App\Http\Livewire\Forms;
 
+use App\Mail\ContactFormSubmitted;
 use App\Models\Contestant;
 use App\Models\ContestSubmission;
+use App\Models\User;
 use App\Notifications\CollaboratorNotification;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -118,13 +121,14 @@ class ContestSubmissionForm extends Component
             if(! empty($this->collaborators)){
                 $this->notifyCollaborators($submission);
             }
+
+            Mail::to(User::whereIn('email', explode('|', config('wwp.form_emails.contest_submission')))->get())
+                ->send(new ContactFormSubmitted($submission));
+
+
+            $this->success = true;
         });
 
-
-        /*Mail::to(User::whereIn('email', explode('|', config('wwp.form_emails.contest_submission')))->get())
-            ->send(new ContactFormSubmitted($submission));*/
-
-        $this->success = true;
     }
 
     public function notifyCollaborators($submission)
