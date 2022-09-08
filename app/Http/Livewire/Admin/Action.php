@@ -16,6 +16,8 @@ class Action extends Component
 
     public $finisher;
 
+    public $show = true;
+
     public $users;
 
     public function mount()
@@ -54,6 +56,13 @@ class Action extends Component
             ->on(Page::find($this->action->actionable_id))
             ->event('assigned')
             ->log($this->action->description . ' assigned to <span class="user">' . $this->action->assignee->name . '</span>');
+    }
+
+    public function deleteAction()
+    {
+        $this->action->delete();
+
+        $this->show = false;
     }
 
     public function updatedFinisher($value)
