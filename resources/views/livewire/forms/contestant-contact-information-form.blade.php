@@ -188,7 +188,10 @@
                             Thank you for updating your contact information!
                         </p>
                         <p class="p-4 text-lg">
-                            We will get back with you shortly.
+                            Judging will take place after the deadline of January 6th, 2023. If there are any issues with your submission we will contact you as soon as possible.
+                        </p>
+                        <p class="p-4 text-lg">
+                            We look forward to seeing you at the conference in March!
                         </p>
                     </div>
                 @endif
