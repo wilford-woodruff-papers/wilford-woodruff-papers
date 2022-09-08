@@ -2,6 +2,8 @@
 
 return [
 
+    'admin_email' => env('ADMIN_EMAIL'),
+
     'form_emails' => [
 
         'media_request' => env('MEDIA_REQUEST_FORMS'),
