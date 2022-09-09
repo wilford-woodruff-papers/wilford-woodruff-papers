@@ -145,5 +145,26 @@
             <lastmod>{{ $document->updated_at->toRfc3339String() }}</lastmod>
             <priority>0.80</priority>
         </url>
+        @foreach($document->pages as $page)
+            <url>
+                <loc>{{ route('pages.show.show', ['item' => $document->uuid, 'page' => $page->uuid]) }}</loc>
+                <lastmod>{{ $page->updated_at->toRfc3339String() }}</lastmod>
+                <priority>0.80</priority>
+            </url>
+        @endforeach
+    @endforeach
+    @foreach($presses as $press)
+        <url>
+            <loc>{{ route('landing-areas.ponder.press', ['press' => $press->slug]) }}</loc>
+            <lastmod>{{ $press->updated_at->toRfc3339String() }}</lastmod>
+            <priority>0.80</priority>
+        </url>
+    @endforeach
+    @foreach($subjects as $subject)
+        <url>
+            <loc>{{ route('subjects.show', ['subject' => $subject->slug]) }}</loc>
+            <lastmod>{{ $subject->updated_at->toRfc3339String() }}</lastmod>
+            <priority>0.75</priority>
+        </url>
     @endforeach
 </urlset>
