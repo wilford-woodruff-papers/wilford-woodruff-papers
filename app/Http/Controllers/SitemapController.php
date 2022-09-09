@@ -13,9 +13,9 @@ class SitemapController extends Controller
     {
         return response()->view('sitemap', [
             'documents' => Item::query()
-                            ->select('uuid', 'updated_at')
-                            ->with('pages')
+                            ->select('id', 'item_id', 'uuid', 'updated_at')
                             ->where('enabled', 1)
+                            ->whereNull('item_id')
                             ->get(),
             'presses' => Press::query()
                                 ->select('title', 'slug', 'updated_at')
