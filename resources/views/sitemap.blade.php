@@ -147,7 +147,7 @@
         </url>
         @foreach($document->pages as $page)
             <url>
-                <loc>{{ route('pages.show.show', ['item' => $document->uuid, 'page' => $page->uuid]) }}</loc>
+                <loc>{{ route('pages.show', ['item' => $document->uuid, 'page' => $page->uuid]) }}</loc>
                 <lastmod>{{ $page->updated_at->toRfc3339String() }}</lastmod>
                 <priority>0.80</priority>
             </url>
