@@ -154,6 +154,7 @@
                                                     || (! empty($taskType->action_type_id) && $item->completed_actions->contains('action_type_id', $taskType->action_type_id))
                                                 )
                                                     <button wire:click="addTasks({{ $item->id }}, {{ $taskType->id }})"
+                                                            wire:loading.attr="disabled"
                                                             @class([
             "flex items-center justify-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 whitespace-nowrap",
                                                             'text-gray-700 bg-white hover:bg-gray-50' => ! $item->actions->where('action_type_id', $taskType->id)->count(),
