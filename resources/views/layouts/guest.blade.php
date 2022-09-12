@@ -7,7 +7,7 @@
         <meta name="facebook-domain-verification" content="jz329nocbeufu5m4s8g7dxdtz8j2qq" />
 
         <meta property="og:site_name" content="Wilford Woodruff Papers">
-        
+
         <x-open-graph-image::metatags title="Wilford Woodruff Papers Foundation" />
 
         <meta property="og:description" content="Explore Wilford Woodruff's powerful eyewitness account of the Restoration">
