@@ -94,13 +94,13 @@
                         <h4 class="text-lg md:text-xl font-semibold tracking-tight text-secondary">Check-In \ Registration</h4>
                         <p class="mt-1 tracking-tight text-black">Art Competition Gallery Display</p>
                         <p class="mt-1 text-base text-slate-500">
-                            <time datetime="2023-03-04T11:30PM-07:00">11:30PM</time>
+                            <time datetime="2023-03-04T11:30AM-07:00">11:30AM</time>
                             -
                             <time datetime="2023-03-04T12:00PM-07:00">12:00PM</time>
                             MST
                         </p>
                     </li>
-                    <li aria-label="Opening Presentation and Lunch at 12:00PM - 1:30PM MST">
+                    <li aria-label="Opening Presentation and Lunch at 12:00PM - 1:20PM MST">
                         <div class="mx-auto mb-4 h-px w-48 bg-indigo-500/10"></div>
                         <h4 class="text-lg md:text-xl font-semibold tracking-tight text-secondary">Opening Presentation and Lunch</h4>
                         <p class="mt-1 tracking-tight text-black">
@@ -112,50 +112,110 @@
                         <p class="mt-1 text-base text-slate-500">
                             <time datetime="2023-03-04T12:00PM-07:00">12:00PM</time>
                             -
+                            <time datetime="2023-03-04T1:20PM-07:00">1:20PM</time>
+                            MST
+                        </p>
+                    </li>
+                    <li aria-label="Break at 1:20PM - 1:30PM MST">
+                        <div class="mx-auto mb-4 h-px w-48 bg-indigo-500/10"></div>
+                        <h4 class="text-lg md:text-xl font-semibold tracking-tight text-secondary">Break</h4>
+                        <p class="mt-1 text-base text-slate-500">
+                            <time datetime="2023-03-04T1:20PM-07:00">1:20PM</time>
+                            -
                             <time datetime="2023-03-04T1:30PM-07:00">1:30PM</time>
                             MST
                         </p>
                     </li>
-                    <li aria-label="Student Session at 1:30PM - 3:00PM MST">
+                    <li aria-label="Student Session at 1:30PM - 2:20PM MST">
                         <div class="mx-auto mb-4 h-px w-48 bg-indigo-500/10"></div>
                         <h4 class="text-lg md:text-xl font-semibold tracking-tight text-secondary">Student Presentations</h4>
                         <p class="mt-1 tracking-tight text-black">
                             <ul class="text-black">
                                 <li>Ellie Hancock: Wilford Woodruff the Historian</li>
                                 <li>Ashlyn Pells: Insights from the Wilford Woodruff Papers</li>
-                                <li>Josh Matson: Understanding Wilford Woodruff’s Symbols</li>
+                                <li>Hovan Lawton: Called to Serve: Mission Calls in the 1890s</li>
                             </ul>
                         </p>
                         <p class="mt-1 text-base text-slate-500">
-                            <time datetime="2023-03-04T11:00PM-07:00">1:30PM</time>
+                            <time datetime="2023-03-04T1:30PM-07:00">1:30PM</time>
                             -
-                            <time datetime="2023-03-04T12:00PM-07:00">3:00PM</time>
+                            <time datetime="2023-03-04T2:20PM-07:00">2:20PM</time>
                             MST
                         </p>
                     </li>
-                    <li aria-label="Afternoon Session at 3:00PM - 4:30PM MST">
+                    <li aria-label="Break at 2:20PM - 2:30PM MST">
+                        <div class="mx-auto mb-4 h-px w-48 bg-indigo-500/10"></div>
+                        <h4 class="text-lg md:text-xl font-semibold tracking-tight text-secondary">Break</h4>
+                        <p class="mt-1 text-base text-slate-500">
+                            <time datetime="2023-03-04T2:20PM-07:00">2:20PM</time>
+                            -
+                            <time datetime="2023-03-04T2:30PM-07:00">2:30PM</time>
+                            MST
+                        </p>
+                    </li>
+                    <li aria-label="Afternoon Session at 2:00PM - 3:20PM MST">
                         <div class="mx-auto mb-8 h-px w-48 bg-indigo-500/10"></div>
-                        <h4 class="text-lg md:text-xl font-semibold tracking-tight text-secondary">Afternoon Session</h4>
+                        <h4 class="text-lg md:text-xl font-semibold tracking-tight text-secondary">Afternoon Presentations</h4>
                         <p class="mt-1 tracking-tight text-black">
                             <ul class="text-black">
+                                <li>Josh Matson: Understanding Wilford Woodruff’s Symbols</li>
                                 <li>Kristy Taylor: A Day in the Life of Wilford Woodruff</li>
+                            </ul>
+                        </p>
+                        <p class="mt-1 text-base text-slate-500">
+                            <time datetime="2023-03-04T2:30PM-07:00">2:30PM</time>
+                            -
+                            <time datetime="2023-03-04T3:20PM-07:00">3:20PM</time>
+                            MST
+                        </p>
+                    </li>
+                    <li aria-label="Break at 3:20PM - 3:30PM MST">
+                        <div class="mx-auto mb-4 h-px w-48 bg-indigo-500/10"></div>
+                        <h4 class="text-lg md:text-xl font-semibold tracking-tight text-secondary">Break</h4>
+                        <p class="mt-1 text-base text-slate-500">
+                            <time datetime="2023-03-04T3:20PM-07:00">3:20PM</time>
+                            -
+                            <time datetime="2023-03-04T3:30PM-07:00">3:30PM</time>
+                            MST
+                        </p>
+                    </li>
+                    <li aria-label="Afternoon Session at 3:30PM - 4:30PM MST">
+                        <div class="mx-auto mb-8 h-px w-48 bg-indigo-500/10"></div>
+                        <h4 class="text-lg md:text-xl font-semibold tracking-tight text-secondary">Afternoon Presentations</h4>
+                        <p class="mt-1 tracking-tight text-black">
+                            <ul class="text-black">
                                 <li>Steve Wheelwright: Wilford Woodruff, Missionary</li>
                                 <li>Amy Harris: British Context of Wilford Woodruff's Missions</li>
                             </ul>
                         </p>
                         <p class="mt-1 text-base text-slate-500">
-                            <time datetime="2023-03-04T3:00PM-07:00">3:00PM</time>
+                            <time datetime="2023-03-04T3:30PM-07:00">3:30PM</time>
                             -
                             <time datetime="2023-03-04T4:30PM-07:00">4:30PM</time>
                             MST
                         </p>
                     </li>
-                    <li aria-label="Special Guest Presentation at 4:30PM - 5:30PM MST">
+                    <li aria-label="Break at 4:30PM - 4:40PM MST">
                         <div class="mx-auto mb-4 h-px w-48 bg-indigo-500/10"></div>
-                        <h4 class="text-lg md:text-xl font-semibold tracking-tight text-secondary">Special Guest Presentation</h4>
-                        <p class="mt-1 tracking-tight text-black">To Be Announced</p>
+                        <h4 class="text-lg md:text-xl font-semibold tracking-tight text-secondary">Break</h4>
                         <p class="mt-1 text-base text-slate-500">
                             <time datetime="2023-03-04T4:30PM-07:00">4:30PM</time>
+                            -
+                            <time datetime="2023-03-04T4:40PM-07:00">4:40PM</time>
+                            MST
+                        </p>
+                    </li>
+                    <li aria-label="Special Guest Presentation at 4:40PM - 5:30PM MST">
+                        <div class="mx-auto mb-4 h-px w-48 bg-indigo-500/10"></div>
+                        <h4 class="text-lg md:text-xl font-semibold tracking-tight text-secondary">Special Guest Presentation</h4>
+                        <p class="mt-1 tracking-tight text-black">
+                        <ul class="text-black">
+                            <li>Introduction</li>
+                            <li>To Be Announced</li>
+                        </ul>
+                        </p>
+                        <p class="mt-1 text-base text-slate-500">
+                            <time datetime="2023-03-04T4:40PM-07:00">4:40PM</time>
                             -
                             <time datetime="2023-03-04T5:30PM-07:00">5:30PM</time>
                             MST
@@ -174,13 +234,13 @@
                     </li>
                     <li aria-label="Dinner at 6:00PM - 7:30PM MST">
                         <div class="mx-auto mb-4 h-px w-48 bg-indigo-500/10"></div>
-                        <h4 class="text-lg md:text-xl font-semibold tracking-tight text-secondary">Dinner</h4>
+                        <h4 class="text-lg md:text-xl font-semibold tracking-tight text-secondary">Dinner and Featured Speaker</h4>
                         <p class="mt-1 tracking-tight text-black">
                             <ul class="text-black">
-                                <li>Introduction: Steven C. Harper</li>
-                                <li>Presentation of Carol Sorenson Smith Awards</li>
+                                <li>Introduction</li>
+                                <li>Presentation of Carol Sorenson Smith Awards by Sarah Dunn</li>
                                 <li>Special Musical Artist: Alex Melecio</li>
-                                <li>Featured Speaker: To Be Announced</li>
+                                <li>Featured Speaker: To Be Announced in January 2023</li>
                             </ul>
                         </p>
                         <p class="mt-1 text-base text-slate-500">
