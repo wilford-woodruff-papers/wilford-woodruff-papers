@@ -1,13 +1,22 @@
 <div>
+
+    <div class="py-4 space-y-4 px-6">
+        <!-- Top Bar -->
+        <div class="flex justify-between">
+            <div class="flex space-x-4">
+                <x-input.text wire:model="filters.search" class="w-128" placeholder="Search quotes..." />
+            </div>
+        </div>
+    </div>
     <x-admin.quotes.table>
         <x-slot name="head">
             <x-admin.quotes.heading class="pr-0 w-8">
                 <x-input.checkbox wire:model="selectPage" />
             </x-admin.quotes.heading>
-            <x-admin.quotes.heading sortable multi-column wire:click="sortBy('title')" :direction="$sorts['title'] ?? null" class="max-w-3xl">Document</x-admin.quotes.heading>
-            <x-admin.quotes.heading sortable multi-column wire:click="sortBy('amount')" :direction="$sorts['amount'] ?? null">Topics</x-admin.quotes.heading>
-            <x-admin.quotes.heading sortable multi-column wire:click="sortBy('title')" :direction="$sorts['title'] ?? null" class="w-full">Quote</x-admin.quotes.heading>
-            <x-admin.quotes.heading sortable multi-column wire:click="sortBy('status')" :direction="$sorts['status'] ?? null" class="w-full">Status</x-admin.quotes.heading>
+            <x-admin.quotes.heading sortable multi-column class="max-w-3xl">Document</x-admin.quotes.heading>
+            <x-admin.quotes.heading sortable multi-column>Topics</x-admin.quotes.heading>
+            <x-admin.quotes.heading sortable multi-column class="w-full">Quote</x-admin.quotes.heading>
+            <x-admin.quotes.heading sortable multi-column class="w-full">Status</x-admin.quotes.heading>
             <x-admin.quotes.heading />
         </x-slot>
 
