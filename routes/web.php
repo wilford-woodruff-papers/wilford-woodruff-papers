@@ -14,9 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::domain('{year}.' . config('app.url'))->group(function () {
-    Route::get('/', function ($year) {
-        if($year == '2023'){
+    Route::get('/', function ($subdomain) {
+        if($subdomain == '2023'){
             return redirect()->away(config('app.url') . '/conference/2023-building-latter-day-faith');
+        } else if($subdomain == 'book') {
+            return redirect()->away(config('app.url') . '/wilford-woodruffs-witness');
         } else {
             return redirect()->to(config('app.url'));
         }
