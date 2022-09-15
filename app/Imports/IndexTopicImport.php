@@ -21,11 +21,11 @@ class IndexTopicImport implements ToCollection, WithHeadingRow
 
         foreach ($rows as $row) {
             $subject = Subject::firstOrCreate([
-                'name' => trim(html_entity_decode($row['index_topic_do_not_tag_in_ftp_jon_will_create_the_relationship_between_index_topics_and_subtopics_by_computer'])),
+                'name' => trim(html_entity_decode($row['topics_for_index'])),
             ]);
             $category->subjects()->syncWithoutDetaching($subject);
 
-            $subTopics = str($row['sub_topics_that_are_included_under_the_content_theme_and_connected_to_main_topic_in_index_tag_in_ftp'])
+            $subTopics = str($row['subtopics'])
                 ->explode(',')
                 ->map(function($t){
                     return str($t)->trim();
