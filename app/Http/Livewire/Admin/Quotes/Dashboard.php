@@ -19,6 +19,7 @@ class Dashboard extends Component
     public $showEditModal = false;
     public $showFilters = false;
     public $filters = [
+        'search' => '',
         'text' => '',
         'topic' => '',
     ];
@@ -73,8 +74,9 @@ class Dashboard extends Component
     {
         $query = Quote::query()
                     ->with('page')
-                    ->when($this->filters['text'], fn($query, $search) => $query->where('text', 'like', '%'.$search.'%'))
-                    ->when($this->filters['topic'], fn($query, $topic) => $query->whereRelation(
+                    ->whereDoesntHave('actions')
+                    ->when(array_key_exists('search', $this->filters) && $this->filters['search'], fn($query, $search) => $query->where('text', 'like', '%'.$this->filters['search'].'%'))
+                    ->when(array_key_exists('topic', $this->filters) &&  $this->filters['topic'], fn($query, $topic) => $query->whereRelation(
                         'topics', 'name', '=', $topic
                     ));
 
