@@ -89,12 +89,14 @@
                                             </td>
                                             <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                                                 @foreach($pageActions->whereNull('completed_at') as $action)
-                                                    <button wire:click="markActionComplete({{ $action->id }})"
-                                                            class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 whitespace-nowrap"
-                                                            title="Mark complete"
-                                                    >
-                                                        {{ $action->type->name }}
-                                                    </button>
+                                                    @if($action->assigned_to == auth()->id())
+                                                        <button wire:click="markActionComplete({{ $action->id }})"
+                                                                class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 whitespace-nowrap"
+                                                                title="Mark complete"
+                                                        >
+                                                            {{ $action->type->name }}
+                                                        </button>
+                                                    @endif
                                                 @endforeach
                                             </td>
                                             <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
