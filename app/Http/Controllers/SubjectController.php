@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Page;
 use App\Models\Subject;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
 
 class SubjectController extends Controller
 {
@@ -26,14 +25,18 @@ class SubjectController extends Controller
         return view('public.subjects.show', [
             'subject' => $subject,
             'pages' => Page::query()
-                ->where(function($query) use ($subject) {
-                    $query->whereHas('subjects', function (Builder $query) use ($subject) {
-                        $query->where('id', $subject->id);
-                    })->orWhereHas('subjects.children', function (Builder $query) use ($subject) {
-                        $query->where('id', $subject->id);
-                    });
-                })
-                ->paginate(10),
+                            ->where(function($query) use ($subject) {
+                                $query->whereHas('subjects', function (Builder $query) use ($subject) {
+                                    $query->where('id', $subject->id);
+                                })
+                                ->orWhereHas('subjects.children', function (Builder $query) use ($subject) {
+                                    $query->where('id', $subject->id);
+                                })
+                                ->orWhereHas('quotes.topics', function (Builder $query) use ($subject) {
+                                    $query->where('subjects.id', $subject->id);
+                                });
+                            })
+                            ->paginate(10),
         ]);
     }
 }
