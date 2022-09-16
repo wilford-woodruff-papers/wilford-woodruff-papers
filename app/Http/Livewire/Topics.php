@@ -41,7 +41,8 @@ class Topics extends Component
                             })
                             ->where(function(Builder $query){
                                 $query->whereHas('pages')
-                                    ->orWhereHas('children.pages');
+                                    ->orWhereHas('children.pages')
+                                    ->orWhereHas('quotes');
                             })
                             ->orderBy('name', 'ASC')
                             ->get();
