@@ -243,7 +243,11 @@
                     <div class="values">
                         @foreach($page->dates as $date)
                             <div class="value" lang="">
-                                {{ $date->date->format('F j, Y') }}
+                                <a href="{{ route('advanced-search') }}?q=&types%5B%5D=2&types%5B%5D=4&types%5B%5D=5&types%5B%5D=6&types%5B%5D=7&people=1&use_min_date=true&min_date={{ $date->date->toDateString() }}&use_max_date=true&max_date={{ $date->date->toDateString() }}&submit=Search&sort=added%3Adesc"
+                                   class="text-secondary"
+                                >
+                                    {{ $date->date->format('F j, Y') }}
+                                </a>
                             </div>
                         @endforeach
                     </div>
