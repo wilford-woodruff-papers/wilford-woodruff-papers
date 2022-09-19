@@ -4,14 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use App\Models\Page;
-use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 
 class PageController extends Controller
 {
     public function show(Item $item, Page $page)
     {
         $item = $item->parent();
-        $page->load('dates', 'subjects');
+        $page->load(['dates', 'topics', 'subjects' => function ($query) {
+            $query->whereHas('category', function (Builder $query) {
+                $query->whereIn('categories.name', ['People', 'Places']);
+            });
+        }]);
 
         return view('public.pages.show', [
             'item' => $item,
