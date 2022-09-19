@@ -79,7 +79,7 @@
                             </div>
                         @endif
                     @endhasanyrole
-                    @if($subjects)
+                    @if($subjects->count() > 0)
                         <div class="property">
                             <h4>
                                 People & Places
@@ -96,7 +96,7 @@
                             </div>
                         </div>
                     @endif
-                    @if($topics)
+                    @if($topics->count() > 0)
                         <div class="property">
                             <h4>
                                 Topics
