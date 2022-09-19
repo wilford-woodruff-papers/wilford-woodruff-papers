@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Dyrynda\Database\Casts\EfficientUuid;
 use Dyrynda\Database\Support\GeneratesUuid;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -71,6 +72,14 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
     public function subjects()
     {
         return $this->belongsToMany(Subject::class);
+    }
+
+    public function topics()
+    {
+        return $this->belongsToMany(Subject::class)
+                    ->whereHas('category', function (Builder $query) {
+                        $query->whereIn('categories.name', ['Topic', 'Index']);
+                    });
     }
 
     public function quotes()
