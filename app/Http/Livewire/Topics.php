@@ -28,7 +28,7 @@ class Topics extends Component
                                 $query->whereHas('pages');
                             }])
                             ->whereEnabled(1)
-                            ->whereNull('subject_id')
+                            ->when(empty($this->search), fn($query, $search) => $query->whereNull('subject_id'))
                             ->whereHas('category', function (Builder $query) {
                                 $query->where('name', 'Index');
                             })
@@ -42,7 +42,7 @@ class Topics extends Component
                             ->where(function(Builder $query){
                                 $query->whereHas('pages')
                                     ->orWhereHas('children.pages')
-                                    ->orWhereHas('quotes');
+                                    ->orWhereHas('quotes'); // This doesn't filter to only those with quotes that have been approved
                             })
                             ->orderBy('name', 'ASC')
                             ->get();
