@@ -217,6 +217,24 @@
                 </div>
             @endif
 
+            @if($page->topics->count() > 0)
+                <div class="property">
+                    <h4>
+                        Topics
+                    </h4>
+                    <div class="values">
+                        @foreach($page->topics->sortBy('name') as $topic)
+                            <div class="value" lang="">
+                                <a class="text-secondary"
+                                   href="{{ route('subjects.show', ['subject' => $topic]) }}">
+                                    {{ $topic->name }}
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
+
             @if($page->dates->count() > 0)
                 <div class="property">
                     <h4>

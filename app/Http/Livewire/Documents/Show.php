@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Documents;
 
 use App\Models\Item;
 use App\Models\Page;
+use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -30,7 +31,11 @@ class Show extends Component
 
     public function render()
     {
-        $pages = Page::with(['dates', 'subjects', 'parent', 'item'])
+        $pages = Page::with(['dates', 'subjects' => function ($query) {
+                            $query->whereHas('category', function (Builder $query) {
+                                $query->whereIn('categories.name', ['People', 'Places']);
+                            });
+                        }, 'topics', 'parent', 'item'])
                         ->withCount('quotes')
                         ->where('parent_item_id', $this->item->id)
                         ->when(data_get($this->filters, 'search'), function($query, $q){
@@ -48,14 +53,18 @@ class Show extends Component
         $this->item->setRelation('pages', $pages);
 
         $subjects = collect([]);
-        $this->item->pages->each(function($page) use (&$subjects){
+        $topics = collect([]);
+        $this->item->pages->each(function($page) use (&$subjects, &$topics){
             $subjects = $subjects->merge($page->subjects->all());
+            $topics = $topics->merge($page->topics->all());
         });
         $subjects = $subjects->unique('id');
+        $topics = $topics->unique('id');
 
         return view('livewire.documents.show', [
             'pages' => $pages->paginate(20),
             'subjects' => $subjects,
+            'topics' => $topics,
         ])
             ->layout('layouts.guest');
     }

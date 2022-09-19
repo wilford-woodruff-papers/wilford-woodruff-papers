@@ -96,6 +96,23 @@
                             </div>
                         </div>
                     @endif
+                    @if($topics)
+                        <div class="property">
+                            <h4>
+                                Topics
+                            </h4>
+                            <div class="values">
+                                @foreach($topics->sortBy('name') as $topic)
+                                    <div class="value" lang="">
+                                        <a class="text-secondary"
+                                           href="{{ route('subjects.show', ['subject' => $topic]) }}">
+                                            {{ $topic->name }}
+                                        </a>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
 
                 </div>
                 <div class="col-span-1 md:col-span-8">
