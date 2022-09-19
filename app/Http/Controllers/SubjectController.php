@@ -33,7 +33,8 @@ class SubjectController extends Controller
                                     $query->where('id', $subject->id);
                                 })
                                 ->orWhereHas('quotes.topics', function (Builder $query) use ($subject) {
-                                    $query->where('subjects.id', $subject->id);
+                                    $query->where('subjects.id', $subject->id)
+                                            ->whereHas('quotes.actions');
                                 });
                             })
                             ->paginate(10),

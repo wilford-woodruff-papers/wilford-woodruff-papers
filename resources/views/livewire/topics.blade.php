@@ -26,33 +26,37 @@
         </div>
 
         <div wire:loading.remove
-             class="grid grid-cols-1 sm:grid-cols-2 gap-1 mb-4 px-2">
-            @forelse($topics as $key => $topic)
-                <div class="">
-                    <a class="text-secondary popup"
-                       href="{{ route('subjects.show', ['subject' => $topic])  }}"
-                    >
-                        {{ $topic->name }}
-                    </a>
-                    @if($topic->children->count() > 0)
-                        <ul class="ml-1 flex flex-col gap-y-1">
-                            @foreach($topic->children->sortBy('name') as $subTopic)
-                                <li>
-                                    <a class="text-secondary popup"
-                                       href="{{ route('subjects.show', ['subject' => $subTopic])  }}"
-                                    >
-                                        {{ $subTopic->name }}
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    @endif
+             class="grid grid-cols-1 md:grid-cols-3 gap-x-4 px-8">
+            @foreach($topics->split(3) as $topicGroup)
+                <div class="!my-0">
+                    @forelse($topicGroup as $key => $topic)
+                        <div class="">
+                            <a class="text-secondary popup"
+                               href="{{ route('subjects.show', ['subject' => $topic])  }}"
+                            >
+                                {{ $topic->name }}
+                            </a>
+                            @if($topic->children->count() > 0)
+                                <ul class="ml-1 flex flex-col gap-y-1">
+                                    @foreach($topic->children->sortBy('name') as $subTopic)
+                                        <li>
+                                            <a class="text-secondary popup"
+                                               href="{{ route('subjects.show', ['subject' => $subTopic])  }}"
+                                            >
+                                                {{ $subTopic->name }}
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            @endif
+                        </div>
+                    @empty
+                        <div class="px-2 text-secondary">
+                            No results
+                        </div>
+                    @endforelse
                 </div>
-            @empty
-                <div class="px-2 text-secondary">
-                    No results
-                </div>
-            @endforelse
+            @endforeach
         </div>
         <div wire:loading.grid
              class="grid grid-cols-1 sm:grid-cols-2 mb-4 px-2">
