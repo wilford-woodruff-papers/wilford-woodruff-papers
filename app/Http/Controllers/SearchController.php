@@ -36,17 +36,25 @@ class SearchController extends Controller
             $pages = $pages->whereIn('type_id', $request->get('types'));
         }
 
-        if ($request->get('use_min_date') == 'true' && $request->has('min_date')) {
+        if($request->get('use_min_date') == 'true' && $request->has('min_date') && $request->get('use_max_date') == 'true' && $request->has('max_date')){
             $pages = $pages->whereHas('dates', function (Builder $query) use ($request) {
-                $query->where('date', '>=', $request->get('min_date'));
+                $query->whereBetween('dates.date', [$request->get('min_date'), $request->get('max_date')]);
             });
+        } else {
+            if ($request->get('use_min_date') == 'true' && $request->has('min_date')) {
+                $pages = $pages->whereHas('dates', function (Builder $query) use ($request) {
+                    $query->where('dates.date', '>=', $request->get('min_date'));
+                });
+            }
+
+            if ($request->get('use_max_date') == 'true' && $request->has('max_date')) {
+                $pages = $pages->whereHas('dates', function (Builder $query) use ($request) {
+                    $query->where('dates.date', '<=', $request->get('max_date'));
+                });
+            }
         }
 
-        if ($request->get('use_max_date') == 'true' && $request->has('max_date')) {
-            $pages = $pages->whereHas('dates', function (Builder $query) use ($request) {
-                $query->where('date', '<=', $request->get('max_date'));
-            });
-        }
+
 
         if ($request->has('q') || $request->has('types') || $request->has('min_date') || $request->has('max_date')) {
             try {
