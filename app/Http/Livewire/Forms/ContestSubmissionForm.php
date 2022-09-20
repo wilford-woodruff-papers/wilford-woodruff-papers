@@ -86,7 +86,7 @@ class ContestSubmissionForm extends Component
 
         $this->validate();
 
-        DB::transaction(function (){
+        DB::transaction(function () {
             $submission = ContestSubmission::create([
                 'title' => $this->title,
                 'division' => $this->division,
@@ -111,14 +111,14 @@ class ContestSubmissionForm extends Component
 
             $submission->contestants()->save($contestant);
 
-            if(! app()->environment(['local'])){
+            if (! app()->environment(['local'])) {
                 if ($this->file) {
                     $submission->addMedia($this->file)
                         ->toMediaCollection('art');
                 }
             }
 
-            if(! empty($this->collaborators)){
+            if (! empty($this->collaborators)) {
                 $this->notifyCollaborators($submission);
             }
 
@@ -127,24 +127,22 @@ class ContestSubmissionForm extends Component
 
             $this->success = true;
         });
-
     }
 
     public function notifyCollaborators($submission)
     {
-       // TODO: Store and send email to collaborators
+        // TODO: Store and send email to collaborators
         $emails = str($this->collaborators)
                     ->explode(';')
-                    ->transform(function($item, $key){
+                    ->transform(function ($item, $key) {
                         return str($item)->trim();
                     })
-                    ->map(function ($item, $key){
+                    ->map(function ($item, $key) {
                         return Contestant::make([
                             'email' => $item,
                         ]);
                     })
-                    ->all()
-        ;
+                    ->all();
 
         $contestants = $submission->contestants()->saveMany($emails);
 

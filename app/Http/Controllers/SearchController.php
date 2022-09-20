@@ -36,7 +36,7 @@ class SearchController extends Controller
             $pages = $pages->whereIn('type_id', $request->get('types'));
         }
 
-        if($request->get('use_min_date') == 'true' && $request->has('min_date') && $request->get('use_max_date') == 'true' && $request->has('max_date')){
+        if ($request->get('use_min_date') == 'true' && $request->has('min_date') && $request->get('use_max_date') == 'true' && $request->has('max_date')) {
             $pages = $pages->whereHas('dates', function (Builder $query) use ($request) {
                 $query->whereBetween('dates.date', [$request->get('min_date'), $request->get('max_date')]);
             });
@@ -54,8 +54,6 @@ class SearchController extends Controller
             }
         }
 
-
-
         if ($request->has('q') || $request->has('types') || $request->has('min_date') || $request->has('max_date')) {
             try {
                 activity('search')
@@ -71,17 +69,17 @@ class SearchController extends Controller
             }
         }
 
-        if($request->has('people') && ! empty($request->get('q'))){
+        if ($request->has('people') && ! empty($request->get('q'))) {
             $people = Subject::whereEnabled(1)
                                 ->whereHas('category', function (Builder $query) {
                                     $query->where('name', 'People');
                                 });
-            $names = str($request->get('q'))->explode(" ");
-            foreach ($names as $name){
-                $people = $people->where('name', 'LIKE', '%'. str($name)->trim('.') .'%');
+            $names = str($request->get('q'))->explode(' ');
+            foreach ($names as $name) {
+                $people = $people->where('name', 'LIKE', '%'.str($name)->trim('.').'%');
             }
             $people = $people->get();
-        }else{
+        } else {
             $people = collect();
         }
 
@@ -89,10 +87,10 @@ class SearchController extends Controller
             'types' => Type::where('name', 'NOT LIKE', '%Sections%')->get(),
             'pages' => $pages->paginate(20),
             'dates' => [
-                'min' => Date::where('dateable_type', Page::class)->orderBy('date', 'ASC')->firstOr(function(){
+                'min' => Date::where('dateable_type', Page::class)->orderBy('date', 'ASC')->firstOr(function () {
                     return new Date(['date' => '1800-01-01']);
                 }),
-                'max' => Date::where('dateable_type', Page::class)->orderBy('date', 'DESC')->firstOr(function(){
+                'max' => Date::where('dateable_type', Page::class)->orderBy('date', 'DESC')->firstOr(function () {
                     return new Date(['date' => '1900-01-01']);
                 }),
             ],
