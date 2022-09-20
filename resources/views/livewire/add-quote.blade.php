@@ -54,7 +54,7 @@
                         <div class="col-span-3">
                             <label for="selection" class="block text-sm font-medium text-gray-700"> Selection </label>
                             <div class="mt-1">
-                                <div class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 p-2 block w-full sm:text-sm border border-gray-300"
+                                <div class="shadow-sm focus:ring-secondary focus:border-secondary mt-1 p-2 block w-full sm:text-sm border border-gray-300"
                                 >
                                     {{ $selection }}
                                 </div>
@@ -62,6 +62,19 @@
                             <p class="mt-2 text-sm text-gray-500"></p>
                         </div>
                     </div>
+
+                    <div>
+                        <label for="author" class="block text-sm font-medium text-gray-700">Author</label>
+                        <div class="mt-1">
+                            <input wire:model.defer="author"
+                                   type="text"
+                                   name="author"
+                                   id="author"
+                                   class="block w-full border-gray-300 shadow-sm focus:border-secondary focus:ring-secondary sm:text-sm"
+                                   placeholder="Add Author's name if not Wilford Woodruff">
+                        </div>
+                    </div>
+
 
                     <div class="relative flex items-start">
                         <div class="flex h-5 items-center">

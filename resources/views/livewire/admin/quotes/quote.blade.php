@@ -77,6 +77,36 @@
                 <p class="text-cool-gray-600 w-[400px]">
                     {!! $quote->text !!}
                 </p>
+
+                <div x-data="{
+                        show: {{ empty($quote->author) ? 'false' : 'true' }}
+                    }">
+                    <div x-show="! show"
+                         x-cloak
+                         class="py-2"
+                    >
+                        <button x-on:click="show = ! show"
+                                class="flex items-center gap-x-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span>Add Author</span>
+                        </button>
+                    </div>
+                    <div x-show="show"
+                         x-cloak
+                         class="py-2">
+                        <label for="author" class="block text-sm font-medium text-gray-700">Author</label>
+                        <div class="mt-1">
+                            <input wire:model.debounce="quote.author"
+                                   type="text"
+                                   name="author"
+                                   id="author"
+                                   class="block w-full border-gray-300 shadow-sm focus:border-secondary focus:ring-secondary sm:text-sm"
+                                   placeholder="Add Author's name if not Wilford Woodruff">
+                        </div>
+                    </div>
+                </div>
             </span>
 
             <div class="relative flex items-start py-2">
