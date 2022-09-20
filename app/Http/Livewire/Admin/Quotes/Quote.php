@@ -17,6 +17,7 @@ class Quote extends Component
     protected $rules = [
         'quote.continued_from_previous_page' => 'boolean',
         'quote.continued_on_next_page' => 'boolean',
+        'quote.author' => 'string|max:64',
     ];
 
     public function render()
