@@ -34,7 +34,7 @@
                             <a class="text-secondary popup"
                                href="{{ route('subjects.show', ['subject' => $topic])  }}"
                             >
-                                {{ $topic->name }}
+                                {{ $topic->name }} ({{ ($topic->pages_count + $topic->children->sum('pages_count')) }})
                             </a>
                             @if($topic->children->count() > 0)
                                 <ul class="ml-1 flex flex-col gap-y-1">
@@ -43,7 +43,7 @@
                                             <a class="text-secondary popup"
                                                href="{{ route('subjects.show', ['subject' => $subTopic])  }}"
                                             >
-                                                {{ $subTopic->name }}
+                                                {{ $subTopic->name }} ({{ $subTopic->pages_count }})
                                             </a>
                                         </li>
                                     @endforeach

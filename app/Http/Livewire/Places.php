@@ -16,7 +16,7 @@ class Places extends Component
 
     public function mount()
     {
-        if(empty($this->search) && empty($this->letter)){
+        if (empty($this->search) && empty($this->letter)) {
             $this->letter = 'A';
         }
     }
@@ -24,14 +24,15 @@ class Places extends Component
     public function render()
     {
         $places = Subject::query()
+                            ->withCount(['pages'])
                             ->whereEnabled(1)
                             ->whereHas('category', function (Builder $query) {
                                 $query->where('name', 'Places');
                             })
-                            ->when($this->letter, fn($query, $letter) => $query->where('name', 'LIKE', $letter.'%'))
-                            ->when($this->search, function($query, $search) {
-                                $names = str($search)->explode(" ");
-                                foreach ($names as $name){
+                            ->when($this->letter, fn ($query, $letter) => $query->where('name', 'LIKE', $letter.'%'))
+                            ->when($this->search, function ($query, $search) {
+                                $names = str($search)->explode(' ');
+                                foreach ($names as $name) {
                                     $query = $query->where('name', 'LIKE', '%'.str($name)->trim(',')->toString().'%');
                                 }
                             })
@@ -47,7 +48,6 @@ class Places extends Component
 
     public function submit()
     {
-
     }
 
     public function updatedSearch()
