@@ -16,7 +16,7 @@ class Topics extends Component
 
     public function mount()
     {
-        if(empty($this->search) && empty($this->letter)){
+        if (empty($this->search) && empty($this->letter)) {
             $this->letter = 'A';
         }
     }
@@ -24,22 +24,24 @@ class Topics extends Component
     public function render()
     {
         $topics = Subject::query()
-                            ->with(['children' => function($query){
-                                $query->whereHas('pages');
+                            ->with(['children' => function ($query) {
+                                $query->whereHas('pages')
+                                    ->withCount(['pages']);
                             }])
+                            ->withCount(['pages'])
                             ->whereEnabled(1)
-                            ->when(empty($this->search), fn($query, $search) => $query->whereNull('subject_id'))
+                            ->when(empty($this->search), fn ($query, $search) => $query->whereNull('subject_id'))
                             ->whereHas('category', function (Builder $query) {
                                 $query->where('name', 'Index');
                             })
-                            ->when($this->letter, fn($query, $letter) => $query->where('name', 'LIKE', $letter.'%'))
-                            ->when($this->search, function($query, $search) {
-                                $names = str($search)->explode(" ");
-                                foreach ($names as $name){
+                            ->when($this->letter, fn ($query, $letter) => $query->where('name', 'LIKE', $letter.'%'))
+                            ->when($this->search, function ($query, $search) {
+                                $names = str($search)->explode(' ');
+                                foreach ($names as $name) {
                                     $query = $query->where('name', 'LIKE', '%'.str($name)->trim(',')->toString().'%');
                                 }
                             })
-                            ->where(function(Builder $query){
+                            ->where(function (Builder $query) {
                                 $query->whereHas('pages')
                                     ->orWhereHas('children.pages')
                                     ->orWhereHas('quotes'); // This doesn't filter to only those with quotes that have been approved
@@ -55,7 +57,6 @@ class Topics extends Component
 
     public function submit()
     {
-
     }
 
     public function updatedSearch()

@@ -17,12 +17,12 @@ class People extends Component
     protected $queryString = [
         'category' => ['except' => 'All'],
         'letter' => ['except' => 'A'],
-        'search'
+        'search',
     ];
 
     public function mount()
     {
-        if(empty($this->search) && empty($this->letter)){
+        if (empty($this->search) && empty($this->letter)) {
             $this->letter = 'A';
         }
     }
@@ -30,17 +30,18 @@ class People extends Component
     public function render()
     {
         $people = Subject::query()
+                            ->withCount(['pages'])
                             ->whereEnabled(1)
-                            ->when($this->category == 'All', fn($query, $category) => $query->whereHas('category', function (Builder $query) {
+                            ->when($this->category == 'All', fn ($query, $category) => $query->whereHas('category', function (Builder $query) {
                                 $query->where('name', 'People');
                             }))
-                            ->when($this->category != 'All', fn($query, $category) => $query->whereHas('category', function (Builder $query) {
+                            ->when($this->category != 'All', fn ($query, $category) => $query->whereHas('category', function (Builder $query) {
                                 $query->where('name', $this->category);
                             }))
-                            ->when($this->letter && $this->category == 'All', fn($query, $letter) => $query->where('last_name', 'REGEXP', '^['.$this->letter.'].*$'))
-                            ->when($this->search, function($query, $search) {
-                                $names = str($search)->explode(" ");
-                                foreach ($names as $name){
+                            ->when($this->letter && $this->category == 'All', fn ($query, $letter) => $query->where('last_name', 'REGEXP', '^['.$this->letter.'].*$'))
+                            ->when($this->search, function ($query, $search) {
+                                $names = str($search)->explode(' ');
+                                foreach ($names as $name) {
                                     $query = $query->where('name', 'LIKE', '%'.str($name)->trim(',')->toString().'%');
                                 }
                             })
@@ -57,7 +58,6 @@ class People extends Component
 
     public function submit()
     {
-
     }
 
     public function updatedSearch()
@@ -72,9 +72,9 @@ class People extends Component
 
     public function updatedCategory($value)
     {
-        if($value == 'All'){
+        if ($value == 'All') {
             $this->letter = 'A';
-        }else{
+        } else {
             $this->letter = null;
         }
     }
