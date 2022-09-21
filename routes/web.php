@@ -13,12 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::domain('{year}.' . config('app.url'))->group(function () {
+Route::domain('{year}.'.config('app.url'))->group(function () {
     Route::get('/', function ($subdomain) {
-        if($subdomain == '2023'){
-            return redirect()->away(config('app.url') . '/conference/2023-building-latter-day-faith');
-        } else if($subdomain == 'book') {
-            return redirect()->away(config('app.url') . '/wilford-woodruffs-witness');
+        if ($subdomain == '2023') {
+            return redirect()->away(config('app.url').'/conference/2023-building-latter-day-faith');
+        } elseif ($subdomain == 'book') {
+            return redirect()->away(config('app.url').'/wilford-woodruffs-witness');
+        } elseif ($subdomain == 'arts') {
+            return redirect()->away(config('app.url').'/announcements/2023-building-latter-day-faith-conference-arts-contest-rules');
         } else {
             return redirect()->to(config('app.url'));
         }
@@ -39,7 +41,7 @@ Route::get('/d/{hashid}', [\App\Http\Controllers\ShortUrlController::class, 'ite
 Route::get('/p/{hashid}', [\App\Http\Controllers\ShortUrlController::class, 'page'])->name('short-url.page');
 
 Route::get('/subjects/{subject}', [\App\Http\Controllers\SubjectController::class, 'show'])->name('subjects.show')
-        ->missing(function (\Illuminate\Http\Request $request) {
+        ->missing(function (Illuminate\Http\Request $request) {
             return \Illuminate\Support\Facades\Redirect::route('home');
         });
 Route::get('/people', [\App\Http\Controllers\PeopleController::class, 'index'])->name('people');
@@ -62,7 +64,7 @@ Route::get('/about/frequently-asked-questions', [\App\Http\Controllers\AboutCont
 Route::get('/contact-us', [\App\Http\Controllers\AboutController::class, 'contact'])->name('contact-us');
 Route::get('/sitemap.xml', \App\Http\Controllers\SitemapController::class)->name('sitemap');
 
-if(app()->environment(['development', 'local'])){
+if (app()->environment(['development', 'local'])) {
     Route::get('/search', [\App\Http\Controllers\LandingAreasController::class, 'search'])->name('landing-areas.search');
 }
 Route::get('/ponder', [\App\Http\Controllers\LandingAreasController::class, 'ponder'])->name('landing-areas.ponder');
@@ -182,7 +184,7 @@ Route::get('/s/wilford-woodruff-papers/media', function () {
 Route::get('/s/wilford-woodruff-papers/item/search', function () {
     return redirect()->route('advanced-search');
 });
-if(app()->environment('production')) {
+if (app()->environment('production')) {
     Route::get('/search', function () {
         return redirect()->route('advanced-search');
     });
@@ -224,4 +226,3 @@ Route::group(['middleware' => ['role:Super Admin|Editor']], function () {
         ->get('/admin/dashboard/goals', \App\Http\Livewire\Admin\Goals::class)
         ->name('admin.dashboard.goals.index');
 });
-
