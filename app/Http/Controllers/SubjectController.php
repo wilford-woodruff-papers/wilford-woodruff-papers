@@ -18,19 +18,18 @@ class SubjectController extends Controller
             return $subject;
         }
 
-        $subject->load(['parent', 'children' => function($query){
-            $query->whereHas('pages');
-        }]);
+        $subject->load(['parent', 'children' => function ($query) {
+            $query->whereHas('pages')
+                ->withCount(['pages']);
+        }])
+            ->loadCount(['pages']);
 
         return view('public.subjects.show', [
             'subject' => $subject,
             'pages' => Page::query()
-                            ->where(function($query) use ($subject) {
+                            ->where(function ($query) use ($subject) {
                                 $query->whereHas('subjects', function (Builder $query) use ($subject) {
-                                    $query->where('id', $subject->id);
-                                })
-                                ->orWhereHas('subjects.children', function (Builder $query) use ($subject) {
-                                    $query->where('id', $subject->id);
+                                    $query->whereIn('id', array_merge([$subject->id], $subject->children->pluck('id')->all()));
                                 })
                                 ->orWhereHas('quotes.topics', function (Builder $query) use ($subject) {
                                     $query->where('subjects.id', $subject->id)
