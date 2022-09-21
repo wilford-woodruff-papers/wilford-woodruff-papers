@@ -223,7 +223,7 @@
                         Topics
                     </h4>
                     <div class="values">
-                        @foreach($page->topics->sortBy('name') as $topic)
+                        @foreach($page->topics->sortBy('name', SORT_NATURAL|SORT_FLAG_CASE) as $topic)
                             <div class="value" lang="">
                                 <a class="text-secondary"
                                    href="{{ route('subjects.show', ['subject' => $topic]) }}">
