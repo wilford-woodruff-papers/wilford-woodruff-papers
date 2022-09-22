@@ -125,7 +125,6 @@ class ContestSubmissionForm extends Component
             Mail::to(User::whereIn('email', explode('|', config('wwp.form_emails.contest_submission')))->get())
                 ->send(new ContactFormSubmitted($submission));
 
-
             $this->success = true;
         });
     }
