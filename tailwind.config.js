@@ -54,6 +54,22 @@ module.exports = {
                     'DEFAULT': '#FFFFFF',
                     '80': 'rgb(255, 255, 255, .8)',
                 },
+                'light-blue': {
+                    'DEFAULT': '#DBEAEF',
+                    '500': '#E2E9EF',
+                    '600': '#DBEAEF',
+                },
+                'light-gray': {
+                    'DEFAULT': '#707070',
+                    '400': '#00000029',
+                    '500': '#A8A8A8',
+                    '600': '#0B2836',
+                },
+                'dark-blue': {
+                    'DEFAULT': '#0B2836',
+                    '500': '#0E3240',
+                    '600': '#0B2836',
+                },
             },
             width: {
                 '112': '28rem',

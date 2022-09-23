@@ -40,6 +40,8 @@ Route::get('/documents/{item}/page/{page}', [\App\Http\Controllers\PageControlle
 Route::get('/d/{hashid}', [\App\Http\Controllers\ShortUrlController::class, 'item'])->name('short-url.item');
 Route::get('/p/{hashid}', [\App\Http\Controllers\ShortUrlController::class, 'page'])->name('short-url.page');
 
+Route::view('/wilford-woodruffs-witness', 'public.book.product-page')->name('book.product-page');
+
 Route::get('/subjects/{subject}', [\App\Http\Controllers\SubjectController::class, 'show'])->name('subjects.show')
         ->missing(function (Illuminate\Http\Request $request) {
             return \Illuminate\Support\Facades\Redirect::route('home');

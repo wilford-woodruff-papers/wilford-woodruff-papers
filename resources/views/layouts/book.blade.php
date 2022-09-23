@@ -26,55 +26,62 @@
 
         <x-favicon />
 
-        <link href="https://fonts.googleapis.com/css2?family=Italianno&display=swap" rel="stylesheet">
+        <script src="{{ asset('js/slickscroll.min.js') }}" type="text/javascript"></script>
+
+        <script type="text/javascript">
+            /*let slick = new slickScroll.default({
+                root: "body",
+                duration: 400,
+                easing: "easeOutQuart",
+                offsets: [
+                    {element: ".slow-parallax", speedY: 0.8}
+                ],
+                onScroll: function(){
+                    console.log('Scrolling');
+                }
+            });*/
+
+            /*document.querySelector("#cover").style.overflowX = "hidden";*/
+
+        </script>
+
+        <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', () => {
+                new slickScroll.default({
+                    root: '.body',
+                    duration: 400,
+                    easing: "easeOutQuart",
+                    offsets: [
+                        {element: ".slow-parallax", speedY: 0.8}
+                    ]
+                });
+            }, false);
+        </script>
+
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         @livewireStyles
-        @stack('styles')
+
         <style>
             [x-cloak] {
                 display: none !important;
             }
         </style>
 
-        <!-- Scripts -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
     </head>
     <body>
-        <x-admin-bar />
-        <x-header />
-        <div class="font-sans text-gray-900 antialiased">
-            {{ $slot }}
+        <div class="body">
+
+            <div class="font-sans text-gray-900 antialiased">
+                {{ $slot }}
+            </div>
+
+            @if(app()->environment(['production']))
+                <x-google />
+                <x-facebook-pixel />
+            @endif
+            {{--<x-constant-contact />--}}
         </div>
-
-        <x-subject-modal />
-        <x-footer />
-
-        @if(app()->environment(['production']))
-            <x-google />
-            <x-facebook-pixel />
-        @endif
-
-
-        @livewireScripts
-        @livewire('livewire-ui-modal')
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js" charset="utf-8"></script>
-        <script src="{{ mix('js/app.js') }}"></script>
-        @stack('scripts')
-
-        <script>
-            function copyShortUrlToClipboard(event) {
-                let shortUrl = event.dataset.url;
-                navigator.clipboard.writeText(shortUrl).then(() => {
-                    // Alert the user that the action took place.
-                    // Nobody likes hidden stuff being done under the hood!
-                    console.log(shortUrl + " copied to clipboard");
-                });
-            }
-        </script>
-
-        {{--<x-constant-contact />--}}
     </body>
 </html>
