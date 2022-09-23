@@ -3,7 +3,7 @@
     <div class="">
 
         <div class="max-w-7xl hidden sm:flex gap-x-4 pb-8">
-            @foreach(['All', 'Apostles', 'British Converts', 'Family', 'Scriptural Figures', 'Southern Converts'] as $categoryOption)
+            @foreach(['All', 'Apostle', 'British Convert', 'Family', 'Scriptural Figures', 'Southern Converts'] as $categoryOption)
                 <span wire:click="$set('category', '{{ $categoryOption }}')"
                       @class([
                         'inline-flex items-center px-3 py-0.5 text-lg cursor-pointer',
