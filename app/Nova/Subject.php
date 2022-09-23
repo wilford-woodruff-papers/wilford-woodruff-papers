@@ -6,6 +6,7 @@ use App\Nova\Actions\ExportSubjects;
 use App\Nova\Actions\ImportBiographies;
 use App\Nova\Actions\ImportIndexTopics;
 use App\Nova\Actions\ImportSubjects;
+use App\Nova\Actions\ParseNames;
 use App\Nova\Filters\SubjectType;
 use Emilianotisato\NovaTinyMCE\NovaTinyMCE;
 use Illuminate\Http\Request;
@@ -14,7 +15,6 @@ use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Subject extends Resource
 {
@@ -118,6 +118,7 @@ class Subject extends Resource
             new ImportBiographies,
             (new ExportSubjects)
                 ->askForWriterType(),
+            new ParseNames,
         ];
     }
 }

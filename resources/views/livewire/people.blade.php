@@ -22,7 +22,7 @@
                     id="category-select"
                     class="focus:ring-secondary focus:border-secondary relative block w-full bg-transparent focus:z-10 sm:text-base border-gray-300"
             >
-                @foreach(['All', 'Apostles', 'British Converts', 'Family', 'Scriptural Figures', 'Southern Converts'] as $categoryOption)
+                @foreach(['All', 'Apostle', 'British Convert', 'Family', 'Scriptural Figures', 'Southern Converts'] as $categoryOption)
                     <option wire:click="$set('category', '{{ $categoryOption }}')"
                             value="{{ $categoryOption }}"
                     >
