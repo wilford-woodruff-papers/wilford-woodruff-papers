@@ -11,7 +11,7 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 class SubjectImport implements ToCollection, WithHeadingRow
 {
     /**
-     * @param Collection $collection
+     * @param  Collection  $collection
      */
     public function collection(Collection $rows)
     {
@@ -25,7 +25,12 @@ class SubjectImport implements ToCollection, WithHeadingRow
             ]);
 
             foreach (explode(';', $row['categories']) as $subjectCategory) {
-                if ($category = $categories->firstWhere('name', $subjectCategory)) {
+                if (
+                    $category = $categories->firstWhere(
+                        'name',
+                        $subjectCategory
+                    )
+                ) {
                     $category->subjects()->syncWithoutDetaching($subject);
                 }
             }
