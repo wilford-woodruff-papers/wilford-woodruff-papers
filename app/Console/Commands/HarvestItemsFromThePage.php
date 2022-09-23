@@ -49,7 +49,7 @@ class HarvestItemsFromThePage extends Command
             ], [
                 'name' => $item['label'],
             ]);
-            if(data_get($item, 'service.pctComplete', 0) == 100.0){
+            if (data_get($item, 'service.pctComplete', 0) == 100.0) {
                 $document->enabled = true;
             }
             $document->save();
