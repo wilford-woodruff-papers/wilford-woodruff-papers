@@ -3,7 +3,7 @@
     <div class="">
 
         <div class="max-w-7xl hidden sm:flex gap-x-4 pb-8">
-            @foreach(['All', 'Apostle', 'British Convert', 'Family', 'Scriptural Figures', 'Southern Converts'] as $categoryOption)
+            @foreach(['All', 'Apostles', '1840 British Converts', 'Family', 'Scriptural Figures', '1835 Southern Converts'] as $categoryOption)
                 <span wire:click="$set('category', '{{ $categoryOption }}')"
                       @class([
                         'inline-flex items-center px-3 py-0.5 text-lg cursor-pointer',
@@ -22,7 +22,7 @@
                     id="category-select"
                     class="focus:ring-secondary focus:border-secondary relative block w-full bg-transparent focus:z-10 sm:text-base border-gray-300"
             >
-                @foreach(['All', 'Apostle', 'British Convert', 'Family', 'Scriptural Figures', 'Southern Converts'] as $categoryOption)
+                @foreach(['All', 'Apostles', '1840 British Converts', 'Family', 'Scriptural Figures', '1835 Southern Converts'] as $categoryOption)
                     <option wire:click="$set('category', '{{ $categoryOption }}')"
                             value="{{ $categoryOption }}"
                     >
