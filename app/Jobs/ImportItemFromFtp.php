@@ -8,7 +8,6 @@ use App\Models\Page;
 use App\Models\Subject;
 use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -108,6 +107,7 @@ class ImportItemFromFtp implements ShouldQueue
             }
         }
 
+        $item->ftp_slug = str($response->json('related.0.@id'))->afterLast('/');
         $item->imported_at = now('America/Denver');
         $item->save();
     }
