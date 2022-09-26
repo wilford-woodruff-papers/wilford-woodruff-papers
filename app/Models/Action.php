@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Wildside\Userstamps\Userstamps;
 
 class Action extends Model
 {
     use HasFactory;
+    use Userstamps;
 
     protected $guarded = ['id'];
 
@@ -35,5 +37,4 @@ class Action extends Model
     {
         return $this->belongsTo(User::class, 'completed_by');
     }
-
 }
