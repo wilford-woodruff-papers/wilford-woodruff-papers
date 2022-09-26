@@ -5,7 +5,6 @@ namespace App\Console\Commands;
 use App\Models\Item;
 use App\Models\Page;
 use Illuminate\Console\Command;
-use Illuminate\Database\Eloquent\Collection;
 
 class UpdatePageOrder extends Command
 {
@@ -42,8 +41,9 @@ class UpdatePageOrder extends Command
     {
         $items = Item::doesntHave('items')->get();
         $items->each(function ($item) {
+            $pageSortColumn = $item->page_sort_column ?? 'id';
             if ($item->enabled) {
-                $pages = $item->pages->sortBy('id');
+                $pages = $item->pages->sortBy($pageSortColumn);
                 $pages->each(function ($page) use ($item) {
                     $page->parent_item_id = $item->parent()->id;
                     $page->type_id = $item->parent()->type_id;
@@ -64,7 +64,8 @@ class UpdatePageOrder extends Command
         $items->each(function ($item) {
             $itemPages = collect([]);
             $item->items->sortBy('order')->each(function ($child) use (&$itemPages) {
-                $itemPages = $itemPages->concat($child->pages);
+                $pageSortColumn = $child->page_sort_column ?? 'id';
+                $itemPages = $itemPages->concat($child->pages->sortBy($pageSortColumn));
             });
             $itemPages->each(function ($page) use ($item) {
                 $page->parent_item_id = $item->parent()->id;
