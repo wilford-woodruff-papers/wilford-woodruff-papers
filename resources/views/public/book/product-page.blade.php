@@ -31,7 +31,7 @@
             </h1>
         </div>
 
-        <div class="max-w-7xl mx-auto relative z-10 h-[1400px]">
+        {{--<div class="max-w-7xl mx-auto relative z-10 h-[1400px]">
             <div class="slow-parallax absolute w-1/3 h-auto top-10 right-10">
                 <img src="{{ asset('img/book/book-cover-paperback.jpg') }}"
                      class=""
@@ -78,7 +78,7 @@
 
                 </div>
             </div>
-        </div>
+        </div>--}}
     </div>
 
     <div>

@@ -41,6 +41,7 @@ Route::get('/d/{hashid}', [\App\Http\Controllers\ShortUrlController::class, 'ite
 Route::get('/p/{hashid}', [\App\Http\Controllers\ShortUrlController::class, 'page'])->name('short-url.page');
 
 Route::view('/wilford-woodruffs-witness', 'public.book.product-page')->name('book.product-page');
+Route::view('/wilford-woodruffs-witness-test', 'public.book.test')->name('book.product-page-test');
 
 Route::get('/subjects/{subject}', [\App\Http\Controllers\SubjectController::class, 'show'])->name('subjects.show')
         ->missing(function (Illuminate\Http\Request $request) {
