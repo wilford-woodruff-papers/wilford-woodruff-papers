@@ -62,7 +62,7 @@
                                             @endforeach
                                         </th>
                                         <th class="bg-gray-50 px-4 py-2 text-left text-sm font-semibold text-gray-900 sm:px-6">
-                                            {{ $item->pending_actions->first()->assigned_at->tz('America/Denver')->toDayDateTimeString() }}
+                                            {{ $item->pending_actions->first()?->assigned_at?->tz('America/Denver')?->toDayDateTimeString() }}
                                         </th>
                                     </tr>
                                     @forelse($item->page_actions->groupBy('actionable_id') as $pageActions)
