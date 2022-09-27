@@ -15,11 +15,11 @@ class Tasks extends Component
     {
         $assignedItems = Item::query()
             ->with('pending_actions', 'pending_page_actions')
-            ->whereHas('pending_actions', function (Builder $query){
+            ->whereHas('pending_actions', function (Builder $query) {
                 $query->where('assigned_to', auth()->id())
                     ->whereNull('completed_at');
             })
-            ->orWhereHas('pending_page_actions', function (Builder $query){
+            ->orWhereHas('pending_page_actions', function (Builder $query) {
                 $query->where('assigned_to', auth()->id())
                     ->whereNull('completed_at');
             })
@@ -32,10 +32,10 @@ class Tasks extends Component
             ->whereHas('actions', function (Builder $query) {
                 $query->whereNull('assigned_at')
                     ->whereNull('completed_at');
-            })->whereHas('type', function (Builder $query) use ($userRoles){
+            })->whereHas('type', function (Builder $query) use ($userRoles) {
                 $query->whereIn('id', Type::query()->role($userRoles->pluck('id')->all())->pluck('id')->all());
             })
-            ->get();
+            ->paginate(15);
 
         return view('livewire.admin.documents.tasks', [
             'assignedItems' => $assignedItems,
@@ -52,7 +52,7 @@ class Tasks extends Component
         $user->tasks()->save($action);
 
         $item = $action->actionable;
-        $item->pages->each(function($page) use ($user, $action){
+        $item->pages->each(function ($page) use ($user, $action) {
             $user->tasks()->save(Action::create([
                 'actionable_type' => get_class($page),
                 'actionable_id' => $page->id,
@@ -71,15 +71,14 @@ class Tasks extends Component
         $action->completed_by = $user->id;
         $action->save();
 
-        if($action->actionable_type == Item::class){
+        if ($action->actionable_type == Item::class) {
             $item = $action->actionable;
-            $item->pending_page_actions->where('action_type_id', $action->action_type_id)->each(function($action) use ($user){
+            $item->pending_page_actions->where('action_type_id', $action->action_type_id)->each(function ($action) use ($user) {
                 $action->completed_at = now();
                 $action->completed_by = $user->id;
                 $action->save();
             });
         }
-
     }
 
     public function markActionInComplete($actionId)
@@ -90,6 +89,5 @@ class Tasks extends Component
         $action->completed_at = null;
         $action->completed_by = null;
         $action->save();
-
     }
 }
