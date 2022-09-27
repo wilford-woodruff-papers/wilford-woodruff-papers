@@ -213,6 +213,9 @@
                     </div>
                 </div>
             </div>
+            <div>
+                {{ $unassignedItems->links() }}
+            </div>
         </div>
     @endif
 </div>
