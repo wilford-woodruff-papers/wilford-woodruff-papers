@@ -36,10 +36,10 @@ class ImportPcf extends Action
     {
         switch ($this->type) {
             case 'Journals':
-                Excel::import(new JournalsPcfImport('Journals'), $this->file);
+                Excel::import(new JournalsPcfImport(), $fields->file);
                 break;
             case 'Letters':
-                Excel::import(new JournalsPcfImport('Letters'), $this->file);
+                Excel::import(new JournalsPcfImport, $fields->file);
                 break;
         }
 
