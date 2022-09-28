@@ -13,6 +13,10 @@ module.exports = {
             pattern: /bg-(secondary)-(100|200|300|400|500|600|700|800|900)/,
             variants: ['hover', 'focus'],
         },
+        {
+            pattern: /w-(1\/4|1\/23\/4)/,
+            variants: ['sm','md','lg','xl'],
+        },
     ],
     theme: {
         extend: {
