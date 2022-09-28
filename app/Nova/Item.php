@@ -7,7 +7,6 @@ use App\Nova\Actions\AssignToItem;
 use App\Nova\Actions\Enable;
 use App\Nova\Actions\ExportItems;
 use App\Nova\Actions\ImportItems;
-use App\Nova\Actions\ImportPage;
 use App\Nova\Actions\ImportPages;
 use App\Nova\Filters\Status;
 use Illuminate\Http\Request;
