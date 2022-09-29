@@ -25,10 +25,8 @@ class Topics extends Component
     {
         $topics = Subject::query()
                             ->with(['children' => function ($query) {
-                                $query->whereHas('pages')
-                                    ->withCount(['pages']);
+                                $query->whereHas('pages');
                             }])
-                            ->withCount(['pages'])
                             ->whereEnabled(1)
                             ->when(empty($this->search), fn ($query, $search) => $query->whereNull('subject_id'))
                             ->whereHas('category', function (Builder $query) {

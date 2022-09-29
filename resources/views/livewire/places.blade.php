@@ -32,7 +32,7 @@
                     <a class="text-secondary popup"
                        href="{{ route('subjects.show', ['subject' => $place])  }}"
                     >
-                        {{ $place->name }} ({{ $place->pages_count }})
+                        {{ $place->name }}
                     </a>
                 </div>
             @empty
