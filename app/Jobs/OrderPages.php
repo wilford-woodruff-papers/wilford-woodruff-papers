@@ -5,7 +5,6 @@ namespace App\Jobs;
 use App\Models\Item;
 use App\Models\Page;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -32,7 +31,10 @@ class OrderPages implements ShouldQueue
      */
     public function handle()
     {
-        $items = Item::doesntHave('items')->get();
+        $items = Item::query()
+                        ->doesntHave('parent')
+                        ->doesntHave('items')
+                        ->get();
         $items->each(function ($item) {
             if ($item->enabled) {
                 $pages = $item->pages->sortBy('id');
