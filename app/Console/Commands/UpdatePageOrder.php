@@ -79,7 +79,7 @@ class UpdatePageOrder extends Command
             $item->fresh();
             $pages = $item->pages;
             $pages->each(function ($page) use ($item) {
-                $page->full_name = $item->name.': Page'.$page->order;
+                $page->full_name = $item->name.': Page '.$page->order;
                 $page->save();
             });
         });
