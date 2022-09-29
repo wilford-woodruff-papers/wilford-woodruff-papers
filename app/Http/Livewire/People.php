@@ -30,7 +30,6 @@ class People extends Component
     public function render()
     {
         $people = Subject::query()
-                            ->withCount(['pages'])
                             ->whereEnabled(1)
                             ->when($this->category == 'All', fn ($query, $category) => $query->whereHas('category', function (Builder $query) {
                                 $query->where('name', 'People');
