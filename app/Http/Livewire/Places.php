@@ -24,7 +24,6 @@ class Places extends Component
     public function render()
     {
         $places = Subject::query()
-                            ->withCount(['pages'])
                             ->whereEnabled(1)
                             ->whereHas('category', function (Builder $query) {
                                 $query->where('name', 'Places');
