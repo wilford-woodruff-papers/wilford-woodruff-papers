@@ -32,6 +32,7 @@ class OrderPages implements ShouldQueue
     public function handle()
     {
         $items = Item::query()
+                        ->doesntHave('parent')
                         ->doesntHave('items')
                         ->get();
         $items->each(function ($item) {
