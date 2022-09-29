@@ -39,7 +39,10 @@ class UpdatePageOrder extends Command
      */
     public function handle()
     {
-        $items = Item::doesntHave('items')->get();
+        $items = Item::query()
+                        ->doesntHave('parent')
+                        ->doesntHave('items')
+                        ->get();
         $items->each(function ($item) {
             $pageSortColumn = $item->page_sort_column ?? 'id';
             if ($item->enabled) {
