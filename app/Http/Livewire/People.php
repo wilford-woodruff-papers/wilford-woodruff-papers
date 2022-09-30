@@ -44,11 +44,11 @@ class People extends Component
                                     $query = $query->where('name', 'LIKE', '%'.str($name)->trim(',')->toString().'%');
                                 }
                             })
-                            /*->where(function ($query) {
+                            ->where(function ($query) {
                                 $query->where('tagged_count', '>', 0)
                                     ->orWhere('text_count', '>', 0);
-                            })*/
-                            ->whereHas('pages')
+                            })
+                            //->whereHas('pages')
                             ->orderBy('last_name', 'ASC')
                             ->orderBy('name', 'ASC')
                             ->get();
