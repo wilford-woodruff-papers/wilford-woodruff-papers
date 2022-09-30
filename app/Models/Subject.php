@@ -94,12 +94,12 @@ class Subject extends Model
         } elseif (str($this->name)->contains('Sr.')) {
             $name_suffix = 'Sr.';
             $name = str($this->name)->beforeLast(',')->replace('Sr.', '')->rtrim(', ');
-        } elseif (str($this->name)->contains('II')) {
-            $name_suffix = 'II';
-            $name = str($this->name)->beforeLast(',')->replace('II', '')->rtrim(', ');
         } elseif (str($this->name)->contains('III')) {
             $name_suffix = 'III';
             $name = str($this->name)->beforeLast(',')->replace('III', '')->rtrim(', ');
+        } elseif (str($this->name)->contains('II')) {
+            $name_suffix = 'II';
+            $name = str($this->name)->beforeLast(',')->replace('II', '')->rtrim(', ');
         } elseif (str($this->name)->contains('(OT)')) {
             $name_suffix = 'Old Testament';
             $name = str($this->name)->replace('(OT)', '')->rtrim(', ');
