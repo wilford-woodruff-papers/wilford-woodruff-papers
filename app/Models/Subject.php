@@ -45,7 +45,7 @@ class Subject extends Model
     /**
      * Get the options for generating the slug.
      */
-    public function getSlugOptions() : SlugOptions
+    public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('name')
@@ -85,10 +85,10 @@ class Subject extends Model
         $name_suffix = '';
         $year = '';
 
-        if(str($this->name)->contains(', b.')){
+        if (str($this->name)->contains(', b.')) {
             $year = str($this->name)->afterLast(',')->trim();
         }
-        if(str($this->name)->contains('Jr.')) {
+        if (str($this->name)->contains('Jr.')) {
             $name_suffix = 'Jr.';
             $name = str($this->name)->beforeLast(',')->replace('Jr.', '')->rtrim(', ');
         } elseif (str($this->name)->contains('Sr.')) {
@@ -97,10 +97,10 @@ class Subject extends Model
         } elseif (str($this->name)->contains('(OT)')) {
             $name_suffix = 'Old Testament';
             $name = str($this->name)->replace('(OT)', '')->rtrim(', ');
-        }  elseif (str($this->name)->contains('(NT)')) {
+        } elseif (str($this->name)->contains('(NT)')) {
             $name_suffix = 'New Testament';
             $name = str($this->name)->replace('(NT)', '')->rtrim(', ');
-        }   elseif (str($this->name)->contains('(BofM)')) {
+        } elseif (str($this->name)->contains('(BofM)')) {
             $name_suffix = 'Book of Mormon';
             $name = str($this->name)->replace('(BofM)', '')->rtrim(', ');
         } else {
@@ -108,12 +108,29 @@ class Subject extends Model
         }
 
         $name = explode(' ', $name);
-        if(count($name) > 1){
+        if (count($name) > 1) {
             $this->attributes['last_name'] = array_pop($name);
         } else {
-            $this->attributes['last_name'] = implode(" ", $name) . (! empty($year) ? ', ' . $year . ' ' : '') . (! empty($name_suffix) ? ' (' . $name_suffix . ')' : '');
-
+            $this->attributes['last_name'] = implode(' ', $name).(! empty($year) ? ', '.$year.' ' : '').(! empty($name_suffix) ? ' ('.$name_suffix.')' : '');
         }
-        $this->attributes['first_name'] = implode(" ", $name) . (! empty($year) ? ', ' . $year . ' ' : '') . (! empty($name_suffix) ? ' (' . $name_suffix . ')' : '');
+        $this->attributes['first_name'] = implode(' ', $name).(! empty($year) ? ', '.$year.' ' : '').(! empty($name_suffix) ? ' ('.$name_suffix.')' : '');
+    }
+
+    public function calculateIndex()
+    {
+        if (! empty($this->attributes['last_name'])) {
+            return str($this->attributes['last_name'])->substr(0, 1);
+        }
+    }
+
+    protected static function booted()
+    {
+        static::creating(function ($item) {
+            $item->attributes['index'] = $item->calculateIndex();
+        });
+
+        static::updating(function ($item) {
+            $item->attributes['index'] = $item->calculateIndex();
+        });
     }
 }

@@ -37,7 +37,7 @@ class People extends Component
                             ->when($this->category != 'All', fn ($query, $category) => $query->whereHas('category', function (Builder $query) {
                                 $query->where('name', $this->category);
                             }))
-                            ->when($this->letter && $this->category == 'All', fn ($query, $letter) => $query->where('last_name', 'REGEXP', '^['.$this->letter.'].*$'))
+                            ->when($this->letter && $this->category == 'All', fn ($query, $letter) => $query->where('index', $this->letter))
                             ->when($this->search, function ($query, $search) {
                                 $names = str($search)->explode(' ');
                                 foreach ($names as $name) {
