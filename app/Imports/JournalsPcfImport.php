@@ -43,10 +43,11 @@ class JournalsPcfImport implements ToCollection, WithHeadingRow
                         $item->pcf_unique_id = $uniqueID;
                         $item->save();
 
-                        Action::create([
+                        Action::firstOrCreate([
                             'action_type_id' => $actionTypes->firstWhere('name', 'Transcription')->id,
                             'actionable_type' => Item::class,
                             'action_id' => $item->id,
+                        ], [
                             'assigned_to' => null,
                             'assigned_at' => $transcriptionCompleted,
                             'completed_by' => null,
@@ -55,10 +56,11 @@ class JournalsPcfImport implements ToCollection, WithHeadingRow
                             'updated_at' => $transcriptionCompleted,
                         ]);
 
-                        Action::create([
+                        Action::firstOrCreate([
                             'action_type_id' => $actionTypes->firstWhere('name', 'Verification')->id,
                             'actionable_type' => Item::class,
                             'action_id' => $item->id,
+                        ], [
                             'assigned_to' => null,
                             'assigned_at' => $twoLVCompleted,
                             'completed_by' => null,
@@ -67,10 +69,11 @@ class JournalsPcfImport implements ToCollection, WithHeadingRow
                             'updated_at' => $twoLVCompleted,
                         ]);
 
-                        Action::create([
+                        Action::firstOrCreate([
                             'action_type_id' => $actionTypes->firstWhere('name', 'Subject Tagging')->id,
                             'actionable_type' => Item::class,
                             'action_id' => $item->id,
+                        ], [
                             'assigned_to' => null,
                             'assigned_at' => $subjectLinksCompleted,
                             'completed_by' => null,
@@ -79,10 +82,11 @@ class JournalsPcfImport implements ToCollection, WithHeadingRow
                             'updated_at' => $subjectLinksCompleted,
                         ]);
 
-                        Action::create([
+                        Action::firstOrCreate([
                             'action_type_id' => $actionTypes->firstWhere('name', 'Stylization')->id,
                             'actionable_type' => Item::class,
                             'action_id' => $item->id,
+                        ], [
                             'assigned_to' => null,
                             'assigned_at' => $stylizationCompleted,
                             'completed_by' => null,
@@ -91,10 +95,11 @@ class JournalsPcfImport implements ToCollection, WithHeadingRow
                             'updated_at' => $stylizationCompleted,
                         ]);
 
-                        Action::create([
+                        Action::firstOrCreate([
                             'action_type_id' => $actionTypes->firstWhere('name', 'Topic Tagging')->id,
                             'actionable_type' => Item::class,
                             'action_id' => $item->id,
+                        ], [
                             'assigned_to' => null,
                             'assigned_at' => $topicTaggingAssigned,
                             'completed_by' => null,
