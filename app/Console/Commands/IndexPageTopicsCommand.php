@@ -21,13 +21,14 @@ class IndexPageTopicsCommand extends Command
                     ->whereHas('category', function (Builder $query) {
                         $query->where('name', 'Index');
                     })
+                    ->orderBy('name', 'ASC')
                     ->get();
 
         $this->info('Topics to index: '.$topics->count());
 
-        foreach ($topics as $topic) {
+        foreach ($topics as $key => $topic) {
             $pages = Page::where('transcript', 'LIKE', '%'.$topic->name.'%')->get();
-            $this->info($topic->name.': '.$pages->count());
+            $this->info($key.' '.$topic->name.': '.$pages->count());
             foreach ($pages as $page) {
                 $page->subjects()->syncWithoutDetaching($topic->id);
             }
