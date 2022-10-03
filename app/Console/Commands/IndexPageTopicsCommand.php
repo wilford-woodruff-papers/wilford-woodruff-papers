@@ -20,7 +20,8 @@ class IndexPageTopicsCommand extends Command
         $topics = Subject::query()
                     ->whereHas('category', function (Builder $query) {
                         $query->where('name', 'Topics');
-                    });
+                    })
+                    ->get();
 
         $this->info('Topics to index: '.$topics->count());
 
