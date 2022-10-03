@@ -12,7 +12,7 @@ class CalculateTaggedSubjectPageCounts extends Command
      *
      * @var string
      */
-    protected $signature = 'tags:count';
+    protected $signature = 'topics:count';
 
     /**
      * The console command description.
