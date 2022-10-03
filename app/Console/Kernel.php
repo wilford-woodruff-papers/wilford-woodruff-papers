@@ -36,6 +36,18 @@ class Kernel extends ConsoleKernel
                  ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org')
                  ->pingOnSuccess('http://beats.envoyer.io/heartbeat/NBAuq5yMAJvwwS4');
 
+        $schedule->command('topics:index')
+            ->dailyAt('4:30 AM')
+            ->timezone('America/Denver')
+            ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org')
+            ->pingOnSuccess('http://beats.envoyer.io/heartbeat/kCvDa59b9eOIquc');
+
+        $schedule->command('topics:count')
+            ->dailyAt('6:10 AM')
+            ->timezone('America/Denver')
+            ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org')
+            ->pingOnSuccess('http://beats.envoyer.io/heartbeat/ccbDFveJkONtDEt');
+
         $schedule->command('telescope:prune --hours=48')->daily();
 
         /* Calculate Stats */

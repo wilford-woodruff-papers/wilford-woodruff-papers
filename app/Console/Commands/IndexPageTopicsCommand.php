@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class IndexPageTopicsCommand extends Command
 {
-    protected $signature = 'index:topics';
+    protected $signature = 'topics:index';
 
     protected $description = 'Index all topics for pages';
 
@@ -22,12 +22,12 @@ class IndexPageTopicsCommand extends Command
                         $query->where('name', 'Topics');
                     });
 
-        $this->info('Topics to index: '. $topics->count());
+        $this->info('Topics to index: '.$topics->count());
 
-        foreach($topics as $topic){
-            $pages = Page::where('transcript', 'LIKE', '%'. $topic->name .'%')->get();
-            $this->info($topic->name. ': '.$pages->count());
-            foreach($pages as $page){
+        foreach ($topics as $topic) {
+            $pages = Page::where('transcript', 'LIKE', '%'.$topic->name.'%')->get();
+            $this->info($topic->name.': '.$pages->count());
+            foreach ($pages as $page) {
                 $page->subjects()->syncWithoutDetaching($topic->id);
             }
         }
