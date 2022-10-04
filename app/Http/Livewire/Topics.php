@@ -25,7 +25,9 @@ class Topics extends Component
     {
         $topics = Subject::query()
                             ->with(['children' => function ($query) {
-                                $query->whereHas('pages');
+                                //$query->whereHas('pages');
+                                $query->where('tagged_count', '>', 0)
+                                    ->orWhere('text_count', '>', 0);
                             }])
                             ->whereEnabled(1)
                             ->when(empty($this->search), fn ($query, $search) => $query->whereNull('subject_id'))
@@ -39,11 +41,15 @@ class Topics extends Component
                                     $query = $query->where('name', 'LIKE', '%'.str($name)->trim(',')->toString().'%');
                                 }
                             })
-                            ->where(function (Builder $query) {
+                            ->where(function ($query) {
+                                $query->where('tagged_count', '>', 0)
+                                    ->orWhere('text_count', '>', 0);
+                            })
+                            /*->where(function (Builder $query) {
                                 $query->whereHas('pages')
                                     ->orWhereHas('children.pages')
                                     ->orWhereHas('quotes'); // This doesn't filter to only those with quotes that have been approved
-                            })
+                            })*/
                             ->orderBy('name', 'ASC')
                             ->get();
 
