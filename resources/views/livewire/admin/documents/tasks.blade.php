@@ -114,7 +114,7 @@
                                                                 {{ $a->finisher->name }}
                                                             </div>
                                                             <div class="col-span-1">
-                                                                @if($a->finisher->id == auth()->id() || auth()->user()->hasAnyRole($item->roles))
+                                                                @if($a->finisher->id == auth()->id() || auth()->user()->hasAnyRole($a->type->roles))
                                                                     <button wire:click="markActionInComplete({{ $a->id }})"
                                                                             type="button" class="inline-flex items-center px-2 py-1 my-2 gap-x-2 border border-transparent shadow-sm text-xs leading-4 font-semibold rounded-full text-white bg-red-700 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-700">
                                                                         <!-- Heroicon name: solid/x -->
