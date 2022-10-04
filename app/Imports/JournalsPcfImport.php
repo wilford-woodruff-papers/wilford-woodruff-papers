@@ -7,7 +7,6 @@ use App\Models\ActionType;
 use App\Models\Item;
 use App\Models\User;
 use Carbon\Carbon;
-use Hashids\Math\Bc;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -33,9 +32,21 @@ class JournalsPcfImport implements ToCollection, WithHeadingRow
             if (! empty($slug)) {
                 $item = Item::query()
                                 ->firstWhere('ftp_slug', $slug);
+                if (empty($item)) {
+                    $name = data_get($row, str('URL of Column E')->lower()->snake()->toString());
+                    if (! empty($name)) {
+                        $item = Item::query()
+                                        ->firstWhere('name', $name);
+                    }
+                }
 
                 if (! empty($item)) {
                     DB::transaction(function () use ($row, $item, $actionTypes) {
+                        activity('activity')
+                            ->on($item)
+                            ->event('imported')
+                            ->log('Item imported from PCF');
+
                         $uniqueID = data_get($row, str('Unique Identifier')->lower()->snake()->toString());
                         $transcriptionCompleted = $this->toCarbonDate(data_get($row, str('Completed Transcriptions Uploaded to FTP')->lower()->snake()->toString()));
                         $twoLVCompleted = $this->toCarbonDate(data_get($row, str('2LV Completion Date')->lower()->snake()->toString()));
@@ -52,10 +63,10 @@ class JournalsPcfImport implements ToCollection, WithHeadingRow
                         $item->save();
 
                         if (! empty($transcriptionCompleted)) {
-                            Action::firstOrCreate([
+                            Action::updateOrCreate([
                                 'action_type_id' => $actionTypes->firstWhere('name', 'Transcription')->id,
                                 'actionable_type' => Item::class,
-                                'action_id' => $item->id,
+                                'actionable_id' => $item->id,
                             ], [
                                 'assigned_to' => null,
                                 'assigned_at' => $transcriptionCompleted,
@@ -67,10 +78,10 @@ class JournalsPcfImport implements ToCollection, WithHeadingRow
                         }
 
                         if (! empty($twoLVCompleted)) {
-                            Action::firstOrCreate([
+                            Action::updateOrCreate([
                                 'action_type_id' => $actionTypes->firstWhere('name', 'Verification')->id,
                                 'actionable_type' => Item::class,
-                                'action_id' => $item->id,
+                                'actionable_id' => $item->id,
                             ], [
                                 'assigned_to' => $this->getUserID($twoLVAssigned),
                                 'assigned_at' => $twoLVCompleted,
@@ -82,10 +93,10 @@ class JournalsPcfImport implements ToCollection, WithHeadingRow
                         }
 
                         if (! empty($subjectLinksCompleted)) {
-                            Action::firstOrCreate([
+                            Action::updateOrCreate([
                                 'action_type_id' => $actionTypes->firstWhere('name', 'Subject Tagging')->id,
                                 'actionable_type' => Item::class,
-                                'action_id' => $item->id,
+                                'actionable_id' => $item->id,
                             ], [
                                 'assigned_to' => $this->getUserID($subjectLinksAssigned),
                                 'assigned_at' => $subjectLinksCompleted,
@@ -97,10 +108,10 @@ class JournalsPcfImport implements ToCollection, WithHeadingRow
                         }
 
                         if (! empty($stylizationCompleted)) {
-                            Action::firstOrCreate([
+                            Action::updateOrCreate([
                                 'action_type_id' => $actionTypes->firstWhere('name', 'Stylization')->id,
                                 'actionable_type' => Item::class,
-                                'action_id' => $item->id,
+                                'actionable_id' => $item->id,
                             ], [
                                 'assigned_to' => $this->getUserID($stylizationAssigned),
                                 'assigned_at' => $stylizationCompleted,
@@ -112,10 +123,10 @@ class JournalsPcfImport implements ToCollection, WithHeadingRow
                         }
 
                         if (! empty($topicTaggingAssigned)) {
-                            Action::firstOrCreate([
+                            Action::updateOrCreate([
                                 'action_type_id' => $actionTypes->firstWhere('name', 'Topic Tagging')->id,
                                 'actionable_type' => Item::class,
-                                'action_id' => $item->id,
+                                'actionable_id' => $item->id,
                             ], [
                                 'assigned_to' => $this->getUserID($topicTaggingAssignedTo),
                                 'assigned_at' => $topicTaggingAssigned,
@@ -160,43 +171,18 @@ class JournalsPcfImport implements ToCollection, WithHeadingRow
 
         try {
             if (is_numeric($stringDate)) {
-                return Carbon::instance(Date::excelToDateTimeObject($stringDate));
+                return Carbon::instance(Date::excelToDateTimeObject($stringDate))->toDateString();
             } else {
-                return Carbon::createFromFormat('d-m-Y', $stringDate);
+                return Carbon::createFromFormat('Y-m-d', $stringDate);
             }
         } catch (\Exception $exception) {
-            return $stringDate;
+            return null;
         }
     }
 
     private function getUserID($initials)
     {
         switch ($initials) {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        SJ
-        ELH
-        BD
-        AA
-        NH
-        CC
-        SW
-        OC
-        KL
             case 'SCH':
                 $name = 'Steve Harper';
                 $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
@@ -306,12 +292,13 @@ class JournalsPcfImport implements ToCollection, WithHeadingRow
             default:
                 $name = 'Jon Fackrell';
                 $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
-            }
+        }
         $user = User::firstOrCreate([
             'email' => $email,
         ], [
             'name' => $name,
             'password' => Hash::make(Str::uuid()),
+            'provider' => 'email',
         ]);
 
         return $user->id;

@@ -10,6 +10,7 @@ use Illuminate\Support\Collection;
 use Laravel\Nova\Actions\Action;
 use Laravel\Nova\Fields\ActionFields;
 use Laravel\Nova\Fields\File;
+use Laravel\Nova\Fields\Select;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ImportPcf extends Action
@@ -54,7 +55,13 @@ class ImportPcf extends Action
     public function fields()
     {
         return [
-            File::make('File')->rules('required'),
+            Select::make('Type')
+                ->options([
+                    'Journals' => 'Journals',
+                ])
+                ->rules('required'),
+            File::make('File')
+                ->rules('required'),
         ];
     }
 }
