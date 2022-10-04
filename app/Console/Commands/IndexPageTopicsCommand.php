@@ -27,7 +27,12 @@ class IndexPageTopicsCommand extends Command
         $this->info('Topics to index: '.$topics->count());
 
         foreach ($topics as $key => $topic) {
-            $pages = Page::where('transcript', 'LIKE', '%'.$topic->name.'%')->get();
+            $pages = Page::query()
+                ->whereHas('item', function (Builder $query) {
+                    $query->where('enabled', 1);
+                })
+                ->where('transcript', 'LIKE', '%'.$topic->name.'%')
+                ->get();
             $this->info($key.' '.$topic->name.': '.$pages->count());
             foreach ($pages as $page) {
                 $page->subjects()->syncWithoutDetaching($topic->id);
