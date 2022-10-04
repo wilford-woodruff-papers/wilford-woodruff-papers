@@ -69,7 +69,7 @@
                     <a class="text-secondary popup"
                        href="{{ route('subjects.show', ['subject' => $person])  }}"
                     >
-                        @if(! empty($person->last_name) && $person->last_name != $person->first_name){{ $person->last_name }}, @endif {{ $person->first_name }}
+                        @if(! empty($person->last_name) && $person->last_name != $person->first_name){{ $person->last_name }}, @endif {{ $person->first_name }}  ({{ $person->tagged_count }})
                     </a>
                 </div>
             @empty
