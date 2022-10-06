@@ -14,11 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::table('items', function (Blueprint $table) {
-            $table->string('pcf_unique_id');
-            $table->string('external_link');
-            $table->string('chl_link');
-            $table->string('external_transcript');
-            $table->longText('notes');
+            $table->unsignedInteger('pcf_unique_id')->nullable();
+            $table->string('external_link')->nullable();
+            $table->string('chl_link')->nullable();
+            $table->string('external_transcript')->nullable();
+            $table->longText('notes')->nullable();
         });
     }
 
