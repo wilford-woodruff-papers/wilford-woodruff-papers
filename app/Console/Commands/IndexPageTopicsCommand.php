@@ -34,6 +34,7 @@ class IndexPageTopicsCommand extends Command
                 ->where('transcript', 'LIKE', '%'.$topic->name.'%')
                 ->get();
             $this->info($key.' '.$topic->name.': '.$pages->count());
+
             foreach ($pages as $page) {
                 $page->subjects()->syncWithoutDetaching($topic->id);
             }

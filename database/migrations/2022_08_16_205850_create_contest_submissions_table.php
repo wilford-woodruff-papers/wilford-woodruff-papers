@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('division')->nullable();
             $table->string('category')->nullable();
             $table->string('medium')->nullable();
+            $table->string('link')->nullable();
             $table->longText('collaborators')->nullable();
             $table->longText('connection')->nullable();
             $table->timestamps();

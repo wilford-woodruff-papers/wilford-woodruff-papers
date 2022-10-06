@@ -6,8 +6,10 @@ use App\Nova\Actions\AssignDocumentType;
 use App\Nova\Actions\AssignToItem;
 use App\Nova\Actions\Enable;
 use App\Nova\Actions\ExportItems;
+use App\Nova\Actions\ExportPcf;
 use App\Nova\Actions\ImportItems;
 use App\Nova\Actions\ImportPages;
+use App\Nova\Actions\ImportPcf;
 use App\Nova\Filters\Status;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
@@ -47,6 +49,11 @@ class Item extends Resource
         'name',
     ];
 
+    public static $indexDefaultOrder = [
+        'item_id' => 'ASC',
+        'order' => 'ASC',
+    ];
+
     /**
      * Build an "index" query for the given resource.
      *
@@ -56,7 +63,13 @@ class Item extends Resource
      */
     public static function indexQuery(NovaRequest $request, $query)
     {
-        return $query->orderBy('name');
+        if (empty($request->get('orderBy'))) {
+            $query->getQuery()->orders = [];
+
+            return $query->orderBy(key(static::$indexDefaultOrder), reset(static::$indexDefaultOrder));
+        }
+
+        return $query;
     }
 
     public static $with = ['item', 'type'];
@@ -83,7 +96,11 @@ class Item extends Resource
                 }
             })->asHtml(),
             Text::make('Short', function () {
-                return '<span data-url="'.route('short-url.item', ['hashid' => $this->hashid()]).'" class="no-underline dim text-primary font-bold" onclick="copyShortUrlToClipboard(this)">Short</a>';
+                if ($this->hashid()) {
+                    return '<span data-url="'.route('short-url.item', ['hashid' => $this->hashid()]).'" class="no-underline dim text-primary font-bold" onclick="copyShortUrlToClipboard(this)">Short</a>';
+                } else {
+                    return '';
+                }
             })->asHtml(),
             HasMany::make('Items')
                 ->hideFromIndex(),
@@ -149,6 +166,8 @@ class Item extends Resource
             (new ExportItems())->askForWriterType(),
             new ImportPages,
             new ImportItems,
+            new ImportPcf('Journals'),
+            new ExportPcf(),
         ];
     }
 }

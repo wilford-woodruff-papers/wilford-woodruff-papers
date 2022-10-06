@@ -213,7 +213,7 @@
                     </div>
                 </div>
             </div>
-            <div>
+            <div class="my-4">
                 {{ $unassignedItems->links() }}
             </div>
         </div>
