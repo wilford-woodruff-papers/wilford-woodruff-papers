@@ -52,7 +52,7 @@ class ExportPcf extends DownloadExcel implements WithMapping, WithHeadings
             $item->pcf_unique_id,
             $item->name,
             '',
-            '=HYPERLINK("'.'https://fromthepage.com/woodruff/woodruffpapers/'.$item->slug.'", "Link")',
+            '=HYPERLINK("'.'https://fromthepage.com/woodruff/woodruffpapers/'.$item->ftp_slug.'", "Link")',
             $item->actions->firstWhere('type.name', 'Transcription')?->completed_at?->toDateString(),
             $item->actions->firstWhere('type.name', 'Verification')?->finisher?->name,
             $item->actions->firstWhere('type.name', 'Verification')?->completed_at?->toDateString(),
@@ -68,7 +68,7 @@ class ExportPcf extends DownloadExcel implements WithMapping, WithHeadings
             $item->actions->firstWhere('type.name', 'Topic Tagging')?->completed_at?->toDateString(),
             $item->pages_count,
             '',
-            'https://fromthepage.com/woodruff/woodruffpapers/'.$item->slug,
+            'https://fromthepage.com/woodruff/woodruffpapers/'.$item->ftp_slug,
         ];
     }
 }
