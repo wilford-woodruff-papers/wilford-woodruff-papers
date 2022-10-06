@@ -25,7 +25,7 @@
                         </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200 bg-white">
-                            @foreach($model->actions as $action)
+                            @foreach($model->actions->sortBy('created_at') as $action)
                                 <livewire:admin.action :action="$action" />
                             @endforeach
                         </tbody>
