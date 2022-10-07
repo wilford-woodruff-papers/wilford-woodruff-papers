@@ -9,8 +9,9 @@
                     <div class="content col-span-12 md:col-span-9">
                         <h2>Donate Online</h2>
                         {{--<iframe class="border-0" src="https://wp.wilfordwoodruffpapers.org/donate/" style="height: 1800px; width: 100%;"></iframe>--}}
-                        <script src="https://app.giveforms.com/widget.js" type="text/javascript"></script>
-                        <iframe src="https://app.giveforms.com/campaigns/wilfordwoodruffpapersfoundation/default-giveform" id="giveforms-form-embed" name="giveforms" height="1200px" width="100%" style="min-width: 320px; border: 0;" allowpaymentrequest="true"></iframe>
+                        {{--<script src="https://app.giveforms.com/widget.js" type="text/javascript"></script>
+                        <iframe src="https://app.giveforms.com/campaigns/wilfordwoodruffpapersfoundation/default-giveform" id="giveforms-form-embed" name="giveforms" height="1200px" width="100%" style="min-width: 320px; border: 0;" allowpaymentrequest="true"></iframe>--}}
+                        <iframe src="https://form-renderer-app.donorperfect.io/give/wilford-woodruff-papers-foundation/online-donation-form" id="donorperfect-form-embed" name="donorperfect" class="h-[3600px] sm:h-[3300px] md:h-[2800px]" width="100%" style="min-width: 320px; border: 0;" allowpaymentrequest="true"></iframe>
                     </div>
                 </div>
             </div>
