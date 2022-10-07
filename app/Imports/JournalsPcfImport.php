@@ -81,7 +81,7 @@ class JournalsPcfImport implements ToCollection, WithHeadingRow
                             ]);
                         }
 
-                        if (! empty($twoLVCompleted)) {
+                        if (! empty($twoLVAssigned)) {
                             Action::updateOrCreate([
                                 'action_type_id' => $actionTypes->firstWhere('name', 'Verification')->id,
                                 'actionable_type' => Item::class,
@@ -89,14 +89,14 @@ class JournalsPcfImport implements ToCollection, WithHeadingRow
                             ], [
                                 'assigned_to' => $this->getUserID($twoLVAssigned),
                                 'assigned_at' => $twoLVCompleted,
-                                'completed_by' => $this->getUserID($twoLVAssigned),
-                                'completed_at' => $twoLVCompleted,
+                                'completed_by' => ! empty($twoLVCompleted) ? $this->getUserID($twoLVAssigned) : null,
+                                'completed_at' => ! empty($twoLVCompleted) ? $twoLVCompleted : null,
                                 'created_at' => $twoLVCompleted,
                                 'updated_at' => $twoLVCompleted,
                             ]);
                         }
 
-                        if (! empty($subjectLinksCompleted)) {
+                        if (! empty($subjectLinksAssigned)) {
                             Action::updateOrCreate([
                                 'action_type_id' => $actionTypes->firstWhere('name', 'Subject Tagging')->id,
                                 'actionable_type' => Item::class,
@@ -104,8 +104,8 @@ class JournalsPcfImport implements ToCollection, WithHeadingRow
                             ], [
                                 'assigned_to' => $this->getUserID($subjectLinksAssigned),
                                 'assigned_at' => $subjectLinksCompleted,
-                                'completed_by' => $this->getUserID($subjectLinksAssigned),
-                                'completed_at' => $subjectLinksCompleted,
+                                'completed_by' => ! empty($subjectLinksCompleted) ? $this->getUserID($subjectLinksAssigned) : null,
+                                'completed_at' => ! empty($subjectLinksCompleted) ? $subjectLinksCompleted : null,
                                 'created_at' => $subjectLinksCompleted,
                                 'updated_at' => $subjectLinksCompleted,
                             ]);
@@ -126,7 +126,7 @@ class JournalsPcfImport implements ToCollection, WithHeadingRow
                             ]);
                         }
 
-                        if (! empty($stylizationCompleted)) {
+                        if (! empty($stylizationAssigned)) {
                             Action::updateOrCreate([
                                 'action_type_id' => $actionTypes->firstWhere('name', 'Stylization')->id,
                                 'actionable_type' => Item::class,
@@ -134,14 +134,14 @@ class JournalsPcfImport implements ToCollection, WithHeadingRow
                             ], [
                                 'assigned_to' => $this->getUserID($stylizationAssigned),
                                 'assigned_at' => $stylizationCompleted,
-                                'completed_by' => $this->getUserID($stylizationAssigned),
-                                'completed_at' => $stylizationCompleted,
+                                'completed_by' => ! empty($stylizationCompleted) ? $this->getUserID($stylizationAssigned) : null,
+                                'completed_at' => ! empty($stylizationCompleted) ? $stylizationCompleted : null,
                                 'created_at' => $stylizationCompleted,
                                 'updated_at' => $stylizationCompleted,
                             ]);
                         }
 
-                        if (! empty($topicTaggingAssigned)) {
+                        if (! empty($topicTaggingAssignedTo)) {
                             Action::updateOrCreate([
                                 'action_type_id' => $actionTypes->firstWhere('name', 'Topic Tagging')->id,
                                 'actionable_type' => Item::class,
@@ -149,8 +149,8 @@ class JournalsPcfImport implements ToCollection, WithHeadingRow
                             ], [
                                 'assigned_to' => $this->getUserID($topicTaggingAssignedTo),
                                 'assigned_at' => $topicTaggingAssigned,
-                                'completed_by' => $this->getUserID($topicTaggingAssignedTo),
-                                'completed_at' => $topicTaggingComplete,
+                                'completed_by' => ! empty($stylizationCompleted) ? $this->getUserID($topicTaggingAssignedTo) : null,
+                                'completed_at' => ! empty($topicTaggingComplete) ? $topicTaggingComplete : null,
                                 'created_at' => $topicTaggingAssigned,
                                 'updated_at' => $topicTaggingComplete,
                             ]);
@@ -201,7 +201,14 @@ class JournalsPcfImport implements ToCollection, WithHeadingRow
 
     private function getUserID($initials)
     {
+        if (in_array($initials, [
+            'n/a',
+        ])) {
+            return null;
+        }
+
         $initials = trim(str($initials)->before('/')->trim()->toString());
+
         switch ($initials) {
             case 'SCH':
             case 'Steve Harper':
@@ -307,6 +314,7 @@ class JournalsPcfImport implements ToCollection, WithHeadingRow
                 $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
                 break;
             case 'BD':
+            case 'Braeden':
             case 'Braeden Dyer':
                 $name = 'Braeden Dyer';
                 $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
@@ -386,6 +394,11 @@ class JournalsPcfImport implements ToCollection, WithHeadingRow
             case 'AH':
             case 'Abigail Harper':
                 $name = 'Abigail Harper';
+                $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
+                break;
+            case 'AH':
+            case 'Mackenzie':
+                $name = 'Mackenzie';
                 $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
                 break;
             default:
