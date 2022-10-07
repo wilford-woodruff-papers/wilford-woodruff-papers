@@ -208,6 +208,7 @@ class JournalsPcfImport implements ToCollection, WithHeadingRow
         }
 
         $initials = trim(str($initials)->before('/')->trim()->toString());
+
         switch ($initials) {
             case 'SCH':
             case 'Steve Harper':
