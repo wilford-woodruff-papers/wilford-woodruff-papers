@@ -31,24 +31,36 @@
                 <div class="!my-0">
                     @forelse($topicGroup as $key => $topic)
                         <div class="">
-                            <a class="text-secondary popup"
-                               href="{{ route('subjects.show', ['subject' => $topic])  }}"
-                            >
-                                {{ $topic->name }} ({{ $topic->tagged_count }})
-                            </a>
-                            @if($topic->children->count() > 0)
-                                <ul class="ml-1 flex flex-col gap-y-1">
-                                    @foreach($topic->children->sortBy('name') as $subTopic)
-                                        <li>
-                                            <a class="text-secondary popup"
-                                               href="{{ route('subjects.show', ['subject' => $subTopic])  }}"
-                                            >
-                                                {{ $subTopic->name }} ({{ $subTopic->tagged_count }})
-                                            </a>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            @endif
+                            <div>
+                                <livewire:subject :subject="$topic" :key="$topic->id"></livewire:subject>
+                            </div>
+
+                            <div>
+                                @if($topic->children->count() > 0)
+                                    <ul class="ml-1 flex flex-col gap-y-1">
+                                        @foreach($topic->children->sortBy('name') as $subTopic)
+                                            <li>
+                                                <livewire:subject :subject="$subTopic" :key="$subTopic->id"></livewire:subject>
+                                                @auth()
+                                                    @if(auth()->user()->hasAnyRole(['Super Admin']))
+                                                        <div>
+                                                            @if($subTopic->children->count() > 0)
+                                                                <ul class="ml-1 flex flex-col gap-y-1">
+                                                                    @foreach($subTopic->children->sortBy('name') as $grandchildTopic)
+                                                                        <li>
+                                                                            <livewire:subject :subject="$grandchildTopic" :key="$grandchildTopic->id"></livewire:subject>
+                                                                        </li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            @endif
+                                                        </div>
+                                                    @endif
+                                                @endauth()
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+                            </div>
                         </div>
                     @empty
                         <div class="px-2 text-secondary">
@@ -70,6 +82,10 @@
     </div>
     @push('styles')
         <style>
+            .content div {
+                margin-top: 0px;
+                margin-bottom: 0px;
+            }
             .content ul {
                 list-style-type: none;
             }
