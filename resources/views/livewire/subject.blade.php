@@ -87,6 +87,12 @@
                                 </x-slot>
 
                                 <x-slot name="footer">
+                                    @if(! empty($subject->subject_id))
+                                    <x-button.primary wire:click="$set('subject.subject_id', null)"
+                                                        wire:loading.attr="disabled">Remove Parent</x-button.primary>
+                                    @else
+                                        <div></div>
+                                    @endif
                                     <x-button.secondary wire:click.prevent="$set('showModal', false)">Cancel</x-button.secondary>
                                 </x-slot>
                             </x-modal.dialog>
