@@ -14,11 +14,18 @@ class Topics extends Component
 
     protected $queryString = ['letter' => ['except' => 'A'], 'search'];
 
+    protected $listeners = ['reloadTopics' => 'refresh'];
+
     public function mount()
     {
         if (empty($this->search) && empty($this->letter)) {
             $this->letter = 'A';
         }
+    }
+
+    public function refresh()
+    {
+        $this->render();
     }
 
     public function render()
@@ -31,6 +38,7 @@ class Topics extends Component
                             }])
                             ->whereEnabled(1)
                             ->when(empty($this->search), fn ($query, $search) => $query->whereNull('subject_id'))
+                            ->when(auth()->guest() || (auth()->check() && ! auth()->user()->hasAnyRole(['Super Admin'])), fn ($query) => $query->where('hide_on_index', 0))
                             ->whereHas('category', function (Builder $query) {
                                 $query->where('name', 'Index');
                             })
