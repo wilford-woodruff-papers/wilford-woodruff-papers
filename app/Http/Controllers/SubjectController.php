@@ -19,7 +19,8 @@ class SubjectController extends Controller
         }
 
         $subject->load(['parent', 'children' => function ($query) {
-            $query->whereHas('pages')
+            $query->when(auth()->guest() || (auth()->check() && ! auth()->user()->hasAnyRole(['Super Admin'])), fn ($query) => $query->where('hide_on_index', 0))
+                ->whereHas('pages')
                 ->withCount(['pages']);
         }])
             ->loadCount(['pages']);
