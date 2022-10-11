@@ -47,10 +47,15 @@ class Subject extends Component
         if ($field == 'subject_id') {
             $this->showModal = false;
             $this->emit('reloadTopics');
+            if (empty($value)) {
+                $logMessage = auth()->user()->name.' updated removed parent of '.$this->subject->name;
+            } else {
+                $logMessage = auth()->user()->name.' updated parent of '.$this->subject->name.' to '.\App\Models\Subject::find($value)->name;
+            }
             activity('activity')
                 ->on($this->subject)
                 ->event('parent updated')
-                ->log(auth()->user()->name.' updated parent of '.$this->subject->name.' to '.\App\Models\Subject::find($value)->name);
+                ->log($logMessage);
         }
         if ($field == 'hide_on_index') {
             activity('activity')
