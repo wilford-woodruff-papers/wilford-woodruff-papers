@@ -34,7 +34,11 @@ class Subject extends Model
 
     public function children()
     {
-        return $this->hasMany(self::class);
+        return $this->hasMany(self::class)->with(['children' => function ($query) {
+            $query->when(auth()->guest() || (auth()->check() && ! auth()->user()->hasAnyRole(['Super Admin'])), fn ($query) => $query->where('hide_on_index', 0))
+                ->where('tagged_count', '>', 0)
+                ->orWhere('text_count', '>', 0);
+        }]);
     }
 
     public function quotes()
