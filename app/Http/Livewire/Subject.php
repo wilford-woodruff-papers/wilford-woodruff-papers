@@ -44,9 +44,6 @@ class Subject extends Component
     public function updatingSubject($value, $field)
     {
         if ($field == 'subject_id') {
-            if (! empty(\App\Models\Subject::find($value)->subject_id) && empty(\App\Models\Subject::find($value)->parent?->subject_id)) {
-                return;
-            }
             $this->showModal = false;
             $this->emit('reloadTopics');
         }
