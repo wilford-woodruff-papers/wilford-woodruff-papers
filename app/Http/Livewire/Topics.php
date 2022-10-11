@@ -33,7 +33,8 @@ class Topics extends Component
         $topics = Subject::query()
                             ->with(['children' => function ($query) {
                                 //$query->whereHas('pages');
-                                $query->where('tagged_count', '>', 0)
+                                $query->when(auth()->guest() || (auth()->check() && ! auth()->user()->hasAnyRole(['Super Admin'])), fn ($query) => $query->where('hide_on_index', 0))
+                                    ->where('tagged_count', '>', 0)
                                     ->orWhere('text_count', '>', 0);
                             }])
                             ->whereEnabled(1)
