@@ -38,6 +38,11 @@ class IndexPageTopicsCommand extends Command
             foreach ($pages as $page) {
                 $page->subjects()->syncWithoutDetaching($topic->id);
             }
+
+            if ($topic->enabled == 0 && $pages->count() > 0) {
+                $topic->enabled = 1;
+                $topic->save();
+            }
         }
     }
 }
