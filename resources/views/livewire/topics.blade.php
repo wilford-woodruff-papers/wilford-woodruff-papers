@@ -38,7 +38,7 @@
                             <div>
                                 @if($topic->children->count() > 0)
                                     <ul class="ml-1 flex flex-col gap-y-1">
-                                        @foreach($topic->children->sortBy('name') as $subTopic)
+                                        @foreach($topic->children->sortBy('name', SORT_NATURAL|SORT_FLAG_CASE) as $subTopic)
                                             <li>
                                                 <livewire:subject :subject="$subTopic" :key="$subTopic->id"></livewire:subject>
                                                 @auth()
@@ -46,7 +46,7 @@
                                                         <div>
                                                             @if($subTopic->children->count() > 0)
                                                                 <ul class="ml-1 flex flex-col gap-y-1">
-                                                                    @foreach($subTopic->children->sortBy('name') as $grandchildTopic)
+                                                                    @foreach($subTopic->children->sortBy('name', SORT_NATURAL|SORT_FLAG_CASE) as $grandchildTopic)
                                                                         <li>
                                                                             <livewire:subject :subject="$grandchildTopic" :key="$grandchildTopic->id"></livewire:subject>
                                                                         </li>
