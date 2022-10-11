@@ -29,6 +29,7 @@ class Subject extends Component
     {
         if (! empty($this->query)) {
             $this->parents = \App\Models\Subject::query()
+                ->where('id', '!=', $this->subject->id)
                 ->where('name', 'LIKE', '%'.$this->query.'%')
                 ->whereHas('category', function (Builder $query) {
                     $query->where('name', 'Index');
@@ -46,6 +47,16 @@ class Subject extends Component
         if ($field == 'subject_id') {
             $this->showModal = false;
             $this->emit('reloadTopics');
+            activity('activity')
+                ->on($this->subject)
+                ->event('parent updated')
+                ->log(auth()->user()->name.' updated parent of '.$this->subject->name.' to '.\App\Models\Subject::find($value)->name);
+        }
+        if ($field == 'hide_on_index') {
+            activity('activity')
+                ->on($this->subject)
+                ->event('visibility updated')
+                ->log(auth()->user()->name.' updated visibility of '.$this->subject->name.' to '.($value == 0 ? 'visible' : 'hidden'));
         }
 
         $this->subject->{$field} = $value;
