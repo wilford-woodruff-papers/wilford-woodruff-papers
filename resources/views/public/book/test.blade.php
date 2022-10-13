@@ -13,7 +13,7 @@
 
 
     <!-- Landing image and title -->
-    <div class="section" id="landing" style="height: 100vh;">
+    <div class="section" id="landing" style="">
         <div class="back-image slow-parallax">
             <img src="{{ asset('img/book/book-cover-mockup-paperback.jpg') }}"
                  class="w-full h-auto -mt-8"
@@ -43,6 +43,55 @@
                         {{ __('book.Wilford Woodruff\'s Witness') }}<br/>
                         <small class="text-3xl">{{ __('book.The Development of Temple Doctrine') }}</small>
                     </h1>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="align-wrapper">
+            <div class="content mt-0">
+                <div class="max-w-7xl mx-auto pb-8 px-8 !mt-0 z-10">
+                    <div class="grid grid-cols-2 gap-x-2 !mt-0">
+                        <div class="">
+                            <h2 class="text-3xl font-serif py-8 text-dark-blue-500">
+                                {{ __('book.Purchase from Deseret Book') }}
+                            </h2>
+                            <div class="grid md:grid-cols-3 gap-4">
+                                <a href=""
+                                   class="px-4 py-4 rounded-3xl bg-secondary text-white text-center font-sans uppercase drop-shadow-lg">
+                                    {{ __('book.Paperback') }}
+                                </a>
+                                <a href=""
+                                   class="px-4 py-4 rounded-3xl bg-secondary text-white text-center font-sans uppercase drop-shadow-lg">
+                                    {{ __('book.Audiobook') }}
+                                </a>
+                                <a href=""
+                                   class="px-4 py-4 rounded-3xl bg-secondary text-white text-center font-sans uppercase drop-shadow-lg">
+                                    {{ __('book.eBook') }}
+                                </a>
+                            </div>
+                            <div class="grid grid-cols-2 py-8">
+                                <div>
+
+                                </div>
+                                <div class="text-sm text-right text-dark-blue-500">
+                                    {{ __('book.All sales of the eBook and Audiobook go to support the Wilford Woodruff Papers Foundation') }}
+                                </div>
+                            </div>
+                            <div class="pt-8 pb-16">
+                                <h2 class="text-3xl font-serif py-8 text-dark-blue-500">
+                                    {{ __('book.About the book') }}
+                                </h2>
+                                <div class="flex flex-col gap-y-4 text-xl font-sans text-dark-blue-600">
+                                    {!! __('book.Book Summary') !!}
+                                </div>
+                                <div class="h-32"></div>
+                            </div>
+                        </div>
+                        <div>
+
+                        </div>
+                    </div>
                 </div>
 
             </div>

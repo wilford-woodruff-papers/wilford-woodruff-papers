@@ -107,13 +107,13 @@
             text-align: center;
         }
         #landing.section .align-wrapper .content * {
-            margin-bottom: 5vh;
+            /*margin-bottom: 5vh;*/
         }
         #content.section {
             position: relative;
             width: 100vw;
             padding: 0 10vw;
-            margin-top: 15vh;
+            margin-top: 20vh;
             box-sizing: border-box;
         }
         #content.section .back-image-slide {

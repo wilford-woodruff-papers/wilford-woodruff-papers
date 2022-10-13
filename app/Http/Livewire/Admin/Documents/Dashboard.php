@@ -23,7 +23,7 @@ class Dashboard extends Component
 
     public $targetDates = [];
 
-    public $taskTypes= [];
+    public $taskTypes = [];
 
     public $filters = [
         'search' => '',
@@ -40,7 +40,8 @@ class Dashboard extends Component
 
     protected $listeners = ['refreshQuotes' => '$refresh'];
 
-    public function mount() {
+    public function mount()
+    {
         $this->targetDates = TargetPublishDate::query()
             ->where('publish_at', '>', now())
             ->orderBy('publish_at', 'ASC')
@@ -50,7 +51,8 @@ class Dashboard extends Component
         $this->taskTypes = ActionType::for('Documents')->ordered()->get();
     }
 
-    public function updatedFilters() {
+    public function updatedFilters()
+    {
         $this->resetPage();
     }
 
@@ -79,7 +81,8 @@ class Dashboard extends Component
         $this->showFilters = ! $this->showFilters;
     }
 
-    public function resetFilters() {
+    public function resetFilters()
+    {
         $this->reset('filters');
     }
 
@@ -87,9 +90,9 @@ class Dashboard extends Component
     {
         $query = Item::query()
             ->with('type', 'target_publish_dates', 'active_target_publish_date', 'actions')
-            ->when(array_key_exists('search', $this->filters) && $this->filters['search'], fn($query, $search) => $query->where('name', 'like', '%'.$this->filters['search'].'%'))
-            ->when(array_key_exists('status', $this->filters) && $this->filters['status'], fn($query, $status) => $query->where('enabled', $this->filters['status'] == 'on' ? 1 : 0))
-            ->when(array_key_exists('type', $this->filters) && $this->filters['type'], fn($query, $type) => $query->where('type_id', $this->filters['type']));
+            ->when(array_key_exists('search', $this->filters) && $this->filters['search'], fn ($query, $search) => $query->where('name', 'like', '%'.$this->filters['search'].'%'))
+            ->when(array_key_exists('status', $this->filters) && $this->filters['status'], fn ($query, $status) => $query->where('enabled', $this->filters['status'] == 'on' ? 1 : 0))
+            ->when(array_key_exists('type', $this->filters) && $this->filters['type'], fn ($query, $type) => $query->where('type_id', $this->filters['type']));
 
         return $this->applySorting($query);
     }

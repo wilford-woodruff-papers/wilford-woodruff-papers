@@ -35,5 +35,4 @@ class Action extends Model
     {
         return $this->belongsTo(User::class, 'completed_by');
     }
-
 }

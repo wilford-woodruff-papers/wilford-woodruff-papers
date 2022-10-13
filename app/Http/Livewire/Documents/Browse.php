@@ -35,11 +35,13 @@ class Browse extends Component
         'filters' => 'max:100',
     ];
 
-    public function updatedFilters() {
+    public function updatedFilters()
+    {
         $this->resetPage();
     }
 
-    public function updatingFilters() {
+    public function updatingFilters()
+    {
         logger()->info(data_get($this->filters, 'search'));
     }
 
@@ -62,9 +64,9 @@ class Browse extends Component
     {
         $this->types = Type::whereNull('type_id')
                                 ->withCount(['items' => function (Builder $query) {
-                                    $query->when(data_get($this->filters, 'search'), function($query, $q) {
-                                                $query->where('name', 'LIKE', '%' . $q . '%');
-                                            })
+                                    $query->when(data_get($this->filters, 'search'), function ($query, $q) {
+                                        $query->where('name', 'LIKE', '%'.$q.'%');
+                                    })
                                             ->where('enabled', 1);
                                 }])
                                 ->orderBy('name', 'ASC')
@@ -73,15 +75,15 @@ class Browse extends Component
         if (data_get($this->filters, 'type') == Type::firstWhere('name', 'Letters')->id) {
             $this->decades = DB::table('items')
                 ->select('decade', DB::raw('count(*) as total'))
-                ->when(data_get($this->filters, 'search'), function($query, $q) {
-                    $query->where('name', 'LIKE', '%' . $q . '%');
+                ->when(data_get($this->filters, 'search'), function ($query, $q) {
+                    $query->where('name', 'LIKE', '%'.$q.'%');
                 })
                 ->whereEnabled(1)
                 ->whereNotNull('decade')
                 ->groupBy('decade');
             $this->decades = $this->decades->where('type_id', data_get($this->filters, 'type'))
                 ->get();
-        }else{
+        } else {
             $this->filters['decade'] = null;
             $this->filters['year'] = null;
         }
@@ -89,8 +91,8 @@ class Browse extends Component
         if (data_get($this->filters, 'decade')) {
             $this->years = DB::table('items')
                 ->select('year', DB::raw('count(*) as total'))
-                ->when(data_get($this->filters, 'search'), function($query, $q) {
-                    $query->where('name', 'LIKE', '%' . $q . '%');
+                ->when(data_get($this->filters, 'search'), function ($query, $q) {
+                    $query->where('name', 'LIKE', '%'.$q.'%');
                 })
                 ->whereEnabled(1)
                 ->whereNotNull('year')
@@ -105,12 +107,12 @@ class Browse extends Component
             ->whereNull('item_id')
             ->whereEnabled(1)
             ->orderBy($this->sortColumn(), $this->sortDirection())
-            ->when(data_get($this->filters, 'search'), function($query, $q) {
-                $query->where('name', 'LIKE', '%' . $q . '%');
+            ->when(data_get($this->filters, 'search'), function ($query, $q) {
+                $query->where('name', 'LIKE', '%'.$q.'%');
             })
-            ->when(data_get($this->filters, 'type'), fn($query, $type) => $query->where('type_id', $type))
-            ->when(data_get($this->filters, 'decade'), fn($query, $decade) => $query->where('decade', $decade))
-            ->when(data_get($this->filters, 'year'), fn($query, $year) => $query->where('year', $year));
+            ->when(data_get($this->filters, 'type'), fn ($query, $type) => $query->where('type_id', $type))
+            ->when(data_get($this->filters, 'decade'), fn ($query, $decade) => $query->where('decade', $decade))
+            ->when(data_get($this->filters, 'year'), fn ($query, $year) => $query->where('year', $year));
 
         return view('livewire.documents.browse', [
             'items' => $items->paginate(10),
@@ -120,7 +122,6 @@ class Browse extends Component
 
     public function submit()
     {
-
     }
 
     private function sortColumn()

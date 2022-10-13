@@ -26,11 +26,11 @@ return [
 
     'user' => [
         'morph_prefix' => 'user',
-        'guards'       => [
+        'guards' => [
             'web',
             'api',
         ],
-        'resolver'     => OwenIt\Auditing\Resolvers\UserResolver::class,
+        'resolver' => OwenIt\Auditing\Resolvers\UserResolver::class,
     ],
 
     /*
@@ -42,10 +42,10 @@ return [
     |
     */
     'resolver' => [
-        'user'       => OwenIt\Auditing\Resolvers\UserResolver::class,
+        'user' => OwenIt\Auditing\Resolvers\UserResolver::class,
         'ip_address' => OwenIt\Auditing\Resolvers\IpAddressResolver::class,
         'user_agent' => OwenIt\Auditing\Resolvers\UserAgentResolver::class,
-        'url'        => OwenIt\Auditing\Resolvers\UrlResolver::class,
+        'url' => OwenIt\Auditing\Resolvers\UrlResolver::class,
     ],
 
     /*
@@ -120,7 +120,7 @@ return [
 
     'drivers' => [
         'database' => [
-            'table'      => 'audits',
+            'table' => 'audits',
             'connection' => null,
         ],
     ],

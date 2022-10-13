@@ -5,7 +5,6 @@ namespace App\Console\Commands;
 use App\Models\Item;
 use App\Models\Page;
 use Illuminate\Console\Command;
-use Illuminate\Database\Eloquent\Collection;
 
 class UpdatePageOrder extends Command
 {

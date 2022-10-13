@@ -4,8 +4,8 @@ return [
 
     'English' => 'English',
     'Spanish' => 'Español',
-    'Wilford Woodruff\'s Witness' => 'Wilford Woodruff\'s Witness',
-    'The Development of Temple Doctrine' => 'The Development of Temple Doctrine',
+    'Wilford Woodruff\'s Witness' => 'Desarrollo de la doctrina del templo',
+    'The Development of Temple Doctrine' => 'Testimonio de Wilford Woodruff',
     'Purchase from Deseret Book' => 'Purchase from Deseret Book',
     'Paperback' => 'Paperback',
     'Audiobook' => 'Audiobook',
