@@ -66,7 +66,7 @@
                     </div>
                 </div>
                 <div class="order-1 md:order-2 pt-16">
-                    <img src="{{ asset('img/book/book-cover-paperback.jpg') }}"
+                    <img src="{{ asset(__('book.Cover URL')) }}"
                          class="md:sticky md:top-10 md:pb-20 drop-shadow-xl w-3/5 mx-auto"
                     >
                 </div>
@@ -110,30 +110,30 @@
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-x-16 gap-y-4 md:gap-y-0">
                         <div class="pt-32 md:pt-4">
                             <div class="rounded-xl drop-shadow-2xl bg-[#E2E9EF] text-[#0E3240] py-4 px-6">
-                                <p class="text-lg">“I now have a much richer understanding of how the saints struggled to comprehend the greater light the Lord was trying to give them. Much of the wonderful insight we have today is the product of Wilford Woodruff's lifelong efforts to understand the will of God concerning the temple ceremony. Highly recommend this book.”</p>
+                                <p class="text-lg">{!! __('book.Review 1.Text') !!}</p>
                                 <div class="flex justify-end">
-                                    <p class="text-sm font-semibold pt-4">John Hamilton</p>
+                                    <p class="text-sm font-semibold pt-4">{!! __('book.Review 1.Author') !!}</p>
                                 </div>
                             </div>
                         </div>
                         <div class="md:pt-48">
                             <div class="rounded-xl drop-shadow-2xl bg-[#E2E9EF] text-[#0E3240] py-4 px-6">
-                                <p class="text-lg">“Even readers well-versed in the temple and its history will learn from <span class="italic">Wilford Woodruff's Witness</span>.”</p>
+                                <p class="text-lg">{!! __('book.Review 2.Text') !!}</p>
                                 <div class="flex justify-end">
                                     <div class="inline">
-                                        <p class="text-sm font-semibold pt-4 text-right">Steven C. Harper</p>
-                                        <p class="text-sm text-right">Professor of Church<br />History and Doctrine at BYU</p>
+                                        <p class="text-sm font-semibold pt-4 text-right">{!! __('book.Review 2.Author') !!}</p>
+                                        <p class="text-sm text-right">{!! __('book.Review 2.Position') !!}</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="md:pt-8">
                             <div class="rounded-xl drop-shadow-2xl bg-[#E2E9EF] text-[#0E3240] py-4 px-6">
-                                <p class="text-lg">“Those who read this book will have a better understanding of the development of modern temple worship and come away with an appreciation for those who, like President Woodruff, wore out their lives in making possible the temple blessings we enjoy today.”</p>
+                                <p class="text-lg">{!! __('book.Review 3.Text') !!}</p>
                                 <div class="flex justify-end">
                                     <div class="inline">
-                                        <p class="text-sm font-semibold pt-4 text-right">Richard E. Turley, Jr.</p>
-                                        <p class="text-sm text-right">Latter-Day Saint Historian</p>
+                                        <p class="text-sm font-semibold pt-4 text-right">{!! __('book.Review 3.Author') !!}</p>
+                                        <p class="text-sm text-right">{!! __('book.Review 3.Position') !!}</p>
                                     </div>
                                 </div>
                             </div>
@@ -142,19 +142,19 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-64 gap-y-4 md:gap-y-0 py-4 md:py-0">
                         <div class="md:pt-36 md:pl-8">
                             <div class="rounded-xl drop-shadow-2xl bg-[#E2E9EF] text-[#0E3240] py-4 px-6">
-                                <p class="text-lg">“<span class="italic">Wilford Woodruff's Witness</span> is a fascinating work. It is a thorough and well-structured historical journey. I saw both the attorney and the historical researcher in the written word, yet the author treats a sacred subject with the proper sensitivity and reverence that it requires. The book’s content flows well to enlighten and leave no doubt as to the importance of the message.”</p>
+                                <p class="text-lg">{!! __('book.Review 4.Text') !!}</p>
                                 <div class="flex justify-end">
-                                    <p class="text-sm font-semibold pt-4">Alan H.</p>
+                                    <p class="text-sm font-semibold pt-4">{!! __('book.Review 4.Author') !!}</p>
                                 </div>
                             </div>
                         </div>
                         <div class="md:pt-8 md:pr-8">
                             <div class="rounded-xl drop-shadow-2xl bg-[#E2E9EF] text-[#0E3240] py-4 px-6">
-                                <p class="text-lg">“Mackley organizes an immense amount of statistics, events, numbers, and peoples covering almost nine full decades. She then presents a compelling history, at times personally intense, of Wilford Woodruff and the Restoration with its myriad events and people.... Her narrative is easily delivered and easy to follow. Buy one for yourself and give copies as gifts for your friends because this is a serious book for serious scholars of the Restored Gospel.”</p>
+                                <p class="text-lg">{!! __('book.Review 5.Text') !!}</p>
                                 <div class="flex justify-end">
                                     <div class="inline">
-                                        <p class="text-sm font-semibold pt-4 text-right">Melvin C. Johnson</p>
-                                        <p class="text-sm text-right">Association for Mormon Letters</p>
+                                        <p class="text-sm font-semibold pt-4 text-right">{!! __('book.Review 5.Author') !!}</p>
+                                        <p class="text-sm text-right">{!! __('book.Review 5.Position') !!}</p>
                                     </div>
                                 </div>
                             </div>
@@ -165,6 +165,20 @@
             </div>
         </div>
     </div>
+
+    <div class="bg-cover bg-center" style="background-image: url('{{ asset('img/book/search-ancestors-background-fullsize.jpg') }}')">
+        <a href="{{ route('people') }}">
+            <div class="max-w-2xl mx-auto py-16 md:py-24 px-4 md:px-0">
+                <h2 class="text-3xl md:text-5xl text-dark-blue-500 font-serif !leading-[3.0rem] md:!leading-[4.0rem]">
+                    {!! __('book.Search for your ancestors') !!}
+                </h2>
+                <div class="flex justify-end text-secondary font-semibold font-serif text-2xl md:text-4xl mt-2 md:mt-8 px-16">
+                    <span>{!! __('book.Start now') !!} ></span>
+                </div>
+            </div>
+        </a>
+    </div>
+
     @if(app()->getLocale() == 'en')
         <div class="bg-[#DBEAEF] py-8 md:py-16 px-4 md:px-0">
             <div class="max-w-7xl mx-auto">
@@ -181,6 +195,7 @@
                                 <div class="">
                                     <img src="{{ asset('img/book/lds-lerspectives.png') }}"
                                          class="mx-auto w-2/3 md:w-full"
+                                         alt="LDS Perspectives Podcast"
                                     >
                                 </div>
                                 <div class="col-span-2 flex items-center">
@@ -211,8 +226,9 @@
                         >
                             <div class="grid grid-cols-1 md:grid-cols-3 md:gap-x-8 gap-y-8">
                                 <div class="">
-                                    <img src="{{ asset('img/book/book-cover-paperback.jpg') }}"
+                                    <img src="{{ asset('img/book/reational-faiths-podcast.png') }}"
                                          class="mx-auto w-2/3 md:w-full"
+                                         alt="Rational Faiths Podcast"
                                     >
                                 </div>
                                 <div class="col-span-2 flex items-center">
@@ -241,7 +257,7 @@
         </div>
     @endif
 
-    <div class="py-8 md:py-16 bg-cover bg-center" style="background-image: url('{{ asset('img/book/temple-valley.png') }}')">
+    <div class="py-8 md:py-16 bg-cover bg-center" style="background-image: url('{{ asset(__('book.Cover URL')) }}')">
         <div class="max-w-3xl mx-auto px-4 md:px-4">
             <div>
 
