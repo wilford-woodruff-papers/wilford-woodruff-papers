@@ -23,13 +23,13 @@ class Localization
         $session = $request->getSession();
 
         if (! $session->has(self::SESSION_KEY)) {
-            $session->put(self::SESSION_KEY, $request->getPreferredLanguage(self::LOCALES));
+            $session->set(self::SESSION_KEY, $request->getPreferredLanguage(self::LOCALES));
         }
 
         if ($request->has('locale')) {
             $lang = $request->get('locale');
             if (in_array($lang, self::LOCALES)) {
-                $session->put(self::SESSION_KEY, $lang);
+                $session->set(self::SESSION_KEY, $lang);
             }
         }
 
