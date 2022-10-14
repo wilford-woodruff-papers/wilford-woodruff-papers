@@ -257,7 +257,7 @@
         </div>
     @endif
 
-    <div class="py-8 md:py-16 bg-cover bg-center" style="background-image: url('{{ asset(__('book.Cover URL')) }}')">
+    <div class="py-8 md:py-16 bg-cover bg-center" style="background-image: url('{{ asset('img/book/temple-valley.png') }}')">
         <div class="max-w-3xl mx-auto px-4 md:px-4">
             <div>
 
