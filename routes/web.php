@@ -27,6 +27,13 @@ Route::domain('{year}.'.config('app.url'))->group(function () {
     });
 });
 
+Route::get('language/{locale}', function ($locale) {
+    app()->setLocale($locale);
+    session()->put('locale', $locale);
+
+    return redirect()->back();
+})->name('language.locale');
+
 Route::get('/', \App\Http\Controllers\HomeController::class)->name('home');
 Route::get('/advanced-search', \App\Http\Controllers\SearchController::class)->name('advanced-search');
 // Route::get('/documents', [\App\Http\Controllers\ItemController::class, 'index'])->name('documents');
@@ -39,6 +46,9 @@ Route::get('/documents/{item}/transcript', [\App\Http\Controllers\ItemController
 Route::get('/documents/{item}/page/{page}', [\App\Http\Controllers\PageController::class, 'show'])->name('pages.show');
 Route::get('/d/{hashid}', [\App\Http\Controllers\ShortUrlController::class, 'item'])->name('short-url.item');
 Route::get('/p/{hashid}', [\App\Http\Controllers\ShortUrlController::class, 'page'])->name('short-url.page');
+
+Route::view('/wilford-woodruffs-witness', 'public.book.product-page')->name('book.product-page');
+//Route::view('/wilford-woodruffs-witness-test', 'public.book.test')->name('book.product-page-test');
 
 Route::get('/subjects/{subject}', [\App\Http\Controllers\SubjectController::class, 'show'])->name('subjects.show')
         ->missing(function (Illuminate\Http\Request $request) {

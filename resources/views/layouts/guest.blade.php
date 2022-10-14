@@ -75,6 +75,6 @@
             }
         </script>
 
-        <x-constant-contact />
+        {{--<x-constant-contact />--}}
     </body>
 </html>
