@@ -1,7 +1,8 @@
-<div class="bg-cover bg-center h-12" style="background-image: url({{ asset('img/banners/home.jpg') }})">
 
-</div>
 <footer class="bg-primary">
+    <div class="bg-cover bg-center h-12" style="background-image: url({{ asset('img/banners/home.jpg') }})">
+
+    </div>
     <div class="max-w-7xl mx-auto overflow-hidden py-12 px-4 sm:px-6 lg:px-8">
         <div class="font-serif text-3xl md:text-5xl font-medium text-highlight">
             {{ config('app.name', 'Laravel') }}

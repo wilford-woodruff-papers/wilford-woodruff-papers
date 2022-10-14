@@ -1,7 +1,7 @@
 <header x-data="{
                 mobileMenuOpen: false,
             }"
-        class="bg-primary"
+        class="bg-primary nav"
 >
     <div class="relative max-w-7xl mx-auto">
 
