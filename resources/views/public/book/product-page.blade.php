@@ -80,8 +80,8 @@
                 <div class="absolute w-full h-full">
                     <div class="grid grid-cols-1 md:grid-cols-3 h-full">
                         <div class="hidden md:block relative">
-                            <div class="absolute -left-4 top-32 w-4/5">
-                                <img src="{{ asset('img/book/book-cover-paperback.jpg') }}"
+                            <div class="absolute -left-4 top-64 w-4/5">
+                                <img src="{{ asset('img/book/wilford-woodruff.png') }}"
                                      class="drop-shadow-xl w-full rounded-3xl"
                                 >
                             </div>
@@ -91,14 +91,14 @@
                                 <h2 class="text-3xl md:text-5xl text-white font-serif">{{ __('book.Reviews') }}</h2>
                             </div>
                             <div class="absolute bottom-10">
-                                <img src="{{ asset('img/book/book-cover-paperback.jpg') }}"
+                                <img src="{{ asset('img/book/wilford-woodruff-with-family.png') }}"
                                      class="drop-shadow-xl w-4/5 mx-auto rounded-3xl"
                                 >
                             </div>
                         </div>
                         <div class="hidden md:block relative">
-                            <div class="absolute -right-4 top-20 w-4/5">
-                                <img src="{{ asset('img/book/book-cover-paperback.jpg') }}"
+                            <div class="absolute -right-4 top-64 w-4/5">
+                                <img src="{{ asset('img/book/temple-close-up.png') }}"
                                      class="drop-shadow-xl w-full rounded-3xl"
                                 >
                             </div>
@@ -139,8 +139,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-4 md:gap-y-0 py-4 md:py-0">
-                        <div class="md:pt-24">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-64 gap-y-4 md:gap-y-0 py-4 md:py-0">
+                        <div class="md:pt-36 md:pl-8">
                             <div class="rounded-xl drop-shadow-2xl bg-[#E2E9EF] text-[#0E3240] py-4 px-6">
                                 <p class="text-lg">“<span class="italic">Wilford Woodruff's Witness</span> is a fascinating work. It is a thorough and well-structured historical journey. I saw both the attorney and the historical researcher in the written word, yet the author treats a sacred subject with the proper sensitivity and reverence that it requires. The book’s content flows well to enlighten and leave no doubt as to the importance of the message.”</p>
                                 <div class="flex justify-end">
@@ -148,7 +148,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="md:pt-8">
+                        <div class="md:pt-8 md:pr-8">
                             <div class="rounded-xl drop-shadow-2xl bg-[#E2E9EF] text-[#0E3240] py-4 px-6">
                                 <p class="text-lg">“Mackley organizes an immense amount of statistics, events, numbers, and peoples covering almost nine full decades. She then presents a compelling history, at times personally intense, of Wilford Woodruff and the Restoration with its myriad events and people.... Her narrative is easily delivered and easy to follow. Buy one for yourself and give copies as gifts for your friends because this is a serious book for serious scholars of the Restored Gospel.”</p>
                                 <div class="flex justify-end">
@@ -179,7 +179,7 @@
                         >
                             <div class="grid grid-cols-1 md:grid-cols-3 md:gap-x-8 gap-y-8">
                                 <div class="">
-                                    <img src="{{ asset('img/book/book-cover-paperback.jpg') }}"
+                                    <img src="{{ asset('img/book/lds-lerspectives.png') }}"
                                          class="mx-auto w-2/3 md:w-full"
                                     >
                                 </div>
@@ -241,7 +241,7 @@
         </div>
     @endif
 
-    <div class="py-8 md:py-16 bg-cover bg-center" style="background-image: url('{{ asset('img/book/book-cover-paperback.jpg') }}')">
+    <div class="py-8 md:py-16 bg-cover bg-center" style="background-image: url('{{ asset('img/book/temple-valley.png') }}')">
         <div class="max-w-3xl mx-auto px-4 md:px-4">
             <div>
 
@@ -261,7 +261,7 @@
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 md:gap-x-16">
                 <div>
-                    <img src="{{ asset('img/book/book-cover-paperback.jpg') }}"
+                    <img src="{{ asset('img/book/jennifer-mackley.png') }}"
                          class="mx-auto w-3/4 md:w-full"
                     >
                 </div>
