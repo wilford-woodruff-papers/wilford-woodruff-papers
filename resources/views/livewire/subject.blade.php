@@ -32,11 +32,23 @@
                         </button>
                         <div>
                             <x-modal.dialog wire:model="showModal">
-                                <x-slot name="title">Edit Parent Topic for: <span class="font-semibold">{{ $subject->name }}</span></x-slot>
+                                <x-slot name="title">Editing: <span class="font-semibold">{{ $subject->name }}</span></x-slot>
 
                                 <x-slot name="content">
                                     <div class="py-4">
-                                        <label for="query" class="sr-only text-sm font-medium text-gray-700">Search</label>
+                                        <label for="query" class="sr-only text-sm font-medium text-gray-700">Name</label>
+                                        <div class="relative mt-1 rounded-md shadow-sm">
+                                            <input wire:model.debounce="subject.name"
+                                                   type="text"
+                                                   name="name"
+                                                   id="name"
+                                                   class="block w-full rounded-md border-gray-300 pl-4 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                                   placeholder="Topic name"
+                                            >
+                                        </div>
+                                    </div>
+                                    <div class="py-4">
+                                        <label for="query" class="sr-only text-sm font-medium text-gray-700">Search for parent</label>
                                         <div class="relative mt-1 rounded-md shadow-sm">
                                             <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5 text-gray-400">
@@ -48,7 +60,7 @@
                                                    name="query"
                                                    id="query"
                                                    class="block w-full rounded-md border-gray-300 pl-10 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                                   placeholder="Search"
+                                                   placeholder="Search for parent"
                                                    autofocus
                                             >
                                         </div>
