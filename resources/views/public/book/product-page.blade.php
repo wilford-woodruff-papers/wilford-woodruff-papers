@@ -52,7 +52,7 @@
                     </div>
                     <div class="flex justify-end py-8 px-4 md:px-0">
                         <div class="text-sm text-right text-dark-blue-500">
-                            {!! __('book.All proceeds support the<br />Wilford Woodruff Papers Project') !!}
+                            {!! __('book.Proceeds support the<br />Wilford Woodruff Papers Project') !!}
                         </div>
                     </div>
                     <div class="md:pt-8 md:pb-16 px-4 md:px-0">
