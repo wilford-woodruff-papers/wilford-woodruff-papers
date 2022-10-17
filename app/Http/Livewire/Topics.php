@@ -37,7 +37,6 @@ class Topics extends Component
                                     ->where('tagged_count', '>', 0)
                                     ->orWhere('text_count', '>', 0);
                             }])
-                            ->whereEnabled(1)
                             ->when(empty($this->search), fn ($query, $search) => $query->whereNull('subject_id'))
                             ->when(auth()->guest() || (auth()->check() && ! auth()->user()->hasAnyRole(['Super Admin'])), fn ($query) => $query->where('hide_on_index', 0))
                             ->whereHas('category', function (Builder $query) {
