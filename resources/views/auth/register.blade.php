@@ -47,14 +47,15 @@
                 </div>
             @endif
 
-            <div class="flex items-center justify-end mt-4">
+            <div class="flex flex-col gap-y-2 items-center justify-center mt-4">
+                <x-jet-button class="py-3 md:py-4 text-center bg-secondary rounded-none">
+                    <span class="mx-auto text-base md:text-lg font-medium">
+                        {{ __('Register') }}
+                    </span>
+                </x-jet-button>
                 <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
                     {{ __('Already registered?') }}
                 </a>
-
-                <x-jet-button class="ml-4">
-                    {{ __('Register') }}
-                </x-jet-button>
             </div>
         </form>
         <div class="relative">
@@ -65,7 +66,7 @@
                 <span class="px-2 bg-white text-sm text-gray-500"> or </span>
             </div>
         </div>
-        <div class="gap-y-4">
+        <div class="grid gap-y-4">
             <div>
                 <a href="{{ route('login.google') }}" type="button" class="inline-flex items-center justify-center px-4 py-2 w-full border border-transparent shadow-md text-sm font-medium text-gray-500 bg-white hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
                     <!-- Google Icon -->
@@ -78,6 +79,25 @@
                         </g>
                     </svg>
                     Sign in with Google
+                </a>
+            </div>
+            <div>
+                <a href="{{ route('login.facebook') }}" type="button" class="inline-flex items-center justify-center px-4 py-2 w-full border border-transparent shadow-md text-sm font-medium text-gray-500 bg-white hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                    <!-- Facebook Icon -->
+                    <svg class="-ml-1 mr-2 h-5 w-5" version="1.1" id="facebook-icon"
+                         xmlns="http://www.w3.org/2000/svg"
+                         x="0px" y="0px"
+                         viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;"
+                         xml:space="preserve">
+                                    <path style="fill:#385C8E;" d="M134.941,272.691h56.123v231.051c0,4.562,3.696,8.258,8.258,8.258h95.159
+                                        c4.562,0,8.258-3.696,8.258-8.258V273.78h64.519c4.195,0,7.725-3.148,8.204-7.315l9.799-85.061c0.269-2.34-0.472-4.684-2.038-6.44
+                                        c-1.567-1.757-3.81-2.763-6.164-2.763h-74.316V118.88c0-16.073,8.654-24.224,25.726-24.224c2.433,0,48.59,0,48.59,0
+                                        c4.562,0,8.258-3.698,8.258-8.258V8.319c0-4.562-3.696-8.258-8.258-8.258h-66.965C309.622,0.038,308.573,0,307.027,0
+                                        c-11.619,0-52.006,2.281-83.909,31.63c-35.348,32.524-30.434,71.465-29.26,78.217v62.352h-58.918c-4.562,0-8.258,3.696-8.258,8.258
+                                        v83.975C126.683,268.993,130.379,272.691,134.941,272.691z"/>
+                        <
+                                </svg>
+                    Sign in with Facebook
                 </a>
             </div>
         </div>
