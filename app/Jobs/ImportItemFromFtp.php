@@ -6,6 +6,7 @@ use App\Models\Date;
 use App\Models\Item;
 use App\Models\Page;
 use App\Models\Subject;
+use Carbon\Carbon;
 use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -95,6 +96,15 @@ class ImportItemFromFtp implements ShouldQueue
 
                 foreach ($dates as $date) {
                     try {
+                        if (Carbon::canBeCreatedFromFormat($date, 'Y-m-d')) {
+                            // No modification to date needed
+                        } elseif (Carbon::canBeCreatedFromFormat($date, 'Y-m')) {
+                            $date = $date.'-01';
+                        } elseif (Carbon::canBeCreatedFromFormat($date, 'Y')) {
+                            $date = $date.'-01-01';
+                        } else {
+                            logger()->warning('Date cannot be created from '.$date);
+                        }
                         $d = new Date;
                         $d->date = $date;
                         $page->dates()->save($d);
