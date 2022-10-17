@@ -16,6 +16,7 @@ class Subject extends Component
     public \App\Models\Subject $subject;
 
     protected $rules = [
+        'subject.name' => 'required|min:2|max:255',
         'subject.hide_on_index' => 'boolean',
         'subject.subject_id' => 'integer',
     ];
@@ -62,6 +63,12 @@ class Subject extends Component
                 ->on($this->subject)
                 ->event('visibility updated')
                 ->log(auth()->user()->name.' updated visibility of '.$this->subject->name.' to '.($value == 0 ? 'visible' : 'hidden'));
+        }
+        if ($field == 'name') {
+            activity('activity')
+                ->on($this->subject)
+                ->event('name updated')
+                ->log(auth()->user()->name.' updated name of '.$this->subject->name.' to '.$value);
         }
 
         $this->subject->{$field} = $value;
