@@ -3,10 +3,12 @@
 namespace App\Nova;
 
 use App\Nova\Actions\ExportSubjects;
+use App\Nova\Actions\ExportSubjectsWithChildren;
 use App\Nova\Actions\ImportBiographies;
 use App\Nova\Actions\ImportIndexTopics;
 use App\Nova\Actions\ImportSubjects;
 use App\Nova\Actions\ParseNames;
+use App\Nova\Filters\Index;
 use App\Nova\Filters\SubjectType;
 use Emilianotisato\NovaTinyMCE\NovaTinyMCE;
 use Illuminate\Http\Request;
@@ -90,6 +92,7 @@ class Subject extends Resource
     {
         return [
             new SubjectType,
+            new Index,
         ];
     }
 
@@ -117,6 +120,8 @@ class Subject extends Resource
             new ImportSubjects,
             new ImportBiographies,
             (new ExportSubjects)
+                ->askForWriterType(),
+            (new ExportSubjectsWithChildren)
                 ->askForWriterType(),
             new ParseNames,
         ];
