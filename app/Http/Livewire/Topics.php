@@ -33,9 +33,12 @@ class Topics extends Component
         $topics = Subject::query()
                             ->with(['children' => function ($query) {
                                 //$query->whereHas('pages');
-                                $query->when(auth()->guest() || (auth()->check() && ! auth()->user()->hasAnyRole(['Super Admin'])), fn ($query) => $query->where('hide_on_index', 0))
-                                    ->where('tagged_count', '>', 0)
-                                    ->orWhere('text_count', '>', 0);
+                                $query->when(auth()->guest() || (auth()->check() && ! auth()->user()->hasAnyRole(['Super Admin'])), fn ($query) => $query->where('hide_on_index', 0)
+                                        ->where(function ($query) {
+                                            $query->where('tagged_count', '>', 0)
+                                                ->orWhere('text_count', '>', 0);
+                                        })
+                                );
                             }])
                             ->when(empty($this->search), fn ($query, $search) => $query->whereNull('subject_id'))
                             ->when(auth()->guest() || (auth()->check() && ! auth()->user()->hasAnyRole(['Super Admin'])), fn ($query) => $query->where('hide_on_index', 0))
