@@ -2,6 +2,11 @@
     <x-slot name="title">
         {{ $article->title }} | {{ config('app.name') }}
     </x-slot>
+    @if(! empty($article->link))
+        <x-slot name="canonical">
+            <link rel="canonical" href="{{ $article->link }}" />
+        </x-slot>
+    @endif
     <div id="content" role="main">
         <div class="max-w-7xl mx-auto px-4">
             <div class="blocks">
