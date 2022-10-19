@@ -20,6 +20,8 @@
 
         <title>{{ $title ?? config('app.name') }}</title>
 
+        {!! $canonical ?? '' !!}
+
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro&display=swap" rel="stylesheet">

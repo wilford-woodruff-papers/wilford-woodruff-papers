@@ -8,11 +8,9 @@ use Illuminate\Support\Str;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\Date;
-use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Article extends Resource
 {
@@ -53,14 +51,17 @@ class Article extends Resource
             ID::make(__('ID'), 'id')->sortable(),
             Image::make(__('Cover Image'), 'cover_image')
                 ->disk('media')
+                ->hideFromIndex()
                 ->help('A cover image is required to display articles on the homepage'),
             Text::make(__('Title'), 'title')
                 ->required(true)
-                ->sortable(),
+                ->displayUsing(function ($value) {
+                    return '<a href="'.(! empty($this?->slug) ? route('media.article', ['article' => $this->slug]) : '').'" class="no-underline dim text-primary font-bold" target="_blank" title="Click for preview on website">'.str($value)->limit('40', '...').'</a>';
+                })
+                ->asHtml(),
             Text::make(__('Slug'), 'slug')
                 ->hideFromIndex()
                 ->hideWhenCreating()
-                ->sortable()
                 ->help('The slug is automatically generated, but can be updated if needed to make the URL more user friendly. It must be unique.'),
             Date::make(__('Publish At'), 'date')
                 ->required(true)
@@ -68,10 +69,8 @@ class Article extends Resource
             Text::make(__('Author Name(s)'), 'subtitle')
                 ->displayUsing(function ($subtitle) {
                     return Str::of($subtitle)->limit('50', ' ...');
-                })
-                ->sortable(),
+                }),
             Text::make(__('Publisher Name'), 'publisher')
-                ->sortable()
                 ->help('Examples: Meridian Magazine, Work + Wonder, The LDS Women Project, Digital Journal, Deseret News, Y Magazine. Used for link when linking to external site.'),
             NovaTinyMCE::make('Excerpt')
                 ->options([
