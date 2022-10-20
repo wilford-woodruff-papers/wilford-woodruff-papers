@@ -4,9 +4,7 @@ namespace App\Http\Livewire\Admin;
 
 use App\Models\ActionType;
 use App\Models\Period;
-use App\Models\TargetPublishDate;
 use App\Models\Type;
-use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 
 class Progress extends Component
