@@ -50,7 +50,8 @@ class Topics extends Component
                             ->whereHas('category', function (Builder $query) {
                                 $query->where('name', 'Index');
                             })
-                            ->when($this->letter, fn ($query, $letter) => $query->where('index', $letter))
+                            //->when($this->letter, fn ($query, $letter) => $query->where('index', $letter))
+                            ->when($this->letter, fn ($query, $letter) => $query->where('name', 'LIKE', $letter.'%'))
                             ->when($this->search, function ($query, $search) {
                                 $names = str($search)->explode(' ');
                                 foreach ($names as $name) {
