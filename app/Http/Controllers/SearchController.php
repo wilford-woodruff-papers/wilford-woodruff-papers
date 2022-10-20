@@ -19,7 +19,7 @@ class SearchController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $pages = new Page;
+        $pages = Page::query()->with('dates', 'media', 'parent');
         $pages = $pages->with('item')
                         ->whereHas('item', function (Builder $query) {
                             $query->where('enabled', 1);
