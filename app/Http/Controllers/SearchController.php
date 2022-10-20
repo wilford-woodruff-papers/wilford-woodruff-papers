@@ -25,7 +25,7 @@ class SearchController extends Controller
                             $query->where('enabled', 1);
                         });
 
-        if ($request->has('q')) {
+        if ($request->has('q') && $request->get('q') != '*') {
             $pages = $pages->where(function ($query) use ($request) {
                 $query->whereRelation('item', 'name', 'LIKE', '%'.$request->get('q').'%')
                                       ->orWhere('transcript', 'LIKE', '%'.$request->get('q').'%');
@@ -61,7 +61,8 @@ class SearchController extends Controller
                     ->withProperties(array_merge(
                         ['types' => Type::whereIn('id', $request->get('types'))->pluck('name')->all()],
                         $request->except('types'),
-                        ['referrer' => $request->headers->get('referer')]
+                        ['referrer' => $request->headers->get('referer')],
+                        ['user_agent' => $request->server('HTTP_USER_AGENT')],
                     ))
                     ->log((! empty($request->get('q')) ? $request->get('q') : '*'));
             } catch (\Exception $e) {
