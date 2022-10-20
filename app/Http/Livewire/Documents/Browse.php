@@ -103,7 +103,7 @@ class Browse extends Component
         }
 
         $items = Item::query()
-            ->with('type')
+            ->with('pages', 'type')
             ->whereNull('item_id')
             ->whereEnabled(1)
             ->orderBy($this->sortColumn(), $this->sortDirection())
