@@ -1,8 +1,9 @@
 @if(auth()->check() && auth()->user()->hasRole([
+    'Tagger',
+    'Quote Tagging',
     'Editor',
     'Admin',
     'Super Admin',
-    'Tagger',
 ]))
 
     <div class="w-full bg-black text-white px-8 py-4">

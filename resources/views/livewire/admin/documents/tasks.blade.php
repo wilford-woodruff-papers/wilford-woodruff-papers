@@ -1,6 +1,11 @@
 <div>
     @if($assignedItems->count())
         <div class="px-4 sm:px-6 lg:px-8">
+            <div class="pt-4 sm:flex sm:items-center">
+                <div class="sm:flex-auto">
+                    <h1 class="text-xl font-semibold text-gray-900">Your Assigned Tasks</h1>
+                </div>
+            </div>
             <div class="mt-8 flex flex-col">
                 <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
@@ -83,8 +88,11 @@
                                                     <span class="relative z-0 inline-flex shadow-sm rounded-md">
                                                       <a href="{{ route('pages.show', ['item' => $item, 'page' => $pageActions->first()->actionable]) }}" class="relative inline-flex items-center px-2 py-1 rounded-l-md border border-gray-300 bg-white text-xs font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500" target="_blank">Website</a>
                                                       <a href="{{ $pageActions->first()->actionable->ftp_link }}" class="-ml-px relative inline-flex items-center px-2 py-1 border border-gray-300 bg-white text-xs font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500" target="_blank">FTP</a>
-                                                      <a href="/nova/resources/pages/{{ $pageActions->first()->actionable->id }}" class="-ml-px relative inline-flex items-center px-2 py-1 rounded-r-md border border-gray-300 bg-white text-xs font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500" target="_blank">Nova</a>
-                                                    </span>                                                </div>
+                                                        @hasanyrole('Admin|Super Admin')
+                                                            <a href="/nova/resources/pages/{{ $pageActions->first()->actionable->id }}" class="-ml-px relative inline-flex items-center px-2 py-1 rounded-r-md border border-gray-300 bg-white text-xs font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500" target="_blank">Nova</a>
+                                                        @endhasanyrole
+                                                    </span>
+                                                </div>
 
                                             </td>
                                             <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
@@ -144,6 +152,11 @@
 
     @if($unassignedItems->count())
         <div class="px-4 sm:px-6 lg:px-8">
+            <div class="pt-16 sm:flex sm:items-center">
+                <div class="sm:flex-auto">
+                    <h1 class="text-xl font-semibold text-gray-900">Available Tasks</h1>
+                </div>
+            </div>
             <div class="mt-8 flex flex-col">
                 <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
