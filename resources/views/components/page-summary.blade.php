@@ -23,7 +23,7 @@
         <div class="py-2 px-4 font-serif text-sm text-gray-500">
             @php
                 $description = '';
-                if(! empty( request('q'))){
+                if(! empty( request('q')) && request('q') != '*'){
                     preg_match_all('~(?:[\p{L}\p{N}\']+[^\p{L}\p{N}\']+){0,10}'.request('q').'(?:[^\p{L}\p{N}\']+[\p{L}\p{N}\']+){0,10}~ui', str_replace(['[[', ']]'], '', strip_tags( $page->transcript ) ),$matches);
                     foreach ($matches[0] as $match) {
                         $description .= '<div>...' . str_highlight($match, request('q'), STR_HIGHLIGHT_SIMPLE, '<span class="bg-yellow-100">\1</span>') . '...</div>';
