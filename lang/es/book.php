@@ -2,64 +2,64 @@
 
 return [
 
-    'English' => 'English',
+    'English' => 'Inglés',
     'Spanish' => 'Español',
     'Wilford Woodruff\'s Witness' => 'Desarrollo de la doctrina del templo',
     'The Development of Temple Doctrine' => 'Testimonio de Wilford Woodruff',
     'Cover URL' => 'img/book/book-cover-paperback.jpg',
-    'Purchase from Deseret Book' => 'Purchase from Deseret Book',
-    'Paperback' => 'Paperback',
-    'Audiobook' => 'Audiobook',
-    'eBook' => 'eBook',
-    'Proceeds support the<br />Wilford Woodruff Papers Project' => 'Proceeds support the<br />Wilford Woodruff Papers Project',
-    'About the book' => 'About the book',
+    'Purchase from Deseret Book' => 'Adquiérelo en Deseret Book',
+    'Paperback' => 'Edición Impresa',
+    'Audiobook' => 'Audiolibro',
+    'eBook' => 'Libro Digital',
+    'Proceeds support the<br />Wilford Woodruff Papers Project' => 'Las ganancias se usan para el<br />Proyecto -Documentos de Wilford Woodruff-',
+    'About the book' => 'Acerca del libro',
     'Book Summary' => '<p>
-                            Many existing books and articles discuss specific temple ordinances, but the historical development of all temple ordinances has never been included in a single volume -- until now. <span class="italic">Wilford Woodruff\'s Witness</span> provides new insight even to those who are very familiar with the history of the Restoration.
+                            Muchos libros y artículos abordan ordenanzas específicas del templo, sin embargo, el desarrollo histórico nunca se ha incluído en un volúmen – hasta ahora. El  <span class="italic">Testimonio de Wilford Woodruff</span> brinda perspectiva aún para aquellos quienes ya estén familiarizados con la historia de la Restauración.
                         </p>
                         <p>
-The account unfolds in Wilford Woodruff\'s own words, drawn from primary sources including his journals, discourses, and letters, and the narrative is augmented by 120 archival images, as well as extensive footnotes and citations allowing for further study.
+                            El relato se cuenta usando las palabras de Wilford Woodruff, las cuales se adquirieron directamente de fuentes primarias como sus diarios, discursos y cartas. La narrativa se magnifica gracias al uso de 120 imágenes de archivo, así como de detalladas notas de pie de página y citas para profundizar el estudio.
                         </p>
                         <p>
-                            This Enhanced Second Edition includes updated information and links to sources recently transcribed and published online at <a href="https://www.wilfordwoodruffpapers.org" class="text-secondary">wilfordwoodruffpapers.org</a> as part of the Wilford Woodruff Papers Project.
+                            La segunda edición ha sido mejorada con investigaciones y con enlaces a fuentes recientemente transcritas y publicadas en línea en <a href="https://www.wilfordwoodruffpapers.org" class="text-secondary">wilfordwoodruffpapers.org</a>, como parte del Proyecto -Documentos de Wilford Woodruff-.
                         </p>',
     'Book Interviews' => 'Book Interviews',
-    'Reviews' => 'Reviews',
-    'Video Summary' => 'Learn more about why Jennifer Ann Mackley wrote <span class="italic">Wilford Woodruff\'s Witness</span>.',
-    'About the Author' => 'About the Author',
+    'Reviews' => 'Opiniones',
+    'Video Summary' => 'Aprenda más sobre por qué es relevante <span class="italic mr-2">El Testimonio de Wilford Woodruff</span> hoy en día.',
+    'About the Author' => 'En cuanto al autor',
     'Author Bio' => '<p>
-                        Jennifer Ann Mackley is a native of Seattle, Washington. Her curiosity about Wilford Woodruff\'s vision of the Founding Fathers in 1877 led to her 15-year odyssey researching Wilford\'s life within the context of LDS Church history.
+                        Jennifer Ann Mackley nació en Seattle Washington. Su curiosidad sobre la visión que Wilford Woodruff tuvo de los Padres Fundadores en 1877 la encaminó a una odisea de 15 años de investigación sobre la vida de Wilford Woodfruff dentro de un contexto de historia de la Iglesia.
                     </p>
                     <p>
-                        In 2019 Jennifer co-founded the Wilford Woodruff Papers Foundation with BYU professor Donald W. Parry to make all of Wilford Woodruff’s writing universally accessible online at <a href="https://www.wilfordwoodruffpapers.org" class="text-secondary">wilfordwoodruffpapers.org</a>. Her hope in transcribing and publishing Wilford Woodruff\'s Papers is to help Church members and historians alike understand the importance of the temple and gain insights into the Restoration through Wilford\'s unique perspective of the revelatory process.
+                        En 2019 Jeniffer co-fundó la Fundación -Documentos de Wilford Woodruff- junto con el profesor de BYU Donald W. Parry con el fin de que todos los escritos de Wilford se hicieran disponibles universalmente vía la página <a href="https://www.wilfordwoodruffpapers.org" class="text-secondary">wilfordwoodruffpapers.org</a>. Su propósito al transcribir y publicar los documentos de Wilford Woodruff, es ayudar a los miembros de la iglesia al igual que a historiadores a comprender la importancia del templo y a obtener perspectivas nuevas sobre la Restauración a travéz de la perspectiva particular y única de Wilford sobre el proceso revelatorio.
                     </p>
                     <p>
-                        Prior to becoming Executive Director of the Foundation, she worked as an attorney for 25 years and formed Mackley & Mackley, PLLC with her husband Carter. They are the parents of three miraculous children.
+                        Antes de ser Directora Ejecutiva de la Fundación, trabajó como abogada durante 25 años y formó la empresa Mackley & Mackley, PLLC junto a su esposo Carter. Son padres de tres hijos milagrosos.
                     </p>',
-    'Search for your ancestors' => 'Search for <span class="italic">your</span> ancestors in the <span class="font-semibold">Wilford Woodruff Papers</span>',
-    'Start now' => 'Start now',
+    'Search for your ancestors' => 'Busque a <span class="italic">sus</span> antepasados en los Documentos de Wilford Woodruff',
+    'Start now' => 'Empezar ahora',
     'Review 1' => [
-        'Text' => '“I now have a much richer understanding of how the saints struggled to comprehend the greater light the Lord was trying to give them. Much of the wonderful insight we have today is the product of Wilford Woodruff\'s lifelong efforts to understand the will of God concerning the temple ceremony. Highly recommend this book.”',
+        'Text' => '“Ahora tengo un entendimiento más profundo de como lucharon los santos para comprender la luz mayor que el Señor trataba de darles. Gran parte de la perspectiva con la que contamos hoy en día es producto de los esfuerzos de toda la vida de Wilford Woodruff de comprender la voluntad de Dios en relación a la ceremonia del templo. Recomiendo mucho este libro.”',
         'Author' => 'John Hamilton',
         'Position' => '',
     ],
     'Review 2' => [
-        'Text' => '“Even readers well-versed in the temple and its history will learn from <span class="italic">Wilford Woodruff\'s Witness</span>.”',
+        'Text' => '“Incluso los lectores más informados sobre el tema del templo y su historia aprenderán del <span class="italic">Testimonio de Wilford Woodruff</span>.”',
         'Author' => 'Steven C. Harper',
-        'Position' => 'Professor of Church<br />History and Doctrine at BYU',
+        'Position' => 'Profesor de Historia<br />y Doctrina en BYU',
     ],
     'Review 3' => [
-        'Text' => '“Those who read this book will have a better understanding of the development of modern temple worship and come away with an appreciation for those who, like President Woodruff, wore out their lives in making possible the temple blessings we enjoy today.”',
+        'Text' => '“Los que lean este libro tendrán un mejor entendimiento del desarrollo de la adoración en el templo hoy en día y adquirirán un mayor aprecio por aquellos quienes dedicaron sus vidas, como lo hizo Wilford Woodruff, para hacer posible que gocemos de las bendiciones del templo.”',
         'Author' => 'Richard E. Turley, Jr.',
-        'Position' => 'Latter-Day Saint Historian',
+        'Position' => 'Historiador Santo de los Últimos Días',
     ],
     'Review 4' => [
-        'Text' => '“<span class="italic">Wilford Woodruff\'s Witness</span> is a fascinating work. It is a thorough and well-structured historical journey. I saw both the attorney and the historical researcher in the written word, yet the author treats a sacred subject with the proper sensitivity and reverence that it requires. The book’s content flows well to enlighten and leave no doubt as to the importance of the message.”',
+        'Text' => '“La obra <span class="italic">El Testimonio de Wilford Woodruff</span> es fascinante. Es una experiencia histórica comprensiva y bien estructurada. Reconocí a ambas, la investigadora de historia así como a la abogada en las palabras del libro en el cual trata un tema sagrado con la sensibilidad y reverencia apropiadas. El contenido del libro fluye fenomenalmente para iluminar y no deja dudas en cuanto a la importancia del mensaje.”',
         'Author' => 'Alan H.',
         'Position' => '',
     ],
     'Review 5' => [
-        'Text' => '“Mackley organizes an immense amount of statistics, events, numbers, and peoples covering almost nine full decades. She then presents a compelling history, at times personally intense, of Wilford Woodruff and the Restoration with its myriad events and people.... Her narrative is easily delivered and easy to follow. Buy one for yourself and give copies as gifts for your friends because this is a serious book for serious scholars of the Restored Gospel.”',
+        'Text' => '“Mackley organiza una inmensa cantidad de estadisticas, eventos, números y a personas a lo largo de casi nueve décadas. Después presenta una historia fascinante de Wilford Woodruff y la restauración con sus innumerables de eventos y personas…. Su narración es sencilla y fácil de seguir y de comprender. Compre uno de sus tomos para usted y otros para obsequiar  a sus amigos y colegas, ya que este es un libro para estudiantes serios del evangelio restaurado.”',
         'Author' => 'Melvin C. Johnson',
-        'Position' => 'Association for Mormon Letters',
+        'Position' => 'Asiciación para Mormon Letters',
     ],
 ];
