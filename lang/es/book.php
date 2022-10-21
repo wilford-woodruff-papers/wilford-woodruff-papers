@@ -6,7 +6,7 @@ return [
     'Spanish' => 'Español',
     'Wilford Woodruff\'s Witness' => 'Desarrollo de la doctrina del templo',
     'The Development of Temple Doctrine' => 'Testimonio de Wilford Woodruff',
-    'Cover URL' => 'img/book/book-cover-paperback.jpg',
+    'Cover URL' => 'img/book/book-cover-paperback-spanish.jpg',
     'Purchase from Deseret Book' => 'Adquiérelo en Deseret Book',
     'Paperback' => 'Edición Impresa',
     'Audiobook' => 'Audiolibro',
