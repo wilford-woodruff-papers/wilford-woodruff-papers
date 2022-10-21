@@ -40,7 +40,10 @@ class Topics extends Component
                                         })
                                 );
                             }])
-                            ->when(empty($this->search), fn ($query, $search) => $query->whereNull('subject_id'))
+                            ->when(empty($this->search), fn ($query, $search) => $query->where(function ($query) {
+                                $query->whereNull('subject_id')
+                                    ->orWhere('subject_id', 0);
+                            }))
                             ->when(auth()->guest() || (auth()->check() && ! auth()->user()->hasAnyRole(['Super Admin'])), fn ($query) => $query->where('hide_on_index', 0)
                                     ->where(function ($query) {
                                         $query->where('tagged_count', '>', 0)
