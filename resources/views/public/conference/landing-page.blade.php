@@ -72,7 +72,7 @@
         </div>
     </div>--}}
 
-    <div class="max-w-7xl mx-auto pt-8 md:pt-12 px-4 pb-4 xl:pt-12 md:pb-4">
+    {{--<div class="max-w-7xl mx-auto pt-8 md:pt-12 px-4 pb-4 xl:pt-12 md:pb-4">
         <div class="grid grid-cols-1 pb-4">
             <div class="font-extrabold">
                 <h2 class="text-xl md:text-3xl uppercase pb-1 border-b-4 border-highlight">
@@ -262,6 +262,6 @@
                 </ol>
             </section>
         </div>
-    </div>
+    </div>--}}
 
 </x-guest-layout>
