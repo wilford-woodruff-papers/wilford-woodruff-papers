@@ -38,15 +38,21 @@
                     </h2>
                     <div class="grid md:grid-cols-3 gap-4 px-4">
                         <a href="https://deseretbook.com/p/wilford-woodruff-s-witness?ref=detailed-card-1&variant_id=200986-paperback"
-                            class="px-4 py-4 rounded-3xl bg-secondary text-white text-center font-sans uppercase drop-shadow-lg">
+                            class="px-4 py-4 rounded-3xl bg-secondary text-white text-center font-sans uppercase drop-shadow-lg"
+                            target="_blank"
+                        >
                             {{ __('book.Paperback') }}
                         </a>
                         <a href="https://deseretbook.com/p/wilford-woodruff-s-witness?ref=detailed-card-1&variant_id=200986-paperback"
-                            class="px-4 py-4 rounded-3xl bg-secondary text-white text-center font-sans uppercase drop-shadow-lg">
+                            class="px-4 py-4 rounded-3xl bg-secondary text-white text-center font-sans uppercase drop-shadow-lg"
+                           target="_blank"
+                        >
                             {{ __('book.Audiobook') }}
                         </a>
                         <a href="https://deseretbook.com/p/wilford-woodruff-s-witness?ref=detailed-card-1&variant_id=200986-paperback"
-                            class="px-4 py-4 rounded-3xl bg-secondary text-white text-center font-sans uppercase drop-shadow-lg">
+                            class="px-4 py-4 rounded-3xl bg-secondary text-white text-center font-sans uppercase drop-shadow-lg"
+                           target="_blank"
+                        >
                             {{ __('book.eBook') }}
                         </a>
                     </div>
