@@ -27,7 +27,10 @@ class Index extends Filter
     {
         if ($value == -1) {
         } else {
-            $query = $query->whereNull('subject_id')
+            $query = $query->where(function ($query) {
+                $query->whereNull('subject_id')
+                                        ->orWhere('subject_id', 0);
+            })
                             ->whereHas('category', function (Builder $query) use ($value) {
                                 $query->where('id', $value);
                             });
