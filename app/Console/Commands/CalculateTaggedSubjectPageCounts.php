@@ -29,7 +29,11 @@ class CalculateTaggedSubjectPageCounts extends Command
      */
     public function handle()
     {
-        Subject::whereNull('subject_id')
+        Subject::query()
+                 ->where(function ($query) {
+                     $query->whereNull('subject_id')
+                            ->orWhere('subject_id', 0);
+                 })
                  ->chunkById(100, function ($subjects) {
                      $subjects->load('children', 'children.children');
                      foreach ($subjects as $subject) {
