@@ -173,7 +173,7 @@
                 <x-google />
                 <x-facebook-pixel />
             @endif
-            {{--<x-constant-contact />--}}
+            <x-constant-contact />
 
     </body>
 </html>
