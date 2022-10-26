@@ -66,7 +66,7 @@
                                     <input wire:model.defer="contact.email"
                                            id="cta-email"
                                            type="email"
-                                           class="block w-full border border-transparent px-5 py-3 text-base text-gray-900 placeholder-gray-500 shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600"
+                                           class="block w-full border border-transparent px-5 py-3 text-base text-gray-900 placeholder-gray-700 shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600"
                                            placeholder="Enter your email"
                                            required
                                     >
@@ -76,7 +76,7 @@
                                             wire:loading.class="bg-gray-400"
                                             wire:loading.class.remove="bg-white"
                                             type="submit"
-                                            class="block w-full border border-transparent bg-white px-5 py-3 text-base font-medium text-secondary shadow hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600 sm:px-10 uppercase">
+                                            class="block w-full border border-transparent bg-white px-5 py-3 text-base font-semibold text-secondary shadow hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600 sm:px-10 uppercase">
                                         <span wire:loading.remove>Notify me</span>
                                         <span wire:loading
                                               class="flex items-center px-7"
