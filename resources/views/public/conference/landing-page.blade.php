@@ -30,7 +30,7 @@
 
     <livewire:forms.email-capture
         :lists="[config('wwp.list_memberships.conference')]"
-        title="ENTER YOUR EMAIL TO RECEIVE A REMINDER WHEN REGISTRATION OPENS NOVEMBER 1ST"
+        title="ENTER YOUR EMAIL TO RECEIVE A REMINDER WHEN REGISTRATION OPENS IN NOVEMBER"
         success_title="We look forward to seeing you in March!"
         success_description="You should receive an email when the conference registration opens. Check back in October for more conference updates."
     />
