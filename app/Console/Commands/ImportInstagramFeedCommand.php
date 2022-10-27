@@ -16,7 +16,7 @@ class ImportInstagramFeedCommand extends Command
     public function handle()
     {
         $profile = \Dymantic\InstagramFeed\Profile::for('wilford_woodruff_papers');
-        $feed = $profile?->refreshFeed(2);
+        $feed = $profile?->refreshFeed(200);
 
         foreach ($feed as $post) {
             if ($post->type == 'video') {
