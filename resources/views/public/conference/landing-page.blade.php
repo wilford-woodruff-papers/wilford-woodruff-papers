@@ -25,15 +25,21 @@
             </div>
         </div>
         <div class="-z-10 relative md:pl-12">
-            <img src="{{ asset('img/conferences/2023/conference-photo-collage.jpg') }}"
+            <img src="{{ asset('img/conferences/2023/conference-photo-collage-desktop.jpg') }}"
                  alt=""
-                 class="hidden md:block w-full h-auto md:-mt-24"
+                 class="hidden md:block w-full h-auto md:-mt-72"
             />
             <img src="{{ asset('img/conferences/2023/conference-photo-collage-mobile.jpg') }}"
                  alt=""
                  class="block md:hidden w-full h-auto mt-10"
             />
-            <div class="p-8 md:p-0 md:absolute md:bottom-10 lg:bottom-20 md:left-10 z-10 text-2xl md:text-xl lg:text-2xl md:w-[180px] lg:w-[240px]">
+            {{--<div class="p-8 md:p-0 md:absolute md:bottom-10 lg:bottom-20 md:left-10 z-10 text-2xl md:text-xl lg:text-2xl md:w-[180px] lg:w-[240px]">
+                Seekers of the truth will be instructed, inspired, and motivated by Wilford Woodruff's insights through speakers, presentations, and musical performances. Lunch will be provided.
+            </div>--}}
+            <div class="p-12 md:p-0 md:absolute md:-bottom-8 md:left-0 z-10 text-2xl md:text-xl lg:text-2xl md:w-[390px] lg:w-[500px]">
+                <h3 class="hidden md:block md:text-2xl lg:text-4xl py-4 md:w-[200px]">
+                    Come and be <span class="font-extrabold text-secondary">inspired</span>
+                </h3>
                 Seekers of the truth will be instructed, inspired, and motivated by Wilford Woodruff's insights through speakers, presentations, and musical performances. Lunch will be provided.
             </div>
         </div>
@@ -98,7 +104,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-3 md:h-[580px] px-16 md:-mt-24">
             <div class="order-1 md:order-1 grid content-end h-full">
-                <img src="{{ asset('img/conferences/2023/Steven-Wheelright.png') }}"
+                <img src="{{ asset('img/conferences/2023/Ellie-Hancock.png') }}"
                      alt=""
                      class="w-full h-auto"
                 />
@@ -112,27 +118,16 @@
                 </div>
             </div>
             <div class="order-2 md:order-2 grid content-start h-full">
-                <img src="{{ asset('img/conferences/2023/Laurel-Thatcher-Ulrich.png') }}"
+
+            </div>
+            <div class="order-3 md:order-3 grid content-end h-full">
+                <img src="{{ asset('img/conferences/2023/Ashlyn-Pells.png') }}"
                      alt=""
                      class="w-full h-auto"
                 />
                 <div class="text-center py-4">
                     <div class="text-2xl text-dark-blue font-black">
                         Ashlyn Pells
-                    </div>
-                    <div class="text-2xl text-dark-blue">
-
-                    </div>
-                </div>
-            </div>
-            <div class="order-3 md:order-3 grid content-end h-full">
-                <img src="{{ asset('img/conferences/2023/Kristy-Taylor.png') }}"
-                     alt=""
-                     class="w-full h-auto"
-                />
-                <div class="text-center py-4">
-                    <div class="text-2xl text-dark-blue font-black">
-                        Hovan Lawton
                     </div>
                     <div class="text-2xl text-dark-blue">
 

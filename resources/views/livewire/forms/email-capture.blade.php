@@ -28,7 +28,7 @@
                     <rect width="404" height="392" fill="url(#8228f071-bcee-4ec8-905a-2a059a2cc4fb)" />
                 </svg>--}}
             </div>
-            <div class="mx-auto max-w-xl px-4 sm:max-w-4xl sm:px-6 lg:max-w-7xl lg:px-8">
+            <div class="mx-auto px-0 sm:max-w-5xl sm:px-0 lg:max-w-7xl lg:px-8">
                 <div class="relative overflow-hidden bg-secondary px-6 py-10 shadow-xl sm:px-12 sm:py-20">
                     <div aria-hidden="true" class="absolute inset-0 -mt-72 sm:-mt-32 md:mt-0">
                         <svg class="absolute inset-0 h-full w-full" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 1463 360">
