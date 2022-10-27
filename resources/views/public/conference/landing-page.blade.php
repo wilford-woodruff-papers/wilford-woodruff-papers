@@ -1,5 +1,472 @@
 <x-guest-layout>
 
+
+    <div class="max-w-5xl mx-auto px-4 pb-4 md:pb-8 pt-8">
+        <div class="grid grid-cols-5 z-10 relative">
+            <div class="col-span-5 md:col-span-3">
+                <h1 class="text-secondary text-5xl font-sans leading-[3.5rem] tracking-wide mt-4 mb-8">
+                    <small class="block uppercase text-dark-blue text-3xl mb-2 tracking-normal">
+                        Join us for the First
+                    </small>
+                    Wilford Woodruff Papers Foundation Conference
+                </h1>
+                <div class="uppercase text-3xl z-10">
+                    Saturday, March 4, 2023
+                </div>
+                <div class="uppercase text-3xl z-10">
+                    11:30 AM - 7:30 PM
+                </div>
+                <div class="my-2 text-3xl z-10">
+                    At Brigham Young University
+                </div>
+            </div>
+            <div>
+
+            </div>
+        </div>
+        <div class="-z-10 relative md:pl-12">
+            <img src="{{ asset('img/conferences/2023/conference-photo-collage-desktop.jpg') }}"
+                 alt=""
+                 class="hidden md:block w-full h-auto md:-mt-72"
+            />
+            <img src="{{ asset('img/conferences/2023/conference-photo-collage-mobile.jpg') }}"
+                 alt=""
+                 class="block md:hidden w-full h-auto mt-10"
+            />
+            {{--<div class="p-8 md:p-0 md:absolute md:bottom-10 lg:bottom-20 md:left-10 z-10 text-2xl md:text-xl lg:text-2xl md:w-[180px] lg:w-[240px]">
+                Seekers of the truth will be instructed, inspired, and motivated by Wilford Woodruff's insights through speakers, presentations, and musical performances. Lunch will be provided.
+            </div>--}}
+            <div class="p-12 md:p-0 md:absolute md:-bottom-8 md:left-0 z-10 text-2xl md:text-xl lg:text-2xl md:w-[390px] lg:w-[500px]">
+                <h3 class="hidden md:block md:text-2xl lg:text-4xl py-4 md:w-[200px]">
+                    Come and be <span class="font-extrabold text-secondary">inspired</span>
+                </h3>
+                Seekers of the truth will be instructed, inspired, and motivated by Wilford Woodruff's insights through speakers, presentations, and musical performances. Lunch will be provided.
+            </div>
+        </div>
+    </div>
+
+    <livewire:forms.email-capture
+        :lists="[config('wwp.list_memberships.conference')]"
+        title="ENTER YOUR EMAIL TO RECEIVE A REMINDER WHEN REGISTRATION OPENS IN NOVEMBER"
+        success_title="We look forward to seeing you in March!"
+        success_description="You should receive an email when the conference registration opens. Check back in November for more conference updates."
+    />
+
+    <div class="max-w-7xl mx-auto px-4 pb-4 md:pb-8">
+        <h2 class="text-4xl md:text-6xl font-black text-secondary text-center py-8 mb-12">
+            Featured Speakers
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 md:h-[580px] px-16">
+            <div class="order-2 md:order-1 grid content-end h-full">
+                <img src="{{ asset('img/conferences/2023/Steven-Wheelright.png') }}"
+                     alt=""
+                     class="w-full h-auto"
+                />
+                <div class="text-center py-4">
+                    <div class="text-2xl text-dark-blue font-black">
+                        Steven Wheelwright
+                    </div>
+                    <div class="text-2xl text-dark-blue">
+
+                    </div>
+                </div>
+            </div>
+            <div class="order-1 md:order-2 grid content-start h-full">
+                <img src="{{ asset('img/conferences/2023/Laurel-Thatcher-Ulrich.png') }}"
+                     alt=""
+                     class="w-full h-auto"
+                />
+                <div class="text-center py-4">
+                    <div class="text-2xl text-dark-blue font-black">
+                        Laurel Thatcher Ulrich
+                    </div>
+                    <div class="text-2xl text-dark-blue">
+                        Featured Speaker
+                    </div>
+                </div>
+            </div>
+            <div class="order-3 md:order-3 grid content-end h-full">
+                <img src="{{ asset('img/conferences/2023/Kristy-Taylor.png') }}"
+                     alt=""
+                     class="w-full h-auto"
+                />
+                <div class="text-center py-4">
+                    <div class="text-2xl text-dark-blue font-black">
+                        Kristy Taylor
+                    </div>
+                    <div class="text-2xl text-dark-blue">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 md:h-[580px] px-16 md:-mt-24">
+            <div class="order-1 md:order-1 grid content-end h-full">
+                <img src="{{ asset('img/conferences/2023/Ellie-Hancock.png') }}"
+                     alt=""
+                     class="w-full h-auto"
+                />
+                <div class="text-center py-4">
+                    <div class="text-2xl text-dark-blue font-black">
+                        Ellie Hancock
+                    </div>
+                    <div class="text-2xl text-dark-blue">
+
+                    </div>
+                </div>
+            </div>
+            <div class="order-2 md:order-2 grid content-start h-full">
+
+            </div>
+            <div class="order-3 md:order-3 grid content-end h-full">
+                <img src="{{ asset('img/conferences/2023/Ashlyn-Pells.png') }}"
+                     alt=""
+                     class="w-full h-auto"
+                />
+                <div class="text-center py-4">
+                    <div class="text-2xl text-dark-blue font-black">
+                        Ashlyn Pells
+                    </div>
+                    <div class="text-2xl text-dark-blue">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 pb-4 md:pb-8 pt-16">
+        <h2 class="text-4xl md:text-6xl font-black text-secondary text-center mb-8">
+            Conference Schedule
+        </h2>
+        <div class="text-3xl md:text-4xl font-black text-dark-blue text-center mb-4">
+            Brigham Young University
+        </div>
+        <div class="text-3xl font-black text-light-gray text-center mb-16">
+            Saturday, March 4, 2023
+        </div>
+        <div class="grid grid-cols-3 md:grid-cols-4 gap-x-8 gap-y-8">
+            {{-- Start row --}}
+            <div class="text-xl text-dark-blue font-black text-right">
+                11:30 am
+            </div>
+            <div class="col-span-2 md:col-span-3 flex flex-col space-y-4">
+                <p class="text-xl text-dark-blue">
+                    Check-in / Registration
+                </p>
+                <p class="text-xl text-dark-blue">
+                    Art Competition Gallery Display
+                </p>
+            </div>
+            <div class="">
+
+            </div>
+            <div class="">
+                <hr class="border-b-2 border-highlight my-4 md:my-8 md:max-w-none"/>
+            </div>
+            <div class="">
+
+            </div>
+            <div class="">
+
+            </div>
+            {{-- End row --}}
+        </div>
+
+
+        <div class="grid grid-cols-3 md:grid-cols-4 gap-x-8 gap-y-8">
+            {{-- Start row --}}
+            <div class="text-xl text-dark-blue font-black text-right">
+                {{--12 - 1:20--}}
+            </div>
+            <div class="col-span-2 md:col-span-3 flex flex-col space-y-4">
+                <p class="text-xl text-dark-blue">
+                    Opening Presentation & Lunch
+                </p>
+            </div>
+            <div class="text-xl text-dark-blue font-black text-right">
+            </div>
+            <div class="col-span-2 md:col-span-3 grid grid-cols-1 md:grid-cols-3">
+                <div class="col-span-2 md:col-span-1 flex flex-col space-y-2">
+                    <p class="text-xl text-dark-blue">
+                        Welcome
+                    </p>
+                    <p class="text-2xl text-secondary font-black">
+                        Jennifer Ann Mackley
+                    </p>
+                </div>
+                <div class="col-span-2 md:col-span-1 flex flex-col space-y-2">
+                    <p class="text-xl text-dark-blue">
+                        Featured Speaker
+                    </p>
+                    <p class="text-2xl text-secondary font-black">
+                        Laurel Thatcher Ulrich
+                    </p>
+                </div>
+                <div class="">
+
+                </div>
+                <div class="">
+                    <hr class="border-b-2 border-highlight my-4 md:my-8 max-w-[50%] md:max-w-none"/>
+                </div>
+                <div class="">
+
+                </div>
+                <div class="">
+
+                </div>
+            </div>
+            {{-- End row --}}
+        </div>
+
+        <div class="grid grid-cols-3 md:grid-cols-4 gap-x-8 gap-y-8">
+            {{-- Start row --}}
+            <div class="text-xl text-dark-blue font-black text-right">
+                {{--12 - 1:20--}}
+            </div>
+            <div class="col-span-2 md:col-span-3 flex flex-col space-y-4">
+                <p class="text-xl text-dark-blue">
+                    Student Presentations
+                </p>
+            </div>
+            <div class="text-xl text-dark-blue font-black text-right">
+            </div>
+            <div class="col-span-2 md:col-span-3 grid grid-cols-1 md:grid-cols-3">
+            <div class="col-span-2 md:col-span-1 flex flex-col space-y-2">
+                <p class="text-2xl text-secondary font-black">
+                    Ellie Hancock
+                </p>
+                <p class="text-xl text-dark-blue">
+
+                </p>
+            </div>
+            <div class="col-span-2 md:col-span-1 flex flex-col space-y-2">
+                <p class="text-2xl text-secondary font-black">
+                    Ashlyn Pells
+                </p>
+                <p class="text-xl text-dark-blue">
+
+                </p>
+            </div>
+            <div class="col-span-2 md:col-span-1 flex flex-col space-y-2">
+                <p class="text-2xl text-secondary font-black">
+                    Hovan Lawton
+                </p>
+                <p class="text-xl text-dark-blue">
+
+                </p>
+            </div>
+            <div class="">
+                <hr class="border-b-2 border-highlight my-4 md:my-8 max-w-[50%] md:max-w-none"/>
+            </div>
+            <div class="">
+
+            </div>
+            <div class="">
+
+            </div>
+            </div>
+            {{-- End row --}}
+        </div>
+        <div class="grid grid-cols-3 md:grid-cols-4 gap-x-8 gap-y-8">
+            {{-- Start row --}}
+            <div class="text-xl text-dark-blue font-black text-right">
+                {{--12 - 1:20--}}
+            </div>
+            <div class="col-span-2 md:col-span-3 flex flex-col space-y-4">
+                <p class="text-xl text-dark-blue">
+                    Afternoon Presentations
+                </p>
+            </div>
+            <div class="text-xl text-dark-blue font-black text-right">
+            </div>
+            <div class="col-span-2 md:col-span-3 grid grid-cols-1 md:grid-cols-3">
+            <div class="col-span-2 md:col-span-1 flex flex-col space-y-2">
+                <p class="text-2xl text-secondary font-black">
+                    Josh Matson
+                </p>
+                <p class="text-xl text-dark-blue">
+
+                </p>
+            </div>
+            <div class="col-span-2 md:col-span-1 flex flex-col space-y-2">
+                <p class="text-2xl text-secondary font-black">
+                    Kristy Taylor
+                </p>
+                <p class="text-xl text-dark-blue">
+
+                </p>
+            </div>
+            <div class="">
+
+            </div>
+            <div class="">
+
+            </div>
+            <div class="">
+                {{--<hr class="border-b-2 border-highlight my-4 md:my-0 max-w-[50%] md:max-w-none"/>--}}
+            </div>
+            <div class="">
+
+            </div>
+            <div class="">
+
+            </div>
+            </div>
+            {{-- End row --}}
+        </div>
+        <div class="grid grid-cols-3 md:grid-cols-4 gap-x-8 gap-y-8">
+            {{-- Start row --}}
+            <div class="text-xl text-dark-blue font-black text-right">
+                {{--12 - 1:20--}}
+            </div>
+            <div class="col-span-2 md:col-span-3 flex flex-col space-y-4">
+                <p class="text-xl text-dark-blue">
+
+                </p>
+            </div>
+            <div class="text-xl text-dark-blue font-black text-right">
+            </div>
+            <div class="col-span-2 md:col-span-3 grid grid-cols-1 md:grid-cols-3">
+            <div class="col-span-2 md:col-span-1 flex flex-col space-y-2">
+                <p class="text-2xl text-secondary font-black">
+                    Steve Wheelwright
+                </p>
+                <p class="text-xl text-dark-blue">
+
+                </p>
+            </div>
+            <div class="col-span-2 md:col-span-1 flex flex-col space-y-2">
+                <p class="text-2xl text-secondary font-black">
+                    Amy Harris
+                </p>
+                <p class="text-xl text-dark-blue">
+
+                </p>
+            </div>
+            <div class="">
+
+            </div>
+            <div class="">
+                <hr class="border-b-2 border-highlight my-4 md:my-8 max-w-[50%] md:max-w-none"/>
+            </div>
+            <div class="">
+
+            </div>
+            <div class="">
+
+            </div>
+            </div>
+            {{-- End row --}}
+        </div>
+        <div class="grid grid-cols-3 md:grid-cols-4 gap-x-8 gap-y-8">
+            {{-- Start row --}}
+            <div class="text-xl text-dark-blue font-black text-right">
+                {{--12 - 1:20--}}
+            </div>
+            <div class="col-span-2 md:col-span-3 flex flex-col space-y-4">
+                <p class="text-xl text-dark-blue">
+                    Special Guest Presentation
+                </p>
+            </div>
+            <div class="text-xl text-dark-blue font-black text-right">
+            </div>
+            <div class="col-span-2 md:col-span-3 grid grid-cols-1 md:grid-cols-3">
+            <div class="fcol-span-2 md:col-span-1 lex flex-col space-y-2">
+                <p class="text-xl text-dark-blue">
+                    Introduction
+                </p>
+                <p class="text-2xl text-secondary font-black">
+                    To Be Announced
+                </p>
+            </div>
+            <div class="col-span-2 md:col-span-1 flex flex-col space-y-2">
+                <p class="text-xl text-secondary font-black">
+
+                </p>
+                <p class="text-xl text-dark-blue">
+
+                </p>
+            </div>
+            <div class="">
+
+            </div>
+            <div class="">
+                <hr class="border-b-2 border-highlight my-4 md:my-8 max-w-[50%] md:max-w-none"/>
+            </div>
+            <div class="">
+
+            </div>
+            <div class="">
+
+            </div>
+            </div>
+            {{-- End row --}}
+        </div>
+        <div class="grid grid-cols-3 md:grid-cols-4 gap-x-8 gap-y-8">
+            {{-- Start row --}}
+            <div class="text-xl text-dark-blue font-black text-right">
+                {{--12 - 1:20--}}
+            </div>
+            <div class="col-span-2 md:col-span-3 flex flex-col space-y-4">
+                {{--<p class="text-xl text-dark-blue">
+                    Dinner & Featured Speaker
+                </p>
+                <p class="text-xl text-secondary font-black">
+                    Introduction
+                </p>--}}
+            </div>
+            <div class="text-xl text-dark-blue font-black text-right">
+            </div>
+            <div class="col-span-2 md:col-span-3 grid grid-cols-1 md:grid-cols-3">
+            <div class="col-span-2 md:col-span-1 flex flex-col space-y-2">
+                <p class="text-2xl text-secondary font-black">
+                    Sarah Dunn
+                </p>
+                <p class="text-xl text-dark-blue">
+                    Presentation of Carol Sorenson Smith Awards
+                </p>
+            </div>
+            <div class="col-span-2 md:col-span-1 flex flex-col space-y-2">
+                <p class="text-2xl text-secondary font-black">
+                    Alex Melecio
+                </p>
+                <p class="text-xl text-dark-blue">
+                    Special Musical Artist
+                </p>
+            </div>
+            <div class="col-span-2 md:col-span-1 flex flex-col space-y-2">
+                <p class="text-2xl text-secondary font-black">
+                    To Be Announced
+                </p>
+                <p class="text-xl text-dark-blue">
+                    Keynote Speaker
+                </p>
+            </div>
+            <div class="">
+
+            </div>
+            <div class="">
+                {{--<hr class="border-b-2 border-highlight my-4 md:my-0 max-w-[50%] md:max-w-none"/>--}}
+            </div>
+            <div class="">
+
+            </div>
+            <div class="">
+
+            </div>
+            </div>
+            {{-- End row --}}
+        </div>
+        </div>
+    </div>
+
+    <div class="h-16"></div>
+
+{{--
+
     <div class="max-w-7xl mx-auto px-4 pb-4 md:pb-8 pt-8">
         <img src="{{ asset('img/conferences/2023/logo.png') }}"
              class="h-80 w-auto mx-auto"
@@ -28,12 +495,7 @@
 
     </div>
 
-    <livewire:forms.email-capture
-        :lists="[config('wwp.list_memberships.conference')]"
-        title="ENTER YOUR EMAIL TO RECEIVE A REMINDER WHEN REGISTRATION OPENS IN NOVEMBER"
-        success_title="We look forward to seeing you in March!"
-        success_description="You should receive an email when the conference registration opens. Check back in October for more conference updates."
-    />
+
 
     <div class="max-w-7xl mx-auto px-4 py-4 md:py-8">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
@@ -54,10 +516,8 @@
             </div>
         </div>
 
-        {{--<p class="text-xl py-4 px-8">
-            All students and preprofessionals are invited to participate in the <a href="/announcements/2023-building-latter-day-faith-conference-art-contest-rules" class="text-secondary underline">Conference Art Contest</a>. Prizes will be awarded to the top submissions in each division and category. <a href="/announcements/2023-building-latter-day-faith-conference-art-contest-rules" class="text-secondary underline font-medium" aria-label="View Art Contest Rules and submit artwork">Learn more >></a>
-        </p>--}}
     </div>
+--}}
 
     {{--<div class="max-w-7xl mx-auto pt-8 md:pt-12 px-4 pb-4 xl:pt-12 md:pb-8">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 pb-8">
