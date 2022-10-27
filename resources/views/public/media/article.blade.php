@@ -30,6 +30,11 @@
                                 <p class="text-sm text-gray-500">
                                     <time datetime="{{ $article->date }}">{{ $article->date->format('M j, Y') }}</time>
                                 </p>
+                                @if(! empty($article->link))
+                                    <p class="border border-gray-200 p-4 mt-3 text-base text-gray-500 text-center">
+                                        This article first appeared on <a href="{!! $article->link !!}" target="_blank">{!! str($article->link)->after('//')->before('/') !!}</a>
+                                    </p>
+                                @endif
                                 <p class="mt-3 text-base text-gray-500">
                                     {!! $article->description !!}
                                 </p>
