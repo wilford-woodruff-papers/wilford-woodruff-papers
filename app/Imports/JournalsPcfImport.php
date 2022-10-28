@@ -49,7 +49,7 @@ class JournalsPcfImport implements ToCollection, WithHeadingRow
                             ->event('imported')
                             ->log('Item imported from PCF');
 
-                        $uniqueID = data_get($row, str('Unique Identifier')->lower()->snake()->toString());
+                        $uniqueID = data_get($row, str('UI')->lower()->snake()->toString());
                         $item->pcf_unique_id = $uniqueID;
                         $item->save();
                         $this->id = $uniqueID;
@@ -396,9 +396,9 @@ class JournalsPcfImport implements ToCollection, WithHeadingRow
                 $name = 'Abigail Harper';
                 $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
                 break;
-            case 'AH':
             case 'Mackenzie':
-                $name = 'Mackenzie';
+            case 'Mackenzie Jaggi':
+                $name = 'Mackenzie Jaggi';
                 $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
                 break;
             default:
