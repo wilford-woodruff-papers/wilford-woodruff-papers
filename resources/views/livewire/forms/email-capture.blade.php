@@ -29,7 +29,7 @@
                 </svg>--}}
             </div>
             <div class="mx-auto px-0 sm:max-w-5xl sm:px-0 lg:max-w-7xl lg:px-8">
-                <div class="relative overflow-hidden bg-secondary px-6 py-10 shadow-xl sm:px-12 sm:py-20">
+                <div class="relative overflow-hidden bg-secondary px-6 py-10 shadow-xl sm:px-24 lg:px-48 sm:py-20">
                     <div aria-hidden="true" class="absolute inset-0 -mt-72 sm:-mt-32 md:mt-0">
                         <svg class="absolute inset-0 h-full w-full" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 1463 360">
                             <path class="text-secondary-500 text-opacity-40" fill="currentColor" d="M-82.673 72l1761.849 472.086-134.327 501.315-1761.85-472.086z" />
@@ -41,10 +41,10 @@
                         <div class="relative">
                             <div class="sm:text-center">
                                 <h2 class="text-xl md:text-3xl font-bold tracking-tight text-white sm:text-4xl">
-                                    {{ $component['success_title'] }}
+                                    {!! $component['success_title'] !!}
                                 </h2>
                                 <p class="mx-auto mt-6 max-w-2xl text-lg text-white">
-                                    {{ $component['success_description'] }}
+                                    {!! $component['success_description'] !!}
                                 </p>
                             </div>
                         </div>
@@ -52,10 +52,10 @@
                         <div class="relative">
                             <div class="text-center">
                                 <h2 class="text-xl md:text-3xl font-bold tracking-tight text-white sm:text-4xl">
-                                    {{ $component['title'] }}
+                                    {!! $component['title'] !!}
                                 </h2>
                                 <p class="mx-auto mt-6 max-w-2xl text-lg text-indigo-200">
-                                    {{ $component['description'] }}
+                                    {!! $component['description'] !!}
                                 </p>
                             </div>
                             <form wire:submit.prevent="save()"
