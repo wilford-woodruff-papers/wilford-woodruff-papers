@@ -118,7 +118,18 @@
                 </div>
             </div>
             <div class="order-2 md:order-2 grid content-start h-full">
-
+                <img src="{{ asset('img/conferences/2023/keynote-speaker.png') }}"
+                     alt=""
+                     class="w-full h-auto"
+                />
+                <div class="text-center py-4">
+                    <div class="text-2xl text-dark-blue font-black">
+                        To Be Announced
+                    </div>
+                    <div class="text-2xl text-dark-blue">
+                        Keynote Speaker
+                    </div>
+                </div>
             </div>
             <div class="order-3 md:order-3 grid content-end h-full">
                 <img src="{{ asset('img/conferences/2023/Ashlyn-Pells.png') }}"
@@ -361,10 +372,10 @@
             </div>
             {{-- End row --}}
         </div>
-        <div class="grid grid-cols-3 md:grid-cols-4 gap-x-8 gap-y-8">
-            {{-- Start row --}}
+        {{--<div class="grid grid-cols-3 md:grid-cols-4 gap-x-8 gap-y-8">
+            --}}{{-- Start row --}}{{--
             <div class="text-xl text-dark-blue font-black text-right">
-                {{--12 - 1:20--}}
+                --}}{{--12 - 1:20--}}{{--
             </div>
             <div class="col-span-2 md:col-span-3 flex flex-col space-y-4">
                 <p class="text-xl text-dark-blue">
@@ -403,8 +414,8 @@
 
             </div>
             </div>
-            {{-- End row --}}
-        </div>
+            --}}{{-- End row --}}{{--
+        </div>--}}
         <div class="grid grid-cols-3 md:grid-cols-4 gap-x-8 gap-y-8">
             {{-- Start row --}}
             <div class="text-xl text-dark-blue font-black text-right">
@@ -417,6 +428,9 @@
                 <p class="text-xl text-secondary font-black">
                     Introduction
                 </p>--}}
+                <p class="text-xl text-dark-blue">
+                    Evening Presentations
+                </p>
             </div>
             <div class="text-xl text-dark-blue font-black text-right">
             </div>
