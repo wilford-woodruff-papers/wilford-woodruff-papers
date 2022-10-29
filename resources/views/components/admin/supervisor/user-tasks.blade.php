@@ -57,7 +57,7 @@
                                         @endforeach
                                     </th>
                                     <th class="bg-gray-50 px-4 py-2 text-left text-sm font-semibold text-gray-900 sm:px-6">
-                                        {{ $action->actionable->pending_actions_for_user($user->id)->first()->assigned_at->tz('America/Denver')->toDayDateTimeString() }}
+                                        {{ $action->actionable->pending_actions_for_user($user->id)->first()->assigned_at?->tz('America/Denver')->toDayDateTimeString() }}
                                     </th>
                                 </tr>
                                 @forelse($action->actionable->pending_page_actions_for_user($user->id)->groupBy('actionable_id') as $pageActions)
@@ -84,7 +84,7 @@
                                             @endforeach
                                         </td>
                                         <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                                            {{ $pageActions->first()->assigned_at->tz('America/Denver')->toDayDateTimeString() }}
+                                            {{ $pageActions->first()->assigned_at?->tz('America/Denver')->toDayDateTimeString() }}
                                         </td>
                                     </tr>
                                 @empty
