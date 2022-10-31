@@ -73,7 +73,7 @@ class JournalsPcfImport implements ToCollection, WithHeadingRow
                                 'actionable_id' => $item->id,
                             ], [
                                 'assigned_to' => $this->getUserID('JM'),
-                                'assigned_at' => $transcriptionCompleted,
+                                'assigned_at' => ! empty($transcriptionCompleted) ? $transcriptionCompleted : now(),
                                 'completed_by' => $this->getUserID('JM'),
                                 'completed_at' => $transcriptionCompleted,
                                 'created_at' => $transcriptionCompleted,
@@ -88,7 +88,7 @@ class JournalsPcfImport implements ToCollection, WithHeadingRow
                                 'actionable_id' => $item->id,
                             ], [
                                 'assigned_to' => $this->getUserID($twoLVAssigned),
-                                'assigned_at' => $twoLVCompleted,
+                                'assigned_at' => ! empty($twoLVCompleted) ? $twoLVCompleted : now(),
                                 'completed_by' => ! empty($twoLVCompleted) ? $this->getUserID($twoLVAssigned) : null,
                                 'completed_at' => ! empty($twoLVCompleted) ? $twoLVCompleted : null,
                                 'created_at' => $twoLVCompleted,
@@ -103,7 +103,7 @@ class JournalsPcfImport implements ToCollection, WithHeadingRow
                                 'actionable_id' => $item->id,
                             ], [
                                 'assigned_to' => $this->getUserID($subjectLinksAssigned),
-                                'assigned_at' => $subjectLinksCompleted,
+                                'assigned_at' => ! empty($subjectLinksCompleted) ? $subjectLinksCompleted : now(),
                                 'completed_by' => ! empty($subjectLinksCompleted) ? $this->getUserID($subjectLinksAssigned) : null,
                                 'completed_at' => ! empty($subjectLinksCompleted) ? $subjectLinksCompleted : null,
                                 'created_at' => $subjectLinksCompleted,
@@ -133,7 +133,7 @@ class JournalsPcfImport implements ToCollection, WithHeadingRow
                                 'actionable_id' => $item->id,
                             ], [
                                 'assigned_to' => $this->getUserID($stylizationAssigned),
-                                'assigned_at' => $stylizationCompleted,
+                                'assigned_at' => ! empty($stylizationCompleted) ? $stylizationCompleted : now(),
                                 'completed_by' => ! empty($stylizationCompleted) ? $this->getUserID($stylizationAssigned) : null,
                                 'completed_at' => ! empty($stylizationCompleted) ? $stylizationCompleted : null,
                                 'created_at' => $stylizationCompleted,
@@ -148,8 +148,8 @@ class JournalsPcfImport implements ToCollection, WithHeadingRow
                                 'actionable_id' => $item->id,
                             ], [
                                 'assigned_to' => $this->getUserID($topicTaggingAssignedTo),
-                                'assigned_at' => $topicTaggingAssigned,
-                                'completed_by' => ! empty($stylizationCompleted) ? $this->getUserID($topicTaggingAssignedTo) : null,
+                                'assigned_at' => ! empty($topicTaggingComplete) ? $topicTaggingComplete : now(),
+                                'completed_by' => ! empty($topicTaggingComplete) ? $this->getUserID($topicTaggingAssignedTo) : null,
                                 'completed_at' => ! empty($topicTaggingComplete) ? $topicTaggingComplete : null,
                                 'created_at' => $topicTaggingAssigned,
                                 'updated_at' => $topicTaggingComplete,
