@@ -104,13 +104,13 @@
 
         <div class="grid grid-cols-1 md:grid-cols-3 md:h-[580px] px-16 md:-mt-24">
             <div class="order-1 md:order-1 grid content-end h-full">
-                <img src="{{ asset('img/conferences/2023/Ellie-Hancock.png') }}"
+                <img src="{{ asset('img/conferences/2023/Amy-Harris.png') }}"
                      alt=""
                      class="w-full h-auto"
                 />
                 <div class="text-center py-4">
                     <div class="text-2xl text-dark-blue font-black">
-                        Ellie Hancock
+                        Amy Harris
                     </div>
                     <div class="text-2xl text-dark-blue">
 
@@ -146,6 +146,27 @@
                 </div>
             </div>
         </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 md:h-[580px] px-16 md:-mt-24">
+            <div class="order-1 md:order-1 grid content-end h-full">
+
+            </div>
+            <div class="order-2 md:order-2 grid content-start h-full">
+                <img src="{{ asset('img/conferences/2023/Ellie-Hancock.png') }}"
+                     alt=""
+                     class="w-full h-auto"
+                />
+                <div class="text-center py-4">
+                    <div class="text-2xl text-dark-blue font-black">
+                        Ellie Hancock
+                    </div>
+                    <div class="text-2xl text-dark-blue">
+
+                    </div>
+                </div>
+            </div>
+            <div class="order-3 md:order-3 grid content-end h-full">
+
+        </div>
     </div>
 
     <div class="max-w-7xl mx-auto px-4 pb-4 md:pb-8 pt-16">
@@ -161,7 +182,7 @@
         <div class="grid grid-cols-3 md:grid-cols-4 gap-x-8 gap-y-8">
             {{-- Start row --}}
             <div class="text-xl text-dark-blue font-black text-right">
-                11:30 am
+                11:30 AM
             </div>
             <div class="col-span-2 md:col-span-3 flex flex-col space-y-4">
                 <p class="text-xl text-dark-blue">
@@ -372,6 +393,7 @@
             </div>
             {{-- End row --}}
         </div>
+
         {{--<div class="grid grid-cols-3 md:grid-cols-4 gap-x-8 gap-y-8">
             --}}{{-- Start row --}}{{--
             <div class="text-xl text-dark-blue font-black text-right">
@@ -459,11 +481,9 @@
                     Keynote Speaker
                 </p>
             </div>
-            <div class="">
 
-            </div>
             <div class="">
-                {{--<hr class="border-b-2 border-highlight my-4 md:my-0 max-w-[50%] md:max-w-none"/>--}}
+                <hr class="border-b-2 border-highlight my-4 md:my-8 max-w-[50%] md:max-w-none"/>
             </div>
             <div class="">
 
@@ -474,6 +494,32 @@
             </div>
             {{-- End row --}}
         </div>
+
+        <div class="grid grid-cols-3 md:grid-cols-4 gap-x-8 gap-y-8">
+            {{-- Start row --}}
+            <div class="text-xl text-dark-blue font-black text-right">
+                7:30 PM
+            </div>
+            <div class="col-span-2 md:col-span-3 flex flex-col space-y-4">
+                {{--<p class="text-xl text-dark-blue">
+                    Dinner & Featured Speaker
+                </p>
+                <p class="text-xl text-secondary font-black">
+                    Introduction
+                </p>--}}
+                <p class="text-xl text-dark-blue">
+                    Conclusion
+                </p>
+            </div>
+            <div class="text-xl text-dark-blue font-black text-right">
+            </div>
+            <div class="col-span-2 md:col-span-3 grid grid-cols-1 md:grid-cols-3">
+
+            </div>
+            {{-- End row --}}
+        </div>
+
+
         </div>
     </div>
 
