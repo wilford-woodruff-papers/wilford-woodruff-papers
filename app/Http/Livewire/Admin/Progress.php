@@ -18,8 +18,8 @@ class Progress extends Component
     public function render()
     {
         $this->periods = collect([
-            new Period(now()->startOfMonth(), now()->endOfMonth()),
-            new Period(now()->subMonth()->startOfMonth(), now()->subMonth()->endOfMonth()),
+            new Period(now('America/Denver')->startOfMonth(), now('America/Denver')->endOfMonth()),
+            new Period(now('America/Denver')->startOfMonth()->subMonthsNoOverflow(), now('America/Denver')->subMonthsNoOverflow()->endOfMonth()),
         ]);
 
         $this->types = Type::query()
