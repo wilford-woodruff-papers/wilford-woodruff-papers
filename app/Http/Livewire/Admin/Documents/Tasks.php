@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin\Documents;
 
 use App\Models\Action;
+use App\Models\ActionType;
 use App\Models\Item;
 use App\Models\Type;
 use Illuminate\Database\Eloquent\Builder;
@@ -29,9 +30,12 @@ class Tasks extends Component
 
         $unassignedItems = Item::query()
             ->with('unassigned_actions', 'unassigned_actions.type')
-            ->whereHas('actions', function (Builder $query) {
+            ->whereHas('actions', function (Builder $query) use ($userRoles) {
                 $query->whereNull('assigned_at')
-                    ->whereNull('completed_at');
+                    ->whereNull('completed_at')
+                    ->whereHas('type', function (Builder $query) use ($userRoles) {
+                        $query->whereIn('id', ActionType::query()->role($userRoles->pluck('id')->all())->pluck('id')->all());
+                    });
             })->whereHas('type', function (Builder $query) use ($userRoles) {
                 $query->whereIn('id', Type::query()->role($userRoles->pluck('id')->all())->pluck('id')->all());
             })
