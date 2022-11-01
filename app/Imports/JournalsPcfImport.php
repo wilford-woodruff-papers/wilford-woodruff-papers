@@ -25,7 +25,7 @@ class JournalsPcfImport implements ToCollection, WithHeadingRow
      */
     public function collection(Collection $rows)
     {
-        set_time_limit(3600);
+        set_time_limit(36000);
 
         $actionTypes = ActionType::all();
 
