@@ -21,6 +21,7 @@ class IndexPageTopicsCommand extends Command
                     ->whereHas('category', function (Builder $query) {
                         $query->where('name', 'Index');
                     })
+                    ->where('search_in_text', 1)
                     ->orderBy('name', 'ASC')
                     ->get();
 
