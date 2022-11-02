@@ -82,6 +82,12 @@ class Kernel extends ConsoleKernel
                 ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org')
                 ->pingOnSuccess('http://beats.envoyer.io/heartbeat/gy8BXgNsc8HoO7e');
 
+        $schedule->command('stats:quotes')
+            ->monthlyOn(1, '2:25 AM')
+            ->timezone('America/Denver')
+            ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org')
+            ->pingOnSuccess('http://beats.envoyer.io/heartbeat/jLXt6LMfXLffev0');
+
         $schedule->command('instagram-feed:refresh-tokens')
                 ->lastDayOfMonth()
                 ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org');
