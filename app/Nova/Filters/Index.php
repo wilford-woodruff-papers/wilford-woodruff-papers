@@ -28,11 +28,12 @@ class Index extends Filter
         if ($value == -1) {
         } else {
             $query = $query->where(function ($query) {
-                $query->where('subject_id', 0);
+                $query->whereNull('subject_id', 0)
+                    ->orWhere('subject_id', 0);
             })
-                            ->whereHas('category', function (Builder $query) use ($value) {
-                                $query->where('id', $value);
-                            });
+            ->whereHas('category', function (Builder $query) use ($value) {
+                $query->where('id', $value);
+            });
         }
 
         return $query;
