@@ -43,7 +43,10 @@ class QuoteTaggedDocuments extends Command
     {
         // Store quote count
         $quoteCount = Quote::query()
-                            ->whereNull('continued_from_previous_page')
+                            ->where(function ($query) {
+                                $query->whereNull('continued_from_previous_page')
+                                    ->orWhere('continued_from_previous_page', 0);
+                            })
                             ->count();
 
         $previousQuoteCount = Stat::query()
@@ -104,8 +107,8 @@ class QuoteTaggedDocuments extends Command
             ->selectRaw('DISTINCT(item_id)')
             ->whereIn('id',
                 Quote::query()
+                        ->selectRaw('DISTINCT(page_id)')
                             ->pluck('page_id')
-                            ->unique()
                             ->all()
             )
             ->pluck('item_id')
