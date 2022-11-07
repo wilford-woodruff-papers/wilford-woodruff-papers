@@ -13,7 +13,7 @@
     </div>
     <div class="my-12">
         <div class="max-w-7xl mx-auto mb-16">
-            <div class="grid grid-cols-1 md:grid-cols-3 divide-x-4 divide-secondary">
+            <div class="grid grid-cols-1 md:grid-cols-3 md:divide-x-4 md:divide-secondary gap-x-4 lg:gap-x-12">
                 <div class="flex flex-col gap-y-4 pt-2 pr-12 pb-12 pl-24">
                     <h2 class="text-secondary text-3xl uppercase">
                         Give Online
@@ -51,7 +51,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="flex flex-col gap-y-4 pt-2 pb-12 px-12">
+                <div class="flex flex-col gap-y-4 pt-2 pb-12 pl-16 pr-0">
                     <h2 class="text-secondary text-3xl uppercase">
                         Send in a Check
                     </h2>
@@ -67,16 +67,23 @@
                         </address>
                     </div>
                 </div>
-                <div class="flex flex-col gap-y-4 pt-2 pb-12 px-12">
+                <div class="flex flex-col gap-y-4 pt-2 pb-12 pr-12 pl-16">
                     <h2 class="text-secondary text-3xl uppercase">
                         Other Ways to Give
                     </h2>
-                    <p>
-
+                    <p class="text-base">
+                        Interested in donating an endowment, estate gift, bequest, DAFs, stocks, bonds, or securities?
+                    </p>
+                    <p class="text-base">
+                        Email us at <a href='&#109;&#97;il&#116;&#111;&#58;co&#110;&#116;%61ct&#64;&#37;77i&#37;6C&#102;o&#114;dwo&#111;%6&#52;%72&#37;&#55;&#53;f&#37;66%7&#48;&#97;p&#101;&#114;&#115;&#46;%6Fr&#103;' class="text-secondary underline">&#99;ont&#97;&#99;t&#64;wi&#108;f&#111;r&#100;&#119;oodruf&#102;p&#97;pers&#46;org</a> or use the link below to contact us.
                     </p>
                     <div>
-                        <a href="">
-                            Give Online
+                        <a href="{{ route('contact-us') }}"
+                           class="flex items-center justify-center gap-x-4 text-white text-2xl border-2 bg-secondary px-6 py-4 hover:text-white hover:bg-secondary"
+                        >
+                            <span>
+                                Contact Us
+                            </span>
                         </a>
                     </div>
                 </div>
