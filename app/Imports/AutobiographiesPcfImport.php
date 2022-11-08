@@ -18,7 +18,7 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class AutobiographiesPcfImport implements ToCollection, WithHeadingRow
 {
-    public int $id;
+    public string $id;
 
     /**
      * @param  Collection  $collection
@@ -53,278 +53,15 @@ class AutobiographiesPcfImport implements ToCollection, WithHeadingRow
 
                 if (! empty($item)) {
                     info($item->name);
-                    DB::transaction(function () use ($row, $item, $actionTypes) {
-                        activity('activity')
-                            ->on($item)
-                            ->event('imported')
-                            ->log('Item imported from PCF');
+                    $this->proccessItem($row, $item, $actionTypes);
+                    $uniqueID = data_get($row, str('UI')->lower()->snake()->toString());
+                    $item->pcf_unique_id = $uniqueID;
+                    $item->save();
+                    $this->id = $uniqueID;
 
-                        $uniqueID = data_get($row, str('UI')->lower()->snake()->toString());
-                        $item->pcf_unique_id = $uniqueID;
-                        $item->save();
-                        $this->id = $uniqueID;
-
-                        $transcriptionAssignedTo = data_get($row, str('Transcription Assigned')->lower()->snake()->toString());
-                        $transcriptionCompletedAt = $this->toCarbonDate(data_get($row, str('Transcription Completed')->lower()->snake()->toString()));
-
-                        $twoLVAssignedTo = data_get($row, str('2LV Assigned')->lower()->snake()->toString());
-                        $twoLVCompletedAt = $this->toCarbonDate(data_get($row, str('2LV Completed')->lower()->snake()->toString()));
-
-                        $subjectLinksAssignedTo = data_get($row, str('Subject Links Assigned')->lower()->snake()->toString());
-                        $subjectLinksCompletedAt = $this->toCarbonDate(data_get($row, str('Subject Links Completed')->lower()->snake()->toString()));
-
-                        $placesIdentificationCompletedAt = $this->toCarbonDate(data_get($row, str('Places Identification Completed')->lower()->snake()->toString()));
-                        $peopleIdentificationCompletedAt = $this->toCarbonDate(data_get($row, str('People Identification Completed')->lower()->snake()->toString()));
-
-                        $stylizationAssignedTo = data_get($row, str('Stylization Assigned')->lower()->snake()->toString());
-                        $stylizationCompletedAt = $this->toCarbonDate(data_get($row, str('Stylization Completed')->lower()->snake()->toString()));
-
-                        $topicTaggingAssignedTo = data_get($row, str('Topic Tagging Assigned')->lower()->snake()->toString());
-                        $topicTaggingAssignedAt = $this->toCarbonDate(data_get($row, str('Date Topic Tagging Assigned')->lower()->snake()->toString()));
-                        $topicTaggingCompleteAt = $this->toCarbonDate(data_get($row, str('Date Topic Tagging Completed')->lower()->snake()->toString()));
-
-                        //$dateTaggingAssigned = data_get($row, str('Date Tags Completed')->lower()->snake()->toString());
-
-                        if (! empty($transcriptionCompletedAt)) {
-                            Action::updateOrCreate([
-                                'action_type_id' => $actionTypes->firstWhere('name', 'Transcription')->id,
-                                'actionable_type' => Item::class,
-                                'actionable_id' => $item->id,
-                            ], [
-                                'assigned_to' => $this->getUserID($transcriptionAssignedTo),
-                                'assigned_at' => ! empty($transcriptionCompletedAt) ? $transcriptionCompletedAt : now(),
-                                'completed_by' => $this->getUserID($transcriptionAssignedTo),
-                                'completed_at' => $transcriptionCompletedAt,
-                                'created_at' => $transcriptionCompletedAt,
-                                'updated_at' => $transcriptionCompletedAt,
-                            ]);
-
-                            foreach ($item->pages as $page) {
-                                Action::updateOrCreate([
-                                    'action_type_id' => $actionTypes->firstWhere('name', 'Transcription')->id,
-                                    'actionable_type' => Page::class,
-                                    'actionable_id' => $page->id,
-                                ], [
-                                    'assigned_to' => $this->getUserID($transcriptionAssignedTo),
-                                    'assigned_at' => ! empty($transcriptionCompletedAt) ? $transcriptionCompletedAt : now(),
-                                    'completed_by' => $this->getUserID($transcriptionAssignedTo),
-                                    'completed_at' => $transcriptionCompletedAt,
-                                    'created_at' => $transcriptionCompletedAt,
-                                    'updated_at' => $transcriptionCompletedAt,
-                                ]);
-                            }
-                        }
-
-                        if (! empty($twoLVAssignedTo)) {
-                            Action::updateOrCreate([
-                                'action_type_id' => $actionTypes->firstWhere('name', 'Verification')->id,
-                                'actionable_type' => Item::class,
-                                'actionable_id' => $item->id,
-                            ], [
-                                'assigned_to' => $this->getUserID($twoLVAssignedTo),
-                                'assigned_at' => ! empty($twoLVCompleted) ? $twoLVCompleted : now(),
-                                'completed_by' => ! empty($twoLVCompletedAt) ? $this->getUserID($twoLVAssignedTo) : null,
-                                'completed_at' => ! empty($twoLVCompletedAt) ? $twoLVCompletedAt : null,
-                                'created_at' => $twoLVCompletedAt,
-                                'updated_at' => $twoLVCompletedAt,
-                            ]);
-
-                            foreach ($item->pages as $page) {
-                                Action::updateOrCreate([
-                                    'action_type_id' => $actionTypes->firstWhere('name', 'Verification')->id,
-                                    'actionable_type' => Page::class,
-                                    'actionable_id' => $page->id,
-                                ], [
-                                    'assigned_to' => $this->getUserID($twoLVAssignedTo),
-                                    'assigned_at' => ! empty($twoLVCompletedAt) ? $twoLVCompletedAt : now(),
-                                    'completed_by' => ! empty($twoLVCompletedAt) ? $this->getUserID($twoLVAssignedTo) : null,
-                                    'completed_at' => ! empty($twoLVCompletedAt) ? $twoLVCompletedAt : null,
-                                    'created_at' => $twoLVCompletedAt,
-                                    'updated_at' => $twoLVCompletedAt,
-                                ]);
-                            }
-                        }
-
-                        if (! empty($subjectLinksAssignedTo)) {
-                            Action::updateOrCreate([
-                                'action_type_id' => $actionTypes->firstWhere('name', 'Subject Tagging')->id,
-                                'actionable_type' => Item::class,
-                                'actionable_id' => $item->id,
-                            ], [
-                                'assigned_to' => $this->getUserID($subjectLinksAssignedTo),
-                                'assigned_at' => ! empty($subjectLinksCompletedAt) ? $subjectLinksCompletedAt : now(),
-                                'completed_by' => ! empty($subjectLinksCompletedAt) ? $this->getUserID($subjectLinksAssignedTo) : null,
-                                'completed_at' => ! empty($subjectLinksCompletedAt) ? $subjectLinksCompletedAt : null,
-                                'created_at' => $subjectLinksCompletedAt,
-                                'updated_at' => $subjectLinksCompletedAt,
-                            ]);
-
-                            foreach ($item->pages as $page) {
-                                Action::updateOrCreate([
-                                    'action_type_id' => $actionTypes->firstWhere('name', 'Subject Tagging')->id,
-                                    'actionable_type' => Page::class,
-                                    'actionable_id' => $page->id,
-                                ], [
-                                    'assigned_to' => $this->getUserID($subjectLinksAssignedTo),
-                                    'assigned_at' => ! empty($subjectLinksCompletedAt) ? $subjectLinksCompletedAt : now(),
-                                    'completed_by' => ! empty($subjectLinksCompletedAt) ? $this->getUserID($subjectLinksAssignedTo) : null,
-                                    'completed_at' => ! empty($subjectLinksCompletedAt) ? $subjectLinksCompletedAt : null,
-                                    'created_at' => $subjectLinksCompletedAt,
-                                    'updated_at' => $subjectLinksCompletedAt,
-                                ]);
-                            }
-                        }
-
-                        /*if (! empty($dateTaggingAssigned)) {
-                            Action::updateOrCreate([
-                                'action_type_id' => $actionTypes->firstWhere('name', 'Date Tagging')->id,
-                                'actionable_type' => Item::class,
-                                'actionable_id' => $item->id,
-                            ], [
-                                'assigned_to' => $this->getUserID($dateTaggingAssigned),
-                                'assigned_at' => $this->toCarbonDate('2021-02-23'),
-                                'completed_by' => $this->getUserID($dateTaggingAssigned),
-                                'completed_at' => $this->toCarbonDate('2021-02-23'),
-                                'created_at' => $this->toCarbonDate('2021-02-23'),
-                                'updated_at' => $this->toCarbonDate('2021-02-23'),
-                            ]);
-
-                            foreach ($item->pages as $page) {
-                                Action::updateOrCreate([
-                                    'action_type_id' => $actionTypes->firstWhere('name', 'Date Tagging')->id,
-                                    'actionable_type' => Page::class,
-                                    'actionable_id' => $page->id,
-                                ], [
-                                    'assigned_to' => $this->getUserID($dateTaggingAssigned),
-                                    'assigned_at' => $this->toCarbonDate('2021-02-23'),
-                                    'completed_by' => $this->getUserID($dateTaggingAssigned),
-                                    'completed_at' => $this->toCarbonDate('2021-02-23'),
-                                    'created_at' => $this->toCarbonDate('2021-02-23'),
-                                    'updated_at' => $this->toCarbonDate('2021-02-23'),
-                                ]);
-                            }
-                        }*/
-
-                        if (! empty($stylizationAssignedTo)) {
-                            Action::updateOrCreate([
-                                'action_type_id' => $actionTypes->firstWhere('name', 'Stylization')->id,
-                                'actionable_type' => Item::class,
-                                'actionable_id' => $item->id,
-                            ], [
-                                'assigned_to' => $this->getUserID($stylizationAssignedTo),
-                                'assigned_at' => ! empty($stylizationCompletedAt) ? $stylizationCompletedAt : now(),
-                                'completed_by' => ! empty($stylizationCompletedAt) ? $this->getUserID($stylizationAssignedTo) : null,
-                                'completed_at' => ! empty($stylizationCompletedAt) ? $stylizationCompletedAt : null,
-                                'created_at' => $stylizationCompletedAt,
-                                'updated_at' => $stylizationCompletedAt,
-                            ]);
-
-                            foreach ($item->pages as $page) {
-                                Action::updateOrCreate([
-                                    'action_type_id' => $actionTypes->firstWhere('name', 'Stylization')->id,
-                                    'actionable_type' => Page::class,
-                                    'actionable_id' => $page->id,
-                                ], [
-                                    'assigned_to' => $this->getUserID($stylizationAssignedTo),
-                                    'assigned_at' => ! empty($stylizationCompletedAt) ? $stylizationCompletedAt : now(),
-                                    'completed_by' => ! empty($stylizationCompletedAt) ? $this->getUserID($stylizationAssignedTo) : null,
-                                    'completed_at' => ! empty($stylizationCompletedAt) ? $stylizationCompletedAt : null,
-                                    'created_at' => $stylizationCompletedAt,
-                                    'updated_at' => $stylizationCompletedAt,
-                                ]);
-                            }
-                        }
-
-                        if (! empty($topicTaggingAssignedTo)) {
-                            Action::updateOrCreate([
-                                'action_type_id' => $actionTypes->firstWhere('name', 'Topic Tagging')->id,
-                                'actionable_type' => Item::class,
-                                'actionable_id' => $item->id,
-                            ], [
-                                'assigned_to' => $this->getUserID($topicTaggingAssignedTo),
-                                'assigned_at' => ! empty($topicTaggingCompleteAt) ? $topicTaggingCompleteAt : now(),
-                                'completed_by' => ! empty($topicTaggingCompleteAt) ? $this->getUserID($topicTaggingAssignedTo) : null,
-                                'completed_at' => ! empty($topicTaggingCompleteAt) ? $topicTaggingCompleteAt : null,
-                                'created_at' => $topicTaggingAssignedAt,
-                                'updated_at' => $topicTaggingCompleteAt,
-                            ]);
-
-                            foreach ($item->pages as $page) {
-                                Action::updateOrCreate([
-                                    'action_type_id' => $actionTypes->firstWhere('name', 'Topic Tagging')->id,
-                                    'actionable_type' => Page::class,
-                                    'actionable_id' => $page->id,
-                                ], [
-                                    'assigned_to' => $this->getUserID($topicTaggingAssignedTo),
-                                    'assigned_at' => ! empty($topicTaggingCompleteAt) ? $topicTaggingCompleteAt : now(),
-                                    'completed_by' => ! empty($topicTaggingCompleteAt) ? $this->getUserID($topicTaggingAssignedTo) : null,
-                                    'completed_at' => ! empty($topicTaggingCompleteAt) ? $topicTaggingCompleteAt : null,
-                                    'created_at' => $topicTaggingAssignedAt,
-                                    'updated_at' => $topicTaggingCompleteAt,
-                                ]);
-                            }
-                        }
-
-                        if (! empty($placesIdentificationCompletedAt)) {
-                            Action::updateOrCreate([
-                                'action_type_id' => $actionTypes->firstWhere('name', 'Transcription')->id,
-                                'actionable_type' => Item::class,
-                                'actionable_id' => $item->id,
-                            ], [
-                                'assigned_to' => $this->getUserID('JM'),
-                                'assigned_at' => ! empty($placesIdentificationCompletedAt) ? $placesIdentificationCompletedAt : now(),
-                                'completed_by' => $this->getUserID('JM'),
-                                'completed_at' => $placesIdentificationCompletedAt,
-                                'created_at' => $placesIdentificationCompletedAt,
-                                'updated_at' => $placesIdentificationCompletedAt,
-                            ]);
-
-                            foreach ($item->pages as $page) {
-                                Action::updateOrCreate([
-                                    'action_type_id' => $actionTypes->firstWhere('name', 'Transcription')->id,
-                                    'actionable_type' => Page::class,
-                                    'actionable_id' => $page->id,
-                                ], [
-                                    'assigned_to' => $this->getUserID('JM'),
-                                    'assigned_at' => ! empty($transcriptionCompletedAt) ? $transcriptionCompletedAt : now(),
-                                    'completed_by' => $this->getUserID('JM'),
-                                    'completed_at' => $transcriptionCompletedAt,
-                                    'created_at' => $transcriptionCompletedAt,
-                                    'updated_at' => $transcriptionCompletedAt,
-                                ]);
-                            }
-                        }
-
-                        if (! empty($peopleIdentificationCompletedAt)) {
-                            Action::updateOrCreate([
-                                'action_type_id' => $actionTypes->firstWhere('name', 'Transcription')->id,
-                                'actionable_type' => Item::class,
-                                'actionable_id' => $item->id,
-                            ], [
-                                'assigned_to' => $this->getUserID('JM'),
-                                'assigned_at' => ! empty($peopleIdentificationCompletedAt) ? $peopleIdentificationCompletedAt : now(),
-                                'completed_by' => $this->getUserID('JM'),
-                                'completed_at' => $peopleIdentificationCompletedAt,
-                                'created_at' => $peopleIdentificationCompletedAt,
-                                'updated_at' => $peopleIdentificationCompletedAt,
-                            ]);
-
-                            foreach ($item->pages as $page) {
-                                Action::updateOrCreate([
-                                    'action_type_id' => $actionTypes->firstWhere('name', 'Transcription')->id,
-                                    'actionable_type' => Page::class,
-                                    'actionable_id' => $page->id,
-                                ], [
-                                    'assigned_to' => $this->getUserID('JM'),
-                                    'assigned_at' => ! empty($peopleIdentificationCompletedAt) ? $peopleIdentificationCompletedAt : now(),
-                                    'completed_by' => $this->getUserID('JM'),
-                                    'completed_at' => $peopleIdentificationCompletedAt,
-                                    'created_at' => $peopleIdentificationCompletedAt,
-                                    'updated_at' => $peopleIdentificationCompletedAt,
-                                ]);
-                            }
-                        }
-                    });
+                    foreach ($item->items as $section) {
+                        $this->proccessItem($row, $section, $actionTypes);
+                    }
                 } else {
                     logger()->warning('Could not find item for: '.$slug);
                 }
@@ -344,6 +81,277 @@ class AutobiographiesPcfImport implements ToCollection, WithHeadingRow
                 );*/
             }
         }
+    }
+
+    private function proccessItem($row, $item, $actionTypes)
+    {
+        DB::transaction(function () use ($row, $item, $actionTypes) {
+            activity('activity')
+                ->on($item)
+                ->event('imported')
+                ->log('Item imported from PCF');
+
+            $transcriptionAssignedTo = data_get($row, str('Transcription Assigned')->lower()->snake()->toString());
+            $transcriptionCompletedAt = $this->toCarbonDate(data_get($row, str('Transcription Completed')->lower()->snake()->toString()));
+
+            $twoLVAssignedTo = data_get($row, str('2LV Assigned')->lower()->snake()->toString());
+            $twoLVCompletedAt = $this->toCarbonDate(data_get($row, str('2LV Completed')->lower()->snake()->toString()));
+
+            $subjectLinksAssignedTo = data_get($row, str('Subject Links Assigned')->lower()->snake()->toString());
+            $subjectLinksCompletedAt = $this->toCarbonDate(data_get($row, str('Subject Links Completed')->lower()->snake()->toString()));
+
+            $placesIdentificationCompletedAt = $this->toCarbonDate(data_get($row, str('Places Identification Completed')->lower()->snake()->toString()));
+            $peopleIdentificationCompletedAt = $this->toCarbonDate(data_get($row, str('People Identification Completed')->lower()->snake()->toString()));
+
+            $stylizationAssignedTo = data_get($row, str('Stylization Assigned')->lower()->snake()->toString());
+            $stylizationCompletedAt = $this->toCarbonDate(data_get($row, str('Stylization Completed')->lower()->snake()->toString()));
+
+            $topicTaggingAssignedTo = data_get($row, str('Topic Tagging Assigned')->lower()->snake()->toString());
+            $topicTaggingAssignedAt = $this->toCarbonDate(data_get($row, str('Date Topic Tagging Assigned')->lower()->snake()->toString()));
+            $topicTaggingCompleteAt = $this->toCarbonDate(data_get($row, str('Date Topic Tagging Completed')->lower()->snake()->toString()));
+
+            //$dateTaggingAssigned = data_get($row, str('Date Tags Completed')->lower()->snake()->toString());
+
+            if (! empty($transcriptionCompletedAt)) {
+                Action::updateOrCreate([
+                    'action_type_id' => $actionTypes->firstWhere('name', 'Transcription')->id,
+                    'actionable_type' => Item::class,
+                    'actionable_id' => $item->id,
+                ], [
+                    'assigned_to' => $this->getUserID($transcriptionAssignedTo),
+                    'assigned_at' => ! empty($transcriptionCompletedAt) ? $transcriptionCompletedAt : now(),
+                    'completed_by' => $this->getUserID($transcriptionAssignedTo),
+                    'completed_at' => $transcriptionCompletedAt,
+                    'created_at' => $transcriptionCompletedAt,
+                    'updated_at' => $transcriptionCompletedAt,
+                ]);
+
+                foreach ($item->pages as $page) {
+                    Action::updateOrCreate([
+                        'action_type_id' => $actionTypes->firstWhere('name', 'Transcription')->id,
+                        'actionable_type' => Page::class,
+                        'actionable_id' => $page->id,
+                    ], [
+                        'assigned_to' => $this->getUserID($transcriptionAssignedTo),
+                        'assigned_at' => ! empty($transcriptionCompletedAt) ? $transcriptionCompletedAt : now(),
+                        'completed_by' => $this->getUserID($transcriptionAssignedTo),
+                        'completed_at' => $transcriptionCompletedAt,
+                        'created_at' => $transcriptionCompletedAt,
+                        'updated_at' => $transcriptionCompletedAt,
+                    ]);
+                }
+            }
+
+            if (! empty($twoLVAssignedTo)) {
+                Action::updateOrCreate([
+                    'action_type_id' => $actionTypes->firstWhere('name', 'Verification')->id,
+                    'actionable_type' => Item::class,
+                    'actionable_id' => $item->id,
+                ], [
+                    'assigned_to' => $this->getUserID($twoLVAssignedTo),
+                    'assigned_at' => ! empty($twoLVCompleted) ? $twoLVCompleted : now(),
+                    'completed_by' => ! empty($twoLVCompletedAt) ? $this->getUserID($twoLVAssignedTo) : null,
+                    'completed_at' => ! empty($twoLVCompletedAt) ? $twoLVCompletedAt : null,
+                    'created_at' => $twoLVCompletedAt,
+                    'updated_at' => $twoLVCompletedAt,
+                ]);
+
+                foreach ($item->pages as $page) {
+                    Action::updateOrCreate([
+                        'action_type_id' => $actionTypes->firstWhere('name', 'Verification')->id,
+                        'actionable_type' => Page::class,
+                        'actionable_id' => $page->id,
+                    ], [
+                        'assigned_to' => $this->getUserID($twoLVAssignedTo),
+                        'assigned_at' => ! empty($twoLVCompletedAt) ? $twoLVCompletedAt : now(),
+                        'completed_by' => ! empty($twoLVCompletedAt) ? $this->getUserID($twoLVAssignedTo) : null,
+                        'completed_at' => ! empty($twoLVCompletedAt) ? $twoLVCompletedAt : null,
+                        'created_at' => $twoLVCompletedAt,
+                        'updated_at' => $twoLVCompletedAt,
+                    ]);
+                }
+            }
+
+            if (! empty($subjectLinksAssignedTo)) {
+                Action::updateOrCreate([
+                    'action_type_id' => $actionTypes->firstWhere('name', 'Subject Tagging')->id,
+                    'actionable_type' => Item::class,
+                    'actionable_id' => $item->id,
+                ], [
+                    'assigned_to' => $this->getUserID($subjectLinksAssignedTo),
+                    'assigned_at' => ! empty($subjectLinksCompletedAt) ? $subjectLinksCompletedAt : now(),
+                    'completed_by' => ! empty($subjectLinksCompletedAt) ? $this->getUserID($subjectLinksAssignedTo) : null,
+                    'completed_at' => ! empty($subjectLinksCompletedAt) ? $subjectLinksCompletedAt : null,
+                    'created_at' => $subjectLinksCompletedAt,
+                    'updated_at' => $subjectLinksCompletedAt,
+                ]);
+
+                foreach ($item->pages as $page) {
+                    Action::updateOrCreate([
+                        'action_type_id' => $actionTypes->firstWhere('name', 'Subject Tagging')->id,
+                        'actionable_type' => Page::class,
+                        'actionable_id' => $page->id,
+                    ], [
+                        'assigned_to' => $this->getUserID($subjectLinksAssignedTo),
+                        'assigned_at' => ! empty($subjectLinksCompletedAt) ? $subjectLinksCompletedAt : now(),
+                        'completed_by' => ! empty($subjectLinksCompletedAt) ? $this->getUserID($subjectLinksAssignedTo) : null,
+                        'completed_at' => ! empty($subjectLinksCompletedAt) ? $subjectLinksCompletedAt : null,
+                        'created_at' => $subjectLinksCompletedAt,
+                        'updated_at' => $subjectLinksCompletedAt,
+                    ]);
+                }
+            }
+
+            /*if (! empty($dateTaggingAssigned)) {
+                Action::updateOrCreate([
+                    'action_type_id' => $actionTypes->firstWhere('name', 'Date Tagging')->id,
+                    'actionable_type' => Item::class,
+                    'actionable_id' => $item->id,
+                ], [
+                    'assigned_to' => $this->getUserID($dateTaggingAssigned),
+                    'assigned_at' => $this->toCarbonDate('2021-02-23'),
+                    'completed_by' => $this->getUserID($dateTaggingAssigned),
+                    'completed_at' => $this->toCarbonDate('2021-02-23'),
+                    'created_at' => $this->toCarbonDate('2021-02-23'),
+                    'updated_at' => $this->toCarbonDate('2021-02-23'),
+                ]);
+
+                foreach ($item->pages as $page) {
+                    Action::updateOrCreate([
+                        'action_type_id' => $actionTypes->firstWhere('name', 'Date Tagging')->id,
+                        'actionable_type' => Page::class,
+                        'actionable_id' => $page->id,
+                    ], [
+                        'assigned_to' => $this->getUserID($dateTaggingAssigned),
+                        'assigned_at' => $this->toCarbonDate('2021-02-23'),
+                        'completed_by' => $this->getUserID($dateTaggingAssigned),
+                        'completed_at' => $this->toCarbonDate('2021-02-23'),
+                        'created_at' => $this->toCarbonDate('2021-02-23'),
+                        'updated_at' => $this->toCarbonDate('2021-02-23'),
+                    ]);
+                }
+            }*/
+
+            if (! empty($stylizationAssignedTo)) {
+                Action::updateOrCreate([
+                    'action_type_id' => $actionTypes->firstWhere('name', 'Stylization')->id,
+                    'actionable_type' => Item::class,
+                    'actionable_id' => $item->id,
+                ], [
+                    'assigned_to' => $this->getUserID($stylizationAssignedTo),
+                    'assigned_at' => ! empty($stylizationCompletedAt) ? $stylizationCompletedAt : now(),
+                    'completed_by' => ! empty($stylizationCompletedAt) ? $this->getUserID($stylizationAssignedTo) : null,
+                    'completed_at' => ! empty($stylizationCompletedAt) ? $stylizationCompletedAt : null,
+                    'created_at' => $stylizationCompletedAt,
+                    'updated_at' => $stylizationCompletedAt,
+                ]);
+
+                foreach ($item->pages as $page) {
+                    Action::updateOrCreate([
+                        'action_type_id' => $actionTypes->firstWhere('name', 'Stylization')->id,
+                        'actionable_type' => Page::class,
+                        'actionable_id' => $page->id,
+                    ], [
+                        'assigned_to' => $this->getUserID($stylizationAssignedTo),
+                        'assigned_at' => ! empty($stylizationCompletedAt) ? $stylizationCompletedAt : now(),
+                        'completed_by' => ! empty($stylizationCompletedAt) ? $this->getUserID($stylizationAssignedTo) : null,
+                        'completed_at' => ! empty($stylizationCompletedAt) ? $stylizationCompletedAt : null,
+                        'created_at' => $stylizationCompletedAt,
+                        'updated_at' => $stylizationCompletedAt,
+                    ]);
+                }
+            }
+
+            if (! empty($topicTaggingAssignedTo)) {
+                Action::updateOrCreate([
+                    'action_type_id' => $actionTypes->firstWhere('name', 'Topic Tagging')->id,
+                    'actionable_type' => Item::class,
+                    'actionable_id' => $item->id,
+                ], [
+                    'assigned_to' => $this->getUserID($topicTaggingAssignedTo),
+                    'assigned_at' => ! empty($topicTaggingCompleteAt) ? $topicTaggingCompleteAt : now(),
+                    'completed_by' => ! empty($topicTaggingCompleteAt) ? $this->getUserID($topicTaggingAssignedTo) : null,
+                    'completed_at' => ! empty($topicTaggingCompleteAt) ? $topicTaggingCompleteAt : null,
+                    'created_at' => $topicTaggingAssignedAt,
+                    'updated_at' => $topicTaggingCompleteAt,
+                ]);
+
+                foreach ($item->pages as $page) {
+                    Action::updateOrCreate([
+                        'action_type_id' => $actionTypes->firstWhere('name', 'Topic Tagging')->id,
+                        'actionable_type' => Page::class,
+                        'actionable_id' => $page->id,
+                    ], [
+                        'assigned_to' => $this->getUserID($topicTaggingAssignedTo),
+                        'assigned_at' => ! empty($topicTaggingCompleteAt) ? $topicTaggingCompleteAt : now(),
+                        'completed_by' => ! empty($topicTaggingCompleteAt) ? $this->getUserID($topicTaggingAssignedTo) : null,
+                        'completed_at' => ! empty($topicTaggingCompleteAt) ? $topicTaggingCompleteAt : null,
+                        'created_at' => $topicTaggingAssignedAt,
+                        'updated_at' => $topicTaggingCompleteAt,
+                    ]);
+                }
+            }
+
+            if (! empty($placesIdentificationCompletedAt)) {
+                Action::updateOrCreate([
+                    'action_type_id' => $actionTypes->firstWhere('name', 'Transcription')->id,
+                    'actionable_type' => Item::class,
+                    'actionable_id' => $item->id,
+                ], [
+                    'assigned_to' => $this->getUserID('JM'),
+                    'assigned_at' => ! empty($placesIdentificationCompletedAt) ? $placesIdentificationCompletedAt : now(),
+                    'completed_by' => $this->getUserID('JM'),
+                    'completed_at' => $placesIdentificationCompletedAt,
+                    'created_at' => $placesIdentificationCompletedAt,
+                    'updated_at' => $placesIdentificationCompletedAt,
+                ]);
+
+                foreach ($item->pages as $page) {
+                    Action::updateOrCreate([
+                        'action_type_id' => $actionTypes->firstWhere('name', 'Transcription')->id,
+                        'actionable_type' => Page::class,
+                        'actionable_id' => $page->id,
+                    ], [
+                        'assigned_to' => $this->getUserID('JM'),
+                        'assigned_at' => ! empty($transcriptionCompletedAt) ? $transcriptionCompletedAt : now(),
+                        'completed_by' => $this->getUserID('JM'),
+                        'completed_at' => $transcriptionCompletedAt,
+                        'created_at' => $transcriptionCompletedAt,
+                        'updated_at' => $transcriptionCompletedAt,
+                    ]);
+                }
+            }
+
+            if (! empty($peopleIdentificationCompletedAt)) {
+                Action::updateOrCreate([
+                    'action_type_id' => $actionTypes->firstWhere('name', 'Transcription')->id,
+                    'actionable_type' => Item::class,
+                    'actionable_id' => $item->id,
+                ], [
+                    'assigned_to' => $this->getUserID('JM'),
+                    'assigned_at' => ! empty($peopleIdentificationCompletedAt) ? $peopleIdentificationCompletedAt : now(),
+                    'completed_by' => $this->getUserID('JM'),
+                    'completed_at' => $peopleIdentificationCompletedAt,
+                    'created_at' => $peopleIdentificationCompletedAt,
+                    'updated_at' => $peopleIdentificationCompletedAt,
+                ]);
+
+                foreach ($item->pages as $page) {
+                    Action::updateOrCreate([
+                        'action_type_id' => $actionTypes->firstWhere('name', 'Transcription')->id,
+                        'actionable_type' => Page::class,
+                        'actionable_id' => $page->id,
+                    ], [
+                        'assigned_to' => $this->getUserID('JM'),
+                        'assigned_at' => ! empty($peopleIdentificationCompletedAt) ? $peopleIdentificationCompletedAt : now(),
+                        'completed_by' => $this->getUserID('JM'),
+                        'completed_at' => $peopleIdentificationCompletedAt,
+                        'created_at' => $peopleIdentificationCompletedAt,
+                        'updated_at' => $peopleIdentificationCompletedAt,
+                    ]);
+                }
+            }
+        });
     }
 
     private function getSlug($url)
@@ -403,6 +411,7 @@ class AutobiographiesPcfImport implements ToCollection, WithHeadingRow
                 $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
                 break;
             case 'JM':
+            case 'Jennifer':
             case 'Jennifer Mackley':
                 $name = 'Jennifer Mackley';
                 $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
