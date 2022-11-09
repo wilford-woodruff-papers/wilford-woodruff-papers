@@ -2,7 +2,9 @@
 
 namespace App\Nova\Actions;
 
+use App\Imports\AutobiographiesPcfImport;
 use App\Imports\JournalsPcfImport;
+use App\Imports\LettersPcfImport;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
@@ -19,11 +21,9 @@ class ImportPcf extends Action
 
     public $standalone = true;
 
-    private $type;
-
-    public function __construct($type)
+    public function __construct()
     {
-        $this->type = $type;
+        //
     }
 
     /**
@@ -35,16 +35,19 @@ class ImportPcf extends Action
      */
     public function handle(ActionFields $fields, Collection $models)
     {
-        switch ($this->type) {
+        switch ($fields->type) {
             case 'Journals':
                 Excel::import(new JournalsPcfImport(), $fields->file);
                 break;
+            case 'Autobiographies':
+                Excel::import(new AutobiographiesPcfImport(), $fields->file);
+                break;
             case 'Letters':
-                Excel::import(new JournalsPcfImport, $fields->file);
+                Excel::import(new LettersPcfImport(), $fields->file);
                 break;
         }
 
-        return Action::message('Imported successfully');
+        return Action::message("Imported $fields->type successfully");
     }
 
     /**
@@ -58,6 +61,8 @@ class ImportPcf extends Action
             Select::make('Type')
                 ->options([
                     'Journals' => 'Journals',
+                    'Autobiographies' => 'Autobiographies',
+                    'Letters' => 'Letters',
                 ])
                 ->rules('required'),
             File::make('File')

@@ -166,7 +166,7 @@ class Item extends Resource
             (new ExportItems())->askForWriterType(),
             new ImportPages,
             new ImportItems,
-            new ImportPcf('Journals'),
+            new ImportPcf,
             new ExportPcf(),
         ];
     }
