@@ -4,6 +4,7 @@ namespace App\Nova\Actions;
 
 use App\Imports\AutobiographiesPcfImport;
 use App\Imports\JournalsPcfImport;
+use App\Imports\LettersPcfImport;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
@@ -41,6 +42,9 @@ class ImportPcf extends Action
             case 'Autobiographies':
                 Excel::import(new AutobiographiesPcfImport(), $fields->file);
                 break;
+            case 'Letters':
+                Excel::import(new LettersPcfImport(), $fields->file);
+                break;
         }
 
         return Action::message("Imported $fields->type successfully");
@@ -58,6 +62,7 @@ class ImportPcf extends Action
                 ->options([
                     'Journals' => 'Journals',
                     'Autobiographies' => 'Autobiographies',
+                    'Letters' => 'Letters',
                 ])
                 ->rules('required'),
             File::make('File')
