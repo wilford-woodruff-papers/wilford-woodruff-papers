@@ -40,9 +40,12 @@ class Browse extends Component
         $this->resetPage();
     }
 
-    public function updatingFilters()
+    public function updatingFilters($value, $key)
     {
         logger()->info(data_get($this->filters, 'search'));
+        if ($key == 'decade') {
+            $this->filters['year'] = null;
+        }
     }
 
     public function mount()
