@@ -24,6 +24,7 @@ class LettersPcfImport implements ToCollection, WithHeadingRow
     public function collection(Collection $rows)
     {
         set_time_limit(36000);
+        ini_set('memory_limit', '768M');
 
         $actionTypes = ActionType::all();
         $enabled = 0;
