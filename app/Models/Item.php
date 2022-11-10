@@ -45,6 +45,11 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
         }
     }
 
+    public function firstPage()
+    {
+        return $this->hasOne(Page::class, 'parent_item_id')->ordered()->ofMany();
+    }
+
     public function items()
     {
         return $this->hasMany(self::class)->orderBy('order', 'ASC');
@@ -208,5 +213,4 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
         return $this->belongsToMany(TargetPublishDate::class)
             ->where('publish_at', '>', now());
     }
-
 }
