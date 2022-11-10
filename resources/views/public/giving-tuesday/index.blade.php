@@ -200,6 +200,9 @@
             <h2 class="inline-block text-3xl uppercase pb-1 border-b-4 border-highlight px-12">
                 Testimonies
             </h2>
+            <p class="max-w-2xl mx-auto mt-6 text-xl px-4 md:px-8">
+                See how your donation will help inspire people, especially the rising generation, to study and increase their faith in Jesus Christ.
+            </p>
         </div>
         <div class="max-w-7xl mx-auto grid grid-cols-5 items-center gap-x-4 my-24">
             <div class="col-span-5 md:col-span-3  order-2 md:order-1  pt-4 md:pt-0 px-4 md:px-12">
