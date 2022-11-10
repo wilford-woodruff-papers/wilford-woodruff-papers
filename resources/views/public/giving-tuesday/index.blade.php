@@ -1,15 +1,118 @@
 <x-guest-layout>
     <x-slot name="title">Giving Tuesday</x-slot>
 
-    <div class="bg-cover bg-center" style="background-image: url('{{ asset('img/giving-tuesday/background.jpg') }}');">
-        <div class="max-w-5xl mx-auto py-24">
+{{--    <div class="bg-cover bg-center" style="background-image: url('{{ asset('img/giving-tuesday/background.jpg') }}');">--}}
+{{--        <div class="max-w-5xl mx-auto py-24">--}}
+{{--            <h1 class="text-6xl text-white font-black text-center uppercase">--}}
+{{--                Ways to Give--}}
+{{--            </h1>--}}
+{{--            <p class="text-white text-center font-semibold text-2xl mt-8">--}}
+{{--                Your generosity makes a difference.--}}
+{{--            </p>--}}
+{{--        </div>--}}
+{{--    </div>--}}
+    <div class="bg-cover bg-center" style="background-image: url('{{ asset('img/giving-tuesday/hero.png') }}');">
+        <div class="max-w-5xl mx-auto pt-24 pb-12">
             <h1 class="text-6xl text-white font-black text-center uppercase">
                 Ways to Give
             </h1>
-            <p class="text-white text-center font-semibold text-2xl mt-8">
+            <p class="text-white text-center font-medium text-2xl mt-0 mb-12">
                 Your generosity makes a difference.
             </p>
+            <p class="text-center">
+                <img src="{{ asset('img/giving-tuesday/GT_logo white.png') }}"
+                     alt="Giving Tuesday"
+                     class="h-8 w-auto mx-auto"
+                />
+            </p>
+            <p class="text-center text-white text-3xl my-4">
+                November 29, 2022
+            </p>
+
+            <div x-data="{
+                        countDownDate: null,
+                        now: null,
+                        distance: null,
+                        days: 0,
+                        hours: 0,
+                        minutes: 0,
+                        seconds: 0,
+                    }"
+                 x-init="
+                        countDownDate = new Date('Nov 29, 2022 00:01:00').getTime()
+                        let timer = setInterval(function(){
+                            now = new Date().getTime();
+                            distance = countDownDate - now;
+
+                            if (distance < 0) {
+                                clearInterval(timer);
+                                days = '00';
+                                hours = '00';
+                                minutes = '00';
+                                seconds = '00';
+                            } else {
+                                // Time calculations for days, hours, minutes and seconds
+                                days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                                hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                                seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                            }
+                        }, 1000)
+                     "
+                 class=""
+                 x-cloak
+            >
+                <div class="max-w-4xl mx-auto">
+                    <div class="grid grid-cols-1 py-4 md:py-0">
+                        <div class="md:col-span-4 py-4 px-4">
+                            <div class="rounded-md pb-2">
+                                <div class="px-4 lg:px-16">
+                                    <div class="grid grid-cols-4 gap-4">
+                                        <div class="flex flex-col bg-primary rounded-md py-2">
+                                            <div x-text="days"
+                                                 class="text-2xl md:text-4xl font-semibold text-white text-center">
+                                            </div>
+                                            <div class="text-white uppercase text-center text-sm md:text-base">
+                                                Days
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-col bg-primary rounded-md py-2">
+                                            <div x-text="hours"
+                                                 class="text-2xl md:text-4xl font-semibold text-white text-center">
+                                            </div>
+                                            <div class="text-white uppercase text-center text-sm md:text-base">
+                                                Hours
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-col bg-primary rounded-md py-2">
+                                            <div x-text="minutes"
+                                                 class="text-2xl md:text-4xl font-semibold text-white text-center">
+                                            </div>
+                                            <div class="text-white uppercase text-center text-sm md:text-base">
+                                                Minutes
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-col bg-primary rounded-md py-2">
+                                            <div x-text="seconds"
+                                                 class="text-2xl md:text-4xl font-semibold text-white text-center">
+                                            </div>
+                                            <div class="text-white uppercase text-center text-sm md:text-base">
+                                                Seconds
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
+
+
+
     </div>
     <div class="my-12">
         <div class="max-w-7xl mx-auto mb-16">
@@ -22,7 +125,7 @@
 
                     </p>
                     <div class="flex flex-col gap-y-4">
-                        <a href="https://form-renderer-app.donorperfect.io/give/wilford-woodruff-papers-foundation/online-donation-form"
+                        <a href="https://form-renderer-app.donorperfect.io/give/wilford-woodruff-papers-foundation/donation-form"
                            class="flex items-center justify-center gap-x-4 text-secondary text-2xl border-2 border-secondary px-6 py-4 hover:text-white hover:bg-secondary"
                            target="_blank"
                         >
@@ -56,7 +159,7 @@
                         Send in a Check
                     </h2>
                     <p class="text-base">
-                        Not into giving online? Feel free to send a check to our organization to help us make a difference in the community.
+                        Not into giving online? Feel free to send a check to our organization to help us complete this historic project.
                     </p>
 
                     <div class="text-black text-xl font-semibold">
@@ -69,7 +172,7 @@
                 </div>
                 <div class="flex flex-col gap-y-4 pt-2 pb-12 pr-12 pl-16">
                     <h2 class="text-secondary text-3xl uppercase">
-                        Other Ways to Give
+                        Donations-in-Kind
                     </h2>
                     <p class="text-base">
                         Interested in donating an endowment, estate gift, bequest, DAFs, stocks, bonds, or securities?
@@ -89,6 +192,120 @@
                 </div>
             </div>
         </div>
+    </div>
+
+
+    <div class="mt-24 mb-12">
+        <div class="max-w-7xl mx-auto mb-16 text-center">
+            <h2 class="inline-block text-3xl uppercase pb-1 border-b-4 border-highlight px-12">
+                Testimonies
+            </h2>
+        </div>
+        <div class="max-w-7xl mx-auto grid grid-cols-5 items-center gap-x-4 my-24">
+            <div class="col-span-5 md:col-span-3  order-2 md:order-1  pt-4 md:pt-0 px-4 md:px-12">
+                <h2 class="text-base lg:text-xl font-extrabold tracking-tight text-gray-900">
+                    Wilford Woodruff Teaches How to Handle Opposition
+                </h2>
+                <div class="my-4 border-t border-gray-200 pt-1">
+                    <div class="flex items-center space-x-3 mt-3">
+                        <div class="text-sm lg:text-base font-medium text-gray-900">
+                            Scierra Clegg
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-x-4 mt-4 text-base lg:text-lg text-gray-800">
+                    <div class="flex-initial">
+                        <svg class="h-8 w-8 text-primary-80" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true">
+                            <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z"></path>
+                        </svg>
+                    </div>
+                    <blockquote class="text-justify">
+                        <p>We have a lot of difficulties and adversity in our lives, but when you're connected to God and you have a perspective of why you're doing the things you're doing, and who you are and your purpose, you can do anything with a good attitude.</p>
+                    </blockquote>
+                    <div class="flex-initial">
+                        <svg class="h-8 w-8 text-primary-80 transform rotate-180" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true">
+                            <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="col-span-5 md:col-span-2  order-1 md:order-2 ">
+                <div class="w-[260px] h-[160px] lg:w-[480px] lg:h-[310px] mx-auto">
+                    <iframe class="w-[260px] h-[160px] lg:w-[480px] lg:h-[310px]" src="https://www.youtube.com/embed/Sf7toPmkOCQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto grid grid-cols-5 items-center gap-x-4 my-24">
+            <div class="col-span-5 md:col-span-3  order-2 md:order-2  pt-4 md:pt-0 px-4 md:px-12">
+                <h2 class="text-base lg:text-xl font-extrabold tracking-tight text-gray-900">
+                    Knowing My Ancestry Gives Me Strength
+                </h2>
+                <div class="my-4 border-t border-gray-200 pt-1">
+                    <div class="flex items-center space-x-3 mt-3">
+                        <div class="text-sm lg:text-base font-medium text-gray-900">
+                            Kate Barrus
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-x-4 mt-4 text-base lg:text-lg text-gray-800">
+                    <div class="flex-initial">
+                        <svg class="h-8 w-8 text-primary-80" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true">
+                            <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z"></path>
+                        </svg>
+                    </div>
+                    <blockquote class="text-justify">
+                        <p>The reason why I decided to serve a mission was because I know that the gospel makes me happy. It's where I've found true and lasting joy.</p>
+                    </blockquote>
+                    <div class="flex-initial">
+                        <svg class="h-8 w-8 text-primary-80 transform rotate-180" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true">
+                            <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="col-span-5 md:col-span-2  order-1 md:order-1 ">
+                <div class="w-[260px] h-[160px] lg:w-[480px] lg:h-[310px] mx-auto">
+                    <iframe class="w-[260px] h-[160px] lg:w-[480px] lg:h-[310px]" src="https://www.youtube.com/embed/2kYwDDFOn6s" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto grid grid-cols-5 items-center gap-x-4 my-24">
+            <div class="col-span-5 md:col-span-3  order-2 md:order-1  pt-4 md:pt-0 px-4 md:px-12">
+                <h2 class="text-base lg:text-xl font-extrabold tracking-tight text-gray-900">
+                    The Wilford Woodruff Papers Have Taught Me How a Prophet Works and Thinks
+                </h2>
+                <div class="my-4 border-t border-gray-200 pt-1">
+                    <div class="flex items-center space-x-3 mt-3">
+                        <div class="text-sm lg:text-base font-medium text-gray-900">
+                            Cory Clay
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-x-4 mt-4 text-base lg:text-lg text-gray-800">
+                    <div class="flex-initial">
+                        <svg class="h-8 w-8 text-primary-80" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true">
+                            <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z"></path>
+                        </svg>
+                    </div>
+                    <blockquote class="text-justify">
+                        <p>I've learned a lot from the Wilford Woodruff Papers, as I've been reading through his journals, I learned a lot about how a prophet works, how he thinks and how he gains inspiration, revelation.</p>
+                    </blockquote>
+                    <div class="flex-initial">
+                        <svg class="h-8 w-8 text-primary-80 transform rotate-180" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true">
+                            <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="col-span-5 md:col-span-2  order-1 md:order-2 ">
+                <div class="w-[260px] h-[160px] lg:w-[480px] lg:h-[310px] mx-auto">
+                    <iframe class="w-[260px] h-[160px] lg:w-[480px] lg:h-[310px]" src="https://www.youtube.com/embed/x-eaK7Q1xNM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+                </div>
+            </div>
+        </div>
+
     </div>
     @push('styles')
         <style>
