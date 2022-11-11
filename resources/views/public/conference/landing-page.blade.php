@@ -17,7 +17,12 @@
                     11:30 AM - 7:30 PM
                 </div>
                 <div class="my-2 text-3xl z-10">
-                    At Brigham Young University
+                    <div>
+                        Hinckley Center
+                    </div>
+                    <div>
+                        At Brigham Young University
+                    </div>
                 </div>
             </div>
             <div>
