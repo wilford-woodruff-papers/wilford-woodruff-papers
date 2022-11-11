@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\ImportNewletters;
 use DmitryBubyakin\NovaMedialibraryField\Fields\GeneratedConversions;
 use DmitryBubyakin\NovaMedialibraryField\Fields\Medialibrary;
 use Emilianotisato\NovaTinyMCE\NovaTinyMCE;
@@ -9,9 +10,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Newsletter extends Resource
 {
@@ -114,6 +113,8 @@ class Newsletter extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            new ImportNewletters,
+        ];
     }
 }
