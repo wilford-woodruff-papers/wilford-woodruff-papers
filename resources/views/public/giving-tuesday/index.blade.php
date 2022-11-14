@@ -114,6 +114,18 @@
 
 
     </div>
+
+    <div class="max-w-xl mx-auto text-center my-8">
+        <a href="https://app.giveforms.com/campaigns/wilfordwoodruffpapersfoundation/default-giveform"
+           class="flex items-center justify-center gap-x-4 hover:text-secondary text-2xl border-2 border-secondary px-6 py-4 text-white bg-secondary hover:bg-white"
+           target="_blank"
+        >
+            <span>
+                Donate Online
+            </span>
+        </a>
+    </div>
+
     <div class="my-12">
         <div class="max-w-7xl mx-auto mb-16">
             <div class="grid grid-cols-1 md:grid-cols-3 md:divide-x-4 md:divide-secondary gap-x-4 lg:gap-x-12">
@@ -126,11 +138,11 @@
                     </p>
                     <div class="flex flex-col gap-y-4">
                         <a href="https://app.giveforms.com/campaigns/wilfordwoodruffpapersfoundation/default-giveform"
-                           class="flex items-center justify-center gap-x-4 text-secondary text-2xl border-2 border-secondary px-6 py-4 hover:text-white hover:bg-secondary"
+                           class="flex items-center justify-center gap-x-4 hover:text-secondary text-2xl border-2 border-secondary px-6 py-4 text-white bg-secondary hover:bg-white"
                            target="_blank"
                         >
                             <span>
-                                Online
+                                Donate Online
                             </span>
                         </a>
                         <a href="https://www.facebook.com/wilfordwoodruffpapersfoundation"
@@ -158,7 +170,7 @@
                     <h2 class="text-secondary text-2xl sm:text-xl lg:text-3xl uppercase">
                         Send in a Check
                     </h2>
-                    <p class="text-base">
+                    <p class="text-xl">
                         Not into giving online? Feel free to send a check to our organization to help us complete this historic project.
                     </p>
 
@@ -174,15 +186,15 @@
                     <h2 class="text-secondary text-2xl sm:text-xl lg:text-3xl uppercase">
                         Donations-in-Kind
                     </h2>
-                    <p class="text-base">
+                    <p class="text-xl">
                         Interested in donating an endowment, estate gift, bequest, DAFs, stocks, bonds, securities, or other in-kind gifts?
                     </p>
-                    <p class="text-base">
+                    <p class="text-xl">
                         Email us at <a href='&#109;&#97;il&#116;&#111;&#58;co&#110;&#116;%61ct&#64;&#37;77i&#37;6C&#102;o&#114;dwo&#111;%6&#52;%72&#37;&#55;&#53;f&#37;66%7&#48;&#97;p&#101;&#114;&#115;&#46;%6Fr&#103;' class="text-secondary underline">&#99;ont&#97;&#99;t&#64;wi&#108;f&#111;r&#100;&#119;oodruf&#102;p&#97;pers&#46;org</a> or use the link below to contact us.
                     </p>
                     <div>
                         <a href="{{ route('contact-us') }}"
-                           class="flex items-center justify-center gap-x-4 text-white text-2xl border-2 bg-secondary px-6 py-4 hover:text-white hover:bg-secondary"
+                           class="flex items-center justify-center gap-x-4 text-secondary text-2xl border-2 border-secondary bg-white px-6 py-4 hover:text-white hover:bg-secondary"
                         >
                             <span>
                                 Contact Us
@@ -196,25 +208,25 @@
 
     <div class="my-12">
         <div class="max-w-5xl mx-auto mb-16">
-            <div class="grid md:grid-cols-2 gap-12">
-                <div class="grid grid-cols-2 items-center">
-                    <a href="https://www.guidestar.org/profile/84-4318803" target="_blank">
+            <div class="grid md:grid-cols-2 gap-12 px-4 md:px-0">
+                <div class="grid sm:grid-cols-2 items-center justify-center">
+                    <a href="https://www.guidestar.org/profile/84-4318803" target="_blank" class="text-center">
                         <img src="{{ asset('img/donate/gold-guidestar.png') }}"
                              alt="Wilford Woodruff Papers Foundation is a gold-level GuideStar participant, demonstrating its commitment to transparency."
                              title="Wilford Woodruff Papers Foundation is a gold-level GuideStar participant, demonstrating its commitment to transparency."
-                             class="h-[240px] w-auto"
+                             class="h-[240px] w-auto inline"
                         />
                     </a>
-                    <a href="https://www.charitynavigator.org/ein/844318803" target="_blank">
+                    <a href="https://www.charitynavigator.org/ein/844318803" target="_blank" class="text-center">
                         <img src="{{ asset('img/donate/fours-star-charity-navigator.png') }}"
                              alt="Wilford Woodruff Papers Foundation 4 Star profile on Charity Navigator."
                              title="Wilford Woodruff Papers Foundation 4 Star profile on Charity Navigator."
-                             class="h-[200px] w-auto"
+                             class="h-[200px] w-auto inline"
                         />
                     </a>
                 </div>
                 <div class="flex items-center">
-                    <p class="text-xl">
+                    <p class="text-xl px-8 md:px-0">
                         The Wilford Woodruff Papers Foundation is a 501(c)(3) nonprofit organization. Your donation to the Foundation may qualify as a charitable deduction for federal income tax purposes. The Wilford Woodruff Papers Foundation Identification Number (EIN) is 84-4318803.
                     </p>
                 </div>
@@ -338,6 +350,18 @@
         </div>
 
     </div>
+
+    <div class="max-w-xl mx-auto text-center my-16">
+        <a href="https://app.giveforms.com/campaigns/wilfordwoodruffpapersfoundation/default-giveform"
+           class="flex items-center justify-center gap-x-4 hover:text-secondary text-2xl border-2 border-secondary px-6 py-4 text-white bg-secondary hover:bg-white"
+           target="_blank"
+        >
+            <span>
+                Donate Online
+            </span>
+        </a>
+    </div>
+
     @push('styles')
         <style>
             a:hover svg {
