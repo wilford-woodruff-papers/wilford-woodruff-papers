@@ -114,6 +114,18 @@
 
 
     </div>
+
+    <div class="max-w-xl mx-auto text-center my-8">
+        <a href="https://app.giveforms.com/campaigns/wilfordwoodruffpapersfoundation/default-giveform"
+           class="flex items-center justify-center gap-x-4 hover:text-secondary text-2xl border-2 border-secondary px-6 py-4 text-white bg-secondary hover:bg-white"
+           target="_blank"
+        >
+            <span>
+                Donate Online
+            </span>
+        </a>
+    </div>
+
     <div class="my-12">
         <div class="max-w-7xl mx-auto mb-16">
             <div class="grid grid-cols-1 md:grid-cols-3 md:divide-x-4 md:divide-secondary gap-x-4 lg:gap-x-12">
@@ -126,11 +138,11 @@
                     </p>
                     <div class="flex flex-col gap-y-4">
                         <a href="https://app.giveforms.com/campaigns/wilfordwoodruffpapersfoundation/default-giveform"
-                           class="flex items-center justify-center gap-x-4 text-secondary text-2xl border-2 border-secondary px-6 py-4 hover:text-white hover:bg-secondary"
+                           class="flex items-center justify-center gap-x-4 hover:text-secondary text-2xl border-2 border-secondary px-6 py-4 text-white bg-secondary hover:bg-white"
                            target="_blank"
                         >
                             <span>
-                                Online
+                                Donate Online
                             </span>
                         </a>
                         <a href="https://www.facebook.com/wilfordwoodruffpapersfoundation"
@@ -182,7 +194,7 @@
                     </p>
                     <div>
                         <a href="{{ route('contact-us') }}"
-                           class="flex items-center justify-center gap-x-4 text-white text-2xl border-2 bg-secondary px-6 py-4 hover:text-white hover:bg-secondary"
+                           class="flex items-center justify-center gap-x-4 text-secondary text-2xl border-2 border-secondary bg-white px-6 py-4 hover:text-white hover:bg-secondary"
                         >
                             <span>
                                 Contact Us
@@ -338,6 +350,18 @@
         </div>
 
     </div>
+
+    <div class="max-w-xl mx-auto text-center my-16">
+        <a href="https://app.giveforms.com/campaigns/wilfordwoodruffpapersfoundation/default-giveform"
+           class="flex items-center justify-center gap-x-4 hover:text-secondary text-2xl border-2 border-secondary px-6 py-4 text-white bg-secondary hover:bg-white"
+           target="_blank"
+        >
+            <span>
+                Donate Online
+            </span>
+        </a>
+    </div>
+
     @push('styles')
         <style>
             a:hover svg {
