@@ -208,25 +208,25 @@
 
     <div class="my-12">
         <div class="max-w-5xl mx-auto mb-16">
-            <div class="grid md:grid-cols-2 gap-12">
-                <div class="grid grid-cols-2 items-center">
-                    <a href="https://www.guidestar.org/profile/84-4318803" target="_blank">
+            <div class="grid md:grid-cols-2 gap-12 px-4 md:px-0">
+                <div class="grid sm:grid-cols-2 items-center justify-center">
+                    <a href="https://www.guidestar.org/profile/84-4318803" target="_blank" class="text-center">
                         <img src="{{ asset('img/donate/gold-guidestar.png') }}"
                              alt="Wilford Woodruff Papers Foundation is a gold-level GuideStar participant, demonstrating its commitment to transparency."
                              title="Wilford Woodruff Papers Foundation is a gold-level GuideStar participant, demonstrating its commitment to transparency."
-                             class="h-[240px] w-auto"
+                             class="h-[240px] w-auto inline"
                         />
                     </a>
-                    <a href="https://www.charitynavigator.org/ein/844318803" target="_blank">
+                    <a href="https://www.charitynavigator.org/ein/844318803" target="_blank" class="text-center">
                         <img src="{{ asset('img/donate/fours-star-charity-navigator.png') }}"
                              alt="Wilford Woodruff Papers Foundation 4 Star profile on Charity Navigator."
                              title="Wilford Woodruff Papers Foundation 4 Star profile on Charity Navigator."
-                             class="h-[200px] w-auto"
+                             class="h-[200px] w-auto inline"
                         />
                     </a>
                 </div>
                 <div class="flex items-center">
-                    <p class="text-xl">
+                    <p class="text-xl px-8 md:px-0">
                         The Wilford Woodruff Papers Foundation is a 501(c)(3) nonprofit organization. Your donation to the Foundation may qualify as a charitable deduction for federal income tax purposes. The Wilford Woodruff Papers Foundation Identification Number (EIN) is 84-4318803.
                     </p>
                 </div>
