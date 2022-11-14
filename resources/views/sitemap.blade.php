@@ -135,7 +135,7 @@
         <priority>0.80</priority>
     </url>
     <url>
-        <loc>{{ url('/') }}/donate-online</loc>
+        <loc>{{ url('/') }}/donate</loc>
         <lastmod>{{ now()->toRfc3339String() }}</lastmod>
         <priority>0.80</priority>
     </url>
