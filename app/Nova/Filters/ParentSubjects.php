@@ -15,6 +15,8 @@ class Index extends Filter
      */
     public $component = 'select-filter';
 
+    public $name = 'Subject Type (Parents Only)';
+
     /**
      * Apply the filter to the given query.
      *
@@ -47,6 +49,6 @@ class Index extends Filter
      */
     public function options(Request $request)
     {
-        return ['Not Set' => -1] + \App\Models\Category::firstWhere('name', 'Index')->pluck('id', 'name')->all();
+        return ['Not Set' => -1] + \App\Models\Category::pluck('id', 'name')->all();
     }
 }
