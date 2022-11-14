@@ -124,7 +124,7 @@
                             <a href="{{ route('places') }}">Places</a>
                             <a href="{{ route('timeline') }}">Timeline</a>
                             <a href="{{ route('advanced-search') }}">Search</a>
-                            <a href="{{ route('donate.online') }}">Donate</a>
+                            <a href="{{ route('donate') }}">Donate</a>
                             <a href="{{ route('get-involved.index') }}">Get Involved</a>
                             @auth()
                                 <form method="POST" action="{{ route('logout') }}">
@@ -924,7 +924,7 @@
                     </div>--}}
 
                     <div class="relative inline-block text-left">
-                        <a href="{{ route('donate.online') }}"
+                        <a href="{{ route('donate') }}"
                            class="text-base font-medium text-primary md:text-white md:hover:text-highlight uppercase border-2 border-white md:hover:border-highlight rounded-md py-1 px-2"
                         >Donate</a>
                     </div>

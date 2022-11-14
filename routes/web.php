@@ -34,7 +34,7 @@ Route::get('language/{locale}', function ($locale) {
     return redirect()->back();
 })->name('language.locale');
 
-Route::get('/giving-tuesday', \App\Http\Controllers\GivingTuesday::class)->name('giving-tuesday');
+Route::get('/donate', \App\Http\Controllers\GivingTuesday::class)->name('donate');
 Route::get('/', \App\Http\Controllers\HomeController::class)->name('home');
 Route::get('/advanced-search', \App\Http\Controllers\SearchController::class)->name('advanced-search');
 // Route::get('/documents', [\App\Http\Controllers\ItemController::class, 'index'])->name('documents');
