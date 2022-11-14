@@ -170,7 +170,7 @@
                     <h2 class="text-secondary text-2xl sm:text-xl lg:text-3xl uppercase">
                         Send in a Check
                     </h2>
-                    <p class="text-base">
+                    <p class="text-xl">
                         Not into giving online? Feel free to send a check to our organization to help us complete this historic project.
                     </p>
 
@@ -186,10 +186,10 @@
                     <h2 class="text-secondary text-2xl sm:text-xl lg:text-3xl uppercase">
                         Donations-in-Kind
                     </h2>
-                    <p class="text-base">
+                    <p class="text-xl">
                         Interested in donating an endowment, estate gift, bequest, DAFs, stocks, bonds, securities, or other in-kind gifts?
                     </p>
-                    <p class="text-base">
+                    <p class="text-xl">
                         Email us at <a href='&#109;&#97;il&#116;&#111;&#58;co&#110;&#116;%61ct&#64;&#37;77i&#37;6C&#102;o&#114;dwo&#111;%6&#52;%72&#37;&#55;&#53;f&#37;66%7&#48;&#97;p&#101;&#114;&#115;&#46;%6Fr&#103;' class="text-secondary underline">&#99;ont&#97;&#99;t&#64;wi&#108;f&#111;r&#100;&#119;oodruf&#102;p&#97;pers&#46;org</a> or use the link below to contact us.
                     </p>
                     <div>
