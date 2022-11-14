@@ -42,8 +42,8 @@
 
         @case('Donate')
             <div class="mt-1 space-y-1 pb-4 pl-4" aria-labelledby="">
-                <a href="{{ route('donate.online') }}"
-                   class="group flex items-center px-3 py-2 text-sm font-medium @if(request()->is('donate-online')) active @else @endif">
+                <a href="{{ route('donate') }}"
+                   class="group flex items-center px-3 py-2 text-sm font-medium @if(request()->is('donate')) active @else @endif">
                 <span class="truncate">
                     Donate Online
                 </span>

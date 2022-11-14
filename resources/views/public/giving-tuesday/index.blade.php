@@ -118,14 +118,14 @@
         <div class="max-w-7xl mx-auto mb-16">
             <div class="grid grid-cols-1 md:grid-cols-3 md:divide-x-4 md:divide-secondary gap-x-4 lg:gap-x-12">
                 <div class="flex flex-col gap-y-4 pt-2 pr-12 pb-12 pl-24">
-                    <h2 class="text-secondary text-3xl uppercase">
+                    <h2 class="text-secondary text-2xl sm:text-xl lg:text-3xl uppercase">
                         Give Online
                     </h2>
                     <p>
 
                     </p>
                     <div class="flex flex-col gap-y-4">
-                        <a href="https://form-renderer-app.donorperfect.io/give/wilford-woodruff-papers-foundation/donation-form"
+                        <a href="https://app.giveforms.com/campaigns/wilfordwoodruffpapersfoundation/default-giveform"
                            class="flex items-center justify-center gap-x-4 text-secondary text-2xl border-2 border-secondary px-6 py-4 hover:text-white hover:bg-secondary"
                            target="_blank"
                         >
@@ -133,7 +133,7 @@
                                 Online
                             </span>
                         </a>
-                        <a href=""
+                        <a href="https://www.facebook.com/wilfordwoodruffpapersfoundation"
                            class="flex items-center justify-center gap-x-4 text-secondary text-2xl border-2 border-secondary px-6 py-4 hover:text-white hover:bg-secondary"
                            target="_blank"
                         >
@@ -143,7 +143,7 @@
                             </span>
 
                         </a>
-                        <a href=""
+                        {{--<a href=""
                            class="flex items-center justify-center text-secondary text-2xl border-2 border-secondary px-6 py-0 hover:text-white hover:bg-secondary"
                            target="_blank"
                         >
@@ -151,11 +151,11 @@
                             <span>
                                 Venmo
                             </span>
-                        </a>
+                        </a>--}}
                     </div>
                 </div>
                 <div class="flex flex-col gap-y-4 pt-2 pb-12 pl-16 pr-0">
-                    <h2 class="text-secondary text-3xl uppercase">
+                    <h2 class="text-secondary text-2xl sm:text-xl lg:text-3xl uppercase">
                         Send in a Check
                     </h2>
                     <p class="text-base">
@@ -170,12 +170,12 @@
                         </address>
                     </div>
                 </div>
-                <div class="flex flex-col gap-y-4 pt-2 pb-12 pr-12 pl-16">
-                    <h2 class="text-secondary text-3xl uppercase">
+                <div class="flex flex-col gap-y-4 pt-2 pb-12 pr-12 pl-16 md:pr-4 md:pl-8 lg:pr-12 lg:pl-16">
+                    <h2 class="text-secondary text-2xl sm:text-xl lg:text-3xl uppercase">
                         Donations-in-Kind
                     </h2>
                     <p class="text-base">
-                        Interested in donating an endowment, estate gift, bequest, DAFs, stocks, bonds, or securities?
+                        Interested in donating an endowment, estate gift, bequest, DAFs, stocks, bonds, securities, or other in-kind gifts?
                     </p>
                     <p class="text-base">
                         Email us at <a href='&#109;&#97;il&#116;&#111;&#58;co&#110;&#116;%61ct&#64;&#37;77i&#37;6C&#102;o&#114;dwo&#111;%6&#52;%72&#37;&#55;&#53;f&#37;66%7&#48;&#97;p&#101;&#114;&#115;&#46;%6Fr&#103;' class="text-secondary underline">&#99;ont&#97;&#99;t&#64;wi&#108;f&#111;r&#100;&#119;oodruf&#102;p&#97;pers&#46;org</a> or use the link below to contact us.
@@ -194,8 +194,36 @@
         </div>
     </div>
 
+    <div class="my-12">
+        <div class="max-w-5xl mx-auto mb-16">
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="grid grid-cols-2 items-center">
+                    <a href="https://www.guidestar.org/profile/84-4318803" target="_blank">
+                        <img src="{{ asset('img/donate/gold-guidestar.png') }}"
+                             alt="Wilford Woodruff Papers Foundation is a gold-level GuideStar participant, demonstrating its commitment to transparency."
+                             title="Wilford Woodruff Papers Foundation is a gold-level GuideStar participant, demonstrating its commitment to transparency."
+                             class="h-[240px] w-auto"
+                        />
+                    </a>
+                    <a href="https://www.charitynavigator.org/ein/844318803" target="_blank">
+                        <img src="{{ asset('img/donate/fours-star-charity-navigator.png') }}"
+                             alt="Wilford Woodruff Papers Foundation 4 Star profile on Charity Navigator."
+                             title="Wilford Woodruff Papers Foundation 4 Star profile on Charity Navigator."
+                             class="h-[200px] w-auto"
+                        />
+                    </a>
+                </div>
+                <div class="flex items-center">
+                    <p class="text-xl">
+                        The Wilford Woodruff Papers Foundation is a 501(c)(3) nonprofit organization. Your donation to the Foundation may qualify as a charitable deduction for federal income tax purposes. The Wilford Woodruff Papers Foundation Identification Number (EIN) is 84-4318803.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <div class="mt-24 mb-12">
+
+    <div class="mt-12 mb-12">
         <div class="max-w-7xl mx-auto mb-16 text-center">
             <h2 class="inline-block text-3xl uppercase pb-1 border-b-4 border-highlight px-12">
                 Testimonies
