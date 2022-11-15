@@ -8,12 +8,14 @@ use Livewire\Component;
 
 class Reports extends Component
 {
-    public $types;
-
     public $dates = [
         'start' => null,
         'end' => null,
     ];
+
+    public $readyToLoad = false;
+
+    public $types;
 
     public function mount()
     {
@@ -31,28 +33,33 @@ class Reports extends Component
 
     public function render()
     {
-        $stats = DB::table('actions')
-                    ->select('action_types.name', 'actions.actionable_type')
-                    ->selectRaw('COUNT(*) AS total')
-                    ->join('action_types', 'action_types.id', '=', 'actions.action_type_id')
-                    ->whereIn('actions.action_type_id', $this->types->pluck('id')->all())
-                    ->groupBy(['actions.actionable_type', 'actions.action_type_id'])
-                    ->where('completed_at', '>=', $this->dates['start'])
-                    ->where('completed_at', '<=', $this->dates['end'])
-                    ->orderBy('action_types.order_column')
-                    ->get();
+        if ($this->readyToLoad) {
+            $stats = DB::table('actions')
+                ->select('action_types.name', 'actions.actionable_type')
+                ->selectRaw('COUNT(*) AS total')
+                ->join('action_types', 'action_types.id', '=', 'actions.action_type_id')
+                ->whereIn('actions.action_type_id', $this->types->pluck('id')->all())
+                ->groupBy(['actions.actionable_type', 'actions.action_type_id'])
+                ->whereDate('completed_at', '>=', $this->dates['start'])
+                ->whereDate('completed_at', '<=', $this->dates['end'])
+                ->orderBy('action_types.order_column')
+                ->get();
 
-        $individualStats = DB::table('actions')
-                                ->select('action_types.name', 'actions.actionable_type', 'users.name AS user_name', 'users.id AS user_id')
-                                ->selectRaw('COUNT(*) AS total')
-                                ->join('action_types', 'action_types.id', '=', 'actions.action_type_id')
-                                ->join('users', 'users.id', '=', 'actions.completed_by')
-                                ->whereIn('actions.action_type_id', $this->types->pluck('id')->all())
-                                ->groupBy(['actions.actionable_type', 'actions.action_type_id', 'users.name', 'users.id'])
-                                ->where('completed_at', '>=', $this->dates['start'])
-                                ->where('completed_at', '<=', $this->dates['end'])
-                                ->orderBy('action_types.order_column')
-                                ->get();
+            $individualStats = DB::table('actions')
+                ->select('action_types.name', 'actions.actionable_type', 'users.name AS user_name', 'users.id AS user_id')
+                ->selectRaw('COUNT(*) AS total')
+                ->join('action_types', 'action_types.id', '=', 'actions.action_type_id')
+                ->join('users', 'users.id', '=', 'actions.completed_by')
+                ->whereIn('actions.action_type_id', $this->types->pluck('id')->all())
+                ->groupBy(['actions.actionable_type', 'actions.action_type_id', 'users.name', 'users.id'])
+                ->whereDate('completed_at', '>=', $this->dates['start'])
+                ->whereDate('completed_at', '<=', $this->dates['end'])
+                ->orderBy('action_types.order_column')
+                ->get();
+        } else {
+            $stats = [];
+            $individualStats = [];
+        }
 
         return view('livewire.admin.reports', [
             'stats' => $stats,
@@ -63,5 +70,10 @@ class Reports extends Component
 
     public function update()
     {
+    }
+
+    public function loadStats()
+    {
+        $this->readyToLoad = true;
     }
 }
