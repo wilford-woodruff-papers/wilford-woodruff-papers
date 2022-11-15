@@ -1,4 +1,4 @@
-<div>
+<div wire:init="loadStats">
     <div class="mt-4 max-w-7xl mx-auto">
         <div class="py-4">
 
@@ -36,60 +36,63 @@
                 </div>
             </form>
 
-            <div class="my-12">
+            <div class="relative my-12">
                 <div wire:loading
-                     class="absolute w-full h-full bg-white opacity-25"
+                     class="absolute w-full h-full bg-white opacity-75"
                 >
+                    <div class="flex justify-center py-40">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="animate-spin w-24 h-24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                        </svg>
 
+                    </div>
                 </div>
-                <div class="grid grid-cols-3 gap-4 my-16">
-                    <div class="font-semibold">Action</div>
-                    <div class="font-semibold">Type</div>
-                    <div class="font-semibold">Completed</div>
+                @if(! empty($stats))
+                    <div class="grid grid-cols-3 gap-4 my-16">
+                        <div class="font-semibold">Action</div>
+                        <div class="font-semibold">Type</div>
+                        <div class="font-semibold">Completed</div>
 
-                    @foreach($stats as $stat)
+                        @foreach($stats as $stat)
+                            <div>
+                                {{ $stat->name }}
+                            </div>
+                            <div>
+                                {{ str($stat->actionable_type)->afterLast('\\') }}
+                            </div>
+                            <div>
+                                {{ $stat->total }}
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
 
-                        <div>
-                            {{ $stat->name }}
-                        </div>
-                        <div>
-                            {{ str($stat->actionable_type)->afterLast('\\') }}
-                        </div>
-                        <div>
-                            {{ $stat->total }}
-                        </div>
-
-                   @endforeach
-
-                </div>
-
-                <div class="divide-y-2">
-                    @foreach($individualStats->sortBy('user_name')->groupBy('user_id') as $individualStat)
-                        <div class="grid grid-cols-4 gap-4 py-4">
-                            <div class="font-semibold">Contributor</div>
-                            <div class="font-semibold">Action</div>
-                            <div class="font-semibold">Type</div>
-                            <div class="font-semibold">Completed</div>
-
-                            @foreach($individualStat as $stat)
-
-                                <div>
-                                    {{ $loop->odd ? $stat->user_name : '' }}
-                                </div>
-                                <div>
-                                    {{ $stat->name }}
-                                </div>
-                                <div>
-                                    {{ str($stat->actionable_type)->afterLast('\\') }}
-                                </div>
-                                <div>
-                                    {{ $stat->total }}
-                                </div>
-
-                            @endforeach
-                        </div>
-                    @endforeach
-                </div>
+                @if(! empty($individualStats))
+                    <div class="divide-y-2">
+                        @foreach($individualStats->sortBy('user_name')->groupBy('user_id') as $individualStat)
+                            <div class="grid grid-cols-4 gap-4 py-4">
+                                <div class="font-semibold">Contributor</div>
+                                <div class="font-semibold">Action</div>
+                                <div class="font-semibold">Type</div>
+                                <div class="font-semibold">Completed</div>
+                                @foreach($individualStat as $stat)
+                                    <div>
+                                        {{ $loop->odd ? $stat->user_name : '' }}
+                                    </div>
+                                    <div>
+                                        {{ $stat->name }}
+                                    </div>
+                                    <div>
+                                        {{ str($stat->actionable_type)->afterLast('\\') }}
+                                    </div>
+                                    <div>
+                                        {{ $stat->total }}
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
             </div>
         </div>
     </div>
