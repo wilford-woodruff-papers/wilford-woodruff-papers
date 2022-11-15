@@ -12,7 +12,7 @@
                     <a href="{{ route('admin.supervisor.dashboard') }}" class="px-3 py-2 @if(Route::currentRouteName() == 'admin.supervisor.dashboard') text-indigo-600 @else text-gray-900 @endif text-sm font-medium"> Supervisor Dashboard </a>
                     <a href="{{ route('admin.dashboard.document.index') }}" class="px-3 py-2  @if(Route::currentRouteName() == 'admin.dashboard.document.index') text-indigo-600 @else text-gray-900 @endif text-sm font-medium"> Documents </a>
                     <a href="{{ route('admin.dashboard.quotes.index') }}" class="px-3 py-2  @if(Route::currentRouteName() == 'admin.dashboard.quotes.index') text-indigo-600 @else text-gray-900 @endif text-sm font-medium"> Quotes </a>
-                    <x-admin.menu.dropdown :text="'ADMIN'" :links="['Goals' => ['url' => route('admin.dashboard.goals.index'), 'auth' => auth()->user()->hasRole(\App\Models\Type::query()->whereNull('type_id')->pluck('name')->transform(function($type){ return $type . ' Supervisor'; })->all())]]"/>
+                    <x-admin.menu.dropdown :text="'ADMIN'" :links="['Goals' => ['url' => route('admin.dashboard.goals.index'), 'auth' => auth()->user()->hasRole(\App\Models\Type::query()->whereNull('type_id')->pluck('name')->transform(function($type){ return $type . ' Supervisor'; })->all())], 'Reporting' => ['url' => route('admin.reports.index'), 'auth' => auth()->user()->hasRole(\App\Models\Type::query()->whereNull('type_id')->pluck('name')->transform(function($type){ return $type . ' Supervisor'; })->all())]]"/>
                 </nav>
             </div>
             <div class="flex-1 flex items-center justify-center px-2 lg:ml-6 lg:justify-end">
