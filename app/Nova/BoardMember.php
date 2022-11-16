@@ -3,17 +3,20 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Avatar;
 use Laravel\Nova\Fields\File;
-use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
-use Laravel\Nova\Http\Requests\NovaRequest;
+use MichielKempen\NovaOrderField\Orderable;
+use MichielKempen\NovaOrderField\OrderField;
 
 class BoardMember extends Resource
 {
+    use Orderable;
+
     public static $displayInNavigation = false;
+
+    public static $defaultOrderField = 'order';
 
     /**
      * The model the resource corresponds to.
@@ -50,6 +53,7 @@ class BoardMember extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
+            OrderField::make('Order'),
             Text::make(__('Name'), 'name')->sortable(),
             Text::make(__('Title'), 'title')->sortable(),
             Textarea::make(__('Bio'), 'bio')->alwaysShow(),

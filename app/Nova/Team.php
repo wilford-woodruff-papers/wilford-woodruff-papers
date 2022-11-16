@@ -5,13 +5,17 @@ namespace App\Nova;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest;
+use MichielKempen\NovaOrderField\Orderable;
+use MichielKempen\NovaOrderField\OrderField;
 
 class Team extends Resource
 {
+    use Orderable;
+
     public static $group = 'Admin';
+
+    public static $defaultOrderField = 'order';
 
     /**
      * The model the resource corresponds to.
@@ -47,8 +51,8 @@ class Team extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
+            OrderField::make('Order'),
             Text::make(__('Name'), 'name')->sortable(),
-            Number::make(__('Order'), 'order')->sortable(),
             HasMany::make('BoardMembers'),
         ];
     }
