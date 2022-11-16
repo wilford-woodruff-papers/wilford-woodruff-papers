@@ -3,6 +3,8 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\ActionType;
+use App\Models\Item;
+use App\Models\Page;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
@@ -11,6 +13,10 @@ class Reports extends Component
     public $dates = [
         'start' => null,
         'end' => null,
+    ];
+
+    protected $queryString = [
+        'dates',
     ];
 
     public $readyToLoad = false;
@@ -25,7 +31,7 @@ class Reports extends Component
         ];
 
         $this->types = ActionType::query()
-                            ->role(auth()->user()->roles)
+                            //->role(auth()->user()->roles)
                             ->where('type', 'Documents')
                             ->orderBY('name', 'ASC')
                             ->get();
@@ -34,10 +40,11 @@ class Reports extends Component
     public function render()
     {
         if ($this->readyToLoad) {
-            $stats = DB::table('actions')
+            $pageStats = DB::table('actions')
                 ->select('action_types.name', 'actions.actionable_type')
                 ->selectRaw('COUNT(*) AS total')
                 ->join('action_types', 'action_types.id', '=', 'actions.action_type_id')
+                ->where('actions.actionable_type', Page::class)
                 ->whereIn('actions.action_type_id', $this->types->pluck('id')->all())
                 ->groupBy(['actions.actionable_type', 'actions.action_type_id'])
                 ->whereDate('completed_at', '>=', $this->dates['start'])
@@ -45,24 +52,57 @@ class Reports extends Component
                 ->orderBy('action_types.order_column')
                 ->get();
 
-            $individualStats = DB::table('actions')
-                ->select('action_types.name', 'actions.actionable_type', 'users.name AS user_name', 'users.id AS user_id')
+            // TODO: Need to get parents not sections
+            $documentStats = DB::table('actions')
+                ->selectRaw('DISTINCT `parent_item_id`')
+                ->select('action_types.name', 'actions.actionable_type', 'action_types.order_column')
                 ->selectRaw('COUNT(*) AS total')
                 ->join('action_types', 'action_types.id', '=', 'actions.action_type_id')
-                ->join('users', 'users.id', '=', 'actions.completed_by')
+                ->where('actions.actionable_type', Item::class)
                 ->whereIn('actions.action_type_id', $this->types->pluck('id')->all())
-                ->groupBy(['actions.actionable_type', 'actions.action_type_id', 'users.name', 'users.id'])
+                ->groupBy(['actions.actionable_type', 'actions.action_type_id'])
                 ->whereDate('completed_at', '>=', $this->dates['start'])
                 ->whereDate('completed_at', '<=', $this->dates['end'])
                 ->orderBy('action_types.order_column')
                 ->get();
+
+            //dd($documentStats);
+
+            $individualPageStats = DB::table('actions')
+                ->select('action_types.name', 'actions.actionable_type', 'users.name AS user_name', 'users.id AS user_id')
+                ->selectRaw('COUNT(*) AS total')
+                ->join('action_types', 'action_types.id', '=', 'actions.action_type_id')
+                ->join('users', 'users.id', '=', 'actions.completed_by')
+                ->where('actions.actionable_type', Page::class)
+                ->whereIn('actions.action_type_id', $this->types->pluck('id')->all())
+                ->groupBy(['actions.actionable_type', 'actions.action_type_id', 'users.name', 'users.id'])
+                ->whereDate('completed_at', '>=', $this->dates['start'])
+                ->whereDate('completed_at', '<=', $this->dates['end'])
+                ->orderBy('order_column');
+
+            $individualStats = DB::table('actions')
+                ->selectRaw('DISTINCT `parent_item_id`')
+                ->select('action_types.name', 'actions.actionable_type', 'users.name AS user_name', 'users.id AS user_id')
+                ->selectRaw('COUNT(*) AS total')
+                ->join('action_types', 'action_types.id', '=', 'actions.action_type_id')
+                ->join('users', 'users.id', '=', 'actions.completed_by')
+                ->where('actions.actionable_type', Item::class)
+                ->whereIn('actions.action_type_id', $this->types->pluck('id')->all())
+                ->groupBy(['actions.actionable_type', 'actions.action_type_id', 'users.name', 'users.id'])
+                ->whereDate('completed_at', '>=', $this->dates['start'])
+                ->whereDate('completed_at', '<=', $this->dates['end'])
+                ->orderBy('order_column')
+                ->union($individualPageStats)
+                ->get();
         } else {
-            $stats = [];
+            $documentStats = [];
+            $pageStats = [];
             $individualStats = [];
         }
 
         return view('livewire.admin.reports', [
-            'stats' => $stats,
+            'documentStats' => $documentStats,
+            'pageStats' => $pageStats,
             'individualStats' => $individualStats,
         ])
             ->layout('layouts.admin');

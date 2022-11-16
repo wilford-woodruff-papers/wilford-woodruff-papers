@@ -48,13 +48,32 @@
 
                     </div>
                 </div>
-                @if(! empty($stats))
+                @if(! empty($pageStats))
                     <div class="grid grid-cols-3 gap-4 my-16">
                         <div class="font-semibold">Action</div>
                         <div class="font-semibold">Type</div>
                         <div class="font-semibold">Completed</div>
 
-                        @foreach($stats as $stat)
+                        @foreach($pageStats as $stat)
+                            <div>
+                                {{ $stat->name }}
+                            </div>
+                            <div>
+                                {{ str($stat->actionable_type)->afterLast('\\') }}
+                            </div>
+                            <div>
+                                {{ $stat->total }}
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+                @if(! empty($documentStats))
+                    <div class="grid grid-cols-3 gap-4 my-16">
+                        <div class="font-semibold">Action</div>
+                        <div class="font-semibold">Type</div>
+                        <div class="font-semibold">Completed</div>
+
+                        @foreach($documentStats as $stat)
                             <div>
                                 {{ $stat->name }}
                             </div>
