@@ -133,7 +133,7 @@
                                             @foreach($team->boardmembers as $person)
                                                 <li class="group relative">
                                                     <div class="space-y-4">
-                                                        <div class="aspect-w-3 aspect-h-2">
+                                                        <div class="aspect-w-3 aspect-h-3">
                                                             <img class="object-cover shadow-lg" src="{{ Storage::disk('board_members')->url($person->image) }}" alt="">
                                                         </div>
 
