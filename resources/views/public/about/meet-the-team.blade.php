@@ -131,25 +131,35 @@
 
                                         <ul role="list" class="space-y-12 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-12 sm:space-y-0 lg:grid-cols-3 lg:gap-x-8 mb-16">
                                             @foreach($team->boardmembers as $person)
-                                                <li class="group relative">
-                                                    <div class="space-y-4">
+                                                <li x-data="{
+                                                        show: false,
+                                                    }"
+                                                    x-on:mouseover="show = true"
+                                                    x-on:mouseover.outside="show = false"
+                                                    class="group relative"
+                                                >
+                                                    <div class="space-y-4 cursor-pointer">
                                                         <div class="aspect-w-3 aspect-h-3">
                                                             <img class="object-cover shadow-lg" src="{{ Storage::disk('board_members')->url($person->image) }}" alt="">
                                                         </div>
 
                                                         <div class="space-y-2">
                                                             <div class="space-y-1 text-lg font-medium leading-6">
-                                                                <h3>{{ $person->name }}</h3>
+                                                                <h3 class="text-secondary font-semibold">{{ $person->name }}</h3>
                                                                 @if(! empty($person->title))
-                                                                    <p class="text-secondary serif">
+                                                                    <p class="text-black serif">
                                                                         {{ $person->title }}
                                                                     </p>
                                                                 @endif
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="hidden group-hover:block absolute bg-white z-50 w-[440px] shadow-lg ease-in-out p-4 origin-center md:-right-1/4 top-0">
-                                                        <div class="text-secondary pt-2 pb-4 text-lg">About {{ $person->name }}</div>
+                                                    <div x-show="show == true"
+                                                         class="absolute bg-white z-50 w-[440px] shadow-lg ease-in-out p-4 origin-center md:-right-1/4 top-0"
+                                                         x-cloak
+                                                         x-transition
+                                                    >
+                                                        <div class="text-secondary pt-2 pb-4 text-lg font-semibold">About {{ $person->name }}</div>
                                                         <div class="text-black text-base">
                                                             {!! $person->bio !!}
                                                         </div>
