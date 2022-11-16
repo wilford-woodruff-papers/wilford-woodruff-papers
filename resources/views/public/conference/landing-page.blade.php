@@ -153,7 +153,18 @@
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 md:h-[580px] px-16 md:-mt-24">
             <div class="order-1 md:order-1 grid content-end h-full">
+                <img src="{{ asset('img/conferences/2023/Hovan-Lawton.png') }}"
+                     alt=""
+                     class="w-full h-auto"
+                />
+                <div class="text-center py-4">
+                    <div class="text-2xl text-dark-blue font-black">
+                        Hovan Lawton
+                    </div>
+                    <div class="text-2xl text-dark-blue">
 
+                    </div>
+                </div>
             </div>
             <div class="order-2 md:order-2 grid content-start h-full">
                 <img src="{{ asset('img/conferences/2023/Ellie-Hancock.png') }}"
@@ -170,7 +181,19 @@
                 </div>
             </div>
             <div class="order-3 md:order-3 grid content-end h-full">
+                <img src="{{ asset('img/conferences/2023/Josh-Matson.png') }}"
+                     alt=""
+                     class="w-full h-auto"
+                />
+                <div class="text-center py-4">
+                    <div class="text-2xl text-dark-blue font-black">
+                        Josh Matson
+                    </div>
+                    <div class="text-2xl text-dark-blue">
 
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
