@@ -21,4 +21,9 @@ class BoardMember extends Model implements Sortable
     {
         return $this->belongsTo(Team::class);
     }
+
+    public function buildSortQuery()
+    {
+        return static::query()->where('team_id', $this->team_id);
+    }
 }
