@@ -9,9 +9,11 @@
                     <div class="col-span-12 md:col-span-3 px-2 py-16">
                         <x-submenu area="About"/>
                     </div>
-                    <div class="content col-span-12 md:col-span-9">
-                        <h2>Meet the Team</h2>
-                        <div class="grid grid-cols-1 md:grid-cols-2">
+                    <div class="col-span-12 md:col-span-9">
+                        <div class="content">
+                            <h2>Meet the Team</h2>
+                        </div>
+                        {{--<div class="grid grid-cols-1 md:grid-cols-2">
                             @foreach($teams as $team)
                                 @if($team->boardmembers->count() > 0)
                                     <div class="col-span-1">
@@ -35,27 +37,56 @@
                                     </div>
                                 @endif
                             @endforeach
-                        </div>
+                        </div>--}}
 
-                        <div class="grid grid-cols-1 gap-x-4 mt-12">
+                        <div class="grid grid-cols-1 gap-x-4 mb-12">
                             @foreach($teams as $team)
                                 @if($team->boardmembers->count() > 0)
-                                    <div class="h-16">
+                                    <div class="h-16 mt-4 mb-16">
                                         <div class="max-w-7xl mx-auto px-4">
                                             <div class="relative">
                                                 <div class="absolute inset-0 flex items-center" aria-hidden="true">
                                                     <div class="w-full border-t-2 border-gray-300" style="height: 0px"></div>
                                                 </div>
                                                 <div class="relative flex justify-center">
-                                                    <div class="inline-flex items-center shadow-sm px-8 py-4 border-2 border-gray-300 text-4xl leading-5 font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                                        <h1 class="uppercase">{{ $team->name }}</h1>
+                                                    <div class="inline-flex items-center shadow-sm px-8 py-4 border-2 border-gray-300 text-2xl leading-5 font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                                        <h3 class="uppercase">{{ $team->name }}</h3>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    @foreach($team->boardmembers->sortBy('order') as $person)
+
+                                    <ul role="list" class="space-y-12 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-12 sm:space-y-0 lg:grid-cols-3 lg:gap-x-8 mb-16">
+                                        @foreach($team->boardmembers as $person)
+                                            <li class="group relative">
+                                                <div class="space-y-4">
+                                                    <div class="aspect-w-3 aspect-h-2">
+                                                        <img class="object-cover shadow-lg" src="{{ Storage::disk('board_members')->url($person->image) }}" alt="">
+                                                    </div>
+
+                                                    <div class="space-y-2">
+                                                        <div class="space-y-1 text-lg font-medium leading-6">
+                                                            <h3>{{ $person->name }}</h3>
+                                                            @if(! empty($person->title))
+                                                                <p class="text-secondary serif">
+                                                                    {{ $person->title }}
+                                                                </p>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="hidden group-hover:block absolute bg-white z-50 w-[440px] shadow-lg ease-in-out p-4 origin-center md:-right-1/4 top-0">
+                                                    <div class="text-secondary pt-2 pb-4 text-lg">About {{ $person->name }}</div>
+                                                    <div class="text-black text-base">
+                                                        {!! $person->bio !!}
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                    {{--@foreach($team->boardmembers->sortBy('order') as $person)
                                         <div class="mt-12 px-8 md:px-2">
                                             <div class="space-y-12 sm:divide-y sm:divide-gray-200 sm:space-y-0 sm:-mt-8 lg:gap-x-8 lg:space-y-0" x-max="1">
 
@@ -87,7 +118,7 @@
 
                                             </div>
                                         </div>
-                                    @endforeach
+                                    @endforeach--}}
                                 @endif
                             @endforeach
                         </div>
