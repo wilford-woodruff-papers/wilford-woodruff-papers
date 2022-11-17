@@ -2,16 +2,11 @@
 
 namespace App\Nova\Actions;
 
-use App\Events\DiscussionPostCreated;
 use App\Models\Date;
 use App\Models\Item;
 use App\Models\Page;
-use App\Models\Post;
-use App\Models\Review;
 use App\Models\Subject;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Artisan;
@@ -156,13 +151,16 @@ class ImportPages extends Action
 
     private function convertSubjectTags($transcript)
     {
-        $dom = new Dom;
-        $dom->loadStr($transcript);
-        $transcript = Str::of($transcript);
-        $links = $dom->find('a');
+        $transcript = str($transcript);
+        $links = $transcript->matchAll('/<a.*?<\/a>/');
+
         foreach ($links as $link) {
-            //dd($link->outerHtml(), $link->getAttribute('title'), $link->innerHtml());
-            $transcript = $transcript->replace(str($link->outerHtml())->replace('<br /> ', "<br/>\n"), '[['.html_entity_decode($link->getAttribute('title')).'|'.$link->innerHtml().']]');
+            $title = str($link)->match("/(?<=title=')(.*?)(?=')/");
+            $text = str($link)->match("/(?<=>)(.*?)(?=<\/a>)/");
+            $transcript = $transcript->replace(
+                $link,
+                '[['.html_entity_decode($title).'|'.$text.']]'
+            );
         }
 
         return $transcript;

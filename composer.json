@@ -13,6 +13,7 @@
         "anaseqal/nova-import": "^0.0.6",
         "calebporzio/parental": "^1.1",
         "chris-ware/nova-breadcrumbs": "^2.3",
+        "cweagans/composer-patches": "^1.7",
         "dmitrybubyakin/nova-medialibrary-field": "^3.3",
         "doctrine/dbal": "^3.3",
         "dymantic/laravel-instagram-feed": "^3.1",
@@ -82,12 +83,18 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "allow-plugins": {
-            "pestphp/pest-plugin": true
+            "pestphp/pest-plugin": true,
+            "cweagans/composer-patches": true
         }
     },
     "extra": {
         "laravel": {
             "dont-discover": []
+        },
+        "patches": {
+            "paquettg/php-html-parser": {
+                "Fix deprecation notices for offsetGet() return type": "patches/paquettg_phphtmlparser_fix_offsetget_deprecation.patch"
+            }
         }
     },
     "autoload": {

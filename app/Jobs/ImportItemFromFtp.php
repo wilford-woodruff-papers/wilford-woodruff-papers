@@ -124,13 +124,16 @@ class ImportItemFromFtp implements ShouldQueue
 
     private function convertSubjectTags($transcript)
     {
-        $dom = new Dom;
-        $dom->loadStr($transcript);
-        $transcript = Str::of($transcript);
-        $links = $dom->find('a');
+        $transcript = str($transcript);
+        $links = $transcript->matchAll('/<a.*?<\/a>/');
+
         foreach ($links as $link) {
-            //dd($link->outerHtml(), $link->getAttribute('title'), $link->innerHtml());
-            $transcript = $transcript->replace(str($link->outerHtml())->replace('<br /> ', "<br/>\n"), '[['.html_entity_decode($link->getAttribute('title')).'|'.$link->innerHtml().']]');
+            $title = str($link)->match("/(?<=title=')(.*?)(?=')/");
+            $text = str($link)->match("/(?<=>)(.*?)(?=<\/a>)/");
+            $transcript = $transcript->replace(
+                $link,
+                '[['.html_entity_decode($title).'|'.$text.']]'
+            );
         }
 
         return $transcript;
