@@ -6,8 +6,6 @@ use App\Models\Item;
 use App\Models\Page;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Str;
-use PHPHtmlParser\Dom;
 
 class Harvest extends Command
 {
@@ -90,14 +88,15 @@ class Harvest extends Command
 
     private function convertSubjectTags($transcript)
     {
-        $dom = new Dom;
-        $dom->loadStr($transcript);
-        $transcript = Str::of($transcript);
-        $links = $dom->find('a');
+        $transcript = str($transcript);
+        $links = $transcript->matchAll('/<a.*?<\/a>/');
+
         foreach ($links as $link) {
+            $title = str($link)->match("/(?<=title=')(.*?)(?=')/");
+            $text = str($link)->match("/(?<=>)(.*?)(?=<\/a>)/");
             $transcript = $transcript->replace(
-                $link->outerHtml(),
-                '[['.$link->getAttribute('title').'|'.$link->innerHtml().']]'
+                $link,
+                '[['.html_entity_decode($title).'|'.$text.']]'
             );
         }
 

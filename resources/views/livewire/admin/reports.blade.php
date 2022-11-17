@@ -1,4 +1,5 @@
 <div wire:init="loadStats">
+
     <div class="mt-4 max-w-7xl mx-auto">
         <div class="py-4">
 
