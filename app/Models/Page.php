@@ -95,29 +95,29 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
     public function getPageDateRangeAttribute()
     {
         // Is not a Journal so return page #
-        if($this->item?->type_id !== Type::whereName('Journal Sections')->first()->id){
-            return 'p. ' . $this->order;
+        if ($this->item?->type_id !== Type::whereName('Journal Sections')->first()->id) {
+            return 'p. '.$this->order;
         }
 
         // Has one or more dates
-        if($this->dates()->get()->count() == 1){
+        if ($this->dates()->get()->count() == 1) {
             return $this->dates()->get()->first()->date->format('F j, Y');
         } elseif ($this->dates()->get()->count() > 1) {
-            return $this->dates()->get()->first()->date->format('F j, Y') . ' - ' .  $this->dates()->get()->last()->date->format('F j, Y');
+            return $this->dates()->get()->first()->date->format('F j, Y').' - '.$this->dates()->get()->last()->date->format('F j, Y');
         }
 
         // Does not have a date so grab the last date on a previous page with dates
         // If there are none, return a page #. This is most likely to happen in the first few pages of a journal
-        if($page = Page::has('dates')->where('parent_item_id', $this->parent_item_id)->where('order', '<', $this->order)->orderBy('order', 'DESC')->first()){
+        if ($page = Page::has('dates')->where('parent_item_id', $this->parent_item_id)->where('order', '<', $this->order)->orderBy('order', 'DESC')->first()) {
             return $page->dates()->get()->sortBy('date')->last()->date->format('F j, Y');
         } else {
-            return 'p. ' . $this->order;
+            return 'p. '.$this->order;
         }
     }
 
     public function text()
     {
-        return Str::of($this->transcript)->replaceMatches('/(?:\[\[)(.*?)(?:\]\])/', function ($match) {
+        return Str::of($this->transcript)->replaceMatches('/(?:\[\[)(.*?)(?:\]\])/s', function ($match) {
             return '<a href="/subjects/'.Str::of(Str::of($match[1])->explode('|')->first())->slug().'" class="text-secondary popup">'.Str::of($match[1])->explode('|')->last().'</a>';
         })->replace('&amp;', '&');
     }
