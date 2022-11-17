@@ -159,8 +159,8 @@
                                                          x-cloak
                                                          x-transition
                                                     >
-                                                        <div class="text-secondary pt-2 pb-4 text-lg font-semibold">About {{ $person->name }}</div>
-                                                        <div class="text-black text-base">
+                                                        <div class="text-secondary pt-2 pb-4 text-xl font-semibold">About {{ $person->name }}</div>
+                                                        <div class="text-black text-lg">
                                                             {!! $person->bio !!}
                                                         </div>
                                                     </div>
