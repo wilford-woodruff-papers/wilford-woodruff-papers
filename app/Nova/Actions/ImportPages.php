@@ -152,11 +152,11 @@ class ImportPages extends Action
     private function convertSubjectTags($transcript)
     {
         $transcript = str($transcript);
-        $links = $transcript->matchAll('/<a.*?<\/a>/');
+        $links = $transcript->matchAll('/<a.*?<\/a>/s');
 
         foreach ($links as $link) {
-            $title = str($link)->match("/(?<=title=')(.*?)(?=')/");
-            $text = str($link)->match("/(?<=>)(.*?)(?=<\/a>)/");
+            $title = str($link)->match("/(?<=title=')(.*?)(?=')/s");
+            $text = str($link)->match("/(?<=>)(.*?)(?=<\/a>)/s");
             $transcript = $transcript->replace(
                 $link,
                 '[['.html_entity_decode($title).'|'.$text.']]'
