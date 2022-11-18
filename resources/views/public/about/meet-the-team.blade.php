@@ -2,7 +2,85 @@
     <x-slot name="title">
         Meet the Team | {{ config('app.name') }}
     </x-slot>
-    @if(app()->environment(['production']))
+    @if(auth()->check() && auth()->user()->hasAnyRole(['Super Admin', 'Admin']))
+        <div id="content" role="main">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="blocks">
+                    <div class="grid grid-cols-12 py-12">
+                        <div class="col-span-12 md:col-span-3 px-2 py-16">
+                            <x-submenu area="About"/>
+                        </div>
+                        <div class="col-span-12 md:col-span-9">
+                            <div class="content">
+                                <h2>Meet the Team</h2>
+                            </div>
+
+                            <div class="grid grid-cols-1 gap-x-4 mb-12">
+                                @foreach($teams as $team)
+                                    @if($team->boardmembers->count() > 0)
+                                        <div class="h-16 mt-4 mb-16">
+                                            <div class="max-w-7xl mx-auto px-4">
+                                                <div class="relative">
+                                                    <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                                                        <div class="w-full border-t-2 border-gray-300" style="height: 0px"></div>
+                                                    </div>
+                                                    <div class="relative flex justify-center">
+                                                        <div class="inline-flex items-center shadow-sm px-8 py-4 border-2 border-gray-300 text-2xl leading-5 font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                                            <h3 class="uppercase">{{ $team->name }}</h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <ul role="list" class="space-y-12 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-12 sm:space-y-0 lg:grid-cols-3 lg:gap-x-8 mb-16">
+                                            @foreach($team->boardmembers as $person)
+                                                <li x-data="{
+                                                        show: false,
+                                                    }"
+                                                    x-on:mouseover="show = true"
+                                                    x-on:mouseover.outside="show = false"
+                                                    class="group relative"
+                                                >
+                                                    <div class="space-y-4 cursor-pointer">
+                                                        <div class="aspect-w-3 aspect-h-3">
+                                                            <img class="object-cover shadow-lg" src="{{ Storage::disk('board_members')->url($person->image) }}" alt="">
+                                                        </div>
+
+                                                        <div class="space-y-2">
+                                                            <div class="space-y-1 text-lg font-medium leading-6">
+                                                                <h3 class="text-secondary font-semibold">{{ $person->name }}</h3>
+                                                                @if(! empty($person->title))
+                                                                    <p class="text-black serif">
+                                                                        {{ $person->title }}
+                                                                    </p>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div x-show="show == true"
+                                                         class="absolute bg-white z-50 w-[440px] shadow-lg ease-in-out p-4 origin-center md:-right-1/4 top-0"
+                                                         x-cloak
+                                                         x-transition
+                                                    >
+                                                        <div class="text-secondary pt-2 pb-4 text-xl font-semibold">About {{ $person->name }}</div>
+                                                        <div class="text-black text-lg">
+                                                            {!! $person->bio !!}
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @else
         <div id="content" role="main">
             <div class="max-w-7xl mx-auto px-4">
                 <div class="blocks">
@@ -89,84 +167,6 @@
                                                 </div>
                                             </div>
                                         @endforeach
-                                    @endif
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @else
-        <div id="content" role="main">
-            <div class="max-w-7xl mx-auto px-4">
-                <div class="blocks">
-                    <div class="grid grid-cols-12 py-12">
-                        <div class="col-span-12 md:col-span-3 px-2 py-16">
-                            <x-submenu area="About"/>
-                        </div>
-                        <div class="col-span-12 md:col-span-9">
-                            <div class="content">
-                                <h2>Meet the Team</h2>
-                            </div>
-
-                            <div class="grid grid-cols-1 gap-x-4 mb-12">
-                                @foreach($teams as $team)
-                                    @if($team->boardmembers->count() > 0)
-                                        <div class="h-16 mt-4 mb-16">
-                                            <div class="max-w-7xl mx-auto px-4">
-                                                <div class="relative">
-                                                    <div class="absolute inset-0 flex items-center" aria-hidden="true">
-                                                        <div class="w-full border-t-2 border-gray-300" style="height: 0px"></div>
-                                                    </div>
-                                                    <div class="relative flex justify-center">
-                                                        <div class="inline-flex items-center shadow-sm px-8 py-4 border-2 border-gray-300 text-2xl leading-5 font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                                            <h3 class="uppercase">{{ $team->name }}</h3>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <ul role="list" class="space-y-12 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-12 sm:space-y-0 lg:grid-cols-3 lg:gap-x-8 mb-16">
-                                            @foreach($team->boardmembers as $person)
-                                                <li x-data="{
-                                                        show: false,
-                                                    }"
-                                                    x-on:mouseover="show = true"
-                                                    x-on:mouseover.outside="show = false"
-                                                    class="group relative"
-                                                >
-                                                    <div class="space-y-4 cursor-pointer">
-                                                        <div class="aspect-w-3 aspect-h-3">
-                                                            <img class="object-cover shadow-lg" src="{{ Storage::disk('board_members')->url($person->image) }}" alt="">
-                                                        </div>
-
-                                                        <div class="space-y-2">
-                                                            <div class="space-y-1 text-lg font-medium leading-6">
-                                                                <h3 class="text-secondary font-semibold">{{ $person->name }}</h3>
-                                                                @if(! empty($person->title))
-                                                                    <p class="text-black serif">
-                                                                        {{ $person->title }}
-                                                                    </p>
-                                                                @endif
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div x-show="show == true"
-                                                         class="absolute bg-white z-50 w-[440px] shadow-lg ease-in-out p-4 origin-center md:-right-1/4 top-0"
-                                                         x-cloak
-                                                         x-transition
-                                                    >
-                                                        <div class="text-secondary pt-2 pb-4 text-xl font-semibold">About {{ $person->name }}</div>
-                                                        <div class="text-black text-lg">
-                                                            {!! $person->bio !!}
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            @endforeach
-                                        </ul>
                                     @endif
                                 @endforeach
                             </div>
