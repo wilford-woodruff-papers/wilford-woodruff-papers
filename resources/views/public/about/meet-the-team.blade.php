@@ -64,7 +64,10 @@
                                                          x-cloak
                                                          x-transition
                                                     >
-                                                        <div class="text-secondary pt-2 pb-4 text-xl font-semibold">About {{ $person->name }}</div>
+                                                        <div class="aspect-w-3 aspect-h-3">
+                                                            <img class="object-cover shadow-lg" src="{{ Storage::disk('board_members')->url($person->image) }}" alt="">
+                                                        </div>
+                                                        <div class="text-secondary pt-6 pb-4 text-xl font-semibold">About {{ $person->name }}</div>
                                                         <div class="text-black text-lg">
                                                             {!! $person->bio !!}
                                                         </div>
