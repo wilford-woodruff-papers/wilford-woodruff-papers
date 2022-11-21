@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
-use App\Models\Subject;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
 
 class TimelineController extends Controller
 {
@@ -18,7 +15,9 @@ class TimelineController extends Controller
     {
         $events = Event::query()
                             ->with('photos', 'pages.parent')
-                            ->orderBy('start_at')
+                            ->orderBy('start_year')
+                            ->orderBy('start_month')
+                            ->orderBy('start_day')
                             ->get();
 
         return view('public.timeline', [
