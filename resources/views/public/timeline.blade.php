@@ -47,7 +47,7 @@
                                                                     >
                                                                 @endif
 
-                                                                @if($event->start_month) {{ $event->start_at->toFormattedDateString() }} @else {{ $event->start_year }} @endif
+                                                                @if($event->start_month) {{ $event->start_at?->toFormattedDateString() }} @else {{ $event->start_year }} @endif
                                                                 @if($event->end_at)
                                                                     - @if($event->end_month) {{ $event->end_at->toFormattedDateString() }} @else {{ $event->end_year }} @endif
                                                                 @endif
