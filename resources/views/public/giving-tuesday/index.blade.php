@@ -109,6 +109,14 @@
                 </div>
             </div>
 
+            <div class="flex flex-col gap-y-2 mt-6">
+                <p class="text-white text-center text-2xl font-semibold">
+                    TODAY until GivingTuesday all donations will be MATCHED 2:1 by a generous private donor.
+                </p>
+                <p class="text-white text-center text-2xl">
+                    PLUS recurring donations made through Facebook will be matched by Facebook until December 31.
+                </p>
+            </div>
         </div>
 
 
@@ -129,7 +137,7 @@
     <div class="my-12">
         <div class="max-w-7xl mx-auto mb-16">
             <div class="grid grid-cols-1 md:grid-cols-3 md:divide-x-4 md:divide-secondary gap-x-4 lg:gap-x-12">
-                <div class="flex flex-col gap-y-4 pt-2 pr-12 pb-12 pl-24">
+                <div class="flex flex-col gap-y-4 pt-2 pr-10 pl-10 md:pr-12 md:pl-24 pb-12 ">
                     <h2 class="text-secondary text-2xl sm:text-xl lg:text-3xl uppercase">
                         Give Online
                     </h2>
@@ -166,7 +174,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="flex flex-col gap-y-4 pt-2 pb-12 pl-16 pr-0">
+                <div class="flex flex-col gap-y-4 pt-2 pb-12 pl-10 md:pl-16 pr-0">
                     <h2 class="text-secondary text-2xl sm:text-xl lg:text-3xl uppercase">
                         Send in a Check
                     </h2>
@@ -182,7 +190,7 @@
                         </address>
                     </div>
                 </div>
-                <div class="flex flex-col gap-y-4 pt-2 pb-12 pr-12 pl-16 md:pr-4 md:pl-8 lg:pr-12 lg:pl-16">
+                <div class="flex flex-col gap-y-4 pt-2 pb-12 pr-12 pl-10 md:pr-4 md:pl-8 lg:pr-12 lg:pl-16">
                     <h2 class="text-secondary text-2xl sm:text-xl lg:text-3xl uppercase">
                         Donations-in-Kind
                     </h2>
