@@ -2,19 +2,12 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\ExportTimeline;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Avatar;
 use Laravel\Nova\Fields\Date;
-use Laravel\Nova\Fields\File;
-use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\MorphedByMany;
-use Laravel\Nova\Fields\MorphMany;
-use Laravel\Nova\Fields\MorphTo;
 use Laravel\Nova\Fields\MorphToMany;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Textarea;
-use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Event extends Resource
 {
@@ -114,6 +107,8 @@ class Event extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            new ExportTimeline,
+        ];
     }
 }
