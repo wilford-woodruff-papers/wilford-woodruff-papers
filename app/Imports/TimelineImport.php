@@ -3,21 +3,38 @@
 namespace App\Imports;
 
 use App\Models\Event;
-use App\Models\Subject;
+use Carbon\Carbon;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class TimelineImport implements ToCollection, WithHeadingRow
 {
     /**
-     * @param Collection $collection
+     * @param  Collection  $collection
      */
     public function collection(Collection $rows)
     {
         foreach ($rows as $row) {
-            if (! empty($this->getField($row['year']))) {
+            $event = Event::query()->firstWhere('id', $this->getField($row['id']));
+
+            $event->headline = $this->getField($row['headline']);
+            $event->text = $this->getField($row['description']);
+            $event->start_at = $this->toCarbonDate($row['start_date']);
+            $event->start_year = $this->getField($row['start_year']);
+            $event->start_month = $this->getField($row['start_month']);
+            $event->start_day = $this->getField($row['start_day']);
+            $event->end_at = $this->toCarbonDate($row['end_date']);
+            $event->end_year = $this->getField($row['end_year']);
+            $event->end_month = $this->getField($row['end_month']);
+            $event->end_day = $this->getField($row['end_day']);
+            $event->group = $this->getField($row['group']);
+            $event->type = $this->getField($row['type']);
+
+            $event->save();
+
+            /*if (! empty($this->getField($row['year']))) {
                 $event = Event::create([
                     'headline' => $this->getField($row['headline']),
                     'text' => $this->getField($row['text']),
@@ -42,7 +59,24 @@ class TimelineImport implements ToCollection, WithHeadingRow
                         logger()->info('Image could not be downloaded: '.$this->getField($row['media']));
                     }
                 }
+            }*/
+        }
+    }
+
+    private function toCarbonDate($stringDate)
+    {
+        if (empty($stringDate)) {
+            return null;
+        }
+
+        try {
+            if (is_numeric($stringDate)) {
+                return Carbon::instance(Date::excelToDateTimeObject($stringDate))->toDateString();
+            } else {
+                return Carbon::createFromFormat('Y-m-d', $stringDate);
             }
+        } catch (\Exception $exception) {
+            return null;
         }
     }
 
