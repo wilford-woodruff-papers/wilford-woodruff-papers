@@ -111,7 +111,7 @@
 
             <div class="max-w-2xl mx-auto flex flex-col gap-y-2 mt-6">
                 <p class="text-white text-center text-2xl font-semibold">
-                    TODAY until GivingTuesday all donations will be MATCHED 2:1 by a generous private donor.
+                    TODAY until GivingTuesday all donations will be MATCHED by a generous private donor.
                 </p>
                 <p class="text-white text-center text-2xl">
                     PLUS recurring donations made through Facebook will be matched by Facebook until December 31.
