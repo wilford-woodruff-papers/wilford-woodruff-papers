@@ -114,7 +114,7 @@ class AdditionalDocumentsPcfImport implements ToCollection, WithHeadingRow
             $topicTaggingCompleteAt = $this->toCarbonDate(data_get($row, str('Topic Tags Completed')->lower()->snake()->toString()));
 
             $stylizationAssignedTo = data_get($row, str('Stylization Assigned Name')->lower()->snake()->toString());
-            $stylizationCompletedAt = $this->toCarbonDate(data_get($row, str('Stylization Assigned Date')->lower()->snake()->toString()));
+            $stylizationAssignedAt = $this->toCarbonDate(data_get($row, str('Stylization Assigned Date')->lower()->snake()->toString()));
             $stylizationCompletedAt = $this->toCarbonDate(data_get($row, str('Stylization Completed Date')->lower()->snake()->toString()));
 
             //$dateTaggingAssigned = data_get($row, str('Date Tags Completed')->lower()->snake()->toString());
@@ -156,10 +156,10 @@ class AdditionalDocumentsPcfImport implements ToCollection, WithHeadingRow
                     'actionable_id' => $item->id,
                 ], [
                     'assigned_to' => $this->getUserID($twoLVAssignedTo),
-                    'assigned_at' => ! empty($twoLVCompleted) ? $twoLVCompleted : now(),
+                    'assigned_at' => ! empty($twoLVAssignedAt) ? $twoLVAssignedAt : now(),
                     'completed_by' => ! empty($twoLVCompletedAt) ? $this->getUserID($twoLVAssignedTo) : null,
                     'completed_at' => ! empty($twoLVCompletedAt) ? $twoLVCompletedAt : null,
-                    'created_at' => $twoLVCompletedAt,
+                    'created_at' => $twoLVAssignedAt,
                     'updated_at' => $twoLVCompletedAt,
                 ]);
 
@@ -170,10 +170,10 @@ class AdditionalDocumentsPcfImport implements ToCollection, WithHeadingRow
                         'actionable_id' => $page->id,
                     ], [
                         'assigned_to' => $this->getUserID($twoLVAssignedTo),
-                        'assigned_at' => ! empty($twoLVCompletedAt) ? $twoLVCompletedAt : now(),
+                        'assigned_at' => ! empty($twoLVAssignedAt) ? $twoLVAssignedAt : now(),
                         'completed_by' => ! empty($twoLVCompletedAt) ? $this->getUserID($twoLVAssignedTo) : null,
                         'completed_at' => ! empty($twoLVCompletedAt) ? $twoLVCompletedAt : null,
-                        'created_at' => $twoLVCompletedAt,
+                        'created_at' => $twoLVAssignedAt,
                         'updated_at' => $twoLVCompletedAt,
                     ]);
                 }
@@ -200,10 +200,10 @@ class AdditionalDocumentsPcfImport implements ToCollection, WithHeadingRow
                         'actionable_id' => $page->id,
                     ], [
                         'assigned_to' => $this->getUserID($subjectLinksAssignedTo),
-                        'assigned_at' => ! empty($subjectLinksCompletedAt) ? $subjectLinksCompletedAt : now(),
+                        'assigned_at' => ! empty($subjectLinksAssignedAt) ? $subjectLinksAssignedAt : now(),
                         'completed_by' => ! empty($subjectLinksCompletedAt) ? $this->getUserID($subjectLinksAssignedTo) : null,
                         'completed_at' => ! empty($subjectLinksCompletedAt) ? $subjectLinksCompletedAt : null,
-                        'created_at' => $subjectLinksCompletedAt,
+                        'created_at' => $subjectLinksAssignedAt,
                         'updated_at' => $subjectLinksCompletedAt,
                     ]);
                 }
@@ -246,10 +246,10 @@ class AdditionalDocumentsPcfImport implements ToCollection, WithHeadingRow
                     'actionable_id' => $item->id,
                 ], [
                     'assigned_to' => $this->getUserID($stylizationAssignedTo),
-                    'assigned_at' => ! empty($stylizationCompletedAt) ? $stylizationCompletedAt : now(),
+                    'assigned_at' => ! empty($stylizationAssignedAt) ? $stylizationAssignedAt : now(),
                     'completed_by' => ! empty($stylizationCompletedAt) ? $this->getUserID($stylizationAssignedTo) : null,
                     'completed_at' => ! empty($stylizationCompletedAt) ? $stylizationCompletedAt : null,
-                    'created_at' => $stylizationCompletedAt,
+                    'created_at' => $stylizationAssignedAt,
                     'updated_at' => $stylizationCompletedAt,
                 ]);
 
@@ -260,10 +260,10 @@ class AdditionalDocumentsPcfImport implements ToCollection, WithHeadingRow
                         'actionable_id' => $page->id,
                     ], [
                         'assigned_to' => $this->getUserID($stylizationAssignedTo),
-                        'assigned_at' => ! empty($stylizationCompletedAt) ? $stylizationCompletedAt : now(),
+                        'assigned_at' => ! empty($stylizationAssignedAt) ? $stylizationAssignedAt : now(),
                         'completed_by' => ! empty($stylizationCompletedAt) ? $this->getUserID($stylizationAssignedTo) : null,
                         'completed_at' => ! empty($stylizationCompletedAt) ? $stylizationCompletedAt : null,
-                        'created_at' => $stylizationCompletedAt,
+                        'created_at' => $stylizationAssignedAt,
                         'updated_at' => $stylizationCompletedAt,
                     ]);
                 }
@@ -276,7 +276,7 @@ class AdditionalDocumentsPcfImport implements ToCollection, WithHeadingRow
                     'actionable_id' => $item->id,
                 ], [
                     'assigned_to' => $this->getUserID($topicTaggingAssignedTo),
-                    'assigned_at' => ! empty($topicTaggingCompleteAt) ? $topicTaggingCompleteAt : now(),
+                    'assigned_at' => ! empty($topicTaggingAssignedAt) ? $topicTaggingAssignedAt : now(),
                     'completed_by' => ! empty($topicTaggingCompleteAt) ? $this->getUserID($topicTaggingAssignedTo) : null,
                     'completed_at' => ! empty($topicTaggingCompleteAt) ? $topicTaggingCompleteAt : null,
                     'created_at' => $topicTaggingAssignedAt,
@@ -290,7 +290,7 @@ class AdditionalDocumentsPcfImport implements ToCollection, WithHeadingRow
                         'actionable_id' => $page->id,
                     ], [
                         'assigned_to' => $this->getUserID($topicTaggingAssignedTo),
-                        'assigned_at' => ! empty($topicTaggingCompleteAt) ? $topicTaggingCompleteAt : now(),
+                        'assigned_at' => ! empty($topicTaggingAssignedAt) ? $topicTaggingAssignedAt : now(),
                         'completed_by' => ! empty($topicTaggingCompleteAt) ? $this->getUserID($topicTaggingAssignedTo) : null,
                         'completed_at' => ! empty($topicTaggingCompleteAt) ? $topicTaggingCompleteAt : null,
                         'created_at' => $topicTaggingAssignedAt,
@@ -299,9 +299,9 @@ class AdditionalDocumentsPcfImport implements ToCollection, WithHeadingRow
                 }
             }
 
-            if (! empty($placesIdentificationCompletedAt)) {
+            /*if (! empty($placesIdentificationCompletedAt)) {
                 Action::updateOrCreate([
-                    'action_type_id' => $actionTypes->firstWhere('name', 'Transcription')->id,
+                    'action_type_id' => $actionTypes->firstWhere('name', 'Places Identification')->id,
                     'actionable_type' => Item::class,
                     'actionable_id' => $item->id,
                 ], [
@@ -315,7 +315,7 @@ class AdditionalDocumentsPcfImport implements ToCollection, WithHeadingRow
 
                 foreach ($item->pages as $page) {
                     Action::updateOrCreate([
-                        'action_type_id' => $actionTypes->firstWhere('name', 'Transcription')->id,
+                        'action_type_id' => $actionTypes->firstWhere('name', 'Places Identification')->id,
                         'actionable_type' => Page::class,
                         'actionable_id' => $page->id,
                     ], [
@@ -327,11 +327,11 @@ class AdditionalDocumentsPcfImport implements ToCollection, WithHeadingRow
                         'updated_at' => $transcriptionCompletedAt,
                     ]);
                 }
-            }
+            }*/
 
-            if (! empty($peopleIdentificationCompletedAt)) {
+            /*if (! empty($peopleIdentificationCompletedAt)) {
                 Action::updateOrCreate([
-                    'action_type_id' => $actionTypes->firstWhere('name', 'Transcription')->id,
+                    'action_type_id' => $actionTypes->firstWhere('name', 'People Identification')->id,
                     'actionable_type' => Item::class,
                     'actionable_id' => $item->id,
                 ], [
@@ -345,7 +345,7 @@ class AdditionalDocumentsPcfImport implements ToCollection, WithHeadingRow
 
                 foreach ($item->pages as $page) {
                     Action::updateOrCreate([
-                        'action_type_id' => $actionTypes->firstWhere('name', 'Transcription')->id,
+                        'action_type_id' => $actionTypes->firstWhere('name', 'People Identification')->id,
                         'actionable_type' => Page::class,
                         'actionable_id' => $page->id,
                     ], [
@@ -357,7 +357,7 @@ class AdditionalDocumentsPcfImport implements ToCollection, WithHeadingRow
                         'updated_at' => $peopleIdentificationCompletedAt,
                     ]);
                 }
-            }
+            }*/
         });
     }
 
@@ -584,6 +584,12 @@ class AdditionalDocumentsPcfImport implements ToCollection, WithHeadingRow
             case 'Mackenzie':
             case 'Mackenzie Jaggi':
                 $name = 'Mackenzie Jaggi';
+                $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
+                break;
+            case 'crowd':
+            case 'crowdsource':
+            case 'crowdsourced':
+                $name = 'Crowdsource';
                 $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
                 break;
             default:

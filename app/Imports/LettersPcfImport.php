@@ -318,6 +318,12 @@ class LettersPcfImport implements ToCollection, WithHeadingRow
                 $name = 'Mackenzie Jaggi';
                 $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
                 break;
+            case 'crowd':
+            case 'crowdsource':
+            case 'crowdsourced':
+                $name = 'Crowdsource';
+                $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
+                break;
             default:
                 logger()->info($this->id.' - Could not find user for: '.$initials);
                 $name = 'Jon Fackrell';
