@@ -294,7 +294,7 @@ class AutobiographiesPcfImport implements ToCollection, WithHeadingRow
 
             if (! empty($placesIdentificationCompletedAt)) {
                 Action::updateOrCreate([
-                    'action_type_id' => $actionTypes->firstWhere('name', 'Transcription')->id,
+                    'action_type_id' => $actionTypes->firstWhere('name', 'Places Identification')->id,
                     'actionable_type' => Item::class,
                     'actionable_id' => $item->id,
                 ], [
@@ -308,7 +308,7 @@ class AutobiographiesPcfImport implements ToCollection, WithHeadingRow
 
                 foreach ($item->pages as $page) {
                     Action::updateOrCreate([
-                        'action_type_id' => $actionTypes->firstWhere('name', 'Transcription')->id,
+                        'action_type_id' => $actionTypes->firstWhere('name', 'Places Identification')->id,
                         'actionable_type' => Page::class,
                         'actionable_id' => $page->id,
                     ], [
@@ -324,7 +324,7 @@ class AutobiographiesPcfImport implements ToCollection, WithHeadingRow
 
             if (! empty($peopleIdentificationCompletedAt)) {
                 Action::updateOrCreate([
-                    'action_type_id' => $actionTypes->firstWhere('name', 'Transcription')->id,
+                    'action_type_id' => $actionTypes->firstWhere('name', 'People Identification')->id,
                     'actionable_type' => Item::class,
                     'actionable_id' => $item->id,
                 ], [
@@ -338,7 +338,7 @@ class AutobiographiesPcfImport implements ToCollection, WithHeadingRow
 
                 foreach ($item->pages as $page) {
                     Action::updateOrCreate([
-                        'action_type_id' => $actionTypes->firstWhere('name', 'Transcription')->id,
+                        'action_type_id' => $actionTypes->firstWhere('name', 'People Identification')->id,
                         'actionable_type' => Page::class,
                         'actionable_id' => $page->id,
                     ], [
@@ -577,6 +577,12 @@ class AutobiographiesPcfImport implements ToCollection, WithHeadingRow
             case 'Mackenzie':
             case 'Mackenzie Jaggi':
                 $name = 'Mackenzie Jaggi';
+                $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
+                break;
+            case 'crowd':
+            case 'crowdsource':
+            case 'crowdsourced':
+                $name = 'Crowdsource';
                 $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
                 break;
             default:
