@@ -30,9 +30,13 @@ class AdditionalDocumentsPcfImport implements ToCollection, WithHeadingRow
         $actionTypes = ActionType::all();
 
         foreach ($rows as $row) {
-            info($row);
             if (empty(data_get($row, str('Unique Identifier')->lower()->snake()->toString()))) {
                 info('No ID');
+
+                continue;
+            }
+            if (empty(data_get($row, str('Uploaded to FTP')->lower()->snake()->toString()))) {
+                info('Not yet in FTP');
 
                 continue;
             }
@@ -530,12 +534,12 @@ class AdditionalDocumentsPcfImport implements ToCollection, WithHeadingRow
                 $name = 'Oliver Carson';
                 $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
                 break;
-            case 'KL':
-            case 'Karly':
-            case 'Karly Lay':
-                $name = 'Karly Lay';
-                $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
-                break;
+                /*case 'KL':
+                case 'Karly':
+                case 'Karly Lay':
+                    $name = 'Karly Lay';
+                    $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
+                    break;*/
             case 'SH':
             case 'Shauna Horne':
                 $name = 'Shauna Horne';
@@ -584,6 +588,26 @@ class AdditionalDocumentsPcfImport implements ToCollection, WithHeadingRow
             case 'Mackenzie':
             case 'Mackenzie Jaggi':
                 $name = 'Mackenzie Jaggi';
+                $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
+                break;
+            case 'MP':
+            case 'Michael Proudfoot':
+                $name = 'Michael Proudfoot';
+                $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
+                break;
+            case 'SC':
+            case 'Samuel Collier':
+                $name = 'Samuel Collier';
+                $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
+                break;
+            case 'MF':
+            case 'Miriam Foulke':
+                $name = 'Miriam Foulke';
+                $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
+                break;
+            case 'KL':
+            case 'Katlyn Linville':
+                $name = 'Katlyn Linville';
                 $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
                 break;
             case 'crowd':
