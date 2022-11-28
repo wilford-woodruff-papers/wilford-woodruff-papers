@@ -6,6 +6,7 @@ use App\Models\Action;
 use App\Models\ActionType;
 use App\Models\Item;
 use App\Models\Page;
+use App\Models\Type;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
@@ -28,6 +29,7 @@ class AdditionalDocumentsPcfImport implements ToCollection, WithHeadingRow
         set_time_limit(36000);
 
         $actionTypes = ActionType::all();
+        $additionalType = Type::firstWhere('name', 'Additional');
 
         foreach ($rows as $row) {
             if (empty(data_get($row, str('Unique Identifier')->lower()->snake()->toString()))) {
@@ -62,6 +64,7 @@ class AdditionalDocumentsPcfImport implements ToCollection, WithHeadingRow
                     $item->pcf_unique_id = $uniqueID;
                     $item->category = data_get($row, 'category_formula');
                     $item->description = data_get($row, 'description_formula');
+                    $item->type_id = $additionalType->id;
                     $item->save();
                     $this->id = $uniqueID;
 
