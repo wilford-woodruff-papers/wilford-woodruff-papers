@@ -39,7 +39,7 @@ class HarvestItemsFromThePage extends Command
      */
     public function handle()
     {
-        $response = Http::get('https://fromthepage.com/iiif/collection/970');
+        $response = Http::timeout(120)->get('https://fromthepage.com/iiif/collection/970');
 
         $manifests = $response->json()['manifests'];
         $count = 0;
@@ -52,7 +52,14 @@ class HarvestItemsFromThePage extends Command
             if (data_get($item, 'service.pctComplete', 0) == 100.0) {
                 $document->enabled = true;
             }
+
+            if (empty($document->ftp_slug)) {
+                $response = Http::timeout(30)->get($item['@id']);
+                $document->ftp_slug = str($response->json('related.0.@id'))->afterLast('/');
+            }
+
             $document->save();
+
             $count = $count + 1;
         }
         $this->info("Imported $count documents");
