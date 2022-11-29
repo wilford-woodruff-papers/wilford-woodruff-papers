@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Forms;
 
-use App\Mail\ContactFormSubmitted;
+use App\Mail\ContestFormSubmitted;
 use App\Models\Contestant;
 use App\Models\ContestSubmission;
 use App\Models\User;
@@ -123,7 +123,7 @@ class ContestSubmissionForm extends Component
             }
 
             Mail::to(User::whereIn('email', explode('|', config('wwp.form_emails.contest_submission')))->get())
-                ->send(new ContactFormSubmitted($submission));
+                ->send(new ContestFormSubmitted($submission));
 
             $this->success = true;
         });
