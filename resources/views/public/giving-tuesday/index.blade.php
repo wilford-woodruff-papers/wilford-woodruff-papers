@@ -109,11 +109,11 @@
                 </div>
             </div>--}}
 
-            <div class="max-w-2xl mx-auto flex flex-col gap-y-2 mt-6">
-                <p class="text-white text-center text-2xl font-semibold">
+            <div class="flex flex-col gap-y-2 mt-16">
+                <p class="max-w-6xl mx-auto text-white text-center text-2xl font-semibold">
                     Each donation made today will be matched by a generous donor.
                 </p>
-                <p class="text-white text-center text-2xl">
+                <p class="max-w-2xl mx-auto text-white text-center text-2xl">
                     Additionally, recurring donations made on Facebook will be matched by Facebook.
                 </p>
             </div>
