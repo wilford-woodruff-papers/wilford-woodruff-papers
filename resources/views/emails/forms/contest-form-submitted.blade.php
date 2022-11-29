@@ -9,7 +9,7 @@
 
 {{ $submission->message }}
 
-@component('mail::button', ['url' => config('app.url').'/nova/resources/submissions/'.$submission->id])
+@component('mail::button', ['url' => config('app.url').'/nova/resources/contest-submissions/'.$submission->id])
 View Submission
 @endcomponent
 
