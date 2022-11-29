@@ -9,25 +9,28 @@ use App\Models\Page;
 use App\Models\Type;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use Maatwebsite\Excel\Concerns\ToCollection;
+use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithBatchInserts;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
-class LettersPcfImport implements ToCollection, WithHeadingRow
+class LettersPcfImport implements ToModel, WithBatchInserts, WithChunkReading, WithHeadingRow
 {
     public $id;
 
     /**
      * @param  Collection  $collection
      */
-    public function collection(Collection $rows)
+    public function model(Model $rows)
     {
         set_time_limit(36000);
-        ini_set('memory_limit', '768M');
+        ini_set('memory_limit', '1268M');
 
         $actionTypes = ActionType::all();
         $letterType = Type::firstWhere('name', 'Letters');
@@ -94,6 +97,16 @@ class LettersPcfImport implements ToCollection, WithHeadingRow
                 );*/
             }
         }
+    }
+
+    public function chunkSize(): int
+    {
+        return 1000;
+    }
+
+    public function batchSize(): int
+    {
+        return 1000;
     }
 
     private function proccessItem($row, $item, $actionTypes)
