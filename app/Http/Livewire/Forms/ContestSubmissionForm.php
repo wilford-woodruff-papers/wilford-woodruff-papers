@@ -31,7 +31,7 @@ class ContestSubmissionForm extends Component
 
     public $email;
 
-    public $file;
+    public $fileUpload;
 
     public $firstName;
 
@@ -62,7 +62,7 @@ class ContestSubmissionForm extends Component
         'connection' => 'required|max:10000',
         'division' => 'required|string|max:32',
         'email' => 'required|email',
-        'file' => 'max:20000',
+        'fileUpload' => 'max:20000',
         'firstName' => 'required',
         'lastName' => 'required',
         'link' => 'max:255',
