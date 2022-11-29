@@ -6,6 +6,7 @@ use App\Models\Action;
 use App\Models\ActionType;
 use App\Models\Item;
 use App\Models\Page;
+use App\Models\Type;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
@@ -18,7 +19,7 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class LettersPcfImport implements ToCollection, WithHeadingRow
 {
-    public int $id;
+    public $id;
 
     /**
      * @param  Collection  $collection
@@ -29,8 +30,10 @@ class LettersPcfImport implements ToCollection, WithHeadingRow
         ini_set('memory_limit', '768M');
 
         $actionTypes = ActionType::all();
+        $letterType = Type::firstWhere('name', 'Letters');
 
         foreach ($rows as $row) {
+            info($row);
             if (empty(data_get($row, str('Unique Identifier')->lower()->snake()->toString()))) {
                 info('No ID');
 
@@ -42,14 +45,14 @@ class LettersPcfImport implements ToCollection, WithHeadingRow
                 continue;
             }
 
-            $slug = $this->getSLug(data_get($row, str('Uploaded to FTP')->lower()->snake()->toString()));
+            $slug = $this->getSLug(data_get($row, str('FTP URL')->lower()->snake()->toString()));
             info($slug);
 
             if (! empty($slug)) {
                 $item = Item::query()
                     ->firstWhere('ftp_slug', $slug);
                 if (empty($item)) {
-                    $name = data_get($row, 'name_original_document_link_formula');
+                    $name = data_get($row, 'identifier_formula_do_not_edit');
                     if (! empty($name)) {
                         $item = Item::query()
                             ->firstWhere('name', $name);
@@ -63,8 +66,9 @@ class LettersPcfImport implements ToCollection, WithHeadingRow
                     $item->pcf_unique_id = $uniqueID;
                     $item->category = data_get($row, 'category_formula');
                     $item->description = data_get($row, 'description_formula');
+                    $item->type_id = $letterType->id;
                     $item->save();
-                    $this->id = $uniqueID;
+                    $this->id = 'L-'.$uniqueID;
 
                     $this->proccessItem($row, $item, $actionTypes);
 
@@ -103,28 +107,30 @@ class LettersPcfImport implements ToCollection, WithHeadingRow
             $transcriptionAssignedTo = data_get($row, str('Transcriber Name')->lower()->snake()->toString());
             $transcriptionCompletedAt = $this->toCarbonDate(data_get($row, str('Transcription Completion Date')->lower()->snake()->toString()));
 
-            $twoLVAssignedTo = data_get($row, str('2LV Assigned Name')->lower()->snake()->toString());
-            $twoLVAssignedAt = $this->toCarbonDate(data_get($row, str('2LV Assigned Date')->lower()->snake()->toString()));
+            $twoLVAssignedTo = data_get($row, str('2LV Assigned')->lower()->snake()->toString());
+            //$twoLVAssignedAt = $this->toCarbonDate(data_get($row, str('2LV Assigned Date')->lower()->snake()->toString()));
             $twoLVCompletedAt = $this->toCarbonDate(data_get($row, str('2LV Completed')->lower()->snake()->toString()));
 
-            $subjectLinksAssignedTo = data_get($row, str('Subject Links Assigned Name')->lower()->snake()->toString());
-            $subjectLinksAssignedAt = $this->toCarbonDate(data_get($row, str('Subject Links Assigned Date')->lower()->snake()->toString()));
-            $subjectLinksCompletedAt = $this->toCarbonDate(data_get($row, str('Subject Links Completed Date')->lower()->snake()->toString()));
+            $subjectLinksAssignedTo = data_get($row, str('Subject Links Assigned')->lower()->snake()->toString());
+            //$subjectLinksAssignedAt = $this->toCarbonDate(data_get($row, str('Subject Links Assigned Date')->lower()->snake()->toString()));
+            $subjectLinksCompletedAt = $this->toCarbonDate(data_get($row, str('Subject Links Completed')->lower()->snake()->toString()));
 
             //$placesIdentificationCompletedAt = $this->toCarbonDate(data_get($row, str('Places Identification Completed')->lower()->snake()->toString()));
             //$peopleIdentificationCompletedAt = $this->toCarbonDate(data_get($row, str('People Identification Completed')->lower()->snake()->toString()));
 
-            $topicTaggingAssignedTo = data_get($row, str('Topic Tags Assigned Name')->lower()->snake()->toString());
-            $topicTaggingAssignedAt = $this->toCarbonDate(data_get($row, str('Topic Tags Assigned Date')->lower()->snake()->toString()));
-            $topicTaggingCompleteAt = $this->toCarbonDate(data_get($row, str('Topic Tags Completed')->lower()->snake()->toString()));
+            $topicTaggingAssignedTo = data_get($row, str('Topic Tagging Assigned')->lower()->snake()->toString());
+            $topicTaggingAssignedAt = $this->toCarbonDate(data_get($row, str('Date Topic Tagging Assigned')->lower()->snake()->toString()));
+            $topicTaggingCompleteAt = $this->toCarbonDate(data_get($row, str('Date Topic Tagging Completed')->lower()->snake()->toString()));
 
-            $stylizationAssignedTo = data_get($row, str('Stylization Assigned Name')->lower()->snake()->toString());
-            $stylizationAssignedAt = $this->toCarbonDate(data_get($row, str('Stylization Assigned Date')->lower()->snake()->toString()));
-            $stylizationCompletedAt = $this->toCarbonDate(data_get($row, str('Stylization Completed Date')->lower()->snake()->toString()));
+            $stylizationAssignedTo = data_get($row, str('Stylization Assigned')->lower()->snake()->toString());
+            //$stylizationAssignedAt = $this->toCarbonDate(data_get($row, str('Stylization Assigned Date')->lower()->snake()->toString()));
+            $stylizationCompletedAt = $this->toCarbonDate(data_get($row, str('Stylization Completed')->lower()->snake()->toString()));
 
-            //$dateTaggingAssigned = data_get($row, str('Date Tags Completed')->lower()->snake()->toString());
+            $dateTaggingAssignedAt = data_get($row, str('Date Tags Added')->lower()->snake()->toString());
+            $dateTaggingCompletedAt = data_get($row, str('Date Tags Added')->lower()->snake()->toString());
+
             // Start here
-            if (! empty($transcriptionCompletedAt)) {
+            if (! empty($transcriptionAssignedTo)) {
                 Action::updateOrCreate([
                     'action_type_id' => $actionTypes->firstWhere('name', 'Transcription')->id,
                     'actionable_type' => Item::class,
@@ -161,10 +167,10 @@ class LettersPcfImport implements ToCollection, WithHeadingRow
                     'actionable_id' => $item->id,
                 ], [
                     'assigned_to' => $this->getUserID($twoLVAssignedTo),
-                    'assigned_at' => ! empty($twoLVAssignedAt) ? $twoLVAssignedAt : now(),
+                    'assigned_at' => ! empty($twoLVCompletedAt) ? $twoLVCompletedAt : now(),
                     'completed_by' => ! empty($twoLVCompletedAt) ? $this->getUserID($twoLVAssignedTo) : null,
                     'completed_at' => ! empty($twoLVCompletedAt) ? $twoLVCompletedAt : null,
-                    'created_at' => $twoLVAssignedAt,
+                    'created_at' => $twoLVCompletedAt,
                     'updated_at' => $twoLVCompletedAt,
                 ]);
 
@@ -175,10 +181,10 @@ class LettersPcfImport implements ToCollection, WithHeadingRow
                         'actionable_id' => $page->id,
                     ], [
                         'assigned_to' => $this->getUserID($twoLVAssignedTo),
-                        'assigned_at' => ! empty($twoLVAssignedAt) ? $twoLVAssignedAt : now(),
+                        'assigned_at' => ! empty($twoLVCompletedAt) ? $twoLVCompletedAt : now(),
                         'completed_by' => ! empty($twoLVCompletedAt) ? $this->getUserID($twoLVAssignedTo) : null,
                         'completed_at' => ! empty($twoLVCompletedAt) ? $twoLVCompletedAt : null,
-                        'created_at' => $twoLVAssignedAt,
+                        'created_at' => $twoLVCompletedAt,
                         'updated_at' => $twoLVCompletedAt,
                     ]);
                 }
@@ -208,24 +214,24 @@ class LettersPcfImport implements ToCollection, WithHeadingRow
                         'assigned_at' => ! empty($subjectLinksAssignedAt) ? $subjectLinksAssignedAt : now(),
                         'completed_by' => ! empty($subjectLinksCompletedAt) ? $this->getUserID($subjectLinksAssignedTo) : null,
                         'completed_at' => ! empty($subjectLinksCompletedAt) ? $subjectLinksCompletedAt : null,
-                        'created_at' => $subjectLinksAssignedAt,
+                        'created_at' => $subjectLinksCompletedAt,
                         'updated_at' => $subjectLinksCompletedAt,
                     ]);
                 }
             }
 
-            /*if (! empty($dateTaggingAssigned)) {
+            if (! empty($dateTaggingAssignedAt)) {
                 Action::updateOrCreate([
                     'action_type_id' => $actionTypes->firstWhere('name', 'Date Tagging')->id,
                     'actionable_type' => Item::class,
                     'actionable_id' => $item->id,
                 ], [
-                    'assigned_to' => $this->getUserID($dateTaggingAssigned),
-                    'assigned_at' => $this->toCarbonDate('2021-02-23'),
-                    'completed_by' => $this->getUserID($dateTaggingAssigned),
-                    'completed_at' => $this->toCarbonDate('2021-02-23'),
-                    'created_at' => $this->toCarbonDate('2021-02-23'),
-                    'updated_at' => $this->toCarbonDate('2021-02-23'),
+                    'assigned_to' => $this->getUserID('JM'),
+                    'assigned_at' => $dateTaggingAssignedAt,
+                    'completed_by' => $this->getUserID('JM'),
+                    'completed_at' => $dateTaggingCompletedAt,
+                    'created_at' => $dateTaggingAssignedAt,
+                    'updated_at' => $dateTaggingCompletedAt,
                 ]);
 
                 foreach ($item->pages as $page) {
@@ -234,15 +240,15 @@ class LettersPcfImport implements ToCollection, WithHeadingRow
                         'actionable_type' => Page::class,
                         'actionable_id' => $page->id,
                     ], [
-                        'assigned_to' => $this->getUserID($dateTaggingAssigned),
-                        'assigned_at' => $this->toCarbonDate('2021-02-23'),
-                        'completed_by' => $this->getUserID($dateTaggingAssigned),
-                        'completed_at' => $this->toCarbonDate('2021-02-23'),
-                        'created_at' => $this->toCarbonDate('2021-02-23'),
-                        'updated_at' => $this->toCarbonDate('2021-02-23'),
+                        'assigned_to' => $this->getUserID('JM'),
+                        'assigned_at' => $dateTaggingAssignedAt,
+                        'completed_by' => $this->getUserID('JM'),
+                        'completed_at' => $dateTaggingCompletedAt,
+                        'created_at' => $dateTaggingAssignedAt,
+                        'updated_at' => $dateTaggingCompletedAt,
                     ]);
                 }
-            }*/
+            }
 
             if (! empty($stylizationAssignedTo)) {
                 Action::updateOrCreate([
@@ -251,10 +257,10 @@ class LettersPcfImport implements ToCollection, WithHeadingRow
                     'actionable_id' => $item->id,
                 ], [
                     'assigned_to' => $this->getUserID($stylizationAssignedTo),
-                    'assigned_at' => ! empty($stylizationAssignedAt) ? $stylizationAssignedAt : now(),
+                    'assigned_at' => ! empty($stylizationCompletedAt) ? $stylizationCompletedAt : now(),
                     'completed_by' => ! empty($stylizationCompletedAt) ? $this->getUserID($stylizationAssignedTo) : null,
                     'completed_at' => ! empty($stylizationCompletedAt) ? $stylizationCompletedAt : null,
-                    'created_at' => $stylizationAssignedAt,
+                    'created_at' => $stylizationCompletedAt,
                     'updated_at' => $stylizationCompletedAt,
                 ]);
 
@@ -265,10 +271,10 @@ class LettersPcfImport implements ToCollection, WithHeadingRow
                         'actionable_id' => $page->id,
                     ], [
                         'assigned_to' => $this->getUserID($stylizationAssignedTo),
-                        'assigned_at' => ! empty($stylizationAssignedAt) ? $stylizationAssignedAt : now(),
+                        'assigned_at' => ! empty($stylizationCompletedAt) ? $stylizationCompletedAt : now(),
                         'completed_by' => ! empty($stylizationCompletedAt) ? $this->getUserID($stylizationAssignedTo) : null,
                         'completed_at' => ! empty($stylizationCompletedAt) ? $stylizationCompletedAt : null,
-                        'created_at' => $stylizationAssignedAt,
+                        'created_at' => $stylizationCompletedAt,
                         'updated_at' => $stylizationCompletedAt,
                     ]);
                 }
@@ -390,15 +396,15 @@ class LettersPcfImport implements ToCollection, WithHeadingRow
 
     private function getUserID($initials)
     {
-        if (in_array($initials, [
-            'n/a',
-        ])) {
-            return null;
-        }
-
-        $initials = trim(str($initials)->before('/')->trim()->toString());
+        $initials = trim(str($initials)->before(',')->trim()->toString());
 
         switch ($initials) {
+            case 'N/A':
+            case 'n/a':
+            case 'X':
+                $name = 'N/A';
+                $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
+                break;
             case 'SCH':
             case 'Steve Harper':
                 $name = 'Steve Harper';
