@@ -8,11 +8,11 @@
 
         </div>
 
-        <div class="my-8">
+        {{--<div class="my-8">
 
             <livewire:admin.progress />
 
-        </div>
+        </div>--}}
 
     </div>
 
