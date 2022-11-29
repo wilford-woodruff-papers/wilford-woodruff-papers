@@ -112,8 +112,8 @@ class ContestSubmissionForm extends Component
             $submission->contestants()->save($contestant);
 
             if (! app()->environment(['local'])) {
-                if ($this->file) {
-                    $submission->addMedia($this->file)
+                if ($this->fileUpload) {
+                    $submission->addMedia($this->fileUpload)
                         ->toMediaCollection('art');
                 }
             }
