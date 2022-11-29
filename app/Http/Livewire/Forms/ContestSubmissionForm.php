@@ -129,6 +129,13 @@ class ContestSubmissionForm extends Component
         });
     }
 
+    public function updatedFileUpload()
+    {
+        $this->validate([
+            'fileUpload' => 'image|max:20000',
+        ]);
+    }
+
     public function notifyCollaborators($submission)
     {
         // TODO: Store and send email to collaborators

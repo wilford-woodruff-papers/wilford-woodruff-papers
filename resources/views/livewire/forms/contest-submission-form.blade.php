@@ -250,11 +250,11 @@
                                 File (20MB Max)
                             </label>
                             <div class="mt-1 flex items-center">
-                                <input wire:model="file"
+                                <input wire:model="fileUpload"
                                        type="file"
                                        class="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" />
                             </div>
-                            @error('file') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
+                            @error('fileUpload') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
                         </div>
 
                         <div>
