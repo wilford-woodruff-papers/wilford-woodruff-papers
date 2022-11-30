@@ -17,7 +17,7 @@ return [
     // Whether to use the browse URL instead of the HTML input.
     // This is slower, but makes fonts available.
     // Alternative: http
-    'method' => 'html',
+    'method' => 'http',
 
     'metatags' => [
         'og:title' => 'title',
