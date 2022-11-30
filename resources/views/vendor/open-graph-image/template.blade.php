@@ -36,10 +36,10 @@
             src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-bold-webfont.woff");
         }
         </style>
-        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     </head>
     <body class="flex items-center justify-center min-h-screen">
-        <div class="bg-[#1b2443] w-[1200px] h-[630px] text-white p-12 border-highlight border-[16px]">
+        <div class="bg-primary w-[1200px] h-[630px] text-white p-12 border-highlight border-[16px]">
             <h1 class="font-bold text-[90px] text-highlight leading-none">{!! explode(' - ', $title)[0] !!}</h1>
             @if(isset($subtitle))
                 <h2 class="mt-6 text-[50px] font-bold text-white uppercase">{{ $subtitle }}</h2>
