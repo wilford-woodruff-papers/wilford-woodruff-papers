@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 
 class DonationController extends Controller
 {
+    public function index(Request $request)
+    {
+        return view('public.donate.index');
+    }
+
     public function online(Request $request)
     {
         return view('public.donate.online');
