@@ -79,7 +79,7 @@ class ImportPages extends Action
                             $page->subjects()->detach();
                             logger()->info('Subjects');
                             $subjects = [];
-                            Str::of($page->transcript)->replaceMatches('/(?:\[\[)(.*?)(?:\]\])/', function ($match) use (&$subjects) {
+                            Str::of($page->transcript)->replaceMatches('/(?:\[\[)(.*?)(?:\]\])/s', function ($match) use (&$subjects) {
                                 $subjects[] = Str::of($match[0])->trim('[[]]')->explode('|')->first();
 
                                 return '[['.$match[0].']]';
