@@ -15,7 +15,10 @@ class Tasks extends Component
     public function render()
     {
         $assignedItems = Item::query()
-            ->with('pending_actions', 'pending_page_actions')
+            ->with(
+                'pending_actions',
+                'pending_actions.type',
+            )
             ->whereHas('pending_actions', function (Builder $query) {
                 $query->where('assigned_to', auth()->id())
                     ->whereNull('completed_at');
@@ -29,15 +32,22 @@ class Tasks extends Component
         $userRoles = auth()->user()->roles;
 
         $unassignedItems = Item::query()
-            ->with('unassigned_actions', 'unassigned_actions.type')
+            ->with(
+                'unassigned_actions',
+                'unassigned_actions.type',
+                'unassigned_actions.type.roles',
+                'completed_actions',
+                'completed_actions.type',
+            )
+            ->withCount('pages')
             ->whereHas('actions', function (Builder $query) use ($userRoles) {
                 $query->whereNull('assigned_at')
                     ->whereNull('completed_at')
                     ->whereHas('type', function (Builder $query) use ($userRoles) {
-                        $query->whereIn('id', ActionType::query()->role($userRoles->pluck('id')->all())->pluck('id')->all());
+                        $query->whereIn('id', ActionType::query()->role($userRoles)->pluck('id')->all());
                     });
             })->whereHas('type', function (Builder $query) use ($userRoles) {
-                $query->whereIn('id', Type::query()->role($userRoles->pluck('id')->all())->pluck('id')->all());
+                $query->whereIn('id', Type::query()->role($userRoles)->pluck('id')->all());
             })
             ->paginate(15);
 
