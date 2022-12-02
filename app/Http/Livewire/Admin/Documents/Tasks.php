@@ -8,10 +8,17 @@ use App\Models\Item;
 use App\Models\Type;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class Tasks extends Component
 {
+    public $type;
+
+    public $sortBy = 'pcf_unique_id';
+
+    public $sortDirection = 'asc';
+
     public function render()
     {
         $assignedItems = Item::query()
@@ -32,6 +39,7 @@ class Tasks extends Component
         $userRoles = auth()->user()->roles;
 
         $unassignedItems = Item::query()
+            ->select('items.*', DB::raw('(SELECT COUNT(*) FROM pages WHERE pages.item_id = items.id) as pages_count'))
             ->with(
                 'unassigned_actions',
                 'unassigned_actions.type',
@@ -39,7 +47,9 @@ class Tasks extends Component
                 'completed_actions',
                 'completed_actions.type',
             )
-            ->withCount('pages')
+            ->when($this->type, function ($query, $type) {
+                $query->where('type_id', $type);
+            })
             ->whereHas('actions', function (Builder $query) use ($userRoles) {
                 $query->whereNull('assigned_at')
                     ->whereNull('completed_at')
@@ -49,6 +59,8 @@ class Tasks extends Component
             })->whereHas('type', function (Builder $query) use ($userRoles) {
                 $query->whereIn('id', Type::query()->role($userRoles)->pluck('id')->all());
             })
+            ->orderBy(DB::raw('LENGTH('.$this->sortBy.')'), $this->sortDirection)
+            ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate(15);
 
         return view('livewire.admin.documents.tasks', [
@@ -103,5 +115,11 @@ class Tasks extends Component
         $action->completed_at = null;
         $action->completed_by = null;
         $action->save();
+    }
+
+    public function applySort($name, $direction)
+    {
+        $this->sortBy = $name;
+        $this->sortDirection = ($direction == 'asc' ? 'desc' : 'asc');
     }
 }
