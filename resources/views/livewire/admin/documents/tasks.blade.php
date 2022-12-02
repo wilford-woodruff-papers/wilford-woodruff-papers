@@ -40,7 +40,7 @@
         </div>
     @endif
 
-    @if($unassignedItems->count())
+    @if($unassignedItems->count() > 0 || ($unassignedItems->count() < 1 && ! empty($type)))
         <div class="px-4 sm:px-6 lg:px-8">
             <div class="pt-16 sm:flex sm:items-center">
                 <div class="sm:flex-auto">
@@ -54,6 +54,14 @@
                             <table class="min-w-full divide-y divide-gray-300">
                                 <thead class="bg-gray-50">
                                 <tr>
+                                    <x-admin.quotes.heading sortable multi-column wire:click="applySort('pcf_unique_id', '{{ $sortDirection }}')" :direction="$sortBy == 'pcf_unique_id' ? $sortDirection : null" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">ID</x-admin.quotes.heading>
+                                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                                        <select wire:model="type">
+                                            @foreach(\App\Models\Type::query()->orderBy('name')->get() as $type)
+                                                <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </th>
                                     <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Document</th>
                                     <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"></th>
                                     <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Available Task(s)</th>
@@ -63,6 +71,12 @@
                                 @foreach($unassignedItems as $item)
                                     <tr id="unassigned_item_{{ $item->id }}"
                                         class="border-t border-gray-200">
+                                        <th class="bg-gray-50 px-4 py-2 text-left text-sm font-semibold text-gray-900 sm:px-6">
+                                            {{ $item->pcf_unique_id }}
+                                        </th>
+                                        <th class="bg-gray-50 px-4 py-2 text-left text-sm font-semibold text-gray-900 sm:px-6">
+                                            {{ str($item->type->name)->singular() }}
+                                        </th>
                                         <th class="bg-gray-50 px-4 py-2 text-left text-sm font-semibold text-gray-900 sm:px-6">
                                             <a href="{{ route('admin.dashboard.document', ['item' => $item]) }}"
                                                class="font-medium text-indigo-600 capitalize"
