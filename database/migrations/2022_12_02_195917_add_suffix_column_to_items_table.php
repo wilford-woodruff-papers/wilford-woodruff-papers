@@ -15,8 +15,9 @@ return new class extends Migration
     {
         Schema::table('items', function (Blueprint $table) {
             $table->string('pcf_unique_id_suffix')
-                ->after('pcf_unique_id_prefix')
-                ->nullable(););
+                ->after('pcf_unique_id')
+                ->nullable();
+        });
     }
 
     /**
