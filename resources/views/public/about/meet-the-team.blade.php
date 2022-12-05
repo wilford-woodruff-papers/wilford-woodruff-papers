@@ -84,7 +84,7 @@
             </div>
         </div>--}}
         <div id="content" role="main">
-            <div class="bg-gradient-to-b from-secondary to-secondary-300">
+            <div class="bg-gradient-to-b from-secondary to-secondary-300 px-4 md:px-0">
                 <div class="max-w-7xl mx-auto pt-24 pb-12">
                     <div class="grid grid-cols-12 gap-x-8">
                         <div class="col-span-12 md:col-span-3"></div>
