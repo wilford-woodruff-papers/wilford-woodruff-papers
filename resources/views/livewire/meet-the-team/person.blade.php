@@ -43,7 +43,7 @@
                 <div class="space-y-4 cursor-pointer">
                     @if(! empty($person->supporting_image))
                         <div class="px-16 md:pl-24 md:pr-12">
-                            <div class="aspect-w-3 aspect-h-3">
+                            <div class="aspect-w-3 aspect-h-4">
                                 <img class="object-cover object-top" src="{{ Storage::disk('board_members')->url($person->supporting_image) }}" alt="">
                             </div>
                         </div>

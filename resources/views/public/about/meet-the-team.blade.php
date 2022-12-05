@@ -124,7 +124,7 @@
                                                 >
                                                     <div class="space-y-4 cursor-pointer">
                                                         <div class="pt-5 px-7">
-                                                            <div class="aspect-w-3 aspect-h-3">
+                                                            <div class="aspect-w-3 aspect-h-4">
                                                                 <img class="object-cover object-top" src="{{ Storage::disk('board_members')->url($person->image) }}" alt="">
                                                             </div>
                                                         </div>
