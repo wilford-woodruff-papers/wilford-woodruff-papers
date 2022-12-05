@@ -53,6 +53,8 @@ class Team extends Resource
             ID::make(__('ID'), 'id')->sortable(),
             OrderField::make('Order'),
             Text::make(__('Name'), 'name')->sortable(),
+            Text::make('Background Color')->required(),
+            Text::make('Text Color')->required(),
             HasMany::make('BoardMembers'),
         ];
     }
