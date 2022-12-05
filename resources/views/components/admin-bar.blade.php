@@ -6,7 +6,7 @@
     'Super Admin',
 ]))
 
-    <div class="w-full bg-black text-white px-8 py-4">
+    <div class="hidden md:block w-full bg-black text-white px-8 py-4">
         <ul class="flex items-center gap-x-6">
             <li>
                 <img src="{{ asset('img/logo.png') }}"
