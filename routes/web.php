@@ -61,7 +61,7 @@ Route::get('/places', [\App\Http\Controllers\PlaceController::class, 'index'])->
 Route::get('/topics', [\App\Http\Controllers\TopicController::class, 'index'])->name('topics');
 Route::get('/timeline', [\App\Http\Controllers\TimelineController::class, 'index'])->name('timeline');
 Route::get('/miraculously-preserved-life', \App\Http\Controllers\MiraculouslyPreservedLife::class)->name('miraculously-preserved-life');
-Route::get('/donate-online', [\App\Http\Controllers\DonationController::class, 'online'])->name('donate.online');
+Route::get('/donate/online', [\App\Http\Controllers\DonationController::class, 'online'])->name('donate.online');
 Route::get('/donation-questions', [\App\Http\Controllers\DonationController::class, 'questions'])->name('donate.questions');
 Route::get('/get-involved', [\App\Http\Controllers\GetInvolvedController::class, 'index'])->name('get-involved.index');
 Route::get('/volunteer', [\App\Http\Controllers\GetInvolvedController::class, 'volunteer'])->name('volunteer');
