@@ -105,6 +105,8 @@ class Tasks extends Component
                 $action->save();
             });
         }
+
+        $this->reload();
     }
 
     public function markActionInComplete($actionId)
