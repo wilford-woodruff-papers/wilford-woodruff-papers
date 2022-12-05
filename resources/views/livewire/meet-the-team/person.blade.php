@@ -32,7 +32,7 @@
             </div>
         </div>
         <div class="relative pt-12">
-            <div class="absolute bg-white text-black p-4 max-h-[580px] overflow-y-scroll text-justify">
+            <div class="absolute bg-white text-black p-4 h-[580px] overflow-y-scroll text-justify">
                 {!! $person->bio !!}
             </div>
         </div>
