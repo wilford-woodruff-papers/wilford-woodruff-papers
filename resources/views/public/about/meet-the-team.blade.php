@@ -3,7 +3,7 @@
         Meet the Team | {{ config('app.name') }}
     </x-slot>
     @if(auth()->check() && auth()->user()->hasAnyRole(['Super Admin', 'Admin']))
-        <div id="content" role="main">
+        {{--<div id="content" role="main">
             <div class="max-w-7xl mx-auto px-4">
                 <div class="blocks">
                     <div class="grid grid-cols-12 py-12">
@@ -70,6 +70,74 @@
                                                         <div class="text-secondary pt-6 pb-4 text-xl font-semibold">About {{ $person->name }}</div>
                                                         <div class="text-black text-lg">
                                                             {!! $person->bio !!}
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>--}}
+        <div id="content" role="main">
+            <div class="bg-gradient-to-b from-secondary to-secondary-300">
+                <div class="max-w-7xl mx-auto pt-24 pb-12">
+                    <div class="grid grid-cols-12 gap-x-8">
+                        <div class="col-span-12 md:col-span-3"></div>
+                        <div class="col-span-12 md:col-span-9">
+                            <h1 class="text-5xl text-white">Meet the Team</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="blocks">
+                    <div class="grid grid-cols-12 py-12 gap-x-8">
+                        <div class="col-span-12 md:col-span-3 px-2 py-16">
+                            <x-submenu area="About"/>
+                        </div>
+                        <div class="col-span-12 md:col-span-9">
+                            <div class="grid grid-cols-1 gap-x-4 mb-12">
+                                @foreach($teams as $team)
+                                    @if($team->boardmembers->count() > 0)
+                                        <div class="h-16 mt-4 mb-16">
+                                            <div class="max-w-7xl mx-auto px-12">
+                                                <div class="py-4 border-b-2 border-[#707070]">
+                                                    <h3 class="font-serif text-2xl leading-5 font-medium text-black font-medium">{{ $team->name }}</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <ul role="list" class="space-y-12 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-12 sm:space-y-0 lg:grid-cols-4 lg:gap-x-8 mb-16">
+                                            @foreach($team->boardmembers as $person)
+                                                <li x-data="{
+                                                        show: false,
+                                                    }"
+                                                    onclick="Livewire.emit('openModal', 'team-member-modal', {{ json_encode(["person" => $person->id, 'backgroundColor' => $team->background_color, 'textColor' => $team->text_color]) }})"
+                                                    class="group relative rounded-xl"
+                                                    style="background-color: {{ $team->background_color }}; color: {{ $team->text_color }};"
+                                                >
+                                                    <div class="space-y-4 cursor-pointer">
+                                                        <div class="pt-5 px-7">
+                                                            <div class="aspect-w-3 aspect-h-3">
+                                                                <img class="object-cover" src="{{ Storage::disk('board_members')->url($person->image) }}" alt="">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="space-y-2 pb-2">
+                                                            <div class="space-y-1 text-base font-medium leading-6 text-center px-1">
+                                                                <h3 class="font-semibold">{{ $person->name }}</h3>
+                                                                @if(! empty($person->title))
+                                                                    <p class="serif px-4">
+                                                                        {{ $person->title }}
+                                                                    </p>
+                                                                @endif
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </li>

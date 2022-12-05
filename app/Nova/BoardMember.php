@@ -62,6 +62,8 @@ class BoardMember extends Resource
                 ->required(false)
                 ->hideFromIndex()
                 ->help('Paste the YouTube URL in this box (not the embed code).'),
+            File::make(__('Supporting Image'), 'supporting_image')->disk('board_members'),
+            Text::make(__('Supporting Image Description'), 'supporting_image_description')->hideFromIndex(),
         ];
     }
 
