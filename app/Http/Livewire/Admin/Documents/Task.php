@@ -2,6 +2,9 @@
 
 namespace App\Http\Livewire\Admin\Documents;
 
+use App\Models\Action;
+use App\Models\Item;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class Task extends Component
@@ -35,5 +38,38 @@ class Task extends Component
         }
 
         return view('livewire.admin.documents.task');
+    }
+
+    public function markActionComplete($actionId)
+    {
+        $user = Auth::user();
+
+        $action = Action::find($actionId);
+        $action->completed_at = now();
+        $action->completed_by = $user->id;
+        $action->save();
+
+        if ($action->actionable_type == Item::class) {
+            $item = $action->actionable;
+            $item->pending_page_actions->where('action_type_id', $action->action_type_id)->each(function ($action) use ($user) {
+                $action->completed_at = now();
+                $action->completed_by = $user->id;
+                $action->save();
+            });
+        }
+
+        $this->item->refresh();
+    }
+
+    public function markActionInComplete($actionId)
+    {
+        $user = Auth::user();
+
+        $action = Action::find($actionId);
+        $action->completed_at = null;
+        $action->completed_by = null;
+        $action->save();
+
+        $this->item->refresh();
     }
 }
