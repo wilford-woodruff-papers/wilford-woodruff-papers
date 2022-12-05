@@ -13,7 +13,7 @@
         <div class="pt-8">
             <div class="space-y-4 cursor-pointer">
                 <div class="pt-5 px-7">
-                    <div class="aspect-w-3 aspect-h-3">
+                    <div class="aspect-w-3 aspect-h-4">
                         <img class="object-cover object-top" src="{{ Storage::disk('board_members')->url($person->image) }}" alt="">
                     </div>
                 </div>
@@ -31,8 +31,8 @@
                 </div>
             </div>
         </div>
-        <div class="relative pt-12">
-            <div class="md:absolute bg-white text-black p-4 md:h-[580px] overflow-y-scroll text-justify">
+        <div class="relative pt-14">
+            <div class="md:absolute bg-white text-black p-4 md:h-[680px] overflow-y-scroll text-justify">
                 {!! $person->bio !!}
             </div>
         </div>
@@ -43,7 +43,7 @@
                 <div class="space-y-4 cursor-pointer">
                     @if(! empty($person->supporting_image))
                         <div class="px-16 md:pl-24 md:pr-12">
-                            <div class="aspect-w-3 aspect-h-4">
+                            <div class="aspect-w-3 aspect-h-3">
                                 <img class="object-cover object-top" src="{{ Storage::disk('board_members')->url($person->supporting_image) }}" alt="">
                             </div>
                         </div>
