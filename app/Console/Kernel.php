@@ -15,6 +15,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command('backup:clean')->daily()->at('04:00')->timezone('America/Denver');
+        $schedule->command('backup:run')->daily()->at('04:30')->timezone('America/Denver');
+
         $schedule->command('import:instagram')
                  ->everyFourHours();
 
