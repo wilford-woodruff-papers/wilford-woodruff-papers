@@ -56,10 +56,10 @@
         @forelse($item->page_actions->groupBy('actionable_id') as $pageActions)
             <div x-show="show"
                 x-cloak
-                class="grid grid-cols-3 items-center border-t border-gray-300">
+                class="grid grid-cols-5 items-center border-t border-gray-300">
                 <div id="assigned_page_{{ $pageActions->first()->actionable->id }}"
-                    class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-12">
-                    <div>
+                    class="col-span-1 whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-12">
+                    <div class="">
                         <a href="{{ route('admin.dashboard.page', ['item' => $item, 'page' => $pageActions->first()->actionable]) }}"
                            class="font-medium text-indigo-600 capitalize"
                         >
@@ -77,7 +77,7 @@
                     </div>
 
                 </div>
-                <div class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                <div class="col-span-2 whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                     @foreach($pageActions->whereNull('completed_at') as $action)
                         @if($action->assigned_to == auth()->id())
                             <button wire:click="markActionComplete({{ $action->id }})"
@@ -89,11 +89,11 @@
                         @endif
                     @endforeach
                 </div>
-                <div class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                <div class="col-span-2 whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                     {{--{{ $pageActions->first()->assigned_at->tz('America/Denver')->toDayDateTimeString() }}--}}
-                    {{--<div>
+                    <div>
                         @foreach($pageActions->first()->actionable->completed_actions as $a)
-                            <div class="grid grid-cols-9 items-center gap-x-2">
+                            <div class="grid grid-cols-9 items-center gap-x-4">
                                 <div class="col-span-2 font-semibold">
                                     {{ $a->type->name }}
                                 </div>
@@ -116,7 +116,7 @@
                                 </div>
                             </div>
                         @endforeach
-                    </div>--}}
+                    </div>
                 </div>
             </div>
         @empty
