@@ -9,8 +9,6 @@ use App\Models\Page;
 use App\Models\Type;
 use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -24,10 +22,7 @@ class LettersPcfImport implements ToModel, WithBatchInserts, WithChunkReading, W
 {
     public $id;
 
-    /**
-     * @param  Collection  $collection
-     */
-    public function model(Model $rows)
+    public function model(array $row)
     {
         set_time_limit(36000);
         ini_set('memory_limit', '1268M');
@@ -35,68 +30,68 @@ class LettersPcfImport implements ToModel, WithBatchInserts, WithChunkReading, W
         $actionTypes = ActionType::all();
         $letterType = Type::firstWhere('name', 'Letters');
 
-        foreach ($rows as $row) {
-            info($row);
-            if (empty(data_get($row, str('Unique Identifier')->lower()->snake()->toString()))) {
-                info('No ID');
+        //foreach ($rows as $row) {
+        info($row);
+        if (empty(data_get($row, str('Unique Identifier')->lower()->snake()->toString()))) {
+            info('No ID');
 
-                continue;
-            }
-            if (empty(data_get($row, str('Uploaded to FTP')->lower()->snake()->toString()))) {
-                info('Not yet in FTP');
-
-                continue;
-            }
-
-            $slug = $this->getSLug(data_get($row, str('FTP URL')->lower()->snake()->toString()));
-            info($slug);
-
-            if (! empty($slug)) {
-                $item = Item::query()
-                    ->firstWhere('ftp_slug', $slug);
-                if (empty($item)) {
-                    $name = data_get($row, 'identifier_formula_do_not_edit');
-                    if (! empty($name)) {
-                        $item = Item::query()
-                            ->firstWhere('name', $name);
-                    }
-                }
-
-                if (! empty($item)) {
-                    info($item->name);
-
-                    $uniqueID = data_get($row, str('Unique Identifier')->lower()->snake()->toString());
-                    $item->pcf_unique_id = $uniqueID;
-                    $item->category = data_get($row, 'category_formula');
-                    $item->description = data_get($row, 'description_formula');
-                    $item->type_id = $letterType->id;
-                    $item->save();
-                    $this->id = 'L-'.$uniqueID;
-
-                    $this->proccessItem($row, $item, $actionTypes);
-
-                    foreach ($item->items as $section) {
-                        $this->proccessItem($row, $section, $actionTypes);
-                    }
-                } else {
-                    logger()->warning('Could not find item for: '.$slug);
-                }
-
-                /*logger()->info(
-                    collect([
-                        data_get($row, str('Unique Identifier')->lower()->snake()->toString()),
-                        $this->getSlug(data_get($row, str('URL of Column E')->lower()->snake()->toString())),
-                        $this->toCarbonDate(data_get($row, str('Completed Transcriptions Uploaded to FTP')->lower()->snake()->toString())),
-                        $this->toCarbonDate(data_get($row, str('2LV Completion Date')->lower()->snake()->toString())),
-                        $this->toCarbonDate(data_get($row, str('Subject Links Completed')->lower()->snake()->toString())),
-                        $this->toCarbonDate(data_get($row, str('Stylization Completed')->lower()->snake()->toString())),
-                        $this->toCarbonDate(data_get($row, str('Date Topic Tagging Assigned')->lower()->snake()->toString())),
-                        $this->toCarbonDate(data_get($row, str('Date Topic Tagging Completed')->lower()->snake()->toString())),
-                    ])
-                    ->join(' | ')
-                );*/
-            }
+            return;
         }
+        if (empty(data_get($row, str('Uploaded to FTP')->lower()->snake()->toString()))) {
+            info('Not yet in FTP');
+
+            return;
+        }
+
+        $slug = $this->getSLug(data_get($row, str('FTP URL')->lower()->snake()->toString()));
+        info($slug);
+
+        if (! empty($slug)) {
+            $item = Item::query()
+                    ->firstWhere('ftp_slug', $slug);
+            if (empty($item)) {
+                $name = data_get($row, 'identifier_formula_do_not_edit');
+                if (! empty($name)) {
+                    $item = Item::query()
+                            ->firstWhere('name', $name);
+                }
+            }
+
+            if (! empty($item)) {
+                info($item->name);
+
+                $uniqueID = data_get($row, str('Unique Identifier')->lower()->snake()->toString());
+                $item->pcf_unique_id = $uniqueID;
+                $item->category = data_get($row, 'category_formula');
+                $item->description = data_get($row, 'description_formula');
+                $item->type_id = $letterType->id;
+                $item->save();
+                $this->id = 'L-'.$uniqueID;
+
+                $this->proccessItem($row, $item, $actionTypes);
+
+                foreach ($item->items as $section) {
+                    $this->proccessItem($row, $section, $actionTypes);
+                }
+            } else {
+                logger()->warning('Could not find item for: '.$slug);
+            }
+
+            /*logger()->info(
+                collect([
+                    data_get($row, str('Unique Identifier')->lower()->snake()->toString()),
+                    $this->getSlug(data_get($row, str('URL of Column E')->lower()->snake()->toString())),
+                    $this->toCarbonDate(data_get($row, str('Completed Transcriptions Uploaded to FTP')->lower()->snake()->toString())),
+                    $this->toCarbonDate(data_get($row, str('2LV Completion Date')->lower()->snake()->toString())),
+                    $this->toCarbonDate(data_get($row, str('Subject Links Completed')->lower()->snake()->toString())),
+                    $this->toCarbonDate(data_get($row, str('Stylization Completed')->lower()->snake()->toString())),
+                    $this->toCarbonDate(data_get($row, str('Date Topic Tagging Assigned')->lower()->snake()->toString())),
+                    $this->toCarbonDate(data_get($row, str('Date Topic Tagging Completed')->lower()->snake()->toString())),
+                ])
+                ->join(' | ')
+            );*/
+        }
+        //}
     }
 
     public function chunkSize(): int
@@ -139,8 +134,8 @@ class LettersPcfImport implements ToModel, WithBatchInserts, WithChunkReading, W
             //$stylizationAssignedAt = $this->toCarbonDate(data_get($row, str('Stylization Assigned Date')->lower()->snake()->toString()));
             $stylizationCompletedAt = $this->toCarbonDate(data_get($row, str('Stylization Completed')->lower()->snake()->toString()));
 
-            $dateTaggingAssignedAt = data_get($row, str('Date Tags Added')->lower()->snake()->toString());
-            $dateTaggingCompletedAt = data_get($row, str('Date Tags Added')->lower()->snake()->toString());
+            $dateTaggingAssignedAt = $this->toCarbonDate(data_get($row, str('Date Tags Added')->lower()->snake()->toString()));
+            $dateTaggingCompletedAt = $this->toCarbonDate(data_get($row, str('Date Tags Added')->lower()->snake()->toString()));
 
             // Start here
             if (! empty($transcriptionAssignedTo)) {
@@ -392,7 +387,7 @@ class LettersPcfImport implements ToModel, WithBatchInserts, WithChunkReading, W
 
     private function toCarbonDate($stringDate)
     {
-        if (empty($stringDate)) {
+        if (empty($stringDate) || str($stringDate)->lower()->toString() == 'n/a') {
             return null;
         }
 
