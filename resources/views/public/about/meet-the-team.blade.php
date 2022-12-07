@@ -146,6 +146,21 @@
                                     @endif
                                 @endforeach
                             </div>
+                            <div>
+                                <div class="h-16 mt-4 mb-16">
+                                    <div class="max-w-7xl mx-auto px-12">
+                                        <div class="py-4 border-b-2 border-[#707070]">
+                                            <h3 class="font-serif text-2xl leading-5 font-medium text-black font-medium">Volunteers</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <img src="{{ asset('img/about/volunteers.png') }}"
+                                         alt=""
+                                         class="w-full h-auto"
+                                    />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
