@@ -60,10 +60,10 @@
             </div>
             <div class="col-span-1 md:col-span-3 flex flex-col">
                 <div class="flex flex-1 items-center bg-dark-blue px-12 py-12 md:py-0">
-                    <h1 class="text-3xl text-white">Please support the</h1>
+                    <h1 class="text-2xl md:text-4xl text-white">Donate Online</h1>
                 </div>
                 <div class="flex flex-1 items-center bg-highlight px-12 py-12 md:py-0">
-                    <p class="text-dark-blue text-lg"><span class="font-semibold">With your help</span>, </p>
+                    <p class="text-dark-blue text-lg text-justify"><span class="font-semibold">With your help</span>, the Wilford Woodruff Papers Foundation provides internships and creates jobs for college students. These positions represent 70% of all positions at the foundation! Your donations also allow us to take these papers, the doctrines they represent, and deliver them to an expansive LDS audience including the rising generation. Thanks to you, we deliver 65 years of church history in a personal way through videos, transcribed documents, social media, and partners such as: FamilySearch, Meridian, FAITH, and Book of Mormon Central.</p>
                 </div>
             </div>
             <div class="col-span-1 md:col-span-3">
@@ -93,6 +93,11 @@
                              class="h-[120px] w-auto inline"
                         />
                     </a>
+                </div>
+                <div class="flex items-center mt-12">
+                    <p class="text-xl text-white text-justify px-8 md:px-0">
+                        The Wilford Woodruff Papers Foundation is a 501(c)(3) nonprofit organization. Your donation to the Foundation may qualify as a charitable deduction for federal income tax purposes. The Wilford Woodruff Papers Foundation Identification Number (EIN) is 84-4318803.
+                    </p>
                 </div>
             </div>
             <div class="col-span-1 md:col-span-3">
@@ -127,7 +132,7 @@
                         <p class="text-xl">
                             For donation questions, please email us at <a href='&#109;&#97;il&#116;&#111;&#58;co&#110;&#116;%61ct&#64;&#37;77i&#37;6C&#102;o&#114;dwo&#111;%6&#52;%72&#37;&#55;&#53;f&#37;66%7&#48;&#97;p&#101;&#114;&#115;&#46;%6Fr&#103;' class="text-secondary underline">&#99;ont&#97;&#99;t&#64;wi&#108;f&#111;r&#100;&#119;oodruf&#102;p&#97;pers&#46;org</a> or <a href="{{ route('contact-us') }}" class="text-secondary underline">contact us using ths form</a>.
                         </pclass>
-                        <p class="text-xl py-8">
+                        <p class="text-2xl py-8 text-center">
                             Thank you for your support!
                         </p>
                     </div>
