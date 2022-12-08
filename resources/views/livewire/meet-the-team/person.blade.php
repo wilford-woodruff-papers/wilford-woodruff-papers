@@ -59,14 +59,24 @@
             </div>
         </div>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2">
-        <div class="pt-4">
-            <p class="px-12 md:pl-24 md:pr-12 text-justify"
-               style="color: {{ $textColor }};">
-                {{ $person->supporting_image_description }}
-            </p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 mt-4">
+        <div class="flex items-start justify-center pt-4">
+            @if(! empty($person->supporting_person_link))
+                <a href="{{ $person->supporting_person_link }}"
+                   target="_blank"
+                   class="text-2xl text-secondary underline"
+                >
+                    {{ $person->supporting_person_name }}
+                </a>
+            @endif
         </div>
-        <div class="">
+        <div class="pt-4 md:pl-4 md:pr-20">
+            @if(! empty($person->supporting_image_description))
+                <p class="text-justify"
+                   style="color: {{ $textColor }};">
+                    {{ $person->supporting_image_description }}
+                </p>
+            @endif
 
         </div>
     </div>
