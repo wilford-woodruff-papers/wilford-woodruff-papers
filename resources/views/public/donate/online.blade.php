@@ -60,7 +60,7 @@
             </div>
             <div class="col-span-1 md:col-span-3 flex flex-col">
                 <div class="flex flex-1 items-center bg-dark-blue px-12 py-12 md:py-0">
-                    <h1 class="text-2xl md:text-4xl text-white">Donate Online</h1>
+                    <h1 class="text-2xl md:text-6xl text-white">Donate Online</h1>
                 </div>
                 <div class="flex flex-1 items-center bg-highlight px-12 py-12 md:py-0">
                     <p class="text-dark-blue text-lg text-justify"><span class="font-semibold">With your help</span>, the Wilford Woodruff Papers Foundation provides internships and creates jobs for college students. These positions represent 70% of all positions at the foundation! Your donations also allow us to take these papers, the doctrines they represent, and deliver them to an expansive LDS audience including the rising generation. Thanks to you, we deliver 65 years of church history in a personal way through videos, transcribed documents, social media, and partners such as: FamilySearch, Meridian, FAITH, and Book of Mormon Central.</p>
@@ -102,14 +102,11 @@
             </div>
             <div class="col-span-1 md:col-span-3">
                 <div class="flex flex-col px-32 py-16">
-                    <p class="text-center text-2xl text-secondary">
-                        "To be charitable and kind, brings joy and peace and the Holy Ghost."
-                    </p>
-                    <p class="text-right text-xl text-secondary py-2">
-                        - Wilford Woodruff
-                    </p>
+                    <img src="{{ asset('img/donate/quote.png') }}"
+                         alt="To be charitable and kind, brings joy and peace and the Holy Ghost. - Wilford Woodruff"
+                         class="w-auto h-auto"
+                    >
                 </div>
-
             </div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-7">
