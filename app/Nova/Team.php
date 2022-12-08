@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
@@ -53,6 +54,7 @@ class Team extends Resource
             ID::make(__('ID'), 'id')->sortable(),
             OrderField::make('Order'),
             Text::make(__('Name'), 'name')->sortable(),
+            Boolean::make(__('Expanded'), 'expanded'),
             Text::make('Background Color')->required(),
             Text::make('Text Color')->required(),
             HasMany::make('BoardMembers'),
