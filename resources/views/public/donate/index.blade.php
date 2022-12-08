@@ -12,20 +12,25 @@
         </div>
     </div>
 
-    <div class="max-w-xl mx-auto text-center my-8">
-        <a href="https://app.giveforms.com/campaigns/wilfordwoodruffpapersfoundation/default-giveform"
-           class="flex items-center justify-center gap-x-4 text-2xl border-2 border-secondary px-6 py-4 text-white bg-secondary hover:bg-secondary-700"
-           target="_blank"
-        >
-            <span>
-                Donate Online
-            </span>
-        </a>
-    </div>
-
     <div class="my-12">
         <div class="max-w-7xl mx-auto mb-16">
             <div class="grid grid-cols-1 md:grid-cols-3 md:divide-x-4 md:divide-secondary gap-x-4 lg:gap-x-12">
+                <div class="flex flex-col gap-y-4 pt-2 pb-12 pl-10 md:pl-16 pr-0">
+                    <h2 class="text-secondary text-2xl sm:text-xl lg:text-3xl uppercase">
+                        Mail a Check
+                    </h2>
+                    <p class="text-xl">
+                        Not into giving online? Feel free to send a check to our organization to help us complete this historic project.
+                    </p>
+
+                    <div class="text-black text-xl font-semibold">
+                        <address>
+                            Wilford Woodruff Papers Foundation<br />
+                            4025 W. Centennial St.<br />
+                            Cedar Hills, UT 84062
+                        </address>
+                    </div>
+                </div>
                 <div class="flex flex-col gap-y-4 pt-2 pr-10 pl-10 md:pr-12 md:pl-24 pb-12 ">
                     <h2 class="text-secondary text-2xl sm:text-xl lg:text-3xl uppercase">
                         Give Online
@@ -61,22 +66,6 @@
                                 Venmo
                             </span>
                         </a>
-                    </div>
-                </div>
-                <div class="flex flex-col gap-y-4 pt-2 pb-12 pl-10 md:pl-16 pr-0">
-                    <h2 class="text-secondary text-2xl sm:text-xl lg:text-3xl uppercase">
-                        Send in a Check
-                    </h2>
-                    <p class="text-xl">
-                        Not into giving online? Feel free to send a check to our organization to help us complete this historic project.
-                    </p>
-
-                    <div class="text-black text-xl font-semibold">
-                        <address>
-                            Wilford Woodruff Papers Foundation<br />
-                            4025 W. Centennial St.<br />
-                            Cedar Hills, UT 84062
-                        </address>
                     </div>
                 </div>
                 <div class="flex flex-col gap-y-4 pt-2 pb-12 pr-12 pl-10 md:pr-4 md:pl-8 lg:pr-12 lg:pl-16">
@@ -124,7 +113,7 @@
                 </div>
                 <div class="flex items-center">
                     <p class="text-xl px-8 md:px-0">
-                        The Wilford Woodruff Papers Foundation is a 501(c)(3) nonprofit organization. Your donation to the Foundation may qualify as a charitable deduction for federal income tax purposes. The Wilford Woodruff Papers Foundation Identification Number (EIN) is 84-4318803.
+                        The Wilford Woodruff Papers Foundation is a 501(c)(3) nonprofit organization. Your donation to the Foundation may qualify as a charitable deduction for federal income tax purposes. The Wilford Woodruff Papers Foundation's EIN is 84-4318803.
                     </p>
                 </div>
             </div>
