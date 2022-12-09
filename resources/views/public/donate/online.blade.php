@@ -63,7 +63,14 @@
                     <h1 class="text-2xl md:text-6xl text-white">Donate Online</h1>
                 </div>
                 <div class="flex flex-1 items-center bg-highlight px-12 py-12 md:py-0">
-                    <p class="text-dark-blue text-lg text-justify"><span class="font-semibold">With your help</span>, the Wilford Woodruff Papers Foundation provides internships and creates jobs for college students. These positions represent 70% of all positions at the foundation! Your donations also allow us to take these papers, the doctrines they represent, and deliver them to an expansive LDS audience including the rising generation. Thanks to you, we deliver 65 years of church history in a personal way through videos, transcribed documents, social media, and partners such as: FamilySearch, Meridian, FAITH, and Book of Mormon Central.</p>
+                    <div class="flex flex-col gap-4">
+                        <p class="text-dark-blue text-lg text-justify">
+                            Your contribution will make it possible to share the 68 years of Church history and doctrine contained in Wilford Woodruff’s papers with those seeking truth.
+                        </p>
+                        <p class="text-dark-blue text-lg text-justify">
+                            You will also be providing  internship opportunities for college and high school students to work on this historic project. These young people represent 70% of our staff.
+                        </p>
+                    </div>
                 </div>
             </div>
             <div class="col-span-1 md:col-span-3">
