@@ -43,49 +43,66 @@
 
     <div class="font-sans text-gray-900 antialiased">
         <div class="grid grid-cols-1 md:grid-cols-7">
-            <div class="col-span-1">
-                <div class="grid grid-cols-1">
-                    <div class="p-4 mx-auto">
-                        <a href="{{ route('donate') }}">
-                            <img src="{{ asset('img/image-logo-stacked.png') }}" alt="Wilford Woodruff Papers Foundation">
-                        </a>
+            <div class="col-span-1 md:col-span-4">
+                <div class="grid grid-cols-1 md:grid-cols-4">
+                    <div class="col-span-1 flex items-center">
+                        <div class="p-4 flex w-full justify-center">
+                            <a href="{{ route('donate') }}"
+                               class="block"
+                            >
+                                <img src="{{ asset('img/image-logo-stacked.png') }}" alt="Wilford Woodruff Papers Foundation">
+                            </a>
+                        </div>
                     </div>
-                    <div class="mx-auto">
-                        <img src="{{ asset('img/donate/image-1.png') }}"
-                             alt=""
-                             class="hidden md:block"
-                        >
+                    <div class="col-span-1 md:col-span-3">
+                        <div class="flex flex-1 items-center bg-dark-blue">
+                            <h1 class="text-3xl md:text-6xl text-white px-12 py-8 md:py-14">
+                                Donate Online
+                            </h1>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-span-1 md:col-span-3 flex flex-col">
-                <div class="flex flex-1 items-center bg-dark-blue px-12 py-12 md:py-0">
-                    <h1 class="text-2xl md:text-6xl text-white">Donate Online</h1>
-                </div>
-                <div class="flex flex-1 items-center bg-highlight px-12 py-12 md:py-0">
-                    <div class="flex flex-col gap-4">
-                        <p class="text-dark-blue text-lg text-justify">
-                            Your contribution will make it possible to share the 68 years of Church history and doctrine contained in Wilford Woodruff’s papers with those seeking truth.
-                        </p>
-                        <p class="text-dark-blue text-lg text-justify">
-                            You will also be providing  internship opportunities for college and high school students to work on this historic project. These young people represent 70% of our staff.
-                        </p>
+                <div class="grid grid-cols-1 md:grid-cols-4">
+                    <div class="col-span-1">
+                        <div class="mx-auto">
+                            <img src="{{ asset('img/donate/image-1.png') }}"
+                                 alt=""
+                                 class="hidden md:block"
+                            >
+                        </div>
+                    </div>
+                    <div class="col-span-1 md:col-span-3">
+                        <div class="flex-1 items-center bg-highlight px-12 text-center">
+                            <div class="text-2xl py-4 text-center">
+                                Thank you for your support!
+                            </div>
+                        </div>
+                        <div class="bg-dark-blue px-16 pt-16">
+                            <script src="https://app.giveforms.com/widget.js" type="text/javascript"></script>
+                            <iframe src="https://app.giveforms.com/campaigns/wilfordwoodruffpapersfoundation/default-giveform" id="giveforms-form-embed" name="giveforms" height="1200px" width="100%" style="min-width: 320px; border: 0;" allowpaymentrequest="true"></iframe>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-span-1 md:col-span-3">
                 <img src="{{ asset('img/donate/image-2.png') }}"
                      alt=""
-                     class="w-auto h-full"
+                     class="hidden md:block w-full h-auto"
                 >
+                <div class="px-24">
+                    <img src="{{ asset('img/donate/quote.png') }}"
+                         alt="To be charitable and kind, brings joy and peace and the Holy Ghost. - Wilford Woodruff"
+                         class="hidden md:block w-auto h-auto"
+                    >
+                </div>
             </div>
         </div>
+
         <div class="grid grid-cols-1 md:grid-cols-7">
             <div class="col-span-1"></div>
-            <div class="col-span-1 md:col-span-3 bg-dark-blue px-16 py-16">
-                <script src="https://app.giveforms.com/widget.js" type="text/javascript"></script>
-                <iframe src="https://app.giveforms.com/campaigns/wilfordwoodruffpapersfoundation/default-giveform" id="giveforms-form-embed" name="giveforms" height="1200px" width="100%" style="min-width: 320px; border: 0;" allowpaymentrequest="true"></iframe>
-                <div class="grid sm:grid-cols-2 items-center justify-center mt-12">
+            <div class="col-span-1 md:col-span-3 bg-dark-blue px-16 pb-16">
+
+                <div class="grid grid-cols-2 items-center justify-center mt-12">
                     <a href="https://www.guidestar.org/profile/84-4318803" target="_blank" class="text-center">
                         <img src="{{ asset('img/donate/gold-guidestar.png') }}"
                              alt="Wilford Woodruff Papers Foundation is a gold-level GuideStar participant, demonstrating its commitment to transparency."
@@ -105,14 +122,6 @@
                     <p class="text-xl text-white text-justify px-8 md:px-0">
                         The Wilford Woodruff Papers Foundation is a 501(c)(3) nonprofit organization. Your donation to the Foundation may qualify as a charitable deduction for federal income tax purposes. The Wilford Woodruff Papers Foundation Identification Number (EIN) is 84-4318803.
                     </p>
-                </div>
-            </div>
-            <div class="col-span-1 md:col-span-3">
-                <div class="flex flex-col px-32 py-16">
-                    <img src="{{ asset('img/donate/quote.png') }}"
-                         alt="To be charitable and kind, brings joy and peace and the Holy Ghost. - Wilford Woodruff"
-                         class="w-auto h-auto"
-                    >
                 </div>
             </div>
         </div>
