@@ -149,9 +149,9 @@
                         </div>
                     </div>
                     <div class="py-12">
-                        <p class="text-xl">
+                        <p class="text-xl break-words">
                             For donation questions, please email us at <a href='&#109;&#97;il&#116;&#111;&#58;co&#110;&#116;%61ct&#64;&#37;77i&#37;6C&#102;o&#114;dwo&#111;%6&#52;%72&#37;&#55;&#53;f&#37;66%7&#48;&#97;p&#101;&#114;&#115;&#46;%6Fr&#103;' class="text-secondary underline">&#99;ont&#97;&#99;t&#64;wi&#108;f&#111;r&#100;&#119;oodruf&#102;p&#97;pers&#46;org</a> or <a href="{{ route('contact-us') }}" class="text-secondary underline">contact us using ths form</a>.
-                        </pclass>
+                        </p>
                         <p class="text-2xl py-8 text-center">
                             Thank you for your support!
                         </p>
