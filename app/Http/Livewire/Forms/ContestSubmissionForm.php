@@ -132,7 +132,7 @@ class ContestSubmissionForm extends Component
     public function updatedFileUpload()
     {
         $this->validate([
-            'fileUpload' => 'image|max:20000',
+            'fileUpload' => 'max:20000',
         ]);
     }
 
