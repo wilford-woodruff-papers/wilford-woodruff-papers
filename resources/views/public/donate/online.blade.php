@@ -77,16 +77,23 @@
                                 Thank you for your support!
                             </div>
                         </div>
-                        <div class="bg-dark-blue px-8 md:px-0 lg:px-16 pt-16">
+                        <div class="bg-dark-blue px-8 md:px-0 lg:px-16 pt-16 pb-12 md:pb-0">
                             <script src="https://app.giveforms.com/widget.js" type="text/javascript"></script>
                             <iframe src="https://app.giveforms.com/campaigns/wilfordwoodruffpapersfoundation/default-giveform" id="giveforms-form-embed"
                                     name="giveforms"
                                     height="1200px"
                                     width="101%"
-                                    {{--style="min-width: 320px;--}}
-                                    border: 0;"
+                                    style="border: 0;"
                                     allowpaymentrequest="true"
                             ></iframe>
+                        </div>
+                        <div class="block md:hidden">
+                            <div class="px-24">
+                                <img src="{{ asset('img/donate/quote.png') }}"
+                                     alt="To be charitable and kind, brings joy and peace and the Holy Ghost. - Wilford Woodruff"
+                                     class="w-auto h-auto"
+                                >
+                            </div>
                         </div>
                     </div>
                 </div>
