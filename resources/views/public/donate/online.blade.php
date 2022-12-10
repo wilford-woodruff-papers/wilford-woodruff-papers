@@ -46,7 +46,7 @@
             <div class="col-span-1 md:col-span-4">
                 <div class="grid grid-cols-1 md:grid-cols-4">
                     <div class="col-span-1 flex items-center">
-                        <div class="p-4 flex w-full justify-center">
+                        <div class="flex w-full justify-center">
                             <a href="{{ route('donate') }}"
                                class="block"
                             >
@@ -67,7 +67,7 @@
                         <div class="mx-auto">
                             <img src="{{ asset('img/donate/image-1.png') }}"
                                  alt=""
-                                 class="hidden md:block"
+                                 class="hidden md:block w-full h-auto"
                             >
                         </div>
                     </div>
