@@ -104,75 +104,120 @@
                             <div class="grid grid-cols-1 gap-x-4 mb-12">
                                 @foreach($teams as $team)
                                     @if($team->boardmembers->count() > 0)
-                                        <div x-data="{
-                                                show: {{ $team->expanded }},
-                                            }"
-                                             role="region">
-                                            <div class="max-w-7xl mx-auto px-12 mt-4 mb-12">
-                                                <div class="flex items-center border-b-2 border-[#707070] ">
-                                                    <div class="flex items-center py-4">
-                                                        <span x-show="show" aria-hidden="true" class="-ml-12">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                                                            </svg>
-                                                        </span>
-                                                            <span x-show="!show" aria-hidden="true" class="-ml-12">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                              <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                                                            </svg>
+                                        @if($team->name != 'Volunteers')
+                                            <div x-data="{
+                                                    show: {{ $team->expanded }},
+                                                }"
+                                                 role="region">
+                                                <div class="max-w-7xl mx-auto px-12 mt-4 mb-12">
+                                                    <div class="flex items-center border-b-2 border-[#707070] ">
+                                                        <div class="flex items-center py-4">
+                                                            <span x-show="show" aria-hidden="true" class="-ml-12">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                                                </svg>
+                                                            </span>
+                                                                <span x-show="!show" aria-hidden="true" class="-ml-12">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                                                                </svg>
 
-                                                        </span>
-                                                    </div>
-                                                    <div class="py-4">
-                                                        <button
-                                                            x-on:click="show = !show"
-                                                            :aria-expanded="show"
-                                                            class="flex w-full items-center"
-                                                        >
-                                                            <h3 class="font-serif text-xl md:text-2xl leading-5 font-medium text-black font-medium">
-                                                                {{ $team->name }}
-                                                            </h3>
-                                                        </button>
+                                                            </span>
+                                                        </div>
+                                                        <div class="py-4">
+                                                            <button
+                                                                x-on:click="show = !show"
+                                                                :aria-expanded="show"
+                                                                class="flex w-full items-center"
+                                                            >
+                                                                <h3 class="font-serif text-xl md:text-2xl leading-5 font-medium text-black font-medium">
+                                                                    {{ $team->name }}
+                                                                </h3>
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <ul x-show="show"
-                                                x-collapse
-                                                role="list" class="space-y-12 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-12 sm:space-y-0 lg:grid-cols-4 lg:gap-x-8 mb-16">
-                                                @foreach($team->boardmembers as $person)
-                                                    <li x-data="{
-                                                            show: false,
-                                                        }"
-                                                        onclick="Livewire.emit('openModal', 'team-member-modal', {{ json_encode(["person" => $person->id, 'backgroundColor' => $team->background_color, 'textColor' => $team->text_color]) }})"
-                                                        class="group relative rounded-xl"
-                                                        style="background-color: {{ $team->background_color }}; color: {{ $team->text_color }};"
-                                                    >
-                                                        <div class="space-y-4 cursor-pointer">
-                                                            <div class="pt-5 px-7">
-                                                                <div class="aspect-w-3 aspect-h-4">
-                                                                    <img class="object-cover object-top" src="{{ Storage::disk('board_members')->url($person->image) }}" alt="">
+                                                <ul x-show="show"
+                                                    x-collapse
+                                                    role="list" class="space-y-12 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-12 sm:space-y-0 lg:grid-cols-4 lg:gap-x-8 mb-16">
+                                                    @foreach($team->boardmembers as $person)
+                                                        <li x-data="{
+                                                                show: false,
+                                                            }"
+                                                            onclick="Livewire.emit('openModal', 'team-member-modal', {{ json_encode(["person" => $person->id, 'backgroundColor' => $team->background_color, 'textColor' => $team->text_color]) }})"
+                                                            class="group relative rounded-xl"
+                                                            style="background-color: {{ $team->background_color }}; color: {{ $team->text_color }};"
+                                                        >
+                                                            <div class="space-y-4 cursor-pointer">
+                                                                <div class="pt-5 px-7">
+                                                                    <div class="aspect-w-3 aspect-h-4">
+                                                                        <img class="object-cover object-top" src="{{ Storage::disk('board_members')->url($person->image) }}" alt="">
+                                                                    </div>
                                                                 </div>
-                                                            </div>
 
-                                                            <div class="space-y-2 pb-2">
-                                                                <div class="space-y-1 text-base font-medium leading-6 text-center px-1">
-                                                                    <h3 class="font-semibold">{{ $person->name }}</h3>
-                                                                    @if(! empty($person->title))
-                                                                        <p class="serif px-4">
-                                                                            {{ $person->title }}
-                                                                        </p>
-                                                                    @endif
+                                                                <div class="space-y-2 pb-2">
+                                                                    <div class="space-y-1 text-base font-medium leading-6 text-center px-1">
+                                                                        <h3 class="font-semibold">{{ $person->name }}</h3>
+                                                                        @if(! empty($person->title))
+                                                                            <p class="serif px-4">
+                                                                                {{ $person->title }}
+                                                                            </p>
+                                                                        @endif
+                                                                    </div>
                                                                 </div>
                                                             </div>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        @elseif($team->name == 'Volunteers')
+                                            <div x-data="{
+                                                    show: {{ $team->expanded }},
+                                                }"
+                                                 role="region">
+                                                <div class="max-w-7xl mx-auto px-12 mt-4 mb-12">
+                                                    <div class="flex items-center border-b-2 border-[#707070] ">
+                                                        <div class="flex items-center py-4">
+                                                            <span x-show="show" aria-hidden="true" class="-ml-12">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                                                </svg>
+                                                            </span>
+                                                            <span x-show="!show" aria-hidden="true" class="-ml-12">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                                                                </svg>
+
+                                                            </span>
                                                         </div>
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                        </div>
+                                                        <div class="py-4">
+                                                            <button
+                                                                x-on:click="show = !show"
+                                                                :aria-expanded="show"
+                                                                class="flex w-full items-center"
+                                                            >
+                                                                <h3 class="font-serif text-xl md:text-2xl leading-5 font-medium text-black font-medium">
+                                                                    {{ $team->name }}
+                                                                </h3>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div x-show="show"
+                                                    x-collapse
+                                                    class="grid grid-cols-10 mb-16">
+                                                    @foreach($team->boardmembers as $person)
+                                                        <div class="flex">
+                                                            <img class="object-cover object-top object-center" src="{{ Storage::disk('board_members')->url($person->image) }}" alt="">
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        @endif
                                     @endif
                                 @endforeach
                             </div>
-                            <div>
+                            {{--<div>
                                 <div class="h-16 mt-4 mb-12">
                                     <div class="max-w-7xl mx-auto px-12">
                                         <div class="py-4 border-b-2 border-[#707070]">
@@ -186,7 +231,7 @@
                                          class="w-full h-auto"
                                     />
                                 </div>
-                            </div>
+                            </div>--}}
                         </div>
                     </div>
                 </div>
@@ -204,7 +249,7 @@
                             <h2>Meet the Team</h2>
                             <div class="grid grid-cols-1 md:grid-cols-2">
                                 @foreach($teams as $team)
-                                    @if($team->boardmembers->count() > 0)
+                                    @if($team->boardmembers->count() > 0 && $team->name != 'Volunteers')
                                         <div class="col-span-1">
                                             <h3 class="text-primary text-2xl font-serif mt-4 mb-8 border-b border-gray-300">
                                                 {{ $team->name }}
@@ -230,7 +275,7 @@
 
                             <div class="grid grid-cols-1 gap-x-4 mt-12">
                                 @foreach($teams as $team)
-                                    @if($team->boardmembers->count() > 0)
+                                    @if($team->boardmembers->count() > 0 && $team->name != 'Volunteers')
                                         <div class="h-16">
                                             <div class="max-w-7xl mx-auto px-4">
                                                 <div class="relative">
