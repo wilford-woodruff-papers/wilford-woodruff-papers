@@ -37,7 +37,7 @@
             </div>
         </div>
     </div>
-    <div class="bg-secondary">
+    <div class="bg-secondary h-[272px]">
         <div class="grid grid-cols-1 md:grid-cols-2">
             <div class="py-4">
                 <div class="space-y-4 cursor-pointer">
