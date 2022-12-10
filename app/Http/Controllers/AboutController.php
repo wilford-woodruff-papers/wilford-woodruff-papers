@@ -16,7 +16,8 @@ class AboutController extends Controller
     public function meetTheTeam(Request $request)
     {
         return view('public.about.meet-the-team', [
-            'teams' => Team::with('boardmembers')
+            'teams' => Team::query()
+                                ->with('boardmembers')
                                 ->ordered()
                                 ->get(),
         ]);
