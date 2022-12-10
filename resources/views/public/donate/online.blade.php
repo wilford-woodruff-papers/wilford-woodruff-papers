@@ -72,12 +72,7 @@
                         </div>
                     </div>
                     <div class="col-span-1 md:col-span-3">
-                        <div class="flex-1 items-center bg-highlight px-12 text-center">
-                            <div class="text-2xl py-4 text-center">
-                                Thank you for your support!
-                            </div>
-                        </div>
-                        <div class="bg-dark-blue px-8 md:px-0 lg:px-16 pt-16 pb-12 md:pb-0">
+                        <div class="bg-dark-blue px-8 md:px-0 lg:px-16 pb-12 md:pb-0">
                             <script src="https://app.giveforms.com/widget.js" type="text/javascript"></script>
                             <iframe src="https://app.giveforms.com/campaigns/wilfordwoodruffpapersfoundation/default-giveform" id="giveforms-form-embed"
                                     name="giveforms"
