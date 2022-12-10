@@ -3,13 +3,13 @@
 namespace App\Http\Livewire;
 
 use App\Models\Press;
+use App\Models\Video;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Maize\Markable\Models\Like;
 
 class Feed extends Component
 {
-
     public $showPress = null;
 
     public $perPage = 10;
@@ -35,22 +35,31 @@ class Feed extends Component
         $articles = Press::query()
                             ->select('id', 'type', 'title', 'cover_image', 'slug', 'date', 'subtitle', 'external_link_only', 'link', 'excerpt')
                             ->orderBy('date', 'DESC')
-                            ->when(data_get($this->filters, 'search'), function($query, $q) {
-                                $query->where('title', 'LIKE', '%' . $q . '%');
+                            ->when(data_get($this->filters, 'search'), function ($query, $q) {
+                                $query->where('title', 'LIKE', '%'.$q.'%');
                             })
-                            ->when(data_get($this->filters, 'type'), function($query, $type) {
-                                if(! is_array($type)){
+                            ->when(data_get($this->filters, 'type'), function ($query, $type) {
+                                if (! is_array($type)) {
                                     $type = [$type];
                                 }
                                 $query->whereIn('type', $type);
                             })
                             ->paginate($this->perPage);
 
-        $popular = Press::query()
+        $popular = //Press::query()
+                        Video::query()
                             ->select('id', 'type', 'title', 'cover_image', 'slug', 'date', 'subtitle', 'external_link_only', 'link', 'excerpt')
-                            ->whereNotNull('last_liked_at')
-                            ->orderBy('last_liked_at', 'DESC')
-                            ->limit(5)
+                            //->whereNotNull('last_liked_at')
+                            //->orderBy('last_liked_at', 'DESC')
+                            ->whereIn('id', [
+                                377,
+                                287,
+                                280,
+                                247,
+                                27,
+                            ])
+                            //->limit(5)
+                            ->inRandomOrder()
                             ->get();
 
         return view('livewire.feed', [
@@ -62,14 +71,12 @@ class Feed extends Component
 
     public function submit()
     {
-
     }
 
     public function loadMore()
     {
         $this->perPage += 10;
     }
-
 
     public function login()
     {
@@ -85,5 +92,4 @@ class Feed extends Component
         $press->last_liked_at = now();
         $press->save();
     }
-
 }
