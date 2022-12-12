@@ -53,15 +53,17 @@ class Page extends Resource
             ID::make(__('ID'), 'id')->sortable(),
             BelongsTo::make('Item'),
             Text::make(__('Name'), 'name')->help('Field is overwritten on import')->sortable(),
-            ($this->item) ?
+            (! empty($this->item) ?
                 Text::make('Preview', function () {
                     return '<a href="'.route('pages.show', ['item' => $this->item, 'page' => $this]).'" class="no-underline dim text-primary font-bold" target="_preview">Preview</a>';
                 })->asHtml() : Text::make('Preview', function () {
                     return '<a href="#" class="no-underline dim text-primary font-bold" target="_preview">Preview</a>';
-                })->asHtml(),
-            ($this->item) ? Text::make('Short', function () {
+                })->asHtml()),
+            (! empty($this->id) ? Text::make('Short', function () {
                 return '<span class="no-underline dim text-primary font-bold cursor-pointer" data-url="'.route('short-url.page', ['hashid' => $this->hashid()]).'" onclick="copyShortUrlToClipboard(this)">Short</a>';
-            })->asHtml() : '',
+            })->asHtml() : Text::make('Short', function () {
+                return '<span class="no-underline dim text-primary font-bold cursor-pointer">N/A</a>';
+            })->asHtml()),
             Text::make('FTP', function () {
                 return '<a href="'.$this->ftp_link.'" class="no-underline dim text-primary font-bold" target="_preview">FTP</a>';
             })->asHtml(),
