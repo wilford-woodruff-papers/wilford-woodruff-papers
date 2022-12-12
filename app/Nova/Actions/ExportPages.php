@@ -2,6 +2,7 @@
 
 namespace App\Nova\Actions;
 
+use Illuminate\Database\Eloquent\Builder;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
@@ -25,12 +26,15 @@ class ExportPages extends DownloadExcel implements WithMapping, WithHeadings
             'Image URL',
             'Original Transcript',
             'Text Only Transcript',
+            'People',
+            'Places',
+            'Dates',
+            'Topics',
         ];
     }
 
     /**
      * @param $item
-     *
      * @return array
      */
     public function map($page): array
@@ -44,11 +48,19 @@ class ExportPages extends DownloadExcel implements WithMapping, WithHeadings
             $page->parent->name,
             $page->uuid,
             $page->name,
-            route('pages.show', ['item' => $page->item->uuid, 'page' => $page->uuid]),
-            route('short-url.page', ['page' => $page->hashid]),
+            ((! empty($page->id)) ? route('pages.show', ['item' => $page->item->uuid, 'page' => $page->uuid]) : ''),
+            ((! empty($page->id)) ? route('short-url.page', ['hashid' => $page->hashid()]) : ''),
             $page->getFirstMedia()?->getUrl(),
             $page->transcript,
             strip_tags($page->transcript),
+            $page->subjects()->whereHas('category', function (Builder $query) {
+                $query->where('name', 'People');
+            })->pluck('subjects.name')->join('|'),
+            $page->subjects()->whereHas('category', function (Builder $query) {
+                $query->where('name', 'Places');
+            })->pluck('subjects.name')->join('|'),
+            $page->dates()->pluck('date')->join('|'),
+            $page->topics->pluck('name')->join('|'),
         ];
     }
 }
