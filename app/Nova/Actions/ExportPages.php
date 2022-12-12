@@ -45,7 +45,7 @@ class ExportPages extends DownloadExcel implements WithMapping, WithHeadings
             $page->id,
             optional($page->parent?->type)->name,
             $page->parent_item_id,
-            $page->parent->name,
+            $page->parent?->name,
             $page->uuid,
             $page->name,
             ((! empty($page->id)) ? route('pages.show', ['item' => $page->item->uuid, 'page' => $page->uuid]) : ''),
