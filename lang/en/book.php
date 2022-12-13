@@ -8,10 +8,17 @@ return [
     'The Development of Temple Doctrine' => 'The Development of Temple Doctrine',
     'Cover URL' => 'img/book/book-cover-paperback.jpg',
     'Purchase from Deseret Book' => 'Purchase from Deseret Book',
+    'Purchase from Amazon' => 'Purchase from Amazon',
     'Paperback' => 'Paperback',
+    'Paperback Deseret Link' => 'https://deseretbook.com/p/wilford-woodruff-s-witness?ref=detailed-card-1&variant_id=200986-paperback',
+    'Paperback Amazon Link' => '',
     'Audiobook' => 'Audiobook',
+    'Audiobook Deseret Link' => 'https://deseretbook.com/p/wilford-woodruff-s-witness?ref=detailed-card-1&variant_id=201681-audiobook-mp3-',
+    'Audiobook Amazon Link' => '',
     'eBook' => 'eBook',
-    'Proceeds support the<br />Wilford Woodruff Papers Project' => 'Proceeds support the<br />Wilford Woodruff Papers Project',
+    'eBook Deseret Link' => '',
+    'eBook Amazon Link' => '',
+    'Proceeds support the Wilford Woodruff Papers Project' => 'Proceeds support the Wilford Woodruff Papers Project',
     'About the book' => 'About the book',
     'Book Summary' => '<p>
                             Many existing books and articles discuss specific temple ordinances, but the historical development of all temple ordinances has never been included in a single volume -- until now. <span class="italic">Wilford Woodruff\'s Witness</span> provides new insight even to those who are very familiar with the history of the Restoration.
@@ -25,6 +32,7 @@ The account unfolds in Wilford Woodruff\'s own words, drawn from primary sources
     'Book Interviews' => 'Book Interviews',
     'Reviews' => 'Reviews',
     'Video Summary' => 'Learn more about why Jennifer Ann Mackley wrote <span class="italic">Wilford Woodruff\'s Witness</span>.',
+    'Video' => '',
     'About the Author' => 'About the Author',
     'Author Bio' => '<p>
                         Jennifer Ann Mackley is a native of Seattle, Washington. Her curiosity about Wilford Woodruff\'s vision of the Founding Fathers in 1877 led to her 15-year odyssey researching Wilford\'s life within the context of LDS Church history.

@@ -8,10 +8,17 @@ return [
     'The Development of Temple Doctrine' => 'Testimonio de Wilford Woodruff',
     'Cover URL' => 'img/book/book-cover-paperback-spanish.jpg',
     'Purchase from Deseret Book' => 'Adquiérelo en Deseret Book',
+    'Purchase from Amazon' => 'Adquiérelo en Amazon',
     'Paperback' => 'Edición Impresa',
+    'Paperback Deseret Link' => '',
+    'Paperback Amazon Link' => '',
     'Audiobook' => 'Audiolibro',
+    'Audiobook Deseret Link' => '',
+    'Audiobook Amazon Link' => '',
     'eBook' => 'Libro Digital',
-    'Proceeds support the<br />Wilford Woodruff Papers Project' => 'Las ganancias se usan para el<br />Proyecto -Documentos de Wilford Woodruff-',
+    'eBook Deseret Link' => '',
+    'eBook Amazon Link' => '',
+    'Proceeds support the Wilford Woodruff Papers Project' => 'Las ganancias se usan para el Proyecto -Documentos de Wilford Woodruff-',
     'About the book' => 'Acerca del libro',
     'Book Summary' => '<p>
                             Muchos libros y artículos abordan ordenanzas específicas del templo, sin embargo, el desarrollo histórico nunca se ha incluído en un volúmen – hasta ahora. El  <span class="italic">Testimonio de Wilford Woodruff</span> brinda perspectiva aún para aquellos quienes ya estén familiarizados con la historia de la Restauración.
@@ -25,6 +32,7 @@ return [
     'Book Interviews' => 'Book Interviews',
     'Reviews' => 'Opiniones',
     'Video Summary' => 'Aprenda más sobre por qué es relevante <span class="italic mr-2">El Testimonio de Wilford Woodruff</span> hoy en día.',
+    'Video' => '<iframe style="width: 100%; height: 480px;" src="https://www.youtube.com/embed/e3o5lQL4Jvs?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>',
     'About the Author' => 'En cuanto al autor',
     'Author Bio' => '<p>
                         Jennifer Ann Mackley nació en Seattle Washington. Su curiosidad sobre la visión que Wilford Woodruff tuvo de los Padres Fundadores en 1877 la encaminó a una odisea de 15 años de investigación sobre la vida de Wilford Woodfruff dentro de un contexto de historia de la Iglesia.
