@@ -3,8 +3,8 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\File;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use MichielKempen\NovaOrderField\Orderable;
@@ -57,12 +57,12 @@ class BoardMember extends Resource
             Text::make(__('Name'), 'name')->sortable(),
             Text::make(__('Title'), 'title')->sortable(),
             Textarea::make(__('Bio'), 'bio')->alwaysShow(),
-            File::make(__('Picture'), 'image')->disk('board_members'),
+            Image::make(__('Picture'), 'image')->disk('board_members'),
             Text::make('Youtube Link', 'video_link')
                 ->required(false)
                 ->hideFromIndex()
                 ->help('Paste the YouTube URL in this box (not the embed code).'),
-            File::make(__('Supporting Image'), 'supporting_image')->disk('board_members'),
+            Image::make(__('Supporting Image'), 'supporting_image')->disk('board_members'),
             Text::make(__('Supporting Person Name'), 'supporting_person_name')->hideFromIndex(),
             Text::make(__('Supporting Person Description'), 'supporting_image_description')->hideFromIndex(),
             Text::make(__('Supporting Person Link'), 'supporting_person_link')->hideFromIndex(),
