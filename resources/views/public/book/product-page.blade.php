@@ -36,66 +36,128 @@
                     <div class="text-2xl text-dark-blue-500">
                         {!! __('book.Proceeds support the Wilford Woodruff Papers Project') !!}
                     </div>
-                    @if(! empty(__('book.Paperback Deseret Link')) || ! empty(__('book.Audiobook Deseret Link')) || ! empty(__('book.eBook Deseret Link')))
-                        <h2 class="text-center md:text-left text-xl md:text-3xl font-serif py-8 text-dark-blue-500">
-                            {{ __('book.Purchase from Deseret Book') }}
-                        </h2>
-                    @endif
+                    <h2 class="text-center md:text-left text-xl md:text-3xl font-serif py-8 text-dark-blue-500">
+                        {{ __('book.Purchase from Deseret Book') }}
+                    </h2>
                     <div class="grid md:grid-cols-3 gap-4 px-4">
                         @if(! empty(__('book.Paperback Deseret Link')))
-                            <a href="{!! __('book.Paperback Deseret Link') !!}"
-                                class="px-4 py-4 rounded-3xl bg-secondary text-white text-center font-sans uppercase drop-shadow-lg"
-                                target="_blank"
-                            >
-                                {{ __('book.Paperback') }}
-                            </a>
+                            <div>
+                                <a href="{!! __('book.Paperback Deseret Link') !!}"
+                                   class="w-full block px-4 py-4 rounded-3xl bg-secondary text-white text-center font-sans uppercase drop-shadow-lg"
+                                   target="_blank"
+                                >
+                                    {{ __('book.Paperback') }}
+                                </a>
+                            </div>
+                        @else
+                            <div>
+                                <div class="w-full px-4 py-4 rounded-3xl bg-secondary text-white text-center font-sans uppercase drop-shadow-lg"
+                                     target="_blank"
+                                >
+                                    {{ __('book.Paperback') }}
+                                </div>
+                                <div class="text-sm text-center py-2">{{ __('book.Coming Soon') }}</div>
+                            </div>
                         @endif
                         @if(! empty(__('book.Audiobook Deseret Link')))
-                            <a href="{!! __('book.Audiobook Deseret Link') !!}"
-                                class="px-4 py-4 rounded-3xl bg-secondary text-white text-center font-sans uppercase drop-shadow-lg"
-                               target="_blank"
-                            >
-                                {{ __('book.Audiobook') }}
-                            </a>
+                            <div>
+                                <a href="{!! __('book.Audiobook Deseret Link') !!}"
+                                   class="w-full block px-4 py-4 rounded-3xl bg-secondary text-white text-center font-sans uppercase drop-shadow-lg"
+                                   target="_blank"
+                                >
+                                    {{ __('book.Audiobook') }}
+                                </a>
+                            </div>
+                        @else
+                            <div>
+                                <div class="w-full px-4 py-4 rounded-3xl bg-secondary text-white text-center font-sans uppercase drop-shadow-lg"
+                                     target="_blank"
+                                >
+                                    {{ __('book.Audiobook') }}
+                                </div>
+                                <div class="text-sm text-center py-2">{{ __('book.Coming Soon') }}</div>
+                            </div>
                         @endif
                         @if(! empty(__('book.eBook Deseret Link')))
-                            <a href="{!! __('book.eBook Deseret Link') !!}"
-                                class="px-4 py-4 rounded-3xl bg-secondary text-white text-center font-sans uppercase drop-shadow-lg"
-                               target="_blank"
-                            >
-                                {{ __('book.eBook') }}
-                            </a>
+                            <div>
+                                <a href="{!! __('book.eBook Deseret Link') !!}"
+                                   class="w-full block px-4 py-4 rounded-3xl bg-secondary text-white text-center font-sans uppercase drop-shadow-lg"
+                                   target="_blank"
+                                >
+                                    {{ __('book.eBook') }}
+                                </a>
+                            </div>
+                        @else
+                            <div>
+                                <div class="w-full px-4 py-4 rounded-3xl bg-secondary text-white text-center font-sans uppercase drop-shadow-lg"
+                                     target="_blank"
+                                >
+                                    {{ __('book.eBook') }}
+                                </div>
+                                <div class="text-sm text-center py-2">{{ __('book.Coming Soon') }}</div>
+                            </div>
                         @endif
                     </div>
-                    @if(! empty(__('book.Paperback Amazon Link')) || ! empty(__('book.Audiobook Amazon Link')) || ! empty(__('book.eBook Amazon Link')))
-                        <h2 class="text-center md:text-left text-xl md:text-3xl font-serif py-8 text-dark-blue-500">
-                            {{ __('book.Purchase from Amazon') }}
-                        </h2>
-                    @endif
+                    <h2 class="text-center md:text-left text-xl md:text-3xl font-serif py-8 text-dark-blue-500">
+                        {{ __('book.Purchase from Amazon') }}
+                    </h2>
                     <div class="grid md:grid-cols-3 gap-4 px-4">
                         @if(! empty(__('book.Paperback Amazon Link')))
-                            <a href="{!! __('book.Paperback Amazon Link') !!}"
-                               class="px-4 py-4 rounded-3xl bg-secondary text-white text-center font-sans uppercase drop-shadow-lg"
-                               target="_blank"
-                            >
-                                {{ __('book.Paperback') }}
-                            </a>
+                            <div>
+                                <a href="{!! __('book.Paperback Amazon Link') !!}"
+                                   class="w-full block px-4 py-4 rounded-3xl bg-secondary text-white text-center font-sans uppercase drop-shadow-lg"
+                                   target="_blank"
+                                >
+                                    {{ __('book.Paperback') }}
+                                </a>
+                            </div>
+                        @else
+                            <div>
+                                <div class="w-full px-4 py-4 rounded-3xl bg-secondary text-white text-center font-sans uppercase drop-shadow-lg"
+                                     target="_blank"
+                                >
+                                    {{ __('book.Paperback') }}
+                                </div>
+                                <div class="text-sm text-center py-2">{{ __('book.Coming Soon') }}</div>
+                            </div>
                         @endif
                         @if(! empty(__('book.Audiobook Amazon Link')))
-                            <a href="{!! __('book.Audiobook Amazon Link') !!}"
-                               class="px-4 py-4 rounded-3xl bg-secondary text-white text-center font-sans uppercase drop-shadow-lg"
-                               target="_blank"
-                            >
-                                {{ __('book.Audiobook') }}
-                            </a>
+                            <div>
+                                <a href="{!! __('book.Audiobook Amazon Link') !!}"
+                                   class="w-full block px-4 py-4 rounded-3xl bg-secondary text-white text-center font-sans uppercase drop-shadow-lg"
+                                   target="_blank"
+                                >
+                                    {{ __('book.Audiobook') }}
+                                </a>
+                            </div>
+                        @else
+                            <div>
+                                <div class="px-4 py-4 rounded-3xl bg-secondary text-white text-center font-sans uppercase drop-shadow-lg"
+                                     target="_blank"
+                                >
+                                    {{ __('book.Audiobook') }}
+                                </div>
+                                <div class="text-sm text-center py-2">{{ __('book.Coming Soon') }}</div>
+                            </div>
                         @endif
                         @if(! empty(__('book.eBook Amazon Link')))
-                            <a href="{!! __('book.eBook Amazon Link') !!}"
-                               class="px-4 py-4 rounded-3xl bg-secondary text-white text-center font-sans uppercase drop-shadow-lg"
-                               target="_blank"
-                            >
-                                {{ __('book.eBook') }}
-                            </a>
+                            <div>
+                                <a href="{!! __('book.eBook Amazon Link') !!}"
+                                   class="w-full block px-4 py-4 rounded-3xl bg-secondary text-white text-center font-sans uppercase drop-shadow-lg"
+                                   target="_blank"
+                                >
+                                    {{ __('book.eBook') }}
+                                </a>
+                            </div>
+                        @else
+                            <div>
+                                <div class="px-4 py-4 rounded-3xl bg-secondary text-white text-center font-sans uppercase drop-shadow-lg"
+                                     target="_blank"
+                                >
+                                    {{ __('book.eBook') }}
+                                </div>
+                                <div class="text-sm text-center py-2">{{ __('book.Coming Soon') }}</div>
+                            </div>
                         @endif
                     </div>
                     <div class="md:pt-8 md:pb-16 px-4 md:px-0">

@@ -9,6 +9,7 @@ return [
     'Cover URL' => 'img/book/book-cover-paperback-spanish.jpg',
     'Purchase from Deseret Book' => 'Adquiérelo en Deseret Book',
     'Purchase from Amazon' => 'Adquiérelo en Amazon',
+    'Coming Soon' => 'Próximamente',
     'Paperback' => 'Edición Impresa',
     'Paperback Deseret Link' => '',
     'Paperback Amazon Link' => '',

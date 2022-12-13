@@ -9,6 +9,7 @@ return [
     'Cover URL' => 'img/book/book-cover-paperback.jpg',
     'Purchase from Deseret Book' => 'Purchase from Deseret Book',
     'Purchase from Amazon' => 'Purchase from Amazon',
+    'Coming Soon' => 'Coming Soon',
     'Paperback' => 'Paperback',
     'Paperback Deseret Link' => 'https://deseretbook.com/p/wilford-woodruff-s-witness?ref=detailed-card-1&variant_id=200986-paperback',
     'Paperback Amazon Link' => 'https://www.amazon.com/Wilford-Woodruffs-Witness-Development-Doctrine/dp/0975911090',
