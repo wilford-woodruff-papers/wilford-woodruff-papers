@@ -17,11 +17,11 @@ class DashboardController extends Controller
     {
         /*$assignedItems = Item::query()
                             ->with('pending_actions', 'pending_page_actions')
-                            ->whereHas('pending_actions', function (Builder $query){
+                            ->whereHas('pending_actions', function (Builder $query) {
                                 $query->where('assigned_to', auth()->id())
                                         ->whereNull('completed_at');
                             })
-                            ->orWhereHas('pending_page_actions', function (Builder $query){
+                            ->orWhereHas('pending_page_actions', function (Builder $query) {
                                 $query->where('assigned_to', auth()->id())
                                     ->whereNull('completed_at');
                             })
