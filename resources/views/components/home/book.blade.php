@@ -12,17 +12,19 @@
                 <div aria-hidden="true" class="absolute inset-x-0 top-0 h-1/2 bg-white lg:hidden"></div>
                 <div class="mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:p-0 lg:h-full">
                     <div class="aspect-w-10 aspect-h-6  lg:shadow-xl lg:overflow-hidden sm:aspect-w-16 sm:aspect-h-7 lg:aspect-none lg:h-full">
-                        <a href="https://www.amazon.com/Wilford-Woodruffs-Witness-Development-Doctrine/dp/0615835325"
-                           target="_blank">
-                            <img class="mx-auto object-cover lg:mx-0 lg:h-full lg:w-full"
-                                 src="https://nyc3.digitaloceanspaces.com/wilford-woodruff-papers/img/wilford-woodruffs-witness-the-development-of-temple-doctrine.jpg"
+                        <a href="https://wilfordwoodruffpapers.org/wilford-woodruffs-witness">
+                            <img class="mx-auto object-cover lg:mx-0 h-[120%] md:h-full lg:h-full lg:w-full"
+                                 src="https://wilfordwoodruffpapers.org/img/book/book-cover-paperback.jpg"
                                  alt="Wilford Woodruff's Witness: The Development of Temple Doctrine Book Cover">
                         </a>
                     </div>
                 </div>
             </div>
             <div class="mt-12 lg:m-0 lg:col-span-2 lg:pl-8">
-                <div class="mx-auto max-w-md px-4 py-8 sm:max-w-2xl sm:px-6 lg:px-0 md:py-12 xl:py-20 lg:max-w-none">
+                <div class="mx-auto max-w-md px-4 py-8 sm:max-w-2xl sm:px-6 lg:px-0 md:py-4 xl:py-8 lg:max-w-none">
+                    <p class="my-6 text-3xl font-medium text-white">
+                        The historical development of all temple ordinances has never been included in a single volume -- until now.
+                    </p>
                     <blockquote>
                         <div>
                             <svg class="h-12 w-12 text-white opacity-25" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true">
@@ -42,34 +44,12 @@
                 <div class="flex flex-col md:flex-row gap-x-6 gap-y-2 md:gap-y-0 mx-auto max-w-md px-4 sm:max-w-2xl sm:px-6 lg:px-0">
                     <div>
                         <x-links.hightlight
-                            href="https://deseretbook.com/p/wilford-woodruffs-witness-development-temple-doctrine-jennifer-ann-mackley-93480?queryID=26c42ae92599292369fb90df9e68b0ee&variant_id=2215-hardcover"
-                            target="_blank"
+                            href="https://wilfordwoodruffpapers.org/wilford-woodruffs-witness"
                             class="flex justify-center"
                         >
-                            Print Book
+                            Learn More
                         </x-links.hightlight>
                     </div>
-                    <div>
-                        <x-links.hightlight
-                            href="#"
-                            target="_blank"
-                            onclick="javascript: return false;"
-                            class="flex justify-center"
-                        >
-                            eBook (Coming Soon)
-                        </x-links.hightlight>
-                    </div>
-                    <div>
-                        <x-links.hightlight
-                            href="#"
-                            target="_blank"
-                            onclick="javascript: return false;"
-                            class="flex justify-center"
-                        >
-                            Audiobook (Coming Soon)
-                        </x-links.hightlight>
-                    </div>
-
                 </div>
             </div>
         </div>
