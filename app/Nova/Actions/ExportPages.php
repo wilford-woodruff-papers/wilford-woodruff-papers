@@ -30,7 +30,6 @@ class ExportPages extends DownloadExcel implements WithMapping, WithHeadings
 
     /**
      * @param $item
-     *
      * @return array
      */
     public function map($page): array
