@@ -48,8 +48,6 @@ class ImportLetterFromPcf implements ShouldQueue
         $actionTypes = ActionType::all();
         $letterType = Type::firstWhere('name', 'Letters');
 
-        //foreach ($this->rows as $this->row) {
-        info($this->row);
         if (empty(data_get($this->row, str('Unique Identifier')->lower()->snake()->toString()))) {
             info('No ID');
 
