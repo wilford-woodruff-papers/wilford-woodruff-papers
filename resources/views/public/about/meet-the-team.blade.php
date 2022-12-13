@@ -208,7 +208,7 @@
                                                     class="grid grid-cols-10 mb-16">
                                                     @foreach($team->boardmembers->shuffle() as $person)
                                                         <div class="flex">
-                                                            <img class="object-cover object-top object-center" src="{{ Storage::disk('board_members')->url($person->image) }}" alt="">
+                                                            <img class="object-cover object-top object-center aspect-[3/4]" src="{{ Storage::disk('board_members')->url($person->image) }}" alt="">
                                                         </div>
                                                     @endforeach
                                                 </div>
