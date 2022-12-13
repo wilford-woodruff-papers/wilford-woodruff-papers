@@ -33,33 +33,70 @@
         <div class="max-w-7xl mx-auto relative z-10">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8">
                 <div class="order-2 md:order-1">
-                    <h2 class="text-center md:text-left text-xl md:text-3xl font-serif py-8 text-dark-blue-500">
-                        {{ __('book.Purchase from Deseret Book') }}
-                    </h2>
-                    <div class="grid md:grid-cols-3 gap-4 px-4">
-                        <a href="https://deseretbook.com/p/wilford-woodruff-s-witness?ref=detailed-card-1&variant_id=200986-paperback"
-                            class="px-4 py-4 rounded-3xl bg-secondary text-white text-center font-sans uppercase drop-shadow-lg"
-                            target="_blank"
-                        >
-                            {{ __('book.Paperback') }}
-                        </a>
-                        <a href="https://deseretbook.com/p/wilford-woodruff-s-witness?ref=detailed-card-1&variant_id=200986-paperback"
-                            class="px-4 py-4 rounded-3xl bg-secondary text-white text-center font-sans uppercase drop-shadow-lg"
-                           target="_blank"
-                        >
-                            {{ __('book.Audiobook') }}
-                        </a>
-                        <a href="https://deseretbook.com/p/wilford-woodruff-s-witness?ref=detailed-card-1&variant_id=200986-paperback"
-                            class="px-4 py-4 rounded-3xl bg-secondary text-white text-center font-sans uppercase drop-shadow-lg"
-                           target="_blank"
-                        >
-                            {{ __('book.eBook') }}
-                        </a>
+                    <div class="text-2xl text-dark-blue-500">
+                        {!! __('book.Proceeds support the Wilford Woodruff Papers Project') !!}
                     </div>
-                    <div class="flex justify-end py-8 px-4 md:px-0">
-                        <div class="text-sm text-right text-dark-blue-500">
-                            {!! __('book.Proceeds support the<br />Wilford Woodruff Papers Project') !!}
-                        </div>
+                    @if(! empty(__('book.Paperback Deseret Link')) || ! empty(__('book.Audiobook Deseret Link')) || ! empty(__('book.eBook Deseret Link')))
+                        <h2 class="text-center md:text-left text-xl md:text-3xl font-serif py-8 text-dark-blue-500">
+                            {{ __('book.Purchase from Deseret Book') }}
+                        </h2>
+                    @endif
+                    <div class="grid md:grid-cols-3 gap-4 px-4">
+                        @if(! empty(__('book.Paperback Deseret Link')))
+                            <a href="{!! __('book.Paperback Deseret Link') !!}"
+                                class="px-4 py-4 rounded-3xl bg-secondary text-white text-center font-sans uppercase drop-shadow-lg"
+                                target="_blank"
+                            >
+                                {{ __('book.Paperback') }}
+                            </a>
+                        @endif
+                        @if(! empty(__('book.Audiobook Deseret Link')))
+                            <a href="{!! __('book.Audiobook Deseret Link') !!}"
+                                class="px-4 py-4 rounded-3xl bg-secondary text-white text-center font-sans uppercase drop-shadow-lg"
+                               target="_blank"
+                            >
+                                {{ __('book.Audiobook') }}
+                            </a>
+                        @endif
+                        @if(! empty(__('book.eBook Deseret Link')))
+                            <a href="{!! __('book.eBook Deseret Link') !!}"
+                                class="px-4 py-4 rounded-3xl bg-secondary text-white text-center font-sans uppercase drop-shadow-lg"
+                               target="_blank"
+                            >
+                                {{ __('book.eBook') }}
+                            </a>
+                        @endif
+                    </div>
+                    @if(! empty(__('book.Paperback Amazon Link')) || ! empty(__('book.Audiobook Amazon Link')) || ! empty(__('book.eBook Amazon Link')))
+                        <h2 class="text-center md:text-left text-xl md:text-3xl font-serif py-8 text-dark-blue-500">
+                            {{ __('book.Purchase from Amazon') }}
+                        </h2>
+                    @endif
+                    <div class="grid md:grid-cols-3 gap-4 px-4">
+                        @if(! empty(__('book.Paperback Amazon Link')))
+                            <a href="{!! __('book.Paperback Amazon Link') !!}"
+                               class="px-4 py-4 rounded-3xl bg-secondary text-white text-center font-sans uppercase drop-shadow-lg"
+                               target="_blank"
+                            >
+                                {{ __('book.Paperback') }}
+                            </a>
+                        @endif
+                        @if(! empty(__('book.Audiobook Amazon Link')))
+                            <a href="{!! __('book.Audiobook Amazon Link') !!}"
+                               class="px-4 py-4 rounded-3xl bg-secondary text-white text-center font-sans uppercase drop-shadow-lg"
+                               target="_blank"
+                            >
+                                {{ __('book.Audiobook') }}
+                            </a>
+                        @endif
+                        @if(! empty(__('book.eBook Amazon Link')))
+                            <a href="{!! __('book.eBook Amazon Link') !!}"
+                               class="px-4 py-4 rounded-3xl bg-secondary text-white text-center font-sans uppercase drop-shadow-lg"
+                               target="_blank"
+                            >
+                                {{ __('book.eBook') }}
+                            </a>
+                        @endif
                     </div>
                     <div class="md:pt-8 md:pb-16 px-4 md:px-0">
                         <h2 class="text-3xl font-serif py-8 text-dark-blue-500">
@@ -103,7 +140,7 @@
                             </div>
                         </div>
                         <div class="hidden md:block relative">
-                            <div class="absolute -right-4 top-64 w-4/5">
+                            <div class="absolute -right-4 top-72 w-4/5">
                                 <img src="{{ asset('img/book/temple-close-up.png') }}"
                                      class="drop-shadow-xl w-full rounded-3xl"
                                 >
@@ -154,7 +191,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="md:pt-8 md:pr-8">
+                        <div class="md:pt-24 md:pr-8">
                             <div class="rounded-xl drop-shadow-2xl bg-[#E2E9EF] text-[#0E3240] py-4 px-6">
                                 <p class="text-lg">{!! __('book.Review 5.Text') !!}</p>
                                 <div class="flex justify-end">
@@ -266,7 +303,7 @@
     <div class="py-8 md:py-16 bg-cover bg-center" style="background-image: url('{{ asset('img/book/temple-valley.png') }}')">
         <div class="max-w-3xl mx-auto px-4 md:px-4">
             <div>
-
+                {!! __('book.Video') !!}
             </div>
             <div class="mt-16 bg-white text-[#0E3240] px-16 py-8 rounded-3xl">
                 <p class="text-lg md:text-3xl leading-6 md:leading-[3.0rem]">
