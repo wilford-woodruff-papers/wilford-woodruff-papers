@@ -49,37 +49,120 @@
                     </div>
                 </div>
                 @if(! empty($pageStats))
-                    <table>
-                        <thead>
+                    <table class="divide-y divide-gray-30">
+                        <thead class="bg-black">
                             <tr>
-                                <th>Category</th>
-                                <th>Letters</th>
-                                <th>Discourses</th>
-                                <th>Journals</th>
-                                <th>Additional</th>
-                                <th>Autobiographies</th>
+                                <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-6">Category</th>
+                                <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-6">Steps</th>
+                                <th class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-white sm:pl-6">Letters<br/>(pages)</th>
+                                <th class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-white sm:pl-6">Discourses<br/>(pages)</th>
+                                <th class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-white sm:pl-6">Journals<br/>(pages)</th>
+                                <th class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-white sm:pl-6">Additional<br/>(pages)</th>
+                                <th class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-white sm:pl-6">Autobiographies<br/>(pages)</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="bg-white">
                             @foreach($pageStats as $key => $stat)
                                 <tr>
-                                    @if($loop->first) <td rowspan="3">Processing</td> @endif
-                                    <td>{{ str($key) }}</td>
-                                    <td>
-                                        {{ $stat->where('document_type', 'Letters')->first()?->total }}
+                                    @if($loop->first) <td rowspan="3" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Processing</td> @endif
+                                    <td class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                                        {{ str($key) }}
                                     </td>
-                                    <td>
-                                        {{ $stat->where('document_type', 'Discourses')->first()?->total }}
+
+                                    @foreach($docTypes as $docType)
+                                        <td class="text-center text-sm font-semibold text-gray-900">
+                                            <div class="flex flex-col">
+                                                <div>
+                                                    {{ $stat->where('document_type', $docType)->first()?->total ?? 0}} / {{ $goals[$key][$docType] }}
+                                                </div>
+                                                <div @class([
+                                                      'bg-[#e06666]' =>  ($goalPercentages[$key][$docType] <= 70),
+                                                      'bg-[#ffd966]' => (($goalPercentages[$key][$docType] >= 70) && ($goalPercentages[$key][$docType] <= 99)),
+                                                      'bg-[#93c47d]' => (($goalPercentages[$key][$docType] >= 100) && ($goalPercentages[$key][$docType] <= 119)),
+                                                      'bg-[#ff50c5]' => ($goalPercentages[$key][$docType] >= 120),
+                                                    ])>
+                                                    {{ $goalPercentages[$key][$docType] }}
+                                                </div>
+                                            </div>
+                                        </td>
+                                    @endforeach
+
+
+                                    {{--<td class="text-center text-sm font-semibold text-gray-900">
+                                        <div class="flex flex-col">
+                                            <div>
+                                                {{ $stat->where('document_type', 'Letters')->first()?->total ?? 0}} / {{ $goals[$key]['Letters'] }}
+                                            </div>
+                                            <div @class([
+                                              'bg-[#e06666]' =>  ($goalPercentages[$key]['Letters'] <= 70),
+                                              'bg-[#ffd966]' => (($goalPercentages[$key]['Letters'] >= 70) && ($goalPercentages[$key]['Letters'] <= 99)),
+                                              'bg-[#93c47d]' => (($goalPercentages[$key]['Letters'] >= 100) && ($goalPercentages[$key]['Letters'] <= 119)),
+                                              'bg-[#ff50c5]' => ($goalPercentages[$key]['Letters'] >= 120),
+                                            ])>
+                                                {{ $goalPercentages[$key]['Letters'] }}
+                                            </div>
+                                        </div>
                                     </td>
-                                    <td>
-                                        {{ $stat->where('document_type', 'Journal Sections')->first()?->total }}
+                                    <td class="text-center text-sm font-semibold text-gray-900">
+                                        <div class="flex flex-col">
+                                            <div>
+                                                {{ $stat->where('document_type', 'Discourses')->first()?->total ?? 0 }} / {{ $goals[$key]['Discourses'] }}
+                                            </div>
+                                            <div @class([
+                                              'bg-[#e06666]' => ($goalPercentages[$key]['Discourses'] <= 70),
+                                              'bg-[#ffd966]' => (($goalPercentages[$key]['Discourses'] >= 70) && ($goalPercentages[$key]['Discourses'] <= 99)),
+                                              'bg-[#93c47d]' => (($goalPercentages[$key]['Discourses'] >= 100) && ($goalPercentages[$key]['Discourses'] <= 119)),
+                                              'bg-[#ff50c5]' => ($goalPercentages[$key]['Discourses'] >= 120),
+                                            ])>
+                                                {{ $goalPercentages[$key]['Discourses'] }}
+                                            </div>
+                                        </div>
                                     </td>
-                                    <td>
-                                        {{ $stat->where('document_type', 'Additional')->first()?->total }}
+                                    <td class="text-center text-sm font-semibold text-gray-900">
+                                        <div class="flex flex-col">
+                                            <div>
+                                                {{ $stat->where('document_type', 'Journal Sections')->first()?->total ?? 0 }} / {{ $goals[$key]['Journal Sections'] }}
+                                            </div>
+                                            <div @class([
+                                              'bg-[#e06666]' => ($goalPercentages[$key]['Journal Sections'] <= 70),
+                                              'bg-[#ffd966]' => (($goalPercentages[$key]['Journal Sections'] >= 70) && ($goalPercentages[$key]['Journal Sections'] <= 99)),
+                                              'bg-[#93c47d]' => (($goalPercentages[$key]['Journal Sections'] >= 100) && ($goalPercentages[$key]['Journal Sections'] <= 119)),
+                                              'bg-[#ff50c5]' => ($goalPercentages[$key]['Journal Sections'] >= 120),
+                                            ])>
+                                                {{ $goalPercentages[$key]['Journal Sections'] }}
+                                            </div>
+                                        </div>
                                     </td>
-                                    <td>
-                                        {{ $stat->where('document_type', 'Autobiographies')->first()?->total }}
+                                    <td class="text-center text-sm font-semibold text-gray-900">
+                                        <div class="flex flex-col">
+                                            <div>
+                                                {{ $stat->where('document_type', 'Additional')->first()?->total ?? 0 }} / {{ $goals[$key]['Additional'] }}
+                                            </div>
+                                            <div @class([
+                                              'bg-[#e06666]' => ($goalPercentages[$key]['Additional'] <= 70),
+                                              'bg-[#ffd966]' => (($goalPercentages[$key]['Additional'] >= 70) && ($goalPercentages[$key]['Additional'] <= 99)),
+                                              'bg-[#93c47d]' => (($goalPercentages[$key]['Additional'] >= 100) && ($goalPercentages[$key]['Additional'] <= 119)),
+                                              'bg-[#ff50c5]' => ($goalPercentages[$key]['Additional'] >= 120),
+                                            ])>
+                                                {{ $goalPercentages[$key]['Additional'] }}
+                                            </div>
+                                        </div>
                                     </td>
+                                    <td class="text-center text-sm font-semibold text-gray-900">
+                                        <div class="flex flex-col">
+                                            <div>
+                                                {{ $stat->where('document_type', 'Autobiographies')->first()?->total ?? 0 }} / {{ $goals[$key]['Autobiographies'] }}
+                                            </div>
+                                            <div @class([
+                                              'bg-[#e06666]' => ($goalPercentages[$key]['Autobiographies'] <= 70),
+                                              'bg-[#ffd966]' => (($goalPercentages[$key]['Autobiographies'] >= 70) && ($goalPercentages[$key]['Autobiographies'] <= 99)),
+                                              'bg-[#93c47d]' => (($goalPercentages[$key]['Autobiographies'] >= 100) && ($goalPercentages[$key]['Autobiographies'] <= 119)),
+                                              'bg-[#ff50c5]' => ($goalPercentages[$key]['Autobiographies'] >= 120),
+                                            ])>
+                                                {{ $goalPercentages[$key]['Autobiographies'] }}
+                                            </div>
+                                        </div>
+                                    </td>--}}
                                 </tr>
                             @endforeach
                         </tbody>
