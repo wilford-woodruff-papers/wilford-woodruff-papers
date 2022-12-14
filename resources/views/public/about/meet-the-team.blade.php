@@ -104,7 +104,7 @@
                             <div class="grid grid-cols-1 gap-x-4 mb-12">
                                 @foreach($teams as $team)
                                     @if($team->boardmembers->count() > 0)
-                                        @if($team->name != 'Volunteers')
+                                        @if($team->name != 'Interns & Volunteers')
                                             <div x-data="{
                                                     show: {{ $team->expanded }},
                                                 }"
@@ -171,7 +171,7 @@
                                                     @endforeach
                                                 </ul>
                                             </div>
-                                        @elseif($team->name == 'Volunteers')
+                                        @elseif($team->name == 'Interns & Volunteers')
                                             <div x-data="{
                                                     show: {{ $team->expanded }},
                                                 }"
