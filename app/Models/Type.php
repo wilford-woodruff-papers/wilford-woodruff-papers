@@ -30,6 +30,6 @@ class Type extends Model
 
     public function goal()
     {
-        return $this->hasOne(Goal::class)->oldestOfMany();
+        return $this->hasOne(Goal::class)->latestOfMany();
     }
 }
