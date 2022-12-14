@@ -111,7 +111,8 @@
                                                  role="region">
                                                 <div class="max-w-7xl mx-auto px-12 mt-4 mb-12">
                                                     <div class="flex items-center border-b-2 border-[#707070] ">
-                                                        <div class="flex items-center py-4">
+                                                        <div x-on:click="show = !show"
+                                                             class="flex items-center py-4 cursor-pointer">
                                                             <span x-show="show" aria-hidden="true" class="-ml-12">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                                                   <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
@@ -177,7 +178,8 @@
                                                  role="region">
                                                 <div class="max-w-7xl mx-auto px-12 mt-4 mb-12">
                                                     <div class="flex items-center border-b-2 border-[#707070] ">
-                                                        <div class="flex items-center py-4">
+                                                        <div x-on:click="show = !show"
+                                                             class="flex items-center py-4 cursor-pointer">
                                                             <span x-show="show" aria-hidden="true" class="-ml-12">
                                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                                                   <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
