@@ -59,7 +59,7 @@
             </div>
         </div>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 mt-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 mt-4 px-16 md:pl-24 md:pr-12">
         <div class="flex items-start justify-center pt-4">
             @if(! empty($person->supporting_person_link))
                 <a href="{{ $person->supporting_person_link }}"
