@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Press;
 use App\Models\Video;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Maize\Markable\Models\Like;
 
@@ -34,6 +35,7 @@ class Feed extends Component
     {
         $articles = Press::query()
                             ->select('id', 'type', 'title', 'cover_image', 'slug', 'date', 'subtitle', 'external_link_only', 'link', 'excerpt')
+                            ->whereDate('date', '<=', DB::raw('NOW()'))
                             ->orderBy('date', 'DESC')
                             ->when(data_get($this->filters, 'search'), function ($query, $q) {
                                 $query->where('title', 'LIKE', '%'.$q.'%');

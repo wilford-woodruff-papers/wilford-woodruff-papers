@@ -9,6 +9,7 @@ use App\Models\Podcast;
 use App\Models\Press;
 use App\Models\Video;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MediaController extends Controller
 {
@@ -16,6 +17,7 @@ class MediaController extends Controller
     {
         return view('public.media.articles', [
             'articles' => Article::latest('date')
+                                    ->whereDate('date', '<=', DB::raw('NOW()'))
                                     ->paginate(10),
         ]);
     }
@@ -33,7 +35,8 @@ class MediaController extends Controller
             'photos' => Photo::query()
                                 ->when($request->has('tag'), function ($query) use ($request) {
                                     $query->withAnyTags($request->get('tag'), 'photos');
-                                })->paginate(18),
+                                })
+                                ->paginate(18),
         ]);
     }
 

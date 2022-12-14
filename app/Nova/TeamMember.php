@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
@@ -54,6 +55,7 @@ class TeamMember extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
             OrderField::make('Order'),
+            BelongsTo::make('Team'),
             Text::make(__('Name'), 'name')->sortable(),
             Text::make(__('Title'), 'title')->sortable(),
             Textarea::make(__('Bio'), 'bio')->alwaysShow(),
