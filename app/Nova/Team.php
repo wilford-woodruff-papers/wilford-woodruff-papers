@@ -57,7 +57,7 @@ class Team extends Resource
             Boolean::make(__('Expanded'), 'expanded'),
             Text::make('Background Color')->required(),
             Text::make('Text Color')->required(),
-            HasMany::make('BoardMembers'),
+            HasMany::make('TeamMembers', 'boardmembers'),
         ];
     }
 
