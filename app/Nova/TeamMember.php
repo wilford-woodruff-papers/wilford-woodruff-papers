@@ -10,7 +10,7 @@ use Laravel\Nova\Fields\Textarea;
 use MichielKempen\NovaOrderField\Orderable;
 use MichielKempen\NovaOrderField\OrderField;
 
-class BoardMember extends Resource
+class TeamMember extends Resource
 {
     use Orderable;
 
