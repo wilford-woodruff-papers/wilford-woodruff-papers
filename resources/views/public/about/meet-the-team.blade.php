@@ -251,7 +251,7 @@
                             <h2>Meet the Team</h2>
                             <div class="grid grid-cols-1 md:grid-cols-2">
                                 @foreach($teams as $team)
-                                    @if($team->boardmembers->count() > 0 && $team->name != 'Volunteers')
+                                    @if($team->boardmembers->count() > 0 && $team->name != 'Interns & Volunteers')
                                         <div class="col-span-1">
                                             <h3 class="text-primary text-2xl font-serif mt-4 mb-8 border-b border-gray-300">
                                                 {{ $team->name }}
@@ -277,7 +277,7 @@
 
                             <div class="grid grid-cols-1 gap-x-4 mt-12">
                                 @foreach($teams as $team)
-                                    @if($team->boardmembers->count() > 0 && $team->name != 'Volunteers')
+                                    @if($team->boardmembers->count() > 0 && $team->name != 'Interns & Volunteers')
                                         <div class="h-16">
                                             <div class="max-w-7xl mx-auto px-4">
                                                 <div class="relative">
