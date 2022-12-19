@@ -44,7 +44,7 @@
                     @if(! empty($person->supporting_image))
                         <div class="px-16 md:pl-24 md:pr-12">
                             <div class="aspect-w-3 aspect-h-3">
-                                <img class="object-cover object-top" src="{{ Storage::disk('board_members')->url($person->supporting_image) }}" alt="">
+                                <img class="h-full w-auto md:object-cover md:object-top" src="{{ Storage::disk('board_members')->url($person->supporting_image) }}" alt="">
                             </div>
                         </div>
                     @else
@@ -60,7 +60,7 @@
         </div>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 mt-4 px-16 md:pl-24 md:pr-12">
-        <div class="flex items-start justify-center pt-4">
+        <div class="flex items-start justify-center pt-4 md:pr-12">
             @if(! empty($person->supporting_person_link))
                 <a href="{{ $person->supporting_person_link }}"
                    target="_blank"
