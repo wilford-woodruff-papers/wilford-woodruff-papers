@@ -213,4 +213,13 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
         return $this->belongsToMany(TargetPublishDate::class)
             ->where('publish_at', '>', now());
     }
+
+    public function getPcfUniqueIdFullAttribute()
+    {
+        return (! empty($this->pcf_unique_id_prefix)
+                ? ($this->pcf_unique_id_prefix.'-')
+                : (mb_substr($this->type->name, 0, 1).'-'))
+            .($this->pcf_unique_id)
+            .($this->pcf_unique_id_suffix);
+    }
 }
