@@ -481,9 +481,9 @@
                 <p class="text-xl text-secondary font-black">
                     Introduction
                 </p>--}}
-                <p class="text-xl text-dark-blue">
+                {{--<p class="text-xl text-dark-blue">
                     Evening Presentations
-                </p>
+                </p>--}}
             </div>
             <div class="text-xl text-dark-blue font-black text-right">
             </div>
@@ -505,12 +505,12 @@
                 </p>
             </div>
             <div class="col-span-2 md:col-span-1 flex flex-col space-y-2">
-                <p class="text-2xl text-secondary font-black">
+                {{--<p class="text-2xl text-secondary font-black">
                     To Be Announced
                 </p>
                 <p class="text-xl text-dark-blue">
                     Keynote Speaker
-                </p>
+                </p>--}}
             </div>
 
             <div class="">
