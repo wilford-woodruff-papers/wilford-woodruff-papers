@@ -13,6 +13,8 @@ use Livewire\Component;
 
 class Tasks extends Component
 {
+    public $search;
+
     public $type;
 
     public $sortBy = 'pcf_unique_id';
@@ -50,6 +52,9 @@ class Tasks extends Component
             ->when($this->type, function ($query, $type) {
                 $query->where('type_id', $type);
             })
+            ->when($this->search, function ($query, $search) {
+                $query->where('items.name', 'LIKE', '%'.$search.'%');
+            })
             ->whereHas('actions', function (Builder $query) use ($userRoles) {
                 $query->whereNull('assigned_at')
                     ->whereNull('completed_at')
@@ -66,6 +71,7 @@ class Tasks extends Component
         return view('livewire.admin.documents.tasks', [
             'assignedItems' => $assignedItems,
             'unassignedItems' => $unassignedItems,
+            'userRoles' => $userRoles,
         ]);
     }
 
