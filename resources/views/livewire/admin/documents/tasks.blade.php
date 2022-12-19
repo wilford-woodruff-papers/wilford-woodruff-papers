@@ -17,7 +17,7 @@
                                     </li>
                                 @endforeach
                             </ul>
-                            <table x-data="{
+                            {{--<table x-data="{
                                     open: $persist(null)
                                 }"
                                    class="min-w-full divide-y divide-gray-300">
@@ -32,7 +32,7 @@
                                 <tbody class="divide-y divide-gray-200 bg-white">
 
                                 </tbody>
-                            </table>
+                            </table>--}}
                         </div>
                     </div>
                 </div>
@@ -40,9 +40,20 @@
         </div>
     @endif
 
+    <div class="px-8">
+        <div class="pt-16 sm:flex sm:items-center">
+            <div class="sm:flex-auto">
+                <input wire:model="search"
+                       placeholder="Search..."
+                       class="flex-1 form-input border-cool-gray-300 block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5 w-80"
+                />
+            </div>
+        </div>
+    </div>
+
     @if($unassignedItems->count() > 0 || ($unassignedItems->count() < 1 && ! empty($type)))
         <div class="px-4 sm:px-6 lg:px-8">
-            <div class="pt-16 sm:flex sm:items-center">
+            <div class="pt-4 sm:flex sm:items-center">
                 <div class="sm:flex-auto">
                     <h1 class="text-xl font-semibold text-gray-900">Available Tasks</h1>
                 </div>
@@ -57,6 +68,7 @@
                                     <x-admin.quotes.heading sortable multi-column wire:click="applySort('pcf_unique_id', '{{ $sortDirection }}')" :direction="$sortBy == 'pcf_unique_id' ? $sortDirection : null" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">ID</x-admin.quotes.heading>
                                     <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
                                         <select wire:model="type">
+                                            <option value="">-- Select Document Type --</option>
                                             @foreach(\App\Models\Type::query()->orderBy('name')->get() as $type)
                                                 <option value="{{ $type->id }}">{{ $type->name }}</option>
                                             @endforeach
