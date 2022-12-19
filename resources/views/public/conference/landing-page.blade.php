@@ -14,7 +14,7 @@
                     Saturday, March 4, 2023
                 </div>
                 <div class="uppercase text-3xl z-10">
-                    11:30 AM - 7:30 PM
+                    11:00 AM - 5:00 PM
                 </div>
                 <div class="my-2 text-3xl z-10">
                     <div>
@@ -45,7 +45,7 @@
                 <h3 class="hidden md:block md:text-2xl lg:text-4xl py-4 md:w-[200px]">
                     Come and be <span class="font-extrabold text-secondary">inspired</span>
                 </h3>
-                Seekers of the truth will be instructed, inspired, and motivated by Wilford Woodruff's insights through speakers, presentations, and musical performances. Lunch will be provided.
+                Seekers of the truth will be instructed, inspired, and motivated by Wilford Woodruff's insights through speakers, presentations, art and musical performances. Lunch will be provided.
             </div>
         </div>
     </div>
@@ -70,7 +70,7 @@
                 />
                 <div class="text-center py-4">
                     <div class="text-2xl text-dark-blue font-black">
-                        Steven Wheelwright
+                        Steven C. Wheelwright
                     </div>
                     <div class="text-2xl text-dark-blue">
 
@@ -87,18 +87,18 @@
                         Laurel Thatcher Ulrich
                     </div>
                     <div class="text-2xl text-dark-blue">
-                        Featured Speaker
+                        Pulitzer Prize Winning Historian
                     </div>
                 </div>
             </div>
             <div class="order-3 md:order-3 grid content-end h-full">
-                <img src="{{ asset('img/conferences/2023/Kristy-Taylor.png') }}"
+                <img src="{{ asset('img/conferences/2023/Steve-Harper.png') }}"
                      alt=""
                      class="w-full h-auto"
                 />
                 <div class="text-center py-4">
                     <div class="text-2xl text-dark-blue font-black">
-                        Kristy Taylor
+                        Steven C. Harper
                     </div>
                     <div class="text-2xl text-dark-blue">
 
@@ -123,18 +123,18 @@
                 </div>
             </div>
             <div class="order-2 md:order-2 grid content-start h-full">
-                <img src="{{ asset('img/conferences/2023/keynote-speaker.png') }}"
+                {{--<img src="{{ asset('img/conferences/2023/Steve-Harper.png') }}"
                      alt=""
                      class="w-full h-auto"
                 />
                 <div class="text-center py-4">
                     <div class="text-2xl text-dark-blue font-black">
-                        To Be Announced
+                        Steve Harper
                     </div>
                     <div class="text-2xl text-dark-blue">
                         Keynote Speaker
                     </div>
-                </div>
+                </div>--}}
             </div>
             <div class="order-3 md:order-3 grid content-end h-full">
                 <img src="{{ asset('img/conferences/2023/Ashlyn-Pells.png') }}"
@@ -143,7 +143,7 @@
                 />
                 <div class="text-center py-4">
                     <div class="text-2xl text-dark-blue font-black">
-                        Ashlyn Pells
+                        Ashlyn Dyer Pells
                     </div>
                     <div class="text-2xl text-dark-blue">
 
@@ -187,7 +187,7 @@
                 />
                 <div class="text-center py-4">
                     <div class="text-2xl text-dark-blue font-black">
-                        Josh Matson
+                        Joshua M. Matson
                     </div>
                     <div class="text-2xl text-dark-blue">
 
@@ -210,14 +210,14 @@
         <div class="grid grid-cols-3 md:grid-cols-4 gap-x-8 gap-y-8">
             {{-- Start row --}}
             <div class="text-xl text-dark-blue font-black text-right">
-                11:30 AM
+                11:00 AM
             </div>
             <div class="col-span-2 md:col-span-3 flex flex-col space-y-4">
                 <p class="text-xl text-dark-blue">
                     Check-in / Registration
                 </p>
                 <p class="text-xl text-dark-blue">
-                    Art Competition Gallery Display
+                    Art Competition Gallery and Woodruff Artifact Display
                 </p>
             </div>
             <div class="">
@@ -239,7 +239,7 @@
         <div class="grid grid-cols-3 md:grid-cols-4 gap-x-8 gap-y-8">
             {{-- Start row --}}
             <div class="text-xl text-dark-blue font-black text-right">
-                {{--12 - 1:20--}}
+                12:00 PM
             </div>
             <div class="col-span-2 md:col-span-3 flex flex-col space-y-4">
                 <p class="text-xl text-dark-blue">
@@ -259,10 +259,13 @@
                 </div>
                 <div class="col-span-2 md:col-span-1 flex flex-col space-y-2">
                     <p class="text-xl text-dark-blue">
-                        Featured Speaker
+                        Keynote Speaker
                     </p>
                     <p class="text-2xl text-secondary font-black">
-                        Laurel Thatcher Ulrich
+                        Laurel Thatcher Ulrich, Ph.D.
+                    </p>
+                    <p class="text-xl text-dark-blue">
+                        Pulitzer Prize Winning Author and Historian
                     </p>
                 </div>
                 <div class="">
@@ -296,7 +299,7 @@
             <div class="col-span-2 md:col-span-3 grid grid-cols-1 md:grid-cols-3">
             <div class="col-span-2 md:col-span-1 flex flex-col space-y-2">
                 <p class="text-2xl text-secondary font-black">
-                    Ellie Hancock
+                    Ellie Hancock, Historian
                 </p>
                 <p class="text-xl text-dark-blue">
 
@@ -304,7 +307,7 @@
             </div>
             <div class="col-span-2 md:col-span-1 flex flex-col space-y-2">
                 <p class="text-2xl text-secondary font-black">
-                    Ashlyn Pells
+                    Ashlyn Dyer Pells, Editor
                 </p>
                 <p class="text-xl text-dark-blue">
 
@@ -312,7 +315,7 @@
             </div>
             <div class="col-span-2 md:col-span-1 flex flex-col space-y-2">
                 <p class="text-2xl text-secondary font-black">
-                    Hovan Lawton
+                    Hovan Lawton, Ph.D. Student
                 </p>
                 <p class="text-xl text-dark-blue">
 
@@ -345,7 +348,7 @@
             <div class="col-span-2 md:col-span-3 grid grid-cols-1 md:grid-cols-3">
             <div class="col-span-2 md:col-span-1 flex flex-col space-y-2">
                 <p class="text-2xl text-secondary font-black">
-                    Josh Matson
+                    Joshua M. Matson, Ph.D.
                 </p>
                 <p class="text-xl text-dark-blue">
 
@@ -353,7 +356,7 @@
             </div>
             <div class="col-span-2 md:col-span-1 flex flex-col space-y-2">
                 <p class="text-2xl text-secondary font-black">
-                    Kristy Taylor
+                    Steven C. Wheelwright, Ph.D.
                 </p>
                 <p class="text-xl text-dark-blue">
 
@@ -392,7 +395,7 @@
             <div class="col-span-2 md:col-span-3 grid grid-cols-1 md:grid-cols-3">
             <div class="col-span-2 md:col-span-1 flex flex-col space-y-2">
                 <p class="text-2xl text-secondary font-black">
-                    Steve Wheelwright
+                    Amy Harris, Ph.D.
                 </p>
                 <p class="text-xl text-dark-blue">
 
@@ -400,7 +403,7 @@
             </div>
             <div class="col-span-2 md:col-span-1 flex flex-col space-y-2">
                 <p class="text-2xl text-secondary font-black">
-                    Amy Harris
+                    Steven C. Harper, Ph.D.
                 </p>
                 <p class="text-xl text-dark-blue">
 
@@ -526,7 +529,7 @@
         <div class="grid grid-cols-3 md:grid-cols-4 gap-x-8 gap-y-8">
             {{-- Start row --}}
             <div class="text-xl text-dark-blue font-black text-right">
-                7:30 PM
+                5:00 PM
             </div>
             <div class="col-span-2 md:col-span-3 flex flex-col space-y-4">
                 {{--<p class="text-xl text-dark-blue">
