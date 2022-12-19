@@ -40,25 +40,26 @@
         </div>
     @endif
 
-    <div class="px-8">
-        <div class="pt-16 sm:flex sm:items-center">
-            <div class="sm:flex-auto">
-                <input wire:model="search"
-                       placeholder="Search..."
-                       class="flex-1 form-input border-cool-gray-300 block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5 w-80"
-                />
-            </div>
-        </div>
-    </div>
 
-    @if($unassignedItems->count() > 0 || ($unassignedItems->count() < 1 && ! empty($type)))
+    @if($unassignedItems->count() > 0 || ($unassignedItems->count() < 1 && ! empty($type)) || ($unassignedItems->count() < 1 && ! empty($search)))
         <div class="px-4 sm:px-6 lg:px-8">
-            <div class="pt-4 sm:flex sm:items-center">
+            <div class="pt-16 sm:flex sm:items-center">
                 <div class="sm:flex-auto">
                     <h1 class="text-xl font-semibold text-gray-900">Available Tasks</h1>
                 </div>
             </div>
-            <div class="mt-8 flex flex-col">
+            <div class="">
+                <div class="pt-4 sm:flex sm:items-center">
+                    <div class="sm:flex-auto">
+                        <input wire:model="search"
+                               placeholder="Search..."
+                               type="search"
+                               class="flex-1 form-input border-cool-gray-300 block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5 w-80"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="mt-4 flex flex-col">
                 <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
                         <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
@@ -84,7 +85,7 @@
                                     <tr id="unassigned_item_{{ $item->id }}"
                                         class="border-t border-gray-200">
                                         <th class="bg-gray-50 px-4 py-2 text-left text-sm font-semibold text-gray-900 sm:px-6">
-                                            {{ $item->pcf_unique_id }}
+                                            {{ $item->pcf_unique_id_full }}
                                         </th>
                                         <th class="bg-gray-50 px-4 py-2 text-left text-sm font-semibold text-gray-900 sm:px-6">
                                             {{ str($item->type->name)->singular() }}
