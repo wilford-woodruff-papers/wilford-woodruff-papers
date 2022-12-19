@@ -123,7 +123,7 @@
             </div>
             <div class="col-span-3">
                 <div class="hidden md:block">
-                    <img src="{{ asset('img/donate/image-2.png') }}"
+                    <img src="{{ asset('img/donate/image-2.jpg') }}"
                          alt=""
                          class="hidden md:block w-full h-auto"
                     >
@@ -133,7 +133,7 @@
                              class="hidden md:block w-full h-auto"
                         >
                     </div>
-                    <img src="{{ asset('img/donate/image-3.png') }}"
+                    <img src="{{ asset('img/donate/image-3.jpg') }}"
                          alt=""
                          class="hidden md:block w-full h-auto"
                     >
