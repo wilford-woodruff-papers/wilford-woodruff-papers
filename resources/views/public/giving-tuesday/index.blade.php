@@ -124,7 +124,7 @@
     </div>
 
     <div class="max-w-xl mx-auto text-center my-8">
-        <a href="https://app.giveforms.com/campaigns/wilfordwoodruffpapersfoundation/default-giveform"
+        <a href="{{ route('donate.online') }}"
            class="flex items-center justify-center gap-x-4 text-2xl border-2 border-secondary px-6 py-4 text-white bg-secondary hover:bg-secondary-700"
            target="_blank"
         >
@@ -145,7 +145,7 @@
 
                     </p>
                     <div class="flex flex-col gap-y-4">
-                        <a href="https://app.giveforms.com/campaigns/wilfordwoodruffpapersfoundation/default-giveform"
+                        <a href="{{ route('donate.online') }}"
                            class="flex items-center justify-center gap-x-4 text-2xl border-2 border-secondary px-6 py-4 text-white bg-secondary hover:bg-secondary-700"
                            target="_blank"
                         >
@@ -360,7 +360,7 @@
     </div>
 
     <div class="max-w-xl mx-auto text-center my-16">
-        <a href="https://app.giveforms.com/campaigns/wilfordwoodruffpapersfoundation/default-giveform"
+        <a href="{{ route('donate.online') }}"
            class="flex items-center justify-center gap-x-4 text-2xl border-2 border-secondary px-6 py-4 text-white bg-secondary hover:bg-secondary-700"
            target="_blank"
         >
