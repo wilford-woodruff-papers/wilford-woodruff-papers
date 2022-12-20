@@ -73,10 +73,25 @@
                 </div>
             @endif
         </div>
+        <div class="flex gap-4 justify-end !mt-0">
+            <div class="flex items-center justify-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 whitespace-nowrap text-gray-700 bg-white hover:bg-gray-50">
+                Not Yet Available
+            </div>
+            <div class="flex items-center justify-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 whitespace-nowrap text-white bg-gray-500 hover:bg-gray-700">
+                Not Claimed
+            </div>
+            <div class="flex items-center justify-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 whitespace-nowrap text-white bg-red-400 hover:bg-red-600">
+                Claimed
+            </div>
+            <div class="flex items-center justify-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 whitespace-nowrap text-white bg-green-400 hover:bg-green-600">
+                Completed
+            </div>
+        </div>
         <div class="space-y-4">
             <x-admin.quotes.table>
                 <x-slot name="head">
                     <x-admin.quotes.heading></x-admin.quotes.heading>
+                    <x-admin.quotes.heading sortable multi-column wire:click="sortBy('pcf_unique_id')" :direction="$sorts['name'] ?? null" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">ID</x-admin.quotes.heading>
                     <x-admin.quotes.heading class="pr-0 w-8">
                         <x-input.checkbox wire:model="selectPage" />
                     </x-admin.quotes.heading>
@@ -109,6 +124,12 @@
                         <x-admin.quotes.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $item->id }}">
                             <x-admin.quotes.cell class="bg-gray-50">
                                 <x-icon.status :status="$item->enabled" />
+                            </x-admin.quotes.cell>
+
+                            <x-admin.quotes.cell class="bg-gray-50">
+                                <span href="#" class="inline-flex space-x-2 truncate text-sm leading-5">
+                                    {{ $item->pcf_unique_id_full }}
+                                </span>
                             </x-admin.quotes.cell>
 
                             <x-admin.quotes.cell class="bg-gray-50 pr-0">
