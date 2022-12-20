@@ -27,4 +27,9 @@ class ActionType extends Model implements Sortable
     {
         return $query->where('type', $type);
     }
+
+    public function dependentActionTypes()
+    {
+        return $this->hasMany(ActionType::class);
+    }
 }

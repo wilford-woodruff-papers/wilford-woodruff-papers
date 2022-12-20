@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin\Documents;
 
+use App\Jobs\ReleaseDependantActions;
 use App\Models\Action;
 use App\Models\ActionType;
 use App\Models\Item;
@@ -103,12 +104,16 @@ class Tasks extends Component
         $action->completed_by = $user->id;
         $action->save();
 
+        ReleaseDependantActions::dispatch($action);
+
         if ($action->actionable_type == Item::class) {
             $item = $action->actionable;
             $item->pending_page_actions->where('action_type_id', $action->action_type_id)->each(function ($action) use ($user) {
                 $action->completed_at = now();
                 $action->completed_by = $user->id;
                 $action->save();
+
+                ReleaseDependantActions::dispatch($action);
             });
         }
 
