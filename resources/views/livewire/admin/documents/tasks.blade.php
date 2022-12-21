@@ -96,7 +96,9 @@
                                     <tr id="unassigned_item_{{ $item->id }}"
                                         class="border-t border-gray-200">
                                         <th class="bg-gray-50 px-4 py-2 text-left text-sm font-semibold text-gray-900 sm:px-6">
-                                            {{ $item->pcf_unique_id_full }}
+                                            <span href="#" class="inline-flex space-x-2 truncate text-sm leading-5">
+                                                {{ $item->pcf_unique_id_full }}
+                                            </span>
                                         </th>
                                         <th class="bg-gray-50 px-4 py-2 text-left text-sm font-semibold text-gray-900 sm:px-6">
                                             {{ str($item->type->name)->singular() }}
