@@ -39,7 +39,9 @@ class Dashboard extends Component
         'filters' => ['except' => ''],
     ];
 
-    protected $listeners = ['refreshQuotes' => '$refresh'];
+    protected $listeners = [
+        'refreshQuotes' => '$refresh',
+    ];
 
     public function mount()
     {
@@ -136,6 +138,13 @@ class Dashboard extends Component
             $item->actions()->create([
                 'action_type_id' => $actionType->id,
             ]);
+        }
+    }
+
+    public function addTasksInBulk($taskTypeId)
+    {
+        foreach ($this->selected as $row) {
+            $this->addTasks($row, $taskTypeId);
         }
     }
 }

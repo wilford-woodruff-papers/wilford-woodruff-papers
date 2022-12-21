@@ -47,7 +47,7 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
     public function parent()
     {
         if (! empty($this->item) && empty($this->item->item_id)) {
-            return $this->item();
+            return $this->item;
         } else {
             return $this->belongsTo(Item::class, 'parent_item_id');
         }

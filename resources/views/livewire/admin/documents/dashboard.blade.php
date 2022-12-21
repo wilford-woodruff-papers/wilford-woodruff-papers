@@ -20,11 +20,13 @@
                 <x-dropdown label="Bulk Actions">
                     {{--<x-dropdown.item type="button" wire:click="exportSelected" class="flex items-center space-x-2">
                         <x-icon.download class="text-cool-gray-400"/> <span>Export</span>
-                    </x-dropdown.item>
-
-                    <x-dropdown.item type="button" wire:click="$toggle('showDeleteModal')" class="flex items-center space-x-2">
-                        <x-icon.trash class="text-cool-gray-400"/> <span>Delete</span>
                     </x-dropdown.item>--}}
+                    @foreach($taskTypes as $taskType)
+                        <x-dropdown.item type="button" wire:click="addTasksInBulk({{ $taskType->id }})" class="flex items-center space-x-2">
+                            {{--<x-icon.trash class="text-cool-gray-400"/>--}} <span>Add {{ $taskType->name }} Task</span>
+                        </x-dropdown.item>
+                    @endforeach
+
                 </x-dropdown>
 
                 {{--<livewire:import-transactions />--}}
@@ -73,6 +75,7 @@
                 </div>
             @endif
         </div>
+
         <div class="flex gap-4 justify-end !mt-0">
             <div class="flex items-center justify-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 whitespace-nowrap text-gray-700 bg-white hover:bg-gray-50">
                 Not Yet Available
