@@ -41,7 +41,11 @@
     @endif
 
 
-    @if($unassignedItems->count() > 0 || ($unassignedItems->count() < 1 && ! empty($type)) || ($unassignedItems->count() < 1 && ! empty($search)))
+    @if( ($unassignedItems->count() > 0 || ($unassignedItems->count() < 1)
+         && (! empty($type)) || ($unassignedItems->count() < 1)
+         && (! empty($actionType)) || ($unassignedItems->count() < 1)
+         && (! empty($search)))
+    )
         <div class="px-4 sm:px-6 lg:px-8">
             <div class="pt-16 sm:flex sm:items-center">
                 <div class="sm:flex-auto">
@@ -68,7 +72,7 @@
                                 <tr>
                                     <x-admin.quotes.heading sortable multi-column wire:click="applySort('pcf_unique_id', '{{ $sortDirection }}')" :direction="$sortBy == 'pcf_unique_id' ? $sortDirection : null" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">ID</x-admin.quotes.heading>
                                     <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
-                                        <select wire:model="type">
+                                        <select wire:model="type" class="text-sm">
                                             <option value="">-- Select Document Type --</option>
                                             @foreach(\App\Models\Type::query()->orderBy('name')->get() as $type)
                                                 <option value="{{ $type->id }}">{{ $type->name }}</option>
@@ -77,7 +81,14 @@
                                     </th>
                                     <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Document</th>
                                     <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"></th>
-                                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Available Task(s)</th>
+                                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                                        <select wire:model="actionType" class="text-sm">
+                                            <option value="">-- Select Task Type --</option>
+                                            @foreach(\App\Models\ActionType::query()->where('type', 'Documents')->orderBy('name')->get() as $type)
+                                                <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </th>
                                 </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-200 bg-white">
