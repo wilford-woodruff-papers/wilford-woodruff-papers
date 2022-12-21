@@ -14,6 +14,8 @@ use Livewire\Component;
 
 class Tasks extends Component
 {
+    public $actionType;
+
     public $search;
 
     public $type;
@@ -61,6 +63,9 @@ class Tasks extends Component
                     ->whereNull('completed_at')
                     ->whereHas('type', function (Builder $query) use ($userRoles) {
                         $query->whereIn('id', ActionType::query()->role($userRoles)->pluck('id')->all());
+                    })
+                    ->when($this->actionType, function ($query, $actionType) {
+                        $query->whereRelation('type', 'id', $actionType);
                     });
             })->whereHas('type', function (Builder $query) use ($userRoles) {
                 $query->whereIn('id', Type::query()->role($userRoles)->pluck('id')->all());
