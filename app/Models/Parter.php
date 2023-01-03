@@ -14,6 +14,11 @@ class Parter extends Model implements Sortable
 
     protected $guarded = ['id'];
 
+    public $sortable = [
+        'order_column_name' => 'order_column',
+        'sort_when_creating' => true,
+    ];
+
     public function buildSortQuery()
     {
         return static::query()->where('category', $this->category);
