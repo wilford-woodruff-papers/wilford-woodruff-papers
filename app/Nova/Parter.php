@@ -16,7 +16,7 @@ class Parter extends Resource
 
     public static $group = 'Website';
 
-    public static $defaultOrderField = 'order';
+    public static $defaultOrderField = 'order_column';
 
     /**
      * The model the resource corresponds to.
