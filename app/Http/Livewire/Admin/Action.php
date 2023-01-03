@@ -102,10 +102,10 @@ class Action extends Component
                 }
             });
         }
-
-        activity('activity')
-            ->on(Page::find($this->action->actionable_id))
-            ->event('completed')
-            ->log($this->action->description.' unnassigned by <span class="user">'.auth()->user()->name.'</span>');
+//
+//        activity('activity')
+//            ->on(Page::find($this->action->actionable_id))
+//            ->event('completed')
+//            ->log($this->action->description.' unnassigned by <span class="user">'.auth()->user()->name.'</span>');
     }
 }
