@@ -61,7 +61,8 @@ class AdditionalDocumentsPcfImport implements ToCollection, WithHeadingRow
                     info($item->name);
 
                     $uniqueID = data_get($row, str('Unique Identifier')->lower()->snake()->toString());
-                    $item->pcf_unique_id = $uniqueID;
+                    $item->pcf_unique_id_prefix = str($uniqueID)->explode('-')->first();
+                    $item->pcf_unique_id = str($uniqueID)->explode('-')->last();
                     $item->category = data_get($row, 'category_formula');
                     $item->description = data_get($row, 'description_formula');
                     $item->type_id = $additionalType->id;
