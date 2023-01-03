@@ -60,8 +60,15 @@
                                             x-collapse
                                             role="list" class="space-y-12 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-12 sm:space-y-0 lg:grid-cols-4 lg:gap-x-8 mb-16">
                                             @foreach($partners->sortBy('name') as $partner)
-                                                <li>
-                                                    {{ $partner->name }}
+                                                <li class="flex items-center justify-center">
+                                                    <a href="{{ $partner->url }}"
+                                                       target="_blank"
+                                                    >
+                                                        <img src="{{ \Illuminate\Support\Facades\Storage::disk('partners')->url($partner->url) }}"
+                                                             alt="{{ $partner->name }} Logo"
+                                                             title="{{ $partner->name }}"
+                                                        />
+                                                    </a>
                                                 </li>
                                             @endforeach
                                         </ul>
