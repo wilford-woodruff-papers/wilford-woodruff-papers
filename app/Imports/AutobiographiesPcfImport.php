@@ -388,6 +388,15 @@ class AutobiographiesPcfImport implements ToCollection, WithHeadingRow
         $initials = trim(str($initials)->before('/')->trim()->toString());
 
         switch ($initials) {
+            case 'N/A':
+            case 'n/a':
+            case 'X':
+            case 'crowd':
+            case 'crowdsource':
+            case 'crowdsourced':
+                $name = 'Crowdsource';
+                $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
+                break;
             case 'SCH':
             case 'Steve Harper':
                 $name = 'Steve Harper';
