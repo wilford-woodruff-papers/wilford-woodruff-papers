@@ -42,9 +42,6 @@ class ImportLetterFromPcf implements ShouldQueue
      */
     public function handle()
     {
-        set_time_limit(36000);
-        ini_set('memory_limit', '1268M');
-
         $actionTypes = ActionType::all();
         $letterType = Type::firstWhere('name', 'Letters');
 
@@ -77,12 +74,13 @@ class ImportLetterFromPcf implements ShouldQueue
                 info($item->name);
 
                 $uniqueID = data_get($this->row, str('Unique Identifier')->lower()->snake()->toString());
+                $item->pcf_unique_id_prefix = 'LE';
                 $item->pcf_unique_id = $uniqueID;
                 $item->category = data_get($this->row, 'category_formula');
                 $item->description = data_get($this->row, 'description_formula');
                 $item->type_id = $letterType->id;
                 $item->save();
-                $this->id = 'L-'.$uniqueID;
+                $this->id = 'LE-'.$uniqueID;
 
                 $this->proccessItem($this->row, $item, $actionTypes);
 
@@ -415,7 +413,10 @@ class ImportLetterFromPcf implements ShouldQueue
             case 'N/A':
             case 'n/a':
             case 'X':
-                $name = 'N/A';
+            case 'crowd':
+            case 'crowdsource':
+            case 'crowdsourced':
+                $name = 'Crowdsource';
                 $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
                 break;
             case 'SCH':
@@ -437,6 +438,7 @@ class ImportLetterFromPcf implements ShouldQueue
                 $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
                 break;
             case 'KT':
+            case 'KWT':
             case 'Kristy Taylor':
                 $name = 'Kristy Taylor';
                 $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
@@ -600,15 +602,119 @@ class ImportLetterFromPcf implements ShouldQueue
                 $name = 'Abigail Harper';
                 $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
                 break;
+            case 'MJ':
             case 'Mackenzie':
             case 'Mackenzie Jaggi':
                 $name = 'Mackenzie Jaggi';
                 $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
                 break;
-            case 'crowd':
-            case 'crowdsource':
-            case 'crowdsourced':
-                $name = 'Crowdsource';
+            case 'Stina':
+                $name = 'Stina';
+                $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
+                break;
+            case 'JC':
+            case 'Jc':
+            case 'Julia Collings':
+                $name = 'Julia Collings';
+                $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
+                break;
+            case 'El':
+            case 'EL':
+            case 'Elizabeth Lisberg':
+                $name = 'Elizabeth Lisberg';
+                $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
+                break;
+            case 'AM':
+            case 'Ashlin':
+            case 'Ashlin Malcolm':
+                $name = 'Ashlin Malcolm';
+                $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
+                break;
+            case 'MF':
+            case 'Miriam Foulke':
+                $name = 'Miriam Foulke';
+                $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
+                break;
+            case 'SC':
+            case 'Samuel Collier':
+                $name = 'Samuel Collier';
+                $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
+                break;
+            case 'MP':
+            case 'Michael Proudfoot':
+            case 'MIchael Proudfoot':
+                $name = 'Michael Proudfoot';
+                $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
+                break;
+            case 'KNL':
+            case 'Katlyn Linville':
+                $name = 'Katlyn Linville';
+                $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
+                break;
+            case 'NT':
+            case 'Nikayla Tolman':
+                $name = 'Nikayla Tolman';
+                $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
+                break;
+            case 'KC':
+            case 'Kaeleigh Carberry':
+                $name = 'Kaeleigh Carberry';
+                $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
+                break;
+            case 'NR':
+            case 'Neal Rhoades':
+                $name = 'Neal Rhoades';
+                $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
+                break;
+            case 'MR':
+            case 'Matthew Roberts':
+                $name = 'Matthew Roberts';
+                $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
+                break;
+            case 'JF':
+                $name = 'JF';
+                $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
+                break;
+            case 'LL':
+                $name = 'LL';
+                $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
+                break;
+            case 'AR':
+            case 'Avery Reeve':
+                $name = 'Avery Reeve';
+                $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
+                break;
+            case 'SWW':
+                $name = 'SWW';
+                $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
+                break;
+            case 'DS':
+                $name = 'DS';
+                $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
+                break;
+            case 'JH':
+                $name = 'JH';
+                $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
+                break;
+            case 'MW':
+            case 'Margaret Wheelwright':
+                $name = 'Margaret Wheelwright';
+                $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
+                break;
+            case 'x':
+                $name = 'x';
+                $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
+                break;
+            case 'AMC':
+                $name = 'AMC';
+                $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
+                break;
+            case 'HT':
+                $name = 'HT';
+                $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
+                break;
+            case 'DW':
+                $name = 'DW';
                 $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
                 break;
             default:
