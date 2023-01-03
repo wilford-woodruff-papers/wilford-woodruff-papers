@@ -64,7 +64,7 @@
                                                     <a href="{{ $partner->url }}"
                                                        target="_blank"
                                                     >
-                                                        <img src="{{ \Illuminate\Support\Facades\Storage::disk('partners')->url($partner->url) }}"
+                                                        <img src="{{ \Illuminate\Support\Facades\Storage::disk('partners')->url($partner->logo) }}"
                                                              alt="{{ $partner->name }} Logo"
                                                              title="{{ $partner->name }}"
                                                         />
