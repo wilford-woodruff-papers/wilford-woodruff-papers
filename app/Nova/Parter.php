@@ -14,7 +14,7 @@ class Parter extends Resource
 {
     use Orderable;
 
-    public static $group = 'Resources';
+    public static $group = 'Website';
 
     public static $defaultOrderField = 'order';
 
@@ -63,7 +63,8 @@ class Parter extends Resource
                 ->required(),
             Image::make('logo')->disk('partners'),
             Text::make('name'),
-            Text::make('url'),
+            Text::make('url')
+                ->hideFromIndex(),
         ];
     }
 
