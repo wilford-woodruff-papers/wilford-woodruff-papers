@@ -70,6 +70,7 @@ Route::get('/work-with-us', [\App\Http\Controllers\GetInvolvedController::class,
 Route::get('/work-with-us/{opportunity}', [\App\Http\Controllers\GetInvolvedController::class, 'jobOpportunity'])->name('work-with-us.opportunity');
 Route::get('/about', [\App\Http\Controllers\AboutController::class, 'mission'])->name('about');
 Route::get('/about/meet-the-team', [\App\Http\Controllers\AboutController::class, 'meetTheTeam'])->name('about.meet-the-team');
+Route::get('/about/partners', [\App\Http\Controllers\ParterController::class, 'index'])->name('about.partners');
 Route::get('/about/editorial-method', [\App\Http\Controllers\AboutController::class, 'editorialMethod'])->name('about.editorial-method');
 Route::get('/about/frequently-asked-questions', [\App\Http\Controllers\AboutController::class, 'faqs'])->name('about.frequently-asked-questions');
 Route::get('/contact-us', [\App\Http\Controllers\AboutController::class, 'contact'])->name('contact-us');
