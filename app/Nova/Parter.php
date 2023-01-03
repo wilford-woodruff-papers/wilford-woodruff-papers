@@ -3,19 +3,18 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Textarea;
 use MichielKempen\NovaOrderField\Orderable;
 use MichielKempen\NovaOrderField\OrderField;
 
-class TeamMember extends Resource
+class Parter extends Resource
 {
     use Orderable;
 
-    public static $displayInNavigation = false;
+    public static $group = 'Website';
 
     public static $defaultOrderField = 'order';
 
@@ -24,7 +23,7 @@ class TeamMember extends Resource
      *
      * @var string
      */
-    public static $model = \App\Models\BoardMember::class;
+    public static $model = \App\Models\Parter::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -41,7 +40,6 @@ class TeamMember extends Resource
     public static $search = [
         'id',
         'name',
-        'title',
     ];
 
     /**
@@ -54,20 +52,19 @@ class TeamMember extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            OrderField::make('Order'),
-            BelongsTo::make('Team', 'team', Team::class)->nullable(),
-            Text::make(__('Name'), 'name')->sortable(),
-            Text::make(__('Title'), 'title')->sortable(),
-            Textarea::make(__('Bio'), 'bio')->alwaysShow(),
-            Image::make(__('Picture'), 'image')->disk('board_members'),
-            Text::make('Youtube Link', 'video_link')
-                ->required(false)
-                ->hideFromIndex()
-                ->help('Paste the YouTube URL in this box (not the embed code).'),
-            Image::make(__('Supporting Image'), 'supporting_image')->disk('board_members'),
-            Text::make(__('Supporting Person Name'), 'supporting_person_name')->hideFromIndex(),
-            Text::make(__('Supporting Person Description'), 'supporting_image_description')->hideFromIndex(),
-            Text::make(__('Supporting Person Link'), 'supporting_person_link')->hideFromIndex(),
+            OrderField::make('Order', 'order_column'),
+            Select::make('Category')
+                ->options([
+                    'Foundational Partners' => 'Foundational Partners',
+                    'Outreach Partners' => 'Outreach Partners',
+                    'Media Partners' => 'Media Partners',
+                    'Technology Partners' => 'Technology Partners',
+                ])
+                ->required(),
+            Image::make('logo')->disk('partners'),
+            Text::make('name'),
+            Text::make('url')
+                ->hideFromIndex(),
         ];
     }
 
