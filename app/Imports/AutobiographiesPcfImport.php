@@ -55,7 +55,8 @@ class AutobiographiesPcfImport implements ToCollection, WithHeadingRow
                     info($item->name);
                     $this->proccessItem($row, $item, $actionTypes);
                     $uniqueID = data_get($row, str('UI')->lower()->snake()->toString());
-                    $item->pcf_unique_id = $uniqueID;
+                    // $item->pcf_unique_id_prefix = str($uniqueID)->explode('-')->first();
+                    // $item->pcf_unique_id = str($uniqueID)->explode('-')->last();
                     $item->save();
                     $this->id = $uniqueID;
 
