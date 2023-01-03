@@ -4,6 +4,7 @@ namespace App\Nova\Actions;
 
 use App\Imports\AdditionalDocumentsPcfImport;
 use App\Imports\AutobiographiesPcfImport;
+use App\Imports\DiscoursesPcfImport;
 use App\Imports\JournalsPcfImport;
 use App\Imports\LettersPcfImport;
 use Illuminate\Bus\Queueable;
@@ -49,6 +50,9 @@ class ImportPcf extends Action
             case 'Additional Documents':
                 Excel::import(new AdditionalDocumentsPcfImport(), $fields->file);
                 break;
+            case 'Discourses':
+                Excel::import(new DiscoursesPcfImport(), $fields->file);
+                break;
         }
 
         return Action::message("Imported $fields->type successfully");
@@ -68,6 +72,7 @@ class ImportPcf extends Action
                     'Autobiographies' => 'Autobiographies',
                     'Additional Documents' => 'Additional Documents',
                     'Letters' => 'Letters',
+                    'Discourses' => 'Discourses',
                 ])
                 ->rules('required'),
             File::make('File')
