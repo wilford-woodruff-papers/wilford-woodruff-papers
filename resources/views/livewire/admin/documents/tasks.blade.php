@@ -70,6 +70,7 @@
                             <table class="min-w-full divide-y divide-gray-300">
                                 <thead class="bg-gray-50">
                                 <tr>
+                                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"></th>
                                     <x-admin.quotes.heading sortable multi-column wire:click="applySort('pcf_unique_id', '{{ $sortDirection }}')" :direction="$sortBy == 'pcf_unique_id' ? $sortDirection : null" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">ID</x-admin.quotes.heading>
                                     <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
                                         <select wire:model="type" class="text-sm">
@@ -95,6 +96,9 @@
                                 @foreach($unassignedItems as $item)
                                     <tr id="unassigned_item_{{ $item->id }}"
                                         class="border-t border-gray-200">
+                                        <x-admin.quotes.cell class="bg-gray-50">
+                                            <x-icon.status :status="$item->enabled" />
+                                        </x-admin.quotes.cell>
                                         <th class="bg-gray-50 px-4 py-2 text-left text-sm font-semibold text-gray-900 sm:px-6">
                                             <span href="#" class="inline-flex space-x-2 truncate text-sm leading-5">
                                                 {{ $item->pcf_unique_id_full }}
