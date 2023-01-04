@@ -33,11 +33,17 @@ class ReleaseDependantActions implements ShouldQueue
     public function handle()
     {
         foreach ($this->action->type->dependentActionTypes as $actionType) {
-            Action::firstOrCreate([
+            if (class_basename($this->action->actionable) == 'Item') {
+                $parent = $this->action->actionable->parent();
+            } else {
+                $parent = $this->action->actionable->parent;
+            }
+            $action = Action::firstOrCreate([
                 'action_type_id' => $actionType->id,
                 'actionable_type' => get_class($this->action->actionable),
                 'actionable_id' => $this->action->actionable->id,
-                'parent_item_id' => $this->action->actionable->parent()?->id,
+            ], [
+                'parent_item_id' => $parent?->id,
             ]);
         }
     }
