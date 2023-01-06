@@ -347,7 +347,7 @@
                             Thank you entering the Art Contest at the first Wilford Woodruff Papers Foundation Conference!
                         </p>
                         <p class="p-4 text-lg">
-                            Judging will take place after the deadline of January 6th, 2023. If there are any issues with your submission we will contact you as soon as possible.
+                            Judging will take place after the deadline of February 1st, 2023. If there are any issues with your submission we will contact you as soon as possible.
                         </p>
                         <p class="p-4 text-lg">
                             We look forward to seeing you at the conference in March!
