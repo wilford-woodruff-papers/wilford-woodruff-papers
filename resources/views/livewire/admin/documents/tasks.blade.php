@@ -12,9 +12,11 @@
                         <div class="overflow-hidden bg-white shadow sm:rounded-md">
                             <ul role="list" class="divide-y divide-gray-200">
                                 @foreach($assignedItems as $item)
-                                    <li>
-                                        <livewire:admin.documents.task :item="$item" :wire:key="'item-'.$item->id" />
-                                    </li>
+                                    @if(! empty($item->pcf_unique_id))
+                                        <li>
+                                            <livewire:admin.documents.task :item="$item" :wire:key="'item-'.$item->id" />
+                                        </li>
+                                    @endif
                                 @endforeach
                             </ul>
                             {{--<table x-data="{

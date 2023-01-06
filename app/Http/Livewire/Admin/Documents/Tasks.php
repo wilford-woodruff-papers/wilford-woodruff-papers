@@ -27,6 +27,7 @@ class Tasks extends Component
     public function render()
     {
         $assignedItems = Item::query()
+            ->whereNotNull('pcf_unique_id')
             ->with(
                 'pending_actions',
                 'pending_actions.type',
@@ -45,6 +46,7 @@ class Tasks extends Component
 
         $unassignedItems = Item::query()
             ->select('items.*', DB::raw('(SELECT COUNT(*) FROM pages WHERE pages.item_id = items.id) as pages_count'))
+            ->whereNotNull('pcf_unique_id')
             ->with(
                 'unassigned_actions',
                 'unassigned_actions.type',
@@ -72,7 +74,7 @@ class Tasks extends Component
             })
             ->orderBy(DB::raw('LENGTH('.$this->sortBy.')'), $this->sortDirection)
             ->orderBy($this->sortBy, $this->sortDirection)
-            ->paginate(15);
+            ->paginate(25);
 
         return view('livewire.admin.documents.tasks', [
             'assignedItems' => $assignedItems,

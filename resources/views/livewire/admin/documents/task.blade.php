@@ -25,7 +25,14 @@
                         </svg>
                     </button>
                 </div>
+            @else
+                <div class="flex items-center justify-center h-6 w-6">&nbsp;</div>
             @endif
+        </div>
+        <div class="flex-0 bg-gray-50 px-4 py-2 text-left text-sm font-semibold text-gray-900 sm:px-6">
+            <span href="#" class="inline-flex space-x-2 truncate text-sm leading-5">
+                {{ $item->pcf_unique_id_full }}
+            </span>
         </div>
         <div class="flex-1 bg-gray-50 px-4 py-2 text-left text-sm font-semibold text-gray-900 sm:px-6">
             <a href="{{ route('admin.dashboard.document', ['item' => $item]) }}"
