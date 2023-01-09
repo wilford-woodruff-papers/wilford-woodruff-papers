@@ -92,7 +92,7 @@
                                     </a>
                                 </div>
                                 <div class="mt-6 text-center text-white">
-                                    Students can email <a href="mailto:cont%61ct@%77i%6Cfordwoo%64%72%75f%66%70apers.%6Frg" class="text-white underline font-semibold">contact@wilfordwoodruffpapers.org</a> to receive information about scholarships.
+                                    Students can email <a href='mailt&#111;&#58;%63onta%&#54;3t%40w%&#54;9&#108;&#102;ord%&#55;&#55;o&#111;&#100;%72&#117;&#37;6&#54;fp%61pe&#114;s&#46;or%67' class="text-white underline font-semibold">cont&#97;&#99;t&#64;wil&#102;o&#114;dwoo&#100;&#114;&#117;ffpape&#114;&#115;&#46;or&#103;</a> to receive information about scholarships.
                                 </div>
                             </div>
                         </div>
