@@ -91,13 +91,8 @@
 
                                     </a>
                                 </div>
-                                <div class="mt-6 text-center">
-                                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeLU_uNelBB-fgHrLftWzjkU1FjKHbtT7-P8ezltzbbMorUyg/viewform?usp=sf_link"
-                                       target="_blank"
-                                       class="text-lg text-white font-semibold underline"
-                                    >
-                                        Learn about scholarship opportunities
-                                    </a>
+                                <div class="mt-6 text-center text-white">
+                                    Students can email <a href="mailto:cont%61ct@%77i%6Cfordwoo%64%72%75f%66%70apers.%6Frg" class="text-white underline font-semibold">contact@wilfordwoodruffpapers.org</a> to receive information about scholarships.
                                 </div>
                             </div>
                         </div>
