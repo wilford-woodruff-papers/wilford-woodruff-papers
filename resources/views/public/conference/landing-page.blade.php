@@ -50,12 +50,75 @@
         </div>
     </div>
 
-    <livewire:forms.email-capture
+    {{--<livewire:forms.email-capture
         :lists="[config('wwp.list_memberships.conference')]"
         title="ENTER YOUR EMAIL TO RECEIVE A REMINDER WHEN REGISTRATION OPENS JAN 11, 2023"
         success_title="We look forward to seeing you in March!"
         success_description="You should receive an email when the conference registration opens. Check back in November for more conference updates."
-    />
+    />--}}
+
+    <div>
+        <div class="bg-white">
+            <div class="relative sm:py-8">
+                <div aria-hidden="true" class="hidden sm:block">
+                    <div class="absolute inset-y-0 left-0 w-1/2 rounded-r-3xl"></div>
+                </div>
+                <div class="mx-auto px-0 sm:max-w-5xl sm:px-0 lg:max-w-7xl lg:px-8">
+                    <div class="relative overflow-hidden bg-secondary px-6 py-10 shadow-xl sm:px-24 lg:px-48 sm:py-20">
+                        <div aria-hidden="true" class="absolute inset-0 -mt-72 sm:-mt-32 md:mt-0">
+                            <svg class="absolute inset-0 h-full w-full" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 1463 360">
+                                <path class="text-secondary-500 text-opacity-40" fill="currentColor" d="M-82.673 72l1761.849 472.086-134.327 501.315-1761.85-472.086z" />
+                                <path class="text-secondary-700 text-opacity-40" fill="currentColor" d="M-217.088 544.086L1544.761 72l134.327 501.316-1761.849 472.086z" />
+                            </svg>
+                        </div>
+
+                        <div class="relative">
+                            <div class="text-center">
+                                <h2 class="text-xl md:text-3xl font-bold tracking-tight text-white sm:text-4xl uppercase">
+                                    Registration is Now Open
+                                </h2>
+                                <p class="mx-auto mt-2 max-w-2xl text-2xl font-semibold text-white">
+                                    Conference Pass $30
+                                </p>
+                                <div class="mt-6 sm:mx-auto sm:flex sm:max-w-lg">
+                                    <a href="https://2023wilfordwoodruffpapersconference.thundertix.com/"
+                                       target="_blank"
+                                       class="flex items-center justify-center gap-x-2 w-full border border-transparent bg-white px-5 py-3 text-xl font-semibold text-secondary shadow hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600 sm:px-10 uppercase">
+                                        Register Today <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 font-semibold">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                        </svg>
+
+
+                                    </a>
+                                </div>
+                                <div class="mt-6 text-center">
+                                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSeLU_uNelBB-fgHrLftWzjkU1FjKHbtT7-P8ezltzbbMorUyg/viewform?usp=sf_link"
+                                       target="_blank"
+                                       class="text-lg text-white font-semibold underline"
+                                    >
+                                        Learn about scholarship opportunities
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="max-w-7xl mx-auto px-3 pb-4 md:pb-8">
+        <a href="https://wilfordwoodruffpapers.org/conference/2023-building-latter-day-faith"
+           target="_blank"
+        >
+            <img src="https://wilfordwoodruffpapers.org/storage/announcements/J7DcSGPvofHxGF2vGdssXPtWj1U2w6N3yFWWQ2uj.png"
+                 alt="Art Contest Information"
+                 class="w-full h-auto"
+            >
+        </a>
+    </div>
+
 
     <div class="max-w-7xl mx-auto px-4 pb-4 md:pb-8">
         <h2 class="text-4xl md:text-6xl font-black text-secondary text-center py-8 mb-12">
