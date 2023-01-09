@@ -64,7 +64,8 @@ class ImportNewLettersFromPcfAction implements ShouldQueue
         }
 
         info($item);
-        // $item->save();
+
+        $item->save();
     }
 
     private function getSlug($url)
