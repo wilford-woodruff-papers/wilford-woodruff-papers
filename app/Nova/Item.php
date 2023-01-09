@@ -10,6 +10,7 @@ use App\Nova\Actions\ExportPcf;
 use App\Nova\Actions\ImportItems;
 use App\Nova\Actions\ImportPages;
 use App\Nova\Actions\ImportPcf;
+use App\Nova\Actions\PcfActions;
 use App\Nova\Filters\Status;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
@@ -168,6 +169,7 @@ class Item extends Resource
             new ImportItems,
             new ImportPcf,
             new ExportPcf(),
+            new PcfActions(),
         ];
     }
 }
