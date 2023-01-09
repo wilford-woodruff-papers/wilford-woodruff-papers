@@ -43,12 +43,27 @@ class HarvestItemsFromThePage extends Command
 
         $manifests = $response->json()['manifests'];
         $count = 0;
+        $countWithPCFID = 0;
+        $countWithoutPCFID = 0;
         foreach ($manifests as $key => $item) {
-            $document = Document::updateOrCreate([
-                'ftp_id' => $item['@id'],
-            ], [
-                'name' => $item['label'],
-            ]);
+            if (data_get($item, 'metadata.0.label') == 'dc:source') {
+                $identifier = data_get($item, 'metadata.0.value');
+                $prefix = str($identifier)->before('-');
+                $uniqueId = str($identifier)->after('-');
+                $document = Document::query()
+                    ->where('pcf_unique_id_prefix', $prefix)
+                    ->where('pcf_unique_id', $uniqueId)
+                    ->first();
+                $countWithPCFID = $countWithPCFID + 1;
+            } else {
+                $document = Document::query()
+                    ->where('ftp_id', $item['@id'])
+                    ->first();
+                $countWithoutPCFID = $countWithoutPCFID + 1;
+            }
+
+            $document->name = $item['label'];
+
             if (data_get($item, 'service.pctComplete', 0) == 100.0) {
                 $document->enabled = true;
             }
@@ -62,7 +77,10 @@ class HarvestItemsFromThePage extends Command
 
             $count = $count + 1;
         }
-        $this->info("Imported $count documents");
+
+        info("Imported $countWithPCFID documents with PCF ID");
+        info("Imported $countWithoutPCFID documents without PCF ID");
+        info("Imported $count documents");
 
         return 0;
     }
