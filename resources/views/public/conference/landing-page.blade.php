@@ -127,13 +127,13 @@
 
         <div class="grid grid-cols-1 md:grid-cols-3 md:h-[580px] px-16">
             <div class="order-2 md:order-1 grid content-end h-full">
-                <img src="{{ asset('img/conferences/2023/Steven-Wheelright.png') }}"
+                <img src="{{ asset('img/conferences/2023/Jennifer-Mackley.png') }}"
                      alt=""
                      class="w-full h-auto"
                 />
                 <div class="text-center py-4">
                     <div class="text-2xl text-dark-blue font-black">
-                        Steven C. Wheelwright
+                        Jennifer Ann Mackley
                     </div>
                     <div class="text-2xl text-dark-blue">
 
@@ -200,13 +200,13 @@
                 </div>--}}
             </div>
             <div class="order-3 md:order-3 grid content-end h-full">
-                <img src="{{ asset('img/conferences/2023/Ashlyn-Pells.png') }}"
+                <img src="{{ asset('img/conferences/2023/Steven-Wheelright.png') }}"
                      alt=""
                      class="w-full h-auto"
                 />
                 <div class="text-center py-4">
                     <div class="text-2xl text-dark-blue font-black">
-                        Ashlyn Dyer Pells
+                        Steven C. Wheelwright
                     </div>
                     <div class="text-2xl text-dark-blue">
 
@@ -370,7 +370,7 @@
             </div>
             <div class="col-span-2 md:col-span-1 flex flex-col space-y-2">
                 <p class="text-2xl text-secondary font-black">
-                    Ashlyn Dyer Pells, Editor
+                    Hovan Lawton, Ph.D. Student
                 </p>
                 <p class="text-xl text-dark-blue">
 
@@ -378,7 +378,7 @@
             </div>
             <div class="col-span-2 md:col-span-1 flex flex-col space-y-2">
                 <p class="text-2xl text-secondary font-black">
-                    Hovan Lawton, Ph.D. Student
+
                 </p>
                 <p class="text-xl text-dark-blue">
 
@@ -535,13 +535,13 @@
         <div class="grid grid-cols-3 md:grid-cols-4 gap-x-8 gap-y-8">
             {{-- Start row --}}
             <div class="text-xl text-dark-blue font-black text-right">
-                {{--12 - 1:20--}}
+                4:10 PM
             </div>
             <div class="col-span-2 md:col-span-3 flex flex-col space-y-4">
-                {{--<p class="text-xl text-dark-blue">
-                    Dinner & Featured Speaker
+                <p class="text-xl text-dark-blue">
+                    Closing Session
                 </p>
-                <p class="text-xl text-secondary font-black">
+                {{--<p class="text-xl text-secondary font-black">
                     Introduction
                 </p>--}}
                 {{--<p class="text-xl text-dark-blue">
@@ -551,22 +551,25 @@
             <div class="text-xl text-dark-blue font-black text-right">
             </div>
             <div class="col-span-2 md:col-span-3 grid grid-cols-1 md:grid-cols-3">
-            <div class="col-span-2 md:col-span-1 flex flex-col space-y-2">
+            <div class="col-span-2 md:col-span-2 flex flex-col space-y-2">
+                <p class="text-xl text-dark-blue">
+                    Moderator
+                </p>
                 <p class="text-2xl text-secondary font-black">
-                    Sarah Dunn
+                    Steve Harper
                 </p>
                 <p class="text-xl text-dark-blue">
-                    Presentation of Carol Sorenson Smith Awards
+                    Conversation with Laurel Thatcher Ulrich and Ellie Hancock, Ashlyn Pells, and Hovan Lawton
                 </p>
             </div>
-            <div class="col-span-2 md:col-span-1 flex flex-col space-y-2">
-                <p class="text-2xl text-secondary font-black">
-                    Alex Melecio
-                </p>
-                <p class="text-xl text-dark-blue">
-                    Special Musical Artist
-                </p>
-            </div>
+{{--            <div class="col-span-2 md:col-span-1 flex flex-col space-y-2">--}}
+{{--                <p class="text-2xl text-secondary font-black">--}}
+{{--                    --}}
+{{--                </p>--}}
+{{--                <p class="text-xl text-dark-blue">--}}
+{{--                    Conversation with Laurel Thatcher Ulrich and Ellie Hancock, Ashlyn Pells, and Hovan Lawton--}}
+{{--                </p>--}}
+{{--            </div>--}}
             <div class="col-span-2 md:col-span-1 flex flex-col space-y-2">
                 {{--<p class="text-2xl text-secondary font-black">
                     To Be Announced
