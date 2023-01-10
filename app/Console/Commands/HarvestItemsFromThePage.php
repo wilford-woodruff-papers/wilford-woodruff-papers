@@ -62,6 +62,16 @@ class HarvestItemsFromThePage extends Command
                 $countWithoutPCFID = $countWithoutPCFID + 1;
             }
 
+            if (empty($document)) {
+                $document = new Document();
+                if (! empty($uniqueId)) {
+                    $document->pcf_unique_id_prefix = $prefix;
+                    $document->pcf_unique_id = $uniqueId;
+                }
+                $this->info('New item created for: '.$item['label']);
+                $this->info('FTP ID: '.$item['@id']);
+            }
+
             $document->name = $item['label'];
 
             if (data_get($item, 'service.pctComplete', 0) == 100.0) {
