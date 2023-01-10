@@ -2,6 +2,8 @@
 
 namespace App\Nova\Actions;
 
+use App\Imports\AdditionalDocumentsFromPcfActions;
+use App\Imports\DiscoursesFromPcfActions;
 use App\Imports\LettersFromPcfActions;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -37,6 +39,12 @@ class PcfActions extends Action
             case 'Letters':
                 Excel::import(new LettersFromPcfActions($fields->action), $fields->file);
                 break;
+            case 'Additional Documents':
+                Excel::import(new AdditionalDocumentsFromPcfActions($fields->action), $fields->file);
+                break;
+            case 'Discourses':
+                Excel::import(new DiscoursesFromPcfActions($fields->action), $fields->file);
+                break;
         }
 
         return Action::message("$fields->action successfully processed");
@@ -52,6 +60,8 @@ class PcfActions extends Action
         return [
             Select::make('Type')
                 ->options([
+                    'Additional Documents' => 'Additional Documents',
+                    'Discourses' => 'Discourses',
                     'Letters' => 'Letters',
                 ])
                 ->rules('required'),
