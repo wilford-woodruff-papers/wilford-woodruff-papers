@@ -92,7 +92,7 @@
                                     </a>
                                 </div>
                                 <div class="mt-6 text-center text-white">
-                                    Students can email <a href='mailt&#111;&#58;%63onta%&#54;3t%40w%&#54;9&#108;&#102;ord%&#55;&#55;o&#111;&#100;%72&#117;&#37;6&#54;fp%61pe&#114;s&#46;or%67' class="text-white underline font-semibold">cont&#97;&#99;t&#64;wil&#102;o&#114;dwoo&#100;&#114;&#117;ffpape&#114;&#115;&#46;or&#103;</a> to receive information about scholarships.
+                                    Students can email <a href='&#109;&#97;ilto&#58;conf%65%72e&#110;&#99;%65&#64;wilfo%&#55;2&#100;woo&#100;%7&#50;uf&#37;&#54;&#54;pa&#112;ers&#46;%6&#70;&#114;g' class="text-white underline font-semibold">conferen&#99;e&#64;wilfor&#100;wo&#111;dru&#102;&#102;papers&#46;org</a> to receive information about scholarships.
                                 </div>
                             </div>
                         </div>
