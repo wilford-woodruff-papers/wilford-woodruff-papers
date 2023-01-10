@@ -53,12 +53,12 @@ class ImportNewLettersFromPcfAction implements ShouldQueue
         $item = Item::query()->firstOrNew([
             'pcf_unique_id' => $uniqueID,
             'type_id' => $type->id,
-        ], [
-            'pcf_unique_id_prefix' => 'LE',
-            'notes' => data_get($this->row, str('Notes')->lower()->snake()->toString()),
-            'chl_link' => data_get($this->row, 'link_to_pdfimage_formula_do_not_edit'),
-            'external_transcript' => data_get($this->row, 'link_to_transcript_formula_do_not_edit'),
         ]);
+
+        $item->pcf_unique_id_prefix = 'LE';
+        $item->notes = data_get($this->row, str('Notes')->lower()->snake()->toString());
+        $item->chl_link = data_get($this->row, 'link_to_pdfimage_formula_do_not_edit');
+        $item->external_transcript = data_get($this->row, 'link_to_transcript_formula_do_not_edit');
 
         if (empty($item->name)) {
             $item->name = data_get($this->row, 'identifier_formula_do_not_edit');
