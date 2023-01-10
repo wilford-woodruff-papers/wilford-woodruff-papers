@@ -56,6 +56,7 @@ class ImportNewLettersFromPcfAction implements ShouldQueue
         ], [
             'pcf_unique_id_prefix' => 'LE',
             'notes' => data_get($this->row, str('Notes')->lower()->snake()->toString()),
+            'chl_link' => data_get($this->row, 'link_to_pdfimage_formula_do_not_edit'),
             'external_transcript' => data_get($this->row, 'link_to_transcript_formula_do_not_edit'),
         ]);
 
