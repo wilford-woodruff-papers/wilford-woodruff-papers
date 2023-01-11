@@ -104,7 +104,7 @@
     </div>
 
     <div class="max-w-7xl mx-auto px-3 pb-4 md:pb-8">
-        <a href="https://wilfordwoodruffpapers.org/conference/2023-building-latter-day-faith"
+        <a href="https://wilfordwoodruffpapers.org/announcements/2023-building-latter-day-faith-conference-arts-contest-rules"
            target="_blank"
         >
             <img src="https://wilfordwoodruffpapers.org/storage/announcements/J7DcSGPvofHxGF2vGdssXPtWj1U2w6N3yFWWQ2uj.png"
@@ -414,7 +414,7 @@
             </div>
             <div class="col-span-2 md:col-span-1 flex flex-col space-y-2">
                 <p class="text-2xl text-secondary font-black">
-                    
+
                 </p>
                 <p class="text-xl text-dark-blue">
 
