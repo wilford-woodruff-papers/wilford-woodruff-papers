@@ -414,7 +414,7 @@
             </div>
             <div class="col-span-2 md:col-span-1 flex flex-col space-y-2">
                 <p class="text-2xl text-secondary font-black">
-                    
+
                 </p>
                 <p class="text-xl text-dark-blue">
 

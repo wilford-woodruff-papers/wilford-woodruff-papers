@@ -37,7 +37,7 @@
                 </div>
             </form>
 
-            <div class="relative my-12">
+            <div class="relative mt-12 mb-4">
                 <div wire:loading
                      class="absolute w-full h-full bg-white opacity-75"
                 >
@@ -52,25 +52,53 @@
                     <table class="divide-y divide-gray-30">
                         <thead class="bg-black">
                             <tr>
-                                <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-6">Category</th>
-                                <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-6">Steps</th>
-                                <th class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-white sm:pl-6">Letters<br/>(pages)</th>
-                                <th class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-white sm:pl-6">Discourses<br/>(pages)</th>
-                                <th class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-white sm:pl-6">Journals<br/>(pages)</th>
-                                <th class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-white sm:pl-6">Additional<br/>(pages)</th>
-                                <th class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-white sm:pl-6">Autobiographies<br/>(pages)</th>
+                                <th colspan="2" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-6 border border-black"></th>
+                                <th class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-white sm:pl-6 border border-black">Letters<br/>(pages)</th>
+                                <th class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-white sm:pl-6 border border-black">Discourses<br/>(pages)</th>
+                                <th class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-white sm:pl-6 border border-black">Journals<br/>(pages)</th>
+                                <th class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-white sm:pl-6 border border-black">Additional<br/>(pages)</th>
+                                <th class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-white sm:pl-6 border border-black">Autobiographies<br/>(pages)</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white">
+                            <tr class="bg-[#cccccc]">
+                                <td class="text-center text-sm text-black border border-black">Category</td>
+                                <td class="text-center text-sm text-black border border-black">Steps</td>
+                                <td class="text-center text-sm text-black border border-black">Actual/Goal</td>
+                                <td class="text-center text-sm text-black border border-black">Actual/Goal</td>
+                                <td class="text-center text-sm text-black border border-black">Actual/Goal</td>
+                                <td class="text-center text-sm text-black border border-black">Actual/Goal</td>
+                                <td class="text-center text-sm text-black border border-black">Actual/Goal</td>
+                            </tr>
+
+                            <tr>
+                                <td rowspan="1" class="py-3.5 pl-1 pr-3 text-left text-sm font-semibold text-gray-900 border border-black">
+                                    Preparation
+                                </td>
+                                <td class="py-3.5 pl-1 pr-3 text-left text-sm font-semibold text-gray-900 border border-black">
+                                    Access/Organize
+                                </td>
+                                <td class=" border border-black"></td>
+                                <td class=" border border-black"></td>
+                                <td class=" border border-black"></td>
+                                <td class=" border border-black"></td>
+                                <td class=" border border-black"></td>
+                            </tr>
+
                             @foreach($pageStats as $key => $stat)
                                 <tr>
-                                    @if($loop->first) <td rowspan="3" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Processing</td> @endif
-                                    <td class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                                    @if($loop->first)
+                                        <td rowspan="3" class="py-3.5 pl-1 pr-3 text-left text-sm font-semibold text-gray-900 border border-black">
+                                            Processing
+                                        </td>
+                                    @endif
+
+                                    <td class="py-2.5 pl-1 pr-3 text-left text-sm font-semibold text-gray-900 border border-black">
                                         {{ str($key) }}
                                     </td>
 
                                     @foreach($docTypes as $docType)
-                                        <td class="text-center text-sm font-semibold text-gray-900">
+                                        <td class="text-center text-sm font-semibold text-gray-900 border border-black">
                                             <div class="flex flex-col">
                                                 <div>
                                                     {{ $stat->where('document_type', $docType)->first()?->total ?? 0}} / {{ $goals[$key][$docType] }}
@@ -86,13 +114,72 @@
                                             </div>
                                         </td>
                                     @endforeach
-                                    
+
                                 </tr>
                             @endforeach
                         </tbody>
                         <tfoot></tfoot>
                     </table>
                 @endif
+
+
+                <div class="my-2">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td class="py-2 px-2 text-center text-sm text-white bg-black border border-black">Identify People</td>
+                                <td class="py-2 px-2 text-center text-sm text-white bg-black border border-black">Write Biographies</td>
+                                <td class="py-2 px-2 text-center text-sm text-white bg-black border border-black">Identify Places</td>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white">
+                            <tr class="bg-[#cccccc]">
+                                <td class="text-center text-sm text-black border border-black">Category</td>
+                                <td class="text-center text-sm text-black border border-black">Steps</td>
+                                <td class="text-center text-sm text-black border border-black">Actual/Goal</td>
+                                <td class="text-center text-sm text-black border border-black">Actual/Goal</td>
+                                <td class="text-center text-sm text-black border border-black">Actual/Goal</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="3" class="py-3.5 pl-1 pr-4 text-left text-sm font-semibold text-gray-900 border border-black">
+                                    Research
+                                </td>
+                                <td class="py-3.5 pl-1 pr-4 text-left text-sm font-semibold text-gray-900 border border-black">
+                                    Access/Organize
+                                </td>
+                                <td class=" border border-black"></td>
+                                <td class=" border border-black"></td>
+                                <td class=" border border-black"></td>
+                            </tr>
+                        </tbody>
+                        <tfoot></tfoot>
+                    </table>
+                </div>
+
+            </div>
+
+
+
+            <div class="my-2">
+                <table>
+                    <thead>
+                        <tr>
+                            <td class="text-center text-sm text-white bg-black border border-black">Color Key</td>
+                            <td colspan="3"></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="pl-1 pr-12 text-sm text-black bg-[#e06666] border border-black">Under 70% of annual goal</td>
+                            <td class="pl-1 pr-12 text-sm text-black bg-[#ffd966] border border-black">71-99% of annual goal</td>
+                            <td class="pl-1 pr-12 text-sm text-black bg-[#93c47d] border border-black">100-119% of annual goal</td>
+                            <td class="pl-1 pr-12 text-sm text-black bg-[#ff50c5] border border-black">120%+ of annual goal</td>
+                        </tr>
+                    </tbody>
+                    <tfoot></tfoot>
+                </table>
             </div>
         </div>
     </div>
