@@ -1,7 +1,7 @@
 <div wire:init="loadStats">
 
     <div class="mt-4 max-w-7xl mx-auto">
-        <div class="py-4">
+        <div class="pt-4 pb-0">
 
             <h1 class="text-2xl font-semibold mb-2">
                 Individual Activity
@@ -117,5 +117,36 @@
                 </div>
             </div>
         </div>
+
+        @if($currentTasks)
+            <div class="mt-8 flex flex-col">
+                <h1 class="text-xl font-semibold">
+                    Current Tasks
+                </h1>
+                <div class="">
+                    <table>
+                        <thead></thead>
+                        <tbody class="bg-white">
+                            @foreach($currentTasks as $task)
+                                <tr>
+                                    <td class="py-2 px-3">
+                                        {{ $task->pcf_unique_id_full }}
+                                    </td>
+                                    <td class="py-2 px-3">
+                                        <a href="{{ route('admin.dashboard.document', ['item' => $task]) }}"
+                                           class="font-medium text-indigo-600 capitalize"
+                                        >
+                                            {{ $task->name }}
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot></tfoot>
+                    </table>
+                </div>
+            </div>
+        @endif
+
     </div>
 </div>
