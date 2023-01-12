@@ -19,6 +19,7 @@ class IndividualActivity extends Component
 
     protected $queryString = [
         'dates',
+        'currentUserId',
     ];
 
     public $readyToLoad = false;
@@ -31,9 +32,7 @@ class IndividualActivity extends Component
 
     public $users;
 
-    public $pageStats;
-
-    public $currentTasks = [];
+    public $activities;
 
     public function mount()
     {
@@ -49,18 +48,24 @@ class IndividualActivity extends Component
             ->orderBy('name')
             ->get();
 
-        $this->pageStats = [
-            'completed' => [],
-            'in_progress' => [],
+        $this->activities = [
+            'completed' => [
+                'stats' => [],
+                'tasks' => [],
+            ],
+            'in_progress' => [
+                'stats' => [],
+                'tasks' => [],
+            ],
         ];
 
         $this->types = ActionType::query()
             //->role(auth()->user()->roles)
-            ->whereIn('name', [
-                'Transcription',
-                'Verification',
-                'Stylization',
-            ])
+//            ->whereIn('name', [
+//                'Transcription',
+//                'Verification',
+//                'Stylization',
+//            ])
             ->orderBY('name', 'ASC')
             ->get();
 
@@ -76,7 +81,7 @@ class IndividualActivity extends Component
     public function render()
     {
         if ($this->readyToLoad) {
-            $this->pageStats['completed'] = collect(DB::table('actions')
+            $this->activities['completed']['stats'] = collect(DB::table('actions')
                 ->select([
                     DB::raw('action_types.name AS action_name'),
                     DB::raw('actions.action_type_id'),
@@ -102,7 +107,7 @@ class IndividualActivity extends Component
                 ->get())
                 ->groupBy('action_name');
 
-            $this->pageStats['in_progress'] = collect(DB::table('actions')
+            $this->activities['in_progress']['stats'] = collect(DB::table('actions')
                 ->select([
                     DB::raw('action_types.name AS action_name'),
                     DB::raw('actions.action_type_id'),
@@ -129,7 +134,18 @@ class IndividualActivity extends Component
                 ->get())
                 ->groupBy('action_name');
 
-            $this->currentTasks = Item::query()
+            $this->activities['completed']['tasks'] = Item::query()
+                ->whereNotNull('pcf_unique_id')
+                ->whereHas('actions', function (Builder $query) {
+                    $query->where('actions.completed_by', $this->currentUserId)
+                        ->whereNotNull('actions.completed_at')
+                        ->whereDate('actions.completed_at', '>=', $this->dates['start'])
+                        ->whereDate('actions.completed_at', '<=', $this->dates['end']);
+                })
+                ->orderBy('items.name')
+                ->get();
+
+            $this->activities['in_progress']['tasks'] = Item::query()
                 ->whereNotNull('pcf_unique_id')
                 ->whereHas('actions', function (Builder $query) {
                     $query->where('actions.assigned_to', $this->currentUserId)

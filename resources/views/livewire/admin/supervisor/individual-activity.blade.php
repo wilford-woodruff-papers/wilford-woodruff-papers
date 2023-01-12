@@ -63,53 +63,84 @@
                 </div>
 
                 <div>
-                    @foreach($pageStats as $key => $pageStat)
-                        <div class="divide-y-2 divide-gray-500">
-                            <div class="my-4">
-                                <h2 class="text-xl font-semibold">
-                                    {{ str($key)->snake()->replace('_', ' ')->title() }}
-                                </h2>
-                                @if(! empty($pageStat))
-                                    <table class="divide-y divide-gray-30">
-                                        <thead class="bg-black">
-                                        <tr>
-                                            <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-6">Category</th>
-                                            <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-6">Steps</th>
-                                            <th class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-white sm:pl-6">Letters<br/>(pages)</th>
-                                            <th class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-white sm:pl-6">Discourses<br/>(pages)</th>
-                                            <th class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-white sm:pl-6">Journals<br/>(pages)</th>
-                                            <th class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-white sm:pl-6">Additional<br/>(pages)</th>
-                                            <th class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-white sm:pl-6">Autobiographies<br/>(pages)</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody class="bg-white">
-                                        @foreach($pageStat as $key => $stat)
+                    @foreach($activities as $key => $activity)
+                        <div class="mb-12">
+                            <div>
+                                <div class="my-2">
+                                    @if(count($activity['stats']) > 0)
+                                        <h2 class="text-xl font-semibold">
+                                            {{ str($key)->snake()->replace('_', ' ')->title() }} Task Stats
+                                        </h2>
+                                        <table class="divide-y divide-gray-30">
+                                            <thead class="bg-black">
                                             <tr>
-                                                @if($loop->first)
-                                                    <td rowspan="3" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
-                                                        Processing
-                                                    </td>
-                                                @endif
-
-                                                <td class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
-                                                    {{ str($key) }}
-                                                </td>
-
-                                                @foreach($docTypes as $docType)
-                                                    <td class="text-center text-sm font-semibold text-gray-900">
-                                                        <div class="flex flex-col">
-                                                            <div>
-                                                                {{ $stat->where('document_type', $docType)->first()?->total ?? 0}}
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                @endforeach
-
+                                                <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-6">Steps</th>
+                                                <th class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-white sm:pl-6">Letters<br/>(pages)</th>
+                                                <th class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-white sm:pl-6">Discourses<br/>(pages)</th>
+                                                <th class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-white sm:pl-6">Journals<br/>(pages)</th>
+                                                <th class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-white sm:pl-6">Additional<br/>(pages)</th>
+                                                <th class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-white sm:pl-6">Autobiographies<br/>(pages)</th>
                                             </tr>
-                                        @endforeach
-                                        </tbody>
-                                        <tfoot></tfoot>
-                                    </table>
+                                            </thead>
+                                            <tbody class="bg-white">
+                                            @foreach($activity['stats'] as $taskName => $stat)
+                                                <tr>
+
+                                                    <td class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                                                        {{ str($taskName) }}
+                                                    </td>
+
+                                                    @foreach($docTypes as $docType)
+                                                        <td class="text-center text-sm font-semibold text-gray-900">
+                                                            <div class="flex flex-col">
+                                                                <div>
+                                                                    {{ $stat->where('document_type', $docType)->first()?->total ?? 0}}
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    @endforeach
+
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                            <tfoot></tfoot>
+                                        </table>
+                                    @endif
+                                </div>
+                            </div>
+                            <div>
+                                @if(count($activity['tasks']) > 0)
+                                    <div class="mt-8 flex flex-col">
+                                        <h1 class="text-xl font-semibold py-1">
+                                            {{ str($key)->snake()->replace('_', ' ')->title() }} Task List
+                                        </h1>
+                                        <div class="">
+                                            <table>
+                                                <thead></thead>
+                                                <tbody class="bg-white">
+                                                @foreach($activity['tasks'] as $task)
+                                                    <tr>
+                                                        <td class="py-2 px-3">
+                                                            <span class="inline-flex">
+                                                                {{ $task->pcf_unique_id_full }}
+                                                            </span>
+
+                                                        </td>
+                                                        <td class="py-2 px-3">
+                                                            <a href="{{ route('admin.dashboard.document', ['item' => $task]) }}"
+                                                               class="font-medium text-indigo-600 capitalize"
+                                                               target="_blank"
+                                                            >
+                                                                {{ $task->name }}
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                                </tbody>
+                                                <tfoot></tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
                                 @endif
                             </div>
                         </div>
@@ -117,36 +148,6 @@
                 </div>
             </div>
         </div>
-
-        @if($currentTasks)
-            <div class="mt-8 flex flex-col">
-                <h1 class="text-xl font-semibold">
-                    Current Tasks
-                </h1>
-                <div class="">
-                    <table>
-                        <thead></thead>
-                        <tbody class="bg-white">
-                            @foreach($currentTasks as $task)
-                                <tr>
-                                    <td class="py-2 px-3">
-                                        {{ $task->pcf_unique_id_full }}
-                                    </td>
-                                    <td class="py-2 px-3">
-                                        <a href="{{ route('admin.dashboard.document', ['item' => $task]) }}"
-                                           class="font-medium text-indigo-600 capitalize"
-                                        >
-                                            {{ $task->name }}
-                                        </a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                        <tfoot></tfoot>
-                    </table>
-                </div>
-            </div>
-        @endif
 
     </div>
 </div>
