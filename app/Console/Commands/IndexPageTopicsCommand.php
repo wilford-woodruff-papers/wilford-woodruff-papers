@@ -32,7 +32,7 @@ class IndexPageTopicsCommand extends Command
                 ->whereHas('item', function (Builder $query) {
                     $query->where('enabled', 1);
                 })
-                ->where('transcript', 'LIKE', '%'.$topic->name.'%')
+                ->where('transcript', 'LIKE', '% '.$topic->name.' %')
                 ->get();
             $this->info($key.' '.$topic->name.': '.$pages->count());
 

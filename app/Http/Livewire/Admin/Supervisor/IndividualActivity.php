@@ -3,8 +3,10 @@
 namespace App\Http\Livewire\Admin\Supervisor;
 
 use App\Models\ActionType;
+use App\Models\Item;
 use App\Models\Page;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
@@ -31,6 +33,8 @@ class IndividualActivity extends Component
 
     public $pageStats;
 
+    public $currentTasks = [];
+
     public function mount()
     {
         $this->dates = [
@@ -38,7 +42,7 @@ class IndividualActivity extends Component
             'end' => request('dates.end') ?? now('America/Denver')->endOfWeek()->toDateString(),
         ];
 
-        $this->currentUserId = request('dates.start') ?? auth()->id();
+        $this->currentUserId = request('currentUserId') ?? auth()->id();
 
         $this->users = User::query()
             ->role(['Editor'])
@@ -113,6 +117,7 @@ class IndividualActivity extends Component
                 ->where('actions.actionable_type', Page::class)
                 ->whereIn('actions.action_type_id', $this->types->pluck('id')->all())
                 ->where('actions.assigned_to', $this->currentUserId)
+                ->whereNotNull('items.pcf_unique_id')
                 ->whereNull('actions.completed_at')
                 ->groupBy([
                     'types.name',
@@ -123,6 +128,15 @@ class IndividualActivity extends Component
                 ->orderBy('action_types.order_column')
                 ->get())
                 ->groupBy('action_name');
+
+            $this->currentTasks = Item::query()
+                ->whereNotNull('pcf_unique_id')
+                ->whereHas('actions', function (Builder $query) {
+                    $query->where('actions.assigned_to', $this->currentUserId)
+                        ->whereNull('actions.completed_at');
+                })
+                ->orderBy('items.name')
+                ->get();
         }
 
         return view('livewire.admin.supervisor.individual-activity')
