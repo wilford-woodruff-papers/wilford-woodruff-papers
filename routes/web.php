@@ -235,6 +235,10 @@ Route::group(['middleware' => ['role:Super Admin|Editor']], function () {
         ->name('admin.supervisor.dashboard');
 
     Route::middleware(['auth:sanctum', 'verified'])
+        ->get('/admin/supervisor/individual-activity', \App\Http\Livewire\Admin\Supervisor\IndividualActivity::class)
+        ->name('admin.supervisor.individual-activity');
+
+    Route::middleware(['auth:sanctum', 'verified'])
         ->get('/admin/dashboard/goals', \App\Http\Livewire\Admin\Goals::class)
         ->name('admin.dashboard.goals.index');
 
