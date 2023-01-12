@@ -9,9 +9,15 @@
                 </div>
                 <nav aria-label="Global" class="hidden lg:ml-6 lg:flex lg:items-center lg:space-x-4">
                     <a href="{{ route('admin.dashboard') }}" class="px-3 py-2 @if(Route::currentRouteName() == 'admin.dashboard') text-indigo-600 @else text-gray-900 @endif text-sm font-medium"> Dashboard </a>
-                    <a href="{{ route('admin.supervisor.individual-activity') }}" class="px-3 py-2 @if(Route::currentRouteName() == 'admin.supervisor.individual-activity') text-indigo-600 @else text-gray-900 @endif text-sm font-medium"> Supervisor Dashboard </a>
-                    <a href="{{ route('admin.dashboard.document.index') }}" class="px-3 py-2  @if(Route::currentRouteName() == 'admin.dashboard.document.index') text-indigo-600 @else text-gray-900 @endif text-sm font-medium"> Documents </a>
-                    <a href="{{ route('admin.dashboard.quotes.index') }}" class="px-3 py-2  @if(Route::currentRouteName() == 'admin.dashboard.quotes.index') text-indigo-600 @else text-gray-900 @endif text-sm font-medium"> Quotes </a>
+                    @if(auth()->user()->hasRole(\App\Models\Type::query()->whereNull('type_id')->pluck('name')->transform(function($type){ return $type . ' Supervisor'; })->all()))
+                        <a href="{{ route('admin.supervisor.individual-activity') }}" class="px-3 py-2 @if(Route::currentRouteName() == 'admin.supervisor.individual-activity') text-indigo-600 @else text-gray-900 @endif text-sm font-medium"> Supervisor Dashboard </a>
+                    @endif
+                    @if(auth()->user()->hasRole(\App\Models\Type::query()->whereNull('type_id')->pluck('name')->transform(function($type){ return $type . ' Supervisor'; })->all()))
+                        <a href="{{ route('admin.dashboard.document.index') }}" class="px-3 py-2  @if(Route::currentRouteName() == 'admin.dashboard.document.index') text-indigo-600 @else text-gray-900 @endif text-sm font-medium"> Documents </a>
+                    @endif
+                    @if(auth()->user()->hasAnyRole(['Quote Tagging', 'Approve Quotes', 'Admin', 'Super Admin']))
+                        <a href="{{ route('admin.dashboard.quotes.index') }}" class="px-3 py-2  @if(Route::currentRouteName() == 'admin.dashboard.quotes.index') text-indigo-600 @else text-gray-900 @endif text-sm font-medium"> Quotes </a>
+                    @endif
                     <x-admin.menu.dropdown :text="'ADMIN'" :links="['Goals' => ['url' => route('admin.dashboard.goals.index'), 'auth' => auth()->user()->hasRole(\App\Models\Type::query()->whereNull('type_id')->pluck('name')->transform(function($type){ return $type . ' Supervisor'; })->all())], 'Reporting' => ['url' => route('admin.reports.index'), 'auth' => auth()->user()->hasRole(\App\Models\Type::query()->whereNull('type_id')->pluck('name')->transform(function($type){ return $type . ' Supervisor'; })->all())], 'Progress Matrix' => ['url' => route('admin.reports.progress-matrix'), 'auth' => auth()->user()->hasRole(\App\Models\Type::query()->whereNull('type_id')->pluck('name')->transform(function($type){ return $type . ' Supervisor'; })->all())]]"/>
                 </nav>
             </div>
