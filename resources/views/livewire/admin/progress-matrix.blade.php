@@ -9,6 +9,20 @@
 
             <form wire:submit.prevent="update" class="flex gap-x-4">
                 <div>
+                    <label for="user" class="block text-sm font-medium text-gray-700">Completed By</label>
+                    <div class="mt-1">
+                        <select wire:model="currentUserId"
+                                id="currentUserId"
+                                class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        >
+                            <option value="">-- Select Person --</option>
+                            @foreach($users as $user)
+                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div>
                     <label for="start" class="block text-sm font-medium text-gray-700">Starting Date</label>
                     <div class="mt-1">
                         <input wire:model.defer="dates.start"
@@ -86,7 +100,7 @@
                                             </div>
                                         </td>
                                     @endforeach
-                                    
+
                                 </tr>
                             @endforeach
                         </tbody>

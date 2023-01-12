@@ -6,6 +6,7 @@ use App\Models\ActionType;
 use App\Models\Goal;
 use App\Models\Page;
 use App\Models\Type;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
@@ -18,11 +19,16 @@ class ProgressMatrix extends Component
 
     protected $queryString = [
         'dates',
+        'currentUserId',
     ];
 
     public $readyToLoad = false;
 
     public $types;
+
+    public $currentUserId;
+
+    public $users;
 
     public function mount()
     {
@@ -40,6 +46,11 @@ class ProgressMatrix extends Component
                             ])
                             ->orderBY('name', 'ASC')
                             ->get();
+
+        $this->users = User::query()
+            ->role(['Editor'])
+            ->orderBy('name')
+            ->get();
     }
 
     public function render()
@@ -67,6 +78,9 @@ class ProgressMatrix extends Component
                 ->join('types', 'types.id', '=', 'items.type_id')
                 ->where('actions.actionable_type', Page::class)
                 ->whereIn('actions.action_type_id', $this->types->pluck('id')->all())
+                ->when($this->currentUserId, function ($query, $userId) {
+                    $query->where('actions.completed_by', $userId);
+                })
                 ->groupBy([
                     'types.name',
                     'actions.actionable_type',
