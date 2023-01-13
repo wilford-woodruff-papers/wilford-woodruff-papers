@@ -21,13 +21,13 @@
                     </div>
                     <div class="col-span-12 md:col-span-9">
                         <div class="grid grid-cols-1 gap-x-4 mb-12">
-                            @foreach($partnerCategories as $key => $partners)
-                                @if(count($partners) > 0)
+                            @foreach($partnerCategories as $key => $partnerCategory)
+                                @if($partnerCategory->count() > 0)
                                     <div x-data="{
                                             show: true,
                                         }"
                                          role="region">
-                                        <div class="max-w-7xl mx-auto px-12 mt-4 mb-12">
+                                        <div class="max-w-7xl mx-auto px-12 mt-4 mb-4">
                                             <div class="flex items-center border-b-2 border-[#707070] ">
                                                 <div x-on:click="show = !show"
                                                      class="flex items-center py-4 cursor-pointer">
@@ -50,16 +50,21 @@
                                                         class="flex w-full items-center"
                                                     >
                                                         <h3 class="font-serif text-xl md:text-2xl leading-5 font-medium text-black font-medium">
-                                                            {{ $key }}
+                                                            {{ $partnerCategory->name }}
                                                         </h3>
                                                     </button>
                                                 </div>
                                             </div>
                                         </div>
+                                        <div x-show="show"
+                                             x-collapse
+                                             class="mb-12 px-4 text-primary text-lg text-justify">
+                                            {!! $partnerCategory->description !!}
+                                        </div>
                                         <ul x-show="show"
                                             x-collapse
                                             role="list" class="space-y-12 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-12 sm:space-y-0 lg:grid-cols-4 lg:gap-x-8 mb-16">
-                                            @foreach($partners->sortBy('order_column') as $partner)
+                                            @foreach($partnerCategory->partners as $partner)
                                                 <li class="flex items-center justify-center">
                                                     <a href="{{ $partner->url }}"
                                                        target="_blank"

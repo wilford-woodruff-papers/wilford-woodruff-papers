@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 
-class Parter extends Model implements Sortable
+class PartnerCategory extends Model implements Sortable
 {
     use HasFactory;
     use SortableTrait;
@@ -19,8 +19,8 @@ class Parter extends Model implements Sortable
         'sort_when_creating' => true,
     ];
 
-    public function buildSortQuery()
+    public function partners()
     {
-        return static::query()->where('category', $this->category);
+        return $this->hasMany(Partner::class)->ordered();
     }
 }
