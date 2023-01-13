@@ -4,14 +4,25 @@ namespace App\Nova;
 
 use App\Nova\Actions\ExportTimeline;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\MorphToMany;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Event extends Resource
 {
     public static $group = 'Website';
+
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        return $query->orderBy('start_year')
+            ->orderBy('start_month')
+            ->orderBy('start_day')
+            ->orderBy('end_year')
+            ->orderBy('end_month')
+            ->orderBy('end_day');
+    }
 
     public static function label()
     {
@@ -40,7 +51,6 @@ class Event extends Resource
     public static $search = [
         'id',
         'text',
-        'start_at',
     ];
 
     /**
@@ -52,9 +62,17 @@ class Event extends Resource
     public function fields(Request $request)
     {
         return [
-            ID::make(__('ID'), 'id')->sortable(),
-            Text::make(__('Description'), 'text')->sortable(),
-            Date::make(__('Date'), 'start_at')->sortable(),
+            ID::make(__('ID'), 'id'),
+            Text::make(__('Description'), 'text')
+                ->displayUsing(function ($value) {
+                    return str($value)->limit(40, '...');
+                }),
+            Number::make('Start Year'),
+            Number::make('Start Month'),
+            Number::make('Start Day'),
+            Number::make('End Year'),
+            Number::make('End Month'),
+            Number::make('End Day'),
             MorphToMany::make('Photos'),
             MorphToMany::make('Pages')->searchable(),
             /*->fields(function(){
