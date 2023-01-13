@@ -47,10 +47,15 @@
                                                                     >
                                                                 @endif
 
-                                                                @if($event->start_month) {{ $event->start_at?->toFormattedDateString() }} @else {{ $event->start_year }} @endif
+                                                                {{ $event->formattedDate('start') }}
+                                                                @if(! empty($event->formattedDate('end')))
+                                                                   - {{ $event->formattedDate('end') }}
+                                                                @endif
+
+                                                                {{--@if($event->start_month) {{ $event->start_at?->toFormattedDateString() }} @else {{ $event->start_year }} @endif
                                                                 @if($event->end_at)
                                                                     - @if($event->end_month) {{ $event->end_at->toFormattedDateString() }} @else {{ $event->end_year }} @endif
-                                                                @endif
+                                                                @endif--}}
 
                                                                 @if($event->pages->count() > 0)
                                                                     </a>
@@ -102,10 +107,14 @@
                                                         <!-- Even row -->
                                                         <tr class="bg-gray-50">
                                                             <td class="px-6 py-4 whitespace-normal text-sm font-medium text-gray-900">
-                                                                @if($event->start_month) {{ $event->start_at?->toFormattedDateString() }} @else {{ $event->start_year }} @endif
+                                                                {{ $event->formattedDate('start') }}
+                                                                @if(! empty($event->formattedDate('end')))
+                                                                    - {{ $event->formattedDate('end') }}
+                                                                @endif
+                                                                {{--@if($event->start_month) {{ $event->start_at?->toFormattedDateString() }} @else {{ $event->start_year }} @endif
                                                                 @if($event->end_at)
                                                                     - @if($event->end_month) {{ $event->end_at->toFormattedDateString() }} @else {{ $event->end_year }} @endif
-                                                                @endif
+                                                                @endif--}}
                                                             </td>
                                                             <td>
                                                                 @if($event->photos->count() > 0)
