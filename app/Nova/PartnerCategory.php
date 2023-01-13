@@ -2,28 +2,26 @@
 
 namespace App\Nova;
 
+use Emilianotisato\NovaTinyMCE\NovaTinyMCE;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\Image;
-use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use MichielKempen\NovaOrderField\Orderable;
 use MichielKempen\NovaOrderField\OrderField;
 
-class Parter extends Resource
+class PartnerCategory extends Resource
 {
     use Orderable;
 
     public static $group = 'Website';
-
-    public static $defaultOrderField = 'order_column';
 
     /**
      * The model the resource corresponds to.
      *
      * @var string
      */
-    public static $model = \App\Models\Parter::class;
+    public static $model = \App\Models\PartnerCategory::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -38,7 +36,6 @@ class Parter extends Resource
      * @var array
      */
     public static $search = [
-        'id',
         'name',
     ];
 
@@ -53,18 +50,13 @@ class Parter extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
             OrderField::make('Order', 'order_column'),
-            Select::make('Category')
+            Text::make('Name'),
+            NovaTinyMCE::make('Description')
                 ->options([
-                    'Foundational Partners' => 'Foundational Partners',
-                    'Outreach Partners' => 'Outreach Partners',
-                    'Media Partners' => 'Media Partners',
-                    'Technology Partners' => 'Technology Partners',
+                    'height' => 500,
                 ])
-                ->required(),
-            Image::make('logo')->disk('partners'),
-            Text::make('name'),
-            Text::make('url')
-                ->hideFromIndex(),
+                ->alwaysShow(),
+            HasMany::make('Partners'),
         ];
     }
 

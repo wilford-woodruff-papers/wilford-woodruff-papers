@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Parter;
+use App\Models\PartnerCategory;
 
 class ParterController extends Controller
 {
@@ -14,9 +14,10 @@ class ParterController extends Controller
     public function index()
     {
         return view('public.partners.index', [
-            'partnerCategories' => Parter::query()
-                                    ->get()
-                                    ->groupBy('category'),
+            'partnerCategories' => PartnerCategory::query()
+                                    ->with('partners')
+                                    ->ordered()
+                                    ->get(),
         ]);
     }
 }
