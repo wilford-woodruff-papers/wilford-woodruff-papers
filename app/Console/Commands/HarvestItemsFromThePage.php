@@ -64,9 +64,14 @@ class HarvestItemsFromThePage extends Command
 
             if (empty($document)) {
                 $document = new Document();
+                $identifier = data_get($item, 'metadata.0.value');
+                $prefix = str($identifier)->before('-');
+                $uniqueId = str($identifier)->after('-');
                 if (! empty($uniqueId)) {
                     $document->pcf_unique_id_prefix = $prefix;
                     $document->pcf_unique_id = $uniqueId;
+                } else {
+                    continue;
                 }
                 $this->info('New item created for: '.$item['label']);
                 $this->info('FTP ID: '.$item['@id']);
