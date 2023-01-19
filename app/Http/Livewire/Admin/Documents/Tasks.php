@@ -45,13 +45,13 @@ class Tasks extends Component
         $unassignedItems = Item::query()
             ->select('items.*', DB::raw('(SELECT COUNT(*) FROM pages WHERE pages.item_id = items.id) as pages_count'))
             ->whereNotNull('pcf_unique_id')
-            ->with(
+            ->with([
                 'unassigned_actions',
                 'unassigned_actions.type',
                 'unassigned_actions.type.roles',
                 'completed_actions',
                 'completed_actions.type',
-            )
+            ])
             ->when($this->type, function ($query, $type) {
                 $query->where('type_id', $type);
             })
