@@ -39,25 +39,40 @@
         <div>
             @if ($showFilters)
                 <div class="bg-cool-gray-200 p-4 rounded shadow-inner flex relative">
-                    <div class="w-1/2 pr-2 space-y-4">
-                        <x-input.group inline for="filter-status" label="Status">
-                            <x-input.select wire:model="filters.status" id="filter-status">
-                                <option value=""> -- Any Status -- </option>
-                                <option value="on">Enabled</option>
-                                <option value="off">Disabled</option>
-                            </x-input.select>
-                        </x-input.group>
+                    <div class="flex">
+                        <div class="w-1/2 pr-2 space-y-4">
+                            <x-input.group inline for="filter-status" label="Status">
+                                <x-input.select wire:model="filters.status" id="filter-status">
+                                    <option value=""> -- Any Status -- </option>
+                                    <option value="on">Enabled</option>
+                                    <option value="off">Disabled</option>
+                                </x-input.select>
+                            </x-input.group>
+                        </div>
+                        <div class="w-1/2 pr-2 space-y-4">
+                            <x-input.group inline for="filter-type" label="Type">
+                                <x-input.select wire:model="filters.type" id="filter-type">
+                                    <option value=""> -- Any Type -- </option>
+                                    @foreach (App\Models\Type::whereNull('type_id')->orderBy('name')->get() as $type)
+                                        <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                    @endforeach
+                                </x-input.select>
+                            </x-input.group>
+                        </div>
+                        @if(auth()->user()->hasAnyRole(['Super Admin']))
+                            <div class="w-1/2 pr-2 space-y-4">
+                                <x-input.group inline for="filter-needs" label="Needs Task">
+                                    <x-input.select wire:model="filters.needs" id="filter-needs">
+                                        <option value=""> -- Task -- </option>
+                                        @foreach($taskTypes as $taskType)
+                                            <option value="{{ $taskType->id }}">{{ $taskType->name }}</option>
+                                        @endforeach
+                                    </x-input.select>
+                                </x-input.group>
+                            </div>
+                        @endif
                     </div>
-                    <div class="w-1/2 pr-2 space-y-4">
-                        <x-input.group inline for="filter-type" label="Type">
-                            <x-input.select wire:model="filters.type" id="filter-type">
-                                <option value=""> -- Any Type -- </option>
-                                @foreach (App\Models\Type::whereNull('type_id')->orderBy('name')->get() as $type)
-                                    <option value="{{ $type->id }}">{{ $type->name }}</option>
-                                @endforeach
-                            </x-input.select>
-                        </x-input.group>
-                    </div>
+
 
                     <div class="w-1/2 pl-2 space-y-4">
                         {{--<x-input.group inline for="filter-date-min" label="Minimum Date">

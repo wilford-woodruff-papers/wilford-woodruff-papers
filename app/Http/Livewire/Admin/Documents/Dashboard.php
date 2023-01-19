@@ -30,6 +30,7 @@ class Dashboard extends Component
         'search' => '',
         'status' => '',
         'type' => '',
+        'needs' => '',
         'date-min' => '',
         'date-max' => '',
     ];
@@ -95,6 +96,25 @@ class Dashboard extends Component
             ->with('type', 'target_publish_dates', 'active_target_publish_date', 'actions')
             ->when(array_key_exists('search', $this->filters) && $this->filters['search'], fn ($query, $search) => $query->where('name', 'like', '%'.$this->filters['search'].'%'))
             ->when(array_key_exists('status', $this->filters) && $this->filters['status'], fn ($query, $status) => $query->where('enabled', $this->filters['status'] == 'on' ? 1 : 0))
+            ->when(array_key_exists('needs', $this->filters) && $this->filters['needs'], function ($query, $status) {
+                $action = ActionType::query()->firstWhere('id', $this->filters['needs']);
+                if (! empty($action->action_type_id)) {
+                    $query->where(function (Builder $query) use ($action) {
+                        $query->whereHas('actions.type', function (Builder $query) use ($action) {
+                            $query->where('action_types.id', $action->action_type_id)
+                                ->whereNotNull('completed_at');
+                        })
+                        ->whereDoesntHave('actions.type', function (Builder $query) {
+                            $query->where('action_types.id', $this->filters['needs']);
+                        })
+                        ->whereDoesntHave('items');
+                    });
+                } else {
+                    $query->whereDoesntHave('actions.type', function (Builder $query) {
+                        $query->where('action_types.id', $this->filters['needs']);
+                    });
+                }
+            })
             ->when(array_key_exists('type', $this->filters) && $this->filters['type'], fn ($query, $type) => $query->where('type_id', $this->filters['type']));
 
         return $this->applySorting($query);
