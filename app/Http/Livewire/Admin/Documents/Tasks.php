@@ -22,6 +22,14 @@ class Tasks extends Component
 
     public $sortDirection = 'asc';
 
+    protected $queryString = [
+        'sortBy' => ['except' => ''],
+        'sortDirection' => ['except' => ''],
+        'actionType' => ['except' => ''],
+        'search' => ['except' => ''],
+        'type' => ['except' => ''],
+    ];
+
     public function render()
     {
         $assignedItems = Item::query()
