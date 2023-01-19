@@ -4,7 +4,6 @@ namespace App\Http\Livewire\Admin\Documents;
 
 use App\Jobs\ReleaseDependantActions;
 use App\Models\Action;
-use App\Models\ActionType;
 use App\Models\Item;
 use App\Models\Type;
 use Illuminate\Database\Eloquent\Builder;
@@ -60,12 +59,12 @@ class Tasks extends Component
             ->when($this->search, function ($query, $search) {
                 $query->where('items.name', 'LIKE', '%'.$search.'%');
             })
-            ->whereHas('actions', function (Builder $query) use ($userRoles) {
+            ->whereHas('actions', function (Builder $query) {
                 $query->whereNull('assigned_at')
                     ->whereNull('completed_at')
-                    ->whereHas('type', function (Builder $query) use ($userRoles) {
+                    /*->whereHas('type', function (Builder $query) use ($userRoles) {
                         $query->whereIn('id', ActionType::query()->role($userRoles)->pluck('id')->all());
-                    })
+                    })*/
                     ->when($this->actionType, function ($query, $actionType) {
                         $query->whereRelation('type', 'id', $actionType);
                     });
