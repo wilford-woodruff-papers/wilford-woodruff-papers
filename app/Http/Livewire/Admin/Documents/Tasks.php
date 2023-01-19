@@ -5,7 +5,6 @@ namespace App\Http\Livewire\Admin\Documents;
 use App\Jobs\ReleaseDependantActions;
 use App\Models\Action;
 use App\Models\Item;
-use App\Models\Type;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -68,9 +67,10 @@ class Tasks extends Component
                     ->when($this->actionType, function ($query, $actionType) {
                         $query->whereRelation('type', 'id', $actionType);
                     });
-            })->whereHas('type', function (Builder $query) use ($userRoles) {
-                $query->whereIn('id', Type::query()->role($userRoles)->pluck('id')->all());
             })
+            /*->whereHas('type', function (Builder $query) use ($userRoles) {
+                $query->whereIn('id', Type::query()->role($userRoles)->pluck('id')->all());
+            })*/
             ->orderBy(DB::raw('LENGTH('.$this->sortBy.')'), $this->sortDirection)
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate(25);
