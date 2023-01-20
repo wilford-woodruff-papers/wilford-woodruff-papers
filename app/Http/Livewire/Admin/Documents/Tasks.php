@@ -4,7 +4,9 @@ namespace App\Http\Livewire\Admin\Documents;
 
 use App\Jobs\ReleaseDependantActions;
 use App\Models\Action;
+use App\Models\ActionType;
 use App\Models\Item;
+use App\Models\Type;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -34,10 +36,10 @@ class Tasks extends Component
     {
         $assignedItems = Item::query()
             ->whereNotNull('pcf_unique_id')
-            ->with(
+            ->with([
                 'pending_actions',
                 'pending_actions.type',
-            )
+            ])
             ->whereHas('pending_actions', function (Builder $query) {
                 $query->where('assigned_to', auth()->id())
                     ->whereNull('completed_at');
@@ -66,19 +68,19 @@ class Tasks extends Component
             ->when($this->search, function ($query, $search) {
                 $query->where('items.name', 'LIKE', '%'.$search.'%');
             })
-            ->whereHas('actions', function (Builder $query) {
+            ->whereHas('actions', function (Builder $query) use ($userRoles) {
                 $query->whereNull('assigned_at')
                     ->whereNull('completed_at')
-                    /*->whereHas('type', function (Builder $query) use ($userRoles) {
+                    ->whereHas('type', function (Builder $query) use ($userRoles) {
                         $query->whereIn('id', ActionType::query()->role($userRoles)->pluck('id')->all());
-                    })*/
+                    })
                     ->when($this->actionType, function ($query, $actionType) {
                         $query->whereRelation('type', 'id', $actionType);
                     });
             })
-            /*->whereHas('type', function (Builder $query) use ($userRoles) {
+            ->whereHas('type', function (Builder $query) use ($userRoles) {
                 $query->whereIn('id', Type::query()->role($userRoles)->pluck('id')->all());
-            })*/
+            })
             ->orderBy(DB::raw('LENGTH('.$this->sortBy.')'), $this->sortDirection)
             ->orderBy($this->sortBy, $this->sortDirection)
             ->paginate(25);
