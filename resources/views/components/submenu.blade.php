@@ -19,6 +19,12 @@
                                 Meet the Team
                             </span>
                 </a>
+                <a href="{{ route('about.partners') }}"
+                   class="group flex items-center px-3 py-2 text-sm font-medium @if(request()->is('about/partners')) active @else @endif">
+                            <span class="truncate">
+                                Partners
+                            </span>
+                </a>
                 <a href="{{ route('about.editorial-method') }}"
                    class="group flex items-center px-3 py-2 text-sm font-medium @if(request()->is('about/editorial-method')) active @else @endif">
                             <span class="truncate">
