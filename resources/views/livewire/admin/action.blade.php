@@ -46,6 +46,15 @@
                     <div class="text-gray-500">{{ $action->completed_at?->tz('America/Denver')->toDayDateTimeString() }}</div>
                 </div>
             </div>
+            @if($action->completed_by == auth()->id() || auth()->user()->hasAnyRole($action->type->roles))
+                <div class="">
+                    <button wire:click="uncompleteAction({{ $action->id }})"
+                            class="text-red-700"
+                    >
+                        Remove Person
+                    </button>
+                </div>
+            @endif
         @else
             <select wire:model="finisher">
                 <option>-- Choose --</option>
