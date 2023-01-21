@@ -108,4 +108,27 @@ class Action extends Component
 //            ->event('completed')
 //            ->log($this->action->description.' unnassigned by <span class="user">'.auth()->user()->name.'</span>');
     }
+
+    public function uncompleteAction($actionId)
+    {
+        $this->action->completed_by = null;
+        $this->action->completed_at = null;
+        $this->action->save();
+        $this->action = $this->action->fresh(['assignee', 'finisher']);
+
+        if ($this->action->actionable_type == Item::class) {
+            $this->action->actionable->pages->each(function ($page) {
+                foreach ($page->pending_assigned_actions()->where('action_type_id', $this->action->action_type_id)->get() as $task) {
+                    $task->completed_by = null;
+                    $task->completed_at = null;
+                    $task->save();
+                }
+            });
+        }
+//
+//        activity('activity')
+//            ->on(Page::find($this->action->actionable_id))
+//            ->event('completed')
+//            ->log($this->action->description.' unnassigned by <span class="user">'.auth()->user()->name.'</span>');
+    }
 }
