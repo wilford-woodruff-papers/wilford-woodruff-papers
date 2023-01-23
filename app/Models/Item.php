@@ -12,6 +12,7 @@ use OwenIt\Auditing\Encoders\Base64Encoder;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Models\Activity;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 
@@ -19,6 +20,7 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
 {
     use Auditable, GeneratesUuid, HasFactory, SortableTrait;
     use HasHashid;
+    use KeepsDeletedModels;
     use LogsActivity;
 
     protected $guarded = ['id'];
