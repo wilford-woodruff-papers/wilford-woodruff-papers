@@ -47,6 +47,7 @@ class HarvestItemsFromThePage extends Command
         $countWithoutPCFID = 0;
         foreach ($manifests as $key => $item) {
             if (data_get($item, 'metadata.0.label') == 'dc:source') {
+                // If the item has been assigned Unique ID in FTP then use it to look up the item
                 $identifier = data_get($item, 'metadata.0.value');
                 $prefix = str($identifier)->before('-')->toString();
                 $uniqueId = str($identifier)->after('-')->toString();
@@ -77,20 +78,23 @@ class HarvestItemsFromThePage extends Command
                 }
             }
 
-            $document->name = $item['label'];
+            if (! empty($document)) {
+                $document->name = $item['label'];
 
-            if (data_get($item, 'service.pctComplete', 0) == 100.0) {
-                $document->enabled = true;
+                if (data_get($item, 'service.pctComplete', 0) == 100.0) {
+                    $document->enabled = true;
+                }
+
+                if (empty($document->ftp_slug)) {
+                    $response = Http::timeout(30)->get($item['@id']);
+                    $document->ftp_slug = str($response->json('related.0.@id'))->afterLast('/');
+                }
+
+                $document->save();
             }
-
-            if (empty($document->ftp_slug)) {
-                $response = Http::timeout(30)->get($item['@id']);
-                $document->ftp_slug = str($response->json('related.0.@id'))->afterLast('/');
-            }
-
-            $document->save();
 
             $count = $count + 1;
+            unset($document);
         }
 
         info("Imported $countWithPCFID documents with PCF ID");
