@@ -48,8 +48,8 @@ class HarvestItemsFromThePage extends Command
         foreach ($manifests as $key => $item) {
             if (data_get($item, 'metadata.0.label') == 'dc:source') {
                 $identifier = data_get($item, 'metadata.0.value');
-                $prefix = str($identifier)->before('-');
-                $uniqueId = str($identifier)->after('-');
+                $prefix = str($identifier)->before('-')->toString();
+                $uniqueId = str($identifier)->after('-')->toString();
                 $document = Document::query()
                     ->where('pcf_unique_id_prefix', $prefix)
                     ->where('pcf_unique_id', $uniqueId)
@@ -66,8 +66,8 @@ class HarvestItemsFromThePage extends Command
                 $document = new Document();
 
                 $identifier = data_get($item, 'metadata.0.value');
-                $prefix = str($identifier)->before('-');
-                $uniqueId = str($identifier)->after('-');
+                $prefix = str($identifier)->before('-')->toString();
+                $uniqueId = str($identifier)->after('-')->toString();
 
                 if (! empty($uniqueId)) {
                     $document->pcf_unique_id_prefix = $prefix;
