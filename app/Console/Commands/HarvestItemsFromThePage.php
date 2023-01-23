@@ -81,6 +81,10 @@ class HarvestItemsFromThePage extends Command
             if (! empty($document)) {
                 $document->name = $item['label'];
 
+                if (empty($document->ftp_id)) {
+                    $document->ftp_id = $item['@id'];
+                }
+
                 if (data_get($item, 'service.pctComplete', 0) == 100.0) {
                     $document->enabled = true;
                 }
