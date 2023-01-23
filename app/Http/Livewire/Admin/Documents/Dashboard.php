@@ -98,6 +98,8 @@ class Dashboard extends Component
             ->when(array_key_exists('status', $this->filters) && $this->filters['status'], fn ($query, $status) => $query->where('enabled', $this->filters['status'] == 'on' ? 1 : 0))
             ->when(array_key_exists('needs', $this->filters) && $this->filters['needs'], function ($query, $status) {
                 $action = ActionType::query()->firstWhere('id', $this->filters['needs']);
+                $query = $query->whereNotNull('ftp_slug')
+                                ->whereNotNull('pcf_unique_id');
                 if (! empty($action->action_type_id)) {
                     $query->where(function (Builder $query) use ($action) {
                         $query->whereHas('actions.type', function (Builder $query) use ($action) {
