@@ -17,10 +17,9 @@ class ExportPcf extends DownloadExcel implements WithMapping, WithHeadings
     {
         return [
             'Unique Identifier',
-            'Genre/Date or Title/Section on FTP',
-            'New Journal Title',
+            'Name',
             'Images Uploaded to FTP',
-            'Completed Transcriptions (Uploaded to FTP)',
+            'Completed Transcriptions',
             '2LV Assigned',
             '2LV Completion Date',
             'Subject Links Assigned',
@@ -28,14 +27,10 @@ class ExportPcf extends DownloadExcel implements WithMapping, WithHeadings
             'Date Tags Completed',
             'Stylization Assigned',
             'Stylization Completed',
-            'Published on Website',
-            'Reviewed on Website',
             'Topic Tagging Assigned',
             'Date Topic Tagging Assigned',
             'Date Topic Tagging Completed',
             'Pages',
-            '3LV',
-            'URL of Column E',
         ];
     }
 
@@ -51,7 +46,6 @@ class ExportPcf extends DownloadExcel implements WithMapping, WithHeadings
         return [
             $item->pcf_unique_id,
             $item->name,
-            '',
             '=HYPERLINK("'.'https://fromthepage.com/woodruff/woodruffpapers/'.$item->ftp_slug.'", "Link")',
             $item->actions->firstWhere('type.name', 'Transcription')?->completed_at?->toDateString(),
             $item->actions->firstWhere('type.name', 'Verification')?->finisher?->name,
@@ -61,14 +55,10 @@ class ExportPcf extends DownloadExcel implements WithMapping, WithHeadings
             $item->actions->firstWhere('type.name', 'Date Tagging')?->finisher?->name,
             $item->actions->firstWhere('type.name', 'Stylization')?->finisher?->name,
             $item->actions->firstWhere('type.name', 'Stylization')?->completed_at?->toDateString(),
-            '',
-            '',
             $item->actions->firstWhere('type.name', 'Topic Tagging')?->finisher?->name,
             $item->actions->firstWhere('type.name', 'Topic Tagging')?->assigned_at?->toDateString(),
             $item->actions->firstWhere('type.name', 'Topic Tagging')?->completed_at?->toDateString(),
             $item->pages_count,
-            '',
-            'https://fromthepage.com/woodruff/woodruffpapers/'.$item->ftp_slug,
         ];
     }
 }
