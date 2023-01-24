@@ -35,9 +35,11 @@ class ImportNewPageContributions extends Command
         // Todo: Set start and end times
         $start = now('America/Denver')->subHours(24)->tz('UTC');
         $end = now('America/Denver')->tz('UTC');
-        $url = 'https://fromthepage.com/iiif/contributions/woodruff/' . $start->toIso8601String() . '/' . $end->toIso8601String();
-        logger()->info('Getting new contributions from: ' . $url);
-        $response = Http::get($url);
+        $url = 'https://fromthepage.com/iiif/contributions/woodruff/'.$start->toIso8601String().'/'.$end->toIso8601String();
+        logger()->info('Getting new contributions from: '.$url);
+        $response = Http::timeout(3)
+            ->retry(3, 500)
+            ->get($url);
 
         $manifests = collect($response->json('manifests', []));
 
@@ -46,11 +48,11 @@ class ImportNewPageContributions extends Command
             ->whereIn('ftp_id', $manifests->pluck('@id'))
             ->get();
 
-        if($items->count() > 0){
+        if ($items->count() > 0) {
             $jobs = [];
             foreach ($items as $item) {
                 $jobs[] = new ImportItemFromFtp($item);
-                logger()->info('Queuing: ' . $item->name);
+                logger()->info('Queuing: '.$item->name);
             }
 
             $batch = Bus::batch($jobs)
