@@ -7,6 +7,7 @@ use App\Nova\Actions\AssignToItem;
 use App\Nova\Actions\Enable;
 use App\Nova\Actions\ExportItems;
 use App\Nova\Actions\ExportPcf;
+use App\Nova\Actions\ImportFtpMetadataExport;
 use App\Nova\Actions\ImportItems;
 use App\Nova\Actions\ImportPages;
 use App\Nova\Actions\ImportPcf;
@@ -170,6 +171,7 @@ class Item extends Resource
             new ImportPcf,
             new ExportPcf(),
             new PcfActions(),
+            new ImportFtpMetadataExport(),
         ];
     }
 }
