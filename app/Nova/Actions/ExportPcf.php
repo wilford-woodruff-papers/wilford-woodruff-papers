@@ -47,7 +47,7 @@ class ExportPcf extends DownloadExcel implements WithMapping, WithHeadings
         $item->loadCount('pages');
 
         return [
-            $item->pcf_unique_id,
+            ((strlen($item->pcf_unique_id_full) > 2) ? $item->pcf_unique_id_full : ''),
             $item->type?->name,
             $item->name,
             route('admin.dashboard.document.index', ['filters[search]' => $item->name]),
