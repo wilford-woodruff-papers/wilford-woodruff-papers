@@ -9,7 +9,7 @@
 
             <form wire:submit.prevent="update" class="flex gap-x-4">
                 <div>
-                    <label for="user" class="block text-sm font-medium text-gray-700">Starting Date</label>
+                    <label for="user" class="block text-sm font-medium text-gray-700">User Name</label>
                     <div class="mt-1">
                         <select wire:model="currentUserId"
                                id="currentUserId"
