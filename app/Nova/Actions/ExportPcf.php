@@ -18,7 +18,8 @@ class ExportPcf extends DownloadExcel implements WithMapping, WithHeadings
         return [
             'Unique Identifier',
             'Document Type',
-            'Name (Click to Search Database)',
+            'Name',
+            'Database Search',
             'Database Link',
             'Images Uploaded to FTP',
             'Completed Transcriptions',
@@ -48,9 +49,10 @@ class ExportPcf extends DownloadExcel implements WithMapping, WithHeadings
         return [
             $item->pcf_unique_id,
             $item->type?->name,
-            '=HYPERLINK("'.route('admin.dashboard.document.index', ['filters[search]' => $item->name]).'", "'.$item->name.'")',
+            $item->name,
+            route('admin.dashboard.document.index', ['filters[search]' => $item->name]),
             route('admin.dashboard.document', ['item' => $item->uuid]),
-            '=HYPERLINK("'.'https://fromthepage.com/woodruff/woodruffpapers/'.$item->ftp_slug.'", "Link")',
+            ((! empty($item->ftp_slug)) ? 'https://fromthepage.com/woodruff/woodruffpapers/'.$item->ftp_slug : ''),
             $item->actions->firstWhere('type.name', 'Transcription')?->completed_at?->toDateString(),
             $item->actions->firstWhere('type.name', 'Verification')?->finisher?->name,
             $item->actions->firstWhere('type.name', 'Verification')?->completed_at?->toDateString(),
