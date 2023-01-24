@@ -46,7 +46,7 @@ class FTPChecker implements ToCollection, WithHeadingRow
             if (! empty($document)) {
                 fputcsv($handle, [
                     $document->type?->name,
-                    $document->name,
+                    '=HYPERLINK("'.route('admin.dashboard.document.index', ['filters[search]' => $document->name]).'", "'.$document->name.'")',
                     route('admin.dashboard.document', ['item' => $document->uuid]),
                     'https://fromthepage.com/woodruff/woodruffpapers/'.$document->ftp_slug,
                 ]);
