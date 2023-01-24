@@ -47,7 +47,7 @@ class ExportPcf extends DownloadExcel implements WithMapping, WithHeadings
 
         return [
             $item->pcf_unique_id,
-            $item->type->name,
+            $item->type?->name,
             '=HYPERLINK("'.route('admin.dashboard.document.index', ['filters[search]' => $item->name]).'", "'.$item->name.'")',
             route('admin.dashboard.document', ['item' => $item->uuid]),
             '=HYPERLINK("'.'https://fromthepage.com/woodruff/woodruffpapers/'.$item->ftp_slug.'", "Link")',
