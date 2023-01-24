@@ -25,6 +25,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('type');
+            $table->string('comment');
+            $table->unsignedInteger('order_column');
             $table->timestamps();
         });
     }
