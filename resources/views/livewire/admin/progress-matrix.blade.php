@@ -123,7 +123,7 @@
                                                       'bg-[#93c47d]' => (($goalPercentages[$key][$docType] >= 100) && ($goalPercentages[$key][$docType] <= 119)),
                                                       'bg-[#ff50c5]' => ($goalPercentages[$key][$docType] >= 120),
                                                     ])>
-                                                    {{ $goalPercentages[$key][$docType] }}
+                                                    {{ $goalPercentages[$key][$docType] }}%
                                                 </div>
                                             </div>
                                         </td>
