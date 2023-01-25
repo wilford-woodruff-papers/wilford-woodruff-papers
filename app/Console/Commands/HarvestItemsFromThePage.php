@@ -2,7 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Document;
+use App\Jobs\AddTaskToItem;
+use App\Models\Item;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 
@@ -51,20 +52,21 @@ class HarvestItemsFromThePage extends Command
                 $identifier = data_get($item, 'metadata.0.value');
                 $prefix = str($identifier)->before('-')->toString();
                 $uniqueId = str($identifier)->after('-')->toString();
-                $document = Document::query()
+                $document = Item::query()
                     ->where('pcf_unique_id_prefix', $prefix)
                     ->where('pcf_unique_id', $uniqueId)
                     ->first();
                 $countWithPCFID = $countWithPCFID + 1;
             } else {
-                $document = Document::query()
+                $document = Item::query()
                     ->where('ftp_id', $item['@id'])
                     ->first();
                 $countWithoutPCFID = $countWithoutPCFID + 1;
             }
 
             if (empty($document)) {
-                $document = new Document();
+                $document = new Item();
+                $document->parental_type = 'App\Models\Document';
 
                 $identifier = data_get($item, 'metadata.0.value');
                 $prefix = str($identifier)->before('-')->toString();
@@ -95,6 +97,18 @@ class HarvestItemsFromThePage extends Command
                 }
 
                 $document->save();
+
+                if (! in_array($item['label'], [
+                    '2LV Training',
+                    'Test Pages Set 1, Work 1',
+                    'Test Work for Biographical Research',
+                    'Test Work for Jon -- exporting',
+                    'Testing image upload with JPG, testing nova status',
+                    'A SAMPLE TRANSCRIBED DOCUMENT',
+                    '32008275',
+                ])) {
+                    AddTaskToItem::dispatch($document, 'Transcription');
+                }
             }
 
             $count = $count + 1;
