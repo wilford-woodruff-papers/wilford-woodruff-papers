@@ -28,7 +28,7 @@ class Kernel extends ConsoleKernel
                  ->pingOnSuccess('http://beats.envoyer.io/heartbeat/wc7wzwZhcB9Jfrk');
 
         $schedule->command('import:pages')
-                 ->weeklyOn(5, '2:00 AM')
+                 ->dailyAt('2:00 AM')
                  ->timezone('America/Denver')
                  ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org')
                  ->pingOnSuccess('http://beats.envoyer.io/heartbeat/CdvYy969jSgJpsf');
