@@ -4,18 +4,23 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\EloquentSortable\Sortable;
-use Spatie\EloquentSortable\SortableTrait;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
-class Property extends Model implements Sortable
+class Property extends Model
 {
     use HasFactory;
-    use SortableTrait;
+    use HasSlug;
 
     protected $guarded = ['id'];
 
-    public $sortable = [
-        'order_column_name' => 'order_column',
-        'sort_when_creating' => true,
-    ];
+    /**
+     * Get the options for generating the slug.
+     */
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('name')
+            ->saveSlugsTo('slug');
+    }
 }

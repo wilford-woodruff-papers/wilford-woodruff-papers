@@ -23,6 +23,11 @@ class Type extends Model
         return $this->belongsTo(self::class);
     }
 
+    public function template()
+    {
+        return $this->hasOne(Template::class);
+    }
+
     public function subType()
     {
         return $this->hasOne(self::class);

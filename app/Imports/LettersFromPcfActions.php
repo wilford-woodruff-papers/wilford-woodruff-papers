@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Jobs\ImportLettersMasterFileAction;
 use App\Jobs\ImportNewLettersFromPcfAction;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
@@ -22,6 +23,9 @@ class LettersFromPcfActions implements ToCollection, WithHeadingRow
             switch ($this->action) {
                 case 'Import New':
                     ImportNewLettersFromPcfAction::dispatch($row);
+                    break;
+                case 'Import Master File':
+                    ImportLettersMasterFileAction::dispatch($row);
                     break;
             }
         }

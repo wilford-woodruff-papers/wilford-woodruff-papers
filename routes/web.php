@@ -223,6 +223,14 @@ Route::group(['middleware' => ['role:Super Admin|Editor']], function () {
         ->name('admin.dashboard.document');
 
     Route::middleware(['auth:sanctum', 'verified'])
+        ->get('/admin/dashboard/document/{item}/edit', [\App\Http\Controllers\Admin\DocumentController::class, 'edit'])
+        ->name('admin.dashboard.document.edit');
+
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->post('/admin/dashboard/document/{item}', [\App\Http\Controllers\Admin\DocumentController::class, 'update'])
+        ->name('admin.dashboard.document.update');
+
+    Route::middleware(['auth:sanctum', 'verified'])
         ->get('/admin/dashboard/document/{item}/page/{page}', [\App\Http\Controllers\Admin\PageController::class, 'show'])
         ->name('admin.dashboard.page');
 
