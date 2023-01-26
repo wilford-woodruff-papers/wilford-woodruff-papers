@@ -159,9 +159,10 @@
                 text-align: right;
             }
         </style>
-
+        @include('layouts.partials.google-tag-manager-head')
     </head>
     <body>
+        @include('layouts.partials.google-tag-manager-no-script')
         {{ $slot }}
 
 
