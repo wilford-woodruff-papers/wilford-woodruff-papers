@@ -1,19 +1,60 @@
 <x-admin-layout>
-    <main class="relative mt-8">
+    <main class="relative mt-8"
+        x-data="{
+            shadow: false,
+            showSuccess: true
+        }"
+        x-init="setTimeout(() => showSuccess = false, 3000)"
+    >
         <div class="mx-auto max-w-screen-xl px-4 pb-6 sm:px-6 lg:px-8 lg:pb-16">
-            <div class="overflow-hidden rounded-lg bg-white shadow">
+            <div class="rounded-lg bg-white shadow">
+                <div x-intersect:leave="shadow = true"
+                     x-intersect:enter="shadow = false"
+                ></div>
+                @if(session('success'))
+                    <div x-show="showSuccess"
+                         x-transition
+                         class="rounded-md bg-green-50 p-4">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <!-- Heroicon name: mini/check-circle -->
+                                <svg class="h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-sm font-medium text-green-800">{!! session('success') !!}</p>
+                            </div>
+                            <div class="ml-auto pl-3">
+                                <div class="-mx-1.5 -my-1.5">
+                                    <button type="button"
+                                            x-on:click="showSuccess = false;"
+                                            class="inline-flex rounded-md bg-green-50 p-1.5 text-green-500 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-green-50">
+                                        <span class="sr-only">Dismiss</span>
+                                        <!-- Heroicon name: mini/x-mark -->
+                                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
                 <div class="divide-y divide-gray-200 lg:grid lg:grid-cols-12 lg:divide-y-0 lg:divide-x">
                     <form action="{{ route('admin.dashboard.document.update', ['item' => $item->uuid]) }}"
                           method="POST"
                           class="divide-y divide-gray-200 lg:col-span-12">
                         @csrf()
 
-                        <div class="sticky top-0">
-                            <div class="divide-y divide-gray-200 pt-6">
-                                <div class="mt-4 flex justify-end py-4 px-4 sm:px-6">
-                                    <a href="{{ route('admin.dashboard.document', ['item' => $item->uuid]) }}"
-                                       class="inline-flex justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2">Cancel</a>
-                                    <button type="submit" class="ml-5 inline-flex justify-center rounded-md border border-transparent bg-sky-700 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-sky-800 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2">Save</button>
+                        <div class="sticky top-0 z-10 bg-white"
+                             :class="shadow && 'drop-shadow-md'"
+                        >
+                            <div class="divide-y divide-gray-200">
+                                <div class="flex justify-center py-4 px-4 sm:px-6">
+                                    <button type="submit" class="inline-flex justify-center rounded-md border border-transparent bg-sky-700 py-2 px-12 text-sm font-medium text-white shadow-sm hover:bg-sky-800 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2">Save</button>
+                                <a href="{{ route('admin.dashboard.document', ['item' => $item->uuid]) }}"
+                                   class="ml-12 inline-flex justify-center rounded-md border border-gray-300 bg-white py-2 px-12 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2">Cancel</a>
                                 </div>
                             </div>
                         </div>
@@ -73,6 +114,14 @@
                                         @endswitch
                                     </div>
                                 @endforeach
+                            </div>
+
+                            <div class="divide-y divide-gray-200 mt-12">
+                                <div class="flex justify-center py-4 px-4 sm:px-6">
+                                    <button type="submit" class="inline-flex justify-center rounded-md border border-transparent bg-sky-700 py-2 px-12 text-sm font-medium text-white shadow-sm hover:bg-sky-800 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2">Save</button>
+                                    <a href="{{ route('admin.dashboard.document', ['item' => $item->uuid]) }}"
+                                       class="ml-12 inline-flex justify-center rounded-md border border-gray-300 bg-white py-2 px-12 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2">Cancel</a>
+                                </div>
                             </div>
                         </div>
                     </form>

@@ -116,6 +116,8 @@ class DocumentController extends Controller
             }
         }
 
+        $request->session()->flash('success', 'Document updated successfully!');
+
         return redirect()->back();
     }
 
