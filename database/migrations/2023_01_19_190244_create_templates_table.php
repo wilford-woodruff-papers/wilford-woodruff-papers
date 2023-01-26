@@ -14,6 +14,11 @@ return new class extends Migration
     public function up()
     {
         try {
+            Schema::table('items', function (Blueprint $table) {
+                $table->unsignedInteger('auto_page_count')->nullable();
+                $table->unsignedInteger('manual_page_count')->nullable();
+            });
+
             Schema::create('templates', function (Blueprint $table) {
                 $table->id();
                 $table->foreignId('type_id')
@@ -27,7 +32,7 @@ return new class extends Migration
                 $table->string('name');
                 $table->string('slug');
                 $table->string('type');
-                $table->string('width');
+                $table->unsignedInteger('width')->nullable();
                 $table->string('comment')->nullable();
                 $table->boolean('multivalue')->default(false);
                 $table->timestamps();
@@ -42,7 +47,7 @@ return new class extends Migration
                     ->constrained()
                     ->onDelete('cascade');
                 $table->boolean('is_required')->default(false);
-                $table->unsignedInteger('order_column');
+                $table->unsignedInteger('order_column')->nullable();
                 $table->timestamps();
             });
 
@@ -80,5 +85,9 @@ return new class extends Migration
         Schema::dropIfExists('property_template');
         Schema::dropIfExists('properties');
         Schema::dropIfExists('templates');
+        Schema::table('items', function (Blueprint $table) {
+            $table->dropColumn('manual_page_count');
+            $table->dropColumn('auto_page_count');
+        });
     }
 };

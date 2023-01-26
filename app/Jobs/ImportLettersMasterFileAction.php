@@ -61,6 +61,9 @@ class ImportLettersMasterFileAction implements ShouldQueue
             ->where('pcf_unique_id', $uniqueID)
             ->first();
 
+        $item->manual_page_count = data_get($this->row, 'pages');
+        $item->save();
+
         $map = [
             'PDF/Image' => 'link_to_pdfimage',
             'Transcript' => 'link_to_transcript',
@@ -104,8 +107,6 @@ class ImportLettersMasterFileAction implements ShouldQueue
                 ]);
             }
         }
-
-        // data_get($this->row, 'pages')
 
         /*$item->fill([
             '' => data_get($this->row, 'researcher'),

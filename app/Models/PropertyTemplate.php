@@ -21,10 +21,20 @@ class PropertyTemplate extends Model implements Sortable
         'sort_when_creating' => true,
     ];
 
-    public function properties()
+    public function property()
     {
-        return $this->belongsToMany(Property::class);
+        return $this->belongsTo(Property::class, 'property_id', 'id');
     }
+
+    public function template()
+    {
+        return $this->belongsTo(Template::class, 'template_id', 'id');
+    }
+
+    /*public function properties()
+    {
+        return $this->belongsToMany(Property::class, 'property_template', 'property_id', 'template_id', 'id', 'id');
+    }*/
 
     public function buildSortQuery()
     {

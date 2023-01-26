@@ -1,7 +1,7 @@
 <label for="{{ $property->slug }}"
        class="block text-sm font-medium text-gray-700"
 >
-    {{ $property->name }} ({{ str($property->type)->title() }})
+    <span class="font-semibold">{{ $property->name }}</span> ({{ str($property->type)->title() }})
 </label>
 {{--<input type="text"
        name="property_{{ $property->slug }}_{{ $property->id }}"

@@ -18,7 +18,7 @@ class Template extends Model
 
     public function properties()
     {
-        return $this->belongsToMany(Property::class)
+        return $this->belongsToMany(Property::class, 'property_template')
             ->withPivot([
                 'order_column',
                 'is_required',

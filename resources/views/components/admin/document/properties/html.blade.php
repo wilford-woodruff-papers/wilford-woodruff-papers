@@ -1,7 +1,7 @@
 <label for="{{ $property->slug }}"
        class="block text-sm font-medium text-gray-700"
 >
-    {{ $property->name }} ({{ str($property->type)->upper() }})
+    <span class="font-semibold">{{ $property->name }}</span> ({{ str($property->type)->upper() }})
 </label>
 <textarea name="property_{{ $property->slug }}_{{ $property->id }}"
        id="{{ $property->slug }}"

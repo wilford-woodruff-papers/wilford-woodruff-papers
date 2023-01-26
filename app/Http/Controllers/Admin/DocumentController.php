@@ -92,6 +92,7 @@ class DocumentController extends Controller
     {
         $item->fill($request->only([
             'name',
+            'manual_page_count',
         ]));
 
         $item->save();
