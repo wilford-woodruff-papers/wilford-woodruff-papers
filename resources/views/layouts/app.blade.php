@@ -17,8 +17,10 @@
 
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
+        @include('layouts.partials.google-tag-manager-head')
     </head>
     <body class="font-sans antialiased">
+        @include('layouts.partials.google-tag-manager-no-script')
         <x-jet-banner />
 
         <div class="min-h-screen bg-gray-100">
