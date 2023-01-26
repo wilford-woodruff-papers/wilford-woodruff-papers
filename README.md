@@ -1,11 +1,36 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+<p align="center"><a href="https://wilfordwoodruffpapers.org/img/image-logo.png" width="400"></a></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Getting Started with Development
+Clone the Github repository
+
+```git clone https://github.com/wilford-woodruff-papers/wilford-woodruff-papers```
+
+You may wish to configure a shell alias that allows you to execute Sail's commands more easily:
+
+```alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'```
+
+Install PHP dependencies (you need PHP installed to do this)
+
+```composer install```
+
+Copy .env file to the root or your project directory
+
+## Installation and Setup of Sail
+
+```./vendor/bin/sail up``` or if you created the alias ```sail up```
+
+To make sure the packages are correct for the docker version of PHP run composer again
+
+```composer install```
+
+## Import the sample database
+
+
+## Edit hosts file
+
+OSX ```sudo nano /private/etc/hosts```
+
+
 
 ## About Laravel
 
@@ -27,11 +52,3 @@ Laravel has the most extensive and thorough [documentation](https://laravel.com/
 
 If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Commands
-Deploy to Production server
-
-```php vendor/bin/envoy run prod```
-
-Deploy to Development server
-
-```php vendor/bin/envoy run dev```
