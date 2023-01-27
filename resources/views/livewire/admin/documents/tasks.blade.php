@@ -97,7 +97,8 @@
                                     </th>
                                 </tr>
                                 </thead>
-                                <tbody class="divide-y divide-gray-200 bg-white">
+                                <tbody wire:loading.class.delay="opacity-50"
+                                       class="divide-y divide-gray-200 bg-white">
                                 @foreach($unassignedItems as $item)
                                     <tr id="unassigned_item_{{ $item->id }}"
                                         class="border-t border-gray-200">
