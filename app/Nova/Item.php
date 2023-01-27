@@ -7,10 +7,8 @@ use App\Nova\Actions\AssignToItem;
 use App\Nova\Actions\Enable;
 use App\Nova\Actions\ExportItems;
 use App\Nova\Actions\ExportPcf;
-use App\Nova\Actions\ImportFtpMetadataExport;
 use App\Nova\Actions\ImportItems;
 use App\Nova\Actions\ImportPages;
-use App\Nova\Actions\ImportPcf;
 use App\Nova\Actions\PcfActions;
 use App\Nova\Filters\Status;
 use Illuminate\Http\Request;
@@ -161,17 +159,22 @@ class Item extends Resource
      */
     public function actions(Request $request)
     {
-        return [
+        $actions = [
             new AssignDocumentType,
             new AssignToItem,
             new Enable,
             (new ExportItems())->askForWriterType(),
             new ImportPages,
             new ImportItems,
-            new ImportPcf,
+            // new ImportPcf,
             new ExportPcf(),
-            new PcfActions(),
-            new ImportFtpMetadataExport(),
+            // new ImportFtpMetadataExport(),
         ];
+
+        if (auth()->id() === 1) {
+            $actions[] = new PcfActions();
+        }
+
+        return $actions;
     }
 }
