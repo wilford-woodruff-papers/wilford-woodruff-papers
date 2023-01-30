@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin\Documents;
 
+use App\Jobs\AutoPublishDocument;
 use App\Jobs\ReleaseDependantActions;
 use App\Models\Action;
 use App\Models\ActionType;
@@ -131,6 +132,8 @@ class Tasks extends Component
 
                 ReleaseDependantActions::dispatch($action);
             });
+
+            AutoPublishDocument::dispatch($item);
         }
 
         $this->reload();
