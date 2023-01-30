@@ -29,7 +29,10 @@ class SubjectController extends Controller
             'subject' => $subject,
             'pages' => Page::query()
                             ->where(function ($query) use ($subject) {
-                                $query->whereHas('subjects', function (Builder $query) use ($subject) {
+                                $query->whereHas('item', function (Builder $query) {
+                                    $query->where('items.enabled', true);
+                                })
+                                ->whereHas('subjects', function (Builder $query) use ($subject) {
                                     $query->whereIn('id', array_merge([$subject->id], $subject->children->pluck('id')->all()));
                                 })
                                 ->orWhereHas('quotes.topics', function (Builder $query) use ($subject) {
