@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Jobs\AutoPublishDocument;
 use App\Jobs\ReleaseDependantActions;
 use App\Models\Item;
 use App\Models\Page;
@@ -79,6 +80,11 @@ class Action extends Component
 
         ReleaseDependantActions::dispatch($this->action);
 
+        if ($this->action->actionable_type == Item::class) {
+            $item = $this->action->actionable;
+            AutoPublishDocument::dispatch($item);
+        }
+
         // TODO: I think I need to update this so that if it's an item, all pages are also marked as complete.
 
         $this->action = $this->action->fresh(['assignee', 'finisher']);
@@ -103,6 +109,9 @@ class Action extends Component
                     $task->save();
                 }
             });
+
+            $item = $this->action->actionable;
+            AutoPublishDocument::dispatch($item);
         }
 //
 //        activity('activity')
@@ -126,6 +135,9 @@ class Action extends Component
                     $task->save();
                 }
             });
+
+            $item = $this->action->actionable;
+            AutoPublishDocument::dispatch($item);
         }
 //
 //        activity('activity')

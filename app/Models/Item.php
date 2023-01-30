@@ -71,6 +71,36 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
         return self::findOrFail($this->item_id);
     }
 
+    public function canBePublished()
+    {
+        $this->load([
+            'completed_actions',
+            'completed_actions.type',
+        ]);
+
+        if (
+            $this->completed_actions->contains('type.name', 'Transcription')
+            && $this->completed_actions->contains('type.name', 'Verification')
+            && $this->completed_actions->contains('type.name', 'Subject Tagging')
+            && $this->completed_actions->contains('type.name', 'Date Tagging')
+        ) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function parentCanBePublished()
+    {
+        foreach ($this->items as $item) {
+            if (! $item->canBePublished()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public function type()
     {
         return $this->belongsTo(Type::class);
