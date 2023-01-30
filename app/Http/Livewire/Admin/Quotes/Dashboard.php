@@ -7,6 +7,8 @@ use App\Http\Livewire\DataTable\WithCachedRows;
 use App\Http\Livewire\DataTable\WithPerPagePagination;
 use App\Http\Livewire\DataTable\WithSorting;
 use App\Models\Quote;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class Dashboard extends Component
@@ -19,10 +21,15 @@ class Dashboard extends Component
 
     public $showFilters = false;
 
+    public $user = null;
+
+    public $users = [];
+
     public $filters = [
         'search' => '',
         'text' => '',
         'topic' => '',
+        'user' => '',
     ];
 
     protected $queryString = [
@@ -36,6 +43,15 @@ class Dashboard extends Component
 
     public function mount()
     {
+        $this->users = User::query()
+            ->whereIn('id',
+                DB::table('quotes')
+                    ->select(
+                        DB::raw('DISTINCT(created_by)')
+                    )
+            )
+            ->orderBy('name', 'ASC')
+            ->get();
     }
 
     public function updatedFilters()
@@ -81,7 +97,9 @@ class Dashboard extends Component
                     ->when(array_key_exists('search', $this->filters) && $this->filters['search'], fn ($query, $search) => $query->where('text', 'like', '%'.$this->filters['search'].'%'))
                     ->when(array_key_exists('topic', $this->filters) && $this->filters['topic'], fn ($query, $topic) => $query->whereRelation(
                         'topics', 'name', '=', $topic
-                    ));
+                    ))
+                    ->when(array_key_exists('user', $this->filters) && $this->filters['user'], fn ($query, $topic) => $query->where('created_by', '=', $this->filters['user'])
+                    );
 
         return $this->applySorting($query);
     }

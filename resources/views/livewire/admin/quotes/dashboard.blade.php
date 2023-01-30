@@ -1,10 +1,24 @@
 <div>
 
-    <div class="py-4 space-y-4 px-6">
+    <div class="py-4 flex space-4 gap-4 px-6">
         <!-- Top Bar -->
         <div class="flex justify-between">
             <div class="flex space-x-4">
                 <x-input.text wire:model="filters.search" class="w-128" placeholder="Search quotes..." />
+            </div>
+        </div>
+        <div>
+            <label for="user" class="block text-sm font-medium text-gray-700 sr-only">Tagged By</label>
+            <div class="mt-1">
+                <select wire:model="filters.user"
+                        id="user"
+                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                >
+                    <option value="">-- Tagged By --</option>
+                    @foreach($users as $u)
+                        <option value="{{ $u->id }}">{{ $u->name }}</option>
+                    @endforeach
+                </select>
             </div>
         </div>
     </div>
