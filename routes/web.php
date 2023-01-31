@@ -215,6 +215,10 @@ Route::group(['middleware' => ['role:Super Admin|Editor']], function () {
         ->name('admin.dashboard.quotes.show');
 
     Route::middleware(['auth:sanctum', 'verified'])
+        ->get('/admin/dashboard/document/create', App\Http\Livewire\Admin\Documents\NewDocument::class)
+        ->name('admin.dashboard.document.create');
+
+    Route::middleware(['auth:sanctum', 'verified'])
         ->get('/admin/dashboard/document', [\App\Http\Controllers\Admin\DocumentController::class, 'index'])
         ->name('admin.dashboard.document.index');
 
@@ -225,6 +229,10 @@ Route::group(['middleware' => ['role:Super Admin|Editor']], function () {
     Route::middleware(['auth:sanctum', 'verified'])
         ->get('/admin/dashboard/document/{item}/edit', [\App\Http\Controllers\Admin\DocumentController::class, 'edit'])
         ->name('admin.dashboard.document.edit');
+
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->post('/admin/dashboard/document', [\App\Http\Controllers\Admin\DocumentController::class, 'store'])
+        ->name('admin.dashboard.document.store');
 
     Route::middleware(['auth:sanctum', 'verified'])
         ->post('/admin/dashboard/document/{item}', [\App\Http\Controllers\Admin\DocumentController::class, 'update'])

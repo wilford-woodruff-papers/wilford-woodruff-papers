@@ -38,7 +38,39 @@ class DocumentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $item = new Item();
+
+        $item->fill($request->only([
+            'name',
+            'type_id',
+            'manual_page_count',
+        ]));
+
+        $item->save();
+
+        $properties = collect($request->all())->filter(function ($value, $key) {
+            return str($key)->startsWith('property_');
+        });
+
+        foreach ($properties as $key => $value) {
+            if (str($value)->trim()->isNotEmpty()) {
+                Value::updateOrCreate([
+                    'item_id' => $item->id,
+                    'property_id' => str($key)->afterLast('_')->toString(),
+                ], [
+                    'value' => $value,
+                ]);
+            } elseif (str($key)->afterLast('_')->isNotEmpty()) {
+                Value::query()
+                    ->where('item_id', $item->id)
+                    ->where('property_id', str($key)->afterLast('_')->toString())
+                    ->delete();
+            }
+        }
+
+        $request->session()->flash('success', 'Document created successfully!');
+
+        return redirect()->route('admin.dashboard.document.edit', ['item' => $item->uuid]);
     }
 
     /**
