@@ -82,22 +82,41 @@
                                 </div>
                             </div>
 
-
-                            <div class="mt-6 grid grid-cols-12 gap-6">
-                                <div class="col-span-12">
-                                    <label for="manual_page_count"
-                                           class="block text-sm font-medium text-gray-700"
-                                    >
-                                        <span class="font-semibold">Page Count</span>
-                                    </label>
-                                    <input type="number"
-                                           name="manual_page_count"
-                                           id="manual_page_count"
-                                           value="{{ $item->manual_page_count }}"
-                                           class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm"
-                                    >
+                            @if($item->pages_count == 0)
+                                <div class="mt-6 grid grid-cols-12 gap-6">
+                                    <div class="col-span-12">
+                                        <label for="manual_page_count"
+                                               class="block text-sm font-medium text-gray-700"
+                                        >
+                                            <span class="font-semibold">Manual Page Count</span>
+                                        </label>
+                                        <input type="number"
+                                               name="manual_page_count"
+                                               id="manual_page_count"
+                                               value="{{ $item->manual_page_count }}"
+                                               class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm"
+                                        >
+                                    </div>
                                 </div>
-                            </div>
+                            @else
+                                <div class="mt-6 grid grid-cols-12 gap-6">
+                                    <div class="col-span-12">
+                                        <label for="manual_page_count"
+                                               class="block text-sm font-medium text-gray-700"
+                                        >
+                                            <span class="font-semibold">Auto Page Count</span>
+                                        </label>
+                                        <input type="number"
+                                               name="manual_page_count"
+                                               id="manual_page_count"
+                                               value="{{ $item->pages_count }}"
+                                               readonly="true"
+                                               class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm"
+                                        >
+                                    </div>
+                                </div>
+                            @endif
+
 
                             <div class="mt-6 grid grid-cols-12 gap-6">
                                 {{--<div class="col-span-12 sm:col-span-6">

@@ -43,6 +43,7 @@ class DocumentController extends Controller
         $item->fill($request->only([
             'name',
             'type_id',
+            'pcf_unique_id_prefix',
             'manual_page_count',
         ]));
 
@@ -106,6 +107,10 @@ class DocumentController extends Controller
     {
         $item->load([
             'values',
+        ]);
+
+        $item->loadCount([
+            'pages',
         ]);
 
         return view('admin.dashboard.documents.edit', [

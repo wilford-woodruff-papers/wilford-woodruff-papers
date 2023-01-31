@@ -31,7 +31,9 @@
 
                 {{--<livewire:import-transactions />--}}
 
-                <x-button.primary wire:click="create"><x-icon.plus/> New</x-button.primary>
+                <a href="{{ route('admin.dashboard.document.create') }}"
+                   class="px-4 py-2 text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 border-indigo-600"
+                ><x-icon.plus/> New</a>
             </div>
         </div>
 

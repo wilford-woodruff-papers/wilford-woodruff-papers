@@ -68,12 +68,33 @@
                                             name="type_id"
                                             class="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
                                         <option value="">-- Select Document Type --</option>
-                                        @foreach($types as $type)
-                                            <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                        @foreach($types as $t)
+                                            <option value="{{ $t->id }}">{{ $t->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
+
+                            @if(! empty($type) && is_array($typeName = $prefixes[\App\Models\Type::find($type)->name]))
+                                <div class="py-6 px-4 sm:p-6 lg:pb-8">
+                                    <div>
+                                        <label for="pcf_unique_id_prefix" class="block text-sm font-medium text-gray-700">Prefix</label>
+                                        <select id="pcf_unique_id_prefix"
+                                                name="pcf_unique_id_prefix"
+                                                class="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                                            <option value="">-- Select Unique ID Prefix --</option>
+                                            @foreach($typeName as $key => $prefix)
+                                                <option value="{{ $prefix }}">{{ $prefix }} - {{ $key }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            @elseif(! empty($type))
+                                <input type="hidden"
+                                       name="pcf_unique_id_prefix"
+                                       value="{{ $prefixes[\App\Models\Type::find($type)->name] }}" />
+                            @endif
+
                             <div>
                                 @if(! empty($template))
                                     <!-- Fields section -->

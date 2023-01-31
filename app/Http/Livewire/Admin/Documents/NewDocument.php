@@ -16,6 +16,8 @@ class NewDocument extends Component
 
     public $templates;
 
+    public $prefixes;
+
     public function mount()
     {
         $this->item = new Item();
@@ -23,12 +25,33 @@ class NewDocument extends Component
         $this->types = Type::query()
             ->orderBy('name', 'ASC')
             ->get();
+
+        $this->prefixes = [
+            'Additional' => [
+                'Business/Financial' => 'B',
+                'Community' => 'C',
+                'Education' => 'E',
+                'Family' => 'F',
+                'Genealogy' => 'G',
+                'Histories' => 'H',
+                'Legal' => 'L',
+                'Mission' => 'M',
+                'Political/Government' => 'P',
+                'Temple' => 'T',
+                'Religious' => 'R',
+            ],
+            'Autobiographies' => 'A',
+            'Daybooks' => 'DB',
+            'Discourses' => 'D',
+            'Journal Sections' => 'J',
+            'Letters' => 'LE',
+        ];
     }
 
     public function render()
     {
         if (! empty($this->type)) {
-            $this->template = type::query()->find($this->type)->template;
+            $this->template = Type::query()->find($this->type)->template;
         } else {
             $this->template = null;
         }

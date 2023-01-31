@@ -45,21 +45,10 @@ class ImportLettersMasterFileAction implements ShouldQueue
 
         $type = Type::firstWhere('name', 'Letters');
 
-        $item = Item::query()
-            ->where('pcf_unique_id', $uniqueID)
-            ->where('type_id', $type->id)
-            ->first();
-
-        if (empty($item)) {
-            info('Letter could not be found for: '.$uniqueID);
-
-            return;
-        }
-
-        $item = Item::query()
-            ->where('type_id', $type->id)
-            ->where('pcf_unique_id', $uniqueID)
-            ->first();
+        $item = Item::firstOrNew([
+            'type_id' => $type->id,
+            'pcf_unique_id' => $uniqueID,
+        ]);
 
         $item->manual_page_count = data_get($this->row, 'pages');
         $item->save();
@@ -108,36 +97,11 @@ class ImportLettersMasterFileAction implements ShouldQueue
             }
         }
 
-        /*$item->fill([
-            '' => data_get($this->row, 'researcher'),
-            '' => data_get($this->row, 'notes'),
-            '' => data_get($this->row, 'year'),
-            '' => data_get($this->row, 'pages'),
-            '' => data_get($this->row, 'discourse_date'),
-            '' => data_get($this->row, 'wwj_date'),
-            '' => data_get($this->row, 'journal_entry_description'),
-            '' => data_get($this->row, 'day_of_the_week'),
-            '' => data_get($this->row, 'speakers_title'),
-            '' => data_get($this->row, 'discourse_description'),
-            '' => data_get($this->row, 'city'),
-            '' => data_get($this->row, 'county'),
-            '' => data_get($this->row, 'state'),
-            '' => data_get($this->row, 'location'),
-            '' => data_get($this->row, 'occasion'),
-            '' => data_get($this->row, 'link_to_google_text_doc'),
-            '' => data_get($this->row, '2nd_link_to_text_image_doc'),
-            '' => data_get($this->row, 'call_number'),
-            '' => data_get($this->row, 'entity'),
-            '' => data_get($this->row, 'source'),
-            '' => data_get($this->row, 'link_to_deseret_news'),
-            '' => data_get($this->row, 'link_to_millennial_star'),
-            '' => data_get($this->row, 'link_to_contributor'),
-            '' => data_get($this->row, 'link_to_j_of_discourses'),
-            '' => data_get($this->row, 'access_needed_from_chl_yn'),
-            '' => data_get($this->row, 'bibliographic_reference'),
-        ]);*/
-
-        //$item->save();
+        if ($item->wasRecentlyCreated) {
+            info($item->name.' was newly created.');
+        } else {
+            info($item->name.' was updated.');
+        }
     }
 
     private function toCarbonDate($stringDate)
