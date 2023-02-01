@@ -20,7 +20,7 @@ class SubscribeToConstantContactAction
             ->where('provider', 'Constant Contact')
             ->first();
 
-        if($oauth->expires_at < now()){
+        if ($oauth->expires_at < now()) {
             $oauth = $this->refreshToken($oauth);
         }
 
@@ -34,9 +34,8 @@ class SubscribeToConstantContactAction
                                 'email_address' => $contact['email'],
                                 'first_name' => $contact['first_name'],
                                 'last_name' => $contact['last_name'],
-                                'list_memberships' => $listMemberships
+                                'list_memberships' => $listMemberships,
                             ]);
-
     }
 
     private function refreshToken($oauth)
@@ -45,12 +44,12 @@ class SubscribeToConstantContactAction
         $clientSecret = config('services.constantcontact.client_secret');
 
         $base = 'https://authz.constantcontact.com/oauth2/default/v1/token';
-        $url = $base . '?refresh_token=' . $oauth->refresh_token . '&grant_type=refresh_token';
+        $url = $base.'?refresh_token='.$oauth->refresh_token.'&grant_type=refresh_token';
 
-        $auth = $clientId . ':' . $clientSecret;
+        $auth = $clientId.':'.$clientSecret;
 
         $credentials = base64_encode($auth);
-        $authorization = 'Basic ' . $credentials;
+        $authorization = 'Basic '.$credentials;
 
         $response = Http::asForm()
             ->withHeaders([
@@ -66,5 +65,4 @@ class SubscribeToConstantContactAction
 
         return $oauth;
     }
-
 }

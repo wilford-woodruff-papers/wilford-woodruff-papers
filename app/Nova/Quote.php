@@ -9,7 +9,6 @@ use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
-use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Quote extends Resource
 {
@@ -50,9 +49,9 @@ class Quote extends Resource
             BelongsTo::make('Page')
                 ->searchable(),
             Text::make('Text')
-                ->displayUsing(function($text){
-                return Str::of($text)->limit('50', '...');
-            })
+                ->displayUsing(function ($text) {
+                    return Str::of($text)->limit('50', '...');
+                })
                 ->onlyOnIndex(),
             Textarea::make('Text')
                 ->alwaysShow()

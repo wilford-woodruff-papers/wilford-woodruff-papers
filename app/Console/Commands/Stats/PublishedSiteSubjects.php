@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands\Stats;
 
-use App\Models\Item;
 use App\Models\Stat;
 use App\Models\Subject;
 use Illuminate\Console\Command;

@@ -24,6 +24,7 @@ class Comments extends Component
         $model->load('comments');
         $this->model = $model;
     }
+
     public function render()
     {
         return view('livewire.comments');
@@ -70,7 +71,7 @@ class Comments extends Component
     public function deleteComment($id)
     {
         $comment = Comment::find($id);
-        if($comment->user_id == Auth::id()){
+        if ($comment->user_id == Auth::id()) {
             $comment->delete();
         }
         $this->model->refresh();

@@ -18,7 +18,7 @@ class ThemeController extends Controller
         $quotes = Theme::query()
                         ->select('text');
 
-        if($request->has('page')){
+        if ($request->has('page')) {
             $quotes = $quotes->where('page_id', $request->get('page'));
         }
 

@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
 use LivewireUI\Modal\ModalComponent;
 
 class Testimonial extends ModalComponent

@@ -64,7 +64,7 @@ class ContestSubmission extends Model implements HasMedia
     public function primary_contact()
     {
         return $this->hasOne(Contestant::class)->ofMany([
-            'is_primary_contact' => 'max'
+            'is_primary_contact' => 'max',
         ]);
     }
 

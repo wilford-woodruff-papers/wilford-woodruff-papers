@@ -10,7 +10,6 @@ use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Comment extends Resource
 {
@@ -50,7 +49,7 @@ class Comment extends Resource
             DateTime::make('Created At')->sortable(),
             ID::make(__('ID'), 'id')->sortable(),
             BelongsTo::make('User'),
-            Text::make('body', 'comment')->displayUsing(function($value){
+            Text::make('body', 'comment')->displayUsing(function ($value) {
                 return str($value)->limit(30, '...');
             })->onlyOnIndex(),
             Text::make('body', 'comment')->hideFromIndex(),

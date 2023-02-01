@@ -4,7 +4,6 @@ namespace App\Jobs;
 
 use App\Models\Item;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -34,7 +33,7 @@ class CacheDates implements ShouldQueue
         $items = Item::doesntHave('items')->get();
         $items->each(function ($item) {
             $dates = collect();
-            $item->pages->each(function ($page) use (&$dates, $item) {
+            $item->pages->each(function ($page) use (&$dates) {
                 $dates = $dates->concat($page->dates);
             });
             $item->first_date = optional($dates->sortBy('date')->first())->date;

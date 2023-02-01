@@ -6,7 +6,6 @@ use App\Models\Comment;
 use App\Models\User;
 use App\Notifications\NewCommentNotification;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -26,7 +25,6 @@ class SendNewCommentNotification implements ShouldQueue
      */
     public function __construct(Comment $comment)
     {
-
         $this->comment = $comment;
     }
 

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
@@ -59,11 +58,11 @@ class FacebookLoginController extends Controller
 
         auth()->login($user);
 
-        if($user->accepted_terms === 1){
+        if ($user->accepted_terms === 1) {
             $home = session('url.intended') ?? '/';
 
             return redirect()->intended($home);
-        }else{
+        } else {
             return redirect()->route('terms.accept');
         }
     }

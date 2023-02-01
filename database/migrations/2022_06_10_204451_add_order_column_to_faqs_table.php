@@ -18,7 +18,7 @@ return new class extends Migration
         });
 
         $faqs = \App\Models\Faq::all();
-        $faqs->each(function($faq, $key){
+        $faqs->each(function ($faq, $key) {
             $faq->order_column = $key;
             $faq->save();
         });

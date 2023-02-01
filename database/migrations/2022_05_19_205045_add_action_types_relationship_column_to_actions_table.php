@@ -19,7 +19,7 @@ return new class extends Migration
                     ->after('id');
                 $table->dropColumn('description');
             });
-        } catch(Exception $exception){
+        } catch (Exception $exception) {
             logger()->error($exception->getMessage());
             $this->down();
             throw $exception;

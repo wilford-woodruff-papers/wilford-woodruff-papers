@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Subject;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class TopicController extends Controller

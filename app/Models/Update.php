@@ -20,7 +20,7 @@ class Update extends Model implements HasMedia
     protected $guarded = ['id'];
 
     protected $dates = [
-        'publish_at'
+        'publish_at',
     ];
 
     protected $childTypes = [
@@ -31,7 +31,7 @@ class Update extends Model implements HasMedia
     /**
      * Get the options for generating the slug.
      */
-    public function getSlugOptions() : SlugOptions
+    public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('subject')

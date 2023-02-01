@@ -18,7 +18,7 @@ return new class extends Migration
         });
 
         $actionTypes = \App\Models\ActionType::all();
-        $actionTypes->each(function($actionType){
+        $actionTypes->each(function ($actionType) {
             $actionType->type = 'Documents';
             $actionType->save();
         });

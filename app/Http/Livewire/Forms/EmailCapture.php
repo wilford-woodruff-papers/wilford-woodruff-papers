@@ -7,7 +7,6 @@ use Livewire\Component;
 
 class EmailCapture extends Component
 {
-
     public $component = [
         'title' => '',
         'description' => '',
@@ -65,7 +64,9 @@ class EmailCapture extends Component
             ->withProperties(
                 ['list_memberships' => $this->listMemberships],
             )
-            ->log( collect($this->contact)->reject(function($value, $key){ return empty($value); })->implode(',') );
+            ->log(collect($this->contact)->reject(function ($value, $key) {
+            return empty($value);
+            })->implode(','));
 
         $subscribeToConstantContactAction->execute($this->contact, $this->listMemberships);
 

@@ -30,7 +30,6 @@ class TestTranscriptProcessing extends Command
      */
     public function handle()
     {
-
         $ftpTranscript = Http::get($this->argument('url'))->json('resources.0.resource.chars');
 
         //logger()->info(['FTP: ', $ftpTranscript]);
@@ -50,7 +49,7 @@ class TestTranscriptProcessing extends Command
         $links = $dom->find('a');
         foreach ($links as $link) {
             //dd($link->outerHtml(), $link->getAttribute('title'), $link->innerHtml());
-            if(str($link->outerHtml())->contains('Phebe')){
+            if (str($link->outerHtml())->contains('Phebe')) {
                 logger()->info(['Outer HTML: ', str($link->outerHtml())->replace('<br /> ', '<br/>')]);
             }
             $transcript = $transcript->replace(str($link->outerHtml())->replace('<br /> ', "<br/>\n"), '[['.html_entity_decode($link->getAttribute('title')).'|'.$link->innerHtml().']]');

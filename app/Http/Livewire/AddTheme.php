@@ -5,9 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Page;
 use App\Models\Subject;
 use App\Models\Theme;
-use App\Models\Topic;
 use Illuminate\Support\Str;
-use Livewire\Component;
 use LivewireUI\Modal\ModalComponent;
 
 class AddTheme extends ModalComponent
@@ -32,13 +30,12 @@ class AddTheme extends ModalComponent
                 ->whereRelation('category', 'name', 'Topics')
                 ->orderBy('name')
                 ->pluck('name', 'id')
-                ->all()
+                ->all(),
         ]);
     }
 
     public function save()
     {
-
         $quote = Theme::create([
             'page_id' => $this->page->id,
             'text' => Str::of($this->selection)->replace('&', '&amp;'),
