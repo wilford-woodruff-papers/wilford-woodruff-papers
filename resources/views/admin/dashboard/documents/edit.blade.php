@@ -101,21 +101,48 @@
                             @else
                                 <div class="mt-6 grid grid-cols-12 gap-6">
                                     <div class="col-span-12">
-                                        <label for="manual_page_count"
+                                        <label for="auto_page_count"
                                                class="block text-sm font-medium text-gray-700"
                                         >
                                             <span class="font-semibold">Auto Page Count</span>
                                         </label>
                                         <input type="number"
-                                               name="manual_page_count"
-                                               id="manual_page_count"
+                                               name=""
+                                               id="auto_page_count"
                                                value="{{ $item->pages_count }}"
-                                               readonly="true"
-                                               class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm"
+                                               readonly="readonly"
+                                               class="mt-1 block w-full rounded-md border border-gray-300 py-2 px-3 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm bg-gray-200"
                                         >
                                     </div>
                                 </div>
                             @endif
+
+                            <div class="mt-6 grid grid-cols-2 gap-6">
+                                @if(! empty($item->ftp_slug))
+                                    <a href="https://fromthepage.com/woodruff/woodruffpapers/{{ $item->ftp_slug }}"
+                                       class="inline-flex items-center justify-center rounded-md border border-transparent bg-amber-700 px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-amber-900 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2"
+                                       target="_blank">
+                                        View in FTP
+                                    </a>
+                                @else
+                                    <div class="flex items-center gap-x-4">
+                                        <a href="https://fromthepage.com/woodruff/woodruffpapers/new_work"
+                                           class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-3 py-2 text-sm font-medium leading-4 text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 gap-x-3"
+                                           target="_blank">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                                            </svg>
+                                            Upload to FTP
+
+                                        </a>
+                                        <livewire:admin.single-action
+                                            :actionTypeName="'Uploaded to FTP'"
+                                            :actionTypeNamePrefix="'Mark'"
+                                            :modelId="$item->id"
+                                            :type="'Research'" />
+                                    </div>
+                                @endif
+                            </div>
 
 
                             <div class="mt-6 grid grid-cols-12 gap-6">
@@ -130,21 +157,25 @@
                                             @case('link')
                                                 <x-admin.document.properties.link :property="$property"
                                                                                   :value="$item->values->where('property_id', $property->id)->first()"
+                                                                                  :modelId="$item->id"
                                                 />
                                                 @break
                                             @case('html')
                                                 <x-admin.document.properties.html :property="$property"
                                                                                   :value="$item->values->where('property_id', $property->id)->first()"
+                                                                                  :modelId="$item->id"
                                                 />
                                                 @break
                                             @case('date')
                                                 <x-admin.document.properties.date :property="$property"
                                                                                   :value="$item->values->where('property_id', $property->id)->first()"
+                                                                                  :modelId="$item->id"
                                                 />
                                                 @break
                                             @default
                                                 <x-admin.document.properties.text :property="$property"
                                                                                   :value="$item->values->where('property_id', $property->id)->first()"
+                                                                                  :modelId="$item->id"
                                                 />
                                                 @break
                                         @endswitch
