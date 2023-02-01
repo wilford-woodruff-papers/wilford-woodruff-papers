@@ -2,12 +2,12 @@
 
 namespace App\View\Components\Testimonials;
 
-use App\Models\ImageTestimonial;
 use Illuminate\View\Component;
 
 class ImageTestimonials extends Component
 {
     public $images;
+
     /**
      * Create a new component instance.
      *

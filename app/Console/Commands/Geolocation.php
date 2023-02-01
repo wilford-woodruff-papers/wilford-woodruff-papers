@@ -2,11 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Imports\SubjectImport;
 use App\Models\Subject;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Builder;
-use Maatwebsite\Excel\Facades\Excel;
 
 class Geolocation extends Command
 {

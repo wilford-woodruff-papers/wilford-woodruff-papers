@@ -3,9 +3,7 @@
 namespace App\Nova\Metrics;
 
 use App\Models\Item;
-use App\Models\Page;
 use App\Models\Type;
-use Illuminate\Database\Eloquent\Builder;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Laravel\Nova\Metrics\Value;
 

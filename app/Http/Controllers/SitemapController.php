@@ -27,7 +27,7 @@ class SitemapController extends Controller
                                 ->whereHas('pages')
                                 ->get(),
         ])->withHeaders([
-            'Content-Type' => 'application/xml'
+            'Content-Type' => 'application/xml',
         ]);
     }
 }

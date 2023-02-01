@@ -12,6 +12,6 @@ class Oauth extends Model
     protected $table = 'oauth';
 
     protected $dates = [
-        'expires_at'
+        'expires_at',
     ];
 }

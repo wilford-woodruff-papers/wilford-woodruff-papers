@@ -11,7 +11,7 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 class IndexTopicImport implements ToCollection, WithHeadingRow
 {
     /**
-     * @param Collection $collection
+     * @param  Collection  $collection
      */
     public function collection(Collection $rows)
     {
@@ -27,13 +27,13 @@ class IndexTopicImport implements ToCollection, WithHeadingRow
 
             $subTopics = str($row['subtopics'])
                 ->explode(',')
-                ->map(function($t){
+                ->map(function ($t) {
                     return str($t)->trim();
                 });
 
             foreach ($subTopics as $topic) {
                 if ($subSubject = Subject::firstOrCreate(['name' => $topic])) {
-                    if($subject->id !== $subSubject->id){
+                    if ($subject->id !== $subSubject->id) {
                         $subject->children()->save($subSubject);
                         $category->subjects()->syncWithoutDetaching($subSubject);
                     }

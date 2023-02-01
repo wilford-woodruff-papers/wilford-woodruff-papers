@@ -17,29 +17,26 @@ class ConstantContactController extends Controller
         $redirectURI = config('services.constantcontact.redirect_uri');
         $request->session()->put('state', $state = Str::random(40));
 
-        $baseURL = "https://authz.constantcontact.com/oauth2/default/v1/authorize";
-        $authURL = $baseURL . "?client_id=" . $clientId . "&scope=" . $scope . "+offline_access&response_type=code&state=" . $state . "&redirect_uri=" . $redirectURI;
+        $baseURL = 'https://authz.constantcontact.com/oauth2/default/v1/authorize';
+        $authURL = $baseURL.'?client_id='.$clientId.'&scope='.$scope.'+offline_access&response_type=code&state='.$state.'&redirect_uri='.$redirectURI;
 
         return redirect()->away($authURL);
     }
 
     public function handleProviderCallback(Request $request)
     {
-
         $code = $request->get('code');
         $clientId = config('services.constantcontact.client_id');
         $clientSecret = config('services.constantcontact.client_secret');
         $redirectURI = config('services.constantcontact.redirect_uri');
 
+        $base = 'https://authz.constantcontact.com/oauth2/default/v1/token';
+        $url = $base.'?code='.$code.'&redirect_uri='.$redirectURI.'&grant_type=authorization_code';
 
-
-        $base = "https://authz.constantcontact.com/oauth2/default/v1/token";
-        $url = $base . '?code=' . $code . '&redirect_uri=' . $redirectURI . '&grant_type=authorization_code';
-
-        $auth = $clientId . ':' . $clientSecret;
+        $auth = $clientId.':'.$clientSecret;
 
         $credentials = base64_encode($auth);
-        $authorization = 'Basic ' . $credentials;
+        $authorization = 'Basic '.$credentials;
 
         $response = Http::asForm()
                             ->withHeaders([
@@ -48,7 +45,7 @@ class ConstantContactController extends Controller
                             ->acceptJson()
                             ->post($url);
 
-        if(! empty($response->json('access_token'))){
+        if (! empty($response->json('access_token'))) {
             DB::table('oauth')->upsert([[
                 'provider' => 'Constant Contact',
                 'token_type' => $response->json('token_type'),
@@ -59,7 +56,7 @@ class ConstantContactController extends Controller
                 'id_token' => $response->json('id_token'),
                 'created_at' => now(),
                 'updated_at' => now(),
-            ]], ['provider'], ['token_type', 'expires_at' , 'access_token', 'scope', 'refresh_token', 'id_token', 'updated_at']);
+            ]], ['provider'], ['token_type', 'expires_at', 'access_token', 'scope', 'refresh_token', 'id_token', 'updated_at']);
         }
 
         return $response->json();

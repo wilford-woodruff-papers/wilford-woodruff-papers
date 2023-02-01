@@ -22,7 +22,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        $transcription  = \App\Models\ActionType::create([
+        $transcription = \App\Models\ActionType::create([
             'name' => 'Transcription',
         ]);
         \App\Models\ActionType::create([

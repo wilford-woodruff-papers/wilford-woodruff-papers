@@ -2,7 +2,6 @@
 
 namespace App\Exports;
 
-use App\Models\Page;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
 class PageExport implements FromCollection

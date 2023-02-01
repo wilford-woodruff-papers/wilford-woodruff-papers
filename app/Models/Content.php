@@ -18,7 +18,7 @@ class Content extends Model
         return $this->morphTo();
     }
 
-    function uses()
+    public function uses()
     {
         return $this->hasMany(ContentUses::class);
     }

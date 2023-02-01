@@ -25,7 +25,7 @@ class NewPages extends Value
                     ->where('enabled', 1);
             });
         } else {
-            $pages = $pages->whereHas('item', function (Builder $query) use ($request) {
+            $pages = $pages->whereHas('item', function (Builder $query) {
                 $query->whereIn('type_id', array_keys($this->ranges()))
                     ->where('enabled', 1);
             });

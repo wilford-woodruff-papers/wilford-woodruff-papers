@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
@@ -17,19 +15,19 @@ return new class extends Migration
                                     ->whereNull('type_id')
                                     ->get();
 
-        $types->each(function($type){
+        $types->each(function ($type) {
             $role = \App\Models\Role::create([
-                'name' => $type->name . ' Editor',
+                'name' => $type->name.' Editor',
             ]);
             $type->assignRole($role);
-            if($type->subType){
+            if ($type->subType) {
                 $type->subType->assignRole($role);
             }
         });
 
         $actionTypes = \App\Models\ActionType::all();
 
-        $actionTypes->each(function($actionType){
+        $actionTypes->each(function ($actionType) {
             $role = \App\Models\Role::create([
                 'name' => $actionType->name,
             ]);

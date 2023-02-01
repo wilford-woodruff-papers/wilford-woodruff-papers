@@ -11,13 +11,14 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 class PhotoImport implements ToCollection, WithHeadingRow
 {
     /**
-     * @param Collection $collection
+     * @param  Collection  $collection
      */
     public function collection(Collection $rows)
     {
         foreach ($rows as $row) {
             if (empty(trim($row['filename'])) || Storage::missing('ww_images/'.trim($row['filename']))) {
                 logger()->info('Skipping: '.$row['filename']);
+
                 continue;
             }
 

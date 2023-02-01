@@ -3,13 +3,10 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Date;
-use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use MichielKempen\NovaOrderField\Orderable;
 use MichielKempen\NovaOrderField\OrderField;
 

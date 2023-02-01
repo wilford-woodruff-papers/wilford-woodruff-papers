@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Subject;
 use App\Models\Wife;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class PeopleController extends Controller

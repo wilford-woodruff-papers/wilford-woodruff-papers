@@ -2,15 +2,11 @@
 
 namespace App\Nova;
 
-use App\Nova\Actions\ImportPhotos;
-use App\Nova\Actions\ImportSubjects;
 use DmitryBubyakin\NovaMedialibraryField\Fields\Medialibrary;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\MorphToMany;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest;
 use Spatie\TagsField\Tags;
 
 class Photo extends Resource
