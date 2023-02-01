@@ -37,13 +37,28 @@ class CalculateTaggedSubjectPageCounts extends Command
                  ->chunkById(100, function ($subjects) {
                      $subjects->load('children', 'children.children');
                      foreach ($subjects as $subject) {
-                         $subjectPages = DB::table('page_subject')->where('subject_id', $subject->id)->count();
+                         $subjectPages = DB::table('page_subject')
+                             ->join('pages', 'pages.id', '=', 'page_subject.page_id')
+                             ->join('items', 'items.id', '=', 'pages.item_id')
+                             ->where('subject_id', $subject->id)
+                             ->where('items.enabled', true)
+                             ->count();
 
                          foreach ($subject->children as $child) {
-                             $childPages = DB::table('page_subject')->where('subject_id', $child->id)->count();
+                             $childPages = DB::table('page_subject')
+                                 ->join('pages', 'pages.id', '=', 'page_subject.page_id')
+                                 ->join('items', 'items.id', '=', 'pages.item_id')
+                                 ->where('subject_id', $child->id)
+                                 ->where('items.enabled', true)
+                                 ->count();
 
                              foreach ($child->children as $grandchild) {
-                                 $grandchild->tagged_count = DB::table('page_subject')->where('subject_id', $grandchild->id)->count();
+                                 $grandchild->tagged_count = DB::table('page_subject')
+                                     ->join('pages', 'pages.id', '=', 'page_subject.page_id')
+                                     ->join('items', 'items.id', '=', 'pages.item_id')
+                                     ->where('subject_id', $grandchild->id)
+                                     ->where('items.enabled', true)
+                                     ->count();
                                  $grandchild->save();
                              }
 
