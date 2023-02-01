@@ -78,6 +78,7 @@
         "pestphp/pest": "^1.21",
         "pestphp/pest-plugin-laravel": "^1.2",
         "phpunit/phpunit": "^9.5.10",
+        "spatie/laravel-horizon-watcher": "^1.0",
         "spatie/laravel-ignition": "^1.0"
     },
     "config": {
