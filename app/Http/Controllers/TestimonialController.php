@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ImageTestimonial;
 use App\Models\Testimonial;
-use App\Models\VideoTestimonial;
-use Illuminate\Http\Request;
 
 class TestimonialController extends Controller
 {
@@ -17,7 +14,7 @@ class TestimonialController extends Controller
                                 ->limit(10)
                                 ->get();
 
-        if($featured->count() > 0) {
+        if ($featured->count() > 0) {
             $featured->prepend($featured->pop());
         }
 

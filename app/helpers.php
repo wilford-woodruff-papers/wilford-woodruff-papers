@@ -29,12 +29,15 @@ define('STR_HIGHLIGHT_STRIPLINKS', 8);
  * Highlight a string in text without corrupting HTML tags
  *
  * @author      Aidan Lister <aidan@php.net>
+ *
  * @version     3.1.1
+ *
  * @link        http://aidanlister.com/2004/04/highlighting-a-search-string-in-html-text/
- * @param       string          $text           Haystack - The text to search
- * @param       array|string    $needle         Needle - The string to highlight
- * @param       bool            $options        Bitwise set of options
- * @param       array           $highlight      Replacement string
+ *
+ * @param  string  $text           Haystack - The text to search
+ * @param  array|string  $needle         Needle - The string to highlight
+ * @param  bool  $options        Bitwise set of options
+ * @param  array  $highlight      Replacement string
  * @return      Text with needle highlighted
  */
 function str_highlight($text, $needle, $options = null, $highlight = null)

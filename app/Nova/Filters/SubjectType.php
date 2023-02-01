@@ -4,7 +4,6 @@ namespace App\Nova\Filters;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Filters\Filter;
 
 class SubjectType extends Filter

@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
@@ -17,9 +15,9 @@ return new class extends Migration
             ->whereNull('type_id')
             ->get();
 
-        $types->each(function($type){
+        $types->each(function ($type) {
             $role = \App\Models\Role::create([
-                'name' => $type->name . ' Supervisor',
+                'name' => $type->name.' Supervisor',
             ]);
             $type->assignRole($role);
         });

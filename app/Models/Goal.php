@@ -25,6 +25,7 @@ class Goal extends Model
     {
         return $this->belongsTo(Type::class);
     }
+
     public function action_type()
     {
         return $this->belongsTo(ActionType::class);

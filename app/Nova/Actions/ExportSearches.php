@@ -2,16 +2,8 @@
 
 namespace App\Nova\Actions;
 
-use App\Exports\PageExport;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Support\Collection;
-use Laravel\Nova\Actions\Action;
-use Laravel\Nova\Fields\ActionFields;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
-use Maatwebsite\Excel\Facades\Excel;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 
 class ExportSearches extends DownloadExcel implements WithMapping, WithHeadings
@@ -34,7 +26,6 @@ class ExportSearches extends DownloadExcel implements WithMapping, WithHeadings
 
     /**
      * @param $item
-     *
      * @return array
      */
     public function map($activity): array

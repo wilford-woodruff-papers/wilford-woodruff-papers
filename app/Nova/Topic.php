@@ -23,7 +23,6 @@ class Topic extends Resource
         return $query->whereRelation('category', 'name', 'Topics');
     }
 
-
     /**
      * The model the resource corresponds to.
      *

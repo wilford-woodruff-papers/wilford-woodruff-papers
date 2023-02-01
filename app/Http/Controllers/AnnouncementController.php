@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Announcement;
-use Illuminate\Http\Request;
 
 class AnnouncementController extends Controller
 {
@@ -22,7 +21,7 @@ class AnnouncementController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Announcement $announcement
+     * @param  Announcement  $announcement
      * @return \Illuminate\Http\Response
      */
     public function show(Announcement $announcement)

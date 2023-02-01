@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Item;
 use App\Models\Page;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -50,6 +49,7 @@ class PageController extends Controller
     public function show(Item $item, Page $page)
     {
         $page->load('actions', 'actions.assignee', 'actions.finisher', 'activities');
+
         return view('admin.dashboard.page', [
             'item' => $item,
             'page' => $page,

@@ -27,7 +27,7 @@ class Contestant extends Model
 
     public function getFullNameAttribute()
     {
-        return $this->attributes['first_name'] . ' ' . $this->attributes['last_name'];
+        return $this->attributes['first_name'].' '.$this->attributes['last_name'];
     }
 
     public function getRouteKeyName()

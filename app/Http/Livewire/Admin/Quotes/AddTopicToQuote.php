@@ -21,14 +21,14 @@ class AddTopicToQuote extends ModalComponent
     {
         return view('livewire.admin.quotes.add-topic-to-quote', [
             'topics' => Subject::query()
-                                    ->where(function($query){
+                                    ->where(function ($query) {
                                         $query->whereNull('subject_id')
                                             ->orWhere('subject_id', 0);
                                     })
                                     ->whereRelation('category', 'name', 'Topics')
                                     ->orderBy('name')
                                     ->pluck('name', 'id')
-                                    ->all()
+                                    ->all(),
         ]);
     }
 
@@ -38,5 +38,4 @@ class AddTopicToQuote extends ModalComponent
         $this->emit('refreshQuotes');
         $this->closeModal();
     }
-
 }

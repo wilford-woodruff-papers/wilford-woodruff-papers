@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Imports\BiographyImport;
 use App\Imports\TimelineImport;
 use App\Models\Event;
 use Illuminate\Console\Command;

@@ -7,7 +7,6 @@ use Livewire\Component;
 
 class Comment extends Component
 {
-
     public AdminComment $comment;
 
     public function render()

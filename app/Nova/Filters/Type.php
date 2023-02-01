@@ -3,7 +3,6 @@
 namespace App\Nova\Filters;
 
 use Illuminate\Http\Request;
-use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Filters\Filter;
 
 class Type extends Filter

@@ -2,20 +2,15 @@
 
 namespace App\Models;
 
-use App\Presenters\Presses\UrlPresenter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
-use Maize\Markable\Markable;
-use Maize\Markable\Models\Like;
-use OwenIt\Auditing\Auditable;
 use Parental\HasChildren;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
-use Spatie\Tags\HasTags;
 
 class Press extends Model implements HasMedia
 {
@@ -31,7 +26,7 @@ class Press extends Model implements HasMedia
     public function comments()
     {
         return $this->morphMany(Comment::class, 'commentable')
-                        ->where(function(Builder $query){
+                        ->where(function (Builder $query) {
                             $query->where('status', 1)
                                     ->orWhere('user_id', Auth::id());
                         })
@@ -47,7 +42,7 @@ class Press extends Model implements HasMedia
     /**
      * Get the options for generating the slug.
      */
-    public function getSlugOptions() : SlugOptions
+    public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('title')

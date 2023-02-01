@@ -2,12 +2,12 @@
 
 namespace App\View\Components\Testimonials;
 
-use App\Models\VideoTestimonial;
 use Illuminate\View\Component;
 
 class VideoTestimonials extends Component
 {
     public $videos;
+
     /**
      * Create a new component instance.
      *

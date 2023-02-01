@@ -17,7 +17,7 @@ class QuoteController extends Controller
         $quotes = Quote::query()
                         ->select('text');
 
-        if($request->has('page')){
+        if ($request->has('page')) {
             $quotes = $quotes->where('page_id', $request->get('page'));
         }
 
