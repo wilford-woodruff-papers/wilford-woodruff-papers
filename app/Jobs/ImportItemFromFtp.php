@@ -46,7 +46,7 @@ class ImportItemFromFtp implements ShouldQueue
      */
     public function handle()
     {
-        if ($this->batch()->cancelled()) {
+        if ($this->batch()?->cancelled()) {
             // Determine if the batch has been cancelled...
             return;
         }

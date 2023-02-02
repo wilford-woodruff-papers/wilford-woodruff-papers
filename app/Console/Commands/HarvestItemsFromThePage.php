@@ -86,7 +86,11 @@ class HarvestItemsFromThePage extends Command
 
                 if (empty($document->ftp_id) || ($document->ftp_id !== $item['@id'])) {
                     $document->ftp_id = $item['@id'];
+                    $response = Http::timeout(30)->get($item['@id']);
+                    $document->ftp_slug = str($response->json('related.0.@id'))->afterLast('/');
                     $document->save();
+                    info($document->name.' was replaced in FTP. Updating Pages.');
+                    $document->pages()->delete();
                     ImportItemFromFtp::dispatch($document, false, true);
                 }
 
