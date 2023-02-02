@@ -15,7 +15,7 @@ class HarvestPagesFromThePage extends Command
      *
      * @var string
      */
-    protected $signature = 'import:pages {item?} {--enable=false}';
+    protected $signature = 'import:pages {item?} {--enable=false}  {--download=false}';
 
     /**
      * The console command description.
@@ -49,19 +49,20 @@ class HarvestPagesFromThePage extends Command
         }
 
         $items = $items->get();
+
         $jobs = [];
         foreach ($items as $item) {
-            $jobs[] = new ImportItemFromFtp($item);
+            $jobs[] = new ImportItemFromFtp($item, $this->option('enable'), $this->option('download'));
         }
 
         $batch = Bus::batch($jobs)
             ->then(function (Batch $batch) {
                 // All jobs completed successfully...
-                Bus::chain([
+                /*Bus::chain([
                     new \App\Jobs\OrderPages(),
                     new \App\Jobs\CacheDates(),
                 ])
-                    ->dispatch();
+                    ->dispatch();*/
             })
             ->name('Import Pages')
             ->allowFailures()

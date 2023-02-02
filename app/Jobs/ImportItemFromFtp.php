@@ -23,14 +23,20 @@ class ImportItemFromFtp implements ShouldQueue
 
     protected Item $item;
 
+    public $enable;
+
+    public $download;
+
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct(Item $item)
+    public function __construct(Item $item, $enable = false, $download = false)
     {
         $this->item = $item;
+        $this->enable = $enable;
+        $this->download = $download;
     }
 
     /**
@@ -46,6 +52,11 @@ class ImportItemFromFtp implements ShouldQueue
         }
 
         $item = $this->item;
+
+        if (empty($item->ftp_id)) {
+            info($item->ftp_id.' doesn\'t have an FTP Manifest');
+        }
+
         $response = Http::get($item->ftp_id);
         $canvases = $response->json('sequences.0.canvases');
         if (! empty($canvases)) {
@@ -66,7 +77,7 @@ class ImportItemFromFtp implements ShouldQueue
                     'is_blank' => in_array('markedBlank', array_values(data_get($canvas, 'service.pageStatus', []))),
                 ]);
 
-                if (! $page->hasMedia()) {
+                if (! $page->hasMedia() || ($this->download == true || $this->download == 1)) {
                     $page->clearMediaCollection();
 
                     if (! empty($canvas['images'][0]['resource']['@id'])) {
@@ -120,7 +131,17 @@ class ImportItemFromFtp implements ShouldQueue
 
         $item->ftp_slug = str($response->json('related.0.@id'))->afterLast('/');
         $item->imported_at = now('America/Denver');
+
+        if ($this->enable == true || $this->enable == 1) {
+            if ($item->enabled != true) {
+                $item->added_to_collection_at = now();
+            }
+            $item->enabled = true;
+        }
+
         $item->save();
+
+        OrderPages::dispatch($item);
     }
 
     private function convertSubjectTags($transcript)
