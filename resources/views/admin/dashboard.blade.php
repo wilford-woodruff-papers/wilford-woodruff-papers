@@ -1,6 +1,6 @@
 <x-admin-layout>
 
-    <div class="mt-4 max-w-7xl mx-auto">
+    <div class="mx-auto mt-4 max-w-7xl">
 
         <div class="">
 

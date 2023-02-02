@@ -3,7 +3,7 @@
         <div class="max-w-7xl text-center">
             <form wire:submit.prevent="submit">
                 <input wire:model.defer="search"
-                       class="max-w-xl w-full shadow-sm sm:max-w-xl sm:text-sm border-gray-300"
+                       class="w-full max-w-xl border-gray-300 shadow-sm sm:max-w-xl sm:text-sm"
                        type="search"
                        name="q"
                        value=""
@@ -14,7 +14,7 @@
         </div>
 
         <div class="h-16">
-            <div class="grid grid-flow-col auto-cols-max gap-4 mb-4 overflow-x-scroll no-scrollbar"
+            <div class="grid overflow-x-scroll grid-flow-col auto-cols-max gap-4 mb-4 no-scrollbar"
             >
                 @foreach(range('A', 'Z') as $l)
                     <div wire:click="$set('letter', '{{ $l }}')"
@@ -26,7 +26,7 @@
         </div>
 
         <div wire:loading.remove
-             class="grid grid-cols-1 sm:grid-cols-2 gap-1 mb-4 px-2">
+             class="grid grid-cols-1 gap-1 px-2 mb-4 sm:grid-cols-2">
             @forelse($places as $key => $place)
                 <div class="">
                     <a class="text-secondary popup"
@@ -42,10 +42,10 @@
             @endforelse
         </div>
         <div wire:loading.grid
-             class="grid grid-cols-1 sm:grid-cols-2 mb-4 px-2">
+             class="grid grid-cols-1 px-2 mb-4 sm:grid-cols-2">
             @foreach(range(1, 10) as $placeholder)
                 <div class="col-span-1">
-                    <div data-placeholder class="mr-2 h-6 w-80 overflow-hidden relative bg-gray-200 animate-pulse">
+                    <div data-placeholder class="overflow-hidden relative mr-2 w-80 h-6 bg-gray-200 animate-pulse">
                     </div>
                 </div>
             @endforeach

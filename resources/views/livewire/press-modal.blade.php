@@ -1,17 +1,17 @@
 <div class="press-modal" style="height: calc(100vh - 60px);">
-    <div class="absolute right-4 top-2">
+    <div class="absolute top-2 right-4">
         <button wire:click="$emit('closeModal')"
                 type="button"
-                class="close text-2xl font-semibold"
+                class="text-2xl font-semibold close"
                 aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <div class="h-full grid grid-cols-5">
-        <div class="article col-span-5 md:col-span-3 h-full overflow-y-scroll">
+    <div class="grid grid-cols-5 h-full">
+        <div class="overflow-y-scroll col-span-5 h-full md:col-span-3 article">
             @include('public.landing-areas.media.'.Str::of($press->type)->lower())
         </div>
-        <div class="col-span-5 md:col-span-2 h-full overflow-y-scroll">
+        <div class="overflow-y-scroll col-span-5 h-full md:col-span-2">
             <livewire:comments :model="$press">
         </div>
     </div>

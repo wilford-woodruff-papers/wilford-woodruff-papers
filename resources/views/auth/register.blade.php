@@ -37,40 +37,40 @@
 
                             <div class="ml-2">
                                 {!! __('I agree to the :terms_of_service', [
-                                        'terms_of_service' => '<a target="_blank" href="'.route('terms.show').'" class="underline text-sm text-gray-600 hover:text-gray-900">'.__('Terms of Use').'</a>',
+                                        'terms_of_service' => '<a target="_blank" href="'.route('terms.show').'" class="text-sm text-gray-600 underline hover:text-gray-900">'.__('Terms of Use').'</a>',
                                 ]) !!}
                                 {{--
-                                        'privacy_policy' => '<a target="_blank" href="'.route('policy.show').'" class="underline text-sm text-gray-600 hover:text-gray-900">'.__('Privacy Policy').'</a>',--}}
+                                        'privacy_policy' => '<a target="_blank" href="'.route('policy.show').'" class="text-sm text-gray-600 underline hover:text-gray-900">'.__('Privacy Policy').'</a>',--}}
                             </div>
                         </div>
                     </x-jet-label>
                 </div>
             @endif
 
-            <div class="flex flex-col gap-y-2 items-center justify-center mt-4">
-                <x-jet-button class="py-3 md:py-4 text-center bg-secondary rounded-none">
-                    <span class="mx-auto text-base md:text-lg font-medium">
+            <div class="flex flex-col gap-y-2 justify-center items-center mt-4">
+                <x-jet-button class="py-3 text-center rounded-none md:py-4 bg-secondary">
+                    <span class="mx-auto text-base font-medium md:text-lg">
                         {{ __('Register') }}
                     </span>
                 </x-jet-button>
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
+                <a class="text-sm text-gray-600 underline hover:text-gray-900" href="{{ route('login') }}">
                     {{ __('Already registered?') }}
                 </a>
             </div>
         </form>
         <div class="relative">
-            <div class="absolute inset-0 flex items-center" aria-hidden="true">
+            <div class="flex absolute inset-0 items-center" aria-hidden="true">
                 <div class="w-full border-t border-gray-300"></div>
             </div>
-            <div class="relative flex justify-center">
-                <span class="px-2 bg-white text-sm text-gray-500"> or </span>
+            <div class="flex relative justify-center">
+                <span class="px-2 text-sm text-gray-500 bg-white"> or </span>
             </div>
         </div>
         <div class="grid gap-y-4">
             <div>
-                <a href="{{ route('login.google') }}" type="button" class="inline-flex items-center justify-center px-4 py-2 w-full border border-transparent shadow-md text-sm font-medium text-gray-500 bg-white hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                <a href="{{ route('login.google') }}" type="button" class="inline-flex justify-center items-center py-2 px-4 w-full text-sm font-medium text-gray-500 bg-white border border-transparent shadow-md hover:bg-gray-200 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:outline-none">
                     <!-- Google Icon -->
-                    <svg class="-ml-1 mr-2 h-5 w-5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="mr-2 -ml-1 w-5 h-5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <g transform="matrix(1, 0, 0, 1, 27.009001, -39.238998)">
                             <path fill="#4285F4" d="M -3.264 51.509 C -3.264 50.719 -3.334 49.969 -3.454 49.239 L -14.754 49.239 L -14.754 53.749 L -8.284 53.749 C -8.574 55.229 -9.424 56.479 -10.684 57.329 L -10.684 60.329 L -6.824 60.329 C -4.564 58.239 -3.264 55.159 -3.264 51.509 Z"/>
                             <path fill="#34A853" d="M -14.754 63.239 C -11.514 63.239 -8.804 62.159 -6.824 60.329 L -10.684 57.329 C -11.764 58.049 -13.134 58.489 -14.754 58.489 C -17.884 58.489 -20.534 56.379 -21.484 53.529 L -25.464 53.529 L -25.464 56.619 C -23.494 60.539 -19.444 63.239 -14.754 63.239 Z"/>
@@ -82,9 +82,9 @@
                 </a>
             </div>
             <div>
-                <a href="{{ route('login.facebook') }}" type="button" class="inline-flex items-center justify-center px-4 py-2 w-full border border-transparent shadow-md text-sm font-medium text-gray-500 bg-white hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                <a href="{{ route('login.facebook') }}" type="button" class="inline-flex justify-center items-center py-2 px-4 w-full text-sm font-medium text-gray-500 bg-white border border-transparent shadow-md hover:bg-gray-200 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:outline-none">
                     <!-- Facebook Icon -->
-                    <svg class="-ml-1 mr-2 h-5 w-5" version="1.1" id="facebook-icon"
+                    <svg class="mr-2 -ml-1 w-5 h-5" version="1.1" id="facebook-icon"
                          xmlns="http://www.w3.org/2000/svg"
                          x="0px" y="0px"
                          viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;"

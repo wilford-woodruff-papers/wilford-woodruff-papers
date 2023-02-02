@@ -1,6 +1,6 @@
 <x-guest-layout>
 
-    <div class="max-w-7xl py-12 mx-auto px-2">
+    <div class="py-12 px-2 mx-auto max-w-7xl">
 
         <div class="grid grid-cols-3 gap-x-3">
             <div class="col-span-3 sm:col-span-2">
@@ -11,7 +11,7 @@
                     @include('public.landing-areas.media.'.Str::of($press->type)->lower())
                 </div>
             </div>
-            <div class="col-span-0 sm:col-span-1"></div>
+            <div class="sm:col-span-1 col-span-0"></div>
         </div>
     </div>
 

@@ -19,11 +19,11 @@
             <form wire:submit.prevent="submit">
                 <div class="mb-6">
                 <label for="email" class="sr-only">Search candidates</label>
-                <div class="mt-1 flex rounded-md shadow-sm">
-                    <div class="relative flex items-stretch flex-grow focus-within:z-10">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <div class="flex mt-1 rounded-md shadow-sm">
+                    <div class="flex relative flex-grow items-stretch focus-within:z-10">
+                        <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                             <!-- Heroicon name: solid/search -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
                         </div>
@@ -32,7 +32,7 @@
                                type="search"
                                name="search"
                                id="search"
-                               class="focus:ring-secondary focus:border-secondary block w-full pl-10 sm:text-sm border-gray-300"
+                               class="block pl-10 w-full border-gray-300 sm:text-sm focus:ring-secondary focus:border-secondary"
                                placeholder="">
                     </div>
                     <div x-data="{
@@ -63,11 +63,11 @@
                                 :aria-expanded="open"
                                 :aria-controls="$id('dropdown-button')"
                                 type="button"
-                                class="-ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-secondary focus:border-secondary"
+                                class="inline-flex relative items-center py-2 px-4 -ml-px space-x-2 text-sm font-medium text-gray-700 bg-gray-50 border border-gray-300 hover:bg-gray-100 focus:ring-1 focus:outline-none focus:ring-secondary focus:border-secondary"
                         >
                             <span class="sr-only">Toggle filter options</span>
                             <!-- Heroicon name: solid/adjustments -->
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
                             </svg>
                         </button>
@@ -79,17 +79,17 @@
                             x-on:click.outside="close($refs.button)"
                             :id="$id('dropdown-button')"
                             style="display: none;"
-                            class="absolute z-20 right-0 top-10 mt-2 w-56 shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                            class="absolute right-0 top-10 z-20 mt-2 w-56 bg-white ring-1 ring-black ring-opacity-5 shadow-lg focus:outline-none"
                         >
-                            <div class="px-4 py-2">
+                            <div class="py-2 px-4">
                                 Types
                             </div>
 
-                            <div class="border-t border-gray-400 px-2 pb-4">
+                            <div class="px-2 pb-4 border-t border-gray-400">
                                 <fieldset class="space-y-4">
                                     <legend class="sr-only">Types</legend>
                                     @foreach(['Article', 'News', 'Podcast', 'Instagram', 'Video'] as $type)
-                                        <div class="relative flex items-start">
+                                        <div class="flex relative items-start">
                                             <div class="flex items-center h-5">
                                                 <input wire:model="filters.type"
                                                        id="{{ $type }}"
@@ -97,7 +97,7 @@
                                                        name="type[]"
                                                        type="checkbox"
                                                        value="{{ $type }}"
-                                                       class="focus:ring-secondary h-4 w-4 text-secondary border-gray-300 rounded">
+                                                       class="w-4 h-4 rounded border-gray-300 text-secondary focus:ring-secondary">
                                             </div>
                                             <div class="ml-3 text-sm">
                                                 <label for="{{ $type }}" class="font-medium text-gray-700">{{ $type }}</label>
@@ -110,9 +110,9 @@
                     </div>
 
 
-                    {{--<button type="button" class="-ml-px relative inline-flex items-center space-x-2 px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700 bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-1 focus:ring-secondary focus:border-secondary">
+                    {{--<button type="button" class="inline-flex relative items-center py-2 px-4 -ml-px space-x-2 text-sm font-medium text-gray-700 bg-gray-50 border border-gray-300 hover:bg-gray-100 focus:ring-1 focus:outline-none focus:ring-secondary focus:border-secondary">
                         <!-- Heroicon name: solid/adjustments -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
                         </svg>
                         <span class="sr-only">Filter</span>
@@ -122,7 +122,7 @@
             </form>
             <div class="grid grid-flow-row gap-y-4">
                 @foreach ($articles as $media)
-                    <div class="flex flex-col shrink-0 shadow-lg overflow-hidden w-full h-full">
+                    <div class="flex overflow-hidden flex-col w-full h-full shadow-lg shrink-0">
                         @if($media->external_link_only)
                             <a href="{{ $media->link }}"
                                target="_blank"
@@ -133,14 +133,14 @@
                         @endif
 
                             {{--<a href="{{ route('media.'.Str::of($media->type)->lower(), $media->slug) }}">--}}
-                                {{--<img class="h-48 w-full object-cover"
+                                {{--<img class="object-cover w-full h-48"
                                      src="{{ \Illuminate\Support\Facades\Storage::disk('media')->url($media->cover_image)  }}"
                                      alt="{{ $media->title }}">--}}
-                                <div class="image-parent relative h-128 w-full overflow-hidden inline-block flex items-center bg-primary-50">
-                                    <div class="image-child absolute h-full w-full z-10 bg-cover bg-center z-0" style="background-image: url({{ ($media->type == 'Instagram' ? $media->cover_image : \Illuminate\Support\Facades\Storage::disk('media')->url($media->cover_image)) }})">
+                                <div class="inline-block flex overflow-hidden relative items-center w-full image-parent h-128 bg-primary-50">
+                                    <div class="absolute z-0 z-10 w-full h-full bg-center bg-cover image-child" style="background-image: url({{ ($media->type == 'Instagram' ? $media->cover_image : \Illuminate\Support\Facades\Storage::disk('media')->url($media->cover_image)) }})">
 
                                     </div>
-                                    <div class="w-full py-3 z-10 text-secondary text-xl font-medium bg-white-80 uppercase flex flex-row items-center justify-center">
+                                    <div class="flex z-10 flex-row justify-center items-center py-3 w-full text-xl font-medium uppercase text-secondary bg-white-80">
                                         {!! $media->icon !!}
                                         {{ $media->call_to_action }}
                                     </div>
@@ -152,7 +152,7 @@
                             </div>
                         @endif
 
-                        <div class="flex-1 bg-white p-6 flex flex-col justify-between">
+                        <div class="flex flex-col flex-1 justify-between p-6 bg-white">
                             @if($media->external_link_only)
                                 <a href="{{ $media->link }}"
                                    target="_blank"
@@ -187,7 +187,7 @@
                             @else
                                 </div>
                             @endif
-                            <div class="mt-3 flex items-center justify-between">
+                            <div class="flex justify-between items-center mt-3">
                                 <div wire:click="$emit('openModal', 'press-modal', {{ json_encode(["press" => $media->id]) }})"
                                      class="ml-3 cursor-pointer">
                                     <p class="text-sm font-medium text-gray-900">
@@ -208,15 +208,15 @@
             <div class="text-center">
                 @if($articles->hasMorePages())
                     <div x-intersect:enter="@this.call('loadMore')">
-                        <div class="text-2xl py-6" wire:loading>...</div>
+                        <div class="py-6 text-2xl" wire:loading>...</div>
                     </div>
                 @endif
             </div>
         </div>
-        <div class="hidden sm:block sm:col-span-1 pt-1">
+        <div class="hidden pt-1 sm:block sm:col-span-1">
             @if($popular->count() > 0)
-                <div class="border border-gray-200 px-2 sticky top-10">
-                    <h2 class="text-xl font-medium pt-4 text-gray-800 pl-4">
+                <div class="sticky top-10 px-2 border border-gray-200">
+                    <h2 class="pt-4 pl-4 text-xl font-medium text-gray-800">
                         Popular
                     </h2>
                     <div class="grid grid-cols-1 gap-4">
@@ -230,8 +230,8 @@
                                      class="cursor-pointer">
                             @endif
                                 {{--<a href="{{ route('landing-areas.ponder.press', $article->slug) }}">--}}
-                                    <div class="relative bg-white px-2 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-secondary">
-                                        <div class="flex-shrink-0 h-14 w-14 bg-cover bg-center"
+                                    <div class="flex relative items-center py-5 px-2 space-x-3 bg-white shadow-sm focus-within:ring-2 focus-within:ring-offset-2 hover:border-gray-400 focus-within:ring-secondary">
+                                        <div class="flex-shrink-0 w-14 h-14 bg-center bg-cover"
                                              style="background-image: url({{ ($article->type == 'Instagram' ? $article->cover_image : \Illuminate\Support\Facades\Storage::disk('media')->url($article->cover_image))  }})"
                                         >
 

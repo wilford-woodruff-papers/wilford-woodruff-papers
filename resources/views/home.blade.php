@@ -1,19 +1,19 @@
 <x-guest-layout>
 
-    <div class="bg-cover bg-center h-24 md:h-28 xl:h-48"
+    <div class="h-24 bg-center bg-cover md:h-28 xl:h-48"
          style="background-image: url({{ asset('img/banners/home.jpg') }})">
-        <div class="max-w-7xl mx-auto">
+        <div class="mx-auto max-w-7xl">
 
         </div>
     </div>
 
     {{--@if(app()->environment(['production']))
         <div class="">
-            <div class="max-w-7xl mx-auto grid grid-cols-12">
+            <div class="grid grid-cols-12 mx-auto max-w-7xl">
                 <div class="col-span-12 md:col-span-4 md:col-start-9">
                     <div class="relative">
-                        <div class="md:absolute -mt-24 md:-mt-24 xl:-mt-24">
-                            <img class="mx-auto w-52 md:w-56 xl:w-62 h-auto px-2"
+                        <div class="-mt-24 md:absolute md:-mt-24 xl:-mt-24">
+                            <img class="px-2 mx-auto w-52 h-auto md:w-56 xl:w-62"
                                  src="{{ asset('img/wilford-woodruff.png') }}"
                                  alt=""/>
                         </div>
@@ -21,7 +21,7 @@
 
                 </div>
                 <div class="col-span-12 md:col-span-8 md:col-start-1">
-                    <p class="font-serif text-2xl md:text-3xl leading-relaxed italic text-primary py-4 px-4 md:py-4 xl:py-8 md:px-24">
+                    <p class="py-4 px-4 font-serif text-2xl italic leading-relaxed md:py-4 md:px-24 md:text-3xl xl:py-8 text-primary">
                         Explore Wilford Woodruff's powerful eyewitness account of the Restoration
                     </p>
                 </div>
@@ -30,7 +30,7 @@
     @endif--}}
 
     @if(app()->environment(['production','local','development']))
-        <div class="-mt-24 md:-mt-30 xl:-mt-40">
+        <div class="-mt-24 xl:-mt-40 md:-mt-30">
             <x-top-announcements />
         </div>
     @else
@@ -59,9 +59,9 @@
     {{--@if(app()->environment(['production']))
         @if(! empty($article))
             <div class="bg-white">
-                <div class="max-w-7xl mx-auto pt-4 md:pt-4 px-12 pb-4 xl:pt-4 md:px-24 md:pb-8">
+                <div class="px-12 pt-4 pb-4 mx-auto max-w-7xl md:px-24 md:pt-4 md:pb-8 xl:pt-4">
                     <div class="">
-                        <p class="uppercase text-secondary font-semibold">
+                        <p class="font-semibold uppercase text-secondary">
                             Article
                         </p>
                         <h2 class="text-4xl">
@@ -74,7 +74,7 @@
                         <p class="text-gray-600">
                             {{ $article->date->toFormattedDateString() }}
                         </p>
-                        <p class="text-base my-4">
+                        <p class="my-4 text-base">
                             @if(! empty($article->excerpt))
                                 {!! $article->excerpt !!}
                             @else
@@ -82,7 +82,7 @@
                             @endif
                         </p>
                         <a href="{{ $article->url() }}"
-                           class="text-secondary font-semibold"
+                           class="font-semibold text-secondary"
                            @if(! empty($article->link)) target="_blank" @endif
                         >
                             Read more &gt;
@@ -95,11 +95,11 @@
 
     {{--@if(app()->environment(['production']))
         <div class="bg-primary">
-            <div class="max-w-7xl mx-auto pt-8 md:pt-16 px-12 pb-4 xl:pt-24 md:px-36 md:pb-8">
-                <div class="text-3xl md:text-4xl xl:text-5xl text-justify text-highlight pb-4 leading-10" style="font-family: 'Italianno', cursive;">
+            <div class="px-12 pt-8 pb-4 mx-auto max-w-7xl md:px-36 md:pt-16 md:pb-8 xl:pt-24">
+                <div class="pb-4 text-3xl leading-10 text-justify md:text-4xl xl:text-5xl text-highlight" style="font-family: 'Italianno', cursive;">
                     " We pray that thou wilt bring to our remembrance all things which are necessary to the writing of this history . . . that when we have gone into the world of spirits that the saints of God may be blessed in reading our record which we have kept."
                 </div>
-                <div class="text-xl text-highlight italic text-center">
+                <div class="text-xl italic text-center text-highlight">
                     -- Wilford Woodruff
                 </div>
             </div>
@@ -120,7 +120,7 @@
 
     {{--@if(app()->environment(['production']))
         <div class="mt-4 md:my-12">
-            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 xl:grid-cols-2 gap-2 px-4 md:px-12 md:gap-4 md:px-40">
+            <div class="grid grid-cols-1 gap-2 px-4 mx-auto max-w-7xl md:grid-cols-4 md:gap-4 md:px-12 md:px-40 xl:grid-cols-2">
                 <x-polaroid route="documents" image="img/home/documents.jpg" name="Documents" />
                 <x-polaroid route="people" image="img/home/people.jpg" name="People" />
                 <x-polaroid route="places" image="img/home/places.jpg" name="Places" />

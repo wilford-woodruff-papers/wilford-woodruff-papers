@@ -2,14 +2,14 @@
     <x-slot name="title">
         Browse Documents | {{ config('app.name') }}
     </x-slot>
-    <div class="max-w-7xl mx-auto">
+    <div class="mx-auto max-w-7xl">
         <div class="page-title">
             Understand the unfolding Restoration through Wilford’s unique eyewitness account
         </div>
         <div class="grid grid-cols-12">
             <div
                  class="col-span-12 md:col-span-3">
-                <ul class="submenu divide-y divide-gray-200">
+                <ul class="divide-y divide-gray-200 submenu">
                     <li wire:click="$set('filters.type', '')"
                         class="flex">
                         <span class="cursor-pointer py-4 block w-full text-gray-900 hover:bg-gray-100 @if(empty($filters['type'])) active @else @endif">
@@ -29,14 +29,14 @@
                         </li>
                     @endforeach
                 </ul>
-                <div class="hidden md:block mt-24 bg-highlight text-white py-8 px-4 mb-12">
+                <div class="hidden py-8 px-4 mt-24 mb-12 text-white md:block bg-highlight">
                     <div class="text-lg font-semibold">
                         Advanced Search
                     </div>
                     <div>
 
                     </div>
-                    <a class="block text-sm text-center text-white font-bold bg-secondary uppercase py-4 px-8 mt-8" href="{{ route('advanced-search') }}">
+                    <a class="block py-4 px-8 mt-8 text-sm font-bold text-center text-white uppercase bg-secondary" href="{{ route('advanced-search') }}">
                         Begin Advanced Search
                     </a>
                 </div>
@@ -46,9 +46,9 @@
                     <form wire:submit.prevent="submit">
                         <div class="pl-3">
                             <label for="search" class="sr-only">Search term</label>
-                            <div class="mt-1 relative rounded-md shadow-sm">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none" aria-hidden="true">
-                                    <svg class="mr-3 h-4 w-4 text-gray-400" x-description="Heroicon name: solid/search" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <div class="relative mt-1 rounded-md shadow-sm">
+                                <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none" aria-hidden="true">
+                                    <svg class="mr-3 w-4 h-4 text-gray-400" x-description="Heroicon name: solid/search" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                         <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
                                     </svg>
                                 </div>
@@ -56,16 +56,16 @@
                                     <input wire:model.defer="filters.search"
                                            type="search"
                                            id="search"
-                                           class="focus:ring-secondary focus:border-secondary block w-full pl-9 sm:text-sm border-gray-300"
+                                           class="block pl-9 w-full border-gray-300 sm:text-sm focus:ring-secondary focus:border-secondary"
                                            placeholder="Search by Title" />
                                 </div>
                             </div>
                         </div>
                     </form>
                 </div>
-                <div class="browse-controls flex flex-wrap grid grid-cols-1 lg:grid-cols-5">
-                    <div class="items-center col-span-3">
-                        <nav class="bg-white px-4 py-3 flex items-center justify-between sm:px-6" role="navigation" aria-label="Pagination">
+                <div class="flex grid flex-wrap grid-cols-1 lg:grid-cols-5 browse-controls">
+                    <div class="col-span-3 items-center">
+                        <nav class="flex justify-between items-center py-3 px-4 bg-white sm:px-6" role="navigation" aria-label="Pagination">
                             <div class="hidden sm:block">
                                 <p class="text-base text-primary">
                                     Showing
@@ -77,20 +77,20 @@
                                     results
                                 </p>
                             </div>
-                            <div class="flex-1 flex justify-between sm:justify-end">
+                            <div class="flex flex-1 justify-between sm:justify-end">
                                 <span class="previous o-icon-prev button inactive"></span>
                                 <span class="next o-icon-next button inactive"></span>
                             </div>
                         </nav>
                     </div>
-                    <div class="col-span-2 flex items-center grid justify-items-center lg:justify-items-end">
+                    <div class="flex grid col-span-2 justify-items-center items-center lg:justify-items-end">
                         <form class="sorting" action="">
                             @if(! empty(data_get($filters, 'type')))
                                 <input type="hidden" name="type" value="{{ $filters['type'] }}">
                             @endif
                             <div class="inline-block">
                                 <select wire:model="filters.sort"
-                                        class="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                        class="block py-2 pr-10 pl-3 mt-1 w-full text-base border border-gray-300 sm:text-sm focus:border-indigo-500 focus:ring-indigo-500"
                                         name="sort"
                                         aria-label="Sort by">
                                     <option value="added:desc" @if(request()->get('sort') == 'added:desc') selected="" @endif>Added to Collection (Newest to Oldest)</option>
@@ -103,13 +103,13 @@
                             </div>
 
                             {{--<div class="inline-block">
-                                <button type="submit" class="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium text-white bg-secondary hover:text-highlight focus:outline-none">Sort</button>
+                                <button type="submit" class="inline-flex items-center py-2 px-4 text-sm font-medium text-white border border-gray-300 shadow-sm focus:outline-none bg-secondary hover:text-highlight">Sort</button>
                             </div>--}}
                         </form>
                     </div>
                 </div>
                 <div wire:loading.remove
-                     class="grid grid-flow-col grid-cols-3 lg:grid-cols-4 gap-6">
+                     class="grid grid-cols-3 grid-flow-col gap-6 lg:grid-cols-4">
                     @if(data_get($filters, 'type') == $types->where('name', 'Letters')->first()->id)
                         <div class="col-span-1 px-4 pt-6">
                             <!-- This example requires Tailwind CSS v2.0+ -->
@@ -121,8 +121,8 @@
                                         <span class="truncate">
                                           {{ $d->decade }}<span class="lowercase">s</span> ({{ $d->total }})
                                         </span>
-                                        <span class="ml-auto inline-block py-0.5 px-3 text-xs">
-                                          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <span class="inline-block py-0.5 px-3 ml-auto text-xs">
+                                          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                                             </svg>
                                         </span>
@@ -136,8 +136,8 @@
                                                     <span class="truncate">
                                                       {{ $y->year }} ({{ $y->total }})
                                                     </span>
-                                                    <span class="ml-auto inline-block py-0.5 px-3 text-xs">
-                                                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <span class="inline-block py-0.5 px-3 ml-auto text-xs">
+                                                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                                                         </svg>
                                                     </span>
@@ -150,17 +150,17 @@
                         </div>
                     @endif
                     <div class="col-span-2 lg:col-span-3">
-                        <ul class="divide-y divide-gray-200 px-4">
+                        <ul class="px-4 divide-y divide-gray-200">
                             @if($items->count() > 0)
                                 @foreach($items as $item)
                                     <x-item-summary :item="$item"/>
                                 @endforeach
                             @else
-                                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-24 max-w-6xl mx-auto">
+                                <div class="p-4 mx-auto mb-24 max-w-6xl bg-yellow-50 border-l-4 border-yellow-400">
                                     <div class="flex">
                                         <div class="flex-shrink-0">
                                             <!-- Heroicon name: solid/exclamation -->
-                                            <svg class="h-5 w-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <svg class="w-5 h-5 text-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                                 <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
                                             </svg>
                                         </div>
@@ -176,7 +176,7 @@
                     </div>
                 </div>
                 <div wire:loading.grid
-                     class="grid grid-flow-col grid-cols-3 lg:grid-cols-4 gap-6">
+                     class="grid grid-cols-3 grid-flow-col gap-6 lg:grid-cols-4">
                     @if(data_get($filters, 'type') == $types->where('name', 'Letters')->first()->id)
                         <div class="col-span-1 px-4 pt-6">
                             <!-- This example requires Tailwind CSS v2.0+ -->
@@ -186,12 +186,12 @@
                                           class="@if(data_get($this->filters, 'decade') == $d->decade) bg-gray-200 text-gray-900 @else text-gray-600 hover:bg-gray-50 hover:text-gray-900 @endif flex items-center pl-3 py-2 text-base font-medium cursor-pointer"
                                     >
                                         <span class="truncate">
-                                            <div data-placeholder class="mb-2 h-6 overflow-hidden relative bg-gray-200">
+                                            <div data-placeholder class="overflow-hidden relative mb-2 h-6 bg-gray-200">
 
                                             </div>
                                         </span>
-                                        <span class="ml-auto inline-block py-0.5 px-3 text-xs">
-                                          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <span class="inline-block py-0.5 px-3 ml-auto text-xs">
+                                          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                                             </svg>
                                         </span>
@@ -201,20 +201,20 @@
                         </div>
                     @endif
                     <div class="col-span-2 lg:col-span-3">
-                        <ul class="divide-y divide-gray-200 px-4">
+                        <ul class="px-4 divide-y divide-gray-200">
                             @foreach([1, 2, 3, 4, 5] as $placeholder)
-                                <li class="py-4 grid grid-cols-7">
+                                <li class="grid grid-cols-7 py-4">
                                     <div class="col-span-1 pl-4">
-                                        <div data-placeholder class="mr-2 my-2 h-20 w-20 overflow-hidden relative bg-gray-200">
+                                        <div data-placeholder class="overflow-hidden relative my-2 mr-2 w-20 h-20 bg-gray-200">
 
                                         </div>
                                     </div>
                                     <div class="col-span-6 py-2 pl-4">
                                         <div class="flex flex-col justify-between">
-                                            <div data-placeholder class="mb-2 h-8 w-40 overflow-hidden relative bg-gray-200">
+                                            <div data-placeholder class="overflow-hidden relative mb-2 w-40 h-8 bg-gray-200">
 
                                             </div>
-                                            <div data-placeholder class="h-6 w-40 overflow-hidden relative bg-gray-200">
+                                            <div data-placeholder class="overflow-hidden relative w-40 h-6 bg-gray-200">
 
                                             </div>
                                         </div>
@@ -226,11 +226,11 @@
                 </div>
 
                 <div wire:loading.remove
-                     class="my-4 px-8">
+                     class="px-8 my-4">
                     {!! $items->links() !!}
                 </div>
 
-            {{--<nav class="bg-white px-4 py-3 flex items-center justify-between sm:px-6" role="navigation" aria-label="Pagination">
+            {{--<nav class="flex justify-between items-center py-3 px-4 bg-white sm:px-6" role="navigation" aria-label="Pagination">
                 <div class="hidden sm:block">
                     <p class="text-base text-primary">
                         Showing
@@ -242,7 +242,7 @@
                         results
                     </p>
                 </div>
-                <div class="flex-1 flex justify-between sm:justify-end">
+                <div class="flex flex-1 justify-between sm:justify-end">
                     <span class="previous o-icon-prev button inactive"></span>
                     <span class="next o-icon-next button inactive"></span>
                 </div>

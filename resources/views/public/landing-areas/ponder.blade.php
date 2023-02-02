@@ -2,30 +2,30 @@
     <x-slot name="title">
         Ponder | {{ config('app.name') }}
     </x-slot>
-    <div class="max-w-7xl py-12 mx-auto px-2">
+    <div class="py-12 px-2 mx-auto max-w-7xl">
 
-        <div class="max-w-5xl mx-auto">
+        <div class="mx-auto max-w-5xl">
             <div class="content">
                 <h2>Ponder</h2>
             </div>
         </div>
 
-        <div class="max-w-5xl mx-auto">
+        <div class="mx-auto max-w-5xl">
             <div class="">
 
             </div>
         </div>
 
-        {{--<div class="max-w-5xl mx-auto mt-12">
+        {{--<div class="mx-auto mt-12 max-w-5xl">
             <div class="grid grid-cols-3 pb-4 mb-6">
-                <div class="font-extrabold col-start-2">
-                    <h2 class="text-2xl uppercase pb-1 border-b-4 border-highlight text-center">Explore</h2>
+                <div class="col-start-2 font-extrabold">
+                    <h2 class="pb-1 text-2xl text-center uppercase border-b-4 border-highlight">Explore</h2>
                 </div>
             </div>
             <x-ponder-page-buttons />
         </div>--}}
 
-        <div class="max-w-5xl mx-auto mt-12">
+        <div class="mx-auto mt-12 max-w-5xl">
             <livewire:feed :press="$press"/>
         </div>
 

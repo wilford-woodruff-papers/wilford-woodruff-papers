@@ -41,7 +41,7 @@
 </head>
 <body>
 
-    <div class="font-sans text-gray-900 antialiased">
+    <div class="font-sans antialiased text-gray-900">
         <div class="grid grid-cols-1 md:grid-cols-7">
             <div class="col-span-1">
                 <div class="flex justify-center p-4">
@@ -55,15 +55,15 @@
                 <div>
                     <img src="{{ asset('img/donate/wilford-woodruff.png') }}"
                          alt=""
-                         class="hidden md:block w-full h-auto"
+                         class="hidden w-full h-auto md:block"
                     >
                 </div>
             </div>
             <div class="col-span-3 bg-dark-blue">
-                <h1 class="text-3xl md:text-4xl xl:text-6xl text-white px-12 py-8 md:py-14">
+                <h1 class="py-8 px-12 text-3xl text-white md:py-14 md:text-4xl xl:text-6xl">
                     Donate Online
                 </h1>
-                <div class="px-8 md:px-0 lg:px-16 pb-12 md:pb-0">
+                <div class="px-8 pb-12 md:px-0 md:pb-0 lg:px-16">
                     <script src="https://app.giveforms.com/widget.js" type="text/javascript"></script>
                     <iframe src="https://app.giveforms.com/campaigns/wilfordwoodruffpapersfoundation/default-giveform" id="giveforms-form-embed"
                             name="giveforms"
@@ -73,16 +73,16 @@
                             allowpaymentrequest="true"
                     ></iframe>
                     <div class="pb-12">
-                        <div class="grid grid-cols-2 items-center justify-center mt-12">
+                        <div class="grid grid-cols-2 justify-center items-center mt-12">
                             <a href="https://www.guidestar.org/profile/84-4318803" target="_blank" class="text-center">
-                                <img src="https://wilfordwoodruffpapers.org/img/donate/gold-guidestar.png" alt="Wilford Woodruff Papers Foundation is a gold-level GuideStar participant, demonstrating its commitment to transparency." title="Wilford Woodruff Papers Foundation is a gold-level GuideStar participant, demonstrating its commitment to transparency." class="h-[120px] w-auto inline">
+                                <img src="https://wilfordwoodruffpapers.org/img/donate/gold-guidestar.png" alt="Wilford Woodruff Papers Foundation is a gold-level GuideStar participant, demonstrating its commitment to transparency." title="Wilford Woodruff Papers Foundation is a gold-level GuideStar participant, demonstrating its commitment to transparency." class="inline w-auto h-[120px]">
                             </a>
                             <a href="https://www.charitynavigator.org/ein/844318803" target="_blank" class="text-center">
-                                <img src="https://wilfordwoodruffpapers.org/img/donate/fours-star-charity-navigator.png" alt="Wilford Woodruff Papers Foundation 4 Star profile on Charity Navigator." title="Wilford Woodruff Papers Foundation 4 Star profile on Charity Navigator." class="h-[120px] w-auto inline">
+                                <img src="https://wilfordwoodruffpapers.org/img/donate/fours-star-charity-navigator.png" alt="Wilford Woodruff Papers Foundation 4 Star profile on Charity Navigator." title="Wilford Woodruff Papers Foundation 4 Star profile on Charity Navigator." class="inline w-auto h-[120px]">
                             </a>
                         </div>
                         <div class="flex items-center mt-12">
-                            <p class="text-xl text-white text-justify md:px-8 md:px-0">
+                            <p class="text-xl text-justify text-white md:px-0 md:px-8">
                                 The Wilford Woodruff Papers Foundation is a 501(c)(3) nonprofit organization. Your donation to the Foundation may qualify as a charitable deduction for federal income tax purposes. The Wilford Woodruff Papers Foundation Identification Number (EIN) is 84-4318803.
                             </p>
                         </div>
@@ -90,7 +90,7 @@
                 </div>
 
                 <div class="block md:hidden">
-                    <div class="px-12 md:px-24 pb-12">
+                    <div class="px-12 pb-12 md:px-24">
                         <img src="{{ asset('img/donate/quote.png') }}"
                              alt="To be charitable and kind, brings joy and peace and the Holy Ghost. - Wilford Woodruff"
                              class="w-auto h-auto"
@@ -98,12 +98,12 @@
                     </div>
                 </div>
 
-                <div class="divide-y divide-dark-blue bg-highlight px-8 md:px-0 lg:px-16 pb-12 md:pb-0">
-                    <div class="text-xl text-dark-blue py-12">
-                        <p class="text-xl py-8">
+                <div class="px-8 pb-12 divide-y md:px-0 md:pb-0 lg:px-16 divide-dark-blue bg-highlight">
+                    <div class="py-12 text-xl text-dark-blue">
+                        <p class="py-8 text-xl">
                             If you'd like to send a check, you can mail it to the address below:
                         </p>
-                        <div class="text-black text-xl font-semibold">
+                        <div class="text-xl font-semibold text-black">
                             <address>
                                 Wilford Woodruff Papers Foundation<br />
                                 4025 W. Centennial St.<br />
@@ -113,9 +113,9 @@
                     </div>
                     <div class="py-12">
                         <p class="text-xl break-words">
-                            For donation questions, please email us at <a href='&#109;&#97;il&#116;&#111;&#58;co&#110;&#116;%61ct&#64;&#37;77i&#37;6C&#102;o&#114;dwo&#111;%6&#52;%72&#37;&#55;&#53;f&#37;66%7&#48;&#97;p&#101;&#114;&#115;&#46;%6Fr&#103;' class="text-secondary underline">&#99;ont&#97;&#99;t&#64;wi&#108;f&#111;r&#100;&#119;oodruf&#102;p&#97;pers&#46;org</a> or <a href="{{ route('contact-us') }}" class="text-secondary underline">contact us using ths form</a>.
+                            For donation questions, please email us at <a href='&#109;&#97;il&#116;&#111;&#58;co&#110;&#116;%61ct&#64;&#37;77i&#37;6C&#102;o&#114;dwo&#111;%6&#52;%72&#37;&#55;&#53;f&#37;66%7&#48;&#97;p&#101;&#114;&#115;&#46;%6Fr&#103;' class="underline text-secondary">&#99;ont&#97;&#99;t&#64;wi&#108;f&#111;r&#100;&#119;oodruf&#102;p&#97;pers&#46;org</a> or <a href="{{ route('contact-us') }}" class="underline text-secondary">contact us using ths form</a>.
                         </p>
-                        <p class="text-2xl py-8 text-center">
+                        <p class="py-8 text-2xl text-center">
                             Thank you for your support!
                         </p>
                     </div>
@@ -125,17 +125,17 @@
                 <div class="hidden md:block">
                     <img src="{{ asset('img/donate/image-2.jpg') }}"
                          alt=""
-                         class="hidden md:block w-full h-auto"
+                         class="hidden w-full h-auto md:block"
                     >
                     <div class="md:px-12 lg:px-24">
                         <img src="{{ asset('img/donate/quote.png') }}"
                              alt="To be charitable and kind, brings joy and peace and the Holy Ghost. - Wilford Woodruff"
-                             class="hidden md:block w-full h-auto"
+                             class="hidden w-full h-auto md:block"
                         >
                     </div>
                     <img src="{{ asset('img/donate/image-3.jpg') }}"
                          alt=""
-                         class="hidden md:block w-full h-auto"
+                         class="hidden w-full h-auto md:block"
                     >
                 </div>
             </div>

@@ -65,7 +65,7 @@ class EmailCapture extends Component
                 ['list_memberships' => $this->listMemberships],
             )
             ->log(collect($this->contact)->reject(function ($value, $key) {
-            return empty($value);
+                return empty($value);
             })->implode(','));
 
         $subscribeToConstantContactAction->execute($this->contact, $this->listMemberships);

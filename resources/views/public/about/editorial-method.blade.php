@@ -3,15 +3,15 @@
         Editorial Method | {{ config('app.name') }}
     </x-slot>
     <div id="content" role="main">
-        <div class="max-w-7xl mx-auto px-4">
+        <div class="px-4 mx-auto max-w-7xl">
             <div class="blocks">
                 <div class="grid grid-cols-12 py-12">
-                    <div class="col-span-12 md:col-span-3 px-2 py-16">
+                    <div class="col-span-12 py-16 px-2 md:col-span-3">
                         <x-submenu area="About"/>
                     </div>
-                    <div class="content col-span-12 md:col-span-9">
+                    <div class="col-span-12 md:col-span-9 content">
                         <h2>Editorial Method</h2>
-                        <iframe class="border-0 w-full h-screen" src="/files/wilford-woodruff-papers-editorial-method.pdf#navpanes=0"></iframe>
+                        <iframe class="w-full h-screen border-0" src="/files/wilford-woodruff-papers-editorial-method.pdf#navpanes=0"></iframe>
                     </div>
                 </div>
             </div>
