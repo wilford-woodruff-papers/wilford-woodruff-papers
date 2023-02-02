@@ -13,14 +13,16 @@ class CacheDates implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    public Item $item;
+
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Item $item)
     {
-        //
+        $this->item = $item;
     }
 
     /**
@@ -30,30 +32,23 @@ class CacheDates implements ShouldQueue
      */
     public function handle()
     {
-        $items = Item::doesntHave('items')->get();
-        $items->each(function ($item) {
+        if ($this->item->items->count() == 0) {
             $dates = collect();
-            $item->pages->each(function ($page) use (&$dates) {
+            $this->item->pages->each(function ($page) use (&$dates) {
                 $dates = $dates->concat($page->dates);
             });
-            $item->first_date = optional($dates->sortBy('date')->first())->date;
-            if ($item->first_date) {
-                $item->decade = floor($item->first_date->year / 10) * 10;
-                $item->year = $item->first_date->year;
-            }
-            $item->save();
-        });
+            $this->item->first_date = optional($dates->sortBy('date')->first())->date;
+        } else {
+            $this->item->first_date = optional($this->item->items->sortBy('date')->first())->first_date;
+        }
 
-        $items = Item::has('items')->get();
-        $items->each(function ($item) {
-            $item->first_date = optional($item->items->sortBy('date')->first())->first_date;
-            if ($item->first_date) {
-                $item->decade = floor($item->first_date->year / 10) * 10;
-                $item->year = $item->first_date->year;
-            }
-            $item->save();
-        });
+        if ($this->item->first_date) {
+            $this->item->decade = floor($this->item->first_date->year / 10) * 10;
+            $this->item->year = $this->item->first_date->year;
+        }
 
-        logger()->info('Dates Cached: '.now());
+        $this->item->save();
+
+        logger()->info('Dates Cached for '.$this->item->name);
     }
 }
