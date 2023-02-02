@@ -32,7 +32,9 @@ class ExportContestEntries extends DownloadExcel implements WithMapping, WithHea
      */
     public function map($entry): array
     {
-        $entry->load('contestants');
+        $entry->load([
+            'contestants',
+        ]);
 
         return [
             $entry->id,
@@ -42,7 +44,7 @@ class ExportContestEntries extends DownloadExcel implements WithMapping, WithHea
             $entry->medium,
             $entry->connection,
             $entry->link,
-            $entry->getFirstMediaUrl(),
+            $entry->getFirstMediaUrl('art'),
             $entry->created_at->toDateTimeString(),
         ];
     }
