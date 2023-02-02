@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Jobs\AddTaskToItem;
+use App\Jobs\ImportItemFromFtp;
 use App\Models\Item;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
@@ -83,8 +84,10 @@ class HarvestItemsFromThePage extends Command
             if (! empty($document)) {
                 $document->name = $item['label'];
 
-                if (empty($document->ftp_id)) {
+                if (empty($document->ftp_id) || ($document->ftp_id !== $item['@id'])) {
                     $document->ftp_id = $item['@id'];
+                    $document->save();
+                    ImportItemFromFtp::dispatch($item, false, true);
                 }
 
                 if (data_get($item, 'service.pctComplete', 0) == 100.0) {
