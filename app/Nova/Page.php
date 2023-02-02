@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use App\Nova\Actions\ExportPages;
+use App\Nova\Actions\ExportPagesAlternate;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\HasMany;
@@ -116,6 +117,8 @@ class Page extends Resource
     {
         return [
             (new ExportPages)
+                ->askForWriterType(),
+            (new ExportPagesAlternate())
                 ->askForWriterType(),
         ];
     }
