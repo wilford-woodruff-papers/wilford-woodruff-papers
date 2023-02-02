@@ -3,16 +3,16 @@
         Newsroom | {{ config('app.name') }}
     </x-slot>
     <div id="content" role="main">
-        <div class="max-w-7xl mx-auto px-4">
+        <div class="px-4 mx-auto max-w-7xl">
             <div class="blocks">
                 <div class="grid grid-cols-12 py-12">
-                    <div class="col-span-12 md:col-span-3 px-2 py-16">
+                    <div class="col-span-12 py-16 px-2 md:col-span-3">
                         <x-submenu area="Media"/>
                     </div>
-                    <div class="content col-span-12 md:col-span-9">
+                    <div class="col-span-12 md:col-span-9 content">
                         <h2>Newsroom</h2>
 
-                        <div class="mt-4 grid gap-16 lg:grid-cols-1 lg:gap-y-12">
+                        <div class="grid gap-16 mt-4 lg:grid-cols-1 lg:gap-y-12">
 
                             @foreach($articles as $article)
 
@@ -20,7 +20,7 @@
                                     <p class="text-sm text-gray-500">
                                         <time datetime="{{ $article->date }}">{{ $article->date->format('M j, Y') }}</time>
                                     </p>
-                                    <a href="{{ $article->link }}" class="mt-2 block" target="_news">
+                                    <a href="{{ $article->link }}" class="block mt-2" target="_news">
                                         <p class="text-xl font-semibold text-primary">
                                             {{ $article->title }}
                                         </p>
@@ -41,8 +41,8 @@
                             @endforeach
 
                         </div>
-                        <div class="browse-controls flex flex-wrap grid grid-cols-1 lg:grid-cols-2 mt-8">
-                            <div class="items-center col-span-2 px-8">
+                        <div class="flex grid flex-wrap grid-cols-1 mt-8 lg:grid-cols-2 browse-controls">
+                            <div class="col-span-2 items-center px-8">
                                 {!! $articles->withQueryString()->links('vendor.pagination.tailwind') !!}
                             </div>
                         </div>

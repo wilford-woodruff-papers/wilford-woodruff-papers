@@ -51,7 +51,7 @@
                     <div class="col-span-11">
                         <div class="grid grid-cols-4 gap-1">
                             {!! $page->dates->sortBy('date')->map(function($date){
-                                return '<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800">'
+                                return '<span class="inline-flex items-center py-0.5 px-2 text-xs font-medium text-gray-800 bg-gray-100 rounded">'
                                             . $date->date->format('F j, Y')
                                         . '</span>';
                             })->join(" ") !!}

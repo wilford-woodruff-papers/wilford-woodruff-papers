@@ -4,9 +4,9 @@
              x-cloak
              class=""
         >
-            <div class="max-w-7xl mx-auto px-4">
+            <div class="px-4 mx-auto max-w-7xl">
 
-                <div class="content col-span-12 px-8 pt-6">
+                <div class="col-span-12 px-8 pt-6 content">
 
                     <div class="page-title">Testimonies</div>
 
@@ -15,18 +15,18 @@
             </div>
 
             <div id="featured-testimonials"
-                 class="py-2 md:py-8 mx-12"
+                 class="py-2 mx-12 md:py-8"
             >
                 @foreach($featured as $feature)
                     <div onclick='Livewire.emit("openModal", "testimonial", {{ json_encode(["testimonial" => $feature->id]) }})'
-                         class="w-[240px] h-[240px] mx-14 cursor-pointer relative group overflow-hidden">
+                         class="overflow-hidden relative mx-14 cursor-pointer w-[240px] h-[240px] group">
                         <img class="" src="{{ $feature->getFirstMediaUrl('images', 'square') }}" alt="{{ $feature->name }}">
-                        <div class="title absolute bottom-[-200px] left-0 right-0 w-full py-2 text-secondary text-lg font-medium bg-white-80  group-hover:bottom-0 h-auto ease-in-out duration-300 transition-all">
-                            <div class="uppercase flex flex-row items-center justify-center">
+                        <div class="absolute right-0 left-0 py-2 w-full h-auto text-lg font-medium transition-all duration-300 ease-in-out group-hover:bottom-0 title bottom-[-200px] text-secondary bg-white-80">
+                            <div class="flex flex-row justify-center items-center uppercase">
                                 {!! $feature->icon !!}
                                 {{ $feature->call_to_action }}
                             </div>
-                            <div class="flex text-black text-base font-medium py-2 px-4 items-center justify-center text-center">
+                            <div class="flex justify-center items-center py-2 px-4 text-base font-medium text-center text-black">
                                 {!! $feature->title !!}
                             </div>
                         </div>

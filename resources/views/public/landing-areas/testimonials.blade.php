@@ -2,32 +2,32 @@
     <x-slot name="title">
         Testimonies | {{ config('app.name') }}
     </x-slot>
-    <div class="max-w-7xl mx-auto">
+    <div class="mx-auto max-w-7xl">
         <x-testimonials.featured-testimonials :featured="$featured"/>
     </div>
     <div>
-        <div class="max-w-7xl mx-auto pt-16 pb-4">
+        <div class="pt-16 pb-4 mx-auto max-w-7xl">
             <div onclick="Livewire.emit('openModal', 'forms.testify')"
-                 class="max-w-xl mx-auto px-4 py-2 bg-secondary text-white text-center uppercase"
+                 class="py-2 px-4 mx-auto max-w-xl text-center text-white uppercase bg-secondary"
                  role="button">
                 Share your testimony
             </div>
         </div>
-        <div class="max-w-7xl mx-auto">
+        <div class="mx-auto max-w-7xl">
             <x-testimonials.testimonials :testimonials="$testimonials"/>
         </div>
-        <div class="max-w-7xl mx-auto">
+        <div class="mx-auto max-w-7xl">
             <div class="text-center">
                 @if($testimonials->hasMorePages())
                     <div x-intersect:enter="@this.call('loadMore')">
-                        <div class="text-2xl py-6" wire:loading>...</div>
+                        <div class="py-6 text-2xl" wire:loading>...</div>
                     </div>
                 @endif
             </div>
         </div>
-        <div class="max-w-7xl mx-auto mb-12 text-center">
+        <div class="mx-auto mb-12 max-w-7xl text-center">
             <a href="{{ route('landing-areas.ponder') }}"
-               class="inline-block mx-auto bg-secondary text-white px-4 py-2 border border-transparent text-base font-medium shadow-sm cursor-pointer">
+               class="inline-block py-2 px-4 mx-auto text-base font-medium text-white border border-transparent shadow-sm cursor-pointer bg-secondary">
                     Explore more on our Ponder page
             </a>
         </div>

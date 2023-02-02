@@ -1,12 +1,12 @@
 <x-guest-layout>
-    <div class="max-w-7xl mx-auto px-12 py-12">
+    <div class="py-12 px-12 mx-auto max-w-7xl">
         <div class="content">
             <h2>
                 {{ $update->subject }}
             </h2>
             <div class="bg-white">
-                <div class="flex flex-col shadow-lg overflow-hidden">
-                    <div class="flex-1 bg-white px-6 pb-3 flex flex-col justify-between">
+                <div class="flex overflow-hidden flex-col shadow-lg">
+                    <div class="flex flex-col flex-1 justify-between px-6 pb-3 bg-white">
                         <div class="flex-1">
                             <div class="text-lg font-semibold text-gray-900">
                                 {!! $update->content !!}

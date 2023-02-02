@@ -8,7 +8,7 @@
                 <x-button.link wire:click="toggleShowFilters">@if ($showFilters) Hide @endif Advanced Search</x-button.link>
             </div>
 
-            <div class="space-x-2 flex items-center">
+            <div class="flex items-center space-x-2">
                 <x-input.group borderless paddingless for="perPage" label="Per Page">
                     <x-input.select wire:model="perPage" id="perPage">
                         <option value="10">10</option>
@@ -38,9 +38,9 @@
         <!-- Advanced Search -->
         <div>
             @if ($showFilters)
-                <div class="bg-cool-gray-200 p-4 rounded shadow-inner flex relative">
+                <div class="flex relative p-4 bg-cool-gray-200 rounded shadow-inner">
                     <div class="flex">
-                        <div class="w-1/2 pr-2 space-y-4">
+                        <div class="pr-2 space-y-4 w-1/2">
                             <x-input.group inline for="filter-status" label="Status">
                                 <x-input.select wire:model="filters.status" id="filter-status">
                                     <option value=""> -- Any Status -- </option>
@@ -49,7 +49,7 @@
                                 </x-input.select>
                             </x-input.group>
                         </div>
-                        <div class="w-1/2 pr-2 space-y-4">
+                        <div class="pr-2 space-y-4 w-1/2">
                             <x-input.group inline for="filter-type" label="Type">
                                 <x-input.select wire:model="filters.type" id="filter-type">
                                     <option value=""> -- Any Type -- </option>
@@ -60,7 +60,7 @@
                             </x-input.group>
                         </div>
                         @if(auth()->user()->hasAnyRole(['Super Admin']))
-                            <div class="w-1/2 pr-2 space-y-4">
+                            <div class="pr-2 space-y-4 w-1/2">
                                 <x-input.group inline for="filter-needs" label="Needs Task">
                                     <x-input.select wire:model="filters.needs" id="filter-needs">
                                         <option value=""> -- Task -- </option>
@@ -74,7 +74,7 @@
                     </div>
 
 
-                    <div class="w-1/2 pl-2 space-y-4">
+                    <div class="pl-2 space-y-4 w-1/2">
                         {{--<x-input.group inline for="filter-date-min" label="Minimum Date">
                             <x-input.date wire:model="filters.date-min" id="filter-date-min" placeholder="MM/DD/YYYY" />
                         </x-input.group>
@@ -92,16 +92,16 @@
         </div>
 
         <div class="flex gap-4 justify-end !mt-0">
-            <div class="flex items-center justify-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 whitespace-nowrap text-gray-700 bg-white hover:bg-gray-50">
+            <div class="flex justify-center items-center py-1.5 px-2.5 text-xs font-medium text-gray-700 whitespace-nowrap bg-white rounded border border-gray-300 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none">
                 Not Yet Available
             </div>
-            <div class="flex items-center justify-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 whitespace-nowrap text-white bg-gray-500 hover:bg-gray-700">
+            <div class="flex justify-center items-center py-1.5 px-2.5 text-xs font-medium text-white whitespace-nowrap bg-gray-500 rounded border border-gray-300 shadow-sm hover:bg-gray-700 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none">
                 Not Claimed
             </div>
-            <div class="flex items-center justify-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 whitespace-nowrap text-white bg-red-400 hover:bg-red-600">
+            <div class="flex justify-center items-center py-1.5 px-2.5 text-xs font-medium text-white whitespace-nowrap bg-red-400 rounded border border-gray-300 shadow-sm hover:bg-red-600 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none">
                 Claimed
             </div>
-            <div class="flex items-center justify-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 whitespace-nowrap text-white bg-green-400 hover:bg-green-600">
+            <div class="flex justify-center items-center py-1.5 px-2.5 text-xs font-medium text-white whitespace-nowrap bg-green-400 rounded border border-gray-300 shadow-sm hover:bg-green-600 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none">
                 Completed
             </div>
         </div>
@@ -109,7 +109,7 @@
             <x-admin.quotes.table>
                 <x-slot name="head">
                     <x-admin.quotes.heading></x-admin.quotes.heading>
-                    <x-admin.quotes.heading sortable multi-column wire:click="sortBy('pcf_unique_id')" :direction="$sorts['name'] ?? null" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">ID</x-admin.quotes.heading>
+                    <x-admin.quotes.heading sortable multi-column wire:click="sortBy('pcf_unique_id')" :direction="$sorts['name'] ?? null" class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">ID</x-admin.quotes.heading>
                     <x-admin.quotes.heading class="pr-0 w-8">
                         <x-input.checkbox wire:model="selectPage" />
                     </x-admin.quotes.heading>
@@ -145,21 +145,21 @@
                             </x-admin.quotes.cell>
 
                             <x-admin.quotes.cell class="bg-gray-50">
-                                <span href="#" class="inline-flex space-x-2 truncate text-sm leading-5">
+                                <span href="#" class="inline-flex space-x-2 text-sm leading-5 truncate">
                                     {{ $item->pcf_unique_id_full }}
                                 </span>
                             </x-admin.quotes.cell>
 
-                            <x-admin.quotes.cell class="bg-gray-50 pr-0">
+                            <x-admin.quotes.cell class="pr-0 bg-gray-50">
                                 <x-input.checkbox wire:model="selected" value="{{ $item->id }}" />
                             </x-admin.quotes.cell>
 
                             <x-admin.quotes.cell class="bg-gray-50">
-                                <span href="#" class="inline-flex space-x-2 truncate text-sm leading-5">
+                                <span href="#" class="inline-flex space-x-2 text-sm leading-5 truncate">
                                     {{--<x-icon.cash class="text-cool-gray-400"/>--}}
 
                                     <p class="text-cool-gray-600 truncate">
-                                        <a class="text-indigo-600 font-medium"
+                                        <a class="font-medium text-indigo-600"
                                            href="{{ route('admin.dashboard.document', ['item' => $item]) }}"
                                            target="_blank">
                                             {{ $item->name }}
@@ -171,7 +171,7 @@
                             </x-admin.quotes.cell>
 
                             <x-admin.quotes.cell class="bg-gray-50">
-                                <span class="text-cool-gray-900 font-medium"></span>
+                                <span class="font-medium text-cool-gray-900"></span>
                             </x-admin.quotes.cell>
 
                             <x-admin.quotes.cell class="bg-gray-50">
@@ -186,7 +186,7 @@
 
                             <x-admin.quotes.cell class="bg-gray-50">
                                 @if($item->items->count() < 1)
-                                    <div class="grid grid-flow-col auto-cols-max items-center gap-x-4">
+                                    <div class="grid grid-flow-col auto-cols-max gap-x-4 items-center">
                                         <div class="grid grid-cols-3 gap-2">
                                             @foreach($taskTypes as $taskType)
                                                 @if(empty($taskType->action_type_id)
@@ -212,9 +212,9 @@
                                         <button x-on:click="open = {{ $item->id }}"
                                                 title="Click to expand pages"
                                                 x-show="open != {{ $item->id }}"
-                                                class="flex items-center  gap-x-2 px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 whitespace-nowrap text-gray-700 bg-white hover:bg-gray-50"
+                                                class="flex gap-x-2 items-center py-1.5 px-2.5 text-xs font-medium text-gray-700 whitespace-nowrap bg-white rounded border border-gray-300 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none"
                                         >
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                                             </svg>
                                             Show Sections
@@ -223,9 +223,9 @@
                                                 title="Click to hide pages"
                                                 x-show="open == {{ $item->id }}"
                                                 x-cloak
-                                                class="flex items-center gap-x-2 px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 whitespace-nowrap text-gray-700 bg-white hover:bg-gray-50"
+                                                class="flex gap-x-2 items-center py-1.5 px-2.5 text-xs font-medium text-gray-700 whitespace-nowrap bg-white rounded border border-gray-300 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none"
                                         >
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                                             </svg>
                                             Hide Sections
@@ -254,11 +254,11 @@
                                 </x-admin.quotes.cell>
 
                                 <x-admin.quotes.cell>
-                                    <span href="#" class="inline-flex space-x-2 truncate text-sm leading-5">
+                                    <span href="#" class="inline-flex space-x-2 text-sm leading-5 truncate">
                                         {{--<x-icon.cash class="text-cool-gray-400"/>--}}
 
                                         <p class="text-cool-gray-600 truncate">
-                                            <a class="text-indigo-600 font-medium"
+                                            <a class="font-medium text-indigo-600"
                                                href="{{ route('admin.dashboard.document', ['item' => $section]) }}"
                                                target="_blank">
                                                 {{ $section->name }}
@@ -270,7 +270,7 @@
                                 </x-admin.quotes.cell>
 
                                 <x-admin.quotes.cell>
-                                    <span class="text-cool-gray-900 font-medium"></span>
+                                    <span class="font-medium text-cool-gray-900"></span>
                                 </x-admin.quotes.cell>
 
                                 <x-admin.quotes.cell>
@@ -284,7 +284,7 @@
                                 </x-admin.quotes.cell>
 
                                 <x-admin.quotes.cell>
-                                    <div class="grid grid-flow-col auto-cols-max items-center gap-x-4">
+                                    <div class="grid grid-flow-col auto-cols-max gap-x-4 items-center">
                                         <div class="grid grid-cols-3 gap-2">
                                             @foreach($taskTypes as $taskType)
                                                 @if(empty($taskType->action_type_id)
@@ -320,8 +320,8 @@
                         <x-admin.quotes.row>
                             <x-admin.quotes.cell colspan="6">
                                 <div class="flex justify-center items-center space-x-2">
-                                    {{--<x-icon.inbox class="h-8 w-8 text-cool-gray-400" />--}}
-                                    <span class="font-medium py-8 text-cool-gray-400 text-xl">No quotes found...</span>
+                                    {{--<x-icon.inbox class="w-8 h-8 text-cool-gray-400" />--}}
+                                    <span class="py-8 text-xl font-medium text-cool-gray-400">No quotes found...</span>
                                 </div>
                             </x-admin.quotes.cell>
                         </x-admin.quotes.row>

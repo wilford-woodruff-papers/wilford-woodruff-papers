@@ -82,21 +82,21 @@
 
         <div x-show="options"
              id="pop">
-            <span class="relative z-0 inline-flex shadow-sm rounded-md">
+            <span class="inline-flex relative z-0 rounded-md shadow-sm">
                 <button x-on:click="Livewire.emit('openModal', 'add-quote', [{{ $page->id }}, selection.toString()]);"
                         type="button"
-                        class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-secondary hover:text-white focus:z-10 focus:outline-none">
+                        class="inline-flex relative items-center py-2 px-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 hover:text-white focus:z-10 focus:outline-none hover:bg-secondary">
                     Add Quote
                 </button>
                 <button x-on:click="Livewire.emit('openModal', 'add-theme', [{{ $page->id }}, selection.toString()]);"
                         type="button"
-                        class="hidden -ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-secondary hover:text-white focus:z-10 focus:outline-none">
+                        class="inline-flex hidden relative items-center py-2 px-4 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 hover:text-white focus:z-10 focus:outline-none hover:bg-secondary">
                     Tag Theme
                 </button>
                 <button x-on:click="cancel"
                         type="button"
-                        class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-secondary hover:text-white focus:z-10 focus:outline-none">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        class="inline-flex relative items-center py-2 px-4 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 hover:text-white focus:z-10 focus:outline-none hover:bg-secondary">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                 </button>

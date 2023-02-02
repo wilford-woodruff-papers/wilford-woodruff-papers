@@ -1,11 +1,11 @@
 <x-guest-layout>
-    <div class="max-w-7xl mx-auto">
+    <div class="mx-auto max-w-7xl">
         <div class="grid grid-cols-1 md:grid-cols-2">
-            <div class="flex flex-col justify-center items center max-w-3xl mx-auto">
-                <h1 class="text-2xl tracking-tight font-extrabold text-gray-900 sm:text-3xl md:text-4xl">
+            <div class="flex flex-col justify-center mx-auto max-w-3xl items center">
+                <h1 class="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl md:text-4xl">
                     <span class="block xl:inline">Create an Account</span>
                 </h1>
-                <ul class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl pl-12 md:mt-5 md:text-xl lg:mx-0 list-disc">
+                <ul class="pl-12 mt-3 text-base list-disc text-gray-500 sm:mt-5 sm:max-w-xl sm:text-lg md:mt-5 md:text-xl lg:mx-0">
                     <li>
                         Join our community discussion
                     </li>
@@ -13,9 +13,9 @@
                         Receive update notifications
                     </li>
                 </ul>
-                <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
+                <div class="mt-5 sm:flex sm:justify-center sm:mt-8 lg:justify-start">
                     <div class="rounded-md shadow">
-                        <a href="{{ route('register') }}" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium bg-secondary text-white md:py-4 md:text-lg md:px-10 uppercase">
+                        <a href="{{ route('register') }}" class="flex justify-center items-center py-3 px-8 w-full text-base font-medium text-white uppercase border border-transparent md:py-4 md:px-10 md:text-lg bg-secondary">
                             Register
                         </a>
                     </div>
@@ -30,7 +30,7 @@
                     <x-jet-validation-errors class="mb-4" />
 
                     @if (session('status'))
-                        <div class="mb-4 font-medium text-sm text-green-600">
+                        <div class="mb-4 text-sm font-medium text-green-600">
                             {{ session('status') }}
                         </div>
                     @endif
@@ -56,13 +56,13 @@
                         </div>
 
                         <div class="flex flex-col gap-y-2 justify-center mt-4">
-                            <x-jet-button class="py-3 md:py-4 text-center bg-secondary rounded-none">
-                                <span class="mx-auto text-base md:text-lg font-medium">
+                            <x-jet-button class="py-3 text-center rounded-none md:py-4 bg-secondary">
+                                <span class="mx-auto text-base font-medium md:text-lg">
                                     {{ __('Log in') }}
                                 </span>
                             </x-jet-button>
                             @if (Route::has('password.request'))
-                                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
+                                <a class="text-sm text-gray-600 underline hover:text-gray-900" href="{{ route('password.request') }}">
                                     {{ __('Forgot your password?') }}
                                 </a>
                             @endif
@@ -70,18 +70,18 @@
                         </div>
                     </form>
                     <div class="relative">
-                        <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                        <div class="flex absolute inset-0 items-center" aria-hidden="true">
                             <div class="w-full border-t border-gray-300"></div>
                         </div>
-                        <div class="relative flex justify-center">
-                            <span class="px-2 bg-white text-sm text-gray-500"> or </span>
+                        <div class="flex relative justify-center">
+                            <span class="px-2 text-sm text-gray-500 bg-white"> or </span>
                         </div>
                     </div>
                     <div class="grid gap-y-4">
                         <div>
-                            <a href="{{ route('login.google') }}" type="button" class="inline-flex items-center justify-center px-4 py-2 w-full border border-transparent shadow-md text-sm font-medium text-gray-500 bg-white hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                            <a href="{{ route('login.google') }}" type="button" class="inline-flex justify-center items-center py-2 px-4 w-full text-sm font-medium text-gray-500 bg-white border border-transparent shadow-md hover:bg-gray-200 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:outline-none">
                                 <!-- Google Icon -->
-                                <svg class="-ml-1 mr-2 h-5 w-5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <svg class="mr-2 -ml-1 w-5 h-5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <g transform="matrix(1, 0, 0, 1, 27.009001, -39.238998)">
                                         <path fill="#4285F4" d="M -3.264 51.509 C -3.264 50.719 -3.334 49.969 -3.454 49.239 L -14.754 49.239 L -14.754 53.749 L -8.284 53.749 C -8.574 55.229 -9.424 56.479 -10.684 57.329 L -10.684 60.329 L -6.824 60.329 C -4.564 58.239 -3.264 55.159 -3.264 51.509 Z"/>
                                         <path fill="#34A853" d="M -14.754 63.239 C -11.514 63.239 -8.804 62.159 -6.824 60.329 L -10.684 57.329 C -11.764 58.049 -13.134 58.489 -14.754 58.489 C -17.884 58.489 -20.534 56.379 -21.484 53.529 L -25.464 53.529 L -25.464 56.619 C -23.494 60.539 -19.444 63.239 -14.754 63.239 Z"/>
@@ -93,9 +93,9 @@
                             </a>
                         </div>
                         <div>
-                            <a href="{{ route('login.facebook') }}" type="button" class="inline-flex items-center justify-center px-4 py-2 w-full border border-transparent shadow-md text-sm font-medium text-gray-500 bg-white hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                            <a href="{{ route('login.facebook') }}" type="button" class="inline-flex justify-center items-center py-2 px-4 w-full text-sm font-medium text-gray-500 bg-white border border-transparent shadow-md hover:bg-gray-200 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:outline-none">
                                 <!-- Facebook Icon -->
-                                <svg class="-ml-1 mr-2 h-5 w-5" version="1.1" id="facebook-icon"
+                                <svg class="mr-2 -ml-1 w-5 h-5" version="1.1" id="facebook-icon"
                                      xmlns="http://www.w3.org/2000/svg"
                                      x="0px" y="0px"
                                      viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;"

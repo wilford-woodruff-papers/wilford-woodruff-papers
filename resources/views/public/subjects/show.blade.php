@@ -4,18 +4,18 @@
     </x-slot>
     <div id="content" role="main">
 
-        <div class="max-w-7xl mx-auto px-4">
+        <div class="px-4 mx-auto max-w-7xl">
 
 
             <div class="blocks">
                 <div class="grid grid-cols-12 py-12">
-                    <div class="content col-span-12 px-8 py-6">
+                    <div class="col-span-12 py-6 px-8 content">
                         <h2>{!! $subject->name !!}</h2>
                         <p>
                             {!! $subject->bio !!}
                         </p>
                         @if(! empty($subject->subject_id))
-                            <ul class="ml-1 flex flex-col gap-y-1">
+                            <ul class="flex flex-col gap-y-1 ml-1">
                                 <li>
                                     <a class="text-secondary popup"
                                        href="{{ route('subjects.show', ['subject' => $subject->parent])  }}"
@@ -26,7 +26,7 @@
                             </ul>
                         @endif
                         @if($subject->children->count() > 0)
-                            <ul class="ml-1 flex flex-col gap-y-1">
+                            <ul class="flex flex-col gap-y-1 ml-1">
                                 @foreach($subject->children->sortBy('name') as $subTopic)
                                     <li>
                                         <a class="text-secondary popup"
@@ -41,7 +41,7 @@
                         @if(! empty($subject->geolocation))
                             <img src="{{ $subject->mapUrl() }}"
                                  alt=""
-                                 class="w-full md:w-1/2 h-auto mx-auto"
+                                 class="mx-auto w-full h-auto md:w-1/2"
                             />
                         @endif
 
@@ -53,8 +53,8 @@
                         @endif
 
                     </div>
-                    <div class="col-span-12 md:col-span-12 px-8">
-                        <!--<h3 class="text-primary text-3xl font-serif mt-4 mb-8 pt-7 border-b border-gray-300">Pages</h3>-->
+                    <div class="col-span-12 px-8 md:col-span-12">
+                        <!--<h3 class="pt-7 mt-4 mb-8 font-serif text-3xl border-b border-gray-300 text-primary">Pages</h3>-->
                         <div class="preview-block">
                             <h3 class="mt-4 text-2xl border-b border-primary">Mentioned in</h3>
                             <ul class="divide-y divide-gray-200">

@@ -1,4 +1,4 @@
-<li class="mx-2 py-2">
+<li class="py-2 mx-2">
     <div class="px-4">
         <a href="{{ route('subjects.show', ['subject' => $person]) }}"
            class="pb-1 text-lg font-medium capitalize text-secondary"

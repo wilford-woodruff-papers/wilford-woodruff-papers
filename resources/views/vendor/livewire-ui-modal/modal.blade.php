@@ -14,10 +14,10 @@
             x-on:keydown.tab.prevent="$event.shiftKey || nextFocusable().focus()"
             x-on:keydown.shift.tab.prevent="prevFocusable().focus()"
             x-show="show"
-            class="fixed inset-0 z-10 overflow-y-auto"
+            class="overflow-y-auto fixed inset-0 z-10"
             style="display: none;"
     >
-        <div class="flex items-end justify-center min-h-screen px-4 pt-4 pb-10 text-center sm:block sm:p-0">
+        <div class="flex justify-center items-end px-4 pt-4 pb-10 min-h-screen text-center sm:block sm:p-0">
             <div
                     x-show="show"
                     x-on:click="closeModalOnClickAway()"
@@ -32,7 +32,7 @@
                 <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
             </div>
             {{-- Removed by JF because it pushes modal off screen on sm to lg screen sizes --}}
-            {{--<span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>--}}
+            {{--<span class="hidden sm:inline-block sm:h-screen sm:align-middle" aria-hidden="true">&#8203;</span>--}}
 
             <div
                     x-show="show && showActiveComponent"
@@ -43,7 +43,7 @@
                     x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
                     x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                     x-bind:class="modalWidth"
-                    class="inline-block w-full align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-full"
+                    class="inline-block overflow-hidden w-full text-left align-bottom bg-white rounded-lg shadow-xl transition-all transform sm:my-8 sm:w-full sm:align-middle"
                     id="modal-container"
             >
                 @forelse($components as $id => $component)

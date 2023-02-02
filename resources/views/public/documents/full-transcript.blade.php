@@ -46,19 +46,19 @@
     </style>
 </head>
 <body>
-    <div class="max-w-7xl mx-auto p-6 lg:p-12">
-        <h1 class="text-2xl font-medium py-4">{{ $item->name }}</h1>
-        <h2 class="text-xl font-semibold pb-6">Document Transcript</h2>
+    <div class="p-6 mx-auto max-w-7xl lg:p-12">
+        <h1 class="py-4 text-2xl font-medium">{{ $item->name }}</h1>
+        <h2 class="pb-6 text-xl font-semibold">Document Transcript</h2>
         @foreach($item->pages as $page)
             <div class="relative">
-                <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                <div class="flex absolute inset-0 items-center" aria-hidden="true">
                     <div class="w-full border-t border-gray-300"></div>
                 </div>
-                <div class="relative flex justify-center">
-                    <span class="px-2 bg-white text-sm text-gray-500"> Page {{ $page->order }} </span>
+                <div class="flex relative justify-center">
+                    <span class="px-2 text-sm text-gray-500 bg-white"> Page {{ $page->order }} </span>
                 </div>
             </div>
-            <div class="font-serif metadata my-4">
+            <div class="my-4 font-serif metadata">
                 {!! $page->text() !!}
             </div>
         @endforeach
