@@ -28,19 +28,19 @@
                     <rect width="404" height="392" fill="url(#8228f071-bcee-4ec8-905a-2a059a2cc4fb)" />
                 </svg>--}}
             </div>
-            <div class="mx-auto px-0 sm:max-w-5xl sm:px-0 lg:max-w-7xl lg:px-8">
-                <div class="relative overflow-hidden bg-secondary px-6 py-10 shadow-xl sm:px-24 lg:px-48 sm:py-20">
+            <div class="px-0 mx-auto sm:px-0 sm:max-w-5xl lg:px-8 lg:max-w-7xl">
+                <div class="overflow-hidden relative py-10 px-6 shadow-xl sm:py-20 sm:px-24 lg:px-48 bg-secondary">
                     <div aria-hidden="true" class="absolute inset-0 -mt-72 sm:-mt-32 md:mt-0">
-                        <svg class="absolute inset-0 h-full w-full" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 1463 360">
-                            <path class="text-secondary-500 text-opacity-40" fill="currentColor" d="M-82.673 72l1761.849 472.086-134.327 501.315-1761.85-472.086z" />
-                            <path class="text-secondary-700 text-opacity-40" fill="currentColor" d="M-217.088 544.086L1544.761 72l134.327 501.316-1761.849 472.086z" />
+                        <svg class="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 1463 360">
+                            <path class="text-opacity-40 text-secondary-500" fill="currentColor" d="M-82.673 72l1761.849 472.086-134.327 501.315-1761.85-472.086z" />
+                            <path class="text-opacity-40 text-secondary-700" fill="currentColor" d="M-217.088 544.086L1544.761 72l134.327 501.316-1761.849 472.086z" />
                         </svg>
                     </div>
 
                     @if($success)
                         <div class="relative">
                             <div class="sm:text-center">
-                                <h2 class="text-xl md:text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                                <h2 class="text-xl font-bold tracking-tight text-white sm:text-4xl md:text-3xl">
                                     {!! $component['success_title'] !!}
                                 </h2>
                                 <p class="mx-auto mt-6 max-w-2xl text-lg text-white">
@@ -51,7 +51,7 @@
                     @else
                         <div class="relative">
                             <div class="text-center">
-                                <h2 class="text-xl md:text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                                <h2 class="text-xl font-bold tracking-tight text-white sm:text-4xl md:text-3xl">
                                     {!! $component['title'] !!}
                                 </h2>
                                 <p class="mx-auto mt-6 max-w-2xl text-lg text-indigo-200">
@@ -60,13 +60,13 @@
                             </div>
                             <form wire:submit.prevent="save()"
                                   action="#"
-                                  class="mt-12 sm:mx-auto sm:flex sm:max-w-lg">
-                                <div class="min-w-0 flex-1">
+                                  class="mt-12 sm:flex sm:mx-auto sm:max-w-lg">
+                                <div class="flex-1 min-w-0">
                                     <label for="cta-email" class="sr-only">Email address</label>
                                     <input wire:model.defer="contact.email"
                                            id="cta-email"
                                            type="email"
-                                           class="block w-full border border-transparent px-5 py-3 text-base text-gray-900 placeholder-gray-700 shadow-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600"
+                                           class="block py-3 px-5 w-full text-base placeholder-gray-700 text-gray-900 border border-transparent shadow-sm focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600 focus:outline-none"
                                            placeholder="Enter your email"
                                            required
                                     >
@@ -76,12 +76,12 @@
                                             wire:loading.class="bg-gray-400"
                                             wire:loading.class.remove="bg-white"
                                             type="submit"
-                                            class="block w-full border border-transparent bg-white px-5 py-3 text-base font-semibold text-secondary shadow hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600 sm:px-10 uppercase">
+                                            class="block py-3 px-5 w-full text-base font-semibold uppercase bg-white border border-transparent shadow sm:px-10 hover:bg-gray-200 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600 focus:outline-none text-secondary">
                                         <span wire:loading.remove>Notify me</span>
                                         <span wire:loading
                                               class="flex items-center px-7"
                                         >
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="animate-spin w-4 h-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 animate-spin">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
                                         </svg>
 
@@ -90,8 +90,8 @@
                                 </div>
                             </form>
                             @error('contact.email')
-                            <div class="bg-white py-2 mt-2 sm:mx-auto sm:max-w-lg">
-                                <div class="text-red-500 text-sm text-center">{{ $message }}</div>
+                            <div class="py-2 mt-2 bg-white sm:mx-auto sm:max-w-lg">
+                                <div class="text-sm text-center text-red-500">{{ $message }}</div>
                             </div>
                             @enderror
                         </div>

@@ -19,7 +19,7 @@
             }
         }"
         x-id="['tab']"
-        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+        class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8"
     >
         <!-- Tab List -->
         <ul
@@ -31,7 +31,7 @@
             @keydown.end.prevent.stop="$focus.last()"
             @keydown.page-down.prevent.stop="$focus.last()"
             role="tablist"
-            class="-mb-px flex items-stretch"
+            class="flex items-stretch -mb-px"
         >
             <!-- Tab -->
             @foreach($periods as $period)
@@ -45,7 +45,7 @@
                         :tabindex="isSelected($el.id) ? 0 : -1"
                         :aria-selected="isSelected($el.id)"
                         :class="isSelected($el.id) ? 'border-gray-200 bg-white' : 'border-transparent'"
-                        class="inline-flex px-5 py-2.5 border-t border-l border-r rounded-t-md"
+                        class="inline-flex py-2.5 px-5 rounded-t-md border-t border-r border-l"
                         role="tab"
                     >{{ $period->start->toFormattedDateString() }} - {{ $period->end->toFormattedDateString() }}</button>
                 </li>
@@ -53,7 +53,7 @@
         </ul>
 
         <!-- Panels -->
-        <div role="tabpanels" class="bg-white border border-gray-200 rounded-b-md">
+        <div role="tabpanels" class="bg-white rounded-b-md border border-gray-200">
             <!-- Panel -->
             @foreach($periods as $period)
                 <section
@@ -123,7 +123,7 @@
                                 return $item;
                             });
                         @endphp
-                        <h2 class="font-medium text-lg">{{ $type->name }}</h2>
+                        <h2 class="text-lg font-medium">{{ $type->name }}</h2>
                         <div x-data="{
                         labels: [{{ $actionTypes->pluck('name')->map(function($type, $key){
                                 return "'".$type."'";
@@ -171,7 +171,7 @@
                     }"
                              class="h-64"
                         >
-                            <canvas x-ref="canvas" class="bg-white rounded-lg p-8"></canvas>
+                            <canvas x-ref="canvas" class="p-8 bg-white rounded-lg"></canvas>
                         </div>
                     @endforeach
                 </section>

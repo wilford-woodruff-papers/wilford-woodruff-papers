@@ -1,6 +1,6 @@
 <div>
 
-    <div class="py-4 flex space-4 gap-4 px-6">
+    <div class="flex gap-4 py-4 px-6 space-4">
         <!-- Top Bar -->
         <div class="flex justify-between">
             <div class="flex space-x-4">
@@ -12,7 +12,7 @@
             <div class="mt-1">
                 <select wire:model="filters.user"
                         id="user"
-                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-500 focus:ring-indigo-500"
                 >
                     <option value="">-- Tagged By --</option>
                     @foreach($users as $u)
@@ -57,8 +57,8 @@
                 <x-admin.quotes.row>
                     <x-admin.quotes.cell colspan="6">
                         <div class="flex justify-center items-center space-x-2">
-                            {{--<x-icon.inbox class="h-8 w-8 text-cool-gray-400" />--}}
-                            <span class="font-medium py-8 text-cool-gray-400 text-xl">No quotes found...</span>
+                            {{--<x-icon.inbox class="w-8 h-8 text-cool-gray-400" />--}}
+                            <span class="py-8 text-xl font-medium text-cool-gray-400">No quotes found...</span>
                         </div>
                     </x-admin.quotes.cell>
                 </x-admin.quotes.row>

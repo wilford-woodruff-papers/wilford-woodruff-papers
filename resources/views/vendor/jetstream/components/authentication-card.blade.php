@@ -1,9 +1,9 @@
-<div class="flex flex-col sm:justify-center items-center py-12">
+<div class="flex flex-col items-center py-12 sm:justify-center">
     <div>
         {{ $logo }}
     </div>
 
-    <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
+    <div class="overflow-hidden py-4 px-6 mt-6 w-full bg-white shadow-md sm:max-w-md sm:rounded-lg">
         {{ $slot }}
     </div>
 </div>

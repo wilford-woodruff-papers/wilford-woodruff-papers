@@ -3,24 +3,24 @@
         Podcasts | {{ config('app.name') }}
     </x-slot>
     <div id="content" role="main">
-        <div class="max-w-7xl mx-auto px-4">
+        <div class="px-4 mx-auto max-w-7xl">
             <div class="blocks">
                 <div class="grid grid-cols-12 py-12">
-                    <div class="col-span-12 md:col-span-3 px-2 py-16">
+                    <div class="col-span-12 py-16 px-2 md:col-span-3">
                         <x-submenu area="Media"/>
                     </div>
-                    <div class="content col-span-12 md:col-span-9">
+                    <div class="col-span-12 md:col-span-9 content">
                         <h2>Podcasts</h2>
 
                         @foreach($podcasts as $podcast)
-                            <div class="mt-4 pt-0 px-4 grid gap-16 grid-cols-1 lg:gap-y-12">
+                            <div class="grid grid-cols-1 gap-16 px-4 pt-0 mt-4 lg:gap-y-12">
                                 <div>
                                     <p class="text-sm text-gray-500">
                                         <time datetime="{{ $podcast->date }}">{{ $podcast->date->format('j M Y') }}</time>
                                     </p>
-                                    <a href="{{ $podcast->link }}" class="mt-2 block" target="_podcast">
+                                    <a href="{{ $podcast->link }}" class="block mt-2" target="_podcast">
                                         <p class="text-xl font-semibold text-primary">
-                                            <a href="{{ route('media.podcast', ['podcast' => $podcast]) }}" class="mt-2 block">
+                                            <a href="{{ route('media.podcast', ['podcast' => $podcast]) }}" class="block mt-2">
                                                 {{ $podcast->title }}
                                             </a>
                                         </p>
@@ -47,8 +47,8 @@
                                 </div>
                             </div>
                         @endforeach
-                        <div class="browse-controls flex flex-wrap grid grid-cols-1 lg:grid-cols-2 mt-8">
-                            <div class="items-center col-span-2 px-8">
+                        <div class="flex grid flex-wrap grid-cols-1 mt-8 lg:grid-cols-2 browse-controls">
+                            <div class="col-span-2 items-center px-8">
                                 {!! $podcasts->withQueryString()->links('vendor.pagination.tailwind') !!}
                             </div>
                         </div>

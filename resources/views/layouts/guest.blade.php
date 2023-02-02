@@ -48,7 +48,7 @@
         @include('layouts.partials.google-tag-manager-no-script')
         <x-admin-bar />
         <x-header />
-        <div class="font-sans text-gray-900 antialiased">
+        <div class="font-sans antialiased text-gray-900">
             {{ $slot }}
         </div>
 

@@ -31,7 +31,7 @@
             :aria-expanded="open"
             :aria-controls="$id('dropdown-button')"
             type="button"
-            class="px-3 py-2 text-gray-900 text-sm font-medium"
+            class="py-2 px-3 text-sm font-medium text-gray-900"
         >
             <span>{{ $text }}</span>
         </button>
@@ -44,12 +44,12 @@
             x-on:click.outside="close($refs.button)"
             :id="$id('dropdown-button')"
             style="display: none;"
-            class="absolute left-0 mt-2 w-40 bg-white rounded shadow-md overflow-hidden"
+            class="overflow-hidden absolute left-0 mt-2 w-40 bg-white rounded shadow-md"
         >
             <div>
                 @foreach($links as $key => $link)
                     @if($link['auth'])
-                        <a href="{{ $link['url'] }}" class="block w-full px-4 py-2 text-left text-sm hover:bg-gray-50 disabled:text-gray-500" >
+                        <a href="{{ $link['url'] }}" class="block py-2 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500" >
                             {{ $key }}
                         </a>
                     @endif

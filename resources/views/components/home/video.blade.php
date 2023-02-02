@@ -1,11 +1,11 @@
-<div class="max-w-7xl mx-auto pt-4 md:pt-4 px-4 pb-4 xl:pt-4 md:pb-8">
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 pb-4">
-        <div class="font-extrabold col-span-2">
-            <h2 class="text-3xl uppercase pb-1 border-b-4 border-highlight">What is the Wilford Woodruff Papers Project?</h2>
+<div class="px-4 pt-4 pb-4 mx-auto max-w-7xl md:pt-4 md:pb-8 xl:pt-4">
+    <div class="grid grid-cols-1 pb-4 sm:grid-cols-2 md:grid-cols-3">
+        <div class="col-span-2 font-extrabold">
+            <h2 class="pb-1 text-3xl uppercase border-b-4 border-highlight">What is the Wilford Woodruff Papers Project?</h2>
         </div>
     </div>
 </div>
-<iframe class="w-full aspect-[16/9] max-w-5xl mx-auto"
+<iframe class="mx-auto w-full max-w-5xl aspect-[16/9]"
         src="https://www.youtube.com/embed/n-awaZrXlzs"
         frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

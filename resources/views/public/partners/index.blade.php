@@ -3,8 +3,8 @@
         Partners | {{ config('app.name') }}
     </x-slot>
     <div id="content" role="main">
-        <div class="bg-gradient-to-b from-secondary to-secondary-300 px-4 md:px-0">
-            <div class="max-w-7xl mx-auto pt-24 pb-12">
+        <div class="px-4 bg-gradient-to-b md:px-0 from-secondary to-secondary-300">
+            <div class="pt-24 pb-12 mx-auto max-w-7xl">
                 <div class="grid grid-cols-12 gap-x-8">
                     <div class="col-span-12 md:col-span-3"></div>
                     <div class="col-span-12 md:col-span-9">
@@ -13,10 +13,10 @@
                 </div>
             </div>
         </div>
-        <div class="max-w-7xl mx-auto px-4">
+        <div class="px-4 mx-auto max-w-7xl">
             <div class="blocks">
-                <div class="grid grid-cols-12 py-12 gap-x-8">
-                    <div class="col-span-12 md:col-span-3 px-2 py-16">
+                <div class="grid grid-cols-12 gap-x-8 py-12">
+                    <div class="col-span-12 py-16 px-2 md:col-span-3">
                         <x-submenu area="About"/>
                     </div>
                     <div class="col-span-12 md:col-span-9">
@@ -27,7 +27,7 @@
                                             show: true,
                                         }"
                                          role="region">
-                                        <div class="max-w-7xl mx-auto px-12 mt-4 mb-4">
+                                        <div class="px-12 mx-auto mt-4 mb-4 max-w-7xl">
                                             <div class="flex items-center border-b-2 border-[#707070] ">
                                                 <div x-on:click="show = !show"
                                                      class="flex items-center py-4 cursor-pointer">
@@ -47,9 +47,9 @@
                                                     <button
                                                         x-on:click="show = !show"
                                                         :aria-expanded="show"
-                                                        class="flex w-full items-center"
+                                                        class="flex items-center w-full"
                                                     >
-                                                        <h3 class="font-serif text-xl md:text-2xl leading-5 font-medium text-black font-medium">
+                                                        <h3 class="font-serif text-xl font-medium leading-5 text-black md:text-2xl">
                                                             {{ $partnerCategory->name }}
                                                         </h3>
                                                     </button>
@@ -58,14 +58,14 @@
                                         </div>
                                         <div x-show="show"
                                              x-collapse
-                                             class="mb-12 px-4 text-primary text-lg text-justify">
+                                             class="px-4 mb-12 text-lg text-justify text-primary">
                                             {!! $partnerCategory->description !!}
                                         </div>
                                         <ul x-show="show"
                                             x-collapse
-                                            role="list" class="space-y-12 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-12 sm:space-y-0 lg:grid-cols-4 lg:gap-x-8 mb-16">
+                                            role="list" class="mb-16 space-y-12 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-12 sm:space-y-0 lg:grid-cols-4 lg:gap-x-8">
                                             @foreach($partnerCategory->partners as $partner)
-                                                <li class="flex items-center justify-center">
+                                                <li class="flex justify-center items-center">
                                                     <a href="{{ $partner->url }}"
                                                        target="_blank"
                                                     >

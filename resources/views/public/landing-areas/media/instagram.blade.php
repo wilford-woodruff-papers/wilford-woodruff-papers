@@ -1,4 +1,4 @@
-<div class="h-full flex items-center bg-black">
+<div class="flex items-center h-full bg-black">
     @if($press->social_type == 'carousel')
         <div
             x-data="{
@@ -82,11 +82,11 @@
                     tabindex="0"
                     role="listbox"
                     aria-labelledby="carousel-content-label"
-                    class="flex w-full overflow-x-scroll snap-x snap-mandatory"
+                    class="flex overflow-x-scroll w-full snap-x snap-mandatory"
                 >
                     @foreach($press->extra_attributes as $image)
                         @if($image['type'] == 'image')
-                            <li x-bind="disableNextAndPreviousButtons" class="snap-start w-full shrink-0 flex flex-col items-center justify-center p-2" role="option">
+                            <li x-bind="disableNextAndPreviousButtons" class="flex flex-col justify-center items-center p-2 w-full snap-start shrink-0" role="option">
                                 <img src="{{ $image['url'] }}"
                                      class=""
                                      alt="">

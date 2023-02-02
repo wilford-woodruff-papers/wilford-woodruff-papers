@@ -23,7 +23,7 @@ class Goals extends Component
     public function mount()
     {
         if (! auth()->user()->hasRole(\App\Models\Type::query()->whereNull('type_id')->pluck('name')->transform(function ($type) {
-        return $type.' Supervisor';
+            return $type.' Supervisor';
         })->all())) {
             abort(403);
         }

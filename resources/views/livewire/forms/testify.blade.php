@@ -1,17 +1,17 @@
 <div>
 
-    <div class="bg-white py-4 px-4 overflow-hidden">
-        <div class="absolute right-4 top-2 z-20">
+    <div class="overflow-hidden py-4 px-4 bg-white">
+        <div class="absolute top-2 right-4 z-20">
             <button wire:click="$emit('closeModal')"
                     type="button"
-                    class="close text-2xl font-semibold"
+                    class="text-2xl font-semibold close"
                     aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
         <div class="relative mx-auto">
             <div>
-                <h2 class="text-2xl border-b-2 pb-2">
+                <h2 class="pb-2 text-2xl border-b-2">
                     Share Your Testimony
                 </h2>
             </div>
@@ -35,7 +35,7 @@
                                            required
                                            class="py-3 px-4 block w-full shadow-sm focus:ring-secondary focus:border-secondary @error('firstName') border-red-500 @else border-gray-300 @enderror">
                                 </div>
-                                @error('firstName') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
+                                @error('firstName') <div class="mt-1 text-sm text-red-500">{{ $message }}</div> @enderror
                             </div>
                         </div>
                         <div>
@@ -49,7 +49,7 @@
                                        required
                                        class="py-3 px-4 block w-full shadow-sm focus:ring-secondary focus:border-secondary @error('email') border-red-500 @else border-gray-300 @enderror">
                             </div>
-                            @error('email') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
+                            @error('email') <div class="mt-1 text-sm text-red-500">{{ $message }}</div> @enderror
                         </div>
                         <div>
                             <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
@@ -61,7 +61,7 @@
                                        value=""
                                        class="py-3 px-4 block w-full shadow-sm focus:ring-secondary focus:border-secondary @error('phone') border-red-500 @else border-gray-300 @enderror">
                             </div>
-                            @error('phone') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
+                            @error('phone') <div class="mt-1 text-sm text-red-500">{{ $message }}</div> @enderror
                         </div>
                         <div class="hidden">
                             <label for="location" class="block text-sm font-medium text-gray-700">Location</label>
@@ -73,7 +73,7 @@
                                        value=""
                                        class="py-3 px-4 block w-full shadow-sm focus:ring-secondary focus:border-secondary @error('location') border-red-500 @else border-gray-300 @enderror">
                             </div>
-                            @error('location') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
+                            @error('location') <div class="mt-1 text-sm text-red-500">{{ $message }}</div> @enderror
                         </div>
                         <div class="hidden">
                             <label for="age" class="block text-sm font-medium text-gray-700">Age</label>
@@ -85,9 +85,9 @@
                                        value=""
                                        class="py-3 px-4 block w-full shadow-sm focus:ring-secondary focus:border-secondary @error('age') border-red-500 @else border-gray-300 @enderror">
                             </div>
-                            @error('age') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
+                            @error('age') <div class="mt-1 text-sm text-red-500">{{ $message }}</div> @enderror
                         </div>
-                        <div class="sm:col-span-2 hidden">
+                        <div class="hidden sm:col-span-2">
                             <label for="source" class="block text-sm font-medium text-gray-700">Source</label>
                             <div class="mt-1">
                                 <input wire:model.defer="source"
@@ -97,9 +97,9 @@
                                        value=""
                                        class="py-3 px-4 block w-full shadow-sm focus:ring-secondary focus:border-secondary @error('source') border-red-500 @else border-gray-300 @enderror">
                             </div>
-                            @error('source') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
+                            @error('source') <div class="mt-1 text-sm text-red-500">{{ $message }}</div> @enderror
                         </div>
-                        <div class="sm:col-span-2 hidden">
+                        <div class="hidden sm:col-span-2">
                             <label for="topic" class="block text-sm font-medium text-gray-700">Topic</label>
                             <div class="mt-1">
                                 <input wire:model.defer="topic"
@@ -109,7 +109,7 @@
                                        value=""
                                        class="py-3 px-4 block w-full shadow-sm focus:ring-secondary focus:border-secondary @error('topic') border-red-500 @else border-gray-300 @enderror">
                             </div>
-                            @error('topic') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
+                            @error('topic') <div class="mt-1 text-sm text-red-500">{{ $message }}</div> @enderror
                         </div>
                         <div class="sm:col-span-2">
                             <label for="message" class="block text-sm font-medium text-gray-700">Your Testimony</label>
@@ -120,11 +120,11 @@
                                           required
                                           class="py-3 px-4 block w-full shadow-sm focus:ring-secondary focus:border-secondary border  @error('message') border-red-500 @else border-gray-300 @enderror"></textarea>
                             </div>
-                            @error('message') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
+                            @error('message') <div class="mt-1 text-sm text-red-500">{{ $message }}</div> @enderror
                         </div>
                         <div class="sm:col-span-2">
                             <button type="submit"
-                                    class="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent shadow-sm text-base uppercase font-medium text-white bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary">Submit</button>
+                                    class="inline-flex justify-center items-center py-3 px-6 w-full text-base font-medium text-white uppercase border border-transparent shadow-sm focus:ring-2 focus:ring-offset-2 focus:outline-none bg-secondary focus:ring-secondary">Submit</button>
                         </div>
                     </form>
                 @elseif($success === true)
@@ -135,7 +135,7 @@
                         <div>
                             <button onclick="Livewire.emit('closeModal', 'forms.testify')"
                                     type="dismiss"
-                                    class="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent shadow-sm text-base uppercase font-medium text-white bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary">Close</button>
+                                    class="inline-flex justify-center items-center py-3 px-6 w-full text-base font-medium text-white uppercase bg-gray-500 border border-transparent shadow-sm focus:ring-2 focus:ring-offset-2 focus:outline-none focus:ring-secondary">Close</button>
                         </div>
                     </div>
                 @endif

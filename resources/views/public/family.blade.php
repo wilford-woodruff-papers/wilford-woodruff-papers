@@ -26,7 +26,7 @@
                         @foreach($wives->groupBy('marriage_year')->sortBy('marriage_year') as $year => $marriages)
                             @foreach($marriages as $wife)
                                 <div>
-                                    <div class="relative pb-8"><span aria-hidden="true" class="absolute top-5 left-5 -ml-px h-full w-0.5 bg-gray-200">&nbsp;</span>
+                                    <div class="relative pb-8"><span aria-hidden="true" class="absolute top-5 left-5 -ml-px w-0.5 h-full bg-gray-200">&nbsp;</span>
                                         <div class="flex relative items-start space-x-3">
                                             <div class="relative">
                                                 @if($loop->first)

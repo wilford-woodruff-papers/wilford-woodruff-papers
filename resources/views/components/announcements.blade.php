@@ -1,9 +1,9 @@
 <div>
-    <div class="max-w-7xl mx-auto pb-4 md:pb-8">
+    <div class="pb-4 mx-auto max-w-7xl md:pb-8">
         <div class="{{ $position }}-announcements">
             @foreach($announcements as $announcement)
                 <div class="mb-2 @if(! $loop->first) hidden @endif">
-                    <div class="pt-8 md:pt-8 px-6 xl:pt-8 md:px-6">
+                    <div class="px-6 pt-8 md:px-6 md:pt-8 xl:pt-8">
                         @include('announcements.single', ['announcement' => $announcement])
                     </div>
                 </div>
