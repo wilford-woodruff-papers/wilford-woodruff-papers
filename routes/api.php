@@ -1,8 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,3 +16,5 @@ use Illuminate\Support\Facades\Route;
 });*/
 
 /*Route::get('/subjects/{subject}', [\App\Http\Controllers\SubjectController::class, 'show'])->name('api.subjects.show');*/
+
+Route::get('pages', [\App\Http\Controllers\Api\PageController::class, 'index']);
