@@ -35,23 +35,21 @@ class OrderPages implements ShouldQueue
     {
         if ($this->item->items->count() == 0) {
             $pageSortColumn = $item->page_sort_column ?? 'id';
-            if ($this->item->enabled) {
-                $pages = $this->item->pages->sortBy($pageSortColumn);
-                $pages->each(function ($page) {
-                    $page->parent_item_id = $this->item->parent()->id;
-                    $page->type_id = $this->item->parent()->type_id;
-                    $page->save();
-                });
+            $pages = $this->item->pages->sortBy($pageSortColumn);
+            $pages->each(function ($page) {
+                $page->parent_item_id = $this->item->parent()->id;
+                $page->type_id = $this->item->parent()->type_id;
+                $page->save();
+            });
 
-                Page::setNewOrder($pages->pluck('id')->all());
+            Page::setNewOrder($pages->pluck('id')->all());
 
-                $this->item->fresh();
-                $pages = $this->item->pages;
-                $pages->each(function ($page) {
-                    $page->full_name = $this->item->name.': Page'.$page->order;
-                    $page->save();
-                });
-            }
+            $this->item->fresh();
+            $pages = $this->item->pages;
+            $pages->each(function ($page) {
+                $page->full_name = $this->item->name.': Page'.$page->order;
+                $page->save();
+            });
         } else {
             $itemPages = collect([]);
             $this->item->items->sortBy('order')->each(function ($child) use (&$itemPages) {
