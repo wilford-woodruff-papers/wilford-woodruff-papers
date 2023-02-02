@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use Illuminate\Support\Facades\DB;
 
 class TimelineController extends Controller
 {
@@ -17,6 +18,7 @@ class TimelineController extends Controller
                             ->with('photos', 'pages.parent')
                             ->orderBy('start_year')
                             ->orderBy('start_month')
+                            ->orderBy(DB::raw('LENGTH(start_day)'))
                             ->orderBy('start_day')
                             ->get();
 
