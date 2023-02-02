@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\ExportContestEntries;
 use DmitryBubyakin\NovaMedialibraryField\Fields\GeneratedConversions;
 use DmitryBubyakin\NovaMedialibraryField\Fields\Medialibrary;
 use Illuminate\Http\Request;
@@ -9,6 +10,7 @@ use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Trix;
 
 class ContestSubmission extends Resource
 {
@@ -66,6 +68,8 @@ class ContestSubmission extends Resource
                 ->required(true),
             Text::make('Link')
                 ->hideFromIndex(),
+            Trix::make('Connection')
+                ->alwaysShow(),
             Medialibrary::make('Media', 'art', 'contest_submissions')->fields(function () {
                 return [
                     GeneratedConversions::make('Conversions')
@@ -117,6 +121,8 @@ class ContestSubmission extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            new ExportContestEntries(),
+        ];
     }
 }
