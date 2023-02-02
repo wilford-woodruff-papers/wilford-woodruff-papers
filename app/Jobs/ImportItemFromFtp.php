@@ -66,7 +66,7 @@ class ImportItemFromFtp implements ShouldQueue
                     'ftp_id' => $canvas['@id'],
                 ], [
                     'name' => $canvas['label'],
-                    'transcript_link' => $canvas['otherContent'][0]['@id'],
+                    'transcript_link' => data_get($canvas, 'otherContent.0.@id', null),
                     'transcript' => $this->convertSubjectTags(
                         (array_key_exists('otherContent', $canvas))
                             ? Http::get($canvas['otherContent'][0]['@id'])->json('resources.0.resource.chars')
