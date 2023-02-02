@@ -58,11 +58,11 @@ class ImportNewPageContributions extends Command
             $batch = Bus::batch($jobs)
                 ->then(function (Batch $batch) {
                     // All jobs completed successfully...
-                    Bus::chain([
+                    /*Bus::chain([
                         new \App\Jobs\OrderPages(),
                         new \App\Jobs\CacheDates(),
                     ])
-                        ->dispatch();
+                        ->dispatch();*/
                 })
                 ->name('Import New Pages Contributions')
                 ->allowFailures()
