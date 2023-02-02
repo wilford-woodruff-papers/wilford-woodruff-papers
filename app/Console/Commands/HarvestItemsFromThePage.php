@@ -87,7 +87,7 @@ class HarvestItemsFromThePage extends Command
                 if (empty($document->ftp_id) || ($document->ftp_id !== $item['@id'])) {
                     $document->ftp_id = $item['@id'];
                     $document->save();
-                    ImportItemFromFtp::dispatch($item, false, true);
+                    ImportItemFromFtp::dispatch($document, false, true);
                 }
 
                 if (data_get($item, 'service.pctComplete', 0) == 100.0) {
