@@ -46,11 +46,11 @@ class ImportItemFromFtp implements ShouldQueue
      */
     public function handle()
     {
-        if ($this->batch()?->cancelled()) {
+        if (! empty($this->batch()) && $this->batch()->cancelled()) {
             // Determine if the batch has been cancelled...
             return;
         }
-
+        info('Importing: '.$this->item->name);
         $item = $this->item;
 
         if (empty($item->ftp_id)) {
@@ -63,9 +63,9 @@ class ImportItemFromFtp implements ShouldQueue
             foreach ($canvases as $key => $canvas) {
                 $page = Page::updateOrCreate([
                     'item_id' => $item->id,
-                    'ftp_id' => $canvas['@id'],
-                ], [
                     'name' => $canvas['label'],
+                ], [
+                    'ftp_id' => $canvas['@id'],
                     'transcript_link' => data_get($canvas, 'otherContent.0.@id', null),
                     'transcript' => $this->convertSubjectTags(
                         (array_key_exists('otherContent', $canvas))
