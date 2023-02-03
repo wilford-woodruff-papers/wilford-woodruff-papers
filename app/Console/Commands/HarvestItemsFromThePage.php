@@ -90,7 +90,7 @@ class HarvestItemsFromThePage extends Command
                     $document->ftp_slug = str($response->json('related.0.@id'))->afterLast('/');
                     $document->save();
                     info($document->name.' was replaced in FTP. Updating Pages.');
-                    $document->pages()->delete();
+                    // $document->pages()->delete();
                     ImportItemFromFtp::dispatch($document, false, true);
                 }
 
