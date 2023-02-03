@@ -2,21 +2,14 @@
 
 namespace App\Nova\Actions;
 
-use App\Events\DiscussionPostCreated;
 use App\Models\Item;
-use App\Models\Page;
-use App\Models\Post;
-use App\Models\Review;
-use App\Models\Type;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Artisan;
 use Laravel\Nova\Actions\Action;
 use Laravel\Nova\Fields\ActionFields;
 use Laravel\Nova\Fields\Number;
-use Laravel\Nova\Fields\Select;
 
 class AssignToItem extends Action
 {

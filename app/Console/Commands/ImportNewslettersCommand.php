@@ -23,7 +23,7 @@ class ImportNewslettersCommand extends Command
                         ->where('provider', 'Constant Contact')
                         ->first();
 
-        if($oauth->expires_at < now()){
+        if ($oauth->expires_at < now()) {
             $oauth = $this->refreshToken($oauth);
         }
 
@@ -32,23 +32,23 @@ class ImportNewslettersCommand extends Command
         $response = Http::withToken($token)
                             ->get($url);
 
-        $newsletters = collect($response->json('campaigns'))->filter(function($item){
+        $newsletters = collect($response->json('campaigns'))->filter(function ($item) {
             return str($item['current_status'])->contains('Done');
         });
 
-        $newsletters->each(function($item) use ($token){
+        $newsletters->each(function ($item) use ($token) {
             $newsletter = Newsletter::firstOrNew([
                 'campaign_id' => $item['campaign_id'],
             ]);
 
-            if(! $newsletter->exists){
-                $url = 'https://api.cc.email/v3/emails/'. $newsletter->campaign_id;
+            if (! $newsletter->exists) {
+                $url = 'https://api.cc.email/v3/emails/'.$newsletter->campaign_id;
                 $response = Http::withToken($token)
                     ->get($url);
-                if($campaign_activity_id = data_get(collect($response->json('campaign_activities'))->filter(function($item){
+                if ($campaign_activity_id = data_get(collect($response->json('campaign_activities'))->filter(function ($item) {
                     return $item['role'] == 'primary_email';
-                })->first(), 'campaign_activity_id')){
-                    $url = 'https://api.cc.email/v3/emails/activities/'. $campaign_activity_id . '?include=html_content%2Cpermalink_url';
+                })->first(), 'campaign_activity_id')) {
+                    $url = 'https://api.cc.email/v3/emails/activities/'.$campaign_activity_id.'?include=html_content%2Cpermalink_url';
                     $response = Http::withToken($token)
                         ->get($url);
 
@@ -73,7 +73,7 @@ class ImportNewslettersCommand extends Command
         $images = $dom->find('img');
         foreach ($images as $image) {
             $this->info($image->getAttribute('src'));
-            if(str($image->getAttribute('src'))->contains('constantcontact')){
+            if (str($image->getAttribute('src'))->contains('constantcontact')) {
                 $localImage = $newsletter
                     ->addMediaFromUrl($image->getAttribute('src'))
                     ->toMediaCollection('images', 'updates');
@@ -91,12 +91,12 @@ class ImportNewslettersCommand extends Command
         $clientSecret = config('services.constantcontact.client_secret');
 
         $base = 'https://authz.constantcontact.com/oauth2/default/v1/token';
-        $url = $base . '?refresh_token=' . $oauth->refresh_token . '&grant_type=refresh_token';
+        $url = $base.'?refresh_token='.$oauth->refresh_token.'&grant_type=refresh_token';
 
-        $auth = $clientId . ':' . $clientSecret;
+        $auth = $clientId.':'.$clientSecret;
 
         $credentials = base64_encode($auth);
-        $authorization = 'Basic ' . $credentials;
+        $authorization = 'Basic '.$credentials;
 
         $response = Http::asForm()
                             ->withHeaders([

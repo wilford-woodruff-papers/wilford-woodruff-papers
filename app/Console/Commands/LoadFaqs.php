@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Models\Faq;
-use App\Models\Press;
 use Illuminate\Console\Command;
 
 class LoadFaqs extends Command

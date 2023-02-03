@@ -13,9 +13,9 @@ class PressModal extends ModalComponent
 
     public function mount($press)
     {
-        if(is_integer($press)){
+        if (is_int($press)) {
             $this->press = Press::find($press);
-        }else{
+        } else {
             $this->press = Press::where('slug', $press)->first();
         }
     }

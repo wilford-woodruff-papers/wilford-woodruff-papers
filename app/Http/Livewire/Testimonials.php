@@ -2,15 +2,11 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Press;
 use App\Models\Testimonial;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
-use Maize\Markable\Models\Like;
 
 class Testimonials extends Component
 {
-
     public $filters = [
         'search' => null,
         'type' => [],
@@ -28,7 +24,7 @@ class Testimonials extends Component
 
     public function mount()
     {
-        if($slug = request()->get('testimony')){
+        if ($slug = request()->get('testimony')) {
             $this->showTestimony = Testimonial::query()
                                                 ->where('slug', $slug)
                                                 ->first();
@@ -43,10 +39,9 @@ class Testimonials extends Component
                                     ->limit(10)
                                     ->get();
 
-        if($featured->count() > 0) {
+        if ($featured->count() > 0) {
             $featured->prepend($featured->pop());
         }
-
 
         $testimonials = Testimonial::query()
                                         ->whereNotIn('id', $featured->pluck('id')->all())
@@ -64,5 +59,4 @@ class Testimonials extends Component
     {
         $this->perPage += 10;
     }
-
 }

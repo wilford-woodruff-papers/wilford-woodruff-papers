@@ -30,12 +30,11 @@ return new class extends Migration
                                           ->orWhere('name', 'Southern Converts');
                                 })
                                 ->get();
-            $people->each(function($person){
+            $people->each(function ($person) {
                 $person->calculateNames();
                 $person->save();
             });
-
-        } catch(Exception $exception){
+        } catch (Exception $exception) {
             logger()->error($exception->getMessage());
             $this->down();
             throw $exception;
