@@ -25,7 +25,11 @@ class Action extends Component
     public function mount()
     {
         $this->users = Cache::remember('users', 60, function () {
-            return User::role('Editor')->orderBy('name')->pluck('name', 'id')->all();
+            return User::query()
+                ->select(['id', 'name'])
+                ->role('Editor')
+                ->orderBy('users.name')
+                ->get();
         });
     }
 

@@ -28,7 +28,7 @@
         @else
             <select wire:model="assignee">
                 <option>-- Choose --</option>
-                @foreach($users as $key => $user) <option value="{{ $key }}">{{ $user }}</option> @endforeach
+                @foreach($users as $key => $user) <option value="{{ $user->id }}">{{ $user->name }}</option> @endforeach
             </select>
         @endif
 
@@ -58,7 +58,7 @@
         @else
             <select wire:model="finisher">
                 <option>-- Choose --</option>
-                @foreach($users as $key => $user) <option value="{{ $key }}">{{ $user }}</option> @endforeach
+                @foreach($users as $key => $user) <option value="{{ $user->id }}">{{ $user->name }}</option> @endforeach
             </select>
         @endif
     </td>
