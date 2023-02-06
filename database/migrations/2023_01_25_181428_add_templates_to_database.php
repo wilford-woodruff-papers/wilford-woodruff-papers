@@ -12,7 +12,8 @@ return new class extends Migration
     public function up()
     {
         \Illuminate\Support\Facades\DB::transaction(function () {
-            $properties = $this->addProperties();
+            // Letters
+            $properties = $this->addLetterProperties();
 
             $type = \App\Models\Type::query()
                 ->firstWhere('name', 'Letters');
@@ -21,20 +22,215 @@ return new class extends Migration
                     'name' => 'Letters',
                     'type_id' => $type->id,
                 ]);
-            $this->addLetterTemplateProperties($template, $properties);
+            $this->addTemplateProperties($template, $properties);
 
-            /*$type = \App\Models\Type::query()
+            // Discourses
+            $properties = $this->addDiscourseProperties();
+
+            $type = \App\Models\Type::query()
+                ->firstWhere('name', 'Discourses');
+            $template = \App\Models\Template::query()
+                ->firstOrCreate([
+                    'name' => 'Discourses',
+                    'type_id' => $type->id,
+                ]);
+            $this->addTemplateProperties($template, $properties);
+
+            // Discourses
+            $properties = $this->addAdditionalProperties();
+
+            $type = \App\Models\Type::query()
                 ->firstWhere('name', 'Additional');
             $template = \App\Models\Template::query()
                 ->firstOrCreate([
                     'name' => 'Additional',
                     'type_id' => $type->id,
                 ]);
-            $this->addAdditionalTemplateProperties($template, $properties);*/
+            $this->addTemplateProperties($template, $properties);
         });
     }
 
-    private function addProperties()
+    private function addAdditionalProperties()
+    {
+        $properties = [
+            [
+                'type' => 'html',
+                'name' => 'Notes',
+            ],
+            [
+                'type' => 'text',
+                'name' => 'Source',
+            ],
+            [
+                'type' => 'link',
+                'name' => 'Source Link',
+            ],
+            [
+                'type' => 'text',
+                'name' => 'Access Needed From CHL (Y/N)',
+            ],
+            [
+                'type' => 'text',
+                'name' => 'File Format',
+            ],
+            [
+                'type' => 'text',
+                'name' => 'Doc Date',
+            ],
+            [
+                'type' => 'text',
+                'name' => 'WW Journals',
+            ],
+            [
+                'type' => 'link',
+                'name' => 'WW Journals Link',
+            ],
+            [
+                'type' => 'html',
+                'name' => 'Description',
+            ],
+            [
+                'type' => 'text',
+                'name' => 'Occasion',
+            ],
+            [
+                'type' => 'text',
+                'name' => 'Location',
+            ],
+            [
+                'type' => 'text',
+                'name' => 'City',
+            ],
+            [
+                'type' => 'text',
+                'name' => 'County',
+            ],
+            [
+                'type' => 'text',
+                'name' => 'State',
+            ],
+        ];
+
+        $propertyModels = [];
+        foreach ($properties as $property) {
+            $propertyModels[] = \App\Models\Property::query()
+                ->firstOrCreate($property);
+        }
+
+        return $propertyModels;
+    }
+
+    private function addDiscourseProperties()
+    {
+        $properties = [
+            [
+                'type' => 'html',
+                'name' => 'Notes',
+            ],
+            [
+                'type' => 'text',
+                'name' => 'Year',
+            ],
+            [
+                'type' => 'text',
+                'name' => 'Discourse Date',
+            ],
+            [
+                'type' => 'text',
+                'name' => 'WWJ Date',
+            ],
+            [
+                'type' => 'html',
+                'name' => 'Journal Entry Description',
+            ],
+            [
+                'type' => 'text',
+                'name' => 'Day of the Week',
+            ],
+            [
+                'type' => 'text',
+                'name' => 'Speaker\'s Title',
+            ],
+            [
+                'type' => 'html',
+                'name' => 'Discourse Description',
+            ],
+            [
+                'type' => 'text',
+                'name' => 'City',
+            ],
+            [
+                'type' => 'text',
+                'name' => 'County',
+            ],
+            [
+                'type' => 'text',
+                'name' => 'State',
+            ],
+            [
+                'type' => 'text',
+                'name' => 'Location',
+            ],
+            [
+                'type' => 'text',
+                'name' => 'Occasion',
+            ],
+            [
+                'type' => 'link',
+                'name' => 'Google Text Doc',
+            ],
+            [
+                'type' => 'link',
+                'name' => 'PDF/Image',
+            ],
+            [
+                'type' => 'text',
+                'name' => 'Entity',
+            ],
+            [
+                'type' => 'text',
+                'name' => 'Source',
+            ],
+            [
+                'type' => 'link',
+                'name' => 'Source Link',
+            ],
+            [
+                'type' => 'text',
+                'name' => 'Deseret News',
+            ],
+            [
+                'type' => 'link',
+                'name' => 'Deseret News Link',
+            ],
+            [
+                'type' => 'text',
+                'name' => 'Millennial Star',
+            ],
+            [
+                'type' => 'link',
+                'name' => 'Millennial Star Link',
+            ],
+            [
+                'type' => 'text',
+                'name' => 'Access Needed From CHL (Y/N)',
+            ],
+            [
+                'type' => 'html',
+                'name' => 'Bibliographic Reference',
+            ],
+        ];
+
+        $propertyModels = [];
+        foreach ($properties as $property) {
+            $propertyModels[] = \App\Models\Property::query()
+                ->firstOrCreate($property);
+        }
+
+        return $propertyModels;
+    }
+
+    private function addLetterProperties()
     {
         $properties = [
             [
@@ -128,7 +324,7 @@ return new class extends Migration
         return $propertyModels;
     }
 
-    private function addLetterTemplateProperties($template, $properties)
+    private function addTemplateProperties($template, $properties)
     {
         foreach ($properties as $property) {
             \App\Models\PropertyTemplate::query()

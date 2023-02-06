@@ -14,7 +14,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 
-class ImportLettersMasterFileAction implements ShouldQueue
+class ImportAdditionalMasterFileAction implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -37,56 +37,56 @@ class ImportLettersMasterFileAction implements ShouldQueue
      */
     public function handle()
     {
-        if (empty($uniqueID = data_get($this->row, 'unique_identifier'))) {
+        if (empty(data_get($this->row, 'unique_identifier'))) {
             info('No ID');
 
             return;
         }
 
-        $type = Type::firstWhere('name', 'Letters');
+        $identifier = data_get($this->row, 'unique_identifier');
+        $prefix = str($identifier)->before('-');
+        $uniqueID = str($identifier)->after('-');
+        $type = Type::firstWhere('name', 'Additional');
 
-        $item = Item::firstOrNew([
-            'type_id' => $type->id,
+        $item = Item::query()->firstOrNew([
             'pcf_unique_id' => $uniqueID,
+            'type_id' => $type->id,
         ]);
 
-        $item->manual_page_count = data_get($this->row, 'pages');
+        $item->manual_page_count = data_get($this->row, 'of_pages');
 
         if (empty($item->pcf_unique_id_prefix)) {
-            $item->pcf_unique_id_prefix = 'LE';
+            $item->pcf_unique_id_prefix = $prefix;
         }
         if (empty($item->name)) {
-            $item->name = data_get($this->row, 'letters_formula_do_not_edit');
+            $item->name = data_get($this->row, 'name');
+        }
+        if (empty($item->category)) {
+            $item->category = data_get($this->row, 'category');
         }
 
         $item->save();
 
         $map = [
-            'PDF/Image' => 'link_to_pdfimage',
-            'Transcript' => 'link_to_transcript',
-            'Format' => 'format',
-            'Held' => 'held',
-            'Collection #' => 'collection',
-            'WWJ Date' => 'wwj_date',
-            'Summary' => 'summary',
-            'Doc Date' => 'doc_date',
-            'WWJ' => 'wwj',
-            'WWJ Description' => 'wwj_description',
-            'Author Last Name' => 'author_last_name',
-            'Author First Name' => 'author_first_name',
-            'Author City' => 'author_city',
-            'Author State' => 'author_state',
-            'Recipient Last Name' => 'recipient_last_name',
-            'Recipient First Name' => 'recipient_first_name',
-            'Recipient City' => 'recipient_city',
-            'Recipient State' => 'recipient_state',
-            'Description from Collection' => 'description_from_collection',
-            'Document Type' => 'document_type',
+            'Notes' => 'notes',
+            'Source' => 'collection_link_to_source',
+            'Source Link' => 'source_link',
+            'Access Needed From CHL (Y/N)' => 'access_needed_from_chl_yn',
+            'File Format' => 'file_format',
+            'Doc Date' => 'date_originally_created',
+            'WW Journals' => 'link_to_ww_journals',
+            'WW Journals Link' => 'journals_link',
+            'Description' => 'brief_document_description',
+            'Occasion' => 'occasion',
+            'Location' => 'specific_building_place',
+            'City' => 'city',
+            'County' => 'county',
+            'State' => 'state',
         ];
 
         $template = Template::query()
             ->with(['properties'])
-            ->firstWhere('name', 'Letters');
+            ->firstWhere('name', 'Additional');
 
         foreach ($template->properties as $property) {
             if ($property->type == 'date') {
@@ -96,7 +96,7 @@ class ImportLettersMasterFileAction implements ShouldQueue
             }
 
             if (str($value)->trim()->isNotEmpty()
-                && ! str($value)->contains('#VALUE!')
+                 && ! str($value)->contains('#VALUE!')
             ) {
                 Value::updateOrCreate([
                     'item_id' => $item->id,
@@ -124,7 +124,7 @@ class ImportLettersMasterFileAction implements ShouldQueue
             if (is_numeric($stringDate)) {
                 return Carbon::instance(Date::excelToDateTimeObject($stringDate))->toDateString();
             } else {
-                return Carbon::createFromFormat('Y-m-d', $stringDate)->toDateString();
+                return Carbon::createFromFormat('Y-m-d', $stringDate);
             }
         } catch (\Exception $exception) {
             return null;
