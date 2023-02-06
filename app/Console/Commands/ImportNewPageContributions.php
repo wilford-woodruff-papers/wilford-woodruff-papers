@@ -37,7 +37,7 @@ class ImportNewPageContributions extends Command
         $end = now('America/Denver')->tz('UTC');
         $url = 'https://fromthepage.com/iiif/contributions/woodruff/'.$start->toIso8601String().'/'.$end->toIso8601String();
         logger()->info('Getting new contributions from: '.$url);
-        $response = Http::timeout(3)
+        $response = Http::timeout(60)
             ->retry(3, 500)
             ->get($url);
 
