@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\AdminComment;
-use Illuminate\Support\Collection;
 use Livewire\Component;
 
 class Comments extends Component
@@ -51,7 +50,6 @@ class Comments extends Component
         $this->model = $this->model->fresh(['admin_comments']);
 
         $this->comment = new AdminComment;
-
     }
 
     public function commentDeleted()

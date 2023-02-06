@@ -23,9 +23,9 @@
 
     </div>
 
-    <div class="max-w-7xl mx-auto px-4">
+    <div class="px-4 mx-auto max-w-7xl">
 
-        <div class="content col-span-12 px-8 py-6">
+        <div class="col-span-12 py-6 px-8 content">
             <livewire:people />
         </div>
     </div>

@@ -9,9 +9,9 @@
                     <h1 class="text-xl font-semibold text-gray-900">Your Assigned Tasks</h1>
                 </div>
             </div>
-            <div class="mt-8 flex flex-col">
-                <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                    <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+            <div class="flex flex-col mt-8">
+                <div class="overflow-x-auto -my-2 -mx-4 sm:-mx-6 lg:-mx-8">
+                    <div class="inline-block py-2 min-w-full align-middle md:px-6 lg:px-8">
                         <div class="overflow-hidden bg-white shadow sm:rounded-md">
                             <ul role="list" class="divide-y divide-gray-200">
                                 @foreach($assignedItems as $item)
@@ -29,12 +29,12 @@
                                 <thead class="bg-gray-50">
                                 <tr>
                                     <th></th>
-                                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Document</th>
-                                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Pending Task(s)</th>
-                                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Date Claimed</th>
+                                    <th scope="col" class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">Document</th>
+                                    <th scope="col" class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">Pending Task(s)</th>
+                                    <th scope="col" class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">Date Claimed</th>
                                 </tr>
                                 </thead>
-                                <tbody class="divide-y divide-gray-200 bg-white">
+                                <tbody class="bg-white divide-y divide-gray-200">
 
                                 </tbody>
                             </table>--}}
@@ -63,21 +63,21 @@
                         <input wire:model="search"
                                placeholder="Search..."
                                type="search"
-                               class="flex-1 form-input border-cool-gray-300 block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5 w-80"
+                               class="block flex-1 w-80 w-full border-cool-gray-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5 form-input"
                         />
                     </div>
                 </div>
             </div>
-            <div class="mt-4 flex flex-col">
-                <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                    <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-                        <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+            <div class="flex flex-col mt-4">
+                <div class="overflow-x-auto -my-2 -mx-4 sm:-mx-6 lg:-mx-8">
+                    <div class="inline-block py-2 min-w-full align-middle md:px-6 lg:px-8">
+                        <div class="overflow-hidden ring-1 ring-black ring-opacity-5 shadow md:rounded-lg">
                             <table class="min-w-full divide-y divide-gray-300">
                                 <thead class="bg-gray-50">
                                 <tr>
-                                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"></th>
-                                    <x-admin.quotes.heading sortable multi-column wire:click="applySort('pcf_unique_id', '{{ $sortDirection }}')" :direction="$sortBy == 'pcf_unique_id' ? $sortDirection : null" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">ID</x-admin.quotes.heading>
-                                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                                    <th scope="col" class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6"></th>
+                                    <x-admin.quotes.heading sortable multi-column wire:click="applySort('pcf_unique_id', '{{ $sortDirection }}')" :direction="$sortBy == 'pcf_unique_id' ? $sortDirection : null" class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">ID</x-admin.quotes.heading>
+                                    <th scope="col" class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">
                                         <select wire:model="type" class="text-sm">
                                             <option value="">-- Select Document Type --</option>
                                             @foreach(\App\Models\Type::query()->orderBy('name')->get() as $type)
@@ -85,9 +85,9 @@
                                             @endforeach
                                         </select>
                                     </th>
-                                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Document</th>
-                                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"></th>
-                                    <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                                    <th scope="col" class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">Document</th>
+                                    <th scope="col" class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6"></th>
+                                    <th scope="col" class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">
                                         <select wire:model="actionType" class="text-sm">
                                             <option value="">-- Select Task Type --</option>
                                             @foreach(\App\Models\ActionType::query()->where('type', 'Documents')->orderBy('name')->get() as $type)
@@ -97,22 +97,22 @@
                                     </th>
                                 </tr>
                                 </thead>
-                                <tbody class="divide-y divide-gray-200 bg-white">
+                                <tbody class="bg-white divide-y divide-gray-200">
                                 @foreach($unassignedItems as $item)
                                     <tr id="unassigned_item_{{ $item->id }}"
                                         class="border-t border-gray-200">
                                         <x-admin.quotes.cell class="bg-gray-50">
                                             <x-icon.status :status="$item->enabled" />
                                         </x-admin.quotes.cell>
-                                        <th class="bg-gray-50 px-4 py-2 text-left text-sm font-semibold text-gray-900 sm:px-6">
-                                            <span href="#" class="inline-flex space-x-2 truncate text-sm leading-5">
+                                        <th class="py-2 px-4 text-sm font-semibold text-left text-gray-900 bg-gray-50 sm:px-6">
+                                            <span href="#" class="inline-flex space-x-2 text-sm leading-5 truncate">
                                                 {{ $item->pcf_unique_id_full }}
                                             </span>
                                         </th>
-                                        <th class="bg-gray-50 px-4 py-2 text-left text-sm font-semibold text-gray-900 sm:px-6">
+                                        <th class="py-2 px-4 text-sm font-semibold text-left text-gray-900 bg-gray-50 sm:px-6">
                                             {{ str($item->type->name)->singular() }}
                                         </th>
-                                        <th class="bg-gray-50 px-4 py-2 text-left text-sm font-semibold text-gray-900 sm:px-6">
+                                        <th class="py-2 px-4 text-sm font-semibold text-left text-gray-900 bg-gray-50 sm:px-6">
                                             <a href="{{ route('admin.dashboard.document', ['item' => $item]) }}"
                                                class="font-medium text-indigo-600 capitalize"
                                             >
@@ -122,15 +122,15 @@
                                                 ({{ $item->pages_count }} Pages)
                                             </span>
                                         </th>
-                                        <th class="bg-gray-50 px-4 py-2 text-left text-sm text-gray-900 sm:px-6">
+                                        <th class="py-2 px-4 text-sm text-left text-gray-900 bg-gray-50 sm:px-6">
 
                                         </th>
-                                        <th class="bg-gray-50 px-4 py-2 text-left text-sm font-semibold text-gray-900 sm:px-6">
+                                        <th class="py-2 px-4 text-sm font-semibold text-left text-gray-900 bg-gray-50 sm:px-6">
                                             @foreach($item->unassigned_actions as $action)
                                                 @if(empty($action->type->action_type_id) || in_array($action->type->action_type_id, $item->completed_actions->pluck('type.id')->all()) )
                                                     @if(auth()->user()->hasRole($action->type->roles->pluck('name')->all()))
                                                         <button wire:click="claimItemAction({{ $action->id }})"
-                                                                class="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 whitespace-nowrap">
+                                                                class="inline-flex items-center py-1.5 px-2.5 text-xs font-medium text-gray-700 whitespace-nowrap bg-white rounded border border-gray-300 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none">
                                                             {{ $action->type->name }}
                                                         </button>
                                                     @endif
@@ -141,17 +141,17 @@
                                     {{--@forelse($item->pending_page_actions->groupBy('actionable_id') as $pageActions)
                                         <tr id="page_action_{{ $item->id }}"
                                             class="border-t border-gray-300">
-                                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-12">
+                                            <td class="py-4 pr-3 pl-4 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-12">
                                                 <a href="{{ route('admin.dashboard.page', ['item' => $item, 'page' => $pageActions->first()->actionable]) }}"
                                                    class="font-medium text-indigo-600 capitalize"
                                                 >
                                                     Page {{ $pageActions->first()->actionable->order }}
                                                 </a>
                                             </td>
-                                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                            <td class="py-4 pr-3 pl-4 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-6">
                                                 {{ $pageActions->pluck('description')->join(' | ') }}
                                             </td>
-                                            <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                                            <td class="py-4 pr-3 pl-4 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-6">
                                                 {{ $pageActions->first()->assigned_at->tz('America/Denver')->toDayDateTimeString() }}
                                             </td>
                                         </tr>

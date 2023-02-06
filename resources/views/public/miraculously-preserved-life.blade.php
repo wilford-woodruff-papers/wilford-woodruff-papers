@@ -14,7 +14,7 @@
                 <ul role="list" class="-mb-8">
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
                                     <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/boiling-water.jpg') }}" alt="">
@@ -37,7 +37,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
                                     <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/barn.jpg') }}" alt="">
@@ -60,7 +60,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start ml-5 space-x-3">
                                 <div>
                                     <div class="relative px-1">
@@ -84,7 +84,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start ml-5 space-x-3">
                                 <div>
                                     <div class="relative px-1">
@@ -108,7 +108,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
                                     <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/bull.jpg') }}" alt="">
@@ -131,7 +131,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
                                     <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/logs.jpg') }}" alt="">
@@ -154,7 +154,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start ml-5 space-x-3">
                                 <div>
                                     <div class="relative px-1">
@@ -178,7 +178,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start ml-5 space-x-3">
                                 <div>
                                     <div class="relative px-1">
@@ -202,7 +202,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
                                     <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/wagon.jpg') }}" alt="">
@@ -225,7 +225,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
                                     <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/tree.jpg') }}" alt="">
@@ -248,7 +248,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
                                     <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/water.jpg') }}" alt="">
@@ -271,7 +271,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
                                     <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/snow.jpg') }}" alt="">
@@ -294,7 +294,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
                                     <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/ax.jpg') }}" alt="">
@@ -317,7 +317,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
                                     <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/dog.jpg') }}" alt="">
@@ -340,7 +340,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
                                     <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/horse.jpg') }}" alt="">
@@ -363,7 +363,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
                                     <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/logpile.jpg') }}" alt="">
@@ -386,7 +386,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start ml-5 space-x-3">
                                 <div>
                                     <div class="relative px-1">
@@ -415,7 +415,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start ml-5 space-x-3">
                                 <div>
                                     <div class="relative px-1">
@@ -439,7 +439,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
                                     <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/horse-team.jpg') }}" alt="">
@@ -462,7 +462,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
                                     <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/rifle.jpg') }}" alt="">
@@ -485,7 +485,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start ml-5 space-x-3">
                                 <div>
                                     <div class="relative px-1">
@@ -509,7 +509,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
                                     <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/black-bear.jpg') }}" alt="">
@@ -532,7 +532,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start ml-5 space-x-3">
                                 <div>
                                     <div class="relative px-1">
@@ -556,7 +556,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
                                     <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/tornado.jpg') }}" alt="">
@@ -579,7 +579,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
                                     <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/wagon.jpg') }}" alt="">
@@ -602,7 +602,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start ml-5 space-x-3">
                                 <div>
                                     <div class="relative px-1">
@@ -626,7 +626,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
                                     <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/shipwreck.jpg') }}" alt="">
@@ -649,7 +649,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
                                     <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/bed.jpg') }}" alt="">
@@ -672,7 +672,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
                                     <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/train.jpg') }}" alt="">
@@ -695,7 +695,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
                                     <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/fire.jpg') }}" alt="">
@@ -718,7 +718,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
                                     <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/sunk-ship.jpg') }}" alt="">
@@ -741,7 +741,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
                                     <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/fallen-tree.jpg') }}" alt="">
@@ -764,7 +764,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start ml-5 space-x-3">
                                 <div>
                                     <div class="relative px-1">
@@ -788,7 +788,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
                                     <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/shipwreck.jpg') }}" alt="">
@@ -811,7 +811,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start ml-5 space-x-3">
                                 <div>
                                     <div class="relative px-1">
@@ -835,7 +835,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
                                     <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/bed.jpg') }}" alt="">
@@ -858,7 +858,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
                                     <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/lamp.jpg') }}" alt="">
@@ -881,7 +881,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
                                     <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/steamboat.jpg') }}" alt="">
@@ -904,7 +904,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start space-x-3">
                                 <div class="relative mt-9">
                                     <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/bed.jpg') }}" alt="">
@@ -927,7 +927,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start ml-5 space-x-3">
                                 <div>
                                     <div class="relative px-1">
@@ -956,7 +956,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start ml-5 space-x-3">
                                 <div>
                                     <div class="relative px-1">
@@ -985,7 +985,7 @@
 
                     <li>
                         <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true"></span>
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
                             <div class="flex relative items-start ml-5 space-x-3">
                                 <div>
                                     <div class="relative px-1">

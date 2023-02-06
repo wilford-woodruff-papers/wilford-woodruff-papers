@@ -1,5 +1,5 @@
 <!-- Activity table (small breakpoint and up) -->
-<div class="align-middle min-w-full overflow-x-auto shadow overflow-hidden sm:rounded-lg">
+<div class="overflow-hidden overflow-x-auto min-w-full align-middle shadow sm:rounded-lg">
     <table
         x-data="{
                 open: $persist(null)

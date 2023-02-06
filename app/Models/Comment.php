@@ -25,7 +25,7 @@ class Comment extends Model
     public function replies()
     {
         return $this->hasMany(Comment::class, 'parent_id')
-                        ->where(function(Builder $query){
+                        ->where(function (Builder $query) {
                             $query->where('status', 1)
                                 ->orWhere('user_id', Auth::id());
                         })
@@ -47,8 +47,4 @@ class Comment extends Model
             SendNewCommentNotification::dispatch($comment);
         });
     }
-
 }
-
-
-

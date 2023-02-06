@@ -1,12 +1,12 @@
-<nav class="submenu space-y-1" aria-label="Sidebar">
+<nav class="space-y-1 submenu" aria-label="Sidebar">
     <!-- Current: "bg-gray-100 text-gray-900", Default: "text-gray-600 hover:bg-gray-50 hover:text-gray-900" -->
-    <h2 class="text-gray-500 text-xl uppercase mb-4">
+    <h2 class="mb-4 text-xl text-gray-500 uppercase">
         {{ $area }}
     </h2>
     @switch($area)
 
         @case('About')
-            <div class="mt-1 space-y-1 pb-4 pl-4" aria-labelledby="media-library-headline">
+            <div class="pb-4 pl-4 mt-1 space-y-1" aria-labelledby="media-library-headline">
                 <a href="{{ route('about') }}"
                    class="group flex items-center px-3 py-2 text-sm font-medium @if(request()->is('about')) active @else @endif">
                             <span class="truncate">
@@ -41,7 +41,7 @@
             @break
 
         @case('Donate')
-            <div class="mt-1 space-y-1 pb-4 pl-4" aria-labelledby="">
+            <div class="pb-4 pl-4 mt-1 space-y-1" aria-labelledby="">
                 <a href="{{ route('donate') }}"
                    class="group flex items-center px-3 py-2 text-sm font-medium @if(request()->is('donate')) active @else @endif">
                 <span class="truncate">
@@ -68,7 +68,7 @@
             @break
 
         @case('Get Involved')
-            <div class="mt-1 space-y-1 pb-4 pl-4" aria-labelledby="media-library-headline">
+            <div class="pb-4 pl-4 mt-1 space-y-1" aria-labelledby="media-library-headline">
                 <a href="{{ route('volunteer') }}"
                    class="group flex items-center px-3 py-2 text-sm font-medium @if(request()->is('volunteer')) active @else @endif">
                     <span class="truncate">
@@ -116,10 +116,10 @@
             @break
 
         @case('Media')
-            <h3 class="px-3 text-xs font-semibold text-primary uppercase tracking-wider" id="media-library-headline">
+            <h3 class="px-3 text-xs font-semibold tracking-wider uppercase text-primary" id="media-library-headline">
                 Media Library
             </h3>
-            <div class="mt-1 space-y-1 pb-4 pl-4" aria-labelledby="media-library-headline">
+            <div class="pb-4 pl-4 mt-1 space-y-1" aria-labelledby="media-library-headline">
                 <a href="{{ route('media.articles') }}"
                    class="group flex items-center px-3 py-2 text-sm font-medium  @if(request()->is('media/article*')) active @else @endif">
                     <span class="truncate">
@@ -133,8 +133,8 @@
                     </span>
                 </a>
                 @if(request()->is('media/photos*') && $tags = \Spatie\Tags\Tag::withType('photos')->get())
-                    <div class="mt-1 space-y-1 pl-4" aria-labelledby="media-press-center-headline">
-                        <div class="space-y-4 pl-4">
+                    <div class="pl-4 mt-1 space-y-1" aria-labelledby="media-press-center-headline">
+                        <div class="pl-4 space-y-4">
                             @foreach($tags as $tag)
                                 <a href="{{ route('media.photos', ['tag[]' => $tag->name]) }}"
                                    class="group flex items-center px-3 py-2 text-sm font-medium @if(in_array($tag->name, request()->get('tag', []))) active @else @endif">
@@ -165,8 +165,8 @@
                     </span>
                 </a>
                 @if(request()->is('media/videos*') && $tags = \Spatie\Tags\Tag::withType('videos')->get())
-                    <div class="mt-1 space-y-1 pl-4" aria-labelledby="media-press-center-headline">
-                        <div class="space-y-4 pl-4">
+                    <div class="pl-4 mt-1 space-y-1" aria-labelledby="media-press-center-headline">
+                        <div class="pl-4 space-y-4">
                             @foreach($tags as $tag)
                                 <a href="{{ route('media.videos', ['tag[]' => $tag->name]) }}"
                                    class="group flex items-center px-3 py-2 text-sm font-medium @if(in_array($tag->name, request()->get('tag', []))) active @else @endif">
@@ -179,10 +179,10 @@
                     </div>
                 @endif
             </div>
-            <h3 class="px-3 text-xs font-semibold text-primary uppercase tracking-wider" id="media-press-center-headline">
+            <h3 class="px-3 text-xs font-semibold tracking-wider uppercase text-primary" id="media-press-center-headline">
                 Media Center
             </h3>
-            <div class="mt-1 space-y-1 pb-4 pl-4" aria-labelledby="media-press-center-headline">
+            <div class="pb-4 pl-4 mt-1 space-y-1" aria-labelledby="media-press-center-headline">
                 <a href="{{ route('media.kit') }}"
                    class="group flex items-center px-3 py-2 text-sm font-medium @if(request()->is('media/media-kit')) active @else @endif">
                     <span class="truncate">

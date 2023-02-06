@@ -7,7 +7,6 @@ use App\Models\Item;
 use App\Models\Type;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
 
 class SupervisorController extends Controller
 {
@@ -31,7 +30,7 @@ class SupervisorController extends Controller
                         ->get();
 
         return view('admin.supervisor.index', [
-            'users' => $users
+            'users' => $users,
         ]);
     }
 }

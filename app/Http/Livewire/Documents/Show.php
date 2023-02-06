@@ -21,8 +21,10 @@ class Show extends Component
 
     protected $queryString = ['filters'];
 
-    public function updatedFilters() { $this->resetPage(); }
-
+    public function updatedFilters()
+    {
+        $this->resetPage();
+    }
 
     public function mount(Item $item)
     {
@@ -32,19 +34,19 @@ class Show extends Component
     public function render()
     {
         $pages = Page::with(['dates', 'subjects' => function ($query) {
-                            $query->whereHas('category', function (Builder $query) {
-                                $query->whereIn('categories.name', ['People', 'Places']);
-                            });
-                        }, 'topics', 'parent', 'item'])
+            $query->whereHas('category', function (Builder $query) {
+                $query->whereIn('categories.name', ['People', 'Places']);
+            });
+        }, 'topics', 'parent', 'item'])
                         ->withCount('quotes')
                         ->where('parent_item_id', $this->item->id)
-                        ->when(data_get($this->filters, 'search'), function($query, $q){
-                            $query->where(function($query) use ($q) {
-                                $query->where('name', 'LIKE', '%' . $q . '%')
-                                      ->orWhere('transcript', 'LIKE', '%' . $q . '%');
+                        ->when(data_get($this->filters, 'search'), function ($query, $q) {
+                            $query->where(function ($query) use ($q) {
+                                $query->where('name', 'LIKE', '%'.$q.'%')
+                                      ->orWhere('transcript', 'LIKE', '%'.$q.'%');
                             });
                         })
-                        ->when(data_get($this->filters, 'section'), function($query, $q){
+                        ->when(data_get($this->filters, 'section'), function ($query, $q) {
                             $query->where('item_id', $this->filters['section']);
                         })
                         ->ordered();
@@ -54,7 +56,7 @@ class Show extends Component
 
         $subjects = collect([]);
         $topics = collect([]);
-        $this->item->pages->each(function($page) use (&$subjects, &$topics){
+        $this->item->pages->each(function ($page) use (&$subjects, &$topics) {
             $subjects = $subjects->merge($page->subjects->all());
             $topics = $topics->merge($page->topics->all());
         });

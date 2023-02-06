@@ -22,7 +22,9 @@ class Goals extends Component
 
     public function mount()
     {
-        if(! auth()->user()->hasRole(\App\Models\Type::query()->whereNull('type_id')->pluck('name')->transform(function($type){ return $type . ' Supervisor'; })->all())){
+        if (! auth()->user()->hasRole(\App\Models\Type::query()->whereNull('type_id')->pluck('name')->transform(function ($type) {
+        return $type.' Supervisor';
+        })->all())) {
             abort(403);
         }
         $this->goal = new Goal(['finish_at' => now()->endOfMonth()]);
@@ -42,11 +44,13 @@ class Goals extends Component
             ->layout('layouts.admin');
     }
 
-    public function editGoal($id){
+    public function editGoal($id)
+    {
         $this->goal = Goal::firstOrNew(['id' => $id]);
     }
 
-    public function saveGoal(){
+    public function saveGoal()
+    {
         $this->validate();
 
         $this->goal->save();
@@ -54,8 +58,8 @@ class Goals extends Component
         $this->goal = new Goal(['finish_at' => now()->endOfMonth()]);
     }
 
-    public function deleteGoal($id){
-
+    public function deleteGoal($id)
+    {
         Goal::destroy($id);
 
         $this->goal = new Goal(['finish_at' => now()->endOfMonth()]);

@@ -3,23 +3,23 @@
         Job & Volunteer Opportunities | {{ config('app.name') }}
     </x-slot>
     <div id="content" role="main">
-        <div class="max-w-7xl mx-auto px-4">
+        <div class="px-4 mx-auto max-w-7xl">
             <div class="blocks">
                 <div class="grid grid-cols-12 py-12">
-                    <div class="col-span-12 md:col-span-3 px-2 py-16">
+                    <div class="col-span-12 py-16 px-2 md:col-span-3">
                         <x-submenu area="Get Involved"/>
                     </div>
-                    <div class="content col-span-12 md:col-span-9">
+                    <div class="col-span-12 md:col-span-9 content">
                         <h2>Job & Volunteer Opportunities</h2>
 
-                        <div class="mt-4 grid gap-16 lg:grid-cols-1 lg:gap-y-12">
+                        <div class="grid gap-16 mt-4 lg:grid-cols-1 lg:gap-y-12">
 
                             @if($opportunities->count() > 0)
 
                                 @foreach($opportunities as $opportunity)
 
                                     <div>
-                                        <a href="{{ route('work-with-us.opportunity', ['opportunity' => $opportunity]) }}" class="mt-2 block">
+                                        <a href="{{ route('work-with-us.opportunity', ['opportunity' => $opportunity]) }}" class="block mt-2">
                                             <p class="text-xl font-semibold text-primary">
                                                 {{ $opportunity->title }}
                                             </p>

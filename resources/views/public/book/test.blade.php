@@ -16,11 +16,11 @@
     <div class="section" id="landing" style="">
         <div class="back-image slow-parallax">
             <img src="{{ asset('img/book/book-cover-mockup-paperback.jpg') }}"
-                 class="w-full h-auto -mt-8"
+                 class="-mt-8 w-full h-auto"
             >
         </div>
         <div class="align-wrapper">
-            <div class="content mt-0">
+            <div class="mt-0 content">
                 <div class="max-w-7xl mx-auto pb-8 px-8 !mt-0 z-10">
                     <div class="flex justify-end gap-x-2 !mt-0">
                         <div>
@@ -39,7 +39,7 @@
                             </a>
                         </div>
                     </div>
-                    <h1 class="text-6xl leading-[3.0rem] text-dark-blue-500 font-serif text-center">
+                    <h1 class="font-serif text-6xl text-center leading-[3.0rem] text-dark-blue-500">
                         {{ __('book.Wilford Woodruff\'s Witness') }}<br/>
                         <small class="text-3xl">{{ __('book.The Development of Temple Doctrine') }}</small>
                     </h1>
@@ -49,24 +49,24 @@
         </div>
 
         <div class="align-wrapper">
-            <div class="content mt-0">
+            <div class="mt-0 content">
                 <div class="max-w-7xl mx-auto pb-8 px-8 !mt-0 z-10">
                     <div class="grid grid-cols-2 gap-x-2 !mt-0">
                         <div class="">
-                            <h2 class="text-3xl font-serif py-8 text-dark-blue-500">
+                            <h2 class="py-8 font-serif text-3xl text-dark-blue-500">
                                 {{ __('book.Purchase from Deseret Book') }}
                             </h2>
-                            <div class="grid md:grid-cols-3 gap-4">
+                            <div class="grid gap-4 md:grid-cols-3">
                                 <a href=""
-                                   class="px-4 py-4 rounded-3xl bg-secondary text-white text-center font-sans uppercase drop-shadow-lg">
+                                   class="py-4 px-4 font-sans text-center text-white uppercase rounded-3xl bg-secondary drop-shadow-lg">
                                     {{ __('book.Paperback') }}
                                 </a>
                                 <a href=""
-                                   class="px-4 py-4 rounded-3xl bg-secondary text-white text-center font-sans uppercase drop-shadow-lg">
+                                   class="py-4 px-4 font-sans text-center text-white uppercase rounded-3xl bg-secondary drop-shadow-lg">
                                     {{ __('book.Audiobook') }}
                                 </a>
                                 <a href=""
-                                   class="px-4 py-4 rounded-3xl bg-secondary text-white text-center font-sans uppercase drop-shadow-lg">
+                                   class="py-4 px-4 font-sans text-center text-white uppercase rounded-3xl bg-secondary drop-shadow-lg">
                                     {{ __('book.eBook') }}
                                 </a>
                             </div>
@@ -79,10 +79,10 @@
                                 </div>
                             </div>
                             <div class="pt-8 pb-16">
-                                <h2 class="text-3xl font-serif py-8 text-dark-blue-500">
+                                <h2 class="py-8 font-serif text-3xl text-dark-blue-500">
                                     {{ __('book.About the book') }}
                                 </h2>
-                                <div class="flex flex-col gap-y-4 text-xl font-sans text-dark-blue-600">
+                                <div class="flex flex-col gap-y-4 font-sans text-xl text-dark-blue-600">
                                     {!! __('book.Book Summary') !!}
                                 </div>
                                 <div class="h-32"></div>

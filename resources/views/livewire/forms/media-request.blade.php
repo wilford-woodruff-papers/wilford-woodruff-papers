@@ -2,7 +2,7 @@
     <div x-data="{
             speaker: 'No'
         }"
-         class="bg-white py-4 px-4 overflow-hidden">
+         class="overflow-hidden py-4 px-4 bg-white">
         <div class="relative mx-auto">
             <div class="mt-12">
                 @if($success === false)
@@ -25,7 +25,7 @@
                                     <option value="Ms.">Ms.</option>
                                     <option value="Mr.">Mr.</option>
                                 </select>
-                                @error('salutation') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
+                                @error('salutation') <div class="mt-1 text-sm text-red-500">{{ $message }}</div> @enderror
                             </div>
                         </div>
                         <div>
@@ -39,7 +39,7 @@
                                        required
                                        class="py-3 px-4 block w-full shadow-sm focus:ring-secondary focus:border-secondary @error('firstName') border-red-500 @else border-gray-300 @enderror">
                             </div>
-                            @error('firstName') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
+                            @error('firstName') <div class="mt-1 text-sm text-red-500">{{ $message }}</div> @enderror
                         </div>
                         <div>
                             <label for="last-name" class="block text-sm font-medium text-gray-700">Last name</label>
@@ -52,7 +52,7 @@
                                        required
                                        class="py-3 px-4 block w-full shadow-sm focus:ring-secondary focus:border-secondary @error('lastName') border-red-500 @else border-gray-300 @enderror">
                             </div>
-                            @error('lastName') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
+                            @error('lastName') <div class="mt-1 text-sm text-red-500">{{ $message }}</div> @enderror
                         </div>
                         <div>
                             <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
@@ -65,7 +65,7 @@
                                        required
                                        class="py-3 px-4 block w-full shadow-sm focus:ring-secondary focus:border-secondary @error('email') border-red-500 @else border-gray-300 @enderror">
                             </div>
-                            @error('email') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
+                            @error('email') <div class="mt-1 text-sm text-red-500">{{ $message }}</div> @enderror
                         </div>
                         <div>
                             <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
@@ -78,7 +78,7 @@
                                        required
                                        class="py-3 px-4 block w-full shadow-sm focus:ring-secondary focus:border-secondary @error('phone') border-red-500 @else border-gray-300 @enderror">
                             </div>
-                            @error('phone') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
+                            @error('phone') <div class="mt-1 text-sm text-red-500">{{ $message }}</div> @enderror
                         </div>
                         <div>
                             <label for="org-name" class="block text-sm font-medium text-gray-700">Organization Name</label>
@@ -91,7 +91,7 @@
                                        required
                                        class="py-3 px-4 block w-full shadow-sm focus:ring-secondary focus:border-secondary @error('orgName') border-red-500 @else border-gray-300 @enderror">
                             </div>
-                            @error('orgName') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
+                            @error('orgName') <div class="mt-1 text-sm text-red-500">{{ $message }}</div> @enderror
                         </div>
                         <div>
                             <label for="org-position" class="block text-sm font-medium text-gray-700">Your Position</label>
@@ -103,7 +103,7 @@
                                        value=""
                                        class="py-3 px-4 block w-full shadow-sm focus:ring-secondary focus:border-secondary @error('orgPosition') border-red-500 @else border-gray-300 @enderror">
                             </div>
-                            @error('orgPosition') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
+                            @error('orgPosition') <div class="mt-1 text-sm text-red-500">{{ $message }}</div> @enderror
                         </div>
                         <hr class="pt-4 sm:col-span-2"/>
                         <div class="sm:col-span-2">
@@ -120,7 +120,7 @@
                                     <option value="Yes">Yes</option>
                                 </select>
 
-                                @error('speaker') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
+                                @error('speaker') <div class="mt-1 text-sm text-red-500">{{ $message }}</div> @enderror
                             </div>
                         </div>
                         <div class="sm:col-span-2">
@@ -132,7 +132,7 @@
                                           required
                                           class="py-3 px-4 block w-full shadow-sm focus:ring-secondary focus:border-secondary border  @error('message') border-red-500 @else border-gray-300 @enderror"></textarea>
                             </div>
-                            @error('message') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
+                            @error('message') <div class="mt-1 text-sm text-red-500">{{ $message }}</div> @enderror
                         </div>
                         <div>
                             <label for="deadline" class="block text-sm font-medium text-gray-700">Deadline</label>
@@ -144,11 +144,11 @@
                                        value=""
                                        class="py-3 px-4 block w-full shadow-sm focus:ring-secondary focus:border-secondary @error('deadline') border-red-500 @else border-gray-300 @enderror">
                             </div>
-                            @error('deadline') <div class="mt-1 text-red-500 text-sm">{{ $message }}</div> @enderror
+                            @error('deadline') <div class="mt-1 text-sm text-red-500">{{ $message }}</div> @enderror
                         </div>
                         <div class="sm:col-span-2">
                             <button type="submit"
-                                    class="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent shadow-sm text-base uppercase font-medium text-white bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary">Submit</button>
+                                    class="inline-flex justify-center items-center py-3 px-6 w-full text-base font-medium text-white uppercase border border-transparent shadow-sm focus:ring-2 focus:ring-offset-2 focus:outline-none bg-secondary focus:ring-secondary">Submit</button>
                         </div>
                     </form>
                 @elseif($success === true)

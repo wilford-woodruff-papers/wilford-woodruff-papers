@@ -13,7 +13,7 @@ class ContentUses extends Model
     use SoftDeletes;
     use Userstamps;
 
-    function content()
+    public function content()
     {
         return $this->belongsTo(Content::class);
     }

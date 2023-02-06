@@ -10,8 +10,8 @@ class Period
 
     public Carbon $start;
 
-    function __construct(Carbon $start, Carbon $end) {
-
+    public function __construct(Carbon $start, Carbon $end)
+    {
         $this->start = $start;
         $this->end = $end;
     }

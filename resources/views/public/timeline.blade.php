@@ -2,34 +2,34 @@
     <x-slot name="title">
         Timeline of Events | {{ config('app.name') }}
     </x-slot>
-    <div class="max-w-7xl mx-auto px-4">
+    <div class="px-4 mx-auto max-w-7xl">
 
         <div class="page-title">Appreciate Wilford&#39;s experiences in the context of Church and American history</div>
     </div>
-    <div class="max-w-7xl mx-auto px-4">
+    <div class="px-4 mx-auto max-w-7xl">
         <div id='timeline-embed' style="width: 100%; height: 600px"></div>
     </div>
-    <div class="max-w-7xl mx-auto px-4">
-        <div class="content col-span-12 px-8 py-6">
+    <div class="px-4 mx-auto max-w-7xl">
+        <div class="col-span-12 py-6 px-8 content">
             <h1 class="sr-only">Timeline</h1>
             <div class="">
                 <div>
-                    <div class="shadow overflow-hidden border-b border-gray-200">
+                    <div class="overflow-hidden border-b border-gray-200 shadow">
                         <!-- This example requires Tailwind CSS v2.0+ -->
                         <div class="flex flex-col">
                             <div class="-my-2 sm:-mx-6 lg:-mx-8">
-                                <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                                    <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                                <div class="inline-block py-2 min-w-full align-middle sm:px-6 lg:px-8">
+                                    <div class="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
                                         <table class="min-w-full divide-y divide-gray-200">
                                             <thead class="bg-gray-50">
                                             <tr>
-                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                                                     Date
                                                 </th>
-                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
 
                                                 </th>
-                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                                                     Description
                                                 </th>
                                             </tr>
@@ -39,7 +39,7 @@
                                                     @if($loop->odd)
                                                         <!-- Odd row -->
                                                         <tr class="bg-white">
-                                                            <td class="px-6 py-4 whitespace-normal text-sm font-medium text-gray-900">
+                                                            <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-normal">
                                                                 @if($event->pages->count() > 0)
                                                                     <a class="text-secondary"
                                                                        href="{{ route('pages.show', ['item' => $event->pages->first()->parent->uuid, 'page' => $event->pages->first()->uuid]) }}"
@@ -67,24 +67,24 @@
                                                                        href="{{ route('media.photos.show', ['photo' => $event->photos->first()->uuid]) }}"
                                                                        target="_timeline"
                                                                     >
-                                                                        <img class="h-12 w-auto"
+                                                                        <img class="w-auto h-12"
                                                                              src="{{ $event->photos->first()->getFirstMediaUrl('default','thumb') }}"
                                                                              alt=""/>
                                                                     </a>
                                                                 @elseif($event->pages->count() > 0)
                                                                     <a class="text-secondary"
                                                                        href="{{ route('pages.show', ['item' => $event->pages->first()->parent->uuid, 'page' => $event->pages->first()->uuid]) }}">
-                                                                        <img class="h-12 w-auto"
+                                                                        <img class="w-auto h-12"
                                                                              src="{{ $event->pages->first()->getFirstMediaUrl('default','thumb') }}"
                                                                              alt=""/>
                                                                     </a>
                                                                 @elseif($event->media->count() > 0)
-                                                                    <img class="h-12 w-auto"
+                                                                    <img class="w-auto h-12"
                                                                          src="{{ $event->getFirstMediaUrl('default','thumb') }}"
                                                                          alt=""/>
                                                                 @endif
                                                             </td>
-                                                            <td class="px-6 py-4 whitespace-normal text-sm text-gray-500">
+                                                            <td class="py-4 px-6 text-sm text-gray-500 whitespace-normal">
                                                                 <div>
                                                                     {!! $event->text !!}
                                                                 </div>
@@ -106,7 +106,7 @@
                                                     @else
                                                         <!-- Even row -->
                                                         <tr class="bg-gray-50">
-                                                            <td class="px-6 py-4 whitespace-normal text-sm font-medium text-gray-900">
+                                                            <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-normal">
                                                                 {{ $event->formattedDate('start') }}
                                                                 @if(! empty($event->formattedDate('end')))
                                                                     - {{ $event->formattedDate('end') }}
@@ -122,24 +122,24 @@
                                                                        href="{{ route('media.photos.show', ['photo' => $event->photos->first()->uuid]) }}"
                                                                        target="_timeline"
                                                                     >
-                                                                        <img class="h-12 w-auto"
+                                                                        <img class="w-auto h-12"
                                                                              src="{{ $event->photos->first()->getFirstMediaUrl('default','thumb') }}"
                                                                              alt=""/>
                                                                     </a>
                                                                 @elseif($event->pages->count() > 0)
                                                                     <a class="text-secondary"
                                                                        href="{{ route('pages.show', ['item' => $event->pages->first()->parent->uuid, 'page' => $event->pages->first()->uuid]) }}">
-                                                                        <img class="h-12 w-auto"
+                                                                        <img class="w-auto h-12"
                                                                              src="{{ $event->pages->first()->getFirstMediaUrl('default','thumb') }}"
                                                                              alt=""/>
                                                                     </a>
                                                                 @elseif($event->media->count() > 0)
-                                                                    <img class="h-12 w-auto"
+                                                                    <img class="w-auto h-12"
                                                                          src="{{ $event->getFirstMediaUrl('default','thumb') }}"
                                                                          alt=""/>
                                                                 @endif
                                                             </td>
-                                                            <td class="px-6 py-4 whitespace-normal text-sm text-gray-500">
+                                                            <td class="py-4 px-6 text-sm text-gray-500 whitespace-normal">
                                                                 <div>
                                                                     {!! $event->text !!}
                                                                 </div>

@@ -1,13 +1,13 @@
 <div class="p-8">
-    <div class="absolute right-4 top-2">
+    <div class="absolute top-2 right-4">
         <button wire:click="$emit('closeModal')"
                 type="button"
-                class="close text-2xl font-semibold"
+                class="text-2xl font-semibold close"
                 aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <div class="content pr-8">
+    <div class="pr-8 content">
         <h2>{{ $testimonial->title }}</h2>
     </div>
     @if($testimonial->type == 'Image')
@@ -16,16 +16,16 @@
              class="w-full h-auto"
         >
     @elseif($testimonial->type == 'Video')
-        <div class="w-[840px] h-[620px] mx-auto">
+        <div class="mx-auto w-[840px] h-[620px]">
             <iframe class="w-[840px] h-[620px]" src="{{ $testimonial->embed_link }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
     @endif
 
-    <div class="content p-12">
-        <div class="font-semibold text-lg">
+    <div class="p-12 content">
+        <div class="text-lg font-semibold">
             {{ $testimonial->title }}
         </div>
-        <div class="font-medium text-base py-4">
+        <div class="py-4 text-base font-medium">
             {{ $testimonial->name }}
         </div>
         <div class="">

@@ -1,9 +1,9 @@
 <div wire:init="loadStats">
 
-    <div class="mt-4 max-w-7xl mx-auto">
+    <div class="mx-auto mt-4 max-w-7xl">
         <div class="py-4">
 
-            <h1 class="text-2xl font-semibold mb-2">
+            <h1 class="mb-2 text-2xl font-semibold">
                 Activity Report
             </h1>
 
@@ -14,7 +14,7 @@
                         <input wire:model.defer="dates.start"
                                id="start"
                                type="date"
-                               class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                               class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-500 focus:ring-indigo-500"
                         />
                     </div>
                 </div>
@@ -24,13 +24,13 @@
                         <input wire:model.defer="dates.end"
                                id="end"
                                type="date"
-                               class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                               class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-500 focus:ring-indigo-500"
                         />
                     </div>
                 </div>
                 <div>
                     <button type="submit"
-                            class="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-8 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:ml-3 xl:ml-0 xl:w-full mt-6"
+                            class="inline-flex justify-center items-center py-2 px-8 mt-6 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm sm:ml-3 xl:ml-0 xl:w-full hover:bg-gray-50 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none"
                     >
                         Update
                     </button>
@@ -42,7 +42,7 @@
                      class="absolute w-full h-full bg-white opacity-75"
                 >
                     <div class="flex justify-center py-40">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="animate-spin w-24 h-24">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-24 h-24 animate-spin">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
                         </svg>
 

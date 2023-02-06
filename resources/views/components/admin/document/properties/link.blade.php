@@ -32,7 +32,7 @@
             </a>
         </span>
     @endif
-    @if(empty($value?->value))
+    @if(! empty($modelId) && empty($value?->value))
         <livewire:admin.single-action
             :actionTypeName="'Checked'"
             :actionTypeNamePrefix="'Mark'"

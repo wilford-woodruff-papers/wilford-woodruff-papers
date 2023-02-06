@@ -38,11 +38,11 @@
         </style>
         <script src="https://cdn.tailwindcss.com"></script>
     </head>
-    <body class="flex items-center justify-center min-h-screen">
+    <body class="flex justify-center items-center min-h-screen">
         <div class="bg-[#0B2836] w-[1200px] h-[630px] text-white p-12 border-[#B4A677] border-[16px]">
             <h1 class="font-bold text-[90px] text-[#B4A677] leading-none">{!! explode(' - ', $title)[0] !!}</h1>
             @if(isset($subtitle))
-                <h2 class="mt-6 text-[50px] font-bold text-white uppercase">{{ $subtitle }}</h2>
+                <h2 class="mt-6 font-bold text-white uppercase text-[50px]">{{ $subtitle }}</h2>
             @endif
             <div class="inline-block px-6 py-3 mt-10 text-[30px] font-bold text-[#792310] rounded-lg bg-[#B4A677]">Read more here</div>
         </div>

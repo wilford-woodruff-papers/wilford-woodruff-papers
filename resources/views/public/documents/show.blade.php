@@ -10,8 +10,8 @@
 
     <div id="content" role="main">
 
-        <div class="max-w-7xl mx-auto my-12 px-4 lg:px-0">
-            <div class="text-4xl text-primary font-semibold my-4 border-b-2 border-gray-300">
+        <div class="px-4 my-12 mx-auto max-w-7xl lg:px-0">
+            <div class="my-4 text-4xl font-semibold border-b-2 border-gray-300 text-primary">
                 <h2>
                     <span class="title">
                         {{ \Illuminate\Support\Str::of($item->name)->replaceMatches('/\[.*?\]/', '')->trim() }}
@@ -90,7 +90,7 @@
                         @endforeach
 
                     </ul>
-                    <div class="my-4 px-8">
+                    <div class="px-8 my-4">
                         {!! $pages->withQueryString()->links('vendor.pagination.tailwind') !!}
                     </div>
                 </div>

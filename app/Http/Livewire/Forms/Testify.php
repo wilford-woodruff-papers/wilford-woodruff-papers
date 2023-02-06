@@ -6,7 +6,6 @@ use App\Mail\ContactFormSubmitted;
 use App\Models\Submission;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
-use Livewire\Component;
 use LivewireUI\Modal\ModalComponent;
 
 class Testify extends ModalComponent

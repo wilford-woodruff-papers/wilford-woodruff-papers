@@ -8,7 +8,6 @@ use Livewire\Component;
 
 class ContestantContactInformationForm extends Component
 {
-
     public $address;
 
     public $appropriate;

@@ -2,14 +2,12 @@
 
 namespace App\View\Components\Testimonials;
 
-use App\Models\ImageTestimonial;
-use App\Models\Testimonial;
 use Illuminate\View\Component;
 
 class ImageGridTestimonials extends Component
 {
-
     public $testimonials;
+
     /**
      * Create a new component instance.
      *

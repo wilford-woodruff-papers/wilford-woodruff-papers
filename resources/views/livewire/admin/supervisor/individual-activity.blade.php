@@ -1,9 +1,9 @@
 <div wire:init="loadStats">
 
-    <div class="mt-4 max-w-7xl mx-auto">
+    <div class="mx-auto mt-4 max-w-7xl">
         <div class="pt-4 pb-0">
 
-            <h1 class="text-2xl font-semibold mb-2">
+            <h1 class="mb-2 text-2xl font-semibold">
                 Individual Activity
             </h1>
 
@@ -13,7 +13,7 @@
                     <div class="mt-1">
                         <select wire:model="currentUserId"
                                id="currentUserId"
-                               class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                               class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-500 focus:ring-indigo-500"
                         >
                             @foreach($users as $user)
                                 <option value="{{ $user->id }}">{{ $user->name }}</option>
@@ -27,7 +27,7 @@
                         <input wire:model.defer="dates.start"
                                id="start"
                                type="date"
-                               class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                               class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-500 focus:ring-indigo-500"
                         />
                     </div>
                 </div>
@@ -37,13 +37,13 @@
                         <input wire:model.defer="dates.end"
                                id="end"
                                type="date"
-                               class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                               class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-500 focus:ring-indigo-500"
                         />
                     </div>
                 </div>
                 <div>
                     <button type="submit"
-                            class="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-8 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:ml-3 xl:ml-0 xl:w-full mt-6"
+                            class="inline-flex justify-center items-center py-2 px-8 mt-6 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm sm:ml-3 xl:ml-0 xl:w-full hover:bg-gray-50 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none"
                     >
                         Update
                     </button>
@@ -55,7 +55,7 @@
                      class="absolute w-full h-full bg-white opacity-75"
                 >
                     <div class="flex justify-center py-40">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="animate-spin w-24 h-24">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-24 h-24 animate-spin">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
                         </svg>
 
@@ -74,24 +74,24 @@
                                         <table class="divide-y divide-gray-30">
                                             <thead class="bg-black">
                                             <tr>
-                                                <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-white sm:pl-6">Steps</th>
-                                                <th class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-white sm:pl-6">Letters<br/>(pages)</th>
-                                                <th class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-white sm:pl-6">Discourses<br/>(pages)</th>
-                                                <th class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-white sm:pl-6">Journals<br/>(pages)</th>
-                                                <th class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-white sm:pl-6">Additional<br/>(pages)</th>
-                                                <th class="py-3.5 pl-4 pr-3 text-center text-sm font-semibold text-white sm:pl-6">Autobiographies<br/>(pages)</th>
+                                                <th class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-white sm:pl-6">Steps</th>
+                                                <th class="py-3.5 pr-3 pl-4 text-sm font-semibold text-center text-white sm:pl-6">Letters<br/>(pages)</th>
+                                                <th class="py-3.5 pr-3 pl-4 text-sm font-semibold text-center text-white sm:pl-6">Discourses<br/>(pages)</th>
+                                                <th class="py-3.5 pr-3 pl-4 text-sm font-semibold text-center text-white sm:pl-6">Journals<br/>(pages)</th>
+                                                <th class="py-3.5 pr-3 pl-4 text-sm font-semibold text-center text-white sm:pl-6">Additional<br/>(pages)</th>
+                                                <th class="py-3.5 pr-3 pl-4 text-sm font-semibold text-center text-white sm:pl-6">Autobiographies<br/>(pages)</th>
                                             </tr>
                                             </thead>
                                             <tbody class="bg-white">
                                             @foreach($activity['stats'] as $taskName => $stat)
                                                 <tr>
 
-                                                    <td class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                                                    <td class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">
                                                         {{ str($taskName) }}
                                                     </td>
 
                                                     @foreach($docTypes as $docType)
-                                                        <td class="text-center text-sm font-semibold text-gray-900">
+                                                        <td class="text-sm font-semibold text-center text-gray-900">
                                                             <div class="flex flex-col">
                                                                 <div>
                                                                     {{ $stat->where('document_type', $docType)->first()?->total ?? 0}}
@@ -110,8 +110,8 @@
                             </div>
                             <div>
                                 @if(count($activity['tasks']) > 0)
-                                    <div class="mt-8 flex flex-col">
-                                        <h1 class="text-xl font-semibold py-1">
+                                    <div class="flex flex-col mt-8">
+                                        <h1 class="py-1 text-xl font-semibold">
                                             {{ str($key)->snake()->replace('_', ' ')->title() }} Task List
                                         </h1>
                                         <div class="">

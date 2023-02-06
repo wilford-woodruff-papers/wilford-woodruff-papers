@@ -3,16 +3,16 @@
         Get Involved | {{ config('app.name') }}
     </x-slot>
     <div id="content" role="main">
-        <div class="max-w-7xl mx-auto px-4">
+        <div class="px-4 mx-auto max-w-7xl">
             <div class="blocks">
                 <div class="grid grid-cols-12 py-12">
-                    <div class="col-span-12 md:col-span-3 px-2 py-16">
+                    <div class="col-span-12 py-16 px-2 md:col-span-3">
                         <x-submenu area="Get Involved"/>
                     </div>
-                    <div class="content col-span-12 md:col-span-9">
+                    <div class="col-span-12 md:col-span-9 content">
                         <h2>Get Involved</h2>
 
-                        <div class="mt-4 grid gap-2 lg:grid-cols-1 lg:gap-y-2">
+                        <div class="grid gap-2 mt-4 lg:grid-cols-1 lg:gap-y-2">
                             There are several ways you can get involved to help us complete the mission and purpose of the Wilford Woodruff Papers Foundation.
 
                             <div>
@@ -21,7 +21,7 @@
                                 </p>
                                 <p>
                                     <a href="{{ route('volunteer') }}"
-                                       class="text-secondary font-medium">
+                                       class="font-medium text-secondary">
                                         Volunteer >>
                                     </a>
                                 </p>
@@ -32,7 +32,7 @@
                                 </p>
                                 <p>
                                     <a href="/work-with-us/internship-opportunities"
-                                       class="text-secondary font-medium">
+                                       class="font-medium text-secondary">
                                         Apply for an Internship >>
                                     </a>
                                 </p>
@@ -44,7 +44,7 @@
                                 </p>
                                 <p>
                                     <a href="{{ route('work-with-us') }}"
-                                       class="text-secondary font-medium">
+                                       class="font-medium text-secondary">
                                         Apply for a Job >>
                                     </a>
                                 </p>

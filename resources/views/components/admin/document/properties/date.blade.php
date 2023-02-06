@@ -10,7 +10,7 @@
            value="{{ $value?->value }}"
            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
     >
-    @if(empty($value?->value))
+    @if(! empty($modelId) && empty($value?->value))
         <livewire:admin.single-action
             :actionTypeName="'Checked'"
             :actionTypeNamePrefix="'Mark'"

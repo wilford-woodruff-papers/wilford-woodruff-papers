@@ -2,7 +2,7 @@
 
 <div>
     <x-modal :id="$id" :maxWidth="$maxWidth" {{ $attributes }}>
-        <div class="px-6 py-4">
+        <div class="py-4 px-6">
             <div class="text-lg">
                 {{ $title }}
             </div>
@@ -12,7 +12,7 @@
             </div>
         </div>
 
-        <div class="px-6 py-4 bg-gray-100 flex justify-between">
+        <div class="flex justify-between py-4 px-6 bg-gray-100">
             {{ $footer }}
         </div>
     </x-modal>

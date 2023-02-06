@@ -1,6 +1,6 @@
 <x-guest-layout>
 
-    <div class="max-w-7xl mx-auto">
+    <div class="mx-auto max-w-7xl">
         <div class="page-title">
             Understand the unfolding Restoration through Wilford’s unique eyewitness account
         </div>
@@ -10,7 +10,7 @@
 
                     @foreach($years as $year)
                         <li class="flex">
-                            <a class="py-4 block w-full text-gray-900 hover:bg-gray-100" href="{{ route('documents.dates', ['year' => $year->year]) }}">
+                            <a class="block py-4 w-full text-gray-900 hover:bg-gray-100" href="{{ route('documents.dates', ['year' => $year->year]) }}">
                                 <div class="ml-3">
                                     <p class="text-lg font-medium">{{ $year->year }}</p>
                                 </div>
@@ -26,7 +26,7 @@
 
                         @foreach($months as $month)
                             <li class="flex">
-                                <a class="py-4 block w-full text-gray-900 hover:bg-gray-100" href="{{ route('documents.dates', ['year' => request('year'), 'month' => $month->month]) }}">
+                                <a class="block py-4 w-full text-gray-900 hover:bg-gray-100" href="{{ route('documents.dates', ['year' => request('year'), 'month' => $month->month]) }}">
                                     <div class="ml-3">
                                         <p class="text-lg font-medium">{{ monthName($month->month) }}</p>
                                     </div>
@@ -39,7 +39,7 @@
 
             @if(! empty($pages) && $pages->count() > 0)
                 <div class="col-span-12 md:col-span-6">
-                    <ul class="divide-y divide-gray-200 px-4">
+                    <ul class="px-4 divide-y divide-gray-200">
                         @foreach($pages as $page)
                             <x-page-summary :page="$page"/>
                         @endforeach
@@ -48,26 +48,26 @@
             @endif
 
             <div class="col-span-12 md:col-span-9">
-                <div class="browse-controls flex flex-wrap grid grid-cols-1 lg:grid-cols-5">
-                    <div class="items-center col-span-3">
+                <div class="flex grid flex-wrap grid-cols-1 lg:grid-cols-5 browse-controls">
+                    <div class="col-span-3 items-center">
 
                     </div>
-                    <div class="col-span-2 flex items-center grid justify-items-center lg:justify-items-end">
+                    <div class="flex grid col-span-2 justify-items-center items-center lg:justify-items-end">
 
                     </div>
                 </div>
-                <ul class="divide-y divide-gray-200 px-4">
+                <ul class="px-4 divide-y divide-gray-200">
 
                    {{-- @foreach($items as $item)
                         <x-item-summary :item="$item"/>
                     @endforeach--}}
                 </ul>
 
-                <div class="my-4 px-8">
+                <div class="px-8 my-4">
                     {{--{!! $items->withQueryString()->links('vendor.pagination.tailwind') !!}--}}
                 </div>
 
-                {{--<nav class="bg-white px-4 py-3 flex items-center justify-between sm:px-6" role="navigation" aria-label="Pagination">
+                {{--<nav class="flex justify-between items-center py-3 px-4 bg-white sm:px-6" role="navigation" aria-label="Pagination">
                     <div class="hidden sm:block">
                         <p class="text-base text-primary">
                             Showing
@@ -79,7 +79,7 @@
                             results
                         </p>
                     </div>
-                    <div class="flex-1 flex justify-between sm:justify-end">
+                    <div class="flex flex-1 justify-between sm:justify-end">
                         <span class="previous o-icon-prev button inactive"></span>
                         <span class="next o-icon-next button inactive"></span>
                     </div>
