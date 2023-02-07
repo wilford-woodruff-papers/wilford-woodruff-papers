@@ -5,6 +5,8 @@ namespace App\Nova\Actions;
 use App\Imports\AdditionalDocumentsFromPcfActions;
 use App\Imports\DiscoursesFromPcfActions;
 use App\Imports\LettersFromPcfActions;
+use App\Imports\PeopleFromPcfActions;
+use App\Imports\PlacesFromPcfActions;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
@@ -45,6 +47,12 @@ class PcfActions extends Action
             case 'Discourses':
                 Excel::import(new DiscoursesFromPcfActions($fields->action), $fields->file);
                 break;
+            case 'People':
+                Excel::import(new PeopleFromPcfActions($fields->action), $fields->file);
+                break;
+            case 'Places':
+                Excel::import(new PlacesFromPcfActions($fields->action), $fields->file);
+                break;
         }
 
         return Action::message("$fields->action successfully processed");
@@ -63,6 +71,8 @@ class PcfActions extends Action
                     'Additional Documents' => 'Additional Documents',
                     'Discourses' => 'Discourses',
                     'Letters' => 'Letters',
+                    'People' => 'People',
+                    'Places' => 'Places',
                 ])
                 ->rules('required'),
             Select::make('Action')
