@@ -163,9 +163,51 @@
                                 <td class="py-3.5 pr-4 pl-1 text-sm font-semibold text-left text-gray-900 border border-black">
                                     Access/Organize
                                 </td>
-                                <td class="border border-black"></td>
-                                <td class="border border-black"></td>
-                                <td class="border border-black"></td>
+                                <td class="text-sm font-semibold text-center text-gray-900 border border-black">
+                                    <div class="flex flex-col">
+                                        <div>
+                                            {{ $subjectStats['identify_people']['actual'] }}
+                                        </div>
+                                        {{--<div @class([
+                                                      'bg-[#e06666]' =>  ($goalPercentages[$key][$docType] <= 70),
+                                                      'bg-[#ffd966]' => (($goalPercentages[$key][$docType] >= 70) && ($goalPercentages[$key][$docType] <= 99)),
+                                                      'bg-[#93c47d]' => (($goalPercentages[$key][$docType] >= 100) && ($goalPercentages[$key][$docType] <= 119)),
+                                                      'bg-[#ff50c5]' => ($goalPercentages[$key][$docType] >= 120),
+                                                    ])>
+                                            {{ $goalPercentages[$key][$docType] }}
+                                        </div>--}}
+                                    </div>
+                                </td>
+                                <td class="text-sm font-semibold text-center text-gray-900 border border-black">
+                                    <div class="flex flex-col">
+                                        <div>
+                                            {{ $subjectStats['write_biographies']['actual'] }}
+                                        </div>
+                                        {{--<div @class([
+                                                      'bg-[#e06666]' =>  ($goalPercentages[$key][$docType] <= 70),
+                                                      'bg-[#ffd966]' => (($goalPercentages[$key][$docType] >= 70) && ($goalPercentages[$key][$docType] <= 99)),
+                                                      'bg-[#93c47d]' => (($goalPercentages[$key][$docType] >= 100) && ($goalPercentages[$key][$docType] <= 119)),
+                                                      'bg-[#ff50c5]' => ($goalPercentages[$key][$docType] >= 120),
+                                                    ])>
+                                            {{ $goalPercentages[$key][$docType] }}
+                                        </div>--}}
+                                    </div>
+                                </td>
+                                <td class="text-sm font-semibold text-center text-gray-900 border border-black">
+                                    <div class="flex flex-col">
+                                        <div>
+                                            {{ $subjectStats['identify_places']['actual'] }}
+                                        </div>
+                                        {{--<div @class([
+                                                      'bg-[#e06666]' =>  ($goalPercentages[$key][$docType] <= 70),
+                                                      'bg-[#ffd966]' => (($goalPercentages[$key][$docType] >= 70) && ($goalPercentages[$key][$docType] <= 99)),
+                                                      'bg-[#93c47d]' => (($goalPercentages[$key][$docType] >= 100) && ($goalPercentages[$key][$docType] <= 119)),
+                                                      'bg-[#ff50c5]' => ($goalPercentages[$key][$docType] >= 120),
+                                                    ])>
+                                            {{ $goalPercentages[$key][$docType] }}
+                                        </div>--}}
+                                    </div>
+                                </td>
                             </tr>
                         </tbody>
                         <tfoot></tfoot>
