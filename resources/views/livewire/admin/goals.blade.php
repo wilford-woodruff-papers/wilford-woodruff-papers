@@ -41,6 +41,7 @@
                                                 @foreach($types as $type)
                                                     <option value="{{ $type->id }}">{{ $type->name }}</option>
                                                 @endforeach
+                                                <option value="999">People & Places</option>
                                             </select>
                                         </div>
                                     </div>
@@ -106,7 +107,11 @@
                                                 <span wire:click="editGoal({{ $goal->id }})"
                                                    class="font-medium text-indigo-600 capitalize cursor-pointer"
                                                 >
-                                                    {{ $goal->type->name }}
+                                                    @if($goal->type_id == 999)
+                                                        People & Places
+                                                    @else
+                                                        {{ $goal->type->name }}
+                                                    @endif
                                                 </span>
                                             </th>
                                             <th class="py-2 px-4 text-sm font-semibold text-left text-gray-900 bg-gray-50 sm:px-6">

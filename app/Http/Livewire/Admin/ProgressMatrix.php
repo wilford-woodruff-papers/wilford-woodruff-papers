@@ -115,10 +115,16 @@ class ProgressMatrix extends Component
             //      also would requre another editing form for subject goals.
             foreach ($subjectStats as $key => $subjectStat) {
                 $subjectStats[$key]['goal'] = Goal::query()
-                    ->where('action_type', $key)
+                    ->where('type_id', 999)
+                    ->where('action_type_id', ActionType::firstWhere('name', str($key)->replace('_', ' ')->title())->id)
                     ->whereDate('finish_at', '>=', $this->dates['start'])
                     ->whereDate('finish_at', '<=', $this->dates['end'])
                     ->sum('target');
+                if ($subjectStats[$key]['goal'] > 0) {
+                    $subjectStats[$key]['percentage'] = (intval(($subjectStats[$key]['actual'] / $subjectStats[$key]['goal']) * 100));
+                } else {
+                    $subjectStats[$key]['percentage'] = 0;
+                }
             }
 
             // TODO: Let's not worry about # of queries here.
