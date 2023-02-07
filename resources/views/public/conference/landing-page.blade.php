@@ -45,7 +45,7 @@
                 <h3 class="hidden py-4 md:block md:text-2xl lg:text-4xl md:w-[200px]">
                     Come and be <span class="font-extrabold text-secondary">inspired</span>
                 </h3>
-                Seekers of the truth will be instructed, inspired, and motivated by Wilford Woodruff's insights through speakers, presentations, art and musical performances. Lunch will be provided.
+                Seekers of the truth will be instructed, inspired, and motivated by Wilford Woodruff's insights through speakers, presentations, art and musical performances.
             </div>
         </div>
     </div>
