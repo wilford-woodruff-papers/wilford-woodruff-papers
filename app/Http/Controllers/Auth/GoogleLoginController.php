@@ -36,22 +36,21 @@ class GoogleLoginController extends Controller
                     'email' => 'An account has already been created using this email address. Try logging in with your '.Str::title($user->provider).' account.',
                 ]);
             }
-        }
 
-        $user = User::updateOrCreate(
-            [
+            $user->fill([
+                'provider' => 'google',
+                'password' => $googleUser->getId(),
+                'provider_id' => Hash::make(Str::uuid()),
+            ]);
+            $user->save();
+        } else {
+            $user = User::create([
                 'email' => $googleUser->getEmail(),
-            ],
-            [
                 'name' => $googleUser->getName(),
                 'provider' => 'google',
-                'provider_id' => $googleUser->getId(),
-            ]
-        );
-
-        if ($user->wasRecentlyCreated) {
-            $user->password = Hash::make(Str::uuid());
-            $user->save();
+                'password' => $googleUser->getId(),
+                'provider_id' => Hash::make(Str::uuid()),
+            ]);
             event(new Registered($user));
         }
 
