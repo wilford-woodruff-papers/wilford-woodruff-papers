@@ -36,7 +36,7 @@ return new class extends Migration
                 ]);
             $this->addTemplateProperties($template, $properties);
 
-            // Discourses
+            // Additional
             $properties = $this->addAdditionalProperties();
 
             $type = \App\Models\Type::query()
@@ -47,10 +47,92 @@ return new class extends Migration
                     'type_id' => $type->id,
                 ]);
             $this->addTemplateProperties($template, $properties);
+
+            // Daybooks
+            $properties = $this->addDaybookProperties();
+
+            $type = \App\Models\Type::query()
+                ->firstOrCreate(['name' => 'Daybooks']);
+            $template = \App\Models\Template::query()
+                ->firstOrCreate([
+                    'name' => 'Daybooks',
+                    'type_id' => $type->id,
+                ]);
+            $this->addTemplateProperties($template, $properties);
         });
     }
 
     private function addAdditionalProperties()
+    {
+        $properties = [
+            [
+                'type' => 'html',
+                'name' => 'Notes',
+            ],
+            [
+                'type' => 'text',
+                'name' => 'Source',
+            ],
+            [
+                'type' => 'link',
+                'name' => 'Source Link',
+            ],
+            [
+                'type' => 'text',
+                'name' => 'Access Needed From CHL (Y/N)',
+            ],
+            [
+                'type' => 'text',
+                'name' => 'File Format',
+            ],
+            [
+                'type' => 'text',
+                'name' => 'Doc Date',
+            ],
+            [
+                'type' => 'text',
+                'name' => 'WW Journals',
+            ],
+            [
+                'type' => 'link',
+                'name' => 'WW Journals Link',
+            ],
+            [
+                'type' => 'html',
+                'name' => 'Description',
+            ],
+            [
+                'type' => 'text',
+                'name' => 'Occasion',
+            ],
+            [
+                'type' => 'text',
+                'name' => 'Location',
+            ],
+            [
+                'type' => 'text',
+                'name' => 'City',
+            ],
+            [
+                'type' => 'text',
+                'name' => 'County',
+            ],
+            [
+                'type' => 'text',
+                'name' => 'State',
+            ],
+        ];
+
+        $propertyModels = [];
+        foreach ($properties as $property) {
+            $propertyModels[] = \App\Models\Property::query()
+                ->firstOrCreate($property);
+        }
+
+        return $propertyModels;
+    }
+
+    private function addDaybookProperties()
     {
         $properties = [
             [

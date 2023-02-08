@@ -47,6 +47,9 @@ class PcfActions extends Action
             case 'Discourses':
                 Excel::import(new DiscoursesFromPcfActions($fields->action), $fields->file);
                 break;
+            case 'Daybooks':
+                Excel::import(new DiscoursesFromPcfActions($fields->action), $fields->file);
+                break;
             case 'People':
                 Excel::import(new PeopleFromPcfActions($fields->action), $fields->file);
                 break;
