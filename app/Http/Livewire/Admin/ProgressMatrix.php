@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin;
 
 use App\Models\ActionType;
 use App\Models\Goal;
+use App\Models\Item;
 use App\Models\Page;
 use App\Models\Type;
 use App\Models\User;
@@ -149,10 +150,29 @@ class ProgressMatrix extends Component
                     }
                 }
             }
+
+            foreach ($docTypes as $doctype) {
+                $pageCounts[$doctype] = Item::query()
+                    ->where(function ($query) {
+                        $query->where('auto_page_count', '<=', 0)
+                            ->orWhereNull('auto_page_count');
+                    })
+                    ->whereRelation('type', function ($query) use ($doctype) {
+                        $query->where('name', $doctype);
+                    })
+                    ->sum('manual_page_count')
+                    + Item::query()
+                        ->where('auto_page_count', '>', 0)
+                        ->whereRelation('type', function ($query) use ($doctype) {
+                            $query->where('name', $doctype);
+                        })
+                        ->sum('auto_page_count');
+            }
         } else {
             $pageStats = [];
             $goals = [];
             $goalPercentages = [];
+            $pageCounts = [];
             $subjectStats = [
                 'identify_people' => [
                     'actual' => 0,
@@ -178,6 +198,8 @@ class ProgressMatrix extends Component
             'goalPercentages' => $goalPercentages,
             'docTypes' => $docTypes,
             'subjectStats' => $subjectStats,
+            'pageCounts' => $pageCounts,
+
         ])
             ->layout('layouts.admin');
     }

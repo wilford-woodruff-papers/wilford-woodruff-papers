@@ -92,11 +92,11 @@
                                 <td class="py-3.5 pr-3 pl-1 text-sm font-semibold text-left text-gray-900 border border-black">
                                     Access/Organize
                                 </td>
-                                <td class="border border-black"></td>
-                                <td class="border border-black"></td>
-                                <td class="border border-black"></td>
-                                <td class="border border-black"></td>
-                                <td class="border border-black"></td>
+                                @foreach($docTypes as $docType)
+                                    <td class="text-sm font-semibold text-center text-gray-900 border border-black">
+                                        {{ $pageCounts[$docType] }}
+                                    </td>
+                                @endforeach
                             </tr>
 
                             @foreach($pageStats as $key => $stat)
