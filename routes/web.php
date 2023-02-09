@@ -249,4 +249,8 @@ Route::group(['middleware' => ['role:Super Admin|Editor']], function () {
     Route::middleware(['auth:sanctum', 'verified'])
         ->get('/admin/progress-matrix', \App\Http\Livewire\Admin\ProgressMatrix::class)
         ->name('admin.reports.progress-matrix');
+
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->get('/admin/stage', \App\Http\Livewire\Admin\Stage::class)
+        ->name('admin.reports.stage');
 });
