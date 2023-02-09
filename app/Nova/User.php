@@ -2,11 +2,11 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\ExportUsers;
 use Illuminate\Http\Request;
 use JeffersonSimaoGoncalves\NovaPermission\Nova\Fields\RoleBooleanGroup;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\ID;
-use Laravel\Nova\Fields\MorphToMany;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\Text;
 
@@ -89,7 +89,9 @@ class User extends Resource
      */
     public function filters(Request $request)
     {
-        return [];
+        return [
+            new \App\Nova\Filters\Role(),
+        ];
     }
 
     /**
@@ -111,6 +113,8 @@ class User extends Resource
      */
     public function actions(Request $request)
     {
-        return [];
+        return [
+            new ExportUsers(),
+        ];
     }
 }
