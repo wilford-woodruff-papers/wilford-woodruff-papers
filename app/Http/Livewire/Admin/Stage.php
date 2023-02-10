@@ -149,32 +149,44 @@ class Stage extends Component
                     ],
                 ];
                 foreach ($months as $month) {
-                    foreach ($this->actionTypes as $actionType) {
-                        $stats[$doctype][$month['name']][$actionType->name] = [
+                    foreach ([
+                        'Transcription',
+                        'Verification',
+                        'Subject Tagging',
+                        'Topic Tagging',
+                        'Stylization',
+                    ] as $actionType) {
+                        $stats[$doctype][$month['name']][$actionType] = [
                             'goal' => $goal = Goal::query()
                                 ->where('type_id', Type::firstWhere('name', $doctype)->id)
-                                ->where('action_type_id', $actionType->id)
+                                ->where('action_type_id', $this->actionTypes->where('name', $actionType)->first()->id)
                                 ->whereMonth('finish_at', $this->monthMap[$month['name']])
                                 ->whereYear('finish_at', $month['year'])
                                 ->first()->target ?? 0,
                             'completed' => $completed = $pageStats->where('document_type', $doctype)
-                                ->where('action_name', $actionType->name)
+                                ->where('action_name', $actionType)
                                 ->where('month', $this->monthMap[$month['name']])
                                 ->first()?->total,
                             'percentage' => ($goal > 0) ? (intval(($completed / $goal) * 100)) : 0,
                         ];
-                        $summary['goal'][$actionType->name] += $goal;
-                        $summary['completed'][$actionType->name] += $completed;
+                        $summary['goal'][$actionType] += $goal;
+                        $summary['completed'][$actionType] += $completed;
                         //$summary['completed_crowd'] += $completed_crowd;
-                        $summary['percentage'][$actionType->name] = ($summary['goal'][$actionType->name] > 0) ? (intval(($summary['completed'][$actionType->name] / $summary['goal'][$actionType->name]) * 100)) : 0;
+                        $summary['percentage'][$actionType] = ($summary['goal'][$actionType] > 0) ? (intval(($summary['completed'][$actionType] / $summary['goal'][$actionType]) * 100)) : 0;
                         // TODO: This is showng cumulative percentage, not quarterly percentage
                     }
                     if (($index + 1) % 3 == 0) {
-                        foreach ($this->actionTypes as $actionType) {
-                            $stats[$doctype][$month['name']][$actionType->name]['summary'] = [
-                                'goal' => $summary['goal'][$actionType->name],
-                                'completed' => $summary['completed'][$actionType->name],
-                                'percentage' => $summary['percentage'][$actionType->name],
+                        foreach ([
+                            'Transcription',
+                            'Verification',
+                            'Subject Tagging',
+                            'Topic Tagging',
+                            'Stylization',
+                        ] as $actionType) {
+                            $stats[$doctype][$month['name']][$actionType]['summary'] = [
+                                'goal' => $summary['goal'][$actionType],
+                                'completed' => $summary['completed'][$actionType],
+                                'percentage' => $summary['percentage'][$actionType],
                             ];
                         }
                         $summary = [

@@ -60,49 +60,49 @@
                     <thead class="text-white bg-black">
                         <tr>
                             <th class="bg-white"></th>
-                            <th colspan="4">Transcription</th>
-                            <th colspan="3">2LV</th>
-                            <th colspan="3">Subject Tag</th>
-                            <th colspan="3">Topic Tag</th>
-                            <th colspan="3">Stylize</th>
-                            <th colspan="3">Publish</th>
+                            <th colspan="4" class="bg-[#93c47d]">Transcription</th>
+                            <th colspan="3" class="bg-[#f6b26b]">2LV</th>
+                            <th colspan="3" class="bg-[#6d9eeb]">Subject Tag</th>
+                            <th colspan="3" class="bg-[#8e7cc3]">Topic Tag</th>
+                            <th colspan="3" class="bg-[#c27ba0]">Stylize</th>
+                            <th colspan="3" class="bg-[#e06666]">Publish</th>
                         </tr>
                         <tr>
-                            <th class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-black bg-white sm:pl-6">
+                            <th class="py-3.5 text-base font-semibold text-center text-black bg-white">
                                 Month
                             </th>
 
-                            <th>Goal</th>
-                            <th>Complete (All)</th>
-                            <th>Complete Crowd</th>
-                            <th>% of Goal</th>
+                            <th class="px-2 w-14 bg-[#b6d7a8] text-black">Goal</th>
+                            <th class="px-2 w-14 bg-[#b6d7a8] text-black">Completed (All)</th>
+                            <th class="px-2 w-14 bg-[#b6d7a8] text-black">Completed Crowd</th>
+                            <th class="px-2 w-14 bg-[#b6d7a8] text-black">% of Goal</th>
 
-                            <th>Goal</th>
-                            <th>Completed</th>
-                            <th>% of Goal</th>
+                            <th class="px-2 w-14 bg-[#f9cb9c] text-black">Goal</th>
+                            <th class="px-2 w-14 bg-[#f9cb9c] text-black">Completed</th>
+                            <th class="px-2 w-14 bg-[#f9cb9c] text-black">% of Goal</th>
 
-                            <th>Goal</th>
-                            <th>Completed</th>
-                            <th>% of Goal</th>
+                            <th class="px-2 w-14 bg-[#a4c2f4] text-white">Goal</th>
+                            <th class="px-2 w-14 bg-[#a4c2f4] text-white">Completed</th>
+                            <th class="px-2 w-14 bg-[#a4c2f4] text-white">% of Goal</th>
 
-                            <th>Goal</th>
-                            <th>Completed</th>
-                            <th>% of Goal</th>
+                            <th class="px-2 w-14 bg-[#b4a7d6] text-white">Goal</th>
+                            <th class="px-2 w-14 bg-[#b4a7d6] text-white">Completed</th>
+                            <th class="px-2 w-14 bg-[#b4a7d6] text-white">% of Goal</th>
 
-                            <th>Goal</th>
-                            <th>Completed</th>
-                            <th>% of Goal</th>
+                            <th class="px-2 w-14 bg-[#d5a6bd] text-white">Goal</th>
+                            <th class="px-2 w-14 bg-[#d5a6bd] text-white">Completed</th>
+                            <th class="px-2 w-14 bg-[#d5a6bd] text-white">% of Goal</th>
 
-                            <th>Goal</th>
-                            <th>Completed</th>
-                            <th>% of Goal</th>
+                            <th class="px-2 w-14 bg-[#ea9999] text-black">Goal</th>
+                            <th class="px-2 w-14 bg-[#ea9999] text-black">Completed</th>
+                            <th class="px-2 w-14 bg-[#ea9999] text-black">% of Goal</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white">
                         @foreach($stats as $docTypeName => $docType)
                             <tr class="text-white bg-black">
                                 <td class="text-center uppercase">{{ $docTypeName }}</td>
-                                <td colspan="19" class="text-center">Pages</td>
+                                <td colspan="19" class="pl-2 text-left">Pages</td>
                             </tr>
                             @foreach($docType as $monthName => $monthData)
                                 <tr class="text-center">
@@ -113,7 +113,7 @@
                                         <td>
                                             {{ $actionType['goal'] }}
                                         </td>
-                                        <td>
+                                        <td title="{{ $actionName }}">
                                             {{ $actionType['completed'] }}
                                         </td>
                                         @if($actionName == 'Transcription')
@@ -122,13 +122,13 @@
                                             </td>
                                         @endif
                                         <td>
-                                            {{ $actionType['percentage'] }}
+                                            {{ $actionType['percentage'] }}%
                                         </td>
                                     @endforeach
                                 </tr>
                             @if(($loop->index + 1)  % 3 == 0)
-                                <tr class="bg-gray-50">
-                                    <td class="bg-[#cccccc] text-center">
+                                <tr class="text-center bg-[#d9d9d9] font-semibold">
+                                    <td class="">
                                         Q{{ ($loop->index + 1) / 3 }}
                                     </td>
                                     @foreach($monthData as $actionName => $actionType)
@@ -144,9 +144,41 @@
                                             </td>
                                         @endif
                                         <td>
-                                            {{ $actionType['summary']['percentage'] }}
+                                            {{ $actionType['summary']['percentage'] }}%
                                         </td>
                                     @endforeach
+                                </tr>
+                            @endif
+                            @if($loop->last)
+                                <tr class="text-center bg-[#999999] text-white font-semibold">
+                                    <td class="">
+                                        Stage {{ $stage }}
+                                    </td>
+                                    @foreach($monthData as $actionName => $actionType)
+                                        <td>
+                                            {{ $goal = collect($docType)->sum(function($tasks) use ($actionName){
+                                                return $tasks[$actionName]['goal'];
+                                            }) }}
+                                        </td>
+                                        <td>
+                                            {{ $completed = collect($docType)->sum(function($tasks) use ($actionName){
+                                                return $tasks[$actionName]['completed'];
+                                            }) }}
+                                        </td>
+                                        @if($actionName == 'Transcription')
+                                            <td>
+                                                0
+                                            </td>
+                                        @endif
+                                        <td>
+                                            {{ (($goal > 0) ? intval($completed / $goal) * 100 : 0) }}%
+                                        </td>
+                                    @endforeach
+                                </tr>
+                                <tr class="bg-white">
+                                    <td colspan="20">
+                                        &nbsp;
+                                    </td>
                                 </tr>
                             @endif
                             @endforeach
