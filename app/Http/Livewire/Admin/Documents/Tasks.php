@@ -103,12 +103,14 @@ class Tasks extends Component
 
         $item = $action->actionable;
         $item->pages->each(function ($page) use ($user, $action) {
-            $user->tasks()->save(Action::create([
+            \App\Models\Action::updateOrCreate([
                 'actionable_type' => get_class($page),
                 'actionable_id' => $page->id,
                 'action_type_id' => $action->action_type_id,
+            ], [
+                'assigned_to' => $user->id,
                 'assigned_at' => now(),
-            ]));
+            ]);
         });
     }
 
@@ -125,12 +127,15 @@ class Tasks extends Component
 
         if ($action->actionable_type == Item::class) {
             $item = $action->actionable;
-            $item->pending_page_actions->where('action_type_id', $action->action_type_id)->each(function ($action) use ($user) {
-                $action->completed_at = now();
-                $action->completed_by = $user->id;
-                $action->save();
-
-                ReleaseDependantActions::dispatch($action);
+            $item->pages->each(function ($page) use ($user, $action) {
+                \App\Models\Action::updateOrCreate([
+                    'actionable_type' => get_class($page),
+                    'actionable_id' => $page->id,
+                    'action_type_id' => $action->action_type_id,
+                ], [
+                    'completed_by' => $user->id,
+                    'completed_at' => now(),
+                ]);
             });
 
             AutoPublishDocument::dispatch($item);
