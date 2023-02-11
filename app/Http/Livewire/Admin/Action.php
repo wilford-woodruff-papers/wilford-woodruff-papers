@@ -78,13 +78,13 @@ class Action extends Component
 
                 $item->pages()->each(function ($page) {
                     $pageAction = \App\Models\Action::query()
-                    ->where('actionable_type', get_class($page))
-                    ->where('actionable_id', $page->id)
-                    ->where('action_type_id', $this->action->action_type_id)
-                    ->whereNull('assigned_to')
-                    ->whereNull('completed_by')
-                    ->first();
-                    $pageAction->delete();
+                        ->where('actionable_type', get_class($page))
+                        ->where('actionable_id', $page->id)
+                        ->where('action_type_id', $this->action->action_type_id)
+                        ->whereNull('assigned_to')
+                        ->whereNull('completed_by')
+                        ->first();
+                    $pageAction?->delete();
                 });
             }
 
