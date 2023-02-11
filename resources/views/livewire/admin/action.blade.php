@@ -14,17 +14,18 @@
                     <div class="font-medium text-gray-900">{{ $action->assignee->name }}</div>
                     <div class="text-gray-500">{{ str($action->assignee->email)->before('@') }}</div>
                     <div class="text-gray-500">{{ $action->assigned_at?->tz('America/Denver')->toDayDateTimeString() }}</div>
+                    @if($action->assigned_to == auth()->id() || auth()->user()->hasAnyRole($action->type->roles))
+                        <div class="">
+                            <button wire:click="unassignAction({{ $action->id }})"
+                                    class="inline-flex items-center py-0.5 px-2 text-xs font-medium text-gray-700 text-red-700 bg-white rounded border border-red-700 border-dotted shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-red-700 focus:ring-offset-2 focus:outline-none"
+                            >
+                                Unassign
+                            </button>
+                        </div>
+                    @endif
                 </div>
             </div>
-            @if($action->assigned_to == auth()->id() || auth()->user()->hasAnyRole($action->type->roles))
-                <div class="">
-                    <button wire:click="unassignAction({{ $action->id }})"
-                            class="text-red-700"
-                    >
-                        Unassign
-                    </button>
-                </div>
-            @endif
+
         @else
             <select wire:model="assignee">
                 <option>-- Choose --</option>
@@ -44,17 +45,18 @@
                     <div class="font-medium text-gray-900">{{ $action->finisher->name }}</div>
                     <div class="text-gray-500">{{ str($action->finisher->email)->before('@') }}</div>
                     <div class="text-gray-500">{{ $action->completed_at?->tz('America/Denver')->toDayDateTimeString() }}</div>
+                    @if($action->completed_by == auth()->id() || auth()->user()->hasAnyRole($action->type->roles))
+                        <div class="">
+                            <button wire:click="uncompleteAction({{ $action->id }})"
+                                    class="inline-flex items-center py-0.5 px-2 text-xs font-medium text-gray-700 text-red-700 bg-white rounded border border-red-700 border-dotted shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-red-700 focus:ring-offset-2 focus:outline-none"
+                            >
+                                Remove Person
+                            </button>
+                        </div>
+                    @endif
                 </div>
             </div>
-            @if($action->completed_by == auth()->id() || auth()->user()->hasAnyRole($action->type->roles))
-                <div class="">
-                    <button wire:click="uncompleteAction({{ $action->id }})"
-                            class="text-red-700"
-                    >
-                        Remove Person
-                    </button>
-                </div>
-            @endif
+
         @else
             <select wire:model="finisher">
                 <option>-- Choose --</option>
@@ -67,7 +69,7 @@
     </td>--}}
 
     <td class="relative py-4 pr-4 pl-3 text-sm font-medium text-right whitespace-nowrap sm:pr-6">
-        @if(auth()->user()->hasAnyRole($action->type->roles))
+        @if(empty($action->completed_by) && empty($action->assigned_to) && auth()->user()->hasAnyRole(['Super Admin', 'Admin', 'Manager']))
             <button wire:click="deleteAction()"
                     type="button" class="inline-flex gap-x-2 items-center py-1 px-2 my-2 text-xs font-semibold leading-4 text-white bg-red-700 rounded-full border border-transparent shadow-sm hover:bg-red-700 focus:ring-2 focus:ring-red-700 focus:ring-offset-2 focus:outline-none">
                 <!-- Heroicon name: solid/trash -->

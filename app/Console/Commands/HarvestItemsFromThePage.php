@@ -91,7 +91,8 @@ class HarvestItemsFromThePage extends Command
                     $document->save();
                     info($document->name.' was replaced in FTP. Updating Pages.');
                     // $document->pages()->delete();
-                    ImportItemFromFtp::dispatch($document, false, true);
+                    ImportItemFromFtp::dispatch($document, false, true)
+                        ->onQueue('pages');
                 }
 
                 if (data_get($item, 'service.pctComplete', 0) == 100.0) {
