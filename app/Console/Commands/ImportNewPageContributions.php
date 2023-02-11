@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use App\Jobs\ImportItemFromFtp;
 use App\Models\Item;
-use Illuminate\Bus\Batch;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Http;
@@ -56,14 +55,7 @@ class ImportNewPageContributions extends Command
             }
 
             $batch = Bus::batch($jobs)
-                ->then(function (Batch $batch) {
-                    // All jobs completed successfully...
-                    /*Bus::chain([
-                        new \App\Jobs\OrderPages(),
-                        new \App\Jobs\CacheDates(),
-                    ])
-                        ->dispatch();*/
-                })
+                ->onQueue('pages')
                 ->name('Import New Pages Contributions')
                 ->allowFailures()
                 ->dispatch();

@@ -1,7 +1,7 @@
 <x-admin-layout>
 
     <main x-data="{
-                tab: 'activity'
+                tab: $persist('activity').as('document-tab')
             }"
           class="py-10">
         <!-- Page header -->
@@ -9,7 +9,7 @@
             <div class="flex items-center space-x-5">
                 <div class="flex-shrink-0">
                     <div class="relative">
-                        <img class="w-16 h-16 rounded-full" src="{{ optional(optional($item->pages->first())->getFirstMedia())->getUrl('thumb') }}" alt="">
+                        <img class="w-16 h-16 rounded-full" src="{{ $item->firstPage?->getFirstMedia()?->getUrl('thumb') }}" alt="">
                         <span class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></span>
                     </div>
                 </div>

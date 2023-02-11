@@ -32,7 +32,7 @@ class ImportItemFromFtp implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(Item $item, $enable = false, $download = false)
+    public function __construct(Item $item, $enable = 'false', $download = 'false')
     {
         $this->item = $item;
         $this->enable = $enable;
@@ -77,13 +77,13 @@ class ImportItemFromFtp implements ShouldQueue
                     'is_blank' => in_array('markedBlank', array_values(data_get($canvas, 'service.pageStatus', []))),
                 ]);
 
-                if (! $page->hasMedia() || ($this->download == true || $this->download == 1)) {
+                /*if (! $page->hasMedia() || $this->download == 'true') {
                     $page->clearMediaCollection();
 
                     if (! empty($canvas['images'][0]['resource']['@id'])) {
                         $page->addMediaFromUrl($canvas['images'][0]['resource']['@id'])->toMediaCollection();
                     }
-                }
+                }*/
 
                 $page->subjects()->detach();
 
@@ -132,7 +132,7 @@ class ImportItemFromFtp implements ShouldQueue
         $item->ftp_slug = str($response->json('related.0.@id'))->afterLast('/');
         $item->imported_at = now('America/Denver');
 
-        if ($this->enable == true || $this->enable == 1) {
+        if ($this->enable == 'true') {
             if ($item->enabled != true) {
                 $item->added_to_collection_at = now();
             }
@@ -141,7 +141,82 @@ class ImportItemFromFtp implements ShouldQueue
 
         $item->save();
 
-        OrderPages::dispatch($item);
+        // OrderPages::dispatch($item);
+
+        $this->item = $item;
+
+        $this->orderPages();
+        $this->cacheDates();
+    }
+
+    private function orderPages()
+    {
+        $this->item->refresh();
+
+        if ($this->item->items->count() == 0) {
+            $pageSortColumn = $item->page_sort_column ?? 'id';
+            $pages = $this->item->pages->sortBy($pageSortColumn);
+            $pages->each(function ($page) {
+                $page->parent_item_id = $this->item->parent()->id;
+                $page->type_id = $this->item->parent()->type_id;
+                $page->save();
+            });
+
+            Page::setNewOrder($pages->pluck('id')->all());
+
+            $this->item->fresh();
+            $pages = $this->item->pages;
+            $pages->each(function ($page) {
+                $page->full_name = $this->item->name.': Page'.$page->order;
+                $page->save();
+            });
+        } else {
+            $itemPages = collect([]);
+            $this->item->items->sortBy('order')->each(function ($child) use (&$itemPages) {
+                $pageSortColumn = $child->page_sort_column ?? 'id';
+                $itemPages = $itemPages->concat($child->pages->sortBy($pageSortColumn));
+            });
+            $itemPages->each(function ($page) {
+                $page->parent_item_id = $this->item->parent()->id;
+                $page->type_id = $this->item->parent()->type_id;
+                $page->save();
+            });
+
+            Page::setNewOrder($itemPages->pluck('id')->all());
+
+            $this->item->fresh();
+            $pages = $this->item->pages;
+            $pages->each(function ($page) {
+                $page->full_name = $this->item->name.': Page'.$page->order;
+                $page->save();
+            });
+        }
+
+        logger()->info('Page Order Updated for '.$this->item->name);
+    }
+
+    private function cacheDates()
+    {
+        $this->item->refresh();
+
+        if ($this->item->items->count() == 0) {
+            $dates = collect();
+            $this->item->pages->each(function ($page) use (&$dates) {
+                $dates = $dates->concat($page->dates);
+            });
+            $this->item->first_date = optional($dates->sortBy('date')->first())->date;
+        } else {
+            $this->item->first_date = optional($this->item->items->sortBy('date')->first())->first_date;
+        }
+
+        if ($this->item->first_date) {
+            $this->item->decade = floor($this->item->first_date->year / 10) * 10;
+            $this->item->year = $this->item->first_date->year;
+        }
+
+        $this->item->save();
+
+        logger()->info('Dates Cached for '.$this->item->name);
     }
 
     private function convertSubjectTags($transcript)

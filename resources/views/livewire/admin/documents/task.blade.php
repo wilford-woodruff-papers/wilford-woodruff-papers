@@ -98,26 +98,25 @@
                 </div>
                 <div class="col-span-2 py-4 pr-3 pl-4 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-6">
                     {{--{{ $pageActions->first()->assigned_at->tz('America/Denver')->toDayDateTimeString() }}--}}
-                    <div>
+                    <div class="divide-y">
                         @foreach($pageActions->first()->actionable->completed_actions as $a)
-                            <div class="grid grid-cols-9 gap-x-4 items-center">
+                            <div class="grid grid-cols-9 gap-y-2 gap-x-4 items-center">
                                 <div class="col-span-2 font-semibold">
                                     {{ $a->type->name }}
                                 </div>
-                                <div class="col-span-3">
-                                    {{ $a->completed_at->tz('America/Denver')->toDayDateTimeString() }}
+                                <div class="col-span-4">
+                                    <div>
+                                        {{ $a->finisher->name }}
+                                    </div>
+                                    <div>
+                                        {{ $a->completed_at->tz('America/Denver')->toDayDateTimeString() }}
+                                    </div>
                                 </div>
                                 <div class="col-span-2">
-                                    {{ $a->finisher->name }}
-                                </div>
-                                <div class="col-span-1">
-                                    @if($a->finisher->id == auth()->id() || auth()->user()->hasAnyRole($a->type->roles))
+                                    @if($a->finisher->id == auth()->id() || auth()->user()->hasAnyRole(['Admin', 'Super Admin']))
                                         <button wire:click="markActionInComplete({{ $a->id }})"
-                                                type="button" class="inline-flex gap-x-2 items-center py-1 px-2 my-2 text-xs font-semibold leading-4 text-white bg-red-700 rounded-full border border-transparent shadow-sm hover:bg-red-700 focus:ring-2 focus:ring-red-700 focus:ring-offset-2 focus:outline-none">
-                                            <!-- Heroicon name: solid/x -->
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                            </svg>
+                                                type="button" class="inline-flex items-center py-0.5 px-2 text-xs font-medium text-gray-700 text-red-700 bg-white rounded border border-red-700 border-dotted shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-red-700 focus:ring-offset-2 focus:outline-none">
+                                            Mark Incomplete
                                         </button>
                                     @endif
                                 </div>
