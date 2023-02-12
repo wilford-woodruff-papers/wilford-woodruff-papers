@@ -77,13 +77,13 @@ class ImportItemFromFtp implements ShouldQueue
                     'is_blank' => in_array('markedBlank', array_values(data_get($canvas, 'service.pageStatus', []))),
                 ]);
 
-                /*if (! $page->hasMedia() || $this->download == 'true') {
+                if (! $page->hasMedia() || $this->download == 'true') {
                     $page->clearMediaCollection();
 
                     if (! empty($canvas['images'][0]['resource']['@id'])) {
                         $page->addMediaFromUrl($canvas['images'][0]['resource']['@id'])->toMediaCollection();
                     }
-                }*/
+                }
 
                 $page->subjects()->detach();
 
