@@ -4,14 +4,27 @@
         <div class="py-4">
 
             <h1 class="mb-2 text-2xl font-semibold">
-                Stage
+                WWPF Objectives & Key Results
             </h1>
 
-            <div class="flex">
+            <div class="flex gap-x-12">
+
                 <button wire:click="$set('stage', 3)"
-                        class="inline-flex justify-center items-center py-2 px-8 mt-6 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm sm:ml-3 xl:ml-0 xl:w-full hover:bg-gray-50 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none"
+                        class="inline-flex justify-center items-center py-2 px-8 mt-6 text-sm font-medium rounded-md border shadow-sm sm:ml-3 xl:ml-0 xl:w-full hover:bg-gray-50 focus:ring-2 focus:ring-[#792310] focus:ring-offset-2 focus:outline-none @if($stage === 3) bg-[#792310] border-[#792310] text-white hover:text-gray-700 @else bg-white border-gray-300 text-gray-700 @endif"
                 >
                     Stage 3
+                </button>
+
+                <button wire:click="$set('stage', 2)"
+                        class="inline-flex justify-center items-center py-2 px-8 mt-6 text-sm font-medium rounded-md border shadow-sm sm:ml-3 xl:ml-0 xl:w-full hover:bg-gray-50 focus:ring-2 focus:ring-[#792310] focus:ring-offset-2 focus:outline-none @if($stage === 2) bg-[#792310] border-[#792310] text-white hover:text-gray-700 @else bg-white border-gray-300 text-gray-700 @endif"
+                >
+                    Stage 2
+                </button>
+
+                <button wire:click="$set('stage', 1)"
+                        class="inline-flex justify-center items-center py-2 px-8 mt-6 text-sm font-medium rounded-md border shadow-sm sm:ml-3 xl:ml-0 xl:w-full hover:bg-gray-50 focus:ring-2 focus:ring-[#792310] focus:ring-offset-2 focus:outline-none @if($stage === 1) bg-[#792310] border-[#792310] text-white hover:text-gray-700 @else bg-white border-gray-300 text-gray-700 @endif"
+                >
+                    Stage 1
                 </button>
             </div>
 
