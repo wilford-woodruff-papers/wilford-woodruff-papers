@@ -61,6 +61,7 @@ class ProgressMatrix extends Component
             'Discourses',
             'Journal Sections',
             'Additional',
+            'Daybooks',
             'Autobiographies',
         ];
 
