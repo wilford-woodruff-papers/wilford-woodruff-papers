@@ -48,7 +48,9 @@ class ImportPlacesMasterFileAction implements ShouldQueue
 
     private function toCarbonDate($stringDate)
     {
-        if (empty($stringDate) || str($stringDate)->lower()->toString() == 'n/a') {
+        if (empty($stringDate) || str($stringDate)->lower()->toString() == 'n/a' || str($stringDate)->lower()->toString() == '#n/a') {
+            info('Date invalid for: '.$this->row['ftp'].' | '.$stringDate);
+
             return null;
         }
 
