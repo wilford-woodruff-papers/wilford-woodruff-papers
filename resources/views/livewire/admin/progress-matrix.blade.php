@@ -66,11 +66,12 @@
                     <table class="divide-y divide-gray-30">
                         <thead class="bg-black">
                             <tr>
-                                <th colspan="2" class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-white border border-black sm:pl-6"></th>
+                                <th colspan="2" class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-black bg-white border border-black sm:pl-6"></th>
                                 <th class="py-3.5 pr-3 pl-4 text-sm font-semibold text-center text-white border border-black sm:pl-6">Letters<br/>(pages)</th>
                                 <th class="py-3.5 pr-3 pl-4 text-sm font-semibold text-center text-white border border-black sm:pl-6">Discourses<br/>(pages)</th>
                                 <th class="py-3.5 pr-3 pl-4 text-sm font-semibold text-center text-white border border-black sm:pl-6">Journals<br/>(pages)</th>
                                 <th class="py-3.5 pr-3 pl-4 text-sm font-semibold text-center text-white border border-black sm:pl-6">Additional<br/>(pages)</th>
+                                <th class="py-3.5 pr-3 pl-4 text-sm font-semibold text-center text-white border border-black sm:pl-6">Daybooks<br/>(pages)</th>
                                 <th class="py-3.5 pr-3 pl-4 text-sm font-semibold text-center text-white border border-black sm:pl-6">Autobiographies<br/>(pages)</th>
                             </tr>
                         </thead>
@@ -78,6 +79,7 @@
                             <tr class="bg-[#cccccc]">
                                 <td class="text-sm text-center text-black border border-black">Category</td>
                                 <td class="text-sm text-center text-black border border-black">Steps</td>
+                                <td class="text-sm text-center text-black border border-black">Actual/Goal</td>
                                 <td class="text-sm text-center text-black border border-black">Actual/Goal</td>
                                 <td class="text-sm text-center text-black border border-black">Actual/Goal</td>
                                 <td class="text-sm text-center text-black border border-black">Actual/Goal</td>
@@ -121,9 +123,10 @@
                                                       'bg-[#e06666]' =>  ($goalPercentages[$key][$docType] <= 70),
                                                       'bg-[#ffd966]' => (($goalPercentages[$key][$docType] >= 70) && ($goalPercentages[$key][$docType] <= 99)),
                                                       'bg-[#93c47d]' => (($goalPercentages[$key][$docType] >= 100) && ($goalPercentages[$key][$docType] <= 119)),
+                                                      'bg-[#93c47d]' => ($goals[$key][$docType] == 0),
                                                       'bg-[#ff50c5]' => ($goalPercentages[$key][$docType] >= 120),
                                                     ])>
-                                                    {{ $goalPercentages[$key][$docType] }}%
+                                                    @if($goals[$key][$docType] == 0) N/A @else {{ $goalPercentages[$key][$docType] }}% @endif
                                                 </div>
                                             </div>
                                         </td>
