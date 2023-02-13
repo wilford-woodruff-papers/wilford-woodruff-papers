@@ -192,6 +192,7 @@ class Stage extends Component
                         'Subject Tagging',
                         'Topic Tagging',
                         'Stylization',
+                        'Publish',
                     ] as $actionType) {
                         $stats[$doctype][$month['name']][$actionType] = [
                             'goal' => $goal = Goal::query()
@@ -225,6 +226,7 @@ class Stage extends Component
                             'Subject Tagging',
                             'Topic Tagging',
                             'Stylization',
+                            'Publish',
                         ] as $actionType) {
                             $stats[$doctype][$month['name']][$actionType]['summary'] = [
                                 'goal' => $summary['goal'][$actionType],
@@ -301,6 +303,18 @@ class Stage extends Component
     private function setDates()
     {
         switch ($this->stage) {
+            case 1:
+                $this->dates = [
+                    'start' => '2020-03-01',
+                    'end' => '2021-02-28',
+                ];
+                break;
+            case 2:
+                $this->dates = [
+                    'start' => '2021-03-01',
+                    'end' => '2022-02-29',
+                ];
+                break;
             case 3:
                 $this->dates = [
                     'start' => '2022-03-01',

@@ -3,6 +3,8 @@
 namespace App\Nova\Actions;
 
 use App\Imports\AdditionalDocumentsFromPcfActions;
+use App\Imports\AllDocumentTypePcfActions;
+use App\Imports\DaybooksFromPcfActions;
 use App\Imports\DiscoursesFromPcfActions;
 use App\Imports\LettersFromPcfActions;
 use App\Imports\PeopleFromPcfActions;
@@ -44,17 +46,23 @@ class PcfActions extends Action
             case 'Additional Documents':
                 Excel::import(new AdditionalDocumentsFromPcfActions($fields->action), $fields->file);
                 break;
+            case 'Autobiographies':
+                //
+                break;
             case 'Discourses':
                 Excel::import(new DiscoursesFromPcfActions($fields->action), $fields->file);
                 break;
             case 'Daybooks':
-                Excel::import(new DiscoursesFromPcfActions($fields->action), $fields->file);
+                Excel::import(new DaybooksFromPcfActions($fields->action), $fields->file);
                 break;
             case 'People':
                 Excel::import(new PeopleFromPcfActions($fields->action), $fields->file);
                 break;
             case 'Places':
                 Excel::import(new PlacesFromPcfActions($fields->action), $fields->file);
+                break;
+            case 'All':
+                Excel::import(new AllDocumentTypePcfActions($fields->file->getClientOriginalName(), $fields->action), $fields->file);
                 break;
         }
 
@@ -76,12 +84,14 @@ class PcfActions extends Action
                     'Letters' => 'Letters',
                     'People' => 'People',
                     'Places' => 'Places',
+                    'All' => 'All',
                 ])
                 ->rules('required'),
             Select::make('Action')
                 ->options([
                     'Import New' => 'Import New',
                     'Import Master File' => 'Import Master File',
+                    'Import Publish Dates' => 'Import Publish Dates (Any)',
                 ])
                 ->rules('required'),
             File::make('File')
