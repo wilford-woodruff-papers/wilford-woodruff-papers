@@ -92,11 +92,11 @@
                                 <td class="py-3.5 pr-3 pl-1 text-sm font-semibold text-left text-gray-900 border border-black">
                                     Access/Organize
                                 </td>
-                                <td class="border border-black"></td>
-                                <td class="border border-black"></td>
-                                <td class="border border-black"></td>
-                                <td class="border border-black"></td>
-                                <td class="border border-black"></td>
+                                @foreach($docTypes as $docType)
+                                    <td class="text-sm font-semibold text-center text-gray-900 border border-black">
+                                        {{ $pageCounts[$docType] }}
+                                    </td>
+                                @endforeach
                             </tr>
 
                             @foreach($pageStats as $key => $stat)
@@ -163,9 +163,51 @@
                                 <td class="py-3.5 pr-4 pl-1 text-sm font-semibold text-left text-gray-900 border border-black">
                                     Access/Organize
                                 </td>
-                                <td class="border border-black"></td>
-                                <td class="border border-black"></td>
-                                <td class="border border-black"></td>
+                                <td class="text-sm font-semibold text-center text-gray-900 border border-black">
+                                    <div class="flex flex-col">
+                                        <div>
+                                            {{ $subjectStats['identify_people']['actual'] }} / {{ $subjectStats['identify_people']['goal'] }}
+                                        </div>
+                                        <div @class([
+                                                      'bg-[#e06666]' =>  ($subjectStats['identify_people']['percentage'] <= 70),
+                                                      'bg-[#ffd966]' => (($subjectStats['identify_people']['percentage'] >= 70) && ($subjectStats['identify_people']['percentage'] <= 99)),
+                                                      'bg-[#93c47d]' => (($subjectStats['identify_people']['percentage'] >= 100) && ($subjectStats['identify_people']['percentage'] <= 119)),
+                                                      'bg-[#ff50c5]' => ($subjectStats['identify_people']['percentage'] >= 120),
+                                                    ])>
+                                            {{ $subjectStats['identify_people']['percentage'] }}%
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-sm font-semibold text-center text-gray-900 border border-black">
+                                    <div class="flex flex-col">
+                                        <div>
+                                            {{ $subjectStats['write_biographies']['actual'] }} / {{ $subjectStats['write_biographies']['goal'] }}
+                                        </div>
+                                        <div @class([
+                                                      'bg-[#e06666]' =>  ($subjectStats['write_biographies']['percentage'] <= 70),
+                                                      'bg-[#ffd966]' => (($subjectStats['write_biographies']['percentage'] >= 70) && ($subjectStats['write_biographies']['percentage'] <= 99)),
+                                                      'bg-[#93c47d]' => (($subjectStats['write_biographies']['percentage'] >= 100) && ($subjectStats['write_biographies']['percentage'] <= 119)),
+                                                      'bg-[#ff50c5]' => ($subjectStats['write_biographies']['percentage'] >= 120),
+                                                    ])>
+                                            {{ $subjectStats['write_biographies']['percentage'] }}%
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-sm font-semibold text-center text-gray-900 border border-black">
+                                    <div class="flex flex-col">
+                                        <div>
+                                            {{ $subjectStats['identify_places']['actual'] }} / {{ $subjectStats['identify_places']['goal'] }}
+                                        </div>
+                                        <div @class([
+                                                      'bg-[#e06666]' =>  ($subjectStats['identify_places']['percentage'] <= 70),
+                                                      'bg-[#ffd966]' => (($subjectStats['identify_places']['percentage'] >= 70) && ($subjectStats['identify_places']['percentage'] <= 99)),
+                                                      'bg-[#93c47d]' => (($subjectStats['identify_places']['percentage'] >= 100) && ($subjectStats['identify_places']['percentage'] <= 119)),
+                                                      'bg-[#ff50c5]' => ($subjectStats['identify_places']['percentage'] >= 120),
+                                                    ])>
+                                            {{ $subjectStats['identify_places']['percentage'] }}%
+                                        </div>
+                                    </div>
+                                </td>
                             </tr>
                         </tbody>
                         <tfoot></tfoot>

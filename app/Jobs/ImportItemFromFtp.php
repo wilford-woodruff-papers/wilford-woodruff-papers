@@ -130,6 +130,7 @@ class ImportItemFromFtp implements ShouldQueue
         }
 
         $item->ftp_slug = str($response->json('related.0.@id'))->afterLast('/');
+        $item->auto_page_count = $item->pages()->count();
         $item->imported_at = now('America/Denver');
 
         if ($this->enable == 'true') {

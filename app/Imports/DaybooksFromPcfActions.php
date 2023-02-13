@@ -2,13 +2,12 @@
 
 namespace App\Imports;
 
-use App\Jobs\ImportAdditionalMasterFileAction;
-use App\Jobs\ImportNewAdditionalDocumentsFromPcfAction;
+use App\Jobs\ImportDiscoursesMasterFileAction;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class AdditionalDocumentsFromPcfActions implements ToCollection, WithHeadingRow
+class DaybooksFromPcfActions implements ToCollection, WithHeadingRow
 {
     public $action;
 
@@ -21,11 +20,8 @@ class AdditionalDocumentsFromPcfActions implements ToCollection, WithHeadingRow
     {
         foreach ($rows as $row) {
             switch ($this->action) {
-                case 'Import New':
-                    ImportNewAdditionalDocumentsFromPcfAction::dispatch($row);
-                    break;
                 case 'Import Master File':
-                    ImportAdditionalMasterFileAction::dispatch($row);
+                    ImportDiscoursesMasterFileAction::dispatch($row);
                     break;
             }
         }

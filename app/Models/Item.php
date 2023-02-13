@@ -6,6 +6,7 @@ use Dyrynda\Database\Casts\EfficientUuid;
 use Dyrynda\Database\Support\GeneratesUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Mtvs\EloquentHashids\HasHashid;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Encoders\Base64Encoder;
@@ -111,6 +112,11 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
         return $this->morphMany(Date::class, 'dateable');
     }
 
+    public function values()
+    {
+        return $this->hasMany(Value::class);
+    }
+
     public function getRouteKeyName()
     {
         return 'uuid';
@@ -147,6 +153,18 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
             ]);
         });
     }*/
+
+    protected static function booted()
+    {
+        static::creating(function ($item) {
+            if (empty($item->pcf_unique_id)) {
+                $uniqueId = DB::table('items')
+                    ->where('pcf_unique_id_prefix', $item->pcf_unique_id_prefix)
+                    ->max('pcf_unique_id');
+                $item->pcf_unique_id = $uniqueId + 1;
+            }
+        });
+    }
 
     public function activities()
     {
