@@ -61,7 +61,7 @@ class ImportPlacesMasterFileAction implements ShouldQueue
                 return Carbon::createFromFormat('m/d/Y', $stringDate);
             }
         } catch (\Exception $exception) {
-            info('Date invalid for: '.$this->row['ftp']);
+            info('Date invalid for: '.$this->row['ftp'].' | '.$stringDate);
 
             return null;
         }
