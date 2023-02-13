@@ -52,6 +52,8 @@ class ImportPeopleMasterFileAction implements ShouldQueue
     private function toCarbonDate($stringDate)
     {
         if (empty($stringDate) || str($stringDate)->lower()->toString() == 'n/a' || str($stringDate)->lower()->toString() == '#n/a') {
+            info('Date invalid for: '.$this->row['name_in_ftp'].' | '.$stringDate);
+
             return null;
         }
 
@@ -62,7 +64,7 @@ class ImportPeopleMasterFileAction implements ShouldQueue
                 return Carbon::createFromFormat('m/d/Y', $stringDate);
             }
         } catch (\Exception $exception) {
-            info('Date invalid for: '.$this->row['name_in_ftp']);
+            info('Date invalid for: '.$this->row['name_in_ftp'].' | '.$stringDate);
 
             return null;
         }
