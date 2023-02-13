@@ -13,6 +13,8 @@ class Type extends Model
 
     protected $guard_name = 'web';
 
+    protected $guarded = ['id'];
+
     public function items()
     {
         return $this->hasMany(Item::class);
