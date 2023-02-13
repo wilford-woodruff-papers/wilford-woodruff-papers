@@ -72,36 +72,36 @@
                                 Month
                             </th>
 
-                            <th class="px-2 w-14 bg-[#b6d7a8] text-black">Goal</th>
-                            <th class="px-2 w-14 bg-[#b6d7a8] text-black">Completed (All)</th>
-                            <th class="px-2 w-14 bg-[#b6d7a8] text-black">Completed Crowd</th>
-                            <th class="px-2 w-14 bg-[#b6d7a8] text-black">% of Goal</th>
+                            <th class="px-3 w-14 bg-[#b6d7a8] text-black">Goal</th>
+                            <th class="px-3 w-14 bg-[#b6d7a8] text-black">Completed (All)</th>
+                            <th class="px-3 w-14 bg-[#b6d7a8] text-black">Completed Crowd</th>
+                            <th class="px-3 w-14 bg-[#b6d7a8] text-black">% of Goal</th>
 
-                            <th class="px-2 w-14 bg-[#f9cb9c] text-black">Goal</th>
-                            <th class="px-2 w-14 bg-[#f9cb9c] text-black">Completed</th>
-                            <th class="px-2 w-14 bg-[#f9cb9c] text-black">% of Goal</th>
+                            <th class="px-3 w-14 bg-[#f9cb9c] text-black">Goal</th>
+                            <th class="px-3 w-14 bg-[#f9cb9c] text-black">Completed</th>
+                            <th class="px-3 w-14 bg-[#f9cb9c] text-black">% of Goal</th>
 
-                            <th class="px-2 w-14 bg-[#a4c2f4] text-white">Goal</th>
-                            <th class="px-2 w-14 bg-[#a4c2f4] text-white">Completed</th>
-                            <th class="px-2 w-14 bg-[#a4c2f4] text-white">% of Goal</th>
+                            <th class="px-3 w-14 bg-[#a4c2f4] text-white">Goal</th>
+                            <th class="px-3 w-14 bg-[#a4c2f4] text-white">Completed</th>
+                            <th class="px-3 w-14 bg-[#a4c2f4] text-white">% of Goal</th>
 
-                            <th class="px-2 w-14 bg-[#b4a7d6] text-white">Goal</th>
-                            <th class="px-2 w-14 bg-[#b4a7d6] text-white">Completed</th>
-                            <th class="px-2 w-14 bg-[#b4a7d6] text-white">% of Goal</th>
+                            <th class="px-3 w-14 bg-[#b4a7d6] text-white">Goal</th>
+                            <th class="px-3 w-14 bg-[#b4a7d6] text-white">Completed</th>
+                            <th class="px-3 w-14 bg-[#b4a7d6] text-white">% of Goal</th>
 
-                            <th class="px-2 w-14 bg-[#d5a6bd] text-white">Goal</th>
-                            <th class="px-2 w-14 bg-[#d5a6bd] text-white">Completed</th>
-                            <th class="px-2 w-14 bg-[#d5a6bd] text-white">% of Goal</th>
+                            <th class="px-3 w-14 bg-[#d5a6bd] text-white">Goal</th>
+                            <th class="px-3 w-14 bg-[#d5a6bd] text-white">Completed</th>
+                            <th class="px-3 w-14 bg-[#d5a6bd] text-white">% of Goal</th>
 
-                            <th class="px-2 w-14 bg-[#ea9999] text-black">Goal</th>
-                            <th class="px-2 w-14 bg-[#ea9999] text-black">Completed</th>
-                            <th class="px-2 w-14 bg-[#ea9999] text-black">% of Goal</th>
+                            <th class="px-3 w-14 bg-[#ea9999] text-black">Goal</th>
+                            <th class="px-3 w-14 bg-[#ea9999] text-black">Completed</th>
+                            <th class="px-3 w-14 bg-[#ea9999] text-black">% of Goal</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white">
                         @foreach($stats as $docTypeName => $docType)
                             <tr class="text-white bg-black">
-                                <td class="text-center uppercase">{{ $docTypeName }}</td>
+                                <td class="px-2 text-center uppercase">{{ str($docTypeName)->before(' Sections') }}</td>
                                 <td colspan="19" class="pl-2 text-left">Pages</td>
                             </tr>
                             @foreach($docType as $monthName => $monthData)
@@ -110,18 +110,47 @@
                                         {{ $monthName }}
                                     </td>
                                     @foreach($monthData as $actionName => $actionType)
-                                        <td>
+                                        <td @class([
+                                              'bg-[#b6d7a8]' =>  ($actionName == 'Transcription'),
+                                              'bg-[#f9cb9c]' =>  ($actionName == 'Verification'),
+                                              'bg-[#a4c2f4]' =>  ($actionName == 'Subject Tagging'),
+                                              'bg-[#b4a7d6]' =>  ($actionName == 'Topic Tagging'),
+                                              'bg-[#d5a6bd]' =>  ($actionName == 'Stylization'),
+                                              'bg-[#ea9999]' =>  ($actionName == 'Publish'),
+                                        ])>
                                             {{ $actionType['goal'] }}
                                         </td>
-                                        <td title="{{ $actionName }}">
+                                        <td title="{{ $actionName }}"
+                                            @class([
+                                              'bg-[#b6d7a8]' =>  ($actionName == 'Transcription'),
+                                              'bg-[#f9cb9c]' =>  ($actionName == 'Verification'),
+                                              'bg-[#a4c2f4]' =>  ($actionName == 'Subject Tagging'),
+                                              'bg-[#b4a7d6]' =>  ($actionName == 'Topic Tagging'),
+                                              'bg-[#d5a6bd]' =>  ($actionName == 'Stylization'),
+                                              'bg-[#ea9999]' =>  ($actionName == 'Publish'),
+                                        ])>
                                             {{ $actionType['completed'] }}
                                         </td>
                                         @if($actionName == 'Transcription')
-                                            <td>
+                                            <td @class([
+                                              'bg-[#b6d7a8]' =>  ($actionName == 'Transcription'),
+                                              'bg-[#f9cb9c]' =>  ($actionName == 'Verification'),
+                                              'bg-[#a4c2f4]' =>  ($actionName == 'Subject Tagging'),
+                                              'bg-[#b4a7d6]' =>  ($actionName == 'Topic Tagging'),
+                                              'bg-[#d5a6bd]' =>  ($actionName == 'Stylization'),
+                                              'bg-[#ea9999]' =>  ($actionName == 'Publish'),
+                                        ])>
                                                 {{ $actionType['completed_crowd'] ?? 0 }}
                                             </td>
                                         @endif
-                                        <td>
+                                        <td @class([
+                                              'bg-[#b6d7a8]' =>  ($actionName == 'Transcription'),
+                                              'bg-[#f9cb9c]' =>  ($actionName == 'Verification'),
+                                              'bg-[#a4c2f4]' =>  ($actionName == 'Subject Tagging'),
+                                              'bg-[#b4a7d6]' =>  ($actionName == 'Topic Tagging'),
+                                              'bg-[#d5a6bd]' =>  ($actionName == 'Stylization'),
+                                              'bg-[#ea9999]' =>  ($actionName == 'Publish'),
+                                        ])>
                                             {{ $actionType['percentage'] }}%
                                         </td>
                                     @endforeach
@@ -167,7 +196,9 @@
                                         </td>
                                         @if($actionName == 'Transcription')
                                             <td>
-                                                0
+                                                {{ $completed = collect($docType)->sum(function($tasks) use ($actionName){
+                                                return $tasks[$actionName]['completed_crowd'];
+                                            }) }}
                                             </td>
                                         @endif
                                         <td>

@@ -6,6 +6,7 @@ use App\Models\ActionType;
 use App\Models\Goal;
 use App\Models\Page;
 use App\Models\Type;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
@@ -116,6 +117,33 @@ class Stage extends Component
                 ->orderBy('action_types.order_column')
                 ->get());
 
+            $crowdStats = collect(DB::table('actions')
+                ->select([
+                    DB::raw('action_types.name AS action_name'),
+                    DB::raw('actions.action_type_id'),
+                    DB::raw('actions.actionable_type AS item_type'),
+                    DB::raw('types.name AS document_type'),
+                    DB::raw('COUNT(*) AS total'),
+                    DB::raw('MONTH(actions.completed_at) as month'),
+                ])
+                ->join('action_types', 'action_types.id', '=', 'actions.action_type_id')
+                ->join('pages', 'pages.id', '=', 'actions.actionable_id')
+                ->join('items', 'items.id', '=', 'pages.item_id')
+                ->join('types', 'types.id', '=', 'items.type_id')
+                ->where('actions.actionable_type', Page::class)
+                ->where('actions.completed_by', User::firstWhere('name', 'Crowdsource')->id)
+                ->whereIn('actions.action_type_id', $this->actionTypes->pluck('id')->all())
+                ->groupBy([
+                    DB::raw('MONTH(actions.completed_at)'),
+                    'types.name',
+                    'actions.actionable_type',
+                    'actions.action_type_id',
+                ])
+                ->whereDate('completed_at', '>=', $this->dates['start'])
+                ->whereDate('completed_at', '<=', $this->dates['end'])
+                ->orderBy('action_types.order_column')
+                ->get());
+
             $stats = [];
             foreach ($docTypes as $doctype) {
                 $index = 0;
@@ -130,6 +158,15 @@ class Stage extends Component
 
                     ],
                     'completed' => [
+                        'Transcription' => 0,
+                        'Verification' => 0,
+                        'Stylization' => 0,
+                        'Subject Tagging' => 0,
+                        'Topic Tagging' => 0,
+                        'Publish' => 0,
+
+                    ],
+                    'completed_crowd' => [
                         'Transcription' => 0,
                         'Verification' => 0,
                         'Stylization' => 0,
@@ -169,9 +206,15 @@ class Stage extends Component
                                 ->first()?->total,
                             'percentage' => ($goal > 0) ? (intval(($completed / $goal) * 100)) : 0,
                         ];
+                        if ($actionType == 'Transcription') {
+                            $stats[$doctype][$month['name']][$actionType]['completed_crowd'] = $completed_crowd = $crowdStats->where('document_type', $doctype)
+                                    ->where('action_name', $actionType)
+                                    ->where('month', $this->monthMap[$month['name']])
+                                    ->first()?->total;
+                        }
                         $summary['goal'][$actionType] += $goal;
                         $summary['completed'][$actionType] += $completed;
-                        //$summary['completed_crowd'] += $completed_crowd;
+                        $summary['completed_crowd'][$actionType] += $completed_crowd;
                         $summary['percentage'][$actionType] = ($summary['goal'][$actionType] > 0) ? (intval(($summary['completed'][$actionType] / $summary['goal'][$actionType]) * 100)) : 0;
                         // TODO: This is showng cumulative percentage, not quarterly percentage
                     }
@@ -186,6 +229,7 @@ class Stage extends Component
                             $stats[$doctype][$month['name']][$actionType]['summary'] = [
                                 'goal' => $summary['goal'][$actionType],
                                 'completed' => $summary['completed'][$actionType],
+                                'completed_crowd' => $summary['completed_crowd'][$actionType],
                                 'percentage' => $summary['percentage'][$actionType],
                             ];
                         }
@@ -200,6 +244,15 @@ class Stage extends Component
 
                             ],
                             'completed' => [
+                                'Transcription' => 0,
+                                'Verification' => 0,
+                                'Stylization' => 0,
+                                'Subject Tagging' => 0,
+                                'Topic Tagging' => 0,
+                                'Publish' => 0,
+
+                            ],
+                            'completed_crowd' => [
                                 'Transcription' => 0,
                                 'Verification' => 0,
                                 'Stylization' => 0,
