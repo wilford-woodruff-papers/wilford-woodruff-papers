@@ -31,7 +31,11 @@
 
                 {{--<livewire:import-transactions />--}}
 
-                <x-button.primary wire:click="create"><x-icon.plus/> New</x-button.primary>
+                @if(auth()->user()->hasAnyRole(['Super Admin']))
+                    <a href="{{ route('admin.dashboard.document.create') }}"
+                       class="py-2 px-4 text-white bg-indigo-600 border-indigo-600 hover:bg-indigo-500 active:bg-indigo-700"
+                    ><x-icon.plus/> New</a>
+                @endif
             </div>
         </div>
 
