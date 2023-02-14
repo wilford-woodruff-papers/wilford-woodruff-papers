@@ -58,7 +58,7 @@ class ImportLettersMasterFileAction implements ShouldQueue
             $item->pcf_unique_id_prefix = 'LE';
         }
         if (empty($item->name)) {
-            $item->name = data_get($this->row, 'letters_formula_do_not_edit');
+            $item->name = data_get($this->row, 'letter_name_formula_do_not_edit');
         }
 
         $item->save();
