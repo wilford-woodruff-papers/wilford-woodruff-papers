@@ -50,8 +50,8 @@ class ImportLettersMasterFileAction implements ShouldQueue
             'pcf_unique_id' => $uniqueID,
         ]);
 
-        if (! empty(data_get($this->row, 'pages'))) {
-            $item->manual_page_count = data_get($this->row, 'pages');
+        if (! empty(trim(data_get($this->row, 'pages')))) {
+            $item->manual_page_count = trim(data_get($this->row, 'pages'));
         }
 
         if (empty($item->pcf_unique_id_prefix)) {
