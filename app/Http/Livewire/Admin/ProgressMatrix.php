@@ -31,6 +31,15 @@ class ProgressMatrix extends Component
 
     public $users;
 
+    public $typesMap = [
+        'Letters' => ['Letters'],
+        'Discourses' => ['Discourses'],
+        'Journals' => ['Journals', 'Journal Sections'],
+        'Additional' => ['Additional'],
+        'Autobiographies' => ['Autobiography Sections', 'Autobiographies'],
+        'Daybooks' => ['Daybooks'],
+    ];
+
     public function mount()
     {
         $this->dates = [
@@ -60,7 +69,7 @@ class ProgressMatrix extends Component
         $docTypes = [
             'Letters',
             'Discourses',
-            'Journal Sections',
+            'Journals',
             'Additional',
             'Daybooks',
             'Autobiographies',
@@ -140,7 +149,7 @@ class ProgressMatrix extends Component
             foreach ($pageStats as $key => $stat) {
                 foreach ($docTypes as $doctype) {
                     $goals[$key][$doctype] = Goal::query()
-                        ->where('type_id', Type::firstWhere('name', $doctype)->id)
+                        ->where('type_id', Type::whereIn('name', $this->typesMap[$doctype])->first()->id)
                         ->where('action_type_id', ActionType::firstWhere('name', $key)->id)
                         ->whereDate('finish_at', '>=', $this->dates['start'])
                         ->whereDate('finish_at', '<=', $this->dates['end'])
@@ -148,7 +157,7 @@ class ProgressMatrix extends Component
 
                     $goalPercentages[$key][$doctype] = 0;
                     if ($goals[$key][$doctype] > 0) {
-                        $goalPercentages[$key][$doctype] = (intval(($stat->where('document_type', $doctype)->first()?->total / $goals[$key][$doctype]) * 100));
+                        $goalPercentages[$key][$doctype] = (intval(($stat->whereIn('document_type', $this->typesMap[$doctype])->first()?->total / $goals[$key][$doctype]) * 100));
                     }
                 }
             }
@@ -160,13 +169,13 @@ class ProgressMatrix extends Component
                             ->orWhereNull('auto_page_count');
                     })
                     ->whereRelation('type', function ($query) use ($doctype) {
-                        $query->where('name', $doctype);
+                        $query->whereIn('name', $this->typesMap[$doctype]);
                     })
                     ->sum('manual_page_count')
                     + Item::query()
                         ->where('auto_page_count', '>', 0)
                         ->whereRelation('type', function ($query) use ($doctype) {
-                            $query->where('name', $doctype);
+                            $query->whereIn('name', $this->typesMap[$doctype]);
                         })
                         ->sum('auto_page_count');
             }
