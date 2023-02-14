@@ -53,8 +53,8 @@ class ImportAdditionalMasterFileAction implements ShouldQueue
             'type_id' => $type->id,
         ]);
 
-        if (! empty(data_get($this->row, 'of_pages'))) {
-            $item->manual_page_count = data_get($this->row, 'of_pages');
+        if (! empty(trim(data_get($this->row, 'of_pages')))) {
+            $item->manual_page_count = trim(data_get($this->row, 'of_pages'));
         }
 
         if (empty($item->pcf_unique_id_prefix)) {
