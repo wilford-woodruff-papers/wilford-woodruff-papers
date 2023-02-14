@@ -43,6 +43,7 @@ class ProgressMatrix extends Component
                             ->whereIn('name', [
                                 'Transcription',
                                 'Verification',
+                                'Publish',
                                 'Stylization',
                             ])
                             ->orderBY('name', 'ASC')
