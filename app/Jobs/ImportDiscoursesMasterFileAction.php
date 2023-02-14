@@ -58,7 +58,11 @@ class ImportDiscoursesMasterFileAction implements ShouldQueue
             $item->pcf_unique_id_prefix = 'D';
         }
         if (empty($item->name)) {
-            $item->name = data_get($this->row, 'name_link_in_ftp');
+            if (! empty(data_get($this->row, 'name_link_in_ftp'))) {
+                $item->name = data_get($this->row, 'name_link_in_ftp');
+            } else {
+                $item->name = 'Discourse '.data_get($this->row, 'discourse_date');
+            }
         }
 
         $item->save();
