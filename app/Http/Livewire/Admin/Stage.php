@@ -312,7 +312,7 @@ class Stage extends Component
             case 2:
                 $this->dates = [
                     'start' => '2021-03-01',
-                    'end' => '2022-02-29',
+                    'end' => '2022-02-28',
                 ];
                 break;
             case 3:
