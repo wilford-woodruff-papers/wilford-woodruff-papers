@@ -82,6 +82,7 @@ class PcfActions extends Action
                     'Additional Documents' => 'Additional Documents',
                     'Discourses' => 'Discourses',
                     'Letters' => 'Letters',
+                    'Daybooks' => 'Daybooks',
                     'People' => 'People',
                     'Places' => 'Places',
                     'All' => 'All',
