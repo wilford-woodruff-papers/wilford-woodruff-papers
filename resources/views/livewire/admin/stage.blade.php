@@ -70,7 +70,7 @@
                     </div>
                 </div>
                 <table class="divide-y divide-gray-30">
-                    <thead class="text-white bg-black">
+                    <thead class="sticky top-0 text-white bg-black">
                         <tr>
                             <th class="bg-white"></th>
                             <th colspan="4" class="bg-[#93c47d]">Transcription</th>
