@@ -38,6 +38,15 @@ class Stage extends Component
         'December' => 12,
     ];
 
+    public $typesMap = [
+        'Letters' => ['Letters'],
+        'Discourses' => ['Discourses'],
+        'Journals' => ['Journals', 'Journal Sections'],
+        'Additional' => ['Additional'],
+        'Autobiographies' => ['Autobiography Sections', 'Autobiographies'],
+        'Daybooks' => ['Daybooks'],
+    ];
+
     public $actionTypes;
 
     public $readyToLoad = false;
@@ -62,18 +71,10 @@ class Stage extends Component
     public function render()
     {
         if ($this->readyToLoad) {
-            $typesMap = [
-                'Letters' => ['Letters'],
-                'Discourses' => ['Discourses'],
-                'Journal Sections' => ['Journals', 'Journal Sections'],
-                'Additional' => ['Additional'],
-                'Autobiographies' => ['Autobiography Sections', 'Autobiographies'],
-            ];
-
             $docTypes = [
                 'Letters',
                 'Discourses',
-                'Journal Sections',
+                'Journals',
                 'Additional',
                 'Autobiographies',
             ];
@@ -201,14 +202,14 @@ class Stage extends Component
                                 ->whereMonth('finish_at', $this->monthMap[$month['name']])
                                 ->whereYear('finish_at', $month['year'])
                                 ->first()->target ?? 0,
-                            'completed' => $completed = $pageStats->where('document_type', $doctype)
+                            'completed' => $completed = $pageStats->whereIn('document_type', $this->typesMap[$doctype])
                                 ->where('action_name', $actionType)
                                 ->where('month', $this->monthMap[$month['name']])
                                 ->first()?->total,
                             'percentage' => ($goal > 0) ? (intval(($completed / $goal) * 100)) : 0,
                         ];
                         if ($actionType == 'Transcription') {
-                            $stats[$doctype][$month['name']][$actionType]['completed_crowd'] = $completed_crowd = $crowdStats->where('document_type', $doctype)
+                            $stats[$doctype][$month['name']][$actionType]['completed_crowd'] = $completed_crowd = $crowdStats->whereIn('document_type', $this->typesMap[$doctype])
                                     ->where('action_name', $actionType)
                                     ->where('month', $this->monthMap[$month['name']])
                                     ->first()?->total;
