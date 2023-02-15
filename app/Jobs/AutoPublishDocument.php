@@ -8,6 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\DB;
 
 class AutoPublishDocument implements ShouldQueue
 {
@@ -35,12 +36,14 @@ class AutoPublishDocument implements ShouldQueue
         if ($this->item->enabled != true && $this->item->canBePublished()) {
             $this->item->enabled = true;
             $this->item->save();
+            $this->addPublishedTask($this->item);
             info($this->item->id.' was published.');
         } elseif ($this->item->enabled == true && $this->item->canBePublished()) {
             info($this->item->id.' is already published.');
         } else {
             $this->item->enabled = false;
             $this->item->save();
+            $this->removePublishedTask($this->item);
             info($this->item->id.' cannot be published.');
         }
 
@@ -56,5 +59,67 @@ class AutoPublishDocument implements ShouldQueue
                 info($this->item->id.' cannot be published.');
             }
         }
+    }
+
+    private function addPublishedTask($item)
+    {
+        $actionType = \App\Models\ActionType::firstWhere('name', 'Publish');
+        $user = \App\Models\User::firstWhere('email', 'auto@wilfordwoodruffpapers.org');
+
+        DB::transaction(function () use ($item, $actionType, $user) {
+            \App\Models\Action::updateOrCreate([
+                'actionable_type' => get_class($item),
+                'actionable_id' => $item->id,
+                'action_type_id' => $actionType->id,
+            ], [
+                'assigned_to' => $user->id,
+                'assigned_at' => $item->actions->firstWhere('action_type_id', 2)->completed_at,
+                'completed_by' => $user->id,
+                'completed_at' => $item->actions->firstWhere('action_type_id', 2)->completed_at,
+            ]);
+            foreach ($item->pages as $page) {
+                \App\Models\Action::updateOrCreate([
+                    'actionable_type' => get_class($page),
+                    'actionable_id' => $page->id,
+                    'action_type_id' => $actionType->id,
+                ], [
+                    'assigned_to' => $user->id,
+                    'assigned_at' => $item->actions->firstWhere('action_type_id', 2)->completed_at,
+                    'completed_by' => $user->id,
+                    'completed_at' => $item->actions->firstWhere('action_type_id', 2)->completed_at,
+                ]);
+            }
+        });
+    }
+
+    private function removePublishedTask($item)
+    {
+        $actionType = \App\Models\ActionType::firstWhere('name', 'Publish');
+        $user = \App\Models\User::firstWhere('email', 'auto@wilfordwoodruffpapers.org');
+
+        DB::transaction(function () use ($item, $actionType, $user) {
+            \App\Models\Action::updateOrCreate([
+                'actionable_type' => get_class($item),
+                'actionable_id' => $item->id,
+                'action_type_id' => $actionType->id,
+            ], [
+                'assigned_to' => $user->id,
+                'assigned_at' => $item->actions->firstWhere('action_type_id', 2)->completed_at,
+                'completed_by' => null,
+                'completed_at' => null,
+            ]);
+            foreach ($item->pages as $page) {
+                \App\Models\Action::updateOrCreate([
+                    'actionable_type' => get_class($page),
+                    'actionable_id' => $page->id,
+                    'action_type_id' => $actionType->id,
+                ], [
+                    'assigned_to' => $user->id,
+                    'assigned_at' => $item->actions->firstWhere('action_type_id', 2)->completed_at,
+                    'completed_by' => null,
+                    'completed_at' => null,
+                ]);
+            }
+        });
     }
 }
