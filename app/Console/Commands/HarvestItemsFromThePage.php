@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Jobs\AddTaskToItem;
 use App\Jobs\ImportItemFromFtp;
 use App\Models\Item;
+use App\Models\Type;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 
@@ -76,6 +77,7 @@ class HarvestItemsFromThePage extends Command
                 if (! empty($uniqueId)) {
                     $document->pcf_unique_id_prefix = $prefix;
                     $document->pcf_unique_id = $uniqueId;
+                    $document->type_id = $this->getType($prefix);
                 } else {
                     continue;
                 }
@@ -128,5 +130,18 @@ class HarvestItemsFromThePage extends Command
         info("Imported $count documents");
 
         return 0;
+    }
+
+    private function getType(string $prefix)
+    {
+        return match ($prefix) {
+            'LE' => Type::firstWhere('name', 'Letters')->id,
+            'D' => Type::firstWhere('name', 'Discourses')->id,
+            'J' => Type::firstWhere('name', 'Journals')->id,
+            'A' => Type::firstWhere('name', 'Autobiographies')->id,
+            'DB' => Type::firstWhere('name', 'Daybooks')->id,
+            'B', 'C', 'E', 'F', 'G', 'H', 'L', 'M', 'P', 'T', 'R' => Type::firstWhere('name', 'Additional')->id,
+            default => null,
+        };
     }
 }
