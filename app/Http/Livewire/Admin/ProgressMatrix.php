@@ -35,7 +35,7 @@ class ProgressMatrix extends Component
         'Letters' => ['Letters'],
         'Discourses' => ['Discourses'],
         'Journals' => ['Journals', 'Journal Sections'],
-        'Additional' => ['Additional'],
+        'Additional' => ['Additional', 'Additional Sections'],
         'Autobiographies' => ['Autobiography Sections', 'Autobiographies'],
         'Daybooks' => ['Daybooks'],
     ];
