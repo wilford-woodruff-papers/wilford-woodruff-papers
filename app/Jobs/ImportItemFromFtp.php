@@ -154,46 +154,61 @@ class ImportItemFromFtp implements ShouldQueue
     {
         $this->item->refresh();
 
-        if ($this->item->items->count() == 0) {
-            $pageSortColumn = $item->page_sort_column ?? 'id';
-            $pages = $this->item->pages->sortBy($pageSortColumn);
-            $pages->each(function ($page) {
-                $page->parent_item_id = $this->item->parent()->id;
-                $page->type_id = $this->item->parent()->type_id;
-                $page->save();
-            });
-
-            Page::setNewOrder($pages->pluck('id')->all());
-
-            $this->item->fresh();
-            $pages = $this->item->pages;
-            $pages->each(function ($page) {
-                $page->full_name = $this->item->name.': Page'.$page->order;
-                $page->save();
-            });
-        } else {
-            $itemPages = collect([]);
-            $this->item->items->sortBy('order')->each(function ($child) use (&$itemPages) {
-                $pageSortColumn = $child->page_sort_column ?? 'id';
-                $itemPages = $itemPages->concat($child->pages->sortBy($pageSortColumn));
-            });
-            $itemPages->each(function ($page) {
-                $page->parent_item_id = $this->item->parent()->id;
-                $page->type_id = $this->item->parent()->type_id;
-                $page->save();
-            });
-
-            Page::setNewOrder($itemPages->pluck('id')->all());
-
-            $this->item->fresh();
-            $pages = $this->item->pages;
-            $pages->each(function ($page) {
-                $page->full_name = $this->item->name.': Page'.$page->order;
-                $page->save();
-            });
+        if (empty($this->item->item_id) && $this->item->items->count() == 0) {
+            $this->setOrderForItem($this->item);
+        } elseif (! empty($this->item->item_id)) {
+            $parent = $this->item->parent();
+            $this->setOrderForSectionsInContainer($parent);
         }
 
         logger()->info('Page Order Updated for '.$this->item->name);
+    }
+
+    private function setOrderForItem($item)
+    {
+        $pageSortColumn = $item->page_sort_column ?? 'id';
+        $pages = $item->pages->sortBy($pageSortColumn);
+        $pages->each(function ($page) use ($item) {
+            $page->parent_item_id = $item->parent()->id;
+            $page->type_id = $item->parent()->type_id;
+            $page->save();
+        });
+
+        Page::setNewOrder($pages->pluck('id')->all());
+
+        $item->fresh();
+        $pages = $item->pages;
+        $pages->each(function ($page) use ($item) {
+            $page->full_name = $item->name.': Page'.$page->order;
+            $page->save();
+        });
+
+        $this->item->fresh();
+    }
+
+    private function setOrderForSectionsInContainer($item)
+    {
+        $itemPages = collect([]);
+        $item->items->sortBy('order')->each(function ($child) use (&$itemPages) {
+            $pageSortColumn = $child->page_sort_column ?? 'id';
+            $itemPages = $itemPages->concat($child->pages->sortBy($pageSortColumn));
+        });
+        $itemPages->each(function ($page) use ($item) {
+            $page->parent_item_id = $item->parent()->id;
+            $page->type_id = $item->parent()->type_id;
+            $page->save();
+        });
+
+        Page::setNewOrder($itemPages->pluck('id')->all());
+
+        $item->fresh();
+        $pages = $item->pages;
+        $pages->each(function ($page) use ($item) {
+            $page->full_name = $item->name.': Page'.$page->order;
+            $page->save();
+        });
+
+        $this->item->fresh();
     }
 
     private function cacheDates()
