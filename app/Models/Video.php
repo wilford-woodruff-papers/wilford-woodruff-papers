@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Support\Str;
 use Maize\Markable\Markable;
 use Maize\Markable\Models\Like;
 use OwenIt\Auditing\Auditable;
@@ -29,7 +28,25 @@ class Video extends Press implements HasMedia, \OwenIt\Auditing\Contracts\Audita
 
     public function getEmbedLinkAttribute()
     {
-        return Str::of($this->attributes['link'])->replace('watch?v=', 'embed/')->replaceFirst('&', '?');
+        $link = str($this->attributes['link']);
+
+        if ($link->contains('youtu.be')) {
+            $link = $link->replace('https://youtu.be/', 'https://www.youtube.com/watch?v=');
+        }
+
+        if ($link->contains('watch?v=')) {
+            $link = $link->replace('watch?v=', 'embed/')->replaceFirst('&', '?');
+        }
+
+        if (! $link->contains('rel=0')) {
+            if (! $link->contains('?')) {
+                $link = $link->append('?rel=0');
+            } else {
+                $link = $link->append('&rel=0');
+            }
+        }
+
+        return $link;
     }
 
     public function getCallToActionAttribute()
