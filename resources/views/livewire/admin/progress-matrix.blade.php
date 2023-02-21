@@ -22,6 +22,20 @@
                         </select>
                     </div>
                 </div>
+                <div class="pr-8 mr-8 border-r border-gray-400">
+                    <label for="user" class="block text-sm font-medium text-gray-700">Stage</label>
+                    <div class="mt-1">
+                        <select wire:model="stage"
+                                id="stage"
+                                class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-500 focus:ring-indigo-500"
+                        >
+                            <option value="">-- Select Stage --</option>
+                            <option value="3">Stage 3</option>
+                            <option value="2">Stage 2</option>
+                            <option value="1">Stage 1</option>
+                        </select>
+                    </div>
+                </div>
                 <div>
                     <label for="start" class="block text-sm font-medium text-gray-700">Starting Date</label>
                     <div class="mt-1">

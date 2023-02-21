@@ -21,6 +21,7 @@ class ProgressMatrix extends Component
     protected $queryString = [
         'dates',
         'currentUserId',
+        'stage',
     ];
 
     public $readyToLoad = false;
@@ -30,6 +31,8 @@ class ProgressMatrix extends Component
     public $currentUserId;
 
     public $users;
+
+    public $stage = 3;
 
     public $typesMap = [
         'Letters' => ['Letters'],
@@ -42,10 +45,14 @@ class ProgressMatrix extends Component
 
     public function mount()
     {
-        $this->dates = [
-            'start' => request('dates.start') ?? now('America/Denver')->startOfMonth()->subMonthsNoOverflow()->toDateString(),
-            'end' => request('dates.end') ?? now('America/Denver')->subMonthsNoOverflow()->endOfMonth()->toDateString(),
-        ];
+        if (! empty(request('dates.start')) && ! empty(request('dates.end'))) {
+            $this->dates = [
+                'start' => request('dates.start') ?? now('America/Denver')->startOfMonth()->subMonthsNoOverflow()->toDateString(),
+                'end' => request('dates.end') ?? now('America/Denver')->subMonthsNoOverflow()->endOfMonth()->toDateString(),
+            ];
+        } else {
+            $this->setDates();
+        }
 
         $this->types = ActionType::query()
                             //->role(auth()->user()->roles)
@@ -222,5 +229,29 @@ class ProgressMatrix extends Component
     public function loadStats()
     {
         $this->readyToLoad = true;
+    }
+
+    private function setDates()
+    {
+        switch ($this->stage) {
+            case 1:
+                $this->dates = [
+                    'start' => '2020-03-01',
+                    'end' => '2021-02-28',
+                ];
+                break;
+            case 2:
+                $this->dates = [
+                    'start' => '2021-03-01',
+                    'end' => '2022-02-28',
+                ];
+                break;
+            case 3:
+                $this->dates = [
+                    'start' => '2022-03-01',
+                    'end' => '2023-02-28',
+                ];
+                break;
+        }
     }
 }
