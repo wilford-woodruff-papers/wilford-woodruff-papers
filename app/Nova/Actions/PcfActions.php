@@ -4,6 +4,7 @@ namespace App\Nova\Actions;
 
 use App\Imports\AdditionalDocumentsFromPcfActions;
 use App\Imports\AllDocumentTypePcfActions;
+use App\Imports\AutobiographiesPcfImport;
 use App\Imports\DaybooksFromPcfActions;
 use App\Imports\DiscoursesFromPcfActions;
 use App\Imports\LettersFromPcfActions;
@@ -47,7 +48,7 @@ class PcfActions extends Action
                 Excel::import(new AdditionalDocumentsFromPcfActions($fields->action), $fields->file);
                 break;
             case 'Autobiographies':
-                //
+                Excel::import(new AutobiographiesPcfImport, $fields->file);
                 break;
             case 'Discourses':
                 Excel::import(new DiscoursesFromPcfActions($fields->action), $fields->file);
@@ -80,6 +81,7 @@ class PcfActions extends Action
             Select::make('Type')
                 ->options([
                     'Additional Documents' => 'Additional Documents',
+                    'Autobiographies' => 'Autobiographies',
                     'Discourses' => 'Discourses',
                     'Letters' => 'Letters',
                     'Daybooks' => 'Daybooks',
