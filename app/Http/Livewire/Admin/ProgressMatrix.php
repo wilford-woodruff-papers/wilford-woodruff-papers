@@ -184,7 +184,13 @@ class ProgressMatrix extends Component
                         ->whereRelation('type', function ($query) use ($doctype) {
                             $query->whereIn('name', $this->typesMap[$doctype]);
                         })
-                        ->sum('auto_page_count');
+                        ->sum('auto_page_count')
+                    + Item::query()
+                        ->where('missing_page_count', '>', 0)
+                        ->whereRelation('type', function ($query) use ($doctype) {
+                            $query->whereIn('name', $this->typesMap[$doctype]);
+                        })
+                        ->sum('missing_page_count');
             }
         } else {
             $pageStats = [];
