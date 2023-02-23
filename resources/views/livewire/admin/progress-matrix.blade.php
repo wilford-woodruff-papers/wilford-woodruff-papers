@@ -137,8 +137,8 @@
                                                       'bg-[#e06666]' =>  ($goalPercentages[$key][$docType] <= 70),
                                                       'bg-[#ffd966]' => (($goalPercentages[$key][$docType] >= 70) && ($goalPercentages[$key][$docType] <= 99)),
                                                       'bg-[#93c47d]' => (($goalPercentages[$key][$docType] >= 100) && ($goalPercentages[$key][$docType] <= 119)),
-                                                      'bg-[#93c47d]' => ($goals[$key][$docType] == 0),
                                                       'bg-[#ff50c5]' => ($goalPercentages[$key][$docType] >= 120),
+                                                      'bg-[#93c47d]' => ($goals[$key][$docType] == 0),
                                                     ])>
                                                     @if($goals[$key][$docType] == 0) N/A @else {{ $goalPercentages[$key][$docType] }}% @endif
                                                 </div>
