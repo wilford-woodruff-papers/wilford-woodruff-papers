@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('backup:clean')->daily()->at('04:00')->timezone('America/Denver');
         $schedule->command('backup:run')->daily()->at('04:30')->timezone('America/Denver');
+        $schedule->command('queue:prune-batches --hours=48')->daily();
 
         $schedule->command('import:instagram')
                  ->everyFourHours();
