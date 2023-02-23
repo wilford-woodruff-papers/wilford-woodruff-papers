@@ -21,6 +21,8 @@ class ImportItemFromFtp implements ShouldQueue
 {
     use Batchable, Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    public $timeout = 300;
+
     protected Item $item;
 
     public $enable;
