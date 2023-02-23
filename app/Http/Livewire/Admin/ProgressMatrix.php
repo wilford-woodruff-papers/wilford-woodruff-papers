@@ -156,7 +156,7 @@ class ProgressMatrix extends Component
             foreach ($pageStats as $key => $stat) {
                 foreach ($docTypes as $doctype) {
                     $goals[$key][$doctype] = Goal::query()
-                        ->whereIn('type_id', Type::whereIn('name', array_values($this->typesMap['Journals']))->pluck('id')->all())
+                        ->whereIn('type_id', Type::whereIn('name', array_values($this->typesMap[$doctype]))->pluck('id')->all())
                         ->where('action_type_id', ActionType::firstWhere('name', $key)->id)
                         ->whereDate('finish_at', '>=', $this->dates['start'])
                         ->whereDate('finish_at', '<=', $this->dates['end'])
