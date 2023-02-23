@@ -29,10 +29,9 @@ class CaculatePageCounts extends Command
     public function handle()
     {
         Item::query()
-            ->withCount('pages')
             ->chunkById(100, function ($items) {
                 foreach ($items as $item) {
-                    $item->auto_page_count = $item->pages_count;
+                    $item->auto_page_count = Page::query()->where('item_id', $item->id)->count();
                     $item->save();
                 }
             });
