@@ -6,6 +6,7 @@ use App\Models\ActionType;
 use App\Models\Goal;
 use App\Models\Item;
 use App\Models\Page;
+use App\Models\Type;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -155,7 +156,7 @@ class ProgressMatrix extends Component
             foreach ($pageStats as $key => $stat) {
                 foreach ($docTypes as $doctype) {
                     $goals[$key][$doctype] = Goal::query()
-                        ->whereIn('type_id', App\Models\Type::whereIn('name', array_values($this->typesMap['Journals']))->pluck('id')->all())
+                        ->whereIn('type_id', Type::whereIn('name', array_values($this->typesMap['Journals']))->pluck('id')->all())
                         ->where('action_type_id', ActionType::firstWhere('name', $key)->id)
                         ->whereDate('finish_at', '>=', $this->dates['start'])
                         ->whereDate('finish_at', '<=', $this->dates['end'])
