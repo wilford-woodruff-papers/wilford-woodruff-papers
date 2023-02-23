@@ -226,6 +226,11 @@ class ProgressMatrix extends Component
     {
     }
 
+    public function updatedStage()
+    {
+        $this->setDates();
+    }
+
     public function loadStats()
     {
         $this->readyToLoad = true;
