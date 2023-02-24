@@ -262,7 +262,9 @@
                     <thead>
                         <tr>
                             <td class="text-sm text-center text-white bg-black border border-black">Color Key</td>
-                            <td colspan="3">* Activity completed prior to {{ Carbon\Carbon::parse($dates['start'])->format('M Y') }}</td>
+                            <td colspan="3" class="pl-8 text-sm">
+                                * Activity completed prior to {{ Carbon\Carbon::parse($dates['start'])->format('M Y') }}
+                            </td>
                         </tr>
                     </thead>
                     <tbody>
