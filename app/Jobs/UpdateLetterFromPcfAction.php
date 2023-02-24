@@ -59,14 +59,16 @@ class UpdateLetterFromPcfAction implements ShouldQueue
             'Date Tagging',
         ];
 
-        $this->actionTypes = ActionType::query()->whereIn('name', $actionTypeNames)->get();
-
         $document = Item::query()
             ->where('pcf_unique_id', data_get($this->row, 'unique_identifier'))
             ->where('type_id', Type::firstWhere('name', 'Letters')->id)
             ->first();
 
-        throw_if(empty($document), new \Exception('Document not found: '.data_get($this->row, 'unique_identifier')));
+        if (empty($document)) {
+            return;
+        }
+
+        $this->actionTypes = ActionType::query()->whereIn('name', $actionTypeNames)->get();
 
         $this->checkTranscription($document);
         $this->checkVerification($document);
