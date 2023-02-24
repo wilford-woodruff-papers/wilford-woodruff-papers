@@ -1,12 +1,12 @@
-require('./bootstrap');
+require("./bootstrap");
 
-import Alpine from 'alpinejs'
-import intersect from '@alpinejs/intersect'
-import focus from '@alpinejs/focus'
-import collapse from '@alpinejs/collapse'
-import persist from '@alpinejs/persist'
+import Alpine from "alpinejs";
+import intersect from "@alpinejs/intersect";
+import focus from "@alpinejs/focus";
+import collapse from "@alpinejs/collapse";
+import persist from "@alpinejs/persist";
 
-window.rangy = require('./rangy-core');
+window.rangy = require("./rangy-core");
 window.classapplier = require('./rangy-classapplier');
 window.highlighter = require('./rangy-highlighter');
 
@@ -62,8 +62,6 @@ function dragElement(element, direction)
     }
 }
 
-$(function () {
-    if(document.getElementById("document-viewer")){
-        dragElement( document.getElementById("separator"), "H" );
-    }
-});
+if(document.getElementById("document-viewer")){
+    dragElement( document.getElementById("separator"), "H" );
+}
