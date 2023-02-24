@@ -161,6 +161,75 @@
             </form>
         </div>
 
+        @if(! empty($doc_type))
+            <div class="">
+                <div class="px-4 sm:px-6 lg:px-8">
+                    <div class="flex flex-col mt-8">
+                        <div class="overflow-x-auto -my-2 -mx-4 sm:-mx-6 lg:-mx-8">
+                            <div class="inline-block py-2 min-w-full align-middle md:px-6 lg:px-8">
+                                <div class="overflow-hidden ring-1 ring-black ring-opacity-5 shadow md:rounded-lg">
+                                    <table class="min-w-full divide-y divide-gray-300">
+                                        <thead class="bg-gray-50">
+                                        <tr>
+                                            <th scope="col" class="py-3.5 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">
+                                                <select wire:model="doc_type" class="text-sm">
+                                                    @foreach(\App\Models\Type::query()->orderBy('name')->get() as $type)
+                                                        <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </th>
+                                            @foreach($doc_action_types as $action)
+                                                <th scope="col"
+                                                    @class([
+                                                         'py-3.5 pr-3 pl-3 text-base font-semibold text-center text-gray-900',
+                                                         'bg-[#b6d7a8]' =>  ($action == 'Transcription'),
+                                                         'bg-[#f9cb9c]' =>  ($action == 'Verification'),
+                                                         'bg-[#a4c2f4]' =>  ($action == 'Subject Tagging'),
+                                                         'bg-[#b4a7d6]' =>  ($action == 'Topic Tagging'),
+                                                         'bg-[#d5a6bd]' =>  ($action == 'Stylization'),
+                                                         'bg-[#ea9999]' =>  ($action == 'Publish'),
+                                                   ])>
+                                                    {{ $action }}
+                                                </th>
+                                            @endforeach
+                                        </tr>
+                                        </thead>
+                                        <tbody class="bg-white divide-y divide-gray-200">
+                                        @foreach($goals->groupBy('finish_at') as $key => $date)
+                                            <tr class="border-t border-gray-200">
+                                                <th class="py-2 px-4 text-base font-semibold text-left text-gray-900 bg-gray-50 sm:px-6">
+                                                    <span class="font-bold text-gray-700 capitalize cursor-pointer">
+                                                        {{ \Carbon\Carbon::createFromFormat('Y-m-d h:i:s', $key)->toFormattedDateString() }}
+                                                    </span>
+                                                </th>
+                                                @foreach($doc_action_types as $action)
+                                                    <td @class([
+                                                             'py-2 px-4 text-base font-semibold text-left text-gray-900 bg-gray-50 sm:px-6',
+                                                             'bg-[#b6d7a8]' =>  ($action == 'Transcription'),
+                                                             'bg-[#f9cb9c]' =>  ($action == 'Verification'),
+                                                             'bg-[#a4c2f4]' =>  ($action == 'Subject Tagging'),
+                                                             'bg-[#b4a7d6]' =>  ($action == 'Topic Tagging'),
+                                                             'bg-[#d5a6bd]' =>  ($action == 'Stylization'),
+                                                             'bg-[#ea9999]' =>  ($action == 'Publish'),
+                                                       ])>
+                                                        <div
+                                                           class="font-semibold text-center text-gray-700"
+                                                        >
+                                                            {{ $date->firstWhere('action_type_id', $actionTypes->firstWhere('name', $action)->id)?->target }}
+                                                        </div>
+                                                    </td>
+                                                @endforeach
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
         <div class="">
             <div class="px-4 sm:px-6 lg:px-8">
                 <div class="flex flex-col mt-8">
@@ -241,7 +310,7 @@
                                     </tbody>
                                 </table>
                                 <div class="px-4 pt-3 pb-2">
-                                    {!! $goals->links() !!}
+                                    {{--{!! $goals->links() !!}--}}
                                 </div>
                             </div>
                         </div>
