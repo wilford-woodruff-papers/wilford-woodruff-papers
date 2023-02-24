@@ -80,7 +80,9 @@
                     <table class="divide-y divide-gray-30">
                         <thead class="bg-black">
                             <tr>
-                                <th colspan="2" class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-black bg-white border border-black sm:pl-6"></th>
+                                <th colspan="2" class="justify-center py-3.5 text-base font-semibold text-black bg-white border border-black">
+                                    {{ Carbon\Carbon::parse($dates['start'])->format('M Y') }} - {{ Carbon\Carbon::parse($dates['end'])->format('M Y') }}
+                                </th>
                                 <th class="py-3.5 pr-3 pl-4 text-sm font-semibold text-center text-white border border-black sm:pl-6">Letters<br/>(pages)</th>
                                 <th class="py-3.5 pr-3 pl-4 text-sm font-semibold text-center text-white border border-black sm:pl-6">Discourses<br/>(pages)</th>
                                 <th class="py-3.5 pr-3 pl-4 text-sm font-semibold text-center text-white border border-black sm:pl-6">Journals<br/>(pages)</th>
