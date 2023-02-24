@@ -167,8 +167,16 @@
                 </div>
             </div>
             <div class="my-4">
-                {{ $unassignedItems->links() }}
+                {!! $unassignedItems->links() !!}
             </div>
         </div>
     @endif
+
+    @push('scripts')
+        <script>
+            Livewire.on('scroll-to-top', postId => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        </script>
+    @endpush
 </div>
