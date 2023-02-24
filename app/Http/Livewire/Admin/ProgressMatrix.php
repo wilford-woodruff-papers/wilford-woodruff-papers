@@ -8,6 +8,7 @@ use App\Models\Item;
 use App\Models\Page;
 use App\Models\Type;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
@@ -164,7 +165,7 @@ class ProgressMatrix extends Component
 
                     $goalPercentages[$key][$doctype] = 0;
                     if ($goals[$key][$doctype] > 0) {
-                        $goalPercentages[$key][$doctype] = (intval(($stat->whereIn('document_type', $this->typesMap[$doctype])->first()?->total / $goals[$key][$doctype]) * 100));
+                        $goalPercentages[$key][$doctype] = (intval(($stat->whereIn('document_type', $this->typesMap[$doctype])->sum('total') / $goals[$key][$doctype]) * 100));
                     }
                 }
             }
@@ -192,11 +193,26 @@ class ProgressMatrix extends Component
                         })
                         ->sum('missing_page_count');
             }
+            $totalCounts = [];
+            foreach ($docTypes as $doctype) {
+                $totalCounts[$doctype] = Page::query()
+                    ->where(function ($query) {
+                        $query->whereHas('actions', function (Builder $query) {
+                            $query->whereIn('action_type_id', $this->types->pluck('id')->all())
+                                ->whereNotNull('completed_at');
+                        });
+                    })
+                    ->whereRelation('item.type', function ($query) use ($doctype) {
+                        $query->whereIn('name', $this->typesMap[$doctype]);
+                    })
+                    ->count();
+            }
         } else {
             $pageStats = [];
             $goals = [];
             $goalPercentages = [];
             $pageCounts = [];
+            $totalCounts = [];
             $subjectStats = [
                 'identify_people' => [
                     'actual' => 0,
@@ -223,6 +239,7 @@ class ProgressMatrix extends Component
             'docTypes' => $docTypes,
             'subjectStats' => $subjectStats,
             'pageCounts' => $pageCounts,
+            'totalCounts' => $totalCounts,
 
         ])
             ->layout('layouts.admin');

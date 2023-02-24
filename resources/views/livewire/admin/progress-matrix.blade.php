@@ -110,7 +110,7 @@
                                 </td>
                                 @foreach($docTypes as $docType)
                                     <td class="text-sm font-semibold text-center text-gray-900 border border-black">
-                                        {{ $pageCounts[$docType] }}
+                                        {{ number_format($pageCounts[$docType]) }}
                                     </td>
                                 @endforeach
                             </tr>
@@ -131,7 +131,7 @@
                                         <td class="text-sm font-semibold text-center text-gray-900 border border-black">
                                             <div class="flex flex-col">
                                                 <div>
-                                                    {{ $stat->where('document_type', $docType)->first()?->total ?? 0}} / {{ $goals[$key][$docType] }}
+                                                    {{ number_format($stat->whereIn('document_type', $this->typesMap[$docType])->sum('total')) ?? 0}} / {{ number_format($goals[$key][$docType]) }}
                                                 </div>
                                                 <div @class([
                                                       'bg-[#e06666]' =>  (($goalPercentages[$key][$docType] <= 70) && ($goalPercentages[$key][$docType] > 0)),
@@ -147,6 +147,17 @@
                                     @endforeach
                                 </tr>
                             @endforeach
+
+                            <tr>
+                                <td rowspan="1" colspan="2" class="py-3.5 pr-3 pl-1 text-sm font-semibold text-left text-gray-900 border border-black">
+                                    Processed
+                                </td>
+                                @foreach($docTypes as $docType)
+                                    <td class="text-sm font-semibold text-center text-gray-900 border border-black">
+                                        {{ number_format($totalCounts[$docType]) }}
+                                    </td>
+                                @endforeach
+                            </tr>
                         </tbody>
                         <tfoot></tfoot>
                     </table>
@@ -182,7 +193,7 @@
                                 <td class="text-sm font-semibold text-center text-gray-900 border border-black">
                                     <div class="flex flex-col">
                                         <div>
-                                            {{ $subjectStats['identify_people']['actual'] }} / {{ $subjectStats['identify_people']['goal'] }}
+                                            {{ number_format($subjectStats['identify_people']['actual']) }} / {{ number_format($subjectStats['identify_people']['goal']) }}
                                         </div>
                                         <div @class([
                                                       'bg-[#e06666]' =>  ($subjectStats['identify_people']['percentage'] <= 70),
