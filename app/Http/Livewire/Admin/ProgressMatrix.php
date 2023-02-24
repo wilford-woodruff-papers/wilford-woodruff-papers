@@ -193,14 +193,25 @@ class ProgressMatrix extends Component
                         })
                         ->sum('missing_page_count');
             }
+
             $totalCounts = [];
             foreach ($docTypes as $doctype) {
                 $totalCounts[$doctype] = Page::query()
-                    ->where(function ($query) {
-                        $query->whereHas('actions', function (Builder $query) {
-                            $query->whereIn('action_type_id', $this->types->pluck('id')->all())
-                                ->whereNotNull('completed_at');
-                        });
+                    ->whereHas('actions', function (Builder $query) {
+                        $query->where('action_type_id', $this->types->firstWhere('name', 'Transcription')->id)
+                            ->whereNotNull('completed_at');
+                    })
+                    ->whereHas('actions', function (Builder $query) {
+                        $query->where('action_type_id', $this->types->firstWhere('name', 'Verification')->id)
+                            ->whereNotNull('completed_at');
+                    })
+                    ->whereHas('actions', function (Builder $query) {
+                        $query->where('action_type_id', $this->types->firstWhere('name', 'Publish')->id)
+                            ->whereNotNull('completed_at');
+                    })
+                    ->whereHas('actions', function (Builder $query) {
+                        $query->where('action_type_id', $this->types->firstWhere('name', 'Stylization')->id)
+                            ->whereNotNull('completed_at');
                     })
                     ->whereRelation('item.type', function ($query) use ($doctype) {
                         $query->whereIn('name', $this->typesMap[$doctype]);
