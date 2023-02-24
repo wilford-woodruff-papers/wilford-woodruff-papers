@@ -52,6 +52,7 @@ class Goals extends Component
         $this->goal = new Goal(['finish_at' => now()->endOfMonth()]);
         $this->types = Type::query()
             ->get();
+        $this->doc_type = $this->types->firstWhere('name', 'Journals')->id;
         $this->actionTypes = ActionType::query()
             ->whereIn('type', [
                 'Documents',
@@ -61,22 +62,33 @@ class Goals extends Component
             ])
             ->ordered()
             ->get();
+        $this->doc_action_types = [
+            'Transcription',
+            'Verification',
+            'Subject Tagging',
+            'Stylization',
+            'Publish',
+            'Topic Tagging',
+        ];
     }
 
     public function render()
     {
+        $goals = Goal::query()
+            ->with(['type', 'action_type'])
+            ->when($this->doc_type, function ($query) {
+                return $query->where('type_id', $this->doc_type);
+            })
+            ->when($this->action_type, function ($query) {
+                return $query->where('action_type_id', $this->action_type);
+            })
+            ->orderBy('finish_at', 'DESC')
+            ->orderBy('type_id', 'ASC')
+            ->get();
+        //dd($goals);
+
         return view('livewire.admin.goals', [
-            'goals' => Goal::query()
-                            ->with(['type', 'action_type'])
-                            ->when($this->doc_type, function ($query) {
-                                return $query->where('type_id', $this->doc_type);
-                            })
-                            ->when($this->action_type, function ($query) {
-                                return $query->where('action_type_id', $this->action_type);
-                            })
-                            ->orderBy('finish_at', 'DESC')
-                            ->orderBy('type_id', 'ASC')
-                            ->paginate(100),
+            'goals' => $goals,
         ])
             ->layout('layouts.admin');
     }
