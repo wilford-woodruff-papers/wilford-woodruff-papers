@@ -131,20 +131,30 @@
 
                                     @foreach($docTypes as $docType)
                                         <td class="text-sm font-semibold text-center text-gray-900 border border-black">
-                                            <div class="flex flex-col">
-                                                <div>
-                                                    {{ number_format($stat->whereIn('document_type', $this->typesMap[$docType])->sum('total')) ?? 0}} / {{ number_format($goals[$key][$docType]) }}
-                                                </div>
-                                                <div @class([
+                                            @if(
+                                                ($stat->whereIn('document_type', $this->typesMap[$docType])->sum('total') ?? 0) == 0
+                                                && $goals[$key][$docType] == 0)
+                                                <livewire:admin.progress-matrix.past-work
+                                                    :document_type="$this->typesMap[$docType]"
+                                                    :action_type="$key"
+                                                    :dates="$dates"
+                                                />
+                                            @else
+                                                <div class="flex flex-col">
+                                                    <div>
+                                                        {{ number_format($stat->whereIn('document_type', $this->typesMap[$docType])->sum('total')) ?? 0}} / {{ number_format($goals[$key][$docType]) }}
+                                                    </div>
+                                                    <div @class([
                                                       'bg-[#e06666]' =>  (($goalPercentages[$key][$docType] <= 70) && ($goalPercentages[$key][$docType] > 0)),
                                                       'bg-[#ffd966]' => (($goalPercentages[$key][$docType] >= 70) && ($goalPercentages[$key][$docType] <= 99)),
                                                       'bg-[#93c47d]' => (($goalPercentages[$key][$docType] >= 100) && ($goalPercentages[$key][$docType] <= 119)),
                                                       'bg-[#ff50c5]' => ($goalPercentages[$key][$docType] >= 120),
                                                       'bg-[#93c47e]' => ($goals[$key][$docType] == 0),
                                                     ])>
-                                                    @if($goals[$key][$docType] == 0) N/A @else {{ $goalPercentages[$key][$docType] }}% @endif
+                                                        @if($goals[$key][$docType] == 0) N/A @else {{ $goalPercentages[$key][$docType] }}% @endif
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            @endif
                                         </td>
                                     @endforeach
                                 </tr>
@@ -152,7 +162,7 @@
 
                             <tr>
                                 <td rowspan="1" colspan="2" class="py-3.5 pr-3 pl-1 text-sm font-semibold text-left text-gray-900 border border-black">
-                                    Processed
+                                    Total Processed
                                 </td>
                                 @foreach($docTypes as $docType)
                                     <td class="text-sm font-semibold text-center text-gray-900 border border-black">
@@ -252,7 +262,7 @@
                     <thead>
                         <tr>
                             <td class="text-sm text-center text-white bg-black border border-black">Color Key</td>
-                            <td colspan="3"></td>
+                            <td colspan="3">* Activity completed prior to {{ Carbon\Carbon::parse($dates['start'])->format('M Y') }}</td>
                         </tr>
                     </thead>
                     <tbody>
