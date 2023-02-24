@@ -12,9 +12,12 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Tasks extends Component
 {
+    use WithPagination;
+
     public $actionType;
 
     public $search;
@@ -158,5 +161,25 @@ class Tasks extends Component
     {
         $this->sortBy = $name;
         $this->sortDirection = ($direction == 'asc' ? 'desc' : 'asc');
+    }
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingActionType()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingType()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingPage()
+    {
+        $this->emit('scroll-to-top');
     }
 }
