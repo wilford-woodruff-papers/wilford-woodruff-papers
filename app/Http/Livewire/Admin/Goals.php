@@ -55,6 +55,7 @@ class Goals extends Component
         $this->actionTypes = ActionType::query()
             ->whereIn('type', [
                 'Documents',
+                'Publish',
                 'People',
                 'Places',
             ])
