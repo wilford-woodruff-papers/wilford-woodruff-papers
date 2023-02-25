@@ -131,35 +131,40 @@
 
                                     @foreach($docTypes as $docType)
                                         <td class="text-sm font-semibold text-center text-gray-900 border border-black">
-                                            @if(
-                                                ($stat->whereIn('document_type', $this->typesMap[$docType])->sum('total') ?? 0) == 0
-                                                && $goals[$key][$docType] == 0)
-                                                <livewire:admin.progress-matrix.past-work
-                                                    :document_type="$this->typesMap[$docType]"
-                                                    :action_type="$key"
-                                                    :dates="$dates"
-                                                />
-                                            @else
-                                                <div class="flex flex-col">
+                                            <div>
+                                                @if(
+                                                    ($stat->whereIn('document_type', $this->typesMap[$docType])->sum('total') ?? 0) == 0
+                                                    && $goals[$key][$docType] == 0)
                                                     <div>
-                                                        <a href="{{ route('admin.page-activity', ['type' => $docType, 'activity' => $key, 'start_date' => $dates['start'], 'end_date' => $dates['end']]) }}"
-                                                           target="_blank"
-                                                           title="Click to view page activity"
-                                                        >
-                                                            {{ number_format($stat->whereIn('document_type', $this->typesMap[$docType])->sum('total')) ?? 0}} / {{ number_format($goals[$key][$docType]) }}
-                                                        </a>
+                                                        <livewire:admin.progress-matrix.past-work
+                                                            :document_type="$this->typesMap[$docType]"
+                                                            :action_type="$key"
+                                                            :dates="$dates"
+                                                            :wire:key="$docType.$key"
+                                                        />
                                                     </div>
-                                                    <div @class([
+                                                @else
+                                                    <div class="flex flex-col">
+                                                        <div>
+                                                            <a href="{{ route('admin.page-activity', ['type' => $docType, 'activity' => $key, 'start_date' => $dates['start'], 'end_date' => $dates['end']]) }}"
+                                                               target="_blank"
+                                                               title="Click to view page activity"
+                                                            >
+                                                                {{ number_format($stat->whereIn('document_type', $this->typesMap[$docType])->sum('total')) ?? 0}} / {{ number_format($goals[$key][$docType]) }}
+                                                            </a>
+                                                        </div>
+                                                        <div @class([
                                                       'bg-[#e06666]' =>  (($goalPercentages[$key][$docType] <= 70) && ($goalPercentages[$key][$docType] > 0)),
                                                       'bg-[#ffd966]' => (($goalPercentages[$key][$docType] >= 70) && ($goalPercentages[$key][$docType] <= 99)),
                                                       'bg-[#93c47d]' => (($goalPercentages[$key][$docType] >= 100) && ($goalPercentages[$key][$docType] <= 119)),
                                                       'bg-[#ff50c5]' => ($goalPercentages[$key][$docType] >= 120),
                                                       'bg-[#93c47e]' => ($goals[$key][$docType] == 0),
                                                     ])>
-                                                        @if($goals[$key][$docType] == 0) N/A @else {{ $goalPercentages[$key][$docType] }}% @endif
+                                                            @if($goals[$key][$docType] == 0) N/A @else {{ $goalPercentages[$key][$docType] }}% @endif
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            @endif
+                                                @endif
+                                            </div>
                                         </td>
                                     @endforeach
                                 </tr>
