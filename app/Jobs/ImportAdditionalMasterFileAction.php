@@ -50,6 +50,7 @@ class ImportAdditionalMasterFileAction implements ShouldQueue
 
         $item = Item::query()->firstOrNew([
             'pcf_unique_id' => $uniqueID,
+            'pcf_unique_id_prefix' => $prefix,
             'type_id' => $type->id,
         ]);
 
