@@ -13,7 +13,7 @@
          wire:loading.remove
     >
         <div>
-            {{ $total }} / {{ $goal }} *
+            {{ $total }} @if($goal > 0) / {{ $goal }}@endif *
         </div>
         <div @class([
               'bg-[#e06666]' =>  ($percentage <= 70),
