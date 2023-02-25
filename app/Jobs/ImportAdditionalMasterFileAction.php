@@ -50,6 +50,7 @@ class ImportAdditionalMasterFileAction implements ShouldQueue
 
         $item = Item::query()->firstOrNew([
             'pcf_unique_id' => $uniqueID,
+            'pcf_unique_id_prefix' => $prefix,
             'type_id' => $type->id,
         ]);
 
@@ -57,9 +58,6 @@ class ImportAdditionalMasterFileAction implements ShouldQueue
             $item->manual_page_count = trim(data_get($this->row, 'of_pages'));
         }
 
-        if (empty($item->pcf_unique_id_prefix)) {
-            $item->pcf_unique_id_prefix = $prefix;
-        }
         if (empty($item->name)) {
             $item->name = data_get($this->row, 'name');
         }
