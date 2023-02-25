@@ -142,7 +142,12 @@
                                             @else
                                                 <div class="flex flex-col">
                                                     <div>
-                                                        {{ number_format($stat->whereIn('document_type', $this->typesMap[$docType])->sum('total')) ?? 0}} / {{ number_format($goals[$key][$docType]) }}
+                                                        <a href="{{ route('admin.page-activity', ['type' => $docType, 'activity' => $key, 'start_date' => $dates['start'], 'end_date' => $dates['end']]) }}"
+                                                           target="_blank"
+                                                           title="Click to view page activity"
+                                                        >
+                                                            {{ number_format($stat->whereIn('document_type', $this->typesMap[$docType])->sum('total')) ?? 0}} / {{ number_format($goals[$key][$docType]) }}
+                                                        </a>
                                                     </div>
                                                     <div @class([
                                                       'bg-[#e06666]' =>  (($goalPercentages[$key][$docType] <= 70) && ($goalPercentages[$key][$docType] > 0)),
