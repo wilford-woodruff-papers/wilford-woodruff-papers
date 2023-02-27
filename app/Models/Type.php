@@ -32,7 +32,7 @@ class Type extends Model
 
     public function subType()
     {
-        return $this->hasOne(self::class);
+        return $this->hasOne(Type::class);
     }
 
     public function goal()

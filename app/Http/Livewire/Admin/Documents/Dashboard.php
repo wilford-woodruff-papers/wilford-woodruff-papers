@@ -117,7 +117,14 @@ class Dashboard extends Component
                     });
                 }
             })
-            ->when(array_key_exists('type', $this->filters) && $this->filters['type'], fn ($query, $type) => $query->where('type_id', $this->filters['type']));
+            ->when(array_key_exists('type', $this->filters) && $this->filters['type'], function ($query, $typeId) {
+                /*$type = Type::query()->where('id', $typeId)->first();
+                $types = [$type->id];
+                if ($subType = Type::query()->where('type_id', $type->id)->first()) {
+                    $types[] = $subType->id;
+                }*/
+                $query->where('type_id', $typeId);
+            });
 
         return $this->applySorting($query);
     }
