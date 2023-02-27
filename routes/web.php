@@ -267,6 +267,10 @@ Route::group(['middleware' => ['role:Super Admin|Editor']], function () {
         ->name('admin.reports.progress-matrix');
 
     Route::middleware(['auth:sanctum', 'verified'])
+        ->get('/admin/progress-graphic', \App\Http\Livewire\Admin\ProgressGraphic::class)
+        ->name('admin.reports.progress-graphic');
+
+    Route::middleware(['auth:sanctum', 'verified'])
         ->get('/admin/page-activity', \App\Http\Controllers\Admin\PageActivityController::class)
         ->name('admin.page-activity');
 
