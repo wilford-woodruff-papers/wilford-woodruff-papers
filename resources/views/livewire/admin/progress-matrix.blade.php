@@ -1,7 +1,7 @@
 <div wire:init="loadStats">
 
     <div class="mx-auto mt-4 max-w-7xl">
-        <div class="py-4">
+        <div class="py-4 px-4 bg-white">
 
             <h1 class="mb-2 text-2xl font-semibold">
                 Progress Matrix
@@ -22,7 +22,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="pr-8 mr-8 border-r border-gray-400">
+                <div class="pr-8 mr-8">
                     <label for="user" class="block text-sm font-medium text-gray-700">Stage</label>
                     <div class="mt-1">
                         <select wire:model="stage"
@@ -35,33 +35,6 @@
                             <option value="1">Stage 1</option>
                         </select>
                     </div>
-                </div>
-                <div>
-                    <label for="start" class="block text-sm font-medium text-gray-700">Starting Date</label>
-                    <div class="mt-1">
-                        <input wire:model.defer="dates.start"
-                               id="start"
-                               type="date"
-                               class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-500 focus:ring-indigo-500"
-                        />
-                    </div>
-                </div>
-                <div>
-                    <label for="end" class="block text-sm font-medium text-gray-700">Ending Date</label>
-                    <div class="mt-1">
-                        <input wire:model.defer="dates.end"
-                               id="end"
-                               type="date"
-                               class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-500 focus:ring-indigo-500"
-                        />
-                    </div>
-                </div>
-                <div>
-                    <button type="submit"
-                            class="inline-flex justify-center items-center py-2 px-8 mt-6 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm sm:ml-3 xl:ml-0 xl:w-full hover:bg-gray-50 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none"
-                    >
-                        Update
-                    </button>
                 </div>
             </form>
 
@@ -80,28 +53,21 @@
                     <table class="divide-y divide-gray-30">
                         <thead class="bg-black">
                             <tr>
-                                <th colspan="2" class="justify-center py-3.5 text-base font-semibold text-black bg-white border border-black">
-                                    {{ Carbon\Carbon::parse($dates['start'])->format('M Y') }} - {{ Carbon\Carbon::parse($dates['end'])->format('M Y') }}
+                                <th class="justify-center py-3.5 text-sm font-semibold text-white border border-black">
+                                   Category
                                 </th>
-                                <th class="py-3.5 pr-3 pl-4 text-sm font-semibold text-center text-white border border-black sm:pl-6">Letters<br/>(pages)</th>
-                                <th class="py-3.5 pr-3 pl-4 text-sm font-semibold text-center text-white border border-black sm:pl-6">Discourses<br/>(pages)</th>
-                                <th class="py-3.5 pr-3 pl-4 text-sm font-semibold text-center text-white border border-black sm:pl-6">Journals<br/>(pages)</th>
-                                <th class="py-3.5 pr-3 pl-4 text-sm font-semibold text-center text-white border border-black sm:pl-6">Additional<br/>(pages)</th>
-                                <th class="py-3.5 pr-3 pl-4 text-sm font-semibold text-center text-white border border-black sm:pl-6">Daybooks<br/>(pages)</th>
-                                <th class="py-3.5 pr-3 pl-4 text-sm font-semibold text-center text-white border border-black sm:pl-6">Autobiographies<br/>(pages)</th>
+                                <th class="justify-center py-3.5 text-sm font-semibold text-white border border-black">
+                                    Steps
+                                </th>
+                                <th class="py-1.5 pr-3 pl-4 text-sm font-semibold text-center text-white border border-black sm:pl-6">Letters<br/>(pages)</th>
+                                <th class="py-1.5 pr-3 pl-4 text-sm font-semibold text-center text-white border border-black sm:pl-6">Discourses<br/>(pages)</th>
+                                <th class="py-1.5 pr-3 pl-4 text-sm font-semibold text-center text-white border border-black sm:pl-6">Journals<br/>(pages)</th>
+                                <th class="py-1.5 pr-3 pl-4 text-sm font-semibold text-center text-white border border-black sm:pl-6">Additional<br/>(pages)</th>
+                                <th class="py-1.5 pr-3 pl-4 text-sm font-semibold text-center text-white border border-black sm:pl-6">Daybooks<br/>(pages)</th>
+                                <th class="py-1.5 pr-3 pl-4 text-sm font-semibold text-center text-white border border-black sm:pl-6">Autobiographies<br/>(pages)</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white">
-                            <tr class="bg-[#cccccc]">
-                                <td class="text-sm text-center text-black border border-black">Category</td>
-                                <td class="text-sm text-center text-black border border-black">Steps</td>
-                                <td class="text-sm text-center text-black border border-black">Actual/Goal</td>
-                                <td class="text-sm text-center text-black border border-black">Actual/Goal</td>
-                                <td class="text-sm text-center text-black border border-black">Actual/Goal</td>
-                                <td class="text-sm text-center text-black border border-black">Actual/Goal</td>
-                                <td class="text-sm text-center text-black border border-black">Actual/Goal</td>
-                                <td class="text-sm text-center text-black border border-black">Actual/Goal</td>
-                            </tr>
 
                             <tr>
                                 <td rowspan="1" class="py-3.5 pr-3 pl-1 text-sm font-semibold text-left text-gray-900 border border-black">
@@ -115,6 +81,33 @@
                                         {{ number_format($pageCounts[$docType]) }}
                                     </td>
                                 @endforeach
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="2" class="py-3.5 pr-3 pl-1 text-sm font-semibold text-left text-gray-900 border border-black">
+                                    Published Prior to Current Stage
+                                </td>
+                                @foreach($docTypes as $docType)
+                                    <td class="text-sm font-semibold text-center text-gray-900 border border-black">
+                                        <livewire:admin.progress-matrix.past-work
+                                            :document_type="$this->typesMap[$docType]"
+                                            :action_type="'Publish'"
+                                            :dates="$dates"
+                                            :wire:key="$docType.'Publish'"
+                                        />
+                                    </td>
+                                @endforeach
+                            </tr>
+
+                            <tr class="bg-[#cccccc]">
+                                <td colspan="2" class="pl-1 text-sm font-semibold text-left text-black border border-black">
+                                    STAGE {{ $stage }} ({{ Carbon\Carbon::parse($dates['start'])->format('M Y') }} - {{ Carbon\Carbon::parse($dates['end'])->format('M Y') }})
+                                </td>
+                                <td class="text-sm text-center text-black border border-black">Actual / Goal</td>
+                                <td class="text-sm text-center text-black border border-black">Actual / Goal</td>
+                                <td class="text-sm text-center text-black border border-black">Actual / Goal</td>
+                                <td class="text-sm text-center text-black border border-black">Actual / Goal</td>
+                                <td class="text-sm text-center text-black border border-black">Actual / Goal</td>
+                                <td class="text-sm text-center text-black border border-black">Actual / Goal</td>
                             </tr>
 
                             @foreach($pageStats as $key => $stat)
@@ -136,12 +129,7 @@
                                                     ($stat->whereIn('document_type', $this->typesMap[$docType])->sum('total') ?? 0) == 0
                                                     && $goals[$key][$docType] == 0)
                                                     <div>
-                                                        <livewire:admin.progress-matrix.past-work
-                                                            :document_type="$this->typesMap[$docType]"
-                                                            :action_type="$key"
-                                                            :dates="$dates"
-                                                            :wire:key="$docType.$key"
-                                                        />
+
                                                     </div>
                                                 @else
                                                     <div class="flex flex-col">
@@ -169,17 +157,6 @@
                                     @endforeach
                                 </tr>
                             @endforeach
-
-                            <tr>
-                                <td rowspan="1" colspan="2" class="py-3.5 pr-3 pl-1 text-sm font-semibold text-left text-gray-900 border border-black">
-                                    Total Processed
-                                </td>
-                                @foreach($docTypes as $docType)
-                                    <td class="text-sm font-semibold text-center text-gray-900 border border-black">
-                                        {{ number_format($totalCounts[$docType]) }}
-                                    </td>
-                                @endforeach
-                            </tr>
                         </tbody>
                         <tfoot></tfoot>
                     </table>
@@ -273,7 +250,7 @@
                         <tr>
                             <td class="text-sm text-center text-white bg-black border border-black">Color Key</td>
                             <td colspan="3" class="pl-8 text-sm">
-                                * Activity completed prior to {{ Carbon\Carbon::parse($dates['start'])->format('M Y') }}
+
                             </td>
                         </tr>
                     </thead>
