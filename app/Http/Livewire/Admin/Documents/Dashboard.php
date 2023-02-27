@@ -9,6 +9,7 @@ use App\Http\Livewire\DataTable\WithSorting;
 use App\Models\ActionType;
 use App\Models\Item;
 use App\Models\TargetPublishDate;
+use App\Models\Type;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 
@@ -117,13 +118,13 @@ class Dashboard extends Component
                     });
                 }
             })
-            ->when(array_key_exists('type', $this->filters) && $this->filters['type'], function ($query, $typeId) {
-                /*$type = Type::query()->where('id', $typeId)->first();
+            ->when(array_key_exists('type', $this->filters) && $this->filters['type'], function ($query) {
+                $type = Type::query()->where('id', $this->filters['type'])->first();
                 $types = [$type->id];
                 if ($subType = Type::query()->where('type_id', $type->id)->first()) {
                     $types[] = $subType->id;
-                }*/
-                $query->where('type_id', $typeId);
+                }
+                $query->whereIn('type_id', $types);
             });
 
         return $this->applySorting($query);
