@@ -1,4 +1,8 @@
-<div wire:init="loadStats">
+<div wire:init="loadStats"
+    x-data="{
+        tab: $persist('documents')
+    }"
+>
 
     <div class="mx-auto mt-4 max-w-7xl">
         <div class="py-4">
@@ -27,37 +31,29 @@
                     Stage 1
                 </button>
             </div>
+        </div>
+        <div>
+            <div>
+                <div class="hidden sm:block">
+                    <div class="border-b border-gray-200">
+                        <nav class="flex -mb-px space-x-8" aria-label="Tabs">
+                            <!-- Current: "border-indigo-500 text-indigo-600", Default: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" -->
+                            <span x-on:click="tab = 'documents'"
+                                  :class="tab =='documents' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'"
+                                  class="py-4 px-1 text-sm font-medium text-gray-500 whitespace-nowrap border-b-2 cursor-pointer">Documents</span>
 
-            {{--<form wire:submit.prevent="update" class="flex gap-x-4">
-                            <div>
-                                <label for="start" class="block text-sm font-medium text-gray-700">Starting Date</label>
-                                <div class="mt-1">
-                                    <input wire:model.defer="dates.start"
-                                           id="start"
-                                           type="date"
-                                           class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-500 focus:ring-indigo-500"
-                                    />
-                                </div>
-                            </div>
-                            <div>
-                                <label for="end" class="block text-sm font-medium text-gray-700">Ending Date</label>
-                                <div class="mt-1">
-                                    <input wire:model.defer="dates.end"
-                                           id="end"
-                                           type="date"
-                                           class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-500 focus:ring-indigo-500"
-                                    />
-                                </div>
-                            </div>
-                            <div>
-                                <button type="submit"
-                                        class="inline-flex justify-center items-center py-2 px-8 mt-6 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm sm:ml-3 xl:ml-0 xl:w-full hover:bg-gray-50 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none"
-                                >
-                                    Update
-                                </button>
-                            </div>
-                        </form>--}}
-
+                            <span x-on:click="tab = 'subjects'"
+                                  :class="tab =='subjects' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'"
+                                  class="py-4 px-1 text-sm font-medium text-gray-500 whitespace-nowrap border-b-2 cursor-pointer">People / Places / Topics</span>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div x-show="tab == 'documents'"
+        class="mx-8">
+        <div class="">
             <div class="relative mt-12 mb-4">
                 <div wire:loading
                      class="absolute w-full h-full bg-white opacity-75"
@@ -239,5 +235,87 @@
             </div>
 
         </div>
+    </div>
+    <div x-show="tab == 'subjects'"
+    class="mx-8">
+        <table class="mt-12 divide-y divide-gray-30">
+            <thead class="sticky top-0 text-white bg-black">
+            <tr class="text-lg text-center text-black bg-white">
+                <th></th>
+                <th colspan="4">Places</th>
+                <th colspan="7">Research</th>
+                <th colspan="5">Topics</th>
+            </tr>
+            <tr>
+                <th class="bg-white"></th>
+                <th colspan="4" class="bg-[#93c47d]"></th>
+                <th colspan="4" class="bg-[#f6b26b]"></th>
+                <th colspan="3" class="bg-[#6d9eeb]">Biographies</th>
+                <th colspan="3" class="bg-[#8e7cc3]">Documents Reviewed</th>
+                <th colspan="1" class="bg-[#c27ba0]"></th>
+                <th colspan="1" class="bg-[#e06666]"></th>
+            </tr>
+            <tr>
+                <th class="py-3.5 text-base font-semibold text-center text-black bg-white">
+                    Month
+                </th>
+
+                <th class="px-3 w-14 bg-[#b6d7a8] text-black">Added</th>
+                <th class="px-3 w-14 bg-[#b6d7a8] text-black">Goal</th>
+                <th class="px-3 w-14 bg-[#b6d7a8] text-black">Confirmed Places</th>
+                <th class="px-3 w-14 bg-[#b6d7a8] text-black">% of Goal</th>
+
+                <th class="px-3 w-14 bg-[#f9cb9c] text-black">Added to FTP</th>
+                <th class="px-3 w-14 bg-[#f9cb9c] text-black">Goal</th>
+                <th class="px-3 w-14 bg-[#f9cb9c] text-black">People Identified (PID Number Identified)</th>
+                <th class="px-3 w-14 bg-[#f9cb9c] text-black">% of Goal</th>
+                <th class="px-3 w-14 bg-[#a4c2f4] text-white">Goal</th>
+                <th class="px-3 w-14 bg-[#a4c2f4] text-white">Written</th>
+                <th class="px-3 w-14 bg-[#a4c2f4] text-white">% of Goal</th>
+
+                <th class="px-3 w-14 bg-[#d5a6bd] text-white">Goal</th>
+                <th class="px-3 w-14 bg-[#d5a6bd] text-white">Completed</th>
+                <th class="px-3 w-14 bg-[#d5a6bd] text-white">% of Goal</th>
+
+                <th class="px-3 w-14 bg-[#b4a7d6] text-white">Quotes Gathered</th>
+                <th class="px-3 w-14 bg-[#b4a7d6] text-white">Quotes Added to Library</th>
+            </tr>
+            </thead>
+            <tbody class="bg-white">
+                <tr class="text-white bg-black">
+                    <td class="px-2 text-center uppercase"></td>
+                    <td colspan="16" class="pl-2 text-left"></td>
+                </tr>
+                @foreach($months as $month)
+                    <tr class="text-center">
+                        <td>
+                            {{ $month['name'] }}
+                        </td>
+
+                        <td></td>
+                        <td>{{ $places[$month['name']]['goal'] }}</td>
+                        <td>{{ $places[$month['name']]['actual'] }}</td>
+                        <td>{{ $places[$month['name']]['goal'] ? $places[$month['name']]['percentage'].'%' : 'N/A' }}</td>
+
+                        <td></td>
+                        <td>{{ $people[$month['name']]['goal'] }}</td>
+                        <td>{{ $people[$month['name']]['actual'] }}</td>
+                        <td>{{ $people[$month['name']]['goal'] ? $people[$month['name']]['percentage'] .'%' : 'N/A' }}</td>
+                        <td>{{ $biographies[$month['name']]['goal'] }}</td>
+                        <td>{{ $biographies[$month['name']]['actual'] }}</td>
+                        <td>{{ $biographies[$month['name']]['goal'] ? $biographies[$month['name']]['percentage'] .'%' : 'N/A'  }}</td>
+
+                        <td></td>
+                        <td></td>
+                        <td></td>
+
+                        <td></td>
+                        <td></td>
+
+                    </tr>
+                @endforeach
+            </tbody>
+            <tfoot></tfoot>
+        </table>
     </div>
 </div>
