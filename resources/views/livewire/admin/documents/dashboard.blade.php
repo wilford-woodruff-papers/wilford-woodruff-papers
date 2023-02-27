@@ -57,7 +57,7 @@
                             <x-input.group inline for="filter-type" label="Type">
                                 <x-input.select wire:model="filters.type" id="filter-type">
                                     <option value=""> -- Any Type -- </option>
-                                    @foreach (App\Models\Type::whereNull('type_id')->orderBy('name')->get() as $type)
+                                    @foreach (App\Models\Type::orderBy('name')->get() as $type)
                                         <option value="{{ $type->id }}">{{ $type->name }}</option>
                                     @endforeach
                                 </x-input.select>
