@@ -20,7 +20,6 @@ class ProgressMatrix extends Component
     ];
 
     protected $queryString = [
-        'dates',
         'currentUserId',
         'stage',
     ];
@@ -46,14 +45,7 @@ class ProgressMatrix extends Component
 
     public function mount()
     {
-        if (! empty(request('dates.start')) && ! empty(request('dates.end'))) {
-            $this->dates = [
-                'start' => request('dates.start') ?? now('America/Denver')->startOfMonth()->subMonthsNoOverflow()->toDateString(),
-                'end' => request('dates.end') ?? now('America/Denver')->subMonthsNoOverflow()->endOfMonth()->toDateString(),
-            ];
-        } else {
-            $this->setDates();
-        }
+        $this->setDates();
 
         $this->types = ActionType::query()
                             //->role(auth()->user()->roles)
