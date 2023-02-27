@@ -32,7 +32,7 @@
                 </button>
             </div>
         </div>
-        <div>
+        <div class="hidden">
             <div>
                 <div class="hidden sm:block">
                     <div class="border-b border-gray-200">
