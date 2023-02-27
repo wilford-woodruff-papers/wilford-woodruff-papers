@@ -13,21 +13,7 @@
          wire:loading.remove
     >
         <div>
-            {{ $total }} @if($goal > 0) / {{ $goal }}@endif *
-        </div>
-        <div @class([
-              'bg-[#e06666]' =>  ($percentage <= 70),
-              'bg-[#ffd966]' => (($percentage >= 70) && ($percentage <= 99)),
-              'bg-[#93c47d]' => (($percentage >= 100) && ($percentage <= 119)),
-              'bg-[#ff50c5]' => ($percentage >= 120),
-
-              'bg-[#e06666]' =>  (($percentage <= 70) && ($percentage > 0)),
-              'bg-[#ffd966]' => (($percentage >= 70) && ($percentage <= 99)),
-              'bg-[#93c47d]' => (($percentage >= 100) && ($percentage <= 119)),
-              'bg-[#ff50c5]' => ($percentage >= 120),
-              'bg-[#93c47e]' => ($goal == 0),
-            ])>
-            @if($goal == 0) N/A @else {{ $percentage }}% @endif
+            {{ $total }}
         </div>
     </div>
 </div>

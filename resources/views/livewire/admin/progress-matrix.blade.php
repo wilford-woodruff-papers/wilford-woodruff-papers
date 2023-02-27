@@ -116,6 +116,21 @@
                                     </td>
                                 @endforeach
                             </tr>
+                            <tr>
+                                <td rowspan="1" colspan="2" class="py-3.5 pr-3 pl-1 text-sm font-semibold text-left text-gray-900 border border-black">
+                                    Published Prior to Current Period
+                                </td>
+                                @foreach($docTypes as $docType)
+                                    <td class="text-sm font-semibold text-center text-gray-900 border border-black">
+                                        <livewire:admin.progress-matrix.past-work
+                                            :document_type="$this->typesMap[$docType]"
+                                            :action_type="'Publish'"
+                                            :dates="$dates"
+                                            :wire:key="$docType.'Publish'"
+                                        />
+                                    </td>
+                                @endforeach
+                            </tr>
 
                             @foreach($pageStats as $key => $stat)
                                 <tr>
@@ -136,12 +151,7 @@
                                                     ($stat->whereIn('document_type', $this->typesMap[$docType])->sum('total') ?? 0) == 0
                                                     && $goals[$key][$docType] == 0)
                                                     <div>
-                                                        <livewire:admin.progress-matrix.past-work
-                                                            :document_type="$this->typesMap[$docType]"
-                                                            :action_type="$key"
-                                                            :dates="$dates"
-                                                            :wire:key="$docType.$key"
-                                                        />
+
                                                     </div>
                                                 @else
                                                     <div class="flex flex-col">
@@ -169,17 +179,6 @@
                                     @endforeach
                                 </tr>
                             @endforeach
-
-                            <tr>
-                                <td rowspan="1" colspan="2" class="py-3.5 pr-3 pl-1 text-sm font-semibold text-left text-gray-900 border border-black">
-                                    Total Processed
-                                </td>
-                                @foreach($docTypes as $docType)
-                                    <td class="text-sm font-semibold text-center text-gray-900 border border-black">
-                                        {{ number_format($totalCounts[$docType]) }}
-                                    </td>
-                                @endforeach
-                            </tr>
                         </tbody>
                         <tfoot></tfoot>
                     </table>
