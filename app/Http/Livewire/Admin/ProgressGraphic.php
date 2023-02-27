@@ -29,14 +29,11 @@ class ProgressGraphic extends Component
                         ->where('missing_page_count', '>', 0)
                         ->sum('missing_page_count'),
                 'in_progress' => Page::query()
-                    ->whereHas('item', function ($query) {
-                        $query->where('enabled', false)->whereNotNull('ftp_slug');
-                    })
-                    ->count() - Page::query()
                         ->whereHas('item', function ($query) {
-                            $query->whereNull('type_id');
-                        })
-                        ->count(),
+                            $query->where('enabled', false)
+                                ->whereNotNull('type_id')
+                                ->whereNotNull('ftp_slug');
+                        })->count(),
                 'total_found' => Item::query()
                         ->where(function ($query) {
                             $query->where('auto_page_count', '<=', 0)
@@ -44,6 +41,7 @@ class ProgressGraphic extends Component
                         })
                         ->sum('manual_page_count')
                     + Item::query()
+                        ->whereNotNull('type_id')
                         ->where('auto_page_count', '>', 0)
                         ->sum('auto_page_count')
                     + Item::query()
