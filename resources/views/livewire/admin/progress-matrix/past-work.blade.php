@@ -13,7 +13,7 @@
          wire:loading.remove
     >
         <div>
-            {{ $total }}
+            {{ number_format(floatval($total)) }}
         </div>
     </div>
 </div>
