@@ -41,7 +41,7 @@ class AutobiographiesPcfImport implements ToCollection, WithHeadingRow
                 continue;
             }
             $ui = data_get($row, 'ui');
-            $result = Regex::match('/([a-z]{1,2})-([0-9]+)([a-z]?)/i', $ui);
+            $result = Regex::match('/([a-z]{1,2})-([0-9]+)([a-z]{0,2})/i', $ui);
             $prefix = $result->group(1);
             $id = $result->group(2);
             $suffix = ! empty($result->group(3)) ? $result->group(3) : null;

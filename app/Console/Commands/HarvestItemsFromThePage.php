@@ -53,7 +53,7 @@ class HarvestItemsFromThePage extends Command
             if (data_get($item, 'metadata.0.label') == 'dc:source') {
                 // If the item has been assigned Unique ID in FTP then use it to look up the item
                 $identifier = data_get($item, 'metadata.0.value');
-                $result = Regex::match('/([a-z]{1,2})-([0-9]+)([a-z]?)/i', $identifier);
+                $result = Regex::match('/([a-z]{1,2})-([0-9]+)([a-z]{0,2})/i', $identifier);
                 $prefix = $result->group(1);
                 $uniqueId = $result->group(2);
                 $suffix = ! empty($result->group(3)) ? $result->group(3) : null;
@@ -80,7 +80,7 @@ class HarvestItemsFromThePage extends Command
                 $identifier = data_get($item, 'metadata.0.value');
 
                 if (! empty($identifier)) {
-                    $result = Regex::match('/([a-z]{1,2})-([0-9]+)([a-z]?)/i', $identifier);
+                    $result = Regex::match('/([a-z]{1,2})-([0-9]+)([a-z]{0,2})/i', $identifier);
                     $prefix = $result->group(1);
                     $uniqueId = $result->group(2);
                     $suffix = ! empty($result->group(3)) ? $result->group(3) : null;
