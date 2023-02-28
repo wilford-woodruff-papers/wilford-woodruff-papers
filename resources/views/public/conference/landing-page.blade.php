@@ -75,10 +75,13 @@
                         <div class="relative">
                             <div class="text-center">
                                 <h2 class="text-xl font-bold tracking-tight text-white uppercase sm:text-4xl md:text-3xl">
-                                    Registration is Now Open
+                                    Online Registration is open until Feb. 28th @ midnight
                                 </h2>
                                 <p class="mx-auto mt-2 max-w-2xl text-2xl font-semibold text-white">
-                                    Conference Pass $30
+                                    Conference Pass $30 <span class="ml-2 font-normal">(Lunch Tickets are currently sold out)</span>
+                                </p>
+                                <p class="mx-auto mt-2 max-w-2xl text-xl font-normal text-white">
+                                    In-person registration will be available at the Hinckley Center on March 4th.
                                 </p>
                                 <div class="mt-6 sm:flex sm:mx-auto sm:max-w-lg">
                                     <a href="https://2023wilfordwoodruffpapersconference.thundertix.com/"
@@ -266,10 +269,19 @@
             Saturday, March 4, 2023
         </div>
 
+        <div class="mx-auto max-w-4xl text-center">
+            <a href="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/files%2Fconferences%2Fconference-2023-lunch-menu.pdf"
+               target="_blank"
+               class="inline-block py-3 px-12 mb-12 font-semibold text-center text-white bg-secondary"
+            >
+                Lunch Menu
+            </a>
+        </div>
+
         <div class="mx-auto max-w-4xl">
             <iframe
                 src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/files/conferences/conference-2023-program.pdf#toolbar=0"
-                class="w-full border-0 h-[1100px]"
+                class="w-full border-0 h-[2200px]"
             >
 
             </iframe>
