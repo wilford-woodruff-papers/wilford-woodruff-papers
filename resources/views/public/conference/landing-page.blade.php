@@ -107,11 +107,11 @@
     </div>
 
     <div class="px-3 pb-4 mx-auto max-w-7xl md:pb-8">
-        <a href="https://wilfordwoodruffpapers.org/announcements/2023-building-latter-day-faith-conference-arts-contest-rules"
+        <a href="https://airauctioneer.com/wilford-woodruff-project-art-auction"
            target="_blank"
         >
-            <img src="https://wilfordwoodruffpapers.org/storage/announcements/J7DcSGPvofHxGF2vGdssXPtWj1U2w6N3yFWWQ2uj.png"
-                 alt="Art Contest Information"
+            <img src="https://wilfordwoodruffpapers.org/storage/announcements/6PYmqXFBN9JQnXvfLy0fJEm7I3o8Q7rqiWJQOfeS.png"
+                 alt="Art Auction"
                  class="w-full h-auto"
             >
         </a>
