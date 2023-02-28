@@ -58,6 +58,7 @@
         "spatie/laravel-sluggable": "^3.3",
         "spatie/laravel-tags": "^4.3",
         "spatie/nova-tags-field": "^3.4",
+        "spatie/regex": "^3.1",
         "syrian-open-source/laravel-youtube-iframe-generator": "^1.1",
         "unisharp/laravel-filemanager": "^2.4",
         "vinkla/hashids": "^10.0",

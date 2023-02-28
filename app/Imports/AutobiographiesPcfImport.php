@@ -16,6 +16,7 @@ use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
+use Spatie\Regex\Regex;
 
 class AutobiographiesPcfImport implements ToCollection, WithHeadingRow
 {
@@ -40,10 +41,16 @@ class AutobiographiesPcfImport implements ToCollection, WithHeadingRow
                 continue;
             }
             $ui = data_get($row, 'ui');
-            $prefix = str($ui)->before('-');
-            $id = str($ui)->after('-');
+            $result = Regex::match('/([a-z]{1,2})-([0-9]+)([a-z]{0,2})/i', $ui);
+            $prefix = $result->group(1);
+            $id = $result->group(2);
+            $suffix = ! empty($result->group(3)) ? $result->group(3) : null;
             $item = Item::query()
+                ->where('pcf_unique_id_prefix', $prefix)
                 ->where('pcf_unique_id', $id)
+                ->when($suffix, function ($query, $suffix) {
+                    $query->where('pcf_unique_id_suffix', $suffix);
+                })
                 ->whereIn('type_id', $types->pluck('id')->all())
                 ->first();
 
