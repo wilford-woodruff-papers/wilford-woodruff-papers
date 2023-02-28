@@ -55,6 +55,7 @@ class ImportPublishDateFromPcfAction implements ShouldQueue
         $unique_identifier = data_get($this->row, 'unique_identifier');
         $unique_identifier_prefix = null;
         $unique_identifier_suffix = null;
+        dd('Need to update this to get suffix and prefix from the item');
 
         switch ($this->type) {
             case 'Journals':

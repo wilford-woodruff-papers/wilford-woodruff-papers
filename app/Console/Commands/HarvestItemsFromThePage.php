@@ -8,6 +8,7 @@ use App\Models\Item;
 use App\Models\Type;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
+use Spatie\Regex\Regex;
 
 class HarvestItemsFromThePage extends Command
 {
@@ -52,13 +53,19 @@ class HarvestItemsFromThePage extends Command
             if (data_get($item, 'metadata.0.label') == 'dc:source') {
                 // If the item has been assigned Unique ID in FTP then use it to look up the item
                 $identifier = data_get($item, 'metadata.0.value');
-                $prefix = str($identifier)->before('-')->toString();
-                $uniqueId = str($identifier)->after('-')->toString();
+                $result = Regex::match('/([a-z]{1,2})-([0-9]+)([a-z]?)/i', $identifier);
+                $prefix = $result->group(1);
+                $uniqueId = $result->group(2);
+                $suffix = ! empty($result->group(3)) ? $result->group(3) : null;
                 $document = Item::query()
                     ->where('pcf_unique_id_prefix', $prefix)
                     ->where('pcf_unique_id', $uniqueId)
+                    ->when($suffix, function ($query, $suffix) {
+                        $query->where('pcf_unique_id_suffix', $suffix);
+                    })
                     ->first();
                 $countWithPCFID = $countWithPCFID + 1;
+                info(collect([$document?->name, $prefix, $uniqueId, $suffix])->join(' | '));
             } else {
                 $document = Item::query()
                     ->where('ftp_id', $item['@id'])
@@ -71,14 +78,20 @@ class HarvestItemsFromThePage extends Command
                 $document->parental_type = 'App\Models\Document';
 
                 $identifier = data_get($item, 'metadata.0.value');
-                $prefix = str($identifier)->before('-')->toString();
-                $uniqueId = str($identifier)->after('-')->toString();
 
-                if (! empty($uniqueId)) {
+                if (! empty($identifier)) {
+                    $result = Regex::match('/([a-z]{1,2})-([0-9]+)([a-z]?)/i', $identifier);
+                    $prefix = $result->group(1);
+                    $uniqueId = $result->group(2);
+                    $suffix = ! empty($result->group(3)) ? $result->group(3) : null;
                     $document->pcf_unique_id_prefix = $prefix;
                     $document->pcf_unique_id = $uniqueId;
+                    $document->pcf_unique_id_suffix = $suffix;
                     $document->type_id = $this->getType($prefix);
+                    info(collect([$document?->name, $prefix, $uniqueId, $suffix])->join(' | '));
                 } else {
+                    info(collect([$item['label'], 'No UI set'])->join(' | '));
+
                     continue;
                 }
             }
