@@ -75,28 +75,14 @@
                         <div class="relative">
                             <div class="text-center">
                                 <h2 class="text-xl font-bold tracking-tight text-white uppercase sm:text-4xl md:text-3xl">
-                                    Online Registration is open until Feb. 28th @ midnight
+                                    Online registration is closed
                                 </h2>
-                                <p class="mx-auto mt-2 max-w-2xl text-2xl font-semibold text-white">
-                                    Conference Pass $30 <span class="ml-2 font-normal">(Lunch Tickets are currently sold out)</span>
+                                <p class="mx-auto mt-2 max-w-sm text-2xl font-normal text-white">
+                                    In-person registration will be available at the Hinckley Center on March 4th
                                 </p>
                                 <p class="mx-auto mt-2 max-w-2xl text-xl font-normal text-white">
-                                    In-person registration will be available at the Hinckley Center on March 4th.
+                                    Please note that lunch is sold out.
                                 </p>
-                                <div class="mt-6 sm:flex sm:mx-auto sm:max-w-lg">
-                                    <a href="https://2023wilfordwoodruffpapersconference.thundertix.com/"
-                                       target="_blank"
-                                       class="flex gap-x-2 justify-center items-center py-3 px-5 w-full text-xl font-semibold uppercase bg-white border border-transparent shadow sm:px-10 hover:bg-gray-200 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600 focus:outline-none text-secondary">
-                                        Register Today <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 font-semibold">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                                        </svg>
-
-
-                                    </a>
-                                </div>
-                                <div class="mt-6 text-center text-white">
-                                    Students can email <a href='&#109;&#97;ilto&#58;conf%65%72e&#110;&#99;%65&#64;wilfo%&#55;2&#100;woo&#100;%7&#50;uf&#37;&#54;&#54;pa&#112;ers&#46;%6&#70;&#114;g' class="font-semibold text-white underline">conferen&#99;e&#64;wilfor&#100;wo&#111;dru&#102;&#102;papers&#46;org</a> to receive information about scholarships.
-                                </div>
                             </div>
                         </div>
                     </div>
