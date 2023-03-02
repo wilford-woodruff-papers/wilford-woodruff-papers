@@ -28,6 +28,7 @@ class ExportPages extends DownloadExcel implements WithMapping, WithHeadings
             'Text Only Transcript',
             'People',
             'Places',
+            'First Date',
             'Dates',
             'Topics',
         ];
@@ -59,8 +60,9 @@ class ExportPages extends DownloadExcel implements WithMapping, WithHeadings
             $page->subjects()->whereHas('category', function (Builder $query) {
                 $query->where('name', 'Places');
             })->pluck('subjects.name')->join('|'),
-            $page->dates()->pluck('date')->join('|'),
-            $page->topics->pluck('name')->join('|'),
+            $page->first_date,
+            $page->taggedDates()->pluck('date')->join('|'),
+            $page->topics()->pluck('name')->join('|'),
         ];
     }
 }
