@@ -61,7 +61,9 @@ class ExportPages extends DownloadExcel implements WithMapping, WithHeadings
                 $query->where('name', 'Places');
             })->pluck('subjects.name')->join('|'),
             $page->first_date,
-            $page->taggedDates()->pluck('date')->join('|'),
+            $page->taggedDates->map(function ($date) {
+                return $date->date->toDateString();
+            })->join('|'),
             $page->topics()->pluck('name')->join('|'),
         ];
     }
