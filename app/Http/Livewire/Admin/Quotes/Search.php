@@ -3,9 +3,12 @@
 namespace App\Http\Livewire\Admin\Quotes;
 
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Search extends Component
 {
+    use WithPagination;
+
     public $readyToLoad = false;
 
     public $selectedTopic = null;
@@ -69,5 +72,15 @@ class Search extends Component
     public function load()
     {
         $this->readyToLoad = true;
+    }
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingSelectedTopic()
+    {
+        $this->resetPage();
     }
 }
