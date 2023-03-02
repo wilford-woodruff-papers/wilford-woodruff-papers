@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin\Quotes;
 
+use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -48,8 +49,8 @@ class Search extends Component
                     'subjects.name',
                 ])
                 ->withCount('pages')
-                ->whereHas('category', function ($query) {
-                    $query->where('name', 'Topics');
+                ->whereHas('category', function (Builder $query) {
+                    $query->whereIn('categories.name', ['Topic', 'Index']);
                 })
                 ->whereNull('subject_id')
                 ->has('pages')

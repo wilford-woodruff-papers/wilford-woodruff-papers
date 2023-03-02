@@ -81,7 +81,7 @@
                                        target="_blank"
                                        class="text-secondary"
                                     >
-                                        {{ str($quote->page?->name)->replace('_', ' ')->title() }}
+                                        Page {{ $quote->page?->order ?? str($quote->page?->name)->replace('_', ' ')->title() }}
                                     </a>
                                 </div>
                                 <div>
