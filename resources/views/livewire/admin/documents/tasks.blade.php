@@ -1,6 +1,6 @@
 <div x-data="{
-    actionType: $persist(@entangle('actionType')),
-    type: $persist(@entangle('type'))
+    actionType: @entangle('actionType'),
+    type: @entangle('type')
 }">
     @if($assignedItems->count())
         <div class="px-4 sm:px-6 lg:px-8">
