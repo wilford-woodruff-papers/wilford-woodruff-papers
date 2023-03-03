@@ -80,8 +80,8 @@
                                     <th scope="col" class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">
                                         <select wire:model="type" class="text-sm">
                                             <option value="">-- Select Document Type --</option>
-                                            @foreach(\App\Models\Type::query()->orderBy('name')->get() as $type)
-                                                <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                            @foreach($types as $type)
+                                                <option value="{{ $type->name }}">{{ $type->name }}</option>
                                             @endforeach
                                         </select>
                                     </th>
@@ -90,8 +90,8 @@
                                     <th scope="col" class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">
                                         <select wire:model="actionType" class="text-sm">
                                             <option value="">-- Select Task Type --</option>
-                                            @foreach(\App\Models\ActionType::query()->where('type', 'Documents')->orderBy('name')->get() as $type)
-                                                <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                            @foreach($actionTypes as $actionType)
+                                                <option value="{{ $actionType->id }}">{{ $actionType->name }}</option>
                                             @endforeach
                                         </select>
                                     </th>
