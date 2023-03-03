@@ -24,6 +24,10 @@ class Tasks extends Component
 
     public $type;
 
+    public $types;
+
+    public $actionTypes;
+
     public $sortBy = 'pcf_unique_id';
 
     public $sortDirection = 'asc';
@@ -35,6 +39,28 @@ class Tasks extends Component
         'search' => ['except' => ''],
         'type' => ['except' => ''],
     ];
+
+    public $typesMap = [
+        'Letters' => ['Letters'],
+        'Discourses' => ['Discourses'],
+        'Journals' => ['Journals', 'Journal Sections'],
+        'Additional' => ['Additional', 'Additional Sections'],
+        'Autobiographies' => ['Autobiography Sections', 'Autobiographies'],
+        'Daybooks' => ['Daybooks'],
+    ];
+
+    public function mount()
+    {
+        $this->types = Type::query()
+            ->whereNull('type_id')
+            ->orderBy('name')
+            ->get();
+
+        $this->actionTypes = ActionType::query()
+            ->where('type', 'Documents')
+            ->orderBy('name')
+            ->get();
+    }
 
     public function render()
     {
@@ -67,7 +93,9 @@ class Tasks extends Component
                 'completed_actions.type',
             ])
             ->when($this->type, function ($query, $type) {
-                $query->where('type_id', $type);
+                $query->whereRelation('type', function ($query) use ($type) {
+                    $query->whereIn('name', $this->typesMap[$type]);
+                });
             })
             ->when($this->search, function ($query, $search) {
                 $query->where('items.name', 'LIKE', '%'.$search.'%');
