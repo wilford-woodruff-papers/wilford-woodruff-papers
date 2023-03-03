@@ -46,7 +46,7 @@ class Tasks extends Component
         'Journals' => ['Journals', 'Journal Sections'],
         'Additional' => ['Additional', 'Additional Sections'],
         'Autobiographies' => ['Autobiography Sections', 'Autobiographies'],
-        'Daybooks' => ['Daybooks'],
+        'Daybooks' => ['Daybooks', 'Daybook Sections'],
     ];
 
     public function mount()
@@ -92,9 +92,9 @@ class Tasks extends Component
                 'completed_actions',
                 'completed_actions.type',
             ])
-            ->when($this->type, function ($query, $type) {
-                $query->whereRelation('type', function ($query) use ($type) {
-                    $query->whereIn('name', $this->typesMap[$type]);
+            ->when(! empty($this->type), function ($query, $type) {
+                $query->whereRelation('type', function ($query) {
+                    $query->whereIn('name', $this->typesMap[$this->type]);
                 });
             })
             ->when($this->search, function ($query, $search) {
