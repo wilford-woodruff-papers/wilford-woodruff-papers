@@ -48,7 +48,9 @@ class Search extends Component
                     'subjects.id',
                     'subjects.name',
                 ])
-                ->withCount('pages')
+                ->withCount(['quotes' => function (Builder $query) {
+                    $query->whereHas('actions');
+                }])
                 ->whereHas('category', function (Builder $query) {
                     $query->whereIn('categories.name', ['Topic', 'Index']);
                 })
@@ -83,5 +85,11 @@ class Search extends Component
     public function updatingSelectedTopic()
     {
         $this->resetPage();
+        $this->emit('scroll-to-top');
+    }
+
+    public function updatingPage()
+    {
+        $this->emit('scroll-to-top');
     }
 }
