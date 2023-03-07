@@ -9,11 +9,12 @@ use App\Http\Livewire\DataTable\WithSorting;
 use App\Models\ActionType;
 use App\Models\Item;
 use App\Models\TargetPublishDate;
+use App\Models\Template;
 use App\Models\Type;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 
-class Dashboard extends Component
+class Search extends Component
 {
     use WithPerPagePagination, WithSorting, WithBulkActions, WithCachedRows;
 
@@ -102,6 +103,7 @@ class Dashboard extends Component
     public function resetFilters()
     {
         $this->reset('filters');
+        $this->resetPage();
     }
 
     public function getRowsQueryProperty()
@@ -153,9 +155,16 @@ class Dashboard extends Component
 
     public function render()
     {
-        return view('livewire.admin.documents.dashboard', [
+        $columns = [];
+        if (array_key_exists('type', $this->filters) && ! empty($this->filters['type'])) {
+            $columns = Template::query()->firstWhere('type_id', $this->filters['type'])?->properties ?? [];
+        }
+
+        return view('livewire.admin.documents.search', [
             'items' => $this->rows,
-        ]);
+            'columns' => $columns,
+        ])
+            ->layout('layouts.admin');
     }
 
     public function flagForPublication($itemId, $dateId)

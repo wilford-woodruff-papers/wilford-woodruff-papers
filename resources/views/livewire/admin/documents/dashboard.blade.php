@@ -4,26 +4,9 @@
             <div class="pl-4 mt-8">
                 <div class="flex flex-col gap-y-4">
                     <div class="pr-4 pl-2 space-y-1">
-                        {{--<x-input.group inline for="filter-date-min" label="Minimum Date">
-                            <x-input.date wire:model="filters.date-min" id="filter-date-min" placeholder="MM/DD/YYYY" />
-                        </x-input.group>
-
-                        <x-input.group inline for="filter-date-max" label="Maximum Date">
-                            <x-input.date wire:model="filters.date-max" id="filter-date-max" placeholder="MM/DD/YYYY" />
-                        </x-input.group>--}}
-
                         <div class="flex justify-end">
                             <x-button.link wire:click="resetFilters" class="">Reset Filters</x-button.link>
                         </div>
-                    </div>
-                    <div class="pr-2 space-y-4">
-                        <x-input.group inline for="filter-status" label="Status">
-                            <x-input.select wire:model="filters.status" id="filter-status">
-                                <option value=""> -- Any Status -- </option>
-                                <option value="on">Published</option>
-                                <option value="off">Not Published</option>
-                            </x-input.select>
-                        </x-input.group>
                     </div>
                     <div class="pr-2 space-y-4">
                         <x-input.group inline for="filter-type" label="Type">
@@ -35,6 +18,43 @@
                             </x-input.select>
                         </x-input.group>
                     </div>
+                    <div class="pr-2 space-y-4">
+                        <x-input.group inline for="filter-status" label="Status">
+                            <x-input.select wire:model="filters.status" id="filter-status">
+                                <option value=""> -- Any Status -- </option>
+                                <option value="on">Published</option>
+                                <option value="off">Not Published</option>
+                            </x-input.select>
+                        </x-input.group>
+                    </div>
+                    {{--<div class="pr-2 space-y-4">
+                        <div>
+                            <label for="filter-date-min" class="block text-sm font-medium leading-5 text-gray-700">Minimum Date</label>
+
+                            <div class="relative mt-1 rounded-md shadow-sm">
+                                <div class="flex rounded-md shadow-sm">
+                                    <input wire:model="filters.date-min"
+                                            type="date"
+                                           id="filter-date-min"
+                                           class="block flex-1 w-full rounded-none rounded-r-md transition duration-150 ease-in-out sm:text-sm sm:leading-5 form-input" min="1807-02-28" max="1898-09-03">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pr-2 space-y-4">
+                        <div>
+                            <label for="filter-date-max" class="block text-sm font-medium leading-5 text-gray-700">Maximum Date</label>
+
+                            <div class="relative mt-1 rounded-md shadow-sm">
+                                <div class="flex rounded-md shadow-sm">
+                                    <input wire:model="filters.date-max"
+                                           type="date"
+                                           id="filter-date-max"
+                                           class="block flex-1 w-full rounded-none rounded-r-md transition duration-150 ease-in-out sm:text-sm sm:leading-5 form-input" min="1807-02-28" max="1898-09-03">
+                                </div>
+                            </div>
+                        </div>
+                    </div>--}}
                     @if(auth()->user()->hasAnyRole(['Super Admin']))
                         <div class="pr-2 space-y-4">
                             <x-input.group inline for="filter-needs" label="Needs Task">
@@ -116,10 +136,12 @@
             <div class="space-y-4">
                 <x-admin.quotes.table>
                     <x-slot name="head">
-                        <x-admin.quotes.heading>Published</x-admin.quotes.heading>
-                        <x-admin.quotes.heading sortable multi-column wire:click="sortBy('pcf_unique_id')" :direction="$sorts['name'] ?? null" class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">ID</x-admin.quotes.heading>
                         <x-admin.quotes.heading class="pr-0 w-8">
                             <x-input.checkbox wire:model="selectPage" />
+                        </x-admin.quotes.heading>
+                        <x-admin.quotes.heading sortable multi-column wire:click="sortBy('pcf_unique_id')" :direction="$sorts['name'] ?? null" class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">ID</x-admin.quotes.heading>
+                        <x-admin.quotes.heading class="pr-0 w-8">
+                            Type
                         </x-admin.quotes.heading>
                         <x-admin.quotes.heading sortable multi-column wire:click="sortBy('name')" :direction="$sorts['name'] ?? null" class="w-full">Name</x-admin.quotes.heading>
                         <x-admin.quotes.heading sortable multi-column wire:click="sortBy('amount')" :direction="$sorts['amount'] ?? null"></x-admin.quotes.heading>
@@ -148,8 +170,8 @@
 
                         @forelse ($items as $item)
                             <x-admin.quotes.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $item->id }}">
-                                <x-admin.quotes.cell class="bg-gray-50">
-                                    <x-icon.status :status="$item->enabled" />
+                                <x-admin.quotes.cell class="pr-0 bg-gray-50">
+                                    <x-input.checkbox wire:model="selected" value="{{ $item->id }}" />
                                 </x-admin.quotes.cell>
 
                                 <x-admin.quotes.cell class="bg-gray-50">
@@ -159,23 +181,22 @@
                                 </x-admin.quotes.cell>
 
                                 <x-admin.quotes.cell class="pr-0 bg-gray-50">
-                                    <x-input.checkbox wire:model="selected" value="{{ $item->id }}" />
+                                    <span class="text-cool-gray-900">{{ str($item->type?->name)->singular() }} </span>
                                 </x-admin.quotes.cell>
 
                                 <x-admin.quotes.cell class="bg-gray-50">
-                                <span href="#" class="inline-flex space-x-2 text-sm leading-5 truncate">
-                                    {{--<x-icon.cash class="text-cool-gray-400"/>--}}
+                                    <span href="#" class="inline-flex space-x-2 text-sm leading-5 truncate">
+                                        {{--<x-icon.cash class="text-cool-gray-400"/>--}}
 
-                                    <p class="text-cool-gray-600 truncate">
-                                        <a class="font-medium text-indigo-600"
-                                           href="{{ route('admin.dashboard.document', ['item' => $item]) }}"
-                                           target="_blank">
-                                            {{ $item->name }}
-                                        </a>
-                                        <br />
-                                        <span class="text-cool-gray-900">{{ str($item->type?->name)->singular() }} </span>
-                                    </p>
-                                </span>
+                                        <p class="flex gap-x-1 items-center text-cool-gray-600 truncate">
+                                            <x-icon.status :status="$item->enabled"/>
+                                            <a class="font-medium text-indigo-600"
+                                               href="{{ route('admin.dashboard.document', ['item' => $item]) }}"
+                                               target="_blank">
+                                                {{ $item->name }}
+                                            </a>
+                                        </p>
+                                    </span>
                                 </x-admin.quotes.cell>
 
                                 <x-admin.quotes.cell class="bg-gray-50">
@@ -343,4 +364,4 @@
             </div>
         </div>
     </div>
-</div>
+ </div>
