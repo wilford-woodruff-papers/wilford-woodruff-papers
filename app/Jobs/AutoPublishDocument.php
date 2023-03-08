@@ -34,15 +34,11 @@ class AutoPublishDocument implements ShouldQueue
     public function handle()
     {
         if ($this->item->enabled != true && $this->item->canBePublished()) {
-            $this->item->enabled = true;
-            $this->item->save();
             $this->addPublishedTask($this->item);
             info($this->item->id.' was published.');
         } elseif ($this->item->enabled == true && $this->item->canBePublished()) {
             info($this->item->id.' is already published.');
         } else {
-            $this->item->enabled = false;
-            $this->item->save();
             $this->removePublishedTask($this->item);
             info($this->item->id.' cannot be published.');
         }
@@ -50,11 +46,11 @@ class AutoPublishDocument implements ShouldQueue
         if (! empty($this->item->item_id)) {
             $parent = $this->item->item;
             if ($parent->parentCanBePublished()) {
-                $parent->enabled = true;
+                $parent->enabled = $this->item->enabled;
                 $parent->save();
                 info($this->item->id.' was published.');
             } else {
-                $parent->enabled = false;
+                $parent->enabled = $this->item->enabled;
                 $parent->save();
                 info($this->item->id.' cannot be published.');
             }
@@ -66,21 +62,14 @@ class AutoPublishDocument implements ShouldQueue
         $actionType = \App\Models\ActionType::firstWhere('name', 'Publish');
         $user = \App\Models\User::firstWhere('email', 'auto@wilfordwoodruffpapers.org');
 
-        DB::transaction(function () use ($item, $actionType, $user) {
-            \App\Models\Action::updateOrCreate([
-                'actionable_type' => get_class($item),
-                'actionable_id' => $item->id,
-                'action_type_id' => $actionType->id,
-            ], [
-                'assigned_to' => $user->id,
-                'assigned_at' => $item->actions->firstWhere('action_type_id', 2)->completed_at,
-                'completed_by' => $user->id,
-                'completed_at' => $item->actions->firstWhere('action_type_id', 2)->completed_at,
-            ]);
-            foreach ($item->pages as $page) {
+        if (empty($item->completed_actions->firstWhere('action_type_id', $actionType->id)?->completed_by)) {
+            DB::transaction(function () use ($item, $actionType, $user) {
+                $this->item->enabled = true;
+                $this->item->save();
+
                 \App\Models\Action::updateOrCreate([
-                    'actionable_type' => get_class($page),
-                    'actionable_id' => $page->id,
+                    'actionable_type' => get_class($item),
+                    'actionable_id' => $item->id,
                     'action_type_id' => $actionType->id,
                 ], [
                     'assigned_to' => $user->id,
@@ -88,30 +77,36 @@ class AutoPublishDocument implements ShouldQueue
                     'completed_by' => $user->id,
                     'completed_at' => $item->actions->firstWhere('action_type_id', 2)->completed_at,
                 ]);
-            }
-        });
+                foreach ($item->pages as $page) {
+                    \App\Models\Action::updateOrCreate([
+                        'actionable_type' => get_class($page),
+                        'actionable_id' => $page->id,
+                        'action_type_id' => $actionType->id,
+                    ], [
+                        'assigned_to' => $user->id,
+                        'assigned_at' => $item->actions->firstWhere('action_type_id', 2)->completed_at,
+                        'completed_by' => $user->id,
+                        'completed_at' => $item->actions->firstWhere('action_type_id', 2)->completed_at,
+                    ]);
+                }
+            });
+        }
     }
 
     private function removePublishedTask($item)
     {
         $actionType = \App\Models\ActionType::firstWhere('name', 'Publish');
+        $verificationActionType = \App\Models\ActionType::firstWhere('name', 'Verification');
         $user = \App\Models\User::firstWhere('email', 'auto@wilfordwoodruffpapers.org');
 
-        DB::transaction(function () use ($item, $actionType, $user) {
-            \App\Models\Action::updateOrCreate([
-                'actionable_type' => get_class($item),
-                'actionable_id' => $item->id,
-                'action_type_id' => $actionType->id,
-            ], [
-                'assigned_to' => $user->id,
-                'assigned_at' => $item->actions->firstWhere('action_type_id', 2)->completed_at,
-                'completed_by' => null,
-                'completed_at' => null,
-            ]);
-            foreach ($item->pages as $page) {
+        if ($item->completed_actions->firstWhere('action_type_id', $actionType->id)?->completed_by === $user->id) {
+            DB::transaction(function () use ($item, $actionType, $user) {
+                $this->item->enabled = false;
+                $this->item->save();
+
                 \App\Models\Action::updateOrCreate([
-                    'actionable_type' => get_class($page),
-                    'actionable_id' => $page->id,
+                    'actionable_type' => get_class($item),
+                    'actionable_id' => $item->id,
                     'action_type_id' => $actionType->id,
                 ], [
                     'assigned_to' => $user->id,
@@ -119,7 +114,19 @@ class AutoPublishDocument implements ShouldQueue
                     'completed_by' => null,
                     'completed_at' => null,
                 ]);
-            }
-        });
+                foreach ($item->pages as $page) {
+                    \App\Models\Action::updateOrCreate([
+                        'actionable_type' => get_class($page),
+                        'actionable_id' => $page->id,
+                        'action_type_id' => $actionType->id,
+                    ], [
+                        'assigned_to' => $user->id,
+                        'assigned_at' => $item->actions->firstWhere('action_type_id', 2)->completed_at,
+                        'completed_by' => null,
+                        'completed_at' => null,
+                    ]);
+                }
+            });
+        }
     }
 }
