@@ -1,4 +1,6 @@
-<div>
+<div x-data="{
+            shadow: false
+        }">
     <div class="grid grid-cols-12 gap-x-4">
         <div class="col-span-12 pr-8">
             <div class="pt-2 pr-4">
@@ -89,7 +91,10 @@
                     </div>
                 </div>
             </div>
-            <div class="space-y-4">
+            <div class="relative space-y-4 shadow">
+                <div x-intersect:leave="shadow = true"
+                     x-intersect:enter="shadow = false"
+                ></div>
                 <x-admin.quotes.table>
                     <x-slot name="head">
                         <x-admin.quotes.heading class="pr-0 w-8">
@@ -99,12 +104,14 @@
                         <x-admin.quotes.heading class="pr-0 w-8">
                             Type
                         </x-admin.quotes.heading>
-                        <x-admin.quotes.heading sortable multi-column wire:click="sortBy('name')" :direction="$sorts['name'] ?? null" class="w-full">Name</x-admin.quotes.heading>
+                        <x-admin.quotes.heading sortable multi-column wire:click="sortBy('name')" :direction="$sorts['name'] ?? null" class="sticky left-0 w-full">Name</x-admin.quotes.heading>
                         <x-admin.quotes.heading sortable multi-column wire:click="sortBy('amount')" :direction="$sorts['amount'] ?? null"></x-admin.quotes.heading>
                         <x-admin.quotes.heading sortable multi-column wire:click="sortBy('status')" :direction="$sorts['status'] ?? null"></x-admin.quotes.heading>
                         <x-admin.quotes.heading sortable multi-column wire:click="sortBy('date')" :direction="$sorts['date'] ?? null"></x-admin.quotes.heading>
 
-                        @foreach($columns as $column)
+                        @foreach($columns->reject(function ($value, $key) {
+                                    return str($value)->contains('Link');
+                        }) as $column)
                             <x-admin.quotes.heading>
                                 {{ $column->name }}
                             </x-admin.quotes.heading>
@@ -129,7 +136,10 @@
                         @endif
 
                         @forelse ($items as $item)
-                            <x-admin.quotes.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $item->id }}">
+                            <x-admin.quotes.row wire:loading.class.delay="opacity-50"
+                                                wire:key="row-{{ $item->id }}"
+                                                class="h-12"
+                            >
                                 <x-admin.quotes.cell class="pr-0 bg-gray-50">
                                     <x-input.checkbox wire:model="selected" value="{{ $item->id }}" />
                                 </x-admin.quotes.cell>
@@ -144,7 +154,7 @@
                                     <span class="text-cool-gray-900">{{ str($item->type?->name)->singular() }} </span>
                                 </x-admin.quotes.cell>
 
-                                <x-admin.quotes.cell class="bg-gray-50">
+                                <x-admin.quotes.cell class="sticky left-0 bg-gray-50">
                                     <span href="#" class="inline-flex space-x-2 text-sm leading-5 truncate">
                                         {{--<x-icon.cash class="text-cool-gray-400"/>--}}
 
@@ -174,9 +184,36 @@
                                 </x-admin.quotes.cell>
 
 
-                                @foreach($columns as $column)
+                                @foreach($columns->reject(function ($value, $key) {
+                                    return str($value)->contains('Link');
+                                }) as $column)
                                     <x-admin.quotes.cell class="bg-gray-50">
-                                        {{ $item->values->firstWhere('property_id', $column->id)?->value }}
+                                        @switch($column->type)
+                                            @case('link')
+                                                <x-admin.document.values.link :property="$column"
+                                                                                  :value="$item->values->firstWhere('property_id', $column->id)"
+                                                                                  :model="$item"
+                                                />
+                                                @break
+                                            @case('html')
+                                                <x-admin.document.values.html :property="$column"
+                                                                                  :value="$item->values->firstWhere('property_id', $column->id)"
+                                                                                  :model="$item"
+                                                />
+                                                @break
+                                            @case('date')
+                                                <x-admin.document.values.date :property="$column"
+                                                                                  :value="$item->values->firstWhere('property_id', $column->id)"
+                                                                                  :model="$item"
+                                                />
+                                                @break
+                                            @default
+                                                <x-admin.document.values.text :property="$column"
+                                                                                  :value="$item->values->firstWhere('property_id', $column->id)"
+                                                                                  :model="$item"
+                                                />
+                                                @break
+                                        @endswitch
                                     </x-admin.quotes.cell>
                                 @endforeach
 
@@ -192,7 +229,7 @@
                                 <x-admin.quotes.cell colspan="6">
                                     <div class="flex justify-center items-center space-x-2">
                                         {{--<x-icon.inbox class="w-8 h-8 text-cool-gray-400" />--}}
-                                        <span class="py-8 text-xl font-medium text-cool-gray-400">No quotes found...</span>
+                                        <span class="py-8 text-xl font-medium text-cool-gray-400">No documents found...</span>
                                     </div>
                                 </x-admin.quotes.cell>
                             </x-admin.quotes.row>
