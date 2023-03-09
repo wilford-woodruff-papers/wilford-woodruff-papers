@@ -96,7 +96,7 @@
         <a href="https://airauctioneer.com/wilford-woodruff-project-art-auction"
            target="_blank"
         >
-            <img src="https://wilfordwoodruffpapers.org/storage/announcements/6PYmqXFBN9JQnXvfLy0fJEm7I3o8Q7rqiWJQOfeS.png"
+            <img src="https://wilfordwoodruffpapers.org/storage/announcements/TA9VkT7nvRfEm7UsDTRfg50NgFi83ikjeWy8lW4w.png"
                  alt="Art Auction"
                  class="w-full h-auto"
             >
