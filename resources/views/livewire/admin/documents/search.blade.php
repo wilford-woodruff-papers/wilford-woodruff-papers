@@ -166,13 +166,13 @@
                                 </x-admin.quotes.cell>
 
                                 <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">
-                                    <span href="#" class="inline-flex space-x-2 text-sm leading-5 truncate">
+                                    <div class="inline-flex space-x-2 text-sm leading-5 whitespace-nowrap">
                                         {{ $item->pcf_unique_id_full }}
-                                    </span>
+                                    </div>
                                 </x-admin.quotes.cell>
 
                                 <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">
-                                    <span class="text-cool-gray-900">{{ str($item->type?->name)->singular() }} </span>
+                                    <span class="text-cool-gray-900 whitespace-nowrap">{{ str($item->type?->name)->singular() }} </span>
                                 </x-admin.quotes.cell>
 
                                 <x-admin.quotes.cell class="sticky left-0 py-0 px-0 bg-gray-50 border border-gray-400">
