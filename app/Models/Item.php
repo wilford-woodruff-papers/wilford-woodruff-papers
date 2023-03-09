@@ -112,6 +112,11 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
         return $this->morphMany(Date::class, 'dateable');
     }
 
+    public function taggedDates()
+    {
+        return $this->morphMany(Date::class, 'dateable');
+    }
+
     public function values()
     {
         return $this->hasMany(Value::class);

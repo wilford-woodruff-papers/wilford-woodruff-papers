@@ -285,4 +285,8 @@ Route::group(['middleware' => ['role:Super Admin|Editor']], function () {
     Route::middleware(['auth:sanctum', 'verified'])
         ->get('/admin/export-transcripts', \App\Http\Controllers\Admin\ExportItemFullTranscriptController::class)
         ->name('admin.items.export-transcripts');
+
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->get('/admin/search/documents', \App\Http\Livewire\Admin\Documents\Search::class)
+        ->name('admin.documents.search');
 });
