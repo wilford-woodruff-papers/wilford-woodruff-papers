@@ -155,7 +155,7 @@ class Search extends Component
 
     public function render()
     {
-        $columns = [];
+        $columns = collect([]);
         if (array_key_exists('type', $this->filters) && ! empty($this->filters['type'])) {
             $columns = Template::query()->firstWhere('type_id', $this->filters['type'])?->properties ?? [];
         }
