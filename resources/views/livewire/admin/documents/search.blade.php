@@ -4,53 +4,71 @@
     <div class="grid grid-cols-12 gap-x-4">
         <div class="col-span-12 pr-8">
             <div class="pt-2 pr-4">
-                <div class="flex justify-end space-x-2">
-                    <x-input.group borderless paddingless for="perPage" label="Per Page">
-                        <x-input.select wire:model="perPage" id="perPage">
-                            <option value="10">10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                        </x-input.select>
-                    </x-input.group>
-
-                    <x-dropdown label="Bulk Actions">
-                        {{--<x-dropdown.item type="button" wire:click="exportSelected" class="flex items-center space-x-2">
-                            <x-icon.download class="text-cool-gray-400"/> <span>Export</span>
-                        </x-dropdown.item>--}}
-                        @foreach($taskTypes as $taskType)
-                            <x-dropdown.item type="button" wire:click="addTasksInBulk({{ $taskType->id }})" class="flex items-center space-x-2">
-                                {{--<x-icon.trash class="text-cool-gray-400"/>--}} <span>Add {{ $taskType->name }} Task</span>
-                            </x-dropdown.item>
-                        @endforeach
-
-                    </x-dropdown>
-
-                    {{--<livewire:import-transactions />--}}
-
-                    @if(auth()->user()->hasAnyRole(['Super Admin']))
-                        <a href="{{ route('admin.dashboard.document.create') }}"
-                           class="py-2 px-4 text-white bg-indigo-600 border-indigo-600 hover:bg-indigo-500 active:bg-indigo-700"
-                        ><x-icon.plus/> New</a>
-                    @endif
-                </div>
-            </div>
-            <div class="px-4 pt-2 pb-6">
-                <div>
-                    <label for="search" class="block text-sm font-medium leading-6 text-gray-900 sr-only">Search</label>
-                    <div class="relative mt-2 rounded-md shadow-sm">
-                        <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"  class="w-5 h-5 text-gray-400" >
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                            </svg>
+                <div class="grid grid-cols-5 gap-x-2 justify-between py-2">
+                    <div class="col-span-3 px-4 w-full">
+                        <div class="w-full">
+                            <label for="search" class="block text-sm font-medium leading-6 text-gray-900 sr-only">Search</label>
+                            <div class="relative w-full rounded-md shadow-sm">
+                                <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"  class="w-5 h-5 text-gray-400" >
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                                    </svg>
+                                </div>
+                                <input wire:model.debounce.400="filters.search"
+                                       type="search"
+                                       name="search"
+                                       id="search"
+                                       class="block py-1.5 pl-10 w-full text-gray-900 rounded-md border-0 ring-1 ring-inset ring-gray-300 sm:text-sm sm:leading-6 focus:ring-2 focus:ring-inset placeholder:text-gray-400 focus:ring-secondary" placeholder="Search documents...">
+                            </div>
                         </div>
-                        <input wire:model.debounce.400="filters.search"
-                               type="search"
-                               name="search"
-                               id="search"
-                               class="block py-1.5 pl-10 w-full text-gray-900 rounded-md border-0 ring-1 ring-inset ring-gray-300 sm:text-sm sm:leading-6 focus:ring-2 focus:ring-inset placeholder:text-gray-400 focus:ring-secondary" placeholder="Search documents...">
                     </div>
+
+                    <div class="col-span-2">
+                        <div class="flex justify-end items-center">
+                            <div>
+                                <x-input.group borderless paddingless
+                                               for="perPage"
+                                               label="Per Page"
+                                >
+                                    <x-input.select wire:model="perPage" id="perPage">
+                                        <option value="10">10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                    </x-input.select>
+                                </x-input.group>
+                            </div>
+
+                            <div>
+                                <x-dropdown label="Bulk Actions">
+                                    {{--<x-dropdown.item type="button" wire:click="exportSelected" class="flex items-center space-x-2">
+                                        <x-icon.download class="text-cool-gray-400"/> <span>Export</span>
+                                    </x-dropdown.item>--}}
+                                    @foreach($taskTypes as $taskType)
+                                        <x-dropdown.item type="button" wire:click="addTasksInBulk({{ $taskType->id }})" class="flex items-center space-x-2">
+                                            {{--<x-icon.trash class="text-cool-gray-400"/>--}} <span>Add {{ $taskType->name }} Task</span>
+                                        </x-dropdown.item>
+                                    @endforeach
+
+                                </x-dropdown>
+                            </div>
+
+
+
+                            {{--<livewire:import-transactions />--}}
+
+                            @if(auth()->user()->hasAnyRole(['Super Admin']))
+                                <div class="py-2">
+                                    <a href="{{ route('admin.dashboard.document.create') }}"
+                                       class="py-2 px-4 text-white bg-indigo-600 border-indigo-600 hover:bg-indigo-500 active:bg-indigo-700"
+                                    ><x-icon.plus/> New</a>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+
                 </div>
             </div>
+
             <div class="pl-4">
                 <div class="flex gap-x-4 gap-y-4 items-center">
                     <div class="pr-2 space-y-4">
@@ -104,15 +122,18 @@
                         <x-admin.quotes.heading class="pr-0 w-8">
                             Type
                         </x-admin.quotes.heading>
-                        <x-admin.quotes.heading sortable multi-column wire:click="sortBy('name')" :direction="$sorts['name'] ?? null" class="sticky left-0 w-full">Name</x-admin.quotes.heading>
-                        <x-admin.quotes.heading sortable multi-column wire:click="sortBy('amount')" :direction="$sorts['amount'] ?? null"></x-admin.quotes.heading>
-                        <x-admin.quotes.heading sortable multi-column wire:click="sortBy('status')" :direction="$sorts['status'] ?? null"></x-admin.quotes.heading>
-                        <x-admin.quotes.heading sortable multi-column wire:click="sortBy('date')" :direction="$sorts['date'] ?? null"></x-admin.quotes.heading>
+                        <x-admin.quotes.heading sortable
+                                                multi-column
+                                                wire:click="sortBy('name')"
+                                                :direction="$sorts['name'] ?? null"
+                                                class="sticky left-0 z-50 w-full bg-gray-100">
+                            Name
+                        </x-admin.quotes.heading>
 
                         @foreach($columns->reject(function ($value, $key) {
                                     return str($value)->contains('Link');
                         }) as $column)
-                            <x-admin.quotes.heading>
+                            <x-admin.quotes.heading class="whitespace-nowrap">
                                 {{ $column->name }}
                             </x-admin.quotes.heading>
                         @endforeach
@@ -145,42 +166,30 @@
                                 </x-admin.quotes.cell>
 
                                 <x-admin.quotes.cell class="bg-gray-50">
-                                <span href="#" class="inline-flex space-x-2 text-sm leading-5 truncate">
-                                    {{ $item->pcf_unique_id_full }}
-                                </span>
+                                    <span href="#" class="inline-flex space-x-2 text-sm leading-5 truncate">
+                                        {{ $item->pcf_unique_id_full }}
+                                    </span>
                                 </x-admin.quotes.cell>
 
                                 <x-admin.quotes.cell class="pr-0 bg-gray-50">
                                     <span class="text-cool-gray-900">{{ str($item->type?->name)->singular() }} </span>
                                 </x-admin.quotes.cell>
 
-                                <x-admin.quotes.cell class="sticky left-0 bg-gray-50">
-                                    <span href="#" class="inline-flex space-x-2 text-sm leading-5 truncate">
-                                        {{--<x-icon.cash class="text-cool-gray-400"/>--}}
+                                <x-admin.quotes.cell class="sticky left-0 py-0 px-0 bg-gray-50">
+                                    <div class="w-full h-full border-r-2 border-gray-200">
+                                        <div href="#" class="inline-flex py-4 px-6 space-x-2 text-sm leading-5 truncate">
+                                            {{--<x-icon.cash class="text-cool-gray-400"/>--}}
 
-                                        <p class="flex gap-x-1 items-center text-cool-gray-600 truncate">
-                                            <x-icon.status :status="$item->enabled"/>
-                                            <a class="font-medium text-indigo-600"
-                                               href="{{ route('admin.dashboard.document', ['item' => $item]) }}"
-                                               target="_blank">
-                                                {{ $item->name }}
-                                            </a>
-                                        </p>
-                                    </span>
-                                </x-admin.quotes.cell>
-
-                                <x-admin.quotes.cell class="bg-gray-50">
-                                    <span class="font-medium text-cool-gray-900"></span>
-                                </x-admin.quotes.cell>
-
-                                <x-admin.quotes.cell class="bg-gray-50">
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-{{ $item->status_color }}-100 text-{{ $item->status_color }}-800 capitalize">
-                                        {{ $item->status }}
-                                    </span>
-                                </x-admin.quotes.cell>
-
-                                <x-admin.quotes.cell class="bg-gray-50">
-
+                                            <p class="flex gap-x-1 items-center text-cool-gray-600 truncate">
+                                                <x-icon.status :status="$item->enabled"/>
+                                                <a class="font-medium text-indigo-600"
+                                                   href="{{ route('admin.dashboard.document', ['item' => $item]) }}"
+                                                   target="_blank">
+                                                    {{ $item->name }}
+                                                </a>
+                                            </p>
+                                        </div>
+                                    </div>
                                 </x-admin.quotes.cell>
 
 
@@ -188,32 +197,34 @@
                                     return str($value)->contains('Link');
                                 }) as $column)
                                     <x-admin.quotes.cell class="bg-gray-50">
-                                        @switch($column->type)
-                                            @case('link')
-                                                <x-admin.document.values.link :property="$column"
+                                        <div class="whitespace-nowrap">
+                                            @switch($column->type)
+                                                @case('link')
+                                                    <x-admin.document.values.link :property="$column"
                                                                                   :value="$item->values->firstWhere('property_id', $column->id)"
                                                                                   :model="$item"
-                                                />
-                                                @break
-                                            @case('html')
-                                                <x-admin.document.values.html :property="$column"
+                                                    />
+                                                    @break
+                                                @case('html')
+                                                    <x-admin.document.values.html :property="$column"
                                                                                   :value="$item->values->firstWhere('property_id', $column->id)"
                                                                                   :model="$item"
-                                                />
-                                                @break
-                                            @case('date')
-                                                <x-admin.document.values.date :property="$column"
+                                                    />
+                                                    @break
+                                                @case('date')
+                                                    <x-admin.document.values.date :property="$column"
                                                                                   :value="$item->values->firstWhere('property_id', $column->id)"
                                                                                   :model="$item"
-                                                />
-                                                @break
-                                            @default
-                                                <x-admin.document.values.text :property="$column"
+                                                    />
+                                                    @break
+                                                @default
+                                                    <x-admin.document.values.text :property="$column"
                                                                                   :value="$item->values->firstWhere('property_id', $column->id)"
                                                                                   :model="$item"
-                                                />
-                                                @break
-                                        @endswitch
+                                                    />
+                                                    @break
+                                            @endswitch
+                                        </div>
                                     </x-admin.quotes.cell>
                                 @endforeach
 
