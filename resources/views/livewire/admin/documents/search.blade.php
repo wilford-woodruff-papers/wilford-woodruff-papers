@@ -161,22 +161,22 @@
                                                 wire:key="row-{{ $item->id }}"
                                                 class="h-12"
                             >
-                                <x-admin.quotes.cell class="pr-0 bg-gray-50">
+                                <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">
                                     <x-input.checkbox wire:model="selected" value="{{ $item->id }}" />
                                 </x-admin.quotes.cell>
 
-                                <x-admin.quotes.cell class="bg-gray-50">
+                                <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">
                                     <span href="#" class="inline-flex space-x-2 text-sm leading-5 truncate">
                                         {{ $item->pcf_unique_id_full }}
                                     </span>
                                 </x-admin.quotes.cell>
 
-                                <x-admin.quotes.cell class="pr-0 bg-gray-50">
+                                <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">
                                     <span class="text-cool-gray-900">{{ str($item->type?->name)->singular() }} </span>
                                 </x-admin.quotes.cell>
 
-                                <x-admin.quotes.cell class="sticky left-0 py-0 px-0 bg-gray-50">
-                                    <div class="w-full h-full border-r-2 border-gray-200">
+                                <x-admin.quotes.cell class="sticky left-0 py-0 px-0 bg-gray-50 border border-gray-400">
+                                    <div class="w-full h-full border-r-2 border-gray-400">
                                         <div href="#" class="inline-flex py-4 px-6 space-x-2 text-sm leading-5 truncate">
                                             {{--<x-icon.cash class="text-cool-gray-400"/>--}}
 
@@ -196,7 +196,7 @@
                                 @foreach($columns->reject(function ($value, $key) {
                                     return str($value)->contains('Link');
                                 }) as $column)
-                                    <x-admin.quotes.cell class="bg-gray-50">
+                                    <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">
                                         <div class="whitespace-nowrap">
                                             @switch($column->type)
                                                 @case('link')
