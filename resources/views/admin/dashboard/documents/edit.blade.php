@@ -62,8 +62,12 @@
                         <!-- Fields section -->
                         <div class="py-6 px-4 sm:p-6 lg:pb-8">
                             <div>
-                                <h2 class="text-lg font-medium leading-6 text-gray-900">{{ $item->name }}</h2>
-                                <p class="mt-1 text-sm text-gray-500"></p>
+                                <h2 class="text-xl font-bold leading-6 text-gray-900">
+                                    {{ $item->name }}
+                                </h2>
+                                <p class="mt-1 text-base font-semibold text-gray-500">
+                                    {{ $item->pcf_unique_id_full }}
+                                </p>
                             </div>
 
                             <div class="grid grid-cols-12 gap-6 mt-6">
