@@ -10,6 +10,8 @@ class NewDocument extends Component
 {
     public Item $item;
 
+    public $section_count = 0;
+
     public $type;
 
     public $template;
@@ -23,6 +25,7 @@ class NewDocument extends Component
         $this->item = new Item();
 
         $this->types = Type::query()
+            ->whereNull('type_id')
             ->orderBy('name', 'ASC')
             ->get();
 
