@@ -34,6 +34,11 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
         'uuid' => EfficientUuid::class,
     ];
 
+    private $suffixes = [
+        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+        'aa', 'bb', 'cc', 'dd', 'ee', 'ff', 'gg', 'hh', 'ii', 'jj', 'kk', 'll', 'mm', 'nn', 'oo', 'pp', 'qq', 'rr', 'ss', 'tt', 'uu', 'vv', 'ww', 'xx', 'yy', 'zz',
+    ];
+
     public function pages()
     {
         /*if(Str::of(optional($this->type)->name)->exactly(['Autobiographies', 'Journals'])){
@@ -162,11 +167,16 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
     protected static function booted()
     {
         static::creating(function ($item) {
-            if (empty($item->pcf_unique_id)) {
+            if (empty($item->pcf_unique_id) && empty($item->item_id)) {
                 $uniqueId = DB::table('items')
                     ->where('pcf_unique_id_prefix', $item->pcf_unique_id_prefix)
                     ->max('pcf_unique_id');
                 $item->pcf_unique_id = $uniqueId + 1;
+            } elseif (empty($item->pcf_unique_id)) {
+                $item->pcf_unique_id = $item->parent()->pcf_unique_id;
+                $item->pcf_unique_id_suffix = $item->getSuffix(
+                    Item::where('item_id', $item->item_id)->count()
+                );
             }
         });
     }
@@ -273,8 +283,11 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
     {
         return (! empty($this->pcf_unique_id_prefix)
                 ? ($this->pcf_unique_id_prefix.'-')
-                : (mb_substr($this->type?->name, 0, 1).'-'))
-            .($this->pcf_unique_id)
-            .($this->pcf_unique_id_suffix);
+                : (mb_substr($this->type?->name, 0, 1).'-')).($this->pcf_unique_id).($this->pcf_unique_id_suffix);
+    }
+
+    protected function getSuffix(int $index): string
+    {
+        return $this->suffixes[$index];
     }
 }

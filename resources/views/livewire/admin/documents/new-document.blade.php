@@ -42,6 +42,32 @@
                             </div>
                         </div>
                     @endif
+                    <div id="errors-top">
+                        @if ($errors->any())
+                            <div class="p-4 bg-red-50 rounded-md">
+                                <div class="flex">
+                                    <div class="flex-shrink-0">
+                                        <!-- Heroicon name: solid/x-circle -->
+                                        <svg class="w-5 h-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <div class="ml-3">
+                                        <h2 class="text-sm font-medium text-red-800">
+                                            There were {{ $errors->count() }} error(s) saving this resource
+                                        </h2>
+                                        <div class="mt-2 text-sm text-red-700">
+                                            <ul class="pl-5 space-y-1 list-disc">
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    </div>
                     <div class="divide-y divide-gray-200 lg:grid lg:grid-cols-12 lg:divide-y-0 lg:divide-x">
                         <form action="{{ route('admin.dashboard.document.store') }}"
                               method="POST"
@@ -60,25 +86,39 @@
                                 </div>
                             </div>
 
-                            <div class="py-6 px-4 sm:p-6 lg:pb-8">
-                                <div>
-                                    <label for="type" class="block text-sm font-medium text-gray-700">Document Type</label>
-                                    <select wire:model="type"
-                                            id="type"
-                                            name="type_id"
-                                            class="block py-2 pr-10 pl-3 mt-1 w-full text-base rounded-md border-gray-300 sm:text-sm focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none">
-                                        <option value="">-- Select Document Type --</option>
-                                        @foreach($types as $t)
-                                            <option value="{{ $t->id }}">{{ $t->name }}</option>
-                                        @endforeach
-                                    </select>
+                            <div class="grid grid-cols-2">
+                                <div class="py-6 px-4 sm:p-6 lg:pb-8">
+                                    <div>
+                                        <label for="type" class="block text-sm font-medium text-gray-700">Document Type <span class="text-red-800">*</span></label>
+                                        <select wire:model="type"
+                                                id="type"
+                                                name="type_id"
+                                                class="block py-2 pr-10 pl-3 mt-1 w-full text-base rounded-md border-gray-300 sm:text-sm focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none">
+                                            <option value="">-- Select Document Type --</option>
+                                            @foreach($types as $t)
+                                                <option value="{{ $t->id }}">{{ $t->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="py-6 px-4 sm:p-6 lg:pb-8">
+                                    <div>
+                                        <label for="section_count" class="block text-sm font-medium text-gray-700">Create Sections</label>
+                                        <input wire:model="section_count"
+                                               type="number"
+                                               id="section_count"
+                                               name="section_count"
+                                               class="block py-2 pr-10 pl-3 mt-1 w-full text-base rounded-md border-gray-300 sm:text-sm focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none"
+                                               max="40"
+                                        />
+                                    </div>
                                 </div>
                             </div>
 
                             @if(! empty($type) && is_array($typeName = $prefixes[\App\Models\Type::find($type)->name]))
                                 <div class="py-6 px-4 sm:p-6 lg:pb-8">
                                     <div>
-                                        <label for="pcf_unique_id_prefix" class="block text-sm font-medium text-gray-700">Prefix</label>
+                                        <label for="pcf_unique_id_prefix" class="block text-sm font-medium text-gray-700">Prefix <span class="text-red-800">*</span></label>
                                         <select id="pcf_unique_id_prefix"
                                                 name="pcf_unique_id_prefix"
                                                 class="block py-2 pr-10 pl-3 mt-1 w-full text-base rounded-md border-gray-300 sm:text-sm focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none">
@@ -109,7 +149,7 @@
                                                 <label for="name"
                                                        class="block text-sm font-medium text-gray-700"
                                                 >
-                                                    <span class="font-semibold">Name</span>
+                                                    <span class="font-semibold">Name <span class="text-red-800">*</span></span>
                                                 </label>
                                                 <input type="text"
                                                        name="name"
@@ -126,7 +166,7 @@
                                                 <label for="manual_page_count"
                                                        class="block text-sm font-medium text-gray-700"
                                                 >
-                                                    <span class="font-semibold">Page Count</span>
+                                                    <span class="font-semibold">Page Count <span class="text-red-800">*</span></span>
                                                 </label>
                                                 <input type="number"
                                                        name="manual_page_count"

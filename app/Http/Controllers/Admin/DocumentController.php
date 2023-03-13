@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Item;
 use App\Models\Page;
+use App\Models\Type;
 use App\Models\Value;
 use Illuminate\Http\Request;
 
@@ -40,12 +41,20 @@ class DocumentController extends Controller
     {
         $item = new Item();
 
-        $item->fill($request->only([
-            'name',
-            'type_id',
-            'pcf_unique_id_prefix',
-            'manual_page_count',
-        ]));
+        $validated = $request->validate([
+            'name' => 'required|max:255',
+            'type_id' => 'required',
+            'pcf_unique_id_prefix' => 'sometimes|required|string',
+            'manual_page_count' => 'integer',
+        ]);
+
+        $item->fill($validated);
+
+        if ($request->get('section_count') > 0) {
+            $item->parental_type = 'App\Models\Set';
+        } else {
+            $item->parental_type = 'App\Models\Document';
+        }
 
         $item->save();
 
@@ -66,6 +75,23 @@ class DocumentController extends Controller
                     ->where('item_id', $item->id)
                     ->where('property_id', str($key)->afterLast('_')->toString())
                     ->delete();
+            }
+        }
+
+        $type = Type::query()
+            ->with(['subType'])
+            ->firstWhere('id', $request->get('type_id'));
+
+        if ($request->get('section_count') > 0) {
+            for ($i = 1; $i <= $request->integer('section_count'); $i++) {
+                $section = new Item;
+                $section->parental_type = 'App\Models\Document';
+                $section->name = $item->name.' Section '.$i;
+                $section->item_id = $item->id;
+                $section->type_id = $type->subType?->id;
+                $section->pcf_unique_id_prefix = $item->pcf_unique_id_prefix;
+                //$section->pcf_unique_id = $item->pcf_unique_id;
+                $section->save();
             }
         }
 

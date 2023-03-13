@@ -15,15 +15,16 @@
                 </div>
                 <div>
                     <h1 class="text-2xl font-bold text-gray-900">{{ $item->name }}</h1>
-                    <p class="text-sm font-medium text-gray-500">Item ID: {{ $item->id }}</p>
+                    <p class="text-sm font-medium text-gray-500">Unique Identifier {{ $item->pcf_unique_id_full }} | Internal Item ID: {{ $item->id }}</p>
                 </div>
             </div>
             <div class="flex flex-col-reverse mt-6 space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-y-0 sm:space-x-3 sm:space-x-reverse md:flex-row md:mt-0 md:space-x-3 justify-stretch">
-                    <span class="inline-flex relative z-0 rounded-md shadow-sm">
-                      <a href="{{ route('documents.show', ['item' => $item]) }}" class="inline-flex relative items-center py-2 px-4 text-sm font-medium text-gray-700 bg-white rounded-l-md border border-gray-300 hover:bg-gray-50 focus:z-10 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none" target="_blank">Website</a>
-                      <a href="https://fromthepage.com/woodruff/woodruffpapers/{{ $item->ftp_slug }}" class="inline-flex relative items-center py-2 px-4 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 focus:z-10 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none" target="_blank">FTP</a>
-                      <a href="/nova/resources/items/{{ $item->id }}" class="inline-flex relative items-center py-2 px-4 -ml-px text-sm font-medium text-gray-700 bg-white rounded-r-md border border-gray-300 hover:bg-gray-50 focus:z-10 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none" target="_blank">Nova</a>
-                    </span>
+                <span class="inline-flex relative z-0 rounded-md shadow-sm">
+                    <a href="{{ route('admin.dashboard.document.edit', ['item' => $item]) }}" class="inline-flex relative items-center py-2 px-4 text-sm font-medium text-gray-700 bg-white rounded-l-md border border-gray-300 hover:bg-gray-50 focus:z-10 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none" target="_blank">Edit</a>
+                    <a href="{{ route('documents.show', ['item' => $item]) }}" class="relative items-center py-2 px-4 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 focus:z-10 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none nline-flex" target="_blank">Website</a>
+                    <a href="https://fromthepage.com/woodruff/woodruffpapers/{{ $item->ftp_slug }}" class="inline-flex relative items-center py-2 px-4 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 focus:z-10 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none" target="_blank">FTP</a>
+                    <a href="/nova/resources/items/{{ $item->id }}" class="inline-flex relative items-center py-2 px-4 -ml-px text-sm font-medium text-gray-700 bg-white rounded-r-md border border-gray-300 hover:bg-gray-50 focus:z-10 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none" target="_blank">Nova</a>
+                </span>
             </div>
         </div>
 
