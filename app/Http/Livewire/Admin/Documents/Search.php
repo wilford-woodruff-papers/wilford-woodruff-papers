@@ -13,6 +13,7 @@ use App\Models\Template;
 use App\Models\Type;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
+use Spatie\Regex\Regex;
 
 class Search extends Component
 {
@@ -111,7 +112,22 @@ class Search extends Component
         $query = Item::query()
             ->with('type', 'target_publish_dates', 'active_target_publish_date', 'actions')
             ->whereNotNull('type_id')
-            ->when(array_key_exists('search', $this->filters) && $this->filters['search'], fn ($query, $search) => $query->where('name', 'like', '%'.$this->filters['search'].'%'))
+            ->when(array_key_exists('search', $this->filters) && $this->filters['search'], function ($query, $search) {
+                if (Regex::match('/([a-z]{1,2})-([0-9]+)([a-z]{0,2})/i', $this->filters['search'])->hasMatch()) {
+                    $result = Regex::match('/([a-z]{1,2})-([0-9]+)([a-z]{0,2})/i', $this->filters['search']);
+                    $prefix = $result->group(1);
+                    $uniqueId = $result->group(2);
+                    $suffix = ! empty($result->group(3)) ? $result->group(3) : null;
+                    $query->where('pcf_unique_id_prefix', $prefix)
+                        ->where('pcf_unique_id', $uniqueId)
+                        ->where('pcf_unique_id_suffix', $suffix);
+                } else {
+                    $query->where('name', 'LIKE', '%'.$this->filters['search'].'%')
+                        ->orWhereRelation(
+                            'values', 'value', 'LIKE', '%'.$this->filters['search'].'%'
+                        );
+                }
+            })
             ->when(array_key_exists('status', $this->filters) && $this->filters['status'], fn ($query, $status) => $query->where('enabled', $this->filters['status'] == 'on' ? 1 : 0))
             ->when(array_key_exists('needs', $this->filters) && $this->filters['needs'], function ($query, $status) {
                 $action = ActionType::query()->firstWhere('id', $this->filters['needs']);
