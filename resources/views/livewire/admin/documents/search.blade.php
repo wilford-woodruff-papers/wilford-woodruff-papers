@@ -172,20 +172,22 @@
                                 </x-admin.quotes.cell>
 
                                 <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">
-                                    <span class="text-cool-gray-900 whitespace-nowrap">{{ str($item->type?->name)->singular() }} </span>
+                                    <span class="text-cool-gray-900 whitespace-nowrap">
+                                        {{ str($item->type?->name)->singular() }}
+                                    </span>
                                 </x-admin.quotes.cell>
 
                                 <x-admin.quotes.cell class="sticky left-0 py-0 px-0 bg-gray-50 border border-gray-400">
                                     <div class="w-full h-full border-r-2 border-gray-400">
-                                        <div href="#" class="inline-flex py-4 px-6 space-x-2 text-sm leading-5 truncate">
+                                        <div href="#" class="py-4 px-6 space-x-2 text-sm leading-5">
                                             {{--<x-icon.cash class="text-cool-gray-400"/>--}}
 
-                                            <p class="flex gap-x-1 items-center text-cool-gray-600 truncate">
+                                            <p class="flex gap-x-1 items-center w-96 text-cool-gray-600">
                                                 <x-icon.status :status="$item->enabled"/>
-                                                <a class="font-medium text-indigo-600"
+                                                <a class="font-medium text-indigo-600 break-word"
                                                    href="{{ route('admin.dashboard.document', ['item' => $item]) }}"
                                                    target="_blank">
-                                                    {{ $item->name }}
+                                                    {{ str($item->name)->replace('_', ' ') }}
                                                 </a>
                                             </p>
                                         </div>
