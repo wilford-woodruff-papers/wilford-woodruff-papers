@@ -57,6 +57,7 @@ class ImportItemFromFtp implements ShouldQueue
             // Determine if the batch has been cancelled...
             return;
         }
+
         info('Importing: '.$this->item->name);
         $item = $this->item;
 
@@ -82,6 +83,7 @@ class ImportItemFromFtp implements ShouldQueue
                         ? $canvas['related'][0]['@id']
                         : '',
                     'is_blank' => in_array('markedBlank', array_values(data_get($canvas, 'service.pageStatus', []))),
+                    'imported_at' => now(),
                 ]);
 
                 if (! $page->hasMedia() || $this->download == 'true') {
@@ -138,7 +140,7 @@ class ImportItemFromFtp implements ShouldQueue
 
         $item->ftp_slug = str($response->json('related.0.@id'))->afterLast('/');
         $item->auto_page_count = $item->pages()->count();
-        $item->imported_at = now('America/Denver');
+        $item->imported_at = now();
 
         if ($this->enable == 'true') {
             if ($item->enabled != true) {

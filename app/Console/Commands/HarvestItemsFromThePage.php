@@ -108,6 +108,10 @@ class HarvestItemsFromThePage extends Command
                     // $document->pages()->delete();
                     ImportItemFromFtp::dispatch($document, false, true)
                         ->onQueue('pages');
+                } elseif (empty($document->imported_at) || (data_get($item, 'service.lastUpdated') > $document->imported_at)) {
+                    info('Importing updates for '.$document->name);
+                    ImportItemFromFtp::dispatch($document, false, true)
+                        ->onQueue('pages');
                 }
 
                 if (data_get($item, 'service.pctComplete', 0) == 100.0) {
