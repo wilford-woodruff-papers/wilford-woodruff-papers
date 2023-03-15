@@ -28,14 +28,14 @@ class Kernel extends ConsoleKernel
                  ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org')
                  ->pingOnSuccess('http://beats.envoyer.io/heartbeat/wc7wzwZhcB9Jfrk');
 
-        $schedule->command('import:pages')
+        /*$schedule->command('import:pages')
                  ->dailyAt('2:00 AM')
                  ->timezone('America/Denver')
                  ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org')
-                 ->pingOnSuccess('http://beats.envoyer.io/heartbeat/CdvYy969jSgJpsf');
+                 ->pingOnSuccess('http://beats.envoyer.io/heartbeat/CdvYy969jSgJpsf');*/
 
         $schedule->command('import:contributions')
-                 ->dailyAt('1:10 AM')
+                 ->dailyAt('2:10 AM')
                  ->timezone('America/Denver')
                  ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org')
                  ->pingOnSuccess('http://beats.envoyer.io/heartbeat/NBAuq5yMAJvwwS4');
