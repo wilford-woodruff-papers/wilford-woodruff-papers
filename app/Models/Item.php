@@ -279,6 +279,11 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
             ->where('publish_at', '>', now());
     }
 
+    public function getPublicNameAttribute()
+    {
+        return \Illuminate\Support\Str::of($this->name)->replaceMatches('/\[.*?\]/', '')->trim();
+    }
+
     public function getPcfUniqueIdFullAttribute()
     {
         return (! empty($this->pcf_unique_id_prefix)

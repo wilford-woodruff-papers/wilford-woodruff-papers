@@ -40,6 +40,10 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
+
+            Route::prefix('oai')
+                ->middleware('api')
+                ->group(base_path('routes/oai.php'));
         });
 
         Route::bind('item', function ($item) {
