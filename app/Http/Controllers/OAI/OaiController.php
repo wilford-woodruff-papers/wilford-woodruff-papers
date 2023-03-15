@@ -52,6 +52,7 @@ class OaiController extends Controller
                     }
 
                     $items = Item::query()
+                        ->where('enabled', true)
                         ->paginate($this->perPage, ['*'], 'page', (($cursor / $this->perPage) + 1));
 
                     $resumptionToken->increment('cursor', $this->perPage);
