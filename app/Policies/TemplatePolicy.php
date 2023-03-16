@@ -18,7 +18,7 @@ class TemplatePolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->hasAnyRole(['Super Admin']);
     }
 
     /**
@@ -30,7 +30,7 @@ class TemplatePolicy
      */
     public function view(User $user, Template $template)
     {
-        //
+        return $user->hasAnyRole(['Super Admin']);
     }
 
     /**

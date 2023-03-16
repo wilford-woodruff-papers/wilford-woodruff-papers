@@ -46,6 +46,7 @@ class NewDocument extends Component
             'Autobiographies' => 'A',
             'Daybooks' => 'DB',
             'Discourses' => 'D',
+            'Journals' => 'J',
             'Journal Sections' => 'J',
             'Letters' => 'LE',
         ];

@@ -30,7 +30,7 @@ class PropertyTemplatePolicy
      */
     public function view(User $user, PropertyTemplate $propertyTemplate)
     {
-        //
+        return $user->hasAnyRole(['Super Admin']);
     }
 
     /**
@@ -41,7 +41,7 @@ class PropertyTemplatePolicy
      */
     public function create(User $user)
     {
-        return false;
+        return $user->hasAnyRole(['Super Admin']);
     }
 
     /**
