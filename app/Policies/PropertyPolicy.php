@@ -18,7 +18,7 @@ class PropertyPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->hasAnyRole(['Admin']);
     }
 
     /**
@@ -30,7 +30,7 @@ class PropertyPolicy
      */
     public function view(User $user, Property $property)
     {
-        //
+        return $user->hasAnyRole(['Admin']);
     }
 
     /**
