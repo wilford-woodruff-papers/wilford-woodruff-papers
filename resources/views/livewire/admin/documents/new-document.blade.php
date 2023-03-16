@@ -101,7 +101,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="py-6 px-4 sm:p-6 lg:pb-8">
+                                <div class="py-6 px-4 sm:p-6 lg:pb-8 @if(empty($type) && ! empty(\App\Models\Type::query()->with('subType')->firstWhere('id', $type)->subType)) hidden @endif">
                                     <div>
                                         <label for="section_count" class="block text-sm font-medium text-gray-700">Create Sections</label>
                                         <input wire:model="section_count"
