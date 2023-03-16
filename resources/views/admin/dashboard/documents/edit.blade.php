@@ -155,7 +155,14 @@
                                     <input type="text" name="first-name" id="first-name" autocomplete="given-name" class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500">
                                 </div>--}}
 
-                                @foreach($item->type->template->properties as $property)
+                                @php
+                                    $template = $item->type->template;
+                                    if(! empty($item->type->type_id)) {
+                                        $template = $item->type->type->template;
+                                    }
+                                @endphp
+
+                                @foreach($template->properties as $property)
                                     <div class="col-span-{{ $property->width ?? 12 }}">
                                         @switch($property->type)
                                             @case('link')
