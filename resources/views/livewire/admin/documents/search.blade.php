@@ -1,5 +1,6 @@
 <div x-data="{
             shadow: false
+            perPage: @entagle('perPage'),
         }">
     <div class="grid grid-cols-12 gap-x-4">
         <div class="col-span-12 pr-8">
@@ -130,6 +131,14 @@
                             Name
                         </x-admin.quotes.heading>
 
+                        <x-admin.quotes.heading class="px-2 text-center whitespace-nowrap">
+                            Actual Page Count
+                        </x-admin.quotes.heading>
+
+                        <x-admin.quotes.heading class="px-2 text-center whitespace-nowrap">
+                            Estimated Page Count
+                        </x-admin.quotes.heading>
+
                         @foreach($columns->reject(function ($value, $key) {
                                     return str($value)->contains('Link');
                         }) as $column)
@@ -191,6 +200,18 @@
                                                 </a>
                                             </p>
                                         </div>
+                                    </div>
+                                </x-admin.quotes.cell>
+
+                                <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">
+                                    <div class="text-center whitespace-nowrap">
+                                        {{ $item->auto_page_count }}
+                                    </div>
+                                </x-admin.quotes.cell>
+
+                                <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">
+                                    <div class="text-center whitespace-nowrap">
+                                        {{ $item->manual_page_count }}
                                     </div>
                                 </x-admin.quotes.cell>
 
