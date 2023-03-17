@@ -17,6 +17,7 @@ class Exports extends Component
                 new NotifyUserOfCompletedExport($filename, auth()->user()),
             ]);
 
-        return view('livewire.admin.exports');
+        return view('livewire.admin.exports')
+            ->layout('layouts.admin');
     }
 }
