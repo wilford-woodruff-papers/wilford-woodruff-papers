@@ -36,12 +36,12 @@ class Exports extends Component
 
     public function export()
     {
-        if (! empty($this->report)) {
-            (new $this->report(auth()->user()))
-                ->store($filename = now('America/Denver')->toDateTimeString().'_'.str(class_basename($this->report))->lower().'.xlsx', 'exports')
+        if (! empty($this->export)) {
+            (new $this->export(auth()->user()))
+                ->store($filename = now('America/Denver')->toDateTimeString().'_'.str(class_basename($this->export))->lower().'.xlsx', 'exports')
                 ->onQueue('exports')
                 ->chain([
-                    new NotifyUserOfCompletedExport(class_basename($this->report), $filename, auth()->user()),
+                    new NotifyUserOfCompletedExport(class_basename($this->export), $filename, auth()->user()),
                 ]);
 
             $this->message = 'Export queued.';
