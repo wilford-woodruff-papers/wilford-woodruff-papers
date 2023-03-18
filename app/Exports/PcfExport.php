@@ -42,7 +42,7 @@ class PcfExport implements FromQuery, ShouldQueue, WithMapping, WithHeadings
     public function failed(\Throwable $exception): void
     {
         logger()->error($exception->getMessage());
-        $this->user->notify(new ExportFailedNotification($this->filename));
+        $this->user->notify(new ExportFailedNotification());
     }
 
     /**

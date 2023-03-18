@@ -11,11 +11,9 @@ class ExportFailedNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $filename;
-
-    public function __construct($filename)
+    public function __construct()
     {
-        $this->filename = $filename;
+        //
     }
 
     public function via($notifiable): array
