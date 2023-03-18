@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Models\Item;
+use App\Models\Page;
 use App\Models\User;
 use App\Notifications\ExportFailedNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -25,7 +25,7 @@ class PageExport implements FromQuery, ShouldQueue, WithMapping, WithHeadings
 
     public function query()
     {
-        return Item::query()
+        return Page::query()
             ->with([
                 'item',
             ]);
@@ -34,7 +34,7 @@ class PageExport implements FromQuery, ShouldQueue, WithMapping, WithHeadings
     public function failed(\Throwable $exception): void
     {
         logger()->error($exception->getMessage());
-        $this->user->notify(new ExportFailedNotification($this->filename));
+        $this->user->notify(new ExportFailedNotification());
     }
 
     public function headings(): array
