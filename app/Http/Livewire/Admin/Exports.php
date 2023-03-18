@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Exports\PageExport;
 use App\Exports\PcfExport;
 use App\Jobs\NotifyUserOfCompletedExport;
 use App\Models\Export;
@@ -16,6 +17,7 @@ class Exports extends Component
 
     public $reports = [
         PcfExport::class => 'PCF Export',
+        PageExport::class => 'Page Export',
     ];
 
     public $exports = [];
