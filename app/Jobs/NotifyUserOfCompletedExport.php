@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\Export;
 use App\Models\User;
 use App\Notifications\ExportReadyNotification;
 use Illuminate\Bus\Queueable;
@@ -14,6 +15,8 @@ class NotifyUserOfCompletedExport implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    public $name;
+
     public $filename;
 
     public $user;
@@ -23,8 +26,9 @@ class NotifyUserOfCompletedExport implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($filename, User $user)
+    public function __construct($name, $filename, User $user)
     {
+        $this->name = $name;
         $this->filename = $filename;
         $this->user = $user;
     }
@@ -36,6 +40,13 @@ class NotifyUserOfCompletedExport implements ShouldQueue
      */
     public function handle()
     {
+        Export::create([
+            'name' => $this->name,
+            'filename' => $this->filename,
+            'user_id' => $this->user->id,
+            'exported_at' => now('America/Denver'),
+        ]);
+
         $this->user->notify(new ExportReadyNotification($this->filename));
     }
 }
