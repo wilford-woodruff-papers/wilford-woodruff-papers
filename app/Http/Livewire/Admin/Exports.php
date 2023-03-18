@@ -11,7 +11,7 @@ use Livewire\Component;
 
 class Exports extends Component
 {
-    public $report = null;
+    public $export = null;
 
     public $message = '';
 
