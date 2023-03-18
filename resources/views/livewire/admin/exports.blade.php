@@ -29,13 +29,13 @@
         <div class="flex gap-12 items-center py-12">
             <div>
                 <div>
-                    <label for="report" class="block text-sm font-medium leading-6 text-gray-900 sr-only">Report</label>
+                    <label for="export" class="block text-sm font-medium leading-6 text-gray-900 sr-only">Export</label>
                     <select
-                        wire:model="report"
-                        id="report"
-                        name="report"
+                        wire:model="export"
+                        id="export"
+                        name="export"
                         class="block py-1.5 pr-10 pl-3 mt-2 w-full text-gray-900 rounded-md border-0 ring-1 ring-inset ring-gray-300 sm:text-sm sm:leading-6 focus:ring-2 focus:ring-indigo-600">
-                        <option value="">-- Select Report --</option>
+                        <option value="">-- Select Export --</option>
                         @foreach($reports as $key => $name)
                             <option value="{{ $key }}">{{ $name }}</option>
                         @endforeach
@@ -56,7 +56,7 @@
             <table class="min-w-full divide-y divide-gray-300">
                 <thead>
                     <tr>
-                        <th class="py-3.5 px-3 text-sm font-semibold text-left text-gray-900">Report Name</th>
+                        <th class="py-3.5 px-3 text-sm font-semibold text-left text-gray-900">Export Name</th>
                         <th class="py-3.5 px-3 text-sm font-semibold text-left text-gray-900">Date</th>
                         <th class="py-3.5 px-3 text-sm font-semibold text-left text-gray-900">Download Export</th>
                         <th class="py-3.5 px-3 text-sm font-semibold text-left text-gray-900">User</th>
