@@ -3,6 +3,8 @@
 namespace App\Exports;
 
 use App\Models\Item;
+use App\Models\User;
+use App\Notifications\ExportFailedNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromQuery;
@@ -12,6 +14,13 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 class PcfExport implements FromQuery, ShouldQueue, WithMapping, WithHeadings
 {
     use Exportable;
+
+    public $user;
+
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+    }
 
     public function query()
     {
@@ -33,6 +42,7 @@ class PcfExport implements FromQuery, ShouldQueue, WithMapping, WithHeadings
     public function failed(\Throwable $exception): void
     {
         logger()->error($exception->getMessage());
+        $this->user->notify(new ExportFailedNotification($this->filename));
     }
 
     /**
