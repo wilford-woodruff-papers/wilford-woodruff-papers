@@ -44,7 +44,7 @@
             x-on:click.outside="close($refs.button)"
             :id="$id('dropdown-button')"
             style="display: none;"
-            class="overflow-hidden absolute left-0 mt-2 w-40 bg-white rounded shadow-md"
+            class="overflow-hidden absolute left-0 z-50 mt-2 w-40 bg-white rounded shadow-md"
         >
             <div>
                 @foreach($links as $key => $link)
