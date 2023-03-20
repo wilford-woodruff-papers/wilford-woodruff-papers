@@ -14,6 +14,8 @@ class ConferenceController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return view('public.conference.summary-page');
+        return  app()->environment(['production'])
+            ? view('public.conference.landing-page')
+            : view('public.conference.summary-page');
     }
 }

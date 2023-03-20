@@ -11,46 +11,101 @@
             $(function(){
                 const imgs = [
                     {
+                        type: 'image',
                         description: '',
                         title: 'I Went Forward in Baptism',
                         url: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2FI-went-forward-in-baptism.jpg',
                         thumburl: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2FI-went-forward-in-baptism-thumb.jpg',
                     },
                     {
+                        type: 'image',
                         description: '',
                         title: 'Into',
                         url: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2Finto.jpg',
                         thumburl: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2Finto-thumb.jpg',
                     },
                     {
+                        type: 'image',
                         description: '',
                         title: 'Nauvoo Painting',
                         url: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2Fnauvoo-painting.jpg',
                         thumburl: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2Fnauvoo-painting-thumb.jpg',
                     },
                     {
+                        type: 'image',
                         description: '',
                         title: 'Ledbury Baptist Church',
                         url: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2Fledbury-baptist-church.jpg',
                         thumburl: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2Fledbury-baptist-church-thumb.jpg',
                     },
                     {
+                        type: 'image',
                         description: '',
                         title: 'Walking In Faith',
                         url: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2Fwalking-in-faith.jpg',
                         thumburl: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2Fwalking-in-faith-thumb.jpg',
                     },
                     {
+                        type: 'image',
                         description: '',
                         title: 'Wilford Picture of Faith',
                         url: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2Fwilford-picture-of-faith.jpg',
                         thumburl: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2Fwilford-picture-of-faith-thumb.jpg',
                     },
+                    {
+                        type: 'image',
+                        description: '',
+                        title: 'Seek Ye This Jesus',
+                        url: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2Fseek-ye-this-jesus.jpg',
+                        thumburl: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2Fseek-ye-this-jesus-thumb.jpg',
+                    },
+                    {
+                        type: 'pdf',
+                        description: '',
+                        title: 'The Ballad of 1841',
+                        url: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2FThe-Ballad-of-1841.pdf',
+                        thumburl: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2Fthe-ballad-of-1841-thumb.jpg',
+                    },
+                    {
+                        type: 'pdf',
+                        description: '',
+                        title: 'The Pile of Mysterious Shoes',
+                        url: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2FThe-Pile-of-Mysterious-Shoes.pdf',
+                        thumburl: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2Fthe-pile-of-mysterious-shoes-thumb.jpg',
+                    },
+                    {
+                        type: 'pdf',
+                        description: '',
+                        title: 'The Book of Wilford in Verse',
+                        url: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2FErin-Hills_The-Book-of-Wilford-in-Verse.pdf',
+                        thumburl: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2Fthe-book-of-wilford-in-verse-thmb.jpg',
+                    },
+                    {
+                        type: 'pdf',
+                        description: '',
+                        title: 'His Healing Touch',
+                        url: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2FHis-Healing-Touch.pdf',
+                        thumburl: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2Fhis-healing-touch-thumb.jpg',
+                    },
+                    {
+                        type: 'pdf',
+                        description: '',
+                        title: 'Prayer After Study',
+                        url: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2FPrayer-After-Study.pdf',
+                        thumburl: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2Fprayer-after-study-thumb.jpg',
+                    },
+                    {
+                        type: 'pdf',
+                        description: '',
+                        title: 'Eternity',
+                        url: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2FEternity.pdf',
+                        thumburl: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2Feternity-thumb.jpg',
+                    },
                 ]
 
                 $.each(imgs, function(i, img){
                     $('.gallery .contenedorImgs').append(`
-      <div class="image" style="background-image:url('${img.url}')">
+      <div class="image" style="background-image:url('${img.thumburl}')">
         <p class="name">${img.title}</p>
       </div>`
                     );
@@ -59,29 +114,48 @@
                     $('.gallery').addClass('vis');
                 }, 1000)
                 $('.gallery').on('click', '.contenedorImgs .image', function(){
-                    var image = imgs[$(this).index()].url;
+                    var type = imgs[$(this).index()].type;
+                    var url = imgs[$(this).index()].url;
                     var thumbnail = imgs[$(this).index()].thumburl;
                     var title = imgs[$(this).index()].title;
                     var description = imgs[$(this).index()].description;
                     $('.gallery').addClass('scale');
                     $(this).addClass('activa');
                     if(!$('.fullPreview').length){
-                        $('body').append(`
-        <div class="fullPreview">
-          <div class="cerrarModal"></div>
-          <div class="wrapper">
-            <div class="blur" style="background-image:url(${image})"></div>
-            <p class="title">${title}</p>
-            <img src="${thumbnail}">
-            <p class="desc">${description}</p>
-          </div>
-          <div class="controles">
-            <div class="control av"></div>
-            <div class="control ret"></div>
-          </div>
-        </div>`
-                        )
+                                $('body').append(`
+                                    <div class="fullPreview">
+                                      <div class="cerrarModal"></div>
+                                      <div class="wrapper">
+                                        <div class="blur" style="background-image:url(${thumbnail})"></div>
+                                        <p class="title">${title}</p>
+                                        <div class="viewer">
+                                            <img src="${url}"
+                                                 class="full-image"/>
+                                            <iframe
+                                                src="${url}"
+                                                class="hidden z-50 w-full border-0 iframe h-[900px]"
+                                            ></iframe>
+                                        </div>
+                                        <p class="desc">${description}</p>
+                                      </div>
+                                      <div class="controles">
+                                        <div class="control av"></div>
+                                        <div class="control ret"></div>
+                                      </div>
+                                    </div>`
+                                )
+
                         $('.fullPreview').fadeIn().css('display','flex');
+                        switch(type){
+                            case 'image':
+                                $('.full-image').fadeIn().css('display','block');
+                                $('.iframe').fadeOut().css('display','none');
+                                break;
+                            case 'pdf':
+                                $('.full-image').fadeOut().css('display','none');
+                                $('.iframe').fadeIn().css('display','block');
+                                break;
+                        }
                     }
                 })
                 $('body').on('click', '.fullPreview .cerrarModal', function(){
@@ -105,11 +179,23 @@
                     setTimeout(()=>{
                         $('.contenedorImgs .image.activa').removeClass('activa');
                         $('.contenedorImgs .image').eq(index).addClass('activa');
-                        $('.fullPreview').find('.blur').css('background-image', 'url('+imgs[index].url+')');
-                        $('.fullPreview').find('img').attr('src', imgs[index].url);
+                        $('.fullPreview').find('.blur').css('background-image', 'url('+imgs[index].thumburl+')');
                         $('.fullPreview').find('.title').text(imgs[index].title);
                         $('.fullPreview').find('.desc').text(imgs[index].description);
                         $('.fullPreview').removeClass('anim');
+                        var type = imgs[index].type;
+                        switch(type){
+                            case 'image':
+                                $('.fullPreview').find('img').attr('src', imgs[index].url);
+                                $('.full-image').fadeIn().css('display','block');
+                                $('.iframe').fadeOut().css('display','none');
+                                break;
+                            case 'pdf':
+                                $('.fullPreview').find('iframe').attr('src', imgs[index].url);
+                                $('.full-image').fadeOut().css('display','none');
+                                $('.iframe').fadeIn().css('display','block');
+                                break;
+                        }
                     }, 500)
                 })
             })
@@ -328,6 +414,18 @@
             .fullPreview .cerrarModal:after {
                 transform: rotate(-45deg);
             }
+            .fullPreview .wrapper .viewer {
+                padding-top: 50px;
+                display: flex;
+                flex-direction: column;
+                flex-wrap: nowrap;
+                align-items: center;
+                justify-content: center;
+                align-content: center;
+                width: 90%;
+                height: 90%;
+                position: relative;
+            }
             .fullPreview .wrapper {
                 display: flex;
                 flex-direction: column;
@@ -355,10 +453,10 @@
                 position: absolute;
                 top: 0;
                 left: 0;
-                color: transparent;
-                font-size: 100px;
-                -webkit-text-stroke: 1px #fff;
-                z-index: 1;
+                color: black;
+                font-size: 60px;
+                /*-webkit-text-stroke: 1px #fff;*/
+                z-index: 60;
                 transition: cubic-bezier(0.68, -0.55, 0.27, 1.55) all 0.5s 0.3s;
             }
             .fullPreview .wrapper img {
