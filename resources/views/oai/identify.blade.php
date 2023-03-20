@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/
          http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">
-    <responseDate>2002-02-08T12:00:01Z</responseDate>
+    <responseDate>{{ now()->toIso8601ZuluString() }}</responseDate>
     <request verb="Identify">http://memory.loc.gov/cgi-bin/oai</request>
     <Identify>
         <repositoryName>Wilford Woodruff Papers Foundation</repositoryName>

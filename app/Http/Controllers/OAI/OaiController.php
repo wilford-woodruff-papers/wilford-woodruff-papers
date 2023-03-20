@@ -29,7 +29,12 @@ class OaiController extends Controller
 
                 case 'GetRecord':
                     $item = Item::whereUuid(str(request('Identifier'))->replace('oai:', '')->toString())
-                        ->firstOrFail();
+                        ->firstOr(function () {
+                            return response()->view('oai.error', [
+                                'identifier' => request('Identifier'),
+                            ])
+                                ->header('Content-Type', 'text/xml');
+                        });
 
                     return response()->view('oai.record', ['item' => $item])
                         ->header('Content-Type', 'text/xml');
