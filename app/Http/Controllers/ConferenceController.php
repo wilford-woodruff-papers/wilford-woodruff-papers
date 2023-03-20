@@ -14,6 +14,6 @@ class ConferenceController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return view('public.conference.landing-page');
+        return view('public.conference.summary-page');
     }
 }
