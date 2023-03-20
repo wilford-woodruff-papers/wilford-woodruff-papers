@@ -39,6 +39,7 @@ class NewDocument extends Component
                 'Histories' => 'H',
                 'Legal' => 'L',
                 'Mission' => 'M',
+                'Personal' => 'I',
                 'Political/Government' => 'P',
                 'Temple' => 'T',
                 'Religious' => 'R',
