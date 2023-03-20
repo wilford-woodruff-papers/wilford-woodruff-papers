@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Page;
 use App\Models\Quote;
 use App\Models\Theme;
 use Illuminate\Http\Request;
@@ -13,14 +14,12 @@ class ThemeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, Page $page)
     {
         $quotes = Theme::query()
                         ->select('text');
 
-        if ($request->has('page')) {
-            $quotes = $quotes->where('page_id', $request->get('page'));
-        }
+        $quotes = $quotes->where('page_id', $page->id);
 
         return $quotes->get();
     }
