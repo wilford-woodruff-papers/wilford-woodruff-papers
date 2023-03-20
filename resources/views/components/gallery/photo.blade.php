@@ -1,7 +1,7 @@
 <div>
-    <section class="galeria">
+    <section class="gallery">
         <div class="container">
-            <h1 class="tit">Conference Art</h1>
+            <h2 class="font-sans text-4xl font-semibold tracking-wide text-white leading-[3.5rem]">Conference Art</h2>
             <div class="contenedorImgs"></div>
         </div>
     </section>
@@ -9,86 +9,71 @@
     @push('scripts')
         <script>
             $(function(){
-                const strL = 'https://images.unsplash.com/photo-';
-                const strR = '?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ';
                 const imgs = [
                     {
-                        descripcion: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-                        titulo: 'Happy',
-                        url: strL+'1544568100-847a948585b9'+strR,
+                        description: '',
+                        title: 'I Went Forward in Baptism',
+                        url: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2FI-went-forward-in-baptism.jpg',
+                        thumburl: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2FI-went-forward-in-baptism-thumb.jpg',
                     },
                     {
-                        descripcion: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-                        titulo: 'Pug Life',
-                        url: strL+'1517423440428-a5a00ad493e8'+strR,
+                        description: '',
+                        title: 'Into',
+                        url: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2Finto.jpg',
+                        thumburl: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2Finto-thumb.jpg',
                     },
                     {
-                        descripcion: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-                        titulo: 'I Love Flowers',
-                        url: strL+'1510771463146-e89e6e86560e'+strR,
+                        description: '',
+                        title: 'Nauvoo Painting',
+                        url: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2Fnauvoo-painting.jpg',
+                        thumburl: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2Fnauvoo-painting-thumb.jpg',
                     },
                     {
-                        descripcion: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-                        titulo: 'Cute Puppy',
-                        url: strL+'1507146426996-ef05306b995a'+strR,
+                        description: '',
+                        title: 'Ledbury Baptist Church',
+                        url: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2Fledbury-baptist-church.jpg',
+                        thumburl: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2Fledbury-baptist-church-thumb.jpg',
                     },
                     {
-                        descripcion: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-                        titulo: 'In the beach',
-                        url: strL+'1530281700549-e82e7bf110d6'+strR,
+                        description: '',
+                        title: 'Walking In Faith',
+                        url: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2Fwalking-in-faith.jpg',
+                        thumburl: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2Fwalking-in-faith-thumb.jpg',
                     },
                     {
-                        descripcion: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-                        titulo: 'Happy Friends',
-                        url: strL+'1548199973-03cce0bbc87b'+strR,
-                    },
-                    {
-                        descripcion: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-                        titulo: 'A Great Dog',
-                        url: strL+'1552053831-71594a27632d'+strR,
-                    },
-                    {
-                        descripcion: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-                        titulo: 'Universitary Dog',
-                        url: strL+'1535930891776-0c2dfb7fda1a'+strR,
-                    },
-                    {
-                        descripcion: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-                        titulo: 'I Love Brother',
-                        url: strL+'1504595403659-9088ce801e29'+strR,
-                    },
-                    {
-                        descripcion: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-                        titulo: 'I Want a Bone',
-                        url: strL+'1518717758536-85ae29035b6d'+strR,
+                        description: '',
+                        title: 'Wilford Picture of Faith',
+                        url: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2Fwilford-picture-of-faith.jpg',
+                        thumburl: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2Fwilford-picture-of-faith-thumb.jpg',
                     },
                 ]
 
                 $.each(imgs, function(i, img){
-                    $('.galeria .contenedorImgs').append(`
-      <div class="imagen" style="background-image:url('${img.url}')">
-        <p class="nombre">${img.titulo}</p>
+                    $('.gallery .contenedorImgs').append(`
+      <div class="image" style="background-image:url('${img.url}')">
+        <p class="name">${img.title}</p>
       </div>`
                     );
                 })
                 setTimeout(() => {
-                    $('.galeria').addClass('vis');
+                    $('.gallery').addClass('vis');
                 }, 1000)
-                $('.galeria').on('click', '.contenedorImgs .imagen', function(){
-                    var imagen = imgs[$(this).index()].url;
-                    var titulo = imgs[$(this).index()].titulo;
-                    var descripcion = imgs[$(this).index()].descripcion;
-                    $('.galeria').addClass('scale');
+                $('.gallery').on('click', '.contenedorImgs .image', function(){
+                    var image = imgs[$(this).index()].url;
+                    var thumbnail = imgs[$(this).index()].thumburl;
+                    var title = imgs[$(this).index()].title;
+                    var description = imgs[$(this).index()].description;
+                    $('.gallery').addClass('scale');
                     $(this).addClass('activa');
                     if(!$('.fullPreview').length){
                         $('body').append(`
         <div class="fullPreview">
           <div class="cerrarModal"></div>
           <div class="wrapper">
-            <div class="blur" style="background-image:url(${imagen})"></div>
-            <p class="titulo">${titulo}</p>
-            <img src="${imagen}">
-            <p class="desc">${descripcion}</p>
+            <div class="blur" style="background-image:url(${image})"></div>
+            <p class="title">${title}</p>
+            <img src="${thumbnail}">
+            <p class="desc">${description}</p>
           </div>
           <div class="controles">
             <div class="control av"></div>
@@ -100,14 +85,14 @@
                     }
                 })
                 $('body').on('click', '.fullPreview .cerrarModal', function(){
-                    $('.contenedorImgs .imagen.activa').removeClass('activa');
-                    $('.galeria').removeClass('scale');
+                    $('.contenedorImgs .image.activa').removeClass('activa');
+                    $('.gallery').removeClass('scale');
                     $(this).parent().fadeOut(function(){
                         $(this).remove();
                     })
                 })
                 $('body').on('click', '.fullPreview .control', function(){
-                    var activa = $('.contenedorImgs .imagen.activa');
+                    var activa = $('.contenedorImgs .image.activa');
                     var index;
                     if($(this).hasClass('av')){
                         index = activa.next().index();
@@ -118,12 +103,12 @@
                     }
                     $('.fullPreview').addClass('anim');
                     setTimeout(()=>{
-                        $('.contenedorImgs .imagen.activa').removeClass('activa');
-                        $('.contenedorImgs .imagen').eq(index).addClass('activa');
+                        $('.contenedorImgs .image.activa').removeClass('activa');
+                        $('.contenedorImgs .image').eq(index).addClass('activa');
                         $('.fullPreview').find('.blur').css('background-image', 'url('+imgs[index].url+')');
                         $('.fullPreview').find('img').attr('src', imgs[index].url);
-                        $('.fullPreview').find('.titulo').text(imgs[index].titulo);
-                        $('.fullPreview').find('.desc').text(imgs[index].descripcion);
+                        $('.fullPreview').find('.title').text(imgs[index].title);
+                        $('.fullPreview').find('.desc').text(imgs[index].description);
                         $('.fullPreview').removeClass('anim');
                     }, 500)
                 })
@@ -133,84 +118,84 @@
 
     @push('styles')
         <style>
-            @import url("https://fonts.googleapis.com/css?family=Rajdhani&display=swap");
-            body .galeria{
+            {{--@import url("https://fonts.googleapis.com/css?family=Rajdhani&display=swap");--}}
+            body .gallery{
                 margin: 0;
                 padding: 0;
             }
-            body .galeria * {
+            body .gallery * {
                 margin: 0;
                 padding: 0;
                 color: #1c1c1c;
                 box-sizing: border-box;
                 font-family: "Rajdhani", sans-serif;
             }
-            body .galeria * li, body .galeria * ul {
+            body .gallery * li, body .gallery * ul {
                 list-style-type: none;
             }
-            body .galeria * a {
+            body .gallery * a {
                 text-decoration: none;
             }
 
-            .galeria {
+            .gallery {
                 width: 100%;
                 margin: 0 auto;
                 background-color: #1c1c1c;
                 overflow: hidden;
             }
-            .galeria.vis .container h1, .galeria.vis .container h2 {
+            .gallery.vis .container h1, .gallery.vis .container h2 {
                 opacity: 1;
                 transform: none;
             }
-            .galeria.vis .container .h2 {
+            .gallery.vis .container .h2 {
                 transition-delay: 0.2s;
             }
-            .galeria.vis .container .contenedorImgs .imagen {
+            .gallery.vis .container .contenedorImgs .image {
                 opacity: 1;
                 transform: none;
             }
-            .galeria.vis .container .contenedorImgs .imagen:nth-child(1) {
+            .gallery.vis .container .contenedorImgs .image:nth-child(1) {
                 transition-delay: 0.1s;
             }
-            .galeria.vis .container .contenedorImgs .imagen:nth-child(2) {
+            .gallery.vis .container .contenedorImgs .image:nth-child(2) {
                 transition-delay: 0.2s;
             }
-            .galeria.vis .container .contenedorImgs .imagen:nth-child(3) {
+            .gallery.vis .container .contenedorImgs .image:nth-child(3) {
                 transition-delay: 0.3s;
             }
-            .galeria.vis .container .contenedorImgs .imagen:nth-child(4) {
+            .gallery.vis .container .contenedorImgs .image:nth-child(4) {
                 transition-delay: 0.4s;
             }
-            .galeria.vis .container .contenedorImgs .imagen:nth-child(5) {
+            .gallery.vis .container .contenedorImgs .image:nth-child(5) {
                 transition-delay: 0.5s;
             }
-            .galeria.vis .container .contenedorImgs .imagen:nth-child(6) {
+            .gallery.vis .container .contenedorImgs .image:nth-child(6) {
                 transition-delay: 0.6s;
             }
-            .galeria.vis .container .contenedorImgs .imagen:nth-child(7) {
+            .gallery.vis .container .contenedorImgs .image:nth-child(7) {
                 transition-delay: 0.7s;
             }
-            .galeria.vis .container .contenedorImgs .imagen:nth-child(8) {
+            .gallery.vis .container .contenedorImgs .image:nth-child(8) {
                 transition-delay: 0.8s;
             }
-            .galeria.vis .container .contenedorImgs .imagen:nth-child(9) {
+            .gallery.vis .container .contenedorImgs .image:nth-child(9) {
                 transition-delay: 0.9s;
             }
-            .galeria.vis .container .contenedorImgs .imagen:nth-child(10) {
+            .gallery.vis .container .contenedorImgs .image:nth-child(10) {
                 transition-delay: 1s;
             }
-            .galeria.scale .container {
+            .gallery.scale .container {
                 opacity: 0;
                 transform: scale(1.2);
             }
-            .galeria .container {
+            .gallery .container {
                 width: 90%;
-                min-height: 100vh;
+                /*min-height: 100vh;*/
                 margin: 0 auto;
                 padding: 50px 0;
                 transition: ease all 0.5s;
             }
-            .galeria .container h1, .galeria .container h2 {
+            .gallery .container h1, .gallery .container h2 {
                 opacity: 0;
                 color: #fff;
                 font-weight: 500;
@@ -220,10 +205,10 @@
                 transform: translateY(-30px);
                 transition: ease all 0.5s;
             }
-            .galeria .container h1 {
+            .gallery .container h1 {
                 font-size: 60px;
             }
-            .galeria .container .contenedorImgs {
+            .gallery .container .contenedorImgs {
                 display: flex;
                 flex-direction: row;
                 flex-wrap: wrap;
@@ -233,7 +218,7 @@
                 width: 100%;
                 margin-top: 30px;
             }
-            .galeria .container .contenedorImgs .imagen {
+            .gallery .container .contenedorImgs .image {
                 background-size: cover;
                 background-position: center;
                 background-repeat: no-repeat;
@@ -247,13 +232,13 @@
                 cursor: pointer;
                 transition: ease all 0.5s;
             }
-            .galeria .container .contenedorImgs .imagen:hover:before {
+            .gallery .container .contenedorImgs .image:hover:before {
                 opacity: 1;
             }
-            .galeria .container .contenedorImgs .imagen:hover .nombre {
+            .gallery .container .contenedorImgs .image:hover .name {
                 transform: none;
             }
-            .galeria .container .contenedorImgs .imagen:before {
+            .gallery .container .contenedorImgs .image:before {
                 content: "";
                 position: absolute;
                 top: 0;
@@ -264,14 +249,14 @@
                 background: linear-gradient(transparent, #fff);
                 transition: ease all 0.5s;
             }
-            .galeria .container .contenedorImgs .imagen .nombre {
+            .gallery .container .contenedorImgs .image .name {
                 position: absolute;
                 bottom: 0;
                 left: 0;
                 right: 0;
                 margin: 0 auto;
                 width: 90%;
-                color: #fff;
+                color: #000;
                 font-size: 30px;
                 text-align: center;
                 transform: translateY(100%);
@@ -295,7 +280,7 @@
                 background-color: rgba(28, 28, 28, 0.9);
                 z-index: 100;
             }
-            .fullPreview.anim .wrapper .titulo {
+            .fullPreview.anim .wrapper .title {
                 opacity: 0;
                 transform: translateX(-100px);
                 transition-delay: 0s;
@@ -366,7 +351,7 @@
                 filter: blur(40px);
                 transition: ease all 0.5s;
             }
-            .fullPreview .wrapper .titulo {
+            .fullPreview .wrapper .title {
                 position: absolute;
                 top: 0;
                 left: 0;
