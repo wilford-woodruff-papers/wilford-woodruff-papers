@@ -39,31 +39,29 @@
                                 </x-input.group>
                             </div>
 
-                            <div>
+                            {{--<div>
                                 <x-dropdown label="Bulk Actions">
-                                    {{--<x-dropdown.item type="button" wire:click="exportSelected" class="flex items-center space-x-2">
+                                    --}}{{--<x-dropdown.item type="button" wire:click="exportSelected" class="flex items-center space-x-2">
                                         <x-icon.download class="text-cool-gray-400"/> <span>Export</span>
-                                    </x-dropdown.item>--}}
+                                    </x-dropdown.item>--}}{{--
                                     @foreach($taskTypes as $taskType)
                                         <x-dropdown.item type="button" wire:click="addTasksInBulk({{ $taskType->id }})" class="flex items-center space-x-2">
-                                            {{--<x-icon.trash class="text-cool-gray-400"/>--}} <span>Add {{ $taskType->name }} Task</span>
+                                            --}}{{--<x-icon.trash class="text-cool-gray-400"/>--}}{{-- <span>Add {{ $taskType->name }} Task</span>
                                         </x-dropdown.item>
                                     @endforeach
 
                                 </x-dropdown>
-                            </div>
+                            </div>--}}
 
 
 
                             {{--<livewire:import-transactions />--}}
 
-                            @if(auth()->user()->hasAnyRole(['Super Admin']))
-                                <div class="py-2">
-                                    <a href="{{ route('admin.dashboard.document.create') }}"
-                                       class="py-2 px-4 text-white bg-indigo-600 border-indigo-600 hover:bg-indigo-500 active:bg-indigo-700"
-                                    ><x-icon.plus/> New</a>
-                                </div>
-                            @endif
+                            <div class="py-2">
+                                <a href="{{ route('admin.dashboard.document.create') }}"
+                                   class="py-2 px-4 text-white bg-indigo-600 border-indigo-600 hover:bg-indigo-500 active:bg-indigo-700"
+                                ><x-icon.plus/> New</a>
+                            </div>
                         </div>
                     </div>
 
@@ -194,7 +192,7 @@
                                             <p class="flex gap-x-1 items-center w-96 text-cool-gray-600">
                                                 <x-icon.status :status="$item->enabled"/>
                                                 <a class="font-medium text-indigo-600 break-word"
-                                                   href="{{ route('admin.dashboard.document', ['item' => $item]) }}"
+                                                   href="{{ route('admin.dashboard.document.edit', ['item' => $item]) }}"
                                                    target="_blank">
                                                     {{ str($item->name)->replace('_', ' ') }}
                                                 </a>

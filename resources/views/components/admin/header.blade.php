@@ -15,13 +15,16 @@
                     @if(auth()->user()->hasRole(\App\Models\Type::query()->whereNull('type_id')->pluck('name')->transform(function($type){ return $type . ' Supervisor'; })->all()))
                         <a href="{{ route('admin.dashboard.document.index') }}" class="px-3 py-2  @if(Route::currentRouteName() == 'admin.dashboard.document.index') text-indigo-600 @else text-gray-900 @endif text-sm font-medium"> Documents </a>
                     @endif
+                    @if(auth()->user()->hasAnyRole(['Researcher']))
+                        <a href="{{ route('admin.documents.search') }}" class="px-3 py-2  @if(Route::currentRouteName() == 'admin.documents.search') text-indigo-600 @else text-gray-900 @endif text-sm font-medium"> Research </a>
+                    @endif
                     @if(auth()->user()->hasAnyRole(['Quote Tagging', 'Approve Quotes', 'Admin', 'Super Admin']))
                         <x-admin.menu.dropdown :text="'QUOTES'" :links="['Needs Approval' => ['url' => route('admin.dashboard.quotes.index'), 'auth' => 'true'], 'Search' => ['url' => route('admin.quotes.search'), 'auth' => 'true']]"/>
                     @endif
                     <x-admin.menu.dropdown :text="'ADMIN'" :links="['Goals' => ['url' => route('admin.dashboard.goals.index'), 'auth' => auth()->user()->hasRole(\App\Models\Type::query()->whereNull('type_id')->pluck('name')->transform(function($type){ return $type . ' Supervisor'; })->all())], 'Exports' => ['url' => route('admin.exports'), 'auth' => auth()->user()->hasRole(\App\Models\Type::query()->whereNull('type_id')->pluck('name')->transform(function($type){ return $type . ' Supervisor'; })->all())],'Reporting' => ['url' => route('admin.reports.index'), 'auth' => auth()->user()->hasRole(\App\Models\Type::query()->whereNull('type_id')->pluck('name')->transform(function($type){ return $type . ' Supervisor'; })->all())], 'Progress Graphic' => ['url' => route('admin.reports.progress-graphic'), 'auth' => auth()->user()->hasRole(['Editor'])], 'Progress Matrix' => ['url' => route('admin.reports.progress-matrix'), 'auth' => auth()->user()->hasRole(\App\Models\Type::query()->whereNull('type_id')->pluck('name')->transform(function($type){ return $type . ' Supervisor'; })->all())], 'Objectives' => ['url' => route('admin.reports.objectives'), 'auth' => auth()->user()->hasRole(\App\Models\Type::query()->whereNull('type_id')->pluck('name')->transform(function($type){ return $type . ' Supervisor'; })->all())]]"/>
                 </nav>
             </div>
-            <div class="flex flex-1 justify-center items-center px-2 lg:justify-end lg:ml-6">
+            {{--<div class="flex flex-1 justify-center items-center px-2 lg:justify-end lg:ml-6">
                 <div class="w-full max-w-lg lg:max-w-xs">
                     <label for="search" class="sr-only">Search</label>
                     <div class="relative">
@@ -34,7 +37,7 @@
                         <input id="search" name="search" class="block py-2 pr-3 pl-10 w-full leading-5 placeholder-gray-500 bg-white rounded-md border border-gray-300 shadow-sm sm:text-sm focus:placeholder-gray-400 focus:border-blue-600 focus:ring-1 focus:ring-blue-600 focus:outline-none" placeholder="Search" type="search">
                     </div>
                 </div>
-            </div>
+            </div>--}}
 
             <x-admin.mobile-menu />
 
