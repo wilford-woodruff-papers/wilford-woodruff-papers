@@ -8,7 +8,7 @@
 
         <meta property="og:site_name" content="Wilford Woodruff Papers">
 
-        <x-open-graph-image::metatags title="{{ $title ?? null }}" />
+        <x-open-graph-image::metatags title="{{ str($title)->before('-')->trim() ?? null }}" />
 
         <meta property="og:description" content="Explore Wilford Woodruff's powerful eyewitness account of the Restoration">
         <meta property="og:type" content="website" />
