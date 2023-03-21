@@ -75,6 +75,11 @@ Route::get('/about/editorial-method', [\App\Http\Controllers\AboutController::cl
 Route::get('/about/frequently-asked-questions', [\App\Http\Controllers\AboutController::class, 'faqs'])->name('about.frequently-asked-questions');
 Route::get('/contact-us', [\App\Http\Controllers\AboutController::class, 'contact'])->name('contact-us');
 Route::get('/sitemap.xml', \App\Http\Controllers\SitemapController::class)->name('sitemap');
+Route::get('/opengraph', function () {
+    return view('open-graph-image::template', [
+        'title' => null,
+    ]);
+});
 
 if (app()->environment(['development', 'local'])) {
     Route::get('/search', [\App\Http\Controllers\LandingAreasController::class, 'search'])->name('landing-areas.search');
