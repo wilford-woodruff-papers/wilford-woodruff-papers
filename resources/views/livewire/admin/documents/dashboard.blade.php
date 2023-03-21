@@ -95,11 +95,11 @@
 
                     {{--<livewire:import-transactions />--}}
 
-                    @if(auth()->user()->hasAnyRole(['Super Admin']))
-                        <a href="{{ route('admin.dashboard.document.create') }}"
-                           class="py-2 px-4 text-white bg-indigo-600 border-indigo-600 hover:bg-indigo-500 active:bg-indigo-700"
-                        ><x-icon.plus/> New</a>
-                    @endif
+{{--                    @if(auth()->user()->hasAnyRole(['Super Admin']))--}}
+{{--                        <a href="{{ route('admin.dashboard.document.create') }}"--}}
+{{--                           class="py-2 px-4 text-white bg-indigo-600 border-indigo-600 hover:bg-indigo-500 active:bg-indigo-700"--}}
+{{--                        ><x-icon.plus/> New</a>--}}
+{{--                    @endif--}}
                 </div>
             </div>
             <div class="px-4 pt-2 pb-6">
