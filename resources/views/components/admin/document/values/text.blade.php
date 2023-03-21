@@ -1,10 +1,13 @@
-@if($label = $model->values->where('property.name', $value?->property?->name.' Link')->first())
-    <a href="{{ $value?->value }}"
+@if($link = $model->values->where('property.name', $value?->property?->name.' Link')->first())
+    <a href="{{ $link?->value }}"
        class="text-secondary"
        target="_blank"
+       title="{{ $value?->value }}"
     >
-    {{ $value->value }}
+        {{ str($value?->value)->limit(40, '...')->after('//')->before('/') }}
     </a>
 @else
-    {{ $value?->value }}
+    <div title="{{ strip_tags($value?->value) }}">
+        {{ str($value?->value)->limit(40, '...') }}
+    </div>
 @endif

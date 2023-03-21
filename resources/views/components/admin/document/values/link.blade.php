@@ -1,10 +1,11 @@
 <a href="{{ $value?->value }}"
    class="text-secondary"
    target="_blank"
+   title="{{ $value?->value }}"
 >
     @if($label = $model->values->where('property.name', str($value?->property?->name)->before(' Link'))->first())
-        {{ $label->value }}
+        {{ str($label?->value)->after('//')->before('/') }}
     @else
-        {{ $value?->value }}
+        {{ str($value?->value)->after('//')->before('/') }}
     @endif
 </a>
