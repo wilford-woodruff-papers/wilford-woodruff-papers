@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Vormkracht10\LaravelOpenGraphImage\Http\Controllers\LaravelOpenGraphImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -299,3 +300,9 @@ Route::group(['middleware' => ['role:Super Admin|Editor']], function () {
         ->get('/admin/exports', \App\Http\Livewire\Admin\Exports::class)
         ->name('admin.exports');
 });
+
+if (app()->environment('local')) {
+    Route::get('open-graph-image.jpg/preview', [LaravelOpenGraphImageController::class, '__invoke'])->name('open-graph-image.html');
+}
+
+Route::get('open-graph-image.jpg', [LaravelOpenGraphImageController::class, '__invoke'])->name('open-graph-image.file');
