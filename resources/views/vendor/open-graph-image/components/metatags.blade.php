@@ -5,10 +5,10 @@
 @endforeach
 
 <meta property="og:locale" content="en_US" />
-<link rel="image_src" href="{!! str(og($attributes))->replace('https://', '') !!}" />
-<meta property="og:image" content="{!! str(og($attributes))->replace('https://', '') !!}">
-<meta property="og:image:url" content="{!! str(og($attributes))->replace('https://', '') !!}">
-<meta property="og:image:secure_url" content="{!! str(og($attributes))->replace('https://', '') !!}" />
+<link rel="image_src" href="www.{!! str(og($attributes))->replace('https://', '') !!}" />
+<meta property="og:image" content="www.{!! str(og($attributes))->replace('https://', '') !!}">
+<meta property="og:image:url" content="www.{!! str(og($attributes))->replace('https://', '') !!}">
+<meta property="og:image:secure_url" content="www.{!! str(og($attributes))->replace('https://', '') !!}" />
 <meta property="og:image:type" content="image/{{ config('open-graph-image.image.extension') }}">
 <meta property="og:image:width" content="{{ config('open-graph-image.image.width') }}">
 <meta property="og:image:height" content="{{ config('open-graph-image.image.height') }}">
