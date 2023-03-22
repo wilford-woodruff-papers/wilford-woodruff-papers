@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "135e43db57577e8b1323e6602e04239a",
+    "content-hash": "eb18eb42417930d5f5b45f26caec905f",
     "packages": [
         {
             "name": "alexpechkarev/geometry-library",
@@ -14893,23 +14893,23 @@
         },
         {
             "name": "vormkracht10/laravel-open-graph-image",
-            "version": "v0.1.0",
+            "version": "v0.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vormkracht10/laravel-open-graph-image.git",
-                "reference": "82c6d837f725ad09112b04688ee4e7166dc94399"
+                "reference": "fc03b0442680d5137545f4a3aee8999a194f0d2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vormkracht10/laravel-open-graph-image/zipball/82c6d837f725ad09112b04688ee4e7166dc94399",
-                "reference": "82c6d837f725ad09112b04688ee4e7166dc94399",
+                "url": "https://api.github.com/repos/vormkracht10/laravel-open-graph-image/zipball/fc03b0442680d5137545f4a3aee8999a194f0d2e",
+                "reference": "fc03b0442680d5137545f4a3aee8999a194f0d2e",
                 "shasum": ""
             },
             "require": {
-                "illuminate/contracts": "^9.0",
+                "illuminate/contracts": "^9.0|^10.0",
                 "php": "^8.1",
                 "spatie/browsershot": "^3.57",
-                "spatie/laravel-package-tools": "^1.9.2"
+                "spatie/laravel-package-tools": "^1.14"
             },
             "require-dev": {
                 "laravel/pint": "^1.0",
@@ -14919,6 +14919,7 @@
                 "pestphp/pest": "^1.21",
                 "pestphp/pest-plugin-laravel": "^1.1",
                 "phpstan/extension-installer": "^1.1",
+                "phpstan/phpstan": "^1.9",
                 "phpstan/phpstan-deprecation-rules": "^1.0",
                 "phpstan/phpstan-phpunit": "^1.0",
                 "phpunit/phpunit": "^9.5",
@@ -14964,9 +14965,9 @@
             ],
             "support": {
                 "issues": "https://github.com/vormkracht10/laravel-open-graph-image/issues",
-                "source": "https://github.com/vormkracht10/laravel-open-graph-image/tree/v0.1.0"
+                "source": "https://github.com/vormkracht10/laravel-open-graph-image/tree/v0.3.1"
             },
-            "time": "2022-09-09T11:06:25+00:00"
+            "time": "2023-02-12T17:08:19+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -15141,7 +15142,7 @@
         },
         {
             "name": "wwp/items",
-            "version": "dev-main",
+            "version": "dev-hotfix/update-vormkracht10/laravel-open-graph-image",
             "dist": {
                 "type": "path",
                 "url": "./nova-components/Items",
