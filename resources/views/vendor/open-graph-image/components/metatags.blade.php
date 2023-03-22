@@ -5,10 +5,10 @@
 @endforeach
 
 <meta property="og:locale" content="en_US" />
-<link rel="image_src" href="{!! og($attributes) !!}" />
-<meta property="og:image" content="{!! og($attributes) !!}">
-<meta property="og:image:url" content="{!! og($attributes) !!}">
-<meta property="og:image:secure_url" content="{!! og($attributes) !!}" />
+<link rel="image_src" href="{{ og($attributes) }}" />
+<meta property="og:image" content="{{ og($attributes) }}">
+<meta property="og:image:url" content="{{ og($attributes) }}">
+<meta property="og:image:secure_url" content="{{ og($attributes) }}" />
 <meta property="og:image:type" content="image/{{ config('open-graph-image.image.extension') }}">
 <meta property="og:image:width" content="{{ config('open-graph-image.image.width') }}">
 <meta property="og:image:height" content="{{ config('open-graph-image.image.height') }}">
