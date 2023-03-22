@@ -10,8 +10,8 @@ return [
 
     // The cache location to use.
     'storage' => [
-        'disk' => 'public',
-        'path' => 'social/open-graph',
+        'disk' => 'open-graph',
+        'path' => 'social',
     ],
 
     // Whether to use the browse URL instead of the HTML input.
