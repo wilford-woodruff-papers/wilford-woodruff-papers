@@ -2,7 +2,7 @@
 
 return [
     'image' => [
-        'extension' => 'jpg',
+        'extension' => 'jpeg',
         'quality' => 100,
         'width' => 1200,
         'height' => 630,
