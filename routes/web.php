@@ -306,3 +306,5 @@ if (app()->environment('local')) {
 }
 
 Route::get('open-graph-image.jpg', [LaravelOpenGraphImageController::class, '__invoke'])->name('open-graph-image.file');
+
+Route::view('test-og-image', 'public.test');
