@@ -62,7 +62,7 @@
         "syrian-open-source/laravel-youtube-iframe-generator": "^1.1",
         "unisharp/laravel-filemanager": "^2.4",
         "vinkla/hashids": "^10.0",
-        "vormkracht10/laravel-open-graph-image": "^0.3.0",
+        "vormkracht10/laravel-open-graph-image": "dev-main",
         "wildside/userstamps": "^2.2",
         "wire-elements/modal": "^1.0",
         "wwp/items": "*"
@@ -148,6 +148,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/bernhardh/laravel-nova-date-range-filter.git"
+        },
+        {
+            "type": "path",
+            "url": "./laravel-open-graph-image"
         }
     ]
 }
