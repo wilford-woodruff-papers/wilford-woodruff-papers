@@ -30,6 +30,7 @@
                                 class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-500 focus:ring-indigo-500"
                         >
                             <option value="">-- Select Stage --</option>
+                            <option value="4">Stage 4</option>
                             <option value="3">Stage 3</option>
                             <option value="2">Stage 2</option>
                             <option value="1">Stage 1</option>
