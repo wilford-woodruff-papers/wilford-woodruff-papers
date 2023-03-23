@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b1569680b5a6d9a25d709e8423145aea",
+    "content-hash": "f87eb9620af9c330737690f1ea2101ef",
     "packages": [
         {
             "name": "alexpechkarev/geometry-library",
@@ -14893,11 +14893,17 @@
         },
         {
             "name": "vormkracht10/laravel-open-graph-image",
-            "version": "dev-main",
+            "version": "v0.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vormkracht10/laravel-open-graph-image.git",
+                "reference": "fc03b0442680d5137545f4a3aee8999a194f0d2e"
+            },
             "dist": {
-                "type": "path",
-                "url": "./laravel-open-graph-image",
-                "reference": "c22ea123c6e350bb886c1fc97e4bf295a3a1e34c"
+                "type": "zip",
+                "url": "https://api.github.com/repos/vormkracht10/laravel-open-graph-image/zipball/fc03b0442680d5137545f4a3aee8999a194f0d2e",
+                "reference": "fc03b0442680d5137545f4a3aee8999a194f0d2e",
+                "shasum": ""
             },
             "require": {
                 "illuminate/contracts": "^9.0|^10.0",
@@ -14931,33 +14937,15 @@
                 }
             },
             "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
                 "psr-4": {
                     "Vormkracht10\\LaravelOpenGraphImage\\": "src",
                     "Vormkracht10\\LaravelOpenGraphImage\\Database\\Factories\\": "database/factories"
-                },
-                "files": [
-                    "src/helpers.php"
-                ]
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Vormkracht10\\LaravelOpenGraphImage\\Tests\\": "tests"
                 }
             },
-            "scripts": {
-                "analyse": [
-                    "vendor/bin/phpstan analyse"
-                ],
-                "test": [
-                    "vendor/bin/pest"
-                ],
-                "test-coverage": [
-                    "vendor/bin/pest --coverage"
-                ],
-                "format": [
-                    "vendor/bin/pint"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -14975,9 +14963,11 @@
                 "laravel-open-graph-image",
                 "vormkracht10"
             ],
-            "transport-options": {
-                "relative": true
-            }
+            "support": {
+                "issues": "https://github.com/vormkracht10/laravel-open-graph-image/issues",
+                "source": "https://github.com/vormkracht10/laravel-open-graph-image/tree/v0.3.1"
+            },
+            "time": "2023-02-12T17:08:19+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -15152,7 +15142,7 @@
         },
         {
             "name": "wwp/items",
-            "version": "dev-hotfix/apply-forked-og-image-repo",
+            "version": "dev-main",
             "dist": {
                 "type": "path",
                 "url": "./nova-components/Items",
@@ -16832,8 +16822,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "pos-lifestyle/laravel-nova-date-range-filter": 20,
-        "vormkracht10/laravel-open-graph-image": 20
+        "pos-lifestyle/laravel-nova-date-range-filter": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

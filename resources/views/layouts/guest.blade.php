@@ -10,7 +10,7 @@
 
         <meta property="og:site_name" content="Wilford Woodruff Papers">
 
-        <x-open-graph-image::metatags title="{{ str($title ?? null)->before('|')->replaceMatches('/\[.*?\]/', '')->trim() }}" />
+        <x-open-graph-image::metatags title="{{ str($title ?? null)->before('|')->replaceMatches('/\[.*?\]/', '')->replace(' ', '_')->trim() }}" />
 
         <meta property="og:description" content="Explore Wilford Woodruff's powerful eyewitness account of the Restoration">
         <meta property="og:type" content="website" />

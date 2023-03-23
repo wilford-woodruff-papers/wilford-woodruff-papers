@@ -45,7 +45,7 @@
             <div class="grid grid-cols-2 gap-x-8">
                 <div>
                     <img src="{{ asset('img/image-logo.png') }}" alt="Wilford Woodruff Papers Foundation" class="w-full h-auto">
-                    @if(! empty($title))
+                    @if(! empty($title = str($title)->replace('_', ' ')->trim()))
                         <h1 class="mt-6 font-bold text-white uppercase text-[32px]">{!! html_entity_decode($title) !!}</h1>
                     @endif
                     <div class="inline-block px-6 py-3 @if(! empty($title)) mt-12 @else mt-20 @endif text-[24px] font-semibold text-[#FFFFFF] bg-[#B4A677]">Read More</div>
