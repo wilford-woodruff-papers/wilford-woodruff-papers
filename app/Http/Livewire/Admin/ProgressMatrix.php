@@ -32,7 +32,7 @@ class ProgressMatrix extends Component
 
     public $users;
 
-    public $stage = 3;
+    public $stage = 4;
 
     public $typesMap = [
         'Letters' => ['Letters'],
@@ -281,6 +281,11 @@ class ProgressMatrix extends Component
                 $this->dates = [
                     'start' => '2022-03-01',
                     'end' => '2023-02-28',
+                ];
+            case 4:
+                $this->dates = [
+                    'start' => '2023-03-01',
+                    'end' => '2024-02-29',
                 ];
                 break;
         }
