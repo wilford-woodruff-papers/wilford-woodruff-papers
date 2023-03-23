@@ -22,7 +22,7 @@
     <meta property="og:description" content="Explore Wilford Woodruff's powerful eyewitness account of the Restoration">
     <meta property="og:type" content="website" />
 
-    <meta property="og:url" content="https://wilfordwoodruffpapers.org/documents/58a8d8f5-bf47-4fb4-b8be-ad7d4ad7fd8d/page/ca2c614f-fef0-49b7-89f0-ef376f4b4c20">
+    <meta property="og:url" content="https://wilfordwoodruffpapers.org/test-og-image">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="description" content="Explore Wilford Woodruff's powerful eyewitness account of the Restoration"/>
     <meta name="keywords" content="Wilford Woodruff, Restoration, Prophet, The Church of Jesus Christ of Latter-day Saints"/>
