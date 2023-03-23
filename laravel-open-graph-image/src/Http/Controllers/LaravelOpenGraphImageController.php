@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
-use Intervention\Image\Image;
 use Spatie\Browsershot\Browsershot;
 
 class LaravelOpenGraphImageController
@@ -125,10 +124,8 @@ class LaravelOpenGraphImageController
 
     public function getOpenGraphImageResponse($filename)
     {
-        /*return response($this->getStorageFileData($filename), 200, [
+        return response($this->getStorageFileData($filename), 200, [
             'Content-Type' => 'image/'.$this->getImageType(),
-        ]);*/
-
-        return Image::make($this->getStorageFileData($filename))->response();
+        ]);
     }
 }
