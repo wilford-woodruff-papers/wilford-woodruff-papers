@@ -221,6 +221,10 @@ Route::group(['middleware' => ['role:Super Admin|Editor']], function () {
         ->name('admin.quotes.search');
 
     Route::middleware(['auth:sanctum', 'verified'])
+        ->get('/admin/search/people', App\Http\Livewire\Admin\People\Search::class)
+        ->name('admin.people.search');
+
+    Route::middleware(['auth:sanctum', 'verified'])
         ->get('/admin/dashboard/quotes/{quote}', [\App\Http\Controllers\Admin\QuoteController::class, 'show'])
         ->name('admin.dashboard.quotes.show');
 
