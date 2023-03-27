@@ -21,7 +21,19 @@ Copy .env file to the root or your project directory
 
 To make sure the packages are correct for the docker version of PHP run composer again
 
-```composer install```
+```sail composer install```
+
+## Install Node Modules
+
+```npm install```
+
+Assets are compiled using Lasso during deployment. To compile assets locally, run one of the following:
+
+```
+npm run dev
+npm run watch
+npm run prod
+```
 
 ## Import the sample database
 
@@ -29,7 +41,6 @@ To make sure the packages are correct for the docker version of PHP run composer
 ## Edit hosts file
 
 OSX ```sudo nano /private/etc/hosts```
-
 
 
 ## About Laravel
