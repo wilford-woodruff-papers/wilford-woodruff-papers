@@ -15,7 +15,7 @@
                     @if(auth()->user()->hasRole(\App\Models\Type::query()->whereNull('type_id')->pluck('name')->transform(function($type){ return $type . ' Supervisor'; })->all()))
                         <a href="{{ route('admin.dashboard.document.index') }}" class="px-3 py-2  @if(Route::currentRouteName() == 'admin.dashboard.document.index') text-indigo-600 @else text-gray-900 @endif text-sm font-medium"> Documents </a>
                     @endif
-                    @if(auth()->user()->hasAnyRole(['Researcher']))
+                    @if(auth()->user()->hasAnyRole(['Researcher', 'Super Admin']))
                         <a href="{{ route('admin.documents.search') }}" class="px-3 py-2  @if(Route::currentRouteName() == 'admin.documents.search') text-indigo-600 @else text-gray-900 @endif text-sm font-medium"> Research </a>
                     @endif
                     @if(auth()->user()->hasAnyRole(['Quote Tagging', 'Approve Quotes', 'Admin', 'Super Admin']))

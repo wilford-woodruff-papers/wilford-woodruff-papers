@@ -63,27 +63,17 @@ class ImportDaybooksMasterFileAction implements ShouldQueue
         if (empty($item->name)) {
             $item->name = data_get($this->row, 'name');
         }
-        if (empty($item->category)) {
-            $item->category = data_get($this->row, 'category');
-        }
 
         $item->save();
 
         $map = [
             'Notes' => 'notes',
-            'Source' => 'collection_link_to_source',
+            'Source' => 'document_collection_link_to_source',
             'Source Link' => 'source_link',
             'Access Needed From CHL (Y/N)' => 'access_needed_from_chl_yn',
             'File Format' => 'file_format',
             'Doc Date' => 'date_originally_created',
-            'WW Journals' => 'link_to_ww_journals',
-            'WW Journals Link' => 'journals_link',
             'Description' => 'brief_document_description',
-            'Occasion' => 'occasion',
-            'Location' => 'specific_building_place',
-            'City' => 'city',
-            'County' => 'county',
-            'State' => 'state',
         ];
 
         $template = Template::query()
