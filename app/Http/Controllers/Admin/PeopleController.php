@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Subject;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class PeopleController extends Controller
 {
@@ -77,7 +78,11 @@ class PeopleController extends Controller
     public function update(Request $request, Subject $person)
     {
         $validated = $request->validate([
-            'name' => 'required|max:255',
+            'name' => [
+                'required',
+                'max:255',
+                Rule::unique('subjects', 'slug')->ignore($person->id, 'id'),
+            ],
         ]);
 
         $person->fill($validated);
@@ -86,7 +91,7 @@ class PeopleController extends Controller
 
         $request->session()->flash('success', 'Person updated successfully!');
 
-        return redirect()->back();
+        return redirect()->route('admin.dashboard.people.edit', ['person' => $person->slug]);
     }
 
     /**
