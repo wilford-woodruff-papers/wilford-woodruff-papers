@@ -19,8 +19,8 @@ class Update extends Model implements HasMedia
 
     protected $guarded = ['id'];
 
-    protected $dates = [
-        'publish_at',
+    protected $casts = [
+        'publish_at' => 'datetime',
     ];
 
     protected $childTypes = [

@@ -15,9 +15,9 @@ class Search extends Component
 
     public $search = null;
 
-    public $dates = [
-        'start' => null,
-        'end' => null,
+    protected $casts = [
+        'start' => null => 'datetime',
+        'end' => null => 'datetime',
     ];
 
     protected $queryString = [
