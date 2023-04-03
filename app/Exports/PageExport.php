@@ -64,7 +64,7 @@ class PageExport implements FromQuery, ShouldQueue, WithMapping, WithHeadings
     {
         return [
             $page->id,
-            optional($page->parent?->type)->name,
+            $page->parent?->type?->name,
             $page->parent_item_id,
             $page->order,
             $page->parent?->name,
