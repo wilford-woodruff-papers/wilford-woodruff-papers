@@ -39,7 +39,7 @@ class NewPages extends Value
      *
      * @return array
      */
-    public function ranges()
+    public function ranges(): array
     {
         return [-1 => 'All Item Types'] + Type::orderBy('name', 'ASC')->pluck('name', 'id')->all();
     }
@@ -59,7 +59,7 @@ class NewPages extends Value
      *
      * @return string
      */
-    public function uriKey()
+    public function uriKey(): string
     {
         return 'new-pages';
     }

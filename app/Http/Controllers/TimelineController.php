@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\View\View;
 use App\Models\Event;
 use Illuminate\Support\Facades\DB;
 
@@ -12,7 +13,7 @@ class TimelineController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): View
     {
         $events = Event::query()
                             ->with('photos', 'pages.parent')

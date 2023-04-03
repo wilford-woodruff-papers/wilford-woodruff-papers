@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use JeffersonSimaoGoncalves\NovaPermission\Nova\Fields\RoleBooleanGroup;
 use Laravel\Nova\Fields\BelongsTo;
@@ -44,7 +45,7 @@ class Type extends Resource
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public static function indexQuery(NovaRequest $request, $query)
+    public static function indexQuery(NovaRequest $request, Builder $query): Builder
     {
         return $query->orderBy('name');
     }
@@ -54,7 +55,7 @@ class Type extends Resource
      *
      * @return array
      */
-    public function fields(Request $request)
+    public function fields(Request $request): array
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
@@ -70,7 +71,7 @@ class Type extends Resource
      *
      * @return array
      */
-    public function cards(Request $request)
+    public function cards(Request $request): array
     {
         return [];
     }
@@ -80,7 +81,7 @@ class Type extends Resource
      *
      * @return array
      */
-    public function filters(Request $request)
+    public function filters(Request $request): array
     {
         return [];
     }
@@ -90,7 +91,7 @@ class Type extends Resource
      *
      * @return array
      */
-    public function lenses(Request $request)
+    public function lenses(Request $request): array
     {
         return [];
     }
@@ -100,7 +101,7 @@ class Type extends Resource
      *
      * @return array
      */
-    public function actions(Request $request)
+    public function actions(Request $request): array
     {
         return [];
     }

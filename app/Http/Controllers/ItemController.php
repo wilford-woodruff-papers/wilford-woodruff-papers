@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\View\View;
 use App\Models\Date;
 use App\Models\Item;
 use App\Models\Page;
@@ -17,7 +18,7 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         $decades = DB::table('items')
                         ->select('decade', DB::raw('count(*) as total'))
@@ -91,7 +92,7 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function dates(Request $request, $year = null, $month = null)
+    public function dates(Request $request, $year = null, $month = null): View
     {
         $months = null;
         $pages = null;
@@ -160,7 +161,7 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(Item $item)
+    public function show(Item $item): View
     {
         $pages = Page::with(['dates', 'subjects', 'parent'])
                         ->withCount('quotes')
@@ -181,7 +182,7 @@ class ItemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function transcript(Item $item)
+    public function transcript(Item $item): View
     {
         $pages = Page::query()
                         ->where('parent_item_id', $item->id)

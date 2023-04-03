@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use App\Models\Item;
 use App\Models\Type;
@@ -15,7 +16,7 @@ class SupervisorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): View
     {
         $users = User::query()
                         /*->has('pending_actions')*/

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\OAI;
 
+use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Models\Item;
 use App\Models\OaiToken;
@@ -11,7 +12,7 @@ class OaiController extends Controller
 {
     private $perPage = 20;
 
-    public function __invoke()
+    public function __invoke(): Response
     {
         if (request('resumptionToken')) {
             $resumptionToken = OaiToken::query()

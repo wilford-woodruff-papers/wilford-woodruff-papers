@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\View\View;
 use App\Models\Announcement;
 
 class AnnouncementController extends Controller
@@ -11,7 +12,7 @@ class AnnouncementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): View
     {
         return view('announcements.index', [
             'announcements' => Announcement::paginate(15),
@@ -23,7 +24,7 @@ class AnnouncementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(Announcement $announcement)
+    public function show(Announcement $announcement): View
     {
         return view('announcements.show', [
             'announcement' => $announcement,

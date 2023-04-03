@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\View\View;
 use App\Models\Update;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,7 @@ class UpdateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         return view('public.updates.index', [
             'updates' => Update::query()
@@ -28,7 +29,7 @@ class UpdateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Update $update)
+    public function show(Request $request, Update $update): View
     {
         return view('public.updates.show', [
             'update' => $update,

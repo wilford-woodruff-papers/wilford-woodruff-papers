@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\View\View;
 use App\Models\Testimonial;
 
 class TestimonialController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         $featured = Testimonial::query()
                                 ->whereFeatured(1)

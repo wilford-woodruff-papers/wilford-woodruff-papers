@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\View\View;
 use App\Models\PartnerCategory;
 
 class ParterController extends Controller
@@ -11,7 +12,7 @@ class ParterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): View
     {
         return view('public.partners.index', [
             'partnerCategories' => PartnerCategory::query()

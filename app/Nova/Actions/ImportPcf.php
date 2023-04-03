@@ -61,7 +61,7 @@ class ImportPcf extends Action
      *
      * @return array
      */
-    public function fields()
+    public function fields(): array
     {
         return [
             Select::make('Type')

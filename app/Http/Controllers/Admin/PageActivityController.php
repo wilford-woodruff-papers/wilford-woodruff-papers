@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use App\Models\Action;
 use App\Models\ActionType;
@@ -20,7 +21,7 @@ class PageActivityController extends Controller
         'Daybooks' => ['Daybooks'],
     ];
 
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): View
     {
         $typeIds = Type::query()->whereIn('name', $this->typesMap[$request->get('type')])->pluck('id')->toArray();
         $actionTypeId = ActionType::query()->firstWhere('name', $request->get('activity'))->id;

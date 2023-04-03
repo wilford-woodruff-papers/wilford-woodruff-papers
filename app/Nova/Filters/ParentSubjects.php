@@ -2,6 +2,7 @@
 
 namespace App\Nova\Filters;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Laravel\Nova\Filters\Filter;
 
@@ -23,7 +24,7 @@ class ParentSubjects extends Filter
      * @param  mixed  $value
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function apply(Request $request, $query, $value)
+    public function apply(Request $request, Builder $query, $value): Builder
     {
         if ($value != 1) {
         } else {
@@ -41,7 +42,7 @@ class ParentSubjects extends Filter
      *
      * @return array
      */
-    public function options(Request $request)
+    public function options(Request $request): array
     {
         return [
             'No' => 0,

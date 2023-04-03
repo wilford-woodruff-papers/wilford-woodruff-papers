@@ -35,7 +35,7 @@ class ImportPhotos extends Action
      *
      * @return array
      */
-    public function fields()
+    public function fields(): array
     {
         return [
             File::make('File')->rules('required'),
@@ -47,7 +47,7 @@ class ImportPhotos extends Action
      *
      * @return void
      */
-    public function validateFields(ActionRequest $request)
+    public function validateFields(ActionRequest $request): void
     {
         $fields = collect($this->fields());
 
@@ -73,7 +73,7 @@ class ImportPhotos extends Action
      * @param  \Illuminate\Validation\Validator  $validator
      * @return void
      */
-    protected function afterValidation(NovaRequest $request, $validator)
+    protected function afterValidation(NovaRequest $request, Illuminate\Validation\Validator $validator): void
     {
         //
     }

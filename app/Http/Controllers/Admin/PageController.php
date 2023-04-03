@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use App\Models\Item;
 use App\Models\Page;
@@ -44,7 +45,7 @@ class PageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(Item $item, Page $page)
+    public function show(Item $item, Page $page): View
     {
         $page->load('actions', 'actions.assignee', 'actions.finisher', 'activities');
 

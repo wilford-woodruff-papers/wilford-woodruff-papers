@@ -35,7 +35,7 @@ class ImportBiographies extends Action
      *
      * @return array
      */
-    public function fields()
+    public function fields(): array
     {
         return [
             File::make('File')->rules('required'),

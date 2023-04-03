@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\View\View;
 use App\Models\Subject;
 use App\Models\Wife;
 use Illuminate\Http\Request;
@@ -13,12 +14,12 @@ class PeopleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): View
     {
         return view('public.people');
     }
 
-    public function family()
+    public function family(): View
     {
         return view('public.family', [
             'wives' => Wife::with('person', 'children')->get(),

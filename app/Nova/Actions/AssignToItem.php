@@ -35,7 +35,7 @@ class AssignToItem extends Action
      *
      * @return array
      */
-    public function fields()
+    public function fields(): array
     {
         return [
             Number::make('Item ID', 'item'),

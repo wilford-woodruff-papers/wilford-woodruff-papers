@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\View\View;
 use App\Models\Press;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): View
     {
         return view('home', [
             'article' => Press::where('type', 'Article')->latest()->first(),

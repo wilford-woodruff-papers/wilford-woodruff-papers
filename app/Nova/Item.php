@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Illuminate\Database\Eloquent\Builder;
 use App\Nova\Actions\AssignDocumentType;
 use App\Nova\Actions\AssignToItem;
 use App\Nova\Actions\Enable;
@@ -60,7 +61,7 @@ class Item extends Resource
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public static function indexQuery(NovaRequest $request, $query)
+    public static function indexQuery(NovaRequest $request, Builder $query): Builder
     {
         if (empty($request->get('orderBy'))) {
             $query->getQuery()->orders = [];
@@ -78,7 +79,7 @@ class Item extends Resource
      *
      * @return array
      */
-    public function fields(Request $request)
+    public function fields(Request $request): array
     {
         return [
             Boolean::make('Enabled')->sortable(),
@@ -117,7 +118,7 @@ class Item extends Resource
      *
      * @return array
      */
-    public function cards(Request $request)
+    public function cards(Request $request): array
     {
         return [];
     }
@@ -127,7 +128,7 @@ class Item extends Resource
      *
      * @return array
      */
-    public function filters(Request $request)
+    public function filters(Request $request): array
     {
         return [
             new Status,
@@ -141,7 +142,7 @@ class Item extends Resource
      *
      * @return array
      */
-    public function lenses(Request $request)
+    public function lenses(Request $request): array
     {
         return [];
     }
@@ -151,7 +152,7 @@ class Item extends Resource
      *
      * @return array
      */
-    public function actions(Request $request)
+    public function actions(Request $request): array
     {
         $actions = [
             new AssignDocumentType,
