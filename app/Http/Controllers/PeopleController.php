@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\View\View;
 use App\Models\Subject;
 use App\Models\Wife;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class PeopleController extends Controller
 {

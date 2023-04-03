@@ -2,7 +2,6 @@
 
 namespace App\Nova;
 
-use Illuminate\Database\Eloquent\Builder;
 use App\Nova\Actions\AssignDocumentType;
 use App\Nova\Actions\AssignToItem;
 use App\Nova\Actions\Enable;
@@ -12,6 +11,7 @@ use App\Nova\Actions\ImportItems;
 use App\Nova\Actions\ImportPages;
 use App\Nova\Actions\PcfActions;
 use App\Nova\Filters\Status;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;

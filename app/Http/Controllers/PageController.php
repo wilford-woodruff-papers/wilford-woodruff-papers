@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\View\View;
 use App\Models\Item;
 use App\Models\Page;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\View\View;
 
 class PageController extends Controller
 {

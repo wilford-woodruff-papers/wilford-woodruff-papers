@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\View\View;
 use App\Models\Event;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 class TimelineController extends Controller
 {

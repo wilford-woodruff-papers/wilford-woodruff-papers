@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use Dymantic\InstagramFeed\Profile;
+use Illuminate\Http\RedirectResponse;
 
 class InstagramAuthController extends Controller
 {

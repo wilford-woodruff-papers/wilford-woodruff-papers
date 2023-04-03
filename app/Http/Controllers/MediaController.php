@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\View\View;
 use App\Models\Article;
 use App\Models\News;
 use App\Models\Photo;
@@ -11,6 +10,7 @@ use App\Models\Press;
 use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 class MediaController extends Controller
 {

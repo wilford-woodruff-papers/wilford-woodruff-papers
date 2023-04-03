@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use App\Models\Item;
 use App\Models\Page;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class PageController extends Controller
 {

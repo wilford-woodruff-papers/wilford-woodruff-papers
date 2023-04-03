@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\View\View;
 use App\Models\PartnerCategory;
+use Illuminate\View\View;
 
 class ParterController extends Controller
 {

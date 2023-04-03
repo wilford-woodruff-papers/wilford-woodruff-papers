@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use App\Models\Action;
 use App\Models\ActionType;
 use App\Models\Page;
 use App\Models\Type;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class PageActivityController extends Controller
 {

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use App\Models\Item;
 use App\Models\Type;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\View\View;
 
 class SupervisorController extends Controller
 {

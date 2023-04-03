@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\View\View;
 use App\Models\Faq;
 use App\Models\Team;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class AboutController extends Controller
 {

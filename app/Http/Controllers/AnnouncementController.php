@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\View\View;
 use App\Models\Announcement;
+use Illuminate\View\View;
 
 class AnnouncementController extends Controller
 {

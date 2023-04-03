@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Response;
 use App\Models\Item;
 use App\Models\Press;
 use App\Models\Subject;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class SitemapController extends Controller
 {
