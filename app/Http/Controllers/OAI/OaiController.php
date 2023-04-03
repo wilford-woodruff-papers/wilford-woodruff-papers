@@ -72,7 +72,6 @@ class OaiController extends Controller
                         'cursor' => $cursor,
                     ])
                         ->header('Content-Type', 'text/xml');
-
             }
         }
     }

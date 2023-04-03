@@ -146,7 +146,6 @@ class Event extends Model implements HasMedia
                 return 'Nov';
             case 12:
                 return 'Dec';
-
         }
     }
 }

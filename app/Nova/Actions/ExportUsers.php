@@ -8,9 +8,6 @@ use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 
 class ExportUsers extends DownloadExcel implements WithMapping, WithHeadings
 {
-    /**
-     * @return array
-     */
     public function headings(): array
     {
         return [
@@ -21,10 +18,6 @@ class ExportUsers extends DownloadExcel implements WithMapping, WithHeadings
         ];
     }
 
-    /**
-     * @param $item
-     * @return array
-     */
     public function map($item): array
     {
         $item->load(['roles']);

@@ -84,7 +84,6 @@ class ImportPublishDateFromPcfAction implements ShouldQueue
                 $this->dateColumn = 'published_on_website';
                 $unique_identifier_prefix = str($unique_identifier)->before('-');
                 break;
-
         }
 
         $type = Type::firstWhere('name', $this->type);

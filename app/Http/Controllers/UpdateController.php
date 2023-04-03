@@ -26,7 +26,6 @@ class UpdateController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Update  $update
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, Update $update)

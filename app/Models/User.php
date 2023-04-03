@@ -81,10 +81,6 @@ class User extends Authenticatable
                     ->whereNull('completed_at');
     }
 
-    /**
-     * @param  ImpersonateAuthorization  $authorization
-     * @return void
-     */
     public function impersonatable(ImpersonateAuthorization $authorization): void
     {
         $authorization->impersonator(function (User $user) {

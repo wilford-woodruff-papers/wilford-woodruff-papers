@@ -20,7 +20,6 @@ class AddSubscriberToConvertKit
     /**
      * Handle the event.
      *
-     * @param  \App\Events\ContactFormSubmitted  $event
      * @return void
      */
     public function handle(ContactFormSubmitted $event)
