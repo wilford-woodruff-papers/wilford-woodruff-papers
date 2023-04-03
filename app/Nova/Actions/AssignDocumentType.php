@@ -10,6 +10,7 @@ use Illuminate\Support\Collection;
 use Laravel\Nova\Actions\Action;
 use Laravel\Nova\Fields\ActionFields;
 use Laravel\Nova\Fields\Select;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
 class AssignDocumentType extends Action
 {
@@ -33,7 +34,7 @@ class AssignDocumentType extends Action
     /**
      * Get the fields available on the action.
      */
-    public function fields(): array
+    public function fields(NovaRequest $request): array
     {
         return [
             Select::make('Document Type')->options(

@@ -43,7 +43,7 @@ class ImportPhotos extends Action
     /**
      * Validate the given request.
      */
-    public function validateFields(ActionRequest $request): void
+    public function validateFields(ActionRequest $request)
     {
         $fields = collect($this->fields());
 

@@ -9,6 +9,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Artisan;
 use Laravel\Nova\Actions\Action;
 use Laravel\Nova\Fields\ActionFields;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
 class ImportItems extends Action
 {
@@ -31,7 +32,7 @@ class ImportItems extends Action
     /**
      * Get the fields available on the action.
      */
-    public function fields(): array
+    public function fields(NovaRequest $request): array
     {
         return [
 

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\User;
+use App\Nova\Dashboards\Main;
 use App\Nova\Metrics\NewPages;
 use App\Nova\Metrics\PublishedItems;
 use Illuminate\Support\Facades\Gate;
@@ -17,6 +18,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function boot(): void
     {
         parent::boot();
+
+        Nova::withBreadcrumbs();
 
         $this->app->register(\Parental\Providers\NovaResourceProvider::class);
     }
@@ -60,7 +63,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      */
     protected function dashboards(): array
     {
-        return [];
+        return [
+            new Main(),
+        ];
     }
 
     /**
@@ -69,7 +74,6 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function tools(): array
     {
         return [
-            \ChrisWare\NovaBreadcrumbs\NovaBreadcrumbs::make(),
             \JeffersonSimaoGoncalves\NovaPermission\NovaPermissionTool::make(),
         ];
     }

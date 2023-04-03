@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Artisan;
 use Laravel\Nova\Actions\Action;
 use Laravel\Nova\Fields\ActionFields;
 use Laravel\Nova\Fields\Number;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
 class AssignToItem extends Action
 {
@@ -33,7 +34,7 @@ class AssignToItem extends Action
     /**
      * Get the fields available on the action.
      */
-    public function fields(): array
+    public function fields(NovaRequest $request): array
     {
         return [
             Number::make('Item ID', 'item'),

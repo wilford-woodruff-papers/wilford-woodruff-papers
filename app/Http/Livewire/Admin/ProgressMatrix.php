@@ -14,9 +14,9 @@ use Livewire\Component;
 
 class ProgressMatrix extends Component
 {
-    protected $casts = [
-        'start' => null => 'datetime',
-        'end' => null => 'datetime',
+    protected $dates = [
+        'start' => null,
+        'end' => null,
     ];
 
     protected $queryString = [

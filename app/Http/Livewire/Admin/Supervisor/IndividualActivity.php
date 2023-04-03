@@ -12,9 +12,9 @@ use Livewire\Component;
 
 class IndividualActivity extends Component
 {
-    protected $casts = [
-        'start' => null => 'datetime',
-        'end' => null => 'datetime',
+    protected $dates = [
+        'start' => null,
+        'end' => null,
     ];
 
     protected $queryString = [
