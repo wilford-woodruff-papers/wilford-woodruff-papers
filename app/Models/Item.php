@@ -202,7 +202,7 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
         return $this->morphMany(Action::class, 'actionable')
             ->where(
                 'actionable_type',
-                'App\Models\Item'
+                \App\Models\Item::class
             )->where('assigned_to', auth()->id())
             ->whereNull('completed_at');
     }
@@ -212,7 +212,7 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
         return $this->morphMany(Action::class, 'actionable')
             ->where(
                 'actionable_type',
-                'App\Models\Item'
+                \App\Models\Item::class
             )->where('assigned_to', $userId)
             ->whereNull('completed_at')
             ->get();
@@ -236,7 +236,7 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
         return $this->hasManyThrough(Action::class, Page::class, 'item_id', 'actionable_id')
             ->where(
                 'actionable_type',
-                'App\Models\Page'
+                \App\Models\Page::class
             );
     }
 
@@ -245,7 +245,7 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
         return $this->hasManyThrough(Action::class, Page::class, 'item_id', 'actionable_id')
             ->where(
                 'actionable_type',
-                'App\Models\Page'
+                \App\Models\Page::class
             )
             ->where('assigned_to', auth()->id())
             ->whereNull('completed_at');
@@ -256,7 +256,7 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
         return $this->hasManyThrough(Action::class, Page::class, 'item_id', 'actionable_id')
             ->where(
                 'actionable_type',
-                'App\Models\Page'
+                \App\Models\Page::class
             )
             ->where('assigned_to', $userId)
             ->whereNull('completed_at')

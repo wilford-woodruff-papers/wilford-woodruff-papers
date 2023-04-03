@@ -75,7 +75,7 @@ class HarvestItemsFromThePage extends Command
 
             if (empty($document)) {
                 $document = new Item();
-                $document->parental_type = 'App\Models\Document';
+                $document->parental_type = \App\Models\Document::class;
 
                 $identifier = data_get($item, 'metadata.0.value');
 

@@ -94,7 +94,7 @@ class UpdateLetterFromPcfAction implements ShouldQueue
 
         $action = Action::query()
             ->where('action_type_id', $actionType->id)
-            ->where('actionable_type', 'App\Models\Item')
+            ->where('actionable_type', \App\Models\Item::class)
             ->where('actionable_id', $document->id)
             ->first();
 
@@ -124,7 +124,7 @@ class UpdateLetterFromPcfAction implements ShouldQueue
 
         $action = Action::query()
             ->where('action_type_id', $actionType->id)
-            ->where('actionable_type', 'App\Models\Item')
+            ->where('actionable_type', \App\Models\Item::class)
             ->where('actionable_id', $document->id)
             ->first();
 
@@ -154,7 +154,7 @@ class UpdateLetterFromPcfAction implements ShouldQueue
 
         $action = Action::query()
             ->where('action_type_id', $actionType->id)
-            ->where('actionable_type', 'App\Models\Item')
+            ->where('actionable_type', \App\Models\Item::class)
             ->where('actionable_id', $document->id)
             ->first();
 
@@ -184,7 +184,7 @@ class UpdateLetterFromPcfAction implements ShouldQueue
 
         $action = Action::query()
             ->where('action_type_id', $actionType->id)
-            ->where('actionable_type', 'App\Models\Item')
+            ->where('actionable_type', \App\Models\Item::class)
             ->where('actionable_id', $document->id)
             ->first();
 
@@ -214,7 +214,7 @@ class UpdateLetterFromPcfAction implements ShouldQueue
 
         $action = Action::query()
             ->where('action_type_id', $actionType->id)
-            ->where('actionable_type', 'App\Models\Item')
+            ->where('actionable_type', \App\Models\Item::class)
             ->where('actionable_id', $document->id)
             ->first();
 
@@ -245,7 +245,7 @@ class UpdateLetterFromPcfAction implements ShouldQueue
 
         $action = Action::query()
             ->where('action_type_id', $actionType->id)
-            ->where('actionable_type', 'App\Models\Item')
+            ->where('actionable_type', \App\Models\Item::class)
             ->where('actionable_id', $document->id)
             ->first();
 

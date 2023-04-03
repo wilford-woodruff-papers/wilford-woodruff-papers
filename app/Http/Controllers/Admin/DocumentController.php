@@ -50,9 +50,9 @@ class DocumentController extends Controller
         $item->fill($validated);
 
         if ($request->get('section_count') > 0) {
-            $item->parental_type = 'App\Models\Set';
+            $item->parental_type = \App\Models\Set::class;
         } else {
-            $item->parental_type = 'App\Models\Document';
+            $item->parental_type = \App\Models\Document::class;
         }
 
         $item->save();
@@ -84,7 +84,7 @@ class DocumentController extends Controller
         if ($request->get('section_count') > 0) {
             for ($i = 1; $i <= $request->integer('section_count'); $i++) {
                 $section = new Item;
-                $section->parental_type = 'App\Models\Document';
+                $section->parental_type = \App\Models\Document::class;
                 $section->name = $item->name.' Section '.$i;
                 $section->item_id = $item->id;
                 $section->type_id = $type->subType?->id;
