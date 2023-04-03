@@ -14,8 +14,6 @@ class AcceptTermsOfUseController extends Controller
 {
     /**
      * Show form.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function show(): View
     {
@@ -28,8 +26,6 @@ class AcceptTermsOfUseController extends Controller
 
     /**
      * Process form.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function submit(Request $request): RedirectResponse
     {

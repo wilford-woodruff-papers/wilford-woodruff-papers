@@ -19,8 +19,6 @@ class AddSubscriberToConvertKit
 
     /**
      * Handle the event.
-     *
-     * @return void
      */
     public function handle(ContactFormSubmitted $event): void
     {

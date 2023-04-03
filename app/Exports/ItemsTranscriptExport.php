@@ -12,9 +12,6 @@ class ItemsTranscriptExport implements FromCollection
         $this->items = $items;
     }
 
-    /**
-     * @return \Illuminate\Support\Collection
-     */
     public function collection(): Collection
     {
         return $this->items;

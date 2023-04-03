@@ -57,9 +57,6 @@ class Item extends Resource
 
     /**
      * Build an "index" query for the given resource.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
      */
     public static function indexQuery(NovaRequest $request, Builder $query): Builder
     {
@@ -76,8 +73,6 @@ class Item extends Resource
 
     /**
      * Get the fields displayed by the resource.
-     *
-     * @return array
      */
     public function fields(Request $request): array
     {
@@ -115,8 +110,6 @@ class Item extends Resource
 
     /**
      * Get the cards available for the request.
-     *
-     * @return array
      */
     public function cards(Request $request): array
     {
@@ -125,8 +118,6 @@ class Item extends Resource
 
     /**
      * Get the filters available for the resource.
-     *
-     * @return array
      */
     public function filters(Request $request): array
     {
@@ -139,8 +130,6 @@ class Item extends Resource
 
     /**
      * Get the lenses available for the resource.
-     *
-     * @return array
      */
     public function lenses(Request $request): array
     {
@@ -149,8 +138,6 @@ class Item extends Resource
 
     /**
      * Get the actions available for the resource.
-     *
-     * @return array
      */
     public function actions(Request $request): array
     {

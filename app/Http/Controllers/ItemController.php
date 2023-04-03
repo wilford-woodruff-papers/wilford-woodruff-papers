@@ -15,8 +15,6 @@ class ItemController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index(Request $request): View
     {
@@ -89,8 +87,6 @@ class ItemController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function dates(Request $request, $year = null, $month = null): View
     {
@@ -158,8 +154,6 @@ class ItemController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function show(Item $item): View
     {
@@ -179,8 +173,6 @@ class ItemController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function transcript(Item $item): View
     {

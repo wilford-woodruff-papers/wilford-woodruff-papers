@@ -36,8 +36,6 @@ class NewPages extends Value
 
     /**
      * Get the ranges available for the metric.
-     *
-     * @return array
      */
     public function ranges(): array
     {
@@ -56,8 +54,6 @@ class NewPages extends Value
 
     /**
      * Get the URI key for the metric.
-     *
-     * @return string
      */
     public function uriKey(): string
     {

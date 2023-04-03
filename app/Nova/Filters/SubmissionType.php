@@ -18,9 +18,7 @@ class SubmissionType extends Filter
     /**
      * Apply the filter to the given query.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @param  mixed  $value
-     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function apply(Request $request, Builder $query, $value): Builder
     {
@@ -29,8 +27,6 @@ class SubmissionType extends Filter
 
     /**
      * Get the filter's available options.
-     *
-     * @return array
      */
     public function options(Request $request): array
     {

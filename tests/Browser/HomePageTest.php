@@ -13,8 +13,6 @@ class HomePageTest extends DuskTestCase
 
     /**
      * A Dusk test example.
-     *
-     * @return void
      */
     public function testBasicElements(): void
     {

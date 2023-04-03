@@ -24,8 +24,6 @@ class FacebookLoginController extends Controller
 
     /**
      * Obtain the user information from Google.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function handleProviderCallback(): RedirectResponse
     {

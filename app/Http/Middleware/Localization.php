@@ -14,8 +14,6 @@ class Localization
 
     /**
      * Handle an incoming request.
-     *
-     * @return mixed
      */
     public function handle(Request $request, Closure $next): Response
     {

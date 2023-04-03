@@ -32,8 +32,6 @@ class ImportPhotos extends Action
 
     /**
      * Get the fields available on the action.
-     *
-     * @return array
      */
     public function fields(): array
     {
@@ -44,8 +42,6 @@ class ImportPhotos extends Action
 
     /**
      * Validate the given request.
-     *
-     * @return void
      */
     public function validateFields(ActionRequest $request): void
     {
@@ -69,9 +65,6 @@ class ImportPhotos extends Action
 
     /**
      * Handle any post-validation processing.
-     *
-     * @param  \Illuminate\Validation\Validator  $validator
-     * @return void
      */
     protected function afterValidation(NovaRequest $request, Illuminate\Validation\Validator $validator): void
     {
