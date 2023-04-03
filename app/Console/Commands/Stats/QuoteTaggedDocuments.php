@@ -39,7 +39,7 @@ class QuoteTaggedDocuments extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         // Store quote count
         $quoteCount = Quote::query()

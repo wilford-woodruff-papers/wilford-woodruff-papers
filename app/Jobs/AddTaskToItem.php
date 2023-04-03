@@ -35,7 +35,7 @@ class AddTaskToItem implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $actionType = ActionType::firstWhere('name', $this->taskName);
 

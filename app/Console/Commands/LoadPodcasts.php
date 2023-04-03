@@ -36,7 +36,7 @@ class LoadPodcasts extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $podcasts = $this->getPodcasts();
         foreach ($podcasts as $key => $podcast) {

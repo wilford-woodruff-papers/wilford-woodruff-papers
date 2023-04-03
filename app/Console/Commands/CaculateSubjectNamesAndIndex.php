@@ -26,7 +26,7 @@ class CaculateSubjectNamesAndIndex extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         Subject::chunkById(100, function ($subjects) {
             foreach ($subjects as $subject) {

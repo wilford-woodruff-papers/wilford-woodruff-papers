@@ -36,7 +36,7 @@ class LoadVideos extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $videos = $this->getVideos();
         foreach ($videos as $key => $video) {

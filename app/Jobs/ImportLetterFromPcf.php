@@ -40,7 +40,7 @@ class ImportLetterFromPcf implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $actionTypes = ActionType::all();
         $letterType = Type::firstWhere('name', 'Letters');

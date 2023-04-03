@@ -35,7 +35,7 @@ class ImportLettersMasterFileAction implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         if (empty($uniqueID = data_get($this->row, 'unique_identifier'))) {
             info('No ID');

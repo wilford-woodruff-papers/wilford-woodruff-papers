@@ -22,7 +22,7 @@ class AddSubscriberToConvertKit
      *
      * @return void
      */
-    public function handle(ContactFormSubmitted $event)
+    public function handle(ContactFormSubmitted $event): void
     {
         Http::post('https://api.convertkit.com/v3/forms/'.$event->formId.'/subscribe', [
             'api_key' => config('convertkit.api_key'),

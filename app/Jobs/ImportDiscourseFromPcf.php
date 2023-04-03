@@ -40,7 +40,7 @@ class ImportDiscourseFromPcf implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $actionTypes = ActionType::all();
         $type = Type::firstWhere('name', 'Discourses');

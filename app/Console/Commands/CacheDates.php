@@ -36,7 +36,7 @@ class CacheDates extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $items = Item::doesntHave('items')->get();
         $items->each(function ($item) {

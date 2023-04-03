@@ -33,7 +33,7 @@ class ImportNewLettersFromPcfAction implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         if (! empty(data_get($this->row, str('Uploaded to FTP')->lower()->snake()->toString()))) {
             info(data_get($this->row, str('Unique Identifier')->lower()->snake()->toString()).' exists in FTP');

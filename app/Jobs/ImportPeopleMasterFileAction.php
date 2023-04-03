@@ -32,7 +32,7 @@ class ImportPeopleMasterFileAction implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         if (empty(trim($this->row['name_in_ftp']))) {
             return;

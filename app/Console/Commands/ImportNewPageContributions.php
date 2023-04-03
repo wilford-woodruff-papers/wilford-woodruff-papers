@@ -29,7 +29,7 @@ class ImportNewPageContributions extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         // Todo: Set start and end times
         $start = now('America/Denver')->subHours(24)->tz('UTC');

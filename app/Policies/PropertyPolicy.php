@@ -15,7 +15,7 @@ class PropertyPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+    public function viewAny(User $user): bool
     {
         return $user->hasAnyRole(['Admin']);
     }
@@ -25,7 +25,7 @@ class PropertyPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Property $property)
+    public function view(User $user, Property $property): bool
     {
         return $user->hasAnyRole(['Admin']);
     }
@@ -35,7 +35,7 @@ class PropertyPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user)
+    public function create(User $user): bool
     {
         return $user->hasAnyRole(['Admin']);
     }
@@ -45,7 +45,7 @@ class PropertyPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Property $property)
+    public function update(User $user, Property $property): bool
     {
         return $user->hasAnyRole(['Admin']);
     }
@@ -55,7 +55,7 @@ class PropertyPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Property $property)
+    public function delete(User $user, Property $property): bool
     {
         return $user->hasAnyRole(['Super Admin']);
     }
@@ -65,7 +65,7 @@ class PropertyPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Property $property)
+    public function restore(User $user, Property $property): bool
     {
         //
     }
@@ -75,7 +75,7 @@ class PropertyPolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Property $property)
+    public function forceDelete(User $user, Property $property): bool
     {
         //
     }

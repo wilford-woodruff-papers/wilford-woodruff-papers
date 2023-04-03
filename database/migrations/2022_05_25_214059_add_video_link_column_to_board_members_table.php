@@ -11,7 +11,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('board_members', function (Blueprint $table) {
             $table->string('video_link')->nullable();
@@ -23,7 +23,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('board_members', function (Blueprint $table) {
             $table->dropColumn('video_link');

@@ -31,7 +31,7 @@ class OrderPages implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $items = Item::query()
             ->whereNull('item_id')

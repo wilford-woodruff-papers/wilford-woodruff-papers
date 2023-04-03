@@ -16,7 +16,7 @@ class HomePageTest extends DuskTestCase
      *
      * @return void
      */
-    public function testBasicElements()
+    public function testBasicElements(): void
     {
         $this->browse(function (Browser $browser) {
             $browser->visit(new HomePage);

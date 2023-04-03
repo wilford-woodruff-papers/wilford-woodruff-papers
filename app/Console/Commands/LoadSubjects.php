@@ -37,7 +37,7 @@ class LoadSubjects extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         Excel::import(new SubjectImport, storage_path('app/fromthepage_subject_details.csv'));
 

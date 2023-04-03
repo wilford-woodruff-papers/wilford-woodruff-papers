@@ -9,7 +9,7 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('dymantic_instagram_basic_profiles', function (Blueprint $table) {
             $table->increments('id');
@@ -22,7 +22,7 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('dymantic_instagram_basic_profiles');
     }

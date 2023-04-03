@@ -9,7 +9,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('items', function (Illuminate\Database\Schema\Blueprint $table) {
             $table->integer('missing_page_count')
@@ -22,7 +22,7 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('items', function (Illuminate\Database\Schema\Blueprint $table) {
             $table->dropColumn('missing_page_count');

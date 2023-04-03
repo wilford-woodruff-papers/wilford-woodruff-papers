@@ -13,7 +13,7 @@ class ImportInstagramFeedCommand extends Command
 
     protected $description = 'Add new instagram posts to ponder feed';
 
-    public function handle()
+    public function handle(): void
     {
         $profile = \Dymantic\InstagramFeed\Profile::for('wilford_woodruff_papers');
         $feed = $profile?->refreshFeed(200);

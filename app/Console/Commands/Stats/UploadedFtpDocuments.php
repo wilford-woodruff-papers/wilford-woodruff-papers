@@ -37,7 +37,7 @@ class UploadedFtpDocuments extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $now = now()->subMonth();
 

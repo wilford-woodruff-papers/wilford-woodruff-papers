@@ -30,7 +30,7 @@ class ReleaseDependantActions implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         foreach ($this->action->type->dependentActionTypes as $actionType) {
             if (class_basename($this->action->actionable) == 'Item') {

@@ -36,7 +36,7 @@ class LoadFaqs extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $faqs = $this->getFaqs();
         foreach ($faqs as $key => $faq) {

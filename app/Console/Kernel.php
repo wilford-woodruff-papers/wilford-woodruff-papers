@@ -12,7 +12,7 @@ class Kernel extends ConsoleKernel
      *
      * @return void
      */
-    protected function schedule(Schedule $schedule)
+    protected function schedule(Schedule $schedule): void
     {
         $schedule->command('backup:clean')->daily()->at('04:00')->timezone('America/Denver');
         $schedule->command('backup:run')->daily()->at('04:30')->timezone('America/Denver');
@@ -106,7 +106,7 @@ class Kernel extends ConsoleKernel
      *
      * @return void
      */
-    protected function commands()
+    protected function commands(): void
     {
         $this->load(__DIR__.'/Commands');
 

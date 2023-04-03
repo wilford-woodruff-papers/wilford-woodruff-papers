@@ -41,7 +41,7 @@ class ImportPublishDateFromPcfAction implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         if (! empty($this->batch()) && $this->batch()->cancelled()) {
             // Determine if the batch has been cancelled...

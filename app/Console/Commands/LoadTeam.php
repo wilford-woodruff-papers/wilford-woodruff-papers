@@ -37,7 +37,7 @@ class LoadTeam extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $teams = $this->getTeam();
 

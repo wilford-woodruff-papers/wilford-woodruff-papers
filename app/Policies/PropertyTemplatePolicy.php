@@ -15,7 +15,7 @@ class PropertyTemplatePolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+    public function viewAny(User $user): bool
     {
         return $user->hasAnyRole(['Super Admin']);
     }
@@ -25,7 +25,7 @@ class PropertyTemplatePolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, PropertyTemplate $propertyTemplate)
+    public function view(User $user, PropertyTemplate $propertyTemplate): bool
     {
         return $user->hasAnyRole(['Super Admin']);
     }
@@ -35,7 +35,7 @@ class PropertyTemplatePolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user)
+    public function create(User $user): bool
     {
         return $user->hasAnyRole(['Super Admin']);
     }
@@ -45,7 +45,7 @@ class PropertyTemplatePolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, PropertyTemplate $propertyTemplate)
+    public function update(User $user, PropertyTemplate $propertyTemplate): bool
     {
         return $user->hasAnyRole(['Super Admin']);
     }
@@ -55,7 +55,7 @@ class PropertyTemplatePolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, PropertyTemplate $propertyTemplate)
+    public function delete(User $user, PropertyTemplate $propertyTemplate): bool
     {
         return $user->hasAnyRole(['Super Admin']);
     }
@@ -65,7 +65,7 @@ class PropertyTemplatePolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, PropertyTemplate $propertyTemplate)
+    public function restore(User $user, PropertyTemplate $propertyTemplate): bool
     {
         //
     }
@@ -75,7 +75,7 @@ class PropertyTemplatePolicy
      *
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, PropertyTemplate $propertyTemplate)
+    public function forceDelete(User $user, PropertyTemplate $propertyTemplate): bool
     {
         //
     }

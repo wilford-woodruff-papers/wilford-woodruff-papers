@@ -37,7 +37,7 @@ class Geolocation extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $places = Subject::whereEnabled(1)->whereHas('category', function (Builder $query) {
             $query->where('name', 'Places');

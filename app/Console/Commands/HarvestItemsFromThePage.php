@@ -41,7 +41,7 @@ class HarvestItemsFromThePage extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $response = Http::timeout(120)->get('https://fromthepage.com/iiif/collection/970');
 

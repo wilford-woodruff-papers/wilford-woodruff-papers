@@ -33,7 +33,7 @@ class SendNewCommentNotification implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $admins = User::role('Super Admin')->get();
 
