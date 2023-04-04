@@ -19,8 +19,8 @@ class Update extends Model implements HasMedia
 
     protected $guarded = ['id'];
 
-    protected $dates = [
-        'publish_at',
+    protected $casts = [
+        'publish_at' => 'datetime',
     ];
 
     protected $childTypes = [
@@ -40,10 +40,8 @@ class Update extends Model implements HasMedia
 
     /**
      * Get the route key for the model.
-     *
-     * @return string
      */
-    public function getRouteKeyName()
+    public function getRouteKeyName(): string
     {
         return 'slug';
     }

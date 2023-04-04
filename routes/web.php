@@ -211,7 +211,7 @@ Route::get('/s/wilford-woodruff-papers/page/frequently-asked-questions', functio
     return redirect()->route('about.frequently-asked-questions');
 });
 
-Route::group(['middleware' => ['role:Super Admin|Editor']], function () {
+Route::middleware('role:Super Admin|Editor')->group(function () {
     Route::middleware(['auth:sanctum', 'verified'])
         ->get('/admin/dashboard/quotes', [\App\Http\Controllers\Admin\QuoteController::class, 'index'])
         ->name('admin.dashboard.quotes.index');

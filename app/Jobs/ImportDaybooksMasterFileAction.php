@@ -32,10 +32,8 @@ class ImportDaybooksMasterFileAction implements ShouldQueue
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         if (empty($uniqueID = data_get($this->row, 'unique_identifier'))) {
             info('No ID');

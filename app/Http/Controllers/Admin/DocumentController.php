@@ -8,15 +8,14 @@ use App\Models\Page;
 use App\Models\Type;
 use App\Models\Value;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class DocumentController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): View
     {
         return view('admin.dashboard.documents.index');
     }
@@ -34,7 +33,6 @@ class DocumentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -51,9 +49,9 @@ class DocumentController extends Controller
         $item->fill($validated);
 
         if ($request->get('section_count') > 0) {
-            $item->parental_type = 'App\Models\Set';
+            $item->parental_type = \App\Models\Set::class;
         } else {
-            $item->parental_type = 'App\Models\Document';
+            $item->parental_type = \App\Models\Document::class;
         }
 
         $item->save();
@@ -85,7 +83,7 @@ class DocumentController extends Controller
         if ($request->get('section_count') > 0) {
             for ($i = 1; $i <= $request->integer('section_count'); $i++) {
                 $section = new Item;
-                $section->parental_type = 'App\Models\Document';
+                $section->parental_type = \App\Models\Document::class;
                 $section->name = $item->name.' Section '.$i;
                 $section->item_id = $item->id;
                 $section->type_id = $type->subType?->id;
@@ -103,7 +101,6 @@ class DocumentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Item  $item
      * @return \Illuminate\Http\Response
      */
     public function show(Item $item)
@@ -127,9 +124,8 @@ class DocumentController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Page  $page
-     * @return \Illuminate\Http\Response
      */
-    public function edit(Item $item)
+    public function edit(Item $item): View
     {
         $item->load([
             'values',
@@ -147,8 +143,6 @@ class DocumentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Item  $item
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Item $item)
@@ -188,7 +182,6 @@ class DocumentController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Page  $page
      * @return \Illuminate\Http\Response
      */
     public function destroy(Page $page)

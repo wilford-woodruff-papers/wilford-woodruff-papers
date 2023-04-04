@@ -40,10 +40,8 @@ class UpdateLetterFromPcfAction implements ShouldQueue
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         if (! empty($this->batch()) && $this->batch()->cancelled()) {
             // Determine if the batch has been cancelled...
@@ -94,7 +92,7 @@ class UpdateLetterFromPcfAction implements ShouldQueue
 
         $action = Action::query()
             ->where('action_type_id', $actionType->id)
-            ->where('actionable_type', 'App\Models\Item')
+            ->where('actionable_type', \App\Models\Item::class)
             ->where('actionable_id', $document->id)
             ->first();
 
@@ -124,7 +122,7 @@ class UpdateLetterFromPcfAction implements ShouldQueue
 
         $action = Action::query()
             ->where('action_type_id', $actionType->id)
-            ->where('actionable_type', 'App\Models\Item')
+            ->where('actionable_type', \App\Models\Item::class)
             ->where('actionable_id', $document->id)
             ->first();
 
@@ -154,7 +152,7 @@ class UpdateLetterFromPcfAction implements ShouldQueue
 
         $action = Action::query()
             ->where('action_type_id', $actionType->id)
-            ->where('actionable_type', 'App\Models\Item')
+            ->where('actionable_type', \App\Models\Item::class)
             ->where('actionable_id', $document->id)
             ->first();
 
@@ -184,7 +182,7 @@ class UpdateLetterFromPcfAction implements ShouldQueue
 
         $action = Action::query()
             ->where('action_type_id', $actionType->id)
-            ->where('actionable_type', 'App\Models\Item')
+            ->where('actionable_type', \App\Models\Item::class)
             ->where('actionable_id', $document->id)
             ->first();
 
@@ -214,7 +212,7 @@ class UpdateLetterFromPcfAction implements ShouldQueue
 
         $action = Action::query()
             ->where('action_type_id', $actionType->id)
-            ->where('actionable_type', 'App\Models\Item')
+            ->where('actionable_type', \App\Models\Item::class)
             ->where('actionable_id', $document->id)
             ->first();
 
@@ -245,7 +243,7 @@ class UpdateLetterFromPcfAction implements ShouldQueue
 
         $action = Action::query()
             ->where('action_type_id', $actionType->id)
-            ->where('actionable_type', 'App\Models\Item')
+            ->where('actionable_type', \App\Models\Item::class)
             ->where('actionable_id', $document->id)
             ->first();
 

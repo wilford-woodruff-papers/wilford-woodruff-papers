@@ -38,10 +38,8 @@ class ImportPublishDateFromPcfAction implements ShouldQueue
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         if (! empty($this->batch()) && $this->batch()->cancelled()) {
             // Determine if the batch has been cancelled...
@@ -84,7 +82,6 @@ class ImportPublishDateFromPcfAction implements ShouldQueue
                 $this->dateColumn = 'published_on_website';
                 $unique_identifier_prefix = str($unique_identifier)->before('-');
                 break;
-
         }
 
         $type = Type::firstWhere('name', $this->type);

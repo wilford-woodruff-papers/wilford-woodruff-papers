@@ -12,7 +12,6 @@ class PublishedItems extends Value
     /**
      * Calculate the value of the metric.
      *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
      * @return mixed
      */
     public function calculate(NovaRequest $request)
@@ -30,10 +29,8 @@ class PublishedItems extends Value
 
     /**
      * Get the ranges available for the metric.
-     *
-     * @return array
      */
-    public function ranges()
+    public function ranges(): array
     {
         return [-1 => 'All Item Types'] + Type::orderBy('name', 'ASC')->pluck('name', 'id')->all();
     }
@@ -50,10 +47,8 @@ class PublishedItems extends Value
 
     /**
      * Get the URI key for the metric.
-     *
-     * @return string
      */
-    public function uriKey()
+    public function uriKey(): string
     {
         return 'published-items';
     }

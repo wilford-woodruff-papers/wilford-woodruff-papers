@@ -23,10 +23,8 @@ class CaculatePageCounts extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         Item::query()
             ->chunkById(100, function ($items) {

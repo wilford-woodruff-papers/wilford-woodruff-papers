@@ -10,9 +10,6 @@ class ExportPagesAlternate extends DownloadExcel implements WithMapping, WithHea
 {
     public $name = 'Page Export (for LaJean)';
 
-    /**
-     * @return array
-     */
     public function headings(): array
     {
         return [
@@ -34,7 +31,6 @@ class ExportPagesAlternate extends DownloadExcel implements WithMapping, WithHea
 
     /**
      * @param $item
-     * @return array
      */
     public function map($page): array
     {

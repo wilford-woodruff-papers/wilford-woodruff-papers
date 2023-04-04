@@ -76,15 +76,11 @@ class User extends Authenticatable
         return $this->hasMany(Action::class, 'assigned_to')
                     ->where(
                         'actionable_type',
-                        'App\Models\Item'
+                        \App\Models\Item::class
                     )
                     ->whereNull('completed_at');
     }
 
-    /**
-     * @param  ImpersonateAuthorization  $authorization
-     * @return void
-     */
     public function impersonatable(ImpersonateAuthorization $authorization): void
     {
         $authorization->impersonator(function (User $user) {

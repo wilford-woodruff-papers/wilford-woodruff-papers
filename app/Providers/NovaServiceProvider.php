@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Models\User;
+use App\Nova\Dashboards\Main;
 use App\Nova\Metrics\NewPages;
 use App\Nova\Metrics\PublishedItems;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
@@ -13,22 +15,24 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 {
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         parent::boot();
 
+        Nova::withBreadcrumbs();
+
         $this->app->register(\Parental\Providers\NovaResourceProvider::class);
+
+        Nova::userTimezone(function (Request $request) {
+            return $request->user()?->timezone ?? 'America/Denver';
+        });
     }
 
     /**
      * Register the Nova routes.
-     *
-     * @return void
      */
-    protected function routes()
+    protected function routes(): void
     {
         Nova::routes()
                 ->withAuthenticationRoutes()
@@ -40,10 +44,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
      * Register the Nova gate.
      *
      * This gate determines who can access Nova in non-local environments.
-     *
-     * @return void
      */
-    protected function gate()
+    protected function gate(): void
     {
         Gate::define('viewNova', function ($user) {
             return in_array($user->email, User::role(['Editor', 'Admin', 'Super Admin'])->pluck('email')->all());
@@ -52,10 +54,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
     /**
      * Get the cards that should be displayed on the default Nova dashboard.
-     *
-     * @return array
      */
-    protected function cards()
+    protected function cards(): array
     {
         return [
             new PublishedItems(),
@@ -65,33 +65,28 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 
     /**
      * Get the extra dashboards that should be displayed on the Nova dashboard.
-     *
-     * @return array
      */
-    protected function dashboards()
+    protected function dashboards(): array
     {
-        return [];
+        return [
+            new Main(),
+        ];
     }
 
     /**
      * Get the tools that should be listed in the Nova sidebar.
-     *
-     * @return array
      */
-    public function tools()
+    public function tools(): array
     {
         return [
-            \ChrisWare\NovaBreadcrumbs\NovaBreadcrumbs::make(),
             \JeffersonSimaoGoncalves\NovaPermission\NovaPermissionTool::make(),
         ];
     }
 
     /**
      * Register any application services.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
         //
     }

@@ -9,8 +9,6 @@ class TargetPublishDate extends Model
 {
     use HasFactory;
 
-    protected $dates = ['publish_at'];
-
     protected $casts = [
         'publish_at' => 'datetime:Y-m-d',
     ];

@@ -6,10 +6,11 @@ use App\Models\Item;
 use App\Models\Press;
 use App\Models\Subject;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class SitemapController extends Controller
 {
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): Response
     {
         return response()->view('sitemap', [
             'documents' => Item::query()

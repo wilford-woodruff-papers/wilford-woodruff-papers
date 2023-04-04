@@ -4,15 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Update;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class UpdateController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         return view('public.updates.index', [
             'updates' => Update::query()
@@ -25,11 +24,8 @@ class UpdateController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  \App\Models\Update  $update
-     * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Update $update)
+    public function show(Request $request, Update $update): View
     {
         return view('public.updates.show', [
             'update' => $update,

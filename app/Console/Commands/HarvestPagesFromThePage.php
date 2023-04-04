@@ -35,10 +35,8 @@ class HarvestPagesFromThePage extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $items = Item::query()
                         ->whereNotNull('ftp_id');

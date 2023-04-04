@@ -3,15 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Announcement;
+use Illuminate\View\View;
 
 class AnnouncementController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): View
     {
         return view('announcements.index', [
             'announcements' => Announcement::paginate(15),
@@ -20,11 +19,8 @@ class AnnouncementController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  Announcement  $announcement
-     * @return \Illuminate\Http\Response
      */
-    public function show(Announcement $announcement)
+    public function show(Announcement $announcement): View
     {
         return view('announcements.show', [
             'announcement' => $announcement,

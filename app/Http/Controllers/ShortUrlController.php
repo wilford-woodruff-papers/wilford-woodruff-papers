@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Page;
+use Illuminate\Http\RedirectResponse;
 
 class ShortUrlController extends Controller
 {
-    public function item($hashid)
+    public function item($hashid): RedirectResponse
     {
         $item = \App\Models\Item::findByHashidOrFail($hashid);
 
@@ -15,7 +16,7 @@ class ShortUrlController extends Controller
         ]);
     }
 
-    public function page($hashid)
+    public function page($hashid): RedirectResponse
     {
         $page = Page::findByHashidOrFail($hashid);
 

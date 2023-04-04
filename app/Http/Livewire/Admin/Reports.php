@@ -10,7 +10,7 @@ use Livewire\Component;
 
 class Reports extends Component
 {
-    public $dates = [
+    protected $dates = [
         'start' => null,
         'end' => null,
     ];
