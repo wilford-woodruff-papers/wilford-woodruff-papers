@@ -17,7 +17,7 @@
                                 <a href="{{ route('media.photos.show', ['photo' => $photo->uuid]) }}"
                                    class="space-y-4">
                                     <div class="h-72 bg-center bg-cover aspect-w-3 aspect-h-2"
-                                         style="background-image: url('{{ optional($photo->getFirstMedia())->getUrl('thumb') }}')">
+                                         style="background-image: url('{{ $photo->getFirstMedia()?->getUrl('thumb') }}')">
 
                                     </div>
 

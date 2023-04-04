@@ -1,7 +1,7 @@
 <li class="grid grid-cols-7 py-4">
     <div class="col-span-1 px-2">
         <a class="col-span-1 my-2 mx-auto w-20 h-auto" href="{{ route('pages.show', ['item' => $page->item, 'page' => $page]) }}">
-            <img src="{{ optional($page->getFirstMedia())->getUrl('thumb') }}"
+            <img src="{{ $page->getFirstMedia()?->getUrl('thumb') }}"
                  alt=""
                  loading="lazy"
             >

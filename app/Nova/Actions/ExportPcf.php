@@ -10,9 +10,6 @@ class ExportPcf extends DownloadExcel implements WithMapping, WithHeadings
 {
     public $name = 'PCF Export';
 
-    /**
-     * @return array
-     */
     public function headings(): array
     {
         return [
@@ -57,10 +54,6 @@ class ExportPcf extends DownloadExcel implements WithMapping, WithHeadings
         ];
     }
 
-    /**
-     * @param $item
-     * @return array
-     */
     public function map($item): array
     {
         $item->load(['type', 'actions', 'actions.type', 'actions.assignee', 'actions.finisher']);

@@ -15,7 +15,7 @@ class Search extends Component
 
     public $search = null;
 
-    public $dates = [
+    protected $dates = [
         'start' => null,
         'end' => null,
     ];

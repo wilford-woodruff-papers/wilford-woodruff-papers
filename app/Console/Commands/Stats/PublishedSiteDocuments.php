@@ -35,10 +35,8 @@ class PublishedSiteDocuments extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $itemCount = Item::query()
                             ->whereIn('type_id', Type::whereNull('type_id')->pluck('id')->all())

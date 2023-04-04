@@ -10,9 +10,6 @@ class ExportTimeline extends DownloadExcel implements WithMapping, WithHeadings
 {
     public $name = 'PCF Export';
 
-    /**
-     * @return array
-     */
     public function headings(): array
     {
         return [
@@ -32,10 +29,6 @@ class ExportTimeline extends DownloadExcel implements WithMapping, WithHeadings
         ];
     }
 
-    /**
-     * @param $item
-     * @return array
-     */
     public function map($item): array
     {
         return [

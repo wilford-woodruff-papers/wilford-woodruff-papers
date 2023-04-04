@@ -38,10 +38,8 @@ class HarvestItemsFromThePage extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $response = Http::timeout(120)->get('https://fromthepage.com/iiif/collection/970');
 
@@ -75,7 +73,7 @@ class HarvestItemsFromThePage extends Command
 
             if (empty($document)) {
                 $document = new Item();
-                $document->parental_type = 'App\Models\Document';
+                $document->parental_type = \App\Models\Document::class;
 
                 $identifier = data_get($item, 'metadata.0.value');
 

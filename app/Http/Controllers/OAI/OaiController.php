@@ -5,13 +5,14 @@ namespace App\Http\Controllers\OAI;
 use App\Http\Controllers\Controller;
 use App\Models\Item;
 use App\Models\OaiToken;
+use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 
 class OaiController extends Controller
 {
     private $perPage = 20;
 
-    public function __invoke()
+    public function __invoke(): Response
     {
         if (request('resumptionToken')) {
             $resumptionToken = OaiToken::query()
@@ -72,7 +73,6 @@ class OaiController extends Controller
                         'cursor' => $cursor,
                     ])
                         ->header('Content-Type', 'text/xml');
-
             }
         }
     }

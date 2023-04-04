@@ -24,10 +24,8 @@ class CalculateTaggedSubjectPageCounts extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         Subject::query()
                  ->where(function ($query) {

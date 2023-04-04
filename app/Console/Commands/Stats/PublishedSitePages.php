@@ -35,10 +35,8 @@ class PublishedSitePages extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $itemCount = Page::query()
                             ->whereHas('item', function (Builder $query) {

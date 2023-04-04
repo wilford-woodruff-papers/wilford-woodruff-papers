@@ -2,6 +2,7 @@
 
 namespace App\Exports;
 
+use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\FromCollection;
 
 class ItemsTranscriptExport implements FromCollection
@@ -11,10 +12,7 @@ class ItemsTranscriptExport implements FromCollection
         $this->items = $items;
     }
 
-    /**
-     * @return \Illuminate\Support\Collection
-     */
-    public function collection()
+    public function collection(): Collection
     {
         return $this->items;
     }

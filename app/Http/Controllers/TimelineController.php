@@ -4,15 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 class TimelineController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): View
     {
         $events = Event::query()
                             ->with('photos', 'pages.parent')

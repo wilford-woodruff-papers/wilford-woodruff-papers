@@ -12,7 +12,7 @@ use Livewire\Component;
 
 class IndividualActivity extends Component
 {
-    public $dates = [
+    protected $dates = [
         'start' => null,
         'end' => null,
     ];

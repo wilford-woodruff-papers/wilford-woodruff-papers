@@ -29,10 +29,8 @@ class ImportPlacesMasterFileAction implements ShouldQueue
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         if (empty(trim($this->row['ftp']))) {
             return;

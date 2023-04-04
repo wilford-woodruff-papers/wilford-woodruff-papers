@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use JeffersonSimaoGoncalves\NovaPermission\Nova\Fields\RoleBooleanGroup;
 use Laravel\Nova\Fields\BelongsTo;
@@ -40,23 +41,16 @@ class Type extends Resource
 
     /**
      * Build an "index" query for the given resource.
-     *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @return \Illuminate\Database\Eloquent\Builder
      */
-    public static function indexQuery(NovaRequest $request, $query)
+    public static function indexQuery(NovaRequest $request, $query): Builder
     {
         return $query->orderBy('name');
     }
 
     /**
      * Get the fields displayed by the resource.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
      */
-    public function fields(Request $request)
+    public function fields(NovaRequest $request): array
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
@@ -69,44 +63,32 @@ class Type extends Resource
 
     /**
      * Get the cards available for the request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
      */
-    public function cards(Request $request)
+    public function cards(Request $request): array
     {
         return [];
     }
 
     /**
      * Get the filters available for the resource.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
      */
-    public function filters(Request $request)
+    public function filters(Request $request): array
     {
         return [];
     }
 
     /**
      * Get the lenses available for the resource.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
      */
-    public function lenses(Request $request)
+    public function lenses(Request $request): array
     {
         return [];
     }
 
     /**
      * Get the actions available for the resource.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
      */
-    public function actions(Request $request)
+    public function actions(Request $request): array
     {
         return [];
     }

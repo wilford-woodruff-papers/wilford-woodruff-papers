@@ -33,10 +33,8 @@ class LoadPodcasts extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $podcasts = $this->getPodcasts();
         foreach ($podcasts as $key => $podcast) {

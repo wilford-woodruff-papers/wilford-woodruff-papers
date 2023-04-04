@@ -45,9 +45,6 @@ class PcfExport implements FromQuery, ShouldQueue, WithMapping, WithHeadings
         $this->user->notify(new ExportFailedNotification());
     }
 
-    /**
-     * @return array
-     */
     public function headings(): array
     {
         return [
@@ -92,10 +89,6 @@ class PcfExport implements FromQuery, ShouldQueue, WithMapping, WithHeadings
         ];
     }
 
-    /**
-     * @param $item
-     * @return array
-     */
     public function map($item): array
     {
         return [

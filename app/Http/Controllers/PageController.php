@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use App\Models\Page;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\View\View;
 
 class PageController extends Controller
 {
-    public function show(Item $item, Page $page)
+    public function show(Item $item, Page $page): View
     {
         $item = $item->parent();
         $page->load(['dates', 'topics', 'subjects' => function ($query) {

@@ -10,10 +10,11 @@ use App\Models\Press;
 use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 class MediaController extends Controller
 {
-    public function articles(Request $request)
+    public function articles(Request $request): View
     {
         return view('public.media.articles', [
             'articles' => Article::latest('date')
@@ -22,14 +23,14 @@ class MediaController extends Controller
         ]);
     }
 
-    public function article(Request $request, Press $article)
+    public function article(Request $request, Press $article): View
     {
         return view('public.media.article', [
             'article' => $article,
         ]);
     }
 
-    public function photos(Request $request)
+    public function photos(Request $request): View
     {
         return view('public.media.photos', [
             'photos' => Photo::query()
@@ -40,14 +41,14 @@ class MediaController extends Controller
         ]);
     }
 
-    public function photo(Request $request, Photo $photo)
+    public function photo(Request $request, Photo $photo): View
     {
         return view('public.media.photo', [
             'photo' => $photo,
         ]);
     }
 
-    public function podcasts(Request $request)
+    public function podcasts(Request $request): View
     {
         return view('public.media.podcasts', [
             'podcasts' => Podcast::latest('date')
@@ -55,14 +56,14 @@ class MediaController extends Controller
         ]);
     }
 
-    public function podcast(Request $request, Press $podcast)
+    public function podcast(Request $request, Press $podcast): View
     {
         return view('public.media.podcast', [
             'podcast' => $podcast,
         ]);
     }
 
-    public function videos(Request $request)
+    public function videos(Request $request): View
     {
         return view('public.media.videos', [
             'videos' => Video::latest('date')
@@ -74,14 +75,14 @@ class MediaController extends Controller
         ]);
     }
 
-    public function video(Request $request, Press $video)
+    public function video(Request $request, Press $video): View
     {
         return view('public.media.video', [
             'video' => $video,
         ]);
     }
 
-    public function newsroom(Request $request)
+    public function newsroom(Request $request): View
     {
         return view('public.media.newsroom', [
             'articles' => News::latest('date')
@@ -89,12 +90,12 @@ class MediaController extends Controller
         ]);
     }
 
-    public function kit(Request $request)
+    public function kit(Request $request): View
     {
         return view('public.media.media-kit');
     }
 
-    public function requests(Request $request)
+    public function requests(Request $request): View
     {
         return view('public.media.requests');
     }

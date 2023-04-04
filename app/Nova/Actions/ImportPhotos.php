@@ -21,8 +21,6 @@ class ImportPhotos extends Action
     /**
      * Perform the action on the given models.
      *
-     * @param  \Laravel\Nova\Fields\ActionFields  $fields
-     * @param  \Illuminate\Support\Collection  $models
      * @return mixed
      */
     public function handle(ActionFields $fields, Collection $models)
@@ -34,10 +32,8 @@ class ImportPhotos extends Action
 
     /**
      * Get the fields available on the action.
-     *
-     * @return array
      */
-    public function fields()
+    public function fields(): array
     {
         return [
             File::make('File')->rules('required'),
@@ -46,9 +42,6 @@ class ImportPhotos extends Action
 
     /**
      * Validate the given request.
-     *
-     * @param  \Laravel\Nova\Http\Requests\ActionRequest  $request
-     * @return void
      */
     public function validateFields(ActionRequest $request)
     {
@@ -72,12 +65,8 @@ class ImportPhotos extends Action
 
     /**
      * Handle any post-validation processing.
-     *
-     * @param  \Laravel\Nova\Http\Requests\NovaRequest  $request
-     * @param  \Illuminate\Validation\Validator  $validator
-     * @return void
      */
-    protected function afterValidation(NovaRequest $request, $validator)
+    protected function afterValidation(NovaRequest $request, Illuminate\Validation\Validator $validator): void
     {
         //
     }

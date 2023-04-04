@@ -7,15 +7,14 @@ use App\Models\Item;
 use App\Models\Type;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\View\View;
 
 class SupervisorController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): View
     {
         $users = User::query()
                         /*->has('pending_actions')*/
