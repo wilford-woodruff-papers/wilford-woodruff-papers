@@ -152,4 +152,6 @@ return [
 
     'storage_disk' => env('NOVA_STORAGE_DISK', 'public'),
 
+    'license_key' => env('NOVA_LICENSE_KEY', ''),
+
 ];
