@@ -41,7 +41,7 @@ class LoadFaqs extends Command
             $new = Faq::create($faq);
         }
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     private function getFaqs()

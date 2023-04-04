@@ -42,7 +42,7 @@ class LoadNews extends Command
             $press = Press::create($article);
         }
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     private function getNews()

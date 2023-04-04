@@ -144,7 +144,7 @@ class HarvestItemsFromThePage extends Command
         info("Imported $countWithoutPCFID documents without PCF ID");
         info("Imported $count documents");
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     private function getType(string $prefix)
