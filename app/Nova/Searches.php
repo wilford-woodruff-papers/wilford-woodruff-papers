@@ -3,6 +3,8 @@
 namespace App\Nova;
 
 use App\Nova\Actions\ExportSearches;
+use App\Nova\Filters\CreatedAfterFilter;
+use App\Nova\Filters\CreatedBeforeFilter;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Code;
 use Laravel\Nova\Fields\DateTime;
@@ -78,7 +80,8 @@ class Searches extends Resource
     public function filters(Request $request): array
     {
         return [
-            //new DateRangeFilter,
+            new CreatedAfterFilter,
+            new CreatedBeforeFilter,
         ];
     }
 

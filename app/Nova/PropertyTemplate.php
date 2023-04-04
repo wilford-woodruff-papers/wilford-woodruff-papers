@@ -7,16 +7,16 @@ use Illuminate\Support\Str;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use MichielKempen\NovaOrderField\Orderable;
-use MichielKempen\NovaOrderField\OrderField;
+use PixelCreation\NovaFieldSortable\Concerns\SortsIndexEntries;
+use PixelCreation\NovaFieldSortable\Sortable;
 
 class PropertyTemplate extends Resource
 {
-    use Orderable;
+    use SortsIndexEntries;
 
     public static $group = 'Database';
 
-    public static $defaultOrderField = 'order_column';
+    public static $defaultSortField = 'order_column';
 
     public static $with = ['property'];
 
@@ -55,7 +55,8 @@ class PropertyTemplate extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            OrderField::make('Order'),
+            Sortable::make('Order', 'order_column')
+                ->onlyOnIndex(),
             Text::make('Name', function ($model) {
                 return sprintf('%s', $model->property->name);
             })

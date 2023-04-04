@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dc8cec29759ae347e797335b5c7d8495",
+    "content-hash": "e242d792808d1798594b65e2a8f34556",
     "packages": [
         {
             "name": "alexpechkarev/geometry-library",
@@ -5264,51 +5264,6 @@
             "time": "2022-12-02T22:17:43+00:00"
         },
         {
-            "name": "michielkempen/nova-order-field",
-            "version": "dev-nova-4-compatibility",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/jonfackrell/nova-order-field.git",
-                "reference": "8b9eee7de4f879ab74fcf1c9e9e42658aa2ccea6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/jonfackrell/nova-order-field/zipball/8b9eee7de4f879ab74fcf1c9e9e42658aa2ccea6",
-                "reference": "8b9eee7de4f879ab74fcf1c9e9e42658aa2ccea6",
-                "shasum": ""
-            },
-            "require": {
-                "laravel/nova": "^2.0|^3.0|^4.0",
-                "php": ">=7.1.0",
-                "spatie/eloquent-sortable": "^3.4|^4.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "MichielKempen\\NovaOrderField\\OrderFieldServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "MichielKempen\\NovaOrderField\\": "src/"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "description": "A Laravel Nova field.",
-            "keywords": [
-                "laravel",
-                "nova"
-            ],
-            "support": {
-                "source": "https://github.com/jonfackrell/nova-order-field/tree/nova-4-compatibility"
-            },
-            "time": "2023-04-03T19:11:50+00:00"
-        },
-        {
             "name": "mobiledetect/mobiledetectlib",
             "version": "2.8.41",
             "source": {
@@ -7212,6 +7167,53 @@
                 "source": "https://github.com/silexphp/Pimple/tree/v3.5.0"
             },
             "time": "2021-10-28T11:13:42+00:00"
+        },
+        {
+            "name": "pixelcreation/nova-field-sortable",
+            "version": "3.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pixelcreation/nova-field-sortable.git",
+                "reference": "a6bdc17c36d0cb61171dc1702fa9447e3ccf03fc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pixelcreation/nova-field-sortable/zipball/a6bdc17c36d0cb61171dc1702fa9447e3ccf03fc",
+                "reference": "a6bdc17c36d0cb61171dc1702fa9447e3ccf03fc",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/nova": "^4.0",
+                "php": ">=8.0",
+                "spatie/eloquent-sortable": "^4.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "PixelCreation\\NovaFieldSortable\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "PixelCreation\\NovaFieldSortable\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A Nova field for ordering resources.",
+            "keywords": [
+                "eloquent-sortable",
+                "laravel",
+                "nova"
+            ],
+            "support": {
+                "source": "https://github.com/pixelcreation/nova-field-sortable/tree/3.2.0"
+            },
+            "time": "2022-05-17T11:55:47+00:00"
         },
         {
             "name": "pragmarx/google2fa",
@@ -17020,8 +17022,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "jeffersonsimaogoncalves/nova-permission": 20,
-        "michielkempen/nova-order-field": 20
+        "jeffersonsimaogoncalves/nova-permission": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

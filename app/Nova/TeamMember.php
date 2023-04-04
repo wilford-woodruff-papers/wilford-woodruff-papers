@@ -9,16 +9,16 @@ use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use MichielKempen\NovaOrderField\Orderable;
-use MichielKempen\NovaOrderField\OrderField;
+use PixelCreation\NovaFieldSortable\Concerns\SortsIndexEntries;
+use PixelCreation\NovaFieldSortable\Sortable;
 
 class TeamMember extends Resource
 {
-    use Orderable;
+    use SortsIndexEntries;
 
     public static $displayInNavigation = false;
 
-    public static $defaultOrderField = 'order';
+    public static $defaultSortField = 'order';
 
     /**
      * The model the resource corresponds to.
@@ -52,7 +52,8 @@ class TeamMember extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            OrderField::make('Order'),
+            Sortable::make('Order', 'order')
+                ->onlyOnIndex(),
             BelongsTo::make('Team', 'team', Team::class)->nullable(),
             Text::make(__('Name'), 'name')->sortable(),
             Text::make(__('Title'), 'title')->sortable(),

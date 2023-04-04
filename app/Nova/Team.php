@@ -8,16 +8,16 @@ use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use MichielKempen\NovaOrderField\Orderable;
-use MichielKempen\NovaOrderField\OrderField;
+use PixelCreation\NovaFieldSortable\Concerns\SortsIndexEntries;
+use PixelCreation\NovaFieldSortable\Sortable;
 
 class Team extends Resource
 {
-    use Orderable;
+    use SortsIndexEntries;
 
     public static $group = 'Admin';
 
-    public static $defaultOrderField = 'order';
+    public static $defaultSortField = 'order';
 
     /**
      * The model the resource corresponds to.
@@ -50,7 +50,8 @@ class Team extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            OrderField::make('Order'),
+            Sortable::make('Order', 'order')
+                ->onlyOnIndex(),
             Text::make(__('Name'), 'name')->sortable(),
             Boolean::make(__('Expanded'), 'expanded'),
             Text::make('Background Color')->required(),

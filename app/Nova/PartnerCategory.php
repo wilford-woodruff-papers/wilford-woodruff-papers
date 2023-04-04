@@ -8,12 +8,12 @@ use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use MichielKempen\NovaOrderField\Orderable;
-use MichielKempen\NovaOrderField\OrderField;
+use PixelCreation\NovaFieldSortable\Concerns\SortsIndexEntries;
+use PixelCreation\NovaFieldSortable\Sortable;
 
 class PartnerCategory extends Resource
 {
-    use Orderable;
+    use SortsIndexEntries;
 
     public static $group = 'Website';
 
@@ -47,7 +47,8 @@ class PartnerCategory extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            OrderField::make('Order', 'order_column'),
+            Sortable::make('Order', 'order_column')
+                ->onlyOnIndex(),
             Text::make('Name'),
             NovaTinyMCE::make('Description')
                 ->options([

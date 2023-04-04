@@ -8,16 +8,16 @@ use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use MichielKempen\NovaOrderField\Orderable;
-use MichielKempen\NovaOrderField\OrderField;
+use PixelCreation\NovaFieldSortable\Concerns\SortsIndexEntries;
+use PixelCreation\NovaFieldSortable\Sortable;
 
 class Faq extends Resource
 {
-    use Orderable;
+    use SortsIndexEntries;
 
     public static $group = 'Website';
 
-    public static $defaultOrderField = 'order_column';
+    public static $defaultSortField = 'order_column';
 
     /**
      * The model the resource corresponds to.
@@ -50,7 +50,8 @@ class Faq extends Resource
     public function fields(NovaRequest $request): array
     {
         return [
-            OrderField::make('Order'),
+            Sortable::make('Order', 'order_column')
+                ->onlyOnIndex(),
             ID::make(__('ID'), 'id')->sortable(),
             Select::make(__('Category'), 'category')->options([
                 'Project' => 'Project',

@@ -8,16 +8,16 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use MichielKempen\NovaOrderField\Orderable;
-use MichielKempen\NovaOrderField\OrderField;
+use PixelCreation\NovaFieldSortable\Concerns\SortsIndexEntries;
+use PixelCreation\NovaFieldSortable\Sortable;
 
 class Partner extends Resource
 {
-    use Orderable;
+    use SortsIndexEntries;
 
     public static $group = 'Website';
 
-    public static $defaultOrderField = 'order_column';
+    public static $defaultSortField = 'order_column';
 
     /**
      * The model the resource corresponds to.
@@ -50,7 +50,8 @@ class Partner extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            OrderField::make('Order', 'order_column'),
+            Sortable::make('Order', 'order_column')
+                ->onlyOnIndex(),
             BelongsTo::make('Partner Category', 'category', PartnerCategory::class)
                 ->required(),
             Image::make('Logo')->disk('partners'),
