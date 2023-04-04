@@ -69,6 +69,7 @@ class Video extends Resource
                 ->options([
                     'height' => 500,
                 ])
+                ->asHtml()
                 ->alwaysShow(),
             Tags::make('Category', 'tags')
                 ->type('videos')
@@ -78,6 +79,7 @@ class Video extends Resource
                 ->options([
                     'height' => 500,
                 ])
+                ->asHtml()
                 ->alwaysShow(),
             BelongsToMany::make('Authors')->hideFromIndex(),
         ];

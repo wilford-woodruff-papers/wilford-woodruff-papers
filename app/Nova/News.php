@@ -77,6 +77,7 @@ class News extends Resource
                 ->options([
                     'height' => 500,
                 ])
+                ->asHtml()
                 ->alwaysShow(),
             BelongsToMany::make('Authors')->hideFromIndex(),
         ];

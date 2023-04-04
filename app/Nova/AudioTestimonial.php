@@ -66,6 +66,7 @@ class AudioTestimonial extends Resource
                 ->options([
                     'height' => 500,
                 ])
+                ->asHtml()
                 ->required(true)
                 ->alwaysShow(),
             NovaTinyMCE::make('Content', 'content')
@@ -73,6 +74,7 @@ class AudioTestimonial extends Resource
                     'use_lfm' => true,
                     'height' => 500,
                 ])
+                ->asHtml()
                 ->alwaysShow(),
             Text::make('Name')
                 ->sortable(),
@@ -84,6 +86,7 @@ class AudioTestimonial extends Resource
                 ->options([
                     'height' => 500,
                 ])
+                ->asHtml()
                 ->required(true)
                 ->alwaysShow(),
         ];

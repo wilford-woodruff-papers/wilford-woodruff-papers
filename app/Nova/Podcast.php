@@ -70,6 +70,7 @@ class Podcast extends Resource
                 ->options([
                     'height' => 500,
                 ])
+                ->asHtml()
                 ->alwaysShow(),
             Text::make('Link', 'embed')
                 ->required(true)
@@ -83,6 +84,7 @@ class Podcast extends Resource
                 ->options([
                     'height' => 500,
                 ])
+                ->asHtml()
                 ->alwaysShow(),
             BelongsToMany::make('Authors')->hideFromIndex(),
         ];

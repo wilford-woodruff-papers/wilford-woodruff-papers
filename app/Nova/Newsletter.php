@@ -65,6 +65,7 @@ class Newsletter extends Resource
                     'use_lfm' => true,
                     'height' => 500,
                 ])
+                ->asHtml()
                 ->alwaysShow()
                 ->help('The Article text should only be provided if the article was originally published on our site.'),
         ];

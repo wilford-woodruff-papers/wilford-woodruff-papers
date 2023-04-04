@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Nova\Dashboards\Main;
 use App\Nova\Metrics\NewPages;
 use App\Nova\Metrics\PublishedItems;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
@@ -22,6 +23,10 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         Nova::withBreadcrumbs();
 
         $this->app->register(\Parental\Providers\NovaResourceProvider::class);
+
+        Nova::userTimezone(function (Request $request) {
+            return $request->user()?->timezone ?? 'America/Denver';
+        });
     }
 
     /**

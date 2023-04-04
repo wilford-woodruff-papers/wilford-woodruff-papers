@@ -50,6 +50,7 @@ class Author extends Resource
                     'use_lfm' => false,
                     'height' => 500,
                 ])
+                ->asHtml()
                 ->alwaysShow()
                 ->help('Add a bio about the author.'),
             BelongsToMany::make('Media', 'media', Press::class),

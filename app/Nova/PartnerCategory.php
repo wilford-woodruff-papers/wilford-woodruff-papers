@@ -54,6 +54,7 @@ class PartnerCategory extends Resource
                 ->options([
                     'height' => 500,
                 ])
+                ->asHtml()
                 ->alwaysShow(),
             HasMany::make('Partners'),
         ];

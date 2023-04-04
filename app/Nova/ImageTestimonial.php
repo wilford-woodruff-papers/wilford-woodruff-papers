@@ -66,6 +66,7 @@ class ImageTestimonial extends Resource
                 ->options([
                     'height' => 500,
                 ])
+                ->asHtml()
                 ->required(true)
                 ->alwaysShow(),
             NovaTinyMCE::make('Content', 'content')
@@ -73,6 +74,7 @@ class ImageTestimonial extends Resource
                     'use_lfm' => true,
                     'height' => 500,
                 ])
+                ->asHtml()
                 ->alwaysShow(),
             Text::make('Name')
                 ->sortable(),

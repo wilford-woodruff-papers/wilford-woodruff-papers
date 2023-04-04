@@ -59,8 +59,12 @@ class Subject extends Resource
                 ->hideFromIndex()
                 ->hideWhenCreating()
                 ->sortable(),
-            NovaTinyMCE::make('Bio')->alwaysShow(),
-            NovaTinyMCE::make('Footnotes')->alwaysShow(),
+            NovaTinyMCE::make('Bio')
+                ->asHtml()
+                ->alwaysShow(),
+            NovaTinyMCE::make('Footnotes')
+                ->asHtml()
+                ->alwaysShow(),
             BelongsToMany::make('Category'),
             BelongsTo::make('Parent Subject', 'parent', self::class)
                 ->nullable()

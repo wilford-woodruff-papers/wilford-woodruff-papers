@@ -74,6 +74,7 @@ class Article extends Resource
                 ->options([
                     'height' => 500,
                 ])
+                ->asHtml()
                 ->required(true)
                 ->alwaysShow(),
             NovaTinyMCE::make('Article', 'description')
@@ -81,12 +82,14 @@ class Article extends Resource
                     'use_lfm' => true,
                     'height' => 500,
                 ])
+                ->asHtml()
                 ->alwaysShow()
                 ->help('The Article text should only be provided if the article was originally published on our site.'),
             NovaTinyMCE::make('Footnotes')
                 ->options([
                     'height' => 500,
                 ])
+                ->asHtml()
                 ->alwaysShow(),
             Text::make('Link')
                 ->hideFromIndex()

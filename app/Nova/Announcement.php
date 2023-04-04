@@ -62,7 +62,7 @@ class Announcement extends Resource
                 ->options([
                     'height' => 500,
                 ])
-                ->alwaysShow(),
+                ->asHtml(),
             DateTime::make(__('Start Showing'), 'start_publishing_at')
                 ->required(true)
                 ->sortable(),

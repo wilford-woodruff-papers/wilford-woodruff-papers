@@ -53,7 +53,9 @@ class JobOpportunity extends Resource
             NovaTinyMCE::make('Description')->options([
                 'use_lfm' => true,
                 'height' => 500,
-            ])->alwaysShow(),
+            ])
+                ->asHtml()
+                ->alwaysShow(),
             File::make(__('File'), 'file')->disk('job_opportunities'),
         ];
     }

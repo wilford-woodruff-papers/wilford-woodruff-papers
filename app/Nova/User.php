@@ -8,6 +8,7 @@ use JeffersonSimaoGoncalves\NovaPermission\Nova\Fields\RoleBooleanGroup;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Password;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -57,6 +58,14 @@ class User extends Resource
                 ->rules('required', 'email', 'max:254')
                 ->creationRules('unique:users,email')
                 ->updateRules('unique:users,email,{{resourceId}}'),
+
+            Select::make('Timezone')
+                ->options(array_combine(
+                    \DateTimeZone::listIdentifiers(\DateTimeZone::ALL),
+                    \DateTimeZone::listIdentifiers(\DateTimeZone::ALL)
+                ))
+                ->displayUsingLabels()
+                ->hideFromIndex(),
 
             Password::make('Password')
                 ->onlyOnForms()

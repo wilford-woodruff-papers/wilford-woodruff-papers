@@ -68,11 +68,14 @@ class Press extends Resource
             NovaTinyMCE::make('Description')->options([
                 'use_lfm' => true,
                 'height' => 500,
-            ])->alwaysShow(),
+            ])
+                ->asHtml()
+                ->alwaysShow(),
             NovaTinyMCE::make('Transcript')
                 ->options([
                     'height' => 500,
                 ])
+                ->asHtml()
                 ->alwaysShow(),
             Text::make('Link')->hideFromIndex(),
             Textarea::make('Embed')->hideFromIndex(),

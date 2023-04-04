@@ -70,6 +70,7 @@ class VideoTestimonial extends Resource
                 ->options([
                     'height' => 500,
                 ])
+                ->asHtml()
                 ->required(false)
                 ->alwaysShow(),
             NovaTinyMCE::make('Content', 'content')
@@ -77,6 +78,7 @@ class VideoTestimonial extends Resource
                     'use_lfm' => true,
                     'height' => 500,
                 ])
+                ->asHtml()
                 ->alwaysShow(),
             Text::make('Name')
                 ->sortable(),
@@ -88,6 +90,7 @@ class VideoTestimonial extends Resource
                 ->options([
                     'height' => 500,
                 ])
+                ->asHtml()
                 ->required(false)
                 ->alwaysShow(),
         ];

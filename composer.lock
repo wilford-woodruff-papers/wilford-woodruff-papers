@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e242d792808d1798594b65e2a8f34556",
+    "content-hash": "e0c0c7e83fd50c96f7a0ac17dbf0e2a6",
     "packages": [
         {
             "name": "alexpechkarev/geometry-library",
@@ -1821,21 +1821,22 @@
         },
         {
             "name": "emilianotisato/nova-tinymce",
-            "version": "2.0.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/emilianotisato/nova-tinymce.git",
-                "reference": "faceec828be3b71281497ef86fcd8c5eb56ce5e0"
+                "reference": "d0a05c1675a54579fbc53ea93a033047e5907388"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/emilianotisato/nova-tinymce/zipball/faceec828be3b71281497ef86fcd8c5eb56ce5e0",
-                "reference": "faceec828be3b71281497ef86fcd8c5eb56ce5e0",
+                "url": "https://api.github.com/repos/emilianotisato/nova-tinymce/zipball/d0a05c1675a54579fbc53ea93a033047e5907388",
+                "reference": "d0a05c1675a54579fbc53ea93a033047e5907388",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.3|^8.0"
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "laravel": {
@@ -1862,9 +1863,9 @@
             ],
             "support": {
                 "issues": "https://github.com/emilianotisato/nova-tinymce/issues",
-                "source": "https://github.com/emilianotisato/nova-tinymce/tree/2.0.0"
+                "source": "https://github.com/emilianotisato/nova-tinymce/tree/master"
             },
-            "time": "2022-04-21T21:56:00+00:00"
+            "time": "2022-08-06T14:18:41+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -3125,6 +3126,65 @@
                 "source": "https://github.com/jenssegers/model/tree/v1.5.1"
             },
             "time": "2023-03-21T13:03:12+00:00"
+        },
+        {
+            "name": "jessedp/php-timezones",
+            "version": "v0.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jessedp/php-timezones.git",
+                "reference": "410589d2b58a361e0578c0983a0534d51d2a34b6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jessedp/php-timezones/zipball/410589d2b58a361e0578c0983a0534d51d2a34b6",
+                "reference": "410589d2b58a361e0578c0983a0534d51d2a34b6",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": ">=5.0",
+                "php": ">=7.2.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.0|^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "jessedp\\Timezones\\TimezonesServiceProvider"
+                    ],
+                    "aliases": {
+                        "Timezones": "jessedp\\Timezones\\Facades\\Timezones"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "jessedp\\Timezones\\": "src/Timezones"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "jessedp",
+                    "email": "jessedp@gmail.com"
+                }
+            ],
+            "description": "Basic Timezone utilities aimed at Laravel",
+            "keywords": [
+                "laravel",
+                "timezone",
+                "timezones"
+            ],
+            "support": {
+                "issues": "https://github.com/jessedp/php-timezones/issues",
+                "source": "https://github.com/jessedp/php-timezones/tree/v0.2.3"
+            },
+            "time": "2023-03-23T17:52:12+00:00"
         },
         {
             "name": "laravel/fortify",
@@ -17022,6 +17082,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "emilianotisato/nova-tinymce": 20,
         "jeffersonsimaogoncalves/nova-permission": 20
     },
     "prefer-stable": true,
