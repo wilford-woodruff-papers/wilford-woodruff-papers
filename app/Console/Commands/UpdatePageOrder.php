@@ -85,5 +85,7 @@ class UpdatePageOrder extends Command
             });
         });
         logger()->info('Page Order Updated: '.now());
+
+        return Command::SUCCESS;
     }
 }

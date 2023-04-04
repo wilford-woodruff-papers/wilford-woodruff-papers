@@ -42,7 +42,7 @@ class LoadPodcasts extends Command
             $press = Press::create($podcast);
         }
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     private function getPodcasts()

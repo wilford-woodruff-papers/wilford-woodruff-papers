@@ -61,6 +61,6 @@ class ImportNewPageContributions extends Command
             $this->info('Batch ID: '.$batch->id);
         }
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

@@ -61,5 +61,7 @@ class CacheDates extends Command
         });
 
         logger()->info('Dates Cached: '.now());
+
+        return Command::SUCCESS;
     }
 }

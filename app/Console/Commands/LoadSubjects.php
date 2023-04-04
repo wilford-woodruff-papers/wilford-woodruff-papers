@@ -39,6 +39,6 @@ class LoadSubjects extends Command
     {
         Excel::import(new SubjectImport, storage_path('app/fromthepage_subject_details.csv'));
 
-        return 0;
+        return Command::SUCCESS;
     }
 }
