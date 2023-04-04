@@ -49,6 +49,6 @@ class Geolocation extends Command
             $place->save();
         }
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

@@ -39,6 +39,6 @@ class LoadBios extends Command
     {
         Excel::import(new BiographyImport, storage_path('app/website_publisher.csv'));
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

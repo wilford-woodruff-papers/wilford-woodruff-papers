@@ -61,6 +61,8 @@ class ImportNewslettersCommand extends Command
                 }
             }
         });
+
+        return Command::SUCCESS;
     }
 
     private function replaceImages($content, $newsletter)

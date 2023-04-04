@@ -39,6 +39,6 @@ class LoadPhotos extends Command
     {
         Excel::import(new PhotoImport, storage_path('app/image_metadata.csv'));
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

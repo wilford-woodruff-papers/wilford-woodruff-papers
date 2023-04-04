@@ -36,7 +36,7 @@ class TestTranscriptProcessing extends Command
 
         logger()->info(['Tagged Transcript: ', $transcript]);
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     private function convertSubjectTags($transcript)

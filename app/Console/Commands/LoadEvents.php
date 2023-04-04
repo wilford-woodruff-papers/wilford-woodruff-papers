@@ -46,6 +46,6 @@ class LoadEvents extends Command
 
         Excel::import(new TimelineImport, storage_path('app/timeline.csv'));
 
-        return 0;
+        return Command::SUCCESS;
     }
 }
