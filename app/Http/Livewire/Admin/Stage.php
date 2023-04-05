@@ -44,7 +44,7 @@ class Stage extends Component
         'Journals' => ['Journals', 'Journal Sections'],
         'Additional' => ['Additional', 'Additional Sections'],
         'Autobiographies' => ['Autobiography Sections', 'Autobiographies'],
-        'Daybooks' => ['Daybooks'],
+        'Daybooks' => ['Daybooks', 'Daybook Sections'],
     ];
 
     public $actionTypes;
@@ -77,6 +77,7 @@ class Stage extends Component
                 'Journals',
                 'Additional',
                 'Autobiographies',
+                'Daybooks',
             ];
 
             $month = [];
