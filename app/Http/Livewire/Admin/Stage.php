@@ -12,7 +12,7 @@ use Livewire\Component;
 
 class Stage extends Component
 {
-    protected $dates = [
+    public $dates = [
         'start' => null,
         'end' => null,
     ];

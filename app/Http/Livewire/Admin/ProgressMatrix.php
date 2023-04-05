@@ -14,7 +14,7 @@ use Livewire\Component;
 
 class ProgressMatrix extends Component
 {
-    protected $dates = [
+    public $dates = [
         'start' => null,
         'end' => null,
     ];
