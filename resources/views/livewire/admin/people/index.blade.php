@@ -87,15 +87,29 @@
                         <x-admin.quotes.heading class="pr-0 w-8">
                             <x-input.checkbox wire:model="selectPage" />
                         </x-admin.quotes.heading>
-                        <x-admin.quotes.heading sortable multi-column wire:click="sortBy('pcf_unique_id')" :direction="$sorts['name'] ?? null" class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">ID</x-admin.quotes.heading>
+                        <x-admin.quotes.heading sortable multi-column wire:click="sortBy('pcf_unique_id')"
+                                                :direction="$sorts['name'] ?? null"
+                                                class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">
+                            ID
+                        </x-admin.quotes.heading>
+                        <x-admin.quotes.heading class="whitespace-nowrap">
+                            Researcher
+                        </x-admin.quotes.heading>
                         <x-admin.quotes.heading sortable
                                                 multi-column
-                                                wire:click="sortBy('name')"
-                                                :direction="$sorts['name'] ?? null"
+                                                wire:click="sortBy('last_name')"
+                                                :direction="$sorts['last_name'] ?? null"
                                                 class="sticky left-0 z-50 w-full bg-gray-100">
                             Name
                         </x-admin.quotes.heading>
-
+                        @foreach($columns as $key => $column)
+                            <x-admin.quotes.heading class="whitespace-nowrap">
+                                {{ $column }}
+                            </x-admin.quotes.heading>
+                        @endforeach
+                        <x-admin.quotes.heading class="whitespace-nowrap">
+                            Last Updated
+                        </x-admin.quotes.heading>
                     </x-slot>
 
                     <x-slot name="body">
@@ -125,7 +139,13 @@
 
                                 <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">
                                     <div class="inline-flex space-x-2 text-sm leading-5 whitespace-nowrap">
-                                        {{ $person->id }}
+                                        {{ $person->unique_id }}
+                                    </div>
+                                </x-admin.quotes.cell>
+
+                                <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">
+                                    <div class="whitespace-nowrap">
+                                        {{ $person->researcher?->name ?? $person->researcher_text }}
                                     </div>
                                 </x-admin.quotes.cell>
 
@@ -143,6 +163,20 @@
                                                 </a>
                                             </p>
                                         </div>
+                                    </div>
+                                </x-admin.quotes.cell>
+
+                                @foreach($columns as $key => $column)
+                                    <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">
+                                        <div class="whitespace-nowrap">
+                                            {{ $person->{$key} }}
+                                        </div>
+                                    </x-admin.quotes.cell>
+                                @endforeach
+
+                                <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">
+                                    <div class="whitespace-nowrap">
+                                        {{ $person->updated_at->toDayDateTimeString() }}
                                     </div>
                                 </x-admin.quotes.cell>
 

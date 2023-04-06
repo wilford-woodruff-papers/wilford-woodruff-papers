@@ -28,6 +28,25 @@ class Index extends Component
         'search' => '',
     ];
 
+    public $columns = [
+        'reference' => 'reference',
+        'relationship' => 'relationship_to_ww',
+        'birth_date' => 'birth_date',
+        'death_date' => 'death_date',
+        'life_years' => 'b_d_dates',
+        'pid' => 'pid_fsid',
+        'added_to_ftp_at' => 'added_to_ftp',
+        'first_name' => 'given_name',
+        'middle_name' => 'middle_name',
+        'last_name' => 'surname',
+        'suffix' => 'suffix',
+        'alternate_names' => 'alternate_names',
+        'maiden_name' => 'maiden_name',
+        'baptism_date' => 'baptism_date',
+        'notes' => 'notes',
+        'bio_completed_at' => 'date_bio_completed',
+    ];
+
     protected $queryString = [
         'sorts',
         'filters' => ['except' => ''],
@@ -68,9 +87,12 @@ class Index extends Component
             })
             ->when(array_key_exists('search', $this->filters) && $this->filters['search'], function ($query, $search) {
                 $query->where('name', 'LIKE', '%'.$this->filters['search'].'%');
-            })
-            ->orderBy('last_name', 'asc')
-            ->orderBy('first_name', 'asc');
+            });
+
+        if (empty($this->sorts)) {
+            $query = $query->orderBy('last_name', 'asc')
+                ->orderBy('first_name', 'asc');
+        }
 
         return $this->applySorting($query);
     }
