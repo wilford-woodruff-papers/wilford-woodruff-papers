@@ -28,7 +28,7 @@ class ImportSubjects extends Action
     {
         Excel::import(new SubjectImport, $fields->file);
 
-        return Action::message('Subjects imported successfully');
+        return Action::message('Subjects added to queue for processing successfully');
     }
 
     /**
