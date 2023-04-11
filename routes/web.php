@@ -116,7 +116,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return redirect()->route('home');
 })->name('dashboard');
 
-Route::prefix('filemanager')->middleware('web', 'auth')->group(function () {
+Route::prefix('filemanager')->middleware(['web', 'auth', 'role:Super Admin|Admin|Editor'])->group(function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });
 
