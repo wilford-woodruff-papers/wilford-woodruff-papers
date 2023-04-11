@@ -229,6 +229,14 @@ Route::group(['middleware' => ['role:Super Admin|Editor']], function () {
         ->name('admin.people.index');
 
     Route::middleware(['auth:sanctum', 'verified'])
+        ->get('/admin/dashboard/people/create', [\App\Http\Controllers\Admin\PeopleController::class, 'create'])
+        ->name('admin.dashboard.people.create');
+
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->post('/admin/dashboard/people', [\App\Http\Controllers\Admin\PeopleController::class, 'store'])
+        ->name('admin.dashboard.people.store');
+
+    Route::middleware(['auth:sanctum', 'verified'])
         ->get('/admin/dashboard/people/{person}/edit', [\App\Http\Controllers\Admin\PeopleController::class, 'edit'])
         ->name('admin.dashboard.people.edit');
 

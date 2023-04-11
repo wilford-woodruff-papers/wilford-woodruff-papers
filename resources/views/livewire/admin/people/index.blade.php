@@ -1,6 +1,6 @@
 <div x-data="{
-            shadow: false
-            perPage: @entagle('perPage'),
+            shadow: false,
+            perPage: @entangle('perPage'),
         }">
     <div class="grid grid-cols-12 gap-x-4">
         <div class="col-span-12 pr-8">
@@ -58,7 +58,7 @@
                             {{--<livewire:import-transactions />--}}
 
                             <div class="py-2">
-                                <a href="{{ route('admin.dashboard.document.create') }}"
+                                <a href="{{ route('admin.dashboard.people.create') }}"
                                    class="py-2 px-4 text-white bg-indigo-600 border-indigo-600 hover:bg-indigo-500 active:bg-indigo-700"
                                 ><x-icon.plus/> New</a>
                             </div>
@@ -104,7 +104,7 @@
                         </x-admin.quotes.heading>
                         @foreach($columns as $key => $column)
                             <x-admin.quotes.heading class="whitespace-nowrap">
-                                {{ $column }}
+                                {{ str($column)->replace('_', ' ') }}
                             </x-admin.quotes.heading>
                         @endforeach
                         <x-admin.quotes.heading class="whitespace-nowrap">
@@ -145,7 +145,13 @@
 
                                 <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">
                                     <div class="whitespace-nowrap">
-                                        {{ $person->researcher?->name ?? $person->researcher_text }}
+                                        @if(! empty($person->researcher_id))
+                                            {{ $person->researcher?->name }}
+                                        @elseif(! empty($person->researcher_text))
+                                            {{ $person->researcher_text }}
+                                        @else
+                                            <livewire:admin.claim-subject :subject="$person" :wire:key="$person->id"/>
+                                        @endif
                                     </div>
                                 </x-admin.quotes.cell>
 
@@ -169,7 +175,7 @@
                                 @foreach($columns as $key => $column)
                                     <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">
                                         <div class="whitespace-nowrap">
-                                            {{ $person->{$key} }}
+                                            {!! str($person->{$key})->limit(150, '...') !!}
                                         </div>
                                     </x-admin.quotes.cell>
                                 @endforeach

@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Subject;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 
 class PeopleController extends Controller
 {
@@ -16,7 +17,15 @@ class PeopleController extends Controller
      */
     public function create()
     {
-        //
+        $person = new Subject();
+
+        return view('admin.dashboard.people.edit', [
+            'person' => $person,
+            'researchers' => User::query()
+                ->role(['researcher'])
+                ->orderBy('name')
+                    ->get(),
+        ]);
     }
 
     /**
@@ -30,12 +39,79 @@ class PeopleController extends Controller
         $person = new Subject();
 
         $validated = $request->validate([
-            'name' => 'required|max:255',
+            'first_name' => [
+                'required',
+                'max:191',
+            ],
+            'middle_name' => [
+                'max:191',
+            ],
+            'last_name' => [
+                'max:191',
+            ],
+            'suffix' => [
+                'max:191',
+            ],
+            'alternate_names' => [
+                'max:191',
+            ],
+            'maiden_name' => [
+                'max:191',
+            ],
+            'birth_date' => [
+                'max:191',
+            ],
+            'baptism_date' => [
+                'max:191',
+            ],
+            'death_date' => [
+                'max:191',
+            ],
+            'life_years' => [
+                'max:191',
+            ],
+            'pid' => [
+                'max:191',
+            ],
+            'pid_identified_at' => [
+                'max:191',
+            ],
+            'researcher_id' => [
+                'nullable',
+            ],
+            'bio' => [
+                'nullable',
+            ],
+            'bio_completed_at' => [
+                'max:191',
+            ],
+            'bio_approved_at' => [
+                'max:191',
+            ],
+            'footnotes' => [
+                'nullable',
+            ],
+            'notes' => [
+                'nullable',
+            ],
+            'log_link' => [
+                'max:191',
+            ],
         ]);
 
         $person->fill($validated);
 
+        // TODO: Update the person's name
+
         $person->save();
+
+        $person->category()->sync($request->get('categories'));
+
+        $person->category()->syncWithoutDetaching(
+            Category::query()
+                ->where('name', 'People')
+                ->first()
+        );
 
         $request->session()->flash('success', 'Person created successfully!');
 
@@ -65,6 +141,22 @@ class PeopleController extends Controller
     {
         return view('admin.dashboard.people.edit', [
             'person' => $person,
+            'researchers' => User::query()
+                ->role(['researcher'])
+                ->orderBy('name')
+                ->get(),
+            'categories' => Category::query()
+                ->whereIn('name', [
+                    'Apostles',
+                    '1840 British Converts',
+                    'Business',
+                    'Family',
+                    'Host',
+                    'Scriptural Figures',
+                    '1835 Southern Converts',
+                ])
+                ->orderBy('name')
+                ->get(),
         ]);
     }
 
@@ -78,16 +170,78 @@ class PeopleController extends Controller
     public function update(Request $request, Subject $person)
     {
         $validated = $request->validate([
-            'name' => [
+            'first_name' => [
                 'required',
-                'max:255',
-                Rule::unique('subjects', 'slug')->ignore($person->id, 'id'),
+                'max:191',
+            ],
+            'middle_name' => [
+                'max:191',
+            ],
+            'last_name' => [
+                'max:191',
+            ],
+            'suffix' => [
+                'max:191',
+            ],
+            'alternate_names' => [
+                'max:191',
+            ],
+            'maiden_name' => [
+                'max:191',
+            ],
+            'birth_date' => [
+                'max:191',
+            ],
+            'baptism_date' => [
+                'max:191',
+            ],
+            'death_date' => [
+                'max:191',
+            ],
+            'life_years' => [
+                'max:191',
+            ],
+            'pid' => [
+                'max:191',
+            ],
+            'pid_identified_at' => [
+                'max:191',
+            ],
+            'researcher_id' => [
+                'nullable',
+            ],
+            'bio' => [
+                'nullable',
+            ],
+            'bio_completed_at' => [
+                'max:191',
+            ],
+            'bio_approved_at' => [
+                'max:191',
+            ],
+            'footnotes' => [
+                'nullable',
+            ],
+            'notes' => [
+                'nullable',
+            ],
+            'log_link' => [
+                'max:191',
             ],
         ]);
 
         $person->fill($validated);
 
+        // TODO: Update the person's name
         $person->save();
+
+        $person->category()->sync($request->get('categories'));
+
+        $person->category()->syncWithoutDetaching(
+            Category::query()
+                ->where('name', 'People')
+                ->first()
+        );
 
         $request->session()->flash('success', 'Person updated successfully!');
 
