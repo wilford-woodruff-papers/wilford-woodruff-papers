@@ -18,10 +18,16 @@ class SearchController extends Controller
      */
     public function __invoke(Request $request)
     {
+        if (auth()->check() && auth()->user()->hasAnyRole(['CFM Researcher'])) {
+            $enabled = [0, 1];
+        } else {
+            $enabled = [1];
+        }
+
         $pages = Page::query()->with('dates', 'media', 'parent');
         $pages = $pages->with('item')
-                        ->whereHas('item', function (Builder $query) {
-                            $query->where('enabled', 1);
+                        ->whereHas('item', function (Builder $query) use ($enabled) {
+                            $query->whereIn('enabled', $enabled);
                         });
 
         if ($request->has('q') && $request->get('q') != '*') {
@@ -70,7 +76,8 @@ class SearchController extends Controller
         }
 
         if ($request->has('people') && ! empty($request->get('q'))) {
-            $people = Subject::whereEnabled(1)
+            $people = Subject::query()
+                                ->whereEnabled(1)
                                 ->whereHas('category', function (Builder $query) {
                                     $query->where('name', 'People');
                                 });

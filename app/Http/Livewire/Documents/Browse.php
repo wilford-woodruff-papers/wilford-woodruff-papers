@@ -65,12 +65,18 @@ class Browse extends Component
 
     public function render()
     {
+        if (auth()->check() && auth()->user()->hasAnyRole(['CFM Researcher'])) {
+            $enabled = [0, 1];
+        } else {
+            $enabled = [1];
+        }
+
         $this->types = Type::whereNull('type_id')
-                                ->withCount(['items' => function (Builder $query) {
+                                ->withCount(['items' => function (Builder $query) use ($enabled) {
                                     $query->when(data_get($this->filters, 'search'), function ($query, $q) {
                                         $query->where('name', 'LIKE', '%'.$q.'%');
                                     })
-                                            ->where('enabled', 1);
+                                            ->whereIn('enabled', $enabled);
                                 }])
                                 ->orderBy('name', 'ASC')
                                 ->get();
@@ -81,7 +87,7 @@ class Browse extends Component
                 ->when(data_get($this->filters, 'search'), function ($query, $q) {
                     $query->where('name', 'LIKE', '%'.$q.'%');
                 })
-                ->whereEnabled(1)
+                ->whereIn('enabled', $enabled)
                 ->whereNotNull('decade')
                 ->groupBy('decade');
             $this->decades = $this->decades->where('type_id', data_get($this->filters, 'type'))
@@ -97,7 +103,7 @@ class Browse extends Component
                 ->when(data_get($this->filters, 'search'), function ($query, $q) {
                     $query->where('name', 'LIKE', '%'.$q.'%');
                 })
-                ->whereEnabled(1)
+                ->whereIn('enabled', $enabled)
                 ->whereNotNull('year')
                 ->groupBy('year');
             $this->years = $this->years->where('type_id', data_get($this->filters, 'type'))
@@ -108,7 +114,7 @@ class Browse extends Component
         $items = Item::query()
             ->with('firstPage', 'type')
             ->whereNull('item_id')
-            ->whereEnabled(1)
+            ->whereIn('enabled', $enabled)
             ->orderBy($this->sortColumn(), $this->sortDirection())
             ->orderBy('name', 'ASC')
             ->when(data_get($this->filters, 'search'), function ($query, $q) {
