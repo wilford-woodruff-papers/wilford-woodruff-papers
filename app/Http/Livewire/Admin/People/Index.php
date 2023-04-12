@@ -26,6 +26,7 @@ class Index extends Component
 
     public $filters = [
         'search' => '',
+        'tagged' => '',
     ];
 
     public $columns = [
@@ -82,6 +83,9 @@ class Index extends Component
     public function getRowsQueryProperty()
     {
         $query = Subject::query()
+            ->with([
+                'researcher',
+            ])
             ->whereHas('category', function (Builder $query) {
                 $query->whereIn('categories.name', ['People']);
             })
@@ -92,6 +96,14 @@ class Index extends Component
                     }
                 });
             });
+        // TODO: Cache pages for people
+        if (array_key_exists('tagged', $this->filters) && ! empty($this->filters['tagged'])) {
+            if ($this->filters['tagged'] == 'true') {
+                $query = $query->where('total_usage_count', '>', 0);
+            } elseif ($this->filters['tagged'] == 'false') {
+                $query = $query->where('total_usage_count', '=', 0);
+            }
+        }
 
         if (empty($this->sorts)) {
             $query = $query->orderBy('last_name', 'asc')

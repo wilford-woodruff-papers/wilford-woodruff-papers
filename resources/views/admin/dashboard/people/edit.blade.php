@@ -5,6 +5,9 @@
             showSuccess: true,
             setResearcher: function(userid){
                 document.getElementById('researcher').value = userid;
+            },
+            setDateToNow: function(id){
+                document.getElementById(id).value = new Date().toISOString().slice(0, 10);
             }
         }"
         x-init="setTimeout(() => showSuccess = false, 3000)"
@@ -91,7 +94,7 @@
                         </div>
                         <div class="py-6 px-4 sm:p-6 lg:pb-8">
                             <div>
-                                <h2 class="text-xl font-bold leading-6 text-gray-900">
+                                <h2 class="text-2xl font-bold leading-6 text-gray-900">
                                     <a href="{{ route('subjects.show', ['subject' => $person->slug]) }}"
                                        target="_blank"
                                        class="text-secondary"
@@ -125,7 +128,7 @@
                                                id="researcher"
                                                value="{{ $person->researcher_text }}"
                                                class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
-                                        >
+                                        />
                                     @else
                                         <div class="flex gap-x-8 items-center">
                                             <div class="flex-1">
@@ -168,7 +171,7 @@
                                            id="pid"
                                            value="{{ $person->pid }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
-                                    >
+                                    />
                                 </div>
                                 <div class="col-span-3">
                                     <label for="pid_identified_at"
@@ -176,12 +179,23 @@
                                     >
                                         <span class="font-semibold">PID Identified At</span>
                                     </label>
-                                    <input type="date"
-                                           name="pid_identified_at"
-                                           id="pid_identified_at"
-                                           value="{{ $person->pid_identified_at }}"
-                                           class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
-                                    >
+                                    <div class="flex gap-x-2 items-center">
+                                        <div class="flex-1">
+                                            <input type="date"
+                                                   name="pid_identified_at"
+                                                   id="pid_identified_at"
+                                                   value="{{ $person->pid_identified_at }}"
+                                                   class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
+                                            />
+                                        </div>
+                                        <div>
+                                            <button x-on:click.prevent="setDateToNow('pid_identified_at')"
+                                                    type="button"
+                                                    class="inline-flex justify-center py-2 px-4 mt-1 mr-2 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:outline-none focus:ring-sky-500">
+                                                Now
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -198,7 +212,7 @@
                                            id="first_name"
                                            value="{{ $person->first_name }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
-                                    >
+                                    />
                                 </div>
                                 <div class="col-span-3">
                                     <label for="middle_name"
@@ -211,7 +225,7 @@
                                            id="middle_name"
                                            value="{{ $person->middle_name }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
-                                    >
+                                    />
                                 </div>
                                 <div class="col-span-3">
                                     <label for="last_name"
@@ -224,7 +238,7 @@
                                            id="last_name"
                                            value="{{ $person->last_name }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
-                                    >
+                                    />
                                 </div>
                                 <div class="col-span-3">
                                     <label for="suffix"
@@ -237,7 +251,7 @@
                                            id="suffix"
                                            value="{{ $person->suffix }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
-                                    >
+                                    />
                                 </div>
                             </div>
 
@@ -253,7 +267,7 @@
                                            id="alternate_names"
                                            value="{{ $person->alternate_names }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
-                                    >
+                                    />
                                 </div>
                                 <div class="col-span-3">
                                     <label for="maiden_name"
@@ -266,7 +280,7 @@
                                            id="maiden_name"
                                            value="{{ $person->maiden_name }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
-                                    >
+                                    />
                                 </div>
                             </div>
 
@@ -308,7 +322,7 @@
                                            id="death_date"
                                            value="{{ $person->death_date }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
-                                    >
+                                    />
                                 </div>
                                 <div class="col-span-3">
                                     <label for="life_years"
@@ -338,7 +352,7 @@
                                                            type="checkbox"
                                                            @checked($person->category->contains($category->id))
                                                            class="w-4 h-4 text-indigo-600 rounded border-gray-300 focus:ring-indigo-600"
-                                                    >
+                                                    />
                                                 </div>
                                                 <div class="ml-1 text-sm leading-6">
                                                     <label for="categories_{{ $category->id }}" class="font-medium text-gray-900">{{ $category->name }}</label>
@@ -380,12 +394,23 @@
                                         >
                                             <span class="font-semibold">Bio Completed At</span>
                                         </label>
-                                        <input type="date"
-                                               name="bio_completed_at"
-                                               id="bio_completed_at"
-                                               value="{{ $person->bio_completed_at }}"
-                                               class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
-                                        >
+                                        <div class="flex gap-x-2 items-center">
+                                            <div class="flex-1">
+                                                <input type="date"
+                                                       name="bio_completed_at"
+                                                       id="bio_completed_at"
+                                                       value="{{ $person->bio_completed_at }}"
+                                                       class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
+                                                />
+                                            </div>
+                                            <div>
+                                                <button x-on:click.prevent="setDateToNow('bio_completed_at')"
+                                                        type="button"
+                                                        class="inline-flex justify-center py-2 px-4 mt-1 mr-2 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:outline-none focus:ring-sky-500">
+                                                    Now
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="col-span-3">
                                         <label for="bio_approved_at"
@@ -393,12 +418,23 @@
                                         >
                                             <span class="font-semibold">Bio Approved At</span>
                                         </label>
-                                        <input type="date"
-                                               name="bio_approved_at"
-                                               id="bio_approved_at"
-                                               value="{{ $person->bio_approved_at }}"
-                                               class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
-                                        >
+                                        <div class="flex gap-x-2 items-center">
+                                            <div class="flex-1">
+                                                <input type="date"
+                                                       name="bio_approved_at"
+                                                       id="bio_approved_at"
+                                                       value="{{ $person->bio_approved_at }}"
+                                                       class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
+                                                />
+                                            </div>
+                                            <div>
+                                                <button x-on:click.prevent="setDateToNow('bio_approved_at')"
+                                                        type="button"
+                                                        class="inline-flex justify-center py-2 px-4 mt-1 mr-2 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:outline-none focus:ring-sky-500">
+                                                    Now
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -483,7 +519,7 @@
                 ],
                 cleaner: {
                     action: 'both', // both|button|paste 'button' only cleans via toolbar button, 'paste' only clean when pasting content, both does both options.
-                    icon: '<i class="note-icon"><svg xmlns="http://www.w3.org/2000/svg" id="libre-paintbrush" viewBox="0 0 14 14" width="14" height="14"><path d="m 11.821425,1 q 0.46875,0 0.82031,0.311384 0.35157,0.311384 0.35157,0.780134 0,0.421875 -0.30134,1.01116 -2.22322,4.212054 -3.11384,5.035715 -0.64956,0.609375 -1.45982,0.609375 -0.84375,0 -1.44978,-0.61942 -0.60603,-0.61942 -0.60603,-1.469866 0,-0.857143 0.61608,-1.419643 l 4.27232,-3.877232 Q 11.345985,1 11.821425,1 z m -6.08705,6.924107 q 0.26116,0.508928 0.71317,0.870536 0.45201,0.361607 1.00781,0.508928 l 0.007,0.475447 q 0.0268,1.426339 -0.86719,2.32366 Q 5.700895,13 4.261155,13 q -0.82366,0 -1.45982,-0.311384 -0.63616,-0.311384 -1.0212,-0.853795 -0.38505,-0.54241 -0.57924,-1.225446 -0.1942,-0.683036 -0.1942,-1.473214 0.0469,0.03348 0.27455,0.200893 0.22768,0.16741 0.41518,0.29799 0.1875,0.130581 0.39509,0.24442 0.20759,0.113839 0.30804,0.113839 0.27455,0 0.3683,-0.247767 0.16741,-0.441965 0.38505,-0.753349 0.21763,-0.311383 0.4654,-0.508928 0.24776,-0.197545 0.58928,-0.31808 0.34152,-0.120536 0.68974,-0.170759 0.34821,-0.05022 0.83705,-0.07031 z"/></svg></i>',
+                    icon: '<span class="note-icon"><svg xmlns="http://www.w3.org/2000/svg" id="libre-paintbrush" viewBox="0 0 14 14" width="14" height="14"><path d="m 11.821425,1 q 0.46875,0 0.82031,0.311384 0.35157,0.311384 0.35157,0.780134 0,0.421875 -0.30134,1.01116 -2.22322,4.212054 -3.11384,5.035715 -0.64956,0.609375 -1.45982,0.609375 -0.84375,0 -1.44978,-0.61942 -0.60603,-0.61942 -0.60603,-1.469866 0,-0.857143 0.61608,-1.419643 l 4.27232,-3.877232 Q 11.345985,1 11.821425,1 z m -6.08705,6.924107 q 0.26116,0.508928 0.71317,0.870536 0.45201,0.361607 1.00781,0.508928 l 0.007,0.475447 q 0.0268,1.426339 -0.86719,2.32366 Q 5.700895,13 4.261155,13 q -0.82366,0 -1.45982,-0.311384 -0.63616,-0.311384 -1.0212,-0.853795 -0.38505,-0.54241 -0.57924,-1.225446 -0.1942,-0.683036 -0.1942,-1.473214 0.0469,0.03348 0.27455,0.200893 0.22768,0.16741 0.41518,0.29799 0.1875,0.130581 0.39509,0.24442 0.20759,0.113839 0.30804,0.113839 0.27455,0 0.3683,-0.247767 0.16741,-0.441965 0.38505,-0.753349 0.21763,-0.311383 0.4654,-0.508928 0.24776,-0.197545 0.58928,-0.31808 0.34152,-0.120536 0.68974,-0.170759 0.34821,-0.05022 0.83705,-0.07031 z"/></svg></span>',
                     keepHtml: true,
                     keepTagContents: ['span'], //Remove tags and keep the contents
                     badTags: ['applet', 'col', 'colgroup', 'embed', 'noframes', 'noscript', 'script', 'style', 'title', 'meta', 'link', 'head'], //Remove full tags with contents

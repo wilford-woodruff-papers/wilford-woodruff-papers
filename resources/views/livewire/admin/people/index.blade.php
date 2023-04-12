@@ -22,6 +22,19 @@
                                        class="block py-1.5 pl-10 w-full text-gray-900 rounded-md border-0 ring-1 ring-inset ring-gray-300 sm:text-sm sm:leading-6 focus:ring-2 focus:ring-inset placeholder:text-gray-400 focus:ring-secondary" placeholder="Search people...">
                             </div>
                         </div>
+                        <div class="pl-4">
+                            <div class="flex gap-x-4 gap-y-4 items-center">
+                                <div class="pr-2 space-y-4">
+                                    <x-input.group borderless for="filter-type" label="Status">
+                                        <x-input.select wire:model="filters.tagged" id="filter-type">
+                                            <option value=""> -- Any -- </option>
+                                            <option value="false"> Not tagged </option>
+                                            <option value="true"> Tagged </option>
+                                        </x-input.select>
+                                    </x-input.group>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="col-span-2">
@@ -38,24 +51,6 @@
                                     </x-input.select>
                                 </x-input.group>
                             </div>
-
-                            {{--<div>
-                                <x-dropdown label="Bulk Actions">
-                                    --}}{{--<x-dropdown.item type="button" wire:click="exportSelected" class="flex items-center space-x-2">
-                                        <x-icon.download class="text-cool-gray-400"/> <span>Export</span>
-                                    </x-dropdown.item>--}}{{--
-                                    @foreach($taskTypes as $taskType)
-                                        <x-dropdown.item type="button" wire:click="addTasksInBulk({{ $taskType->id }})" class="flex items-center space-x-2">
-                                            --}}{{--<x-icon.trash class="text-cool-gray-400"/>--}}{{-- <span>Add {{ $taskType->name }} Task</span>
-                                        </x-dropdown.item>
-                                    @endforeach
-
-                                </x-dropdown>
-                            </div>--}}
-
-
-
-                            {{--<livewire:import-transactions />--}}
 
                             <div class="py-2">
                                 <a href="{{ route('admin.dashboard.people.create') }}"
