@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3bd48b76e7803d0ec5af6ca2a4e05534",
+    "content-hash": "db16e7ca8c9dc3af14f4336ff99f6ce6",
     "packages": [
         {
             "name": "alexpechkarev/geometry-library",
@@ -3599,17 +3599,17 @@
         },
         {
             "name": "laravel/nova",
-            "version": "4.22.2",
+            "version": "4.23.0",
             "source": {
                 "type": "git",
                 "url": "git@github.com:laravel/nova.git",
-                "reference": "845062cbaba71af76a9e29580fba07525350d9b2"
+                "reference": "6a14d83663f0484889a7f73ffaed7262bba7a26a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://nova.laravel.com/dist/laravel/nova/laravel-nova-845062cbaba71af76a9e29580fba07525350d9b2-zip-ffdb23.zip",
-                "reference": "845062cbaba71af76a9e29580fba07525350d9b2",
-                "shasum": "4816ab2483d1049577f0ca82ed34ac27d3be1ee9"
+                "url": "https://nova.laravel.com/dist/laravel/nova/laravel-nova-6a14d83663f0484889a7f73ffaed7262bba7a26a-zip-1df780.zip",
+                "reference": "6a14d83663f0484889a7f73ffaed7262bba7a26a",
+                "shasum": "fd7c3f363f0a6f28c7aaac5cf5ea06193d8be9aa"
             },
             "require": {
                 "brick/money": "^0.5.0|^0.6.0|^0.7.0|^0.8.0",
@@ -3634,7 +3634,7 @@
                 "mockery/mockery": "^1.4.4",
                 "nunomaduro/larastan": "^1.0.1|^2.5.1",
                 "orchestra/testbench-dusk": "^6.24|^7.21|^8.0",
-                "phpunit/phpunit": "^9.5.27",
+                "phpunit/phpunit": "^9.6|^10.0",
                 "predis/predis": "^1.1.9|^2.0"
             },
             "suggest": {
@@ -3702,9 +3702,9 @@
                 "laravel"
             ],
             "support": {
-                "source": "https://github.com/laravel/nova/tree/v4.22.2"
+                "source": "https://github.com/laravel/nova/tree/v4.23.0"
             },
-            "time": "2023-03-07T18:10:41+00:00"
+            "time": "2023-04-07T18:14:13+00:00"
         },
         {
             "name": "laravel/sanctum",
@@ -5951,25 +5951,24 @@
         },
         {
             "name": "nova-kit/nova-packages-tool",
-            "version": "v1.7.1",
+            "version": "v1.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nova-kit/nova-packages-tool.git",
-                "reference": "1e6317f9f370ae8e778f147092b8e288171e94e2"
+                "reference": "a7ba9b0db31ea22d30a405a7dd8999128896e0c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nova-kit/nova-packages-tool/zipball/1e6317f9f370ae8e778f147092b8e288171e94e2",
-                "reference": "1e6317f9f370ae8e778f147092b8e288171e94e2",
+                "url": "https://api.github.com/repos/nova-kit/nova-packages-tool/zipball/a7ba9b0db31ea22d30a405a7dd8999128896e0c1",
+                "reference": "a7ba9b0db31ea22d30a405a7dd8999128896e0c1",
                 "shasum": ""
             },
             "require": {
-                "laravel/nova": ">=4.22.0 <4.23.0",
+                "laravel/nova": ">=4.23.0 <4.24.0",
                 "php": "^7.3 || ^8.0"
             },
             "require-dev": {
-                "orchestra/testbench": "^6.24 || ^7.0 || ^8.0",
-                "phpunit/phpunit": "^9.6"
+                "orchestra/testbench": "^6.24 || ^7.0 || ^8.0"
             },
             "type": "library",
             "extra": {
@@ -5996,9 +5995,9 @@
             ],
             "description": "Tool for Laravel Nova Packages Development",
             "support": {
-                "source": "https://github.com/nova-kit/nova-packages-tool/tree/v1.7.1"
+                "source": "https://github.com/nova-kit/nova-packages-tool/tree/v1.8.0"
             },
-            "time": "2023-02-23T23:53:41+00:00"
+            "time": "2023-04-07T22:37:10+00:00"
         },
         {
             "name": "nunomaduro/termwind",
