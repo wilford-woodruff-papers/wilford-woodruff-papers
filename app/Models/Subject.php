@@ -32,6 +32,11 @@ class Subject extends Model
         return $this->belongsTo(self::class, 'subject_id');
     }
 
+    public function researcher()
+    {
+        return $this->belongsTo(User::class, 'researcher_id')->withTrashed();
+    }
+
     public function children()
     {
         return $this->hasMany(self::class)->with(['children' => function ($query) {
