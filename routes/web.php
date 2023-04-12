@@ -225,6 +225,18 @@ Route::middleware('role:Super Admin|Editor')->group(function () {
         ->name('admin.people.search');
 
     Route::middleware(['auth:sanctum', 'verified'])
+        ->get('/admin/people', \App\Http\Livewire\Admin\People\Index::class)
+        ->name('admin.people.index');
+
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->get('/admin/dashboard/people/{person}/edit', [\App\Http\Controllers\Admin\PeopleController::class, 'edit'])
+        ->name('admin.dashboard.people.edit');
+
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->put('/admin/dashboard/people/{person}', [\App\Http\Controllers\Admin\PeopleController::class, 'update'])
+        ->name('admin.dashboard.people.update');
+
+    Route::middleware(['auth:sanctum', 'verified'])
         ->get('/admin/dashboard/quotes/{quote}', [\App\Http\Controllers\Admin\QuoteController::class, 'show'])
         ->name('admin.dashboard.quotes.show');
 
