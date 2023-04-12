@@ -245,6 +245,26 @@ Route::middleware('role:Super Admin|Editor')->group(function () {
         ->name('admin.dashboard.people.update');
 
     Route::middleware(['auth:sanctum', 'verified'])
+        ->get('/admin/places', \App\Http\Livewire\Admin\Places\Index::class)
+        ->name('admin.places.index');
+
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->get('/admin/dashboard/places/create', [\App\Http\Controllers\Admin\PlacesController::class, 'create'])
+        ->name('admin.dashboard.places.create');
+
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->post('/admin/dashboard/places', [\App\Http\Controllers\Admin\PlacesController::class, 'store'])
+        ->name('admin.dashboard.places.store');
+
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->get('/admin/dashboard/places/{place}/edit', [\App\Http\Controllers\Admin\PlacesController::class, 'edit'])
+        ->name('admin.dashboard.places.edit');
+
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->put('/admin/dashboard/places/{place}', [\App\Http\Controllers\Admin\PlacesController::class, 'update'])
+        ->name('admin.dashboard.places.update');
+
+    Route::middleware(['auth:sanctum', 'verified'])
         ->get('/admin/dashboard/quotes/{quote}', [\App\Http\Controllers\Admin\QuoteController::class, 'show'])
         ->name('admin.dashboard.quotes.show');
 
