@@ -33,6 +33,26 @@
                                         </x-input.select>
                                     </x-input.group>
                                 </div>
+                                <div class="pr-2 space-y-4">
+                                    <x-input.group borderless for="filter-type" label="Country">
+                                        <x-input.select wire:model="filters.country" id="filter-type">
+                                            <option value=""> -- Any -- </option>
+                                            @foreach($countries as $country)
+                                                <option value="{{ $country }}">{{ $country }}</option>
+                                            @endforeach
+                                        </x-input.select>
+                                    </x-input.group>
+                                </div>
+                                <div class="pr-2 space-y-4">
+                                    <x-input.group borderless for="filter-type" label="State or Province">
+                                        <x-input.select wire:model="filters.state" id="filter-type">
+                                            <option value=""> -- Any -- </option>
+                                            @foreach($states as $state)
+                                                <option value="{{ $state }}">{{ $state }}</option>
+                                            @endforeach
+                                        </x-input.select>
+                                    </x-input.group>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -18,11 +18,18 @@
                      x-intersect:enter="shadow = false"
                 ></div>
                 <div class="divide-y divide-gray-200 lg:grid lg:grid-cols-12 lg:divide-y-0 lg:divide-x">
+                    @if($place->exists)
                     <form action="{{ route('admin.dashboard.places.update', ['place' => $place]) }}"
                           method="POST"
                           class="divide-y divide-gray-200 lg:col-span-12">
-                        @csrf()
                         @method('PUT')
+                    @else
+                    <form action="{{ route('admin.dashboard.places.store') }}"
+                          method="POST"
+                          class="divide-y divide-gray-200 lg:col-span-12">
+                        @method('POST')
+                    @endif
+                        @csrf()
                         <div class="sticky top-0 z-10 bg-white"
                              :class="shadow && 'drop-shadow-md'"
                         >
@@ -94,23 +101,25 @@
                         </div>
                         <div class="py-6 px-4 sm:p-6 lg:pb-8">
                             <div>
-                                <h2 class="text-2xl font-bold leading-6 text-gray-900">
-                                    <a href="{{ route('subjects.show', ['subject' => $place->slug]) }}"
-                                       target="_blank"
-                                       class="text-secondary"
-                                    >
-                                        {{ $place->name }}
-                                    </a>
-                                </h2>
+                                @if($place->exists)
+                                    <h2 class="text-2xl font-bold leading-6 text-gray-900">
+                                        <a href="{{ route('subjects.show', ['subject' => $place->slug]) }}"
+                                           target="_blank"
+                                           class="text-secondary"
+                                        >
+                                            {{ $place->name }}
+                                        </a>
+                                    </h2>
+                                @endif
                                 <div class="flex gap-x-8 mt-1 text-base font-semibold text-gray-500">
                                     <div>
                                         Unique ID: {{ $place->unique_id ?? 'N/A' }}
                                     </div>
                                     <div>
-                                        Last Updated: {{ $place->updated_at->toDayDateTimeString() }}
+                                        Last Updated: {{ $place->updated_at?->toDayDateTimeString() }}
                                     </div>
                                     <div>
-                                        Created: {{ $place->created_at->toDayDateTimeString() }}
+                                        Created: {{ $place->created_at?->toDayDateTimeString() }}
                                     </div>
                                 </div>
                             </div>
@@ -160,96 +169,124 @@
                                         </div>
                                     @endif
                                 </div>
-                                <div class="col-span-3">
-                                    <label for="pid"
-                                           class="block text-sm font-medium text-gray-700"
-                                    >
-                                        <span class="font-semibold">PID</span>
-                                    </label>
-                                    <input type="text"
-                                           name="pid"
-                                           id="pid"
-                                           value="{{ $place->pid }}"
-                                           class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
-                                    />
-                                </div>
-                                <div class="col-span-3">
-                                    <label for="pid_identified_at"
-                                           class="block text-sm font-medium text-gray-700"
-                                    >
-                                        <span class="font-semibold">PID Identified At</span>
-                                    </label>
-                                    <div class="flex gap-x-2 items-center">
-                                        <div class="flex-1">
-                                            <input type="date"
-                                                   name="pid_identified_at"
-                                                   id="pid_identified_at"
-                                                   value="{{ $place->pid_identified_at }}"
-                                                   class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
-                                            />
-                                        </div>
-                                        <div>
-                                            <button x-on:click.prevent="setDateToNow('pid_identified_at')"
-                                                    type="button"
-                                                    class="inline-flex justify-center py-2 px-4 mt-1 mr-2 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:outline-none focus:ring-sky-500">
-                                                Now
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
 
 
                             <div class="grid grid-cols-12 gap-6 mt-12">
-                                <div class="col-span-3">
-                                    <label for="first_name"
+                                {{--<div class="col-span-3">
+                                    <label for="country"
                                            class="block text-sm font-medium text-gray-700"
                                     >
-                                        <span class="font-semibold">Given Name</span> <span class="text-red-600">*</span>
+                                        <span class="font-semibold">Country</span>
                                     </label>
                                     <input type="text"
-                                           name="first_name"
-                                           id="first_name"
-                                           value="{{ $place->first_name }}"
+                                           name="country"
+                                           id="country"
+                                           value="{{ $place->country }}"
+                                           class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
+                                    />
+                                </div>--}}
+                                <div class="col-span-3"
+                                     x-ignore
+                                >
+                                    <div class="w-full max-w-sm">
+                                        <label for="country"
+                                               class="block mb-1 text-sm font-medium text-gray-700"
+                                        >
+                                            <span class="font-semibold">Country</span>
+                                        </label>
+                                        <select x-ref="select"
+                                                name="country"
+                                                id="country"
+                                                class="block py-2 px-3 mt-2 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500">
+                                            <option value="">
+                                                -- Select a Country --
+                                            </option>
+                                            @foreach($countries as $country)
+                                                <option value="{{ $country }}"
+                                                        @if($country === $place->country) selected @endif
+                                                >
+                                                    {{ $country }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-span-3"
+                                     x-ignore
+                                >
+                                    <div class="w-full max-w-sm">
+                                        <label for="state_province"
+                                               class="block mb-1 text-sm font-medium text-gray-700"
+                                        >
+                                            <span class="font-semibold">State/Province</span>
+                                        </label>
+                                        <select x-ref="select"
+                                                id="state_province"
+                                                name="state_province"
+                                                class="block py-2 px-3 mt-2 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500">
+                                            <option value="">
+                                                -- Select a State --
+                                            </option>
+                                            @foreach($states as $state)
+                                                <option value="{{ $state }}"
+                                                        @if($state === $place->state_province) selected @endif
+                                                >
+                                                    {{ $state }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-span-3"
+                                     x-ignore
+                                >
+                                    <div class="w-full max-w-sm">
+                                        <label for="county"
+                                               class="block mb-1 text-sm font-medium text-gray-700"
+                                        >
+                                            <span class="font-semibold">County</span>
+                                        </label>
+                                        <select x-ref="select"
+                                                id="county"
+                                                name="county"
+                                                class="block py-2 px-3 mt-2 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500">
+                                            <option value="">
+                                                -- Select a County --
+                                            </option>
+                                            @foreach($counties as $county)
+                                                <option value="{{ $county }}"
+                                                        @if($county === $place->county) selected @endif
+                                                >
+                                                    {{ $county }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-span-3">
+                                    <label for="city"
+                                           class="block text-sm font-medium text-gray-700"
+                                    >
+                                        <span class="font-semibold">City</span>
+                                    </label>
+                                    <input type="text"
+                                           name="city"
+                                           id="city"
+                                           value="{{ $place->city }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
-                                <div class="col-span-3">
-                                    <label for="middle_name"
+                                <div class="col-span-12">
+                                    <label for="specific_place"
                                            class="block text-sm font-medium text-gray-700"
                                     >
-                                        <span class="font-semibold">Middle Name</span>
+                                        <span class="font-semibold">Specific Place</span>
                                     </label>
                                     <input type="text"
-                                           name="middle_name"
-                                           id="middle_name"
-                                           value="{{ $place->middle_name }}"
-                                           class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
-                                    />
-                                </div>
-                                <div class="col-span-3">
-                                    <label for="last_name"
-                                           class="block text-sm font-medium text-gray-700"
-                                    >
-                                        <span class="font-semibold">Surname</span>
-                                    </label>
-                                    <input type="text"
-                                           name="last_name"
-                                           id="last_name"
-                                           value="{{ $place->last_name }}"
-                                           class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
-                                    />
-                                </div>
-                                <div class="col-span-3">
-                                    <label for="suffix"
-                                           class="block text-sm font-medium text-gray-700"
-                                    >
-                                        <span class="font-semibold">Suffix</span>
-                                    </label>
-                                    <input type="text"
-                                           name="suffix"
-                                           id="suffix"
-                                           value="{{ $place->suffix }}"
+                                           name="specific_place"
+                                           id="specific_place"
+                                           value="{{ $place->specific_place }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
@@ -339,30 +376,6 @@
                                 </div>
                             </div>
 
-                            <div class="grid grid-cols-12 gap-6 mt-12">
-                                <fieldset class="col-span-12">
-                                    <legend class="block mb-1 text-sm font-semibold text-gray-700">Special Categories</legend>
-                                    <div class="flex gap-x-4">
-                                        @foreach($categories as $category)
-                                            <div class="flex relative items-start">
-                                                <div class="flex items-center h-6">
-                                                    <input id="categories_{{ $category->id }}"
-                                                           name="categories[]"
-                                                           value="{{ $category->id }}"
-                                                           type="checkbox"
-                                                           @checked($place->category->contains($category->id))
-                                                           class="w-4 h-4 text-indigo-600 rounded border-gray-300 focus:ring-indigo-600"
-                                                    />
-                                                </div>
-                                                <div class="ml-1 text-sm leading-6">
-                                                    <label for="categories_{{ $category->id }}" class="font-medium text-gray-900">{{ $category->name }}</label>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </fieldset>
-                            </div>
-
                             <div class="grid grid-cols-12 gap-6 mt-6">
                                 <div class="col-span-12">
                                     <label for="bio"
@@ -439,16 +452,17 @@
                                 </div>
 
                                 <div class="col-span-12">
-                                    <label for="footnotes"
+                                    <label for="reference"
                                            class="block text-sm font-medium text-gray-700"
                                     >
-                                        <span class="font-semibold">Footnotes</span>
+                                        <span class="font-semibold">Source</span>
                                     </label>
-                                    <textarea type="text"
-                                           name="footnotes"
-                                           id="footnotes"
-                                           class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none summernote focus:border-sky-500 focus:ring-sky-500"
-                                    >{!! $place->footnotes !!}</textarea>
+                                    <input type="text"
+                                           name="reference"
+                                           id="reference"
+                                           value="{{ $place->reference }}"
+                                           class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
+                                    />
                                 </div>
 
                                 <div class="col-span-12">
@@ -500,11 +514,41 @@
         </div>
     </main>
     @push('scripts')
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
         <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
         <script src="{{ asset('js/summernote-cleaner.js') }}"></script>
         <script>
+
+            $(document).ready(function() {
+                $('#country').select2({
+                    tags: true,
+                    placeholder: {
+                        id: '', // the value of the option, makes it not selectable in the dropdown
+                        text: 'Select a Country'
+                    },
+                    allowClear: true,
+                });
+                $('#state_province').select2({
+                    tags: true,
+                    placeholder: {
+                        id: '', // the value of the option, makes it not selectable in the dropdown
+                        text: 'Select a State'
+                    },
+                    allowClear: true,
+                });
+                $('#county').select2({
+                    tags: true,
+                    placeholder: {
+                        id: '', // the value of the option, makes it not selectable in the dropdown
+                        text: 'Select a County'
+                    },
+                    allowClear: true,
+                });
+            });
+
             $('.summernote').summernote({
                 tabsize: 2,
                 height: 240,

@@ -8,6 +8,7 @@ use App\Http\Livewire\DataTable\WithPerPagePagination;
 use App\Http\Livewire\DataTable\WithSorting;
 use App\Models\Subject;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class Index extends Component
@@ -27,26 +28,28 @@ class Index extends Component
     public $filters = [
         'search' => '',
         'tagged' => '',
+        'country' => '',
+        'state' => '',
     ];
 
     public $columns = [
-        'reference' => 'reference',
-        'relationship' => 'relationship_to_ww',
-        'birth_date' => 'birth_date',
-        'death_date' => 'death_date',
-        'life_years' => 'b_d_dates',
-        'pid' => 'pid_fsid',
+        'country' => 'country',
+        'state_province' => 'state_or_province',
+        'county' => 'county',
+        'city' => 'city',
+        'specific_place' => 'specific_place',
+        'years' => 'years',
+        'place_confirmed_at' => 'confirmed_at',
+        'parent_location' => 'parent_location',
+        'modern_location' => 'modern_location',
         'added_to_ftp_at' => 'added_to_ftp',
-        'first_name' => 'given_name',
-        'middle_name' => 'middle_name',
-        'last_name' => 'surname',
-        'suffix' => 'suffix',
-        'alternate_names' => 'alternate_names',
-        'maiden_name' => 'maiden_name',
-        'baptism_date' => 'baptism_date',
+        'reference' => 'reference',
         'notes' => 'notes',
-        'bio_completed_at' => 'date_bio_completed',
     ];
+
+    public $countries = [];
+
+    public $states = [];
 
     protected $queryString = [
         'sorts',
@@ -59,7 +62,21 @@ class Index extends Component
 
     public function mount()
     {
-        //
+        $this->countries = DB::table('subjects')
+            ->select('country')
+            ->distinct()
+            ->whereNotNull('country')
+            ->orderBy('country', 'asc')
+            ->pluck('country', 'country')
+            ->toArray();
+
+        $this->countries = DB::table('subjects')
+            ->select('state_province')
+            ->distinct()
+            ->whereNotNull('state_province')
+            ->orderBy('state_province', 'asc')
+            ->pluck('state_province', 'state_province')
+            ->toArray();
     }
 
     public function updatedFilters()
@@ -82,6 +99,17 @@ class Index extends Component
 
     public function getRowsQueryProperty()
     {
+
+        if (array_key_exists('country', $this->filters) && ! empty($this->filters['state'])) {
+            $this->states = DB::table('subjects')
+                ->select('state_province')
+                ->distinct()
+                ->where('state_province', $this->filters['country'])
+                ->orderBy('state_province', 'asc')
+                ->pluck('state_province', 'state_province')
+                ->toArray();
+        }
+
         $query = Subject::query()
             ->with([
                 'researcher',

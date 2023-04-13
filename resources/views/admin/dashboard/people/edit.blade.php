@@ -18,11 +18,18 @@
                      x-intersect:enter="shadow = false"
                 ></div>
                 <div class="divide-y divide-gray-200 lg:grid lg:grid-cols-12 lg:divide-y-0 lg:divide-x">
+                    @if($person->exists)
                     <form action="{{ route('admin.dashboard.people.update', ['person' => $person]) }}"
                           method="POST"
                           class="divide-y divide-gray-200 lg:col-span-12">
-                        @csrf()
                         @method('PUT')
+                    @else
+                    <form action="{{ route('admin.dashboard.people.store') }}"
+                          method="POST"
+                          class="divide-y divide-gray-200 lg:col-span-12">
+                        @method('POST')
+                    @endif
+                        @csrf()
                         <div class="sticky top-0 z-10 bg-white"
                              :class="shadow && 'drop-shadow-md'"
                         >
@@ -95,22 +102,24 @@
                         <div class="py-6 px-4 sm:p-6 lg:pb-8">
                             <div>
                                 <h2 class="text-2xl font-bold leading-6 text-gray-900">
-                                    <a href="{{ route('subjects.show', ['subject' => $person->slug]) }}"
-                                       target="_blank"
-                                       class="text-secondary"
-                                    >
-                                        {{ $person->name }}
-                                    </a>
+                                    @if($person->exists)
+                                        <a href="{{ route('subjects.show', ['subject' => $person->slug]) }}"
+                                           target="_blank"
+                                           class="text-secondary"
+                                        >
+                                            {{ $person->name }}
+                                        </a>
+                                    @endif
                                 </h2>
                                 <div class="flex gap-x-8 mt-1 text-base font-semibold text-gray-500">
                                     <div>
                                         Unique ID: {{ $person->unique_id ?? 'N/A' }}
                                     </div>
                                     <div>
-                                        Last Updated: {{ $person->updated_at->toDayDateTimeString() }}
+                                        Last Updated: {{ $person->updated_at?->toDayDateTimeString() }}
                                     </div>
                                     <div>
-                                        Created: {{ $person->created_at->toDayDateTimeString() }}
+                                        Created: {{ $person->created_at?->toDayDateTimeString() }}
                                     </div>
                                 </div>
                             </div>

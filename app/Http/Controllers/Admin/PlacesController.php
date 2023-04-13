@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PlacesController extends Controller
 {
@@ -25,6 +26,27 @@ class PlacesController extends Controller
                 ->role(['researcher'])
                 ->orderBy('name')
                     ->get(),
+            'countries' => DB::table('subjects')
+                ->select('country')
+                ->distinct()
+                ->whereNotNull('country')
+                ->orderBy('country', 'asc')
+                ->pluck('country', 'country')
+                ->toArray(),
+            'states' => DB::table('subjects')
+                ->select('state_province')
+                ->distinct()
+                ->whereNotNull('state_province')
+                ->orderBy('state_province', 'asc')
+                ->pluck('state_province', 'state_province')
+                ->toArray(),
+            'counties' => DB::table('subjects')
+                ->select('county')
+                ->distinct()
+                ->whereNotNull('county')
+                ->orderBy('county', 'asc')
+                ->pluck('county', 'county')
+                ->toArray(),
         ]);
     }
 
@@ -38,17 +60,19 @@ class PlacesController extends Controller
         $place = new Subject();
 
         $validated = $request->validate([
-            'first_name' => [
-                'required',
+            'country' => [
                 'max:191',
             ],
-            'middle_name' => [
+            'state_province' => [
                 'max:191',
             ],
-            'last_name' => [
+            'county' => [
                 'max:191',
             ],
-            'suffix' => [
+            'city' => [
+                'max:191',
+            ],
+            'specific_place' => [
                 'max:191',
             ],
             'alternate_names' => [
@@ -100,11 +124,18 @@ class PlacesController extends Controller
 
         $place->fill($validated);
 
-        // TODO: Update the place's name
+        // Update the place's name
+        $place->name = collect([
+            $place->specific_place,
+            $place->city,
+            $place->county,
+            $place->state_province,
+            $place->country,
+        ])
+            ->filter()
+            ->implode(', ');
 
         $place->save();
-
-        $place->category()->sync($request->get('categories'));
 
         $place->category()->syncWithoutDetaching(
             Category::query()
@@ -142,18 +173,27 @@ class PlacesController extends Controller
                 ->role(['researcher'])
                 ->orderBy('name')
                 ->get(),
-            'categories' => Category::query()
-                ->whereIn('name', [
-                    'Apostles',
-                    '1840 British Converts',
-                    'Business',
-                    'Family',
-                    'Host',
-                    'Scriptural Figures',
-                    '1835 Southern Converts',
-                ])
-                ->orderBy('name')
-                ->get(),
+            'countries' => DB::table('subjects')
+                ->select('country')
+                ->distinct()
+                ->whereNotNull('country')
+                ->orderBy('country', 'asc')
+                ->pluck('country', 'country')
+                ->toArray(),
+            'states' => DB::table('subjects')
+                ->select('state_province')
+                ->distinct()
+                ->whereNotNull('state_province')
+                ->orderBy('state_province', 'asc')
+                ->pluck('state_province', 'state_province')
+                ->toArray(),
+            'counties' => DB::table('subjects')
+                ->select('county')
+                ->distinct()
+                ->whereNotNull('county')
+                ->orderBy('county', 'asc')
+                ->pluck('county', 'county')
+                ->toArray(),
         ]);
     }
 
@@ -165,17 +205,19 @@ class PlacesController extends Controller
     public function update(Request $request, Subject $place)
     {
         $validated = $request->validate([
-            'first_name' => [
-                'required',
+            'country' => [
                 'max:191',
             ],
-            'middle_name' => [
+            'state_province' => [
                 'max:191',
             ],
-            'last_name' => [
+            'county' => [
                 'max:191',
             ],
-            'suffix' => [
+            'city' => [
+                'max:191',
+            ],
+            'specific_place' => [
                 'max:191',
             ],
             'alternate_names' => [
@@ -236,10 +278,18 @@ class PlacesController extends Controller
             $place->unique_id = $uniqueId + 1;
         }
 
-        // TODO: Update the place's name
-        $place->save();
+        // Update the place's name
+        $place->name = collect([
+            $place->specific_place,
+            $place->city,
+            $place->county,
+            $place->state_province,
+            $place->country,
+        ])
+            ->filter()
+            ->implode(', ');
 
-        $place->category()->sync($request->get('categories'));
+        $place->save();
 
         $place->category()->syncWithoutDetaching(
             Category::query()

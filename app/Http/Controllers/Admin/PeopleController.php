@@ -25,6 +25,18 @@ class PeopleController extends Controller
                 ->role(['researcher'])
                 ->orderBy('name')
                     ->get(),
+            'categories' => Category::query()
+                ->whereIn('name', [
+                    'Apostles',
+                    '1840 British Converts',
+                    'Business',
+                    'Family',
+                    'Host',
+                    'Scriptural Figures',
+                    '1835 Southern Converts',
+                ])
+                ->orderBy('name')
+                ->get(),
         ]);
     }
 
