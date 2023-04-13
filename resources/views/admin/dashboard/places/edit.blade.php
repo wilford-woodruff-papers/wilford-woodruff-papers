@@ -124,54 +124,6 @@
                                 </div>
                             </div>
 
-                            <div class="grid grid-cols-12 gap-6 mt-6">
-                                <div class="col-span-6">
-                                    <label for="researcher"
-                                           class="block text-sm font-medium text-gray-700"
-                                    >
-                                        <span class="font-semibold">Researcher</span>
-                                    </label>
-                                    @if(! empty($place->researcher_text))
-                                        <input type="text"
-                                               name="researcher_text"
-                                               id="researcher"
-                                               value="{{ $place->researcher_text }}"
-                                               class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
-                                        />
-                                    @else
-                                        <div class="flex gap-x-8 items-center">
-                                            <div class="flex-1">
-                                                <select name="researcher_id"
-                                                        id="researcher"
-                                                        class="block flex-1 py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
-                                                >
-                                                    <option value="">
-                                                        -- Assign to Researcher --
-                                                    </option>
-                                                    @foreach($researchers as $researcher)
-                                                        <option value="{{ $researcher->id }}"
-                                                                @if($researcher->id === $place->researcher_id) selected @endif
-                                                        >
-                                                            {{ $researcher->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div>
-                                                @if(@empty($place->researcher_id))
-                                                    <button x-on:click.prevent="setResearcher({{ auth()->id() }})"
-                                                            type="button"
-                                                            class="inline-flex justify-center py-2 px-4 mr-24 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:outline-none focus:ring-sky-500">
-                                                        Assign to Me
-                                                    </button>
-                                                @endif
-                                            </div>
-                                        </div>
-                                    @endif
-                                </div>
-                            </div>
-
-
                             <div class="grid grid-cols-12 gap-6 mt-12">
                                 {{--<div class="col-span-3">
                                     <label for="country"
@@ -294,154 +246,40 @@
 
                             <div class="grid grid-cols-12 gap-6 mt-6">
                                 <div class="col-span-3">
-                                    <label for="alternate_names"
+                                    <label for="years"
                                            class="block text-sm font-medium text-gray-700"
                                     >
-                                        <span class="font-semibold">Alternate Names</span>
+                                        <span class="font-semibold">Years</span>
                                     </label>
                                     <input type="text"
-                                           name="alternate_names"
-                                           id="alternate_names"
-                                           value="{{ $place->alternate_names }}"
-                                           class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
-                                    />
-                                </div>
-                                <div class="col-span-3">
-                                    <label for="maiden_name"
-                                           class="block text-sm font-medium text-gray-700"
-                                    >
-                                        <span class="font-semibold">Maiden Name</span>
-                                    </label>
-                                    <input type="text"
-                                           name="maiden_name"
-                                           id="maiden_name"
-                                           value="{{ $place->maiden_name }}"
+                                           name="years"
+                                           id="years"
+                                           value="{{ $place->years }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
                             </div>
 
                             <div class="grid grid-cols-12 gap-6 mt-6">
-                                <div class="col-span-3">
-                                    <label for="birth_date"
-                                           class="block text-sm font-medium text-gray-700"
-                                    >
-                                        <span class="font-semibold">Birth Date</span>
-                                    </label>
-                                    <input type="date"
-                                           name="birth_date"
-                                           id="birth_date"
-                                           value="{{ $place->birth_date }}"
-                                           class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
-                                    >
-                                </div>
-                                <div class="col-span-3">
-                                    <label for="baptism_date"
-                                           class="block text-sm font-medium text-gray-700"
-                                    >
-                                        <span class="font-semibold">Baptism Date</span>
-                                    </label>
-                                    <input type="date"
-                                           name="baptism_date"
-                                           id="baptism_date"
-                                           value="{{ $place->baptism_date }}"
-                                           class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
-                                    >
-                                </div>
-                                <div class="col-span-3">
-                                    <label for="death_date"
-                                           class="block text-sm font-medium text-gray-700"
-                                    >
-                                        <span class="font-semibold">Death Date</span>
-                                    </label>
-                                    <input type="date"
-                                           name="death_date"
-                                           id="death_date"
-                                           value="{{ $place->death_date }}"
-                                           class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
-                                    />
-                                </div>
-                                <div class="col-span-3">
-                                    <label for="life_years"
-                                           class="block text-sm font-medium text-gray-700"
-                                    >
-                                        <span class="font-semibold">B-D Dates</span>
-                                    </label>
-                                    <input type="text"
-                                           name="life_years"
-                                           id="life_years"
-                                           value="{{ $place->life_years }}"
-                                           class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
-                                    >
-                                </div>
-                            </div>
-
-                            <div class="grid grid-cols-12 gap-6 mt-6">
-                                <div class="col-span-12">
-                                    <label for="bio"
-                                           class="block text-sm font-medium text-gray-700"
-                                    >
-                                        <span class="font-semibold">Bio</span>
-                                    </label>
-                                    @if(auth()->user()->hasRole('Bio Editor'))
-                                        <textarea type="text"
-                                                  name="bio"
-                                                  id="bio"
-                                                  class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none summernote focus:border-sky-500 focus:ring-sky-500"
-                                        >{!! $place->bio !!}</textarea>
-                                    @else
-                                        <div>
-                                            @if(! empty($place->bio))
-                                                {!! $place->bio !!}
-                                            @else
-                                                <span class="text-gray-500">No bio available.</span>
-                                            @endif
-                                        </div>
-                                    @endif
-                                </div>
 
                                 <div class="grid grid-cols-12 col-span-12 gap-6 mb-6">
                                     <div class="col-span-3">
-                                        <label for="bio_completed_at"
+                                        <label for="place_confirmed_at"
                                                class="block text-sm font-medium text-gray-700"
                                         >
-                                            <span class="font-semibold">Bio Completed At</span>
+                                            <span class="font-semibold">Date Confirmed</span>
                                         </label>
                                         <div class="flex gap-x-2 items-center">
                                             <div class="flex-1">
                                                 <input type="date"
-                                                       name="bio_completed_at"
-                                                       id="bio_completed_at"
-                                                       value="{{ $place->bio_completed_at }}"
+                                                       name="place_confirmed_at"
+                                                       id="place_confirmed_at"
+                                                       value="{{ $place->place_confirmed_at }}"
                                                        class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                                 />
                                             </div>
                                             <div>
-                                                <button x-on:click.prevent="setDateToNow('bio_completed_at')"
-                                                        type="button"
-                                                        class="inline-flex justify-center py-2 px-4 mt-1 mr-2 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:outline-none focus:ring-sky-500">
-                                                    Now
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-span-3">
-                                        <label for="bio_approved_at"
-                                               class="block text-sm font-medium text-gray-700"
-                                        >
-                                            <span class="font-semibold">Bio Approved At</span>
-                                        </label>
-                                        <div class="flex gap-x-2 items-center">
-                                            <div class="flex-1">
-                                                <input type="date"
-                                                       name="bio_approved_at"
-                                                       id="bio_approved_at"
-                                                       value="{{ $place->bio_approved_at }}"
-                                                       class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
-                                                />
-                                            </div>
-                                            <div>
-                                                <button x-on:click.prevent="setDateToNow('bio_approved_at')"
+                                                <button x-on:click.prevent="setDateToNow('place_confirmed_at')"
                                                         type="button"
                                                         class="inline-flex justify-center py-2 px-4 mt-1 mr-2 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:outline-none focus:ring-sky-500">
                                                     Now

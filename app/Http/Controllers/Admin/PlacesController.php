@@ -5,12 +5,44 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Subject;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class PlacesController extends Controller
 {
+    private $rules = [
+        'country' => [
+            'max:191',
+        ],
+        'state_province' => [
+            'max:191',
+        ],
+        'county' => [
+            'max:191',
+        ],
+        'city' => [
+            'max:191',
+        ],
+        'specific_place' => [
+            'max:191',
+        ],
+        'years' => [
+            'max:191',
+        ],
+        'place_confirmed_at' => [
+            'max:191',
+        ],
+        'reference' => [
+            'nullable',
+        ],
+        'notes' => [
+            'nullable',
+        ],
+        'log_link' => [
+            'max:191',
+        ],
+    ];
+
     /**
      * Show the form for creating a new resource.
      *
@@ -22,10 +54,6 @@ class PlacesController extends Controller
 
         return view('admin.dashboard.places.edit', [
             'place' => $place,
-            'researchers' => User::query()
-                ->role(['researcher'])
-                ->orderBy('name')
-                    ->get(),
             'countries' => DB::table('subjects')
                 ->select('country')
                 ->distinct()
@@ -59,68 +87,7 @@ class PlacesController extends Controller
     {
         $place = new Subject();
 
-        $validated = $request->validate([
-            'country' => [
-                'max:191',
-            ],
-            'state_province' => [
-                'max:191',
-            ],
-            'county' => [
-                'max:191',
-            ],
-            'city' => [
-                'max:191',
-            ],
-            'specific_place' => [
-                'max:191',
-            ],
-            'alternate_names' => [
-                'max:191',
-            ],
-            'maiden_name' => [
-                'max:191',
-            ],
-            'birth_date' => [
-                'max:191',
-            ],
-            'baptism_date' => [
-                'max:191',
-            ],
-            'death_date' => [
-                'max:191',
-            ],
-            'life_years' => [
-                'max:191',
-            ],
-            'pid' => [
-                'max:191',
-            ],
-            'pid_identified_at' => [
-                'max:191',
-            ],
-            'researcher_id' => [
-                'nullable',
-            ],
-            'bio' => [
-                'nullable',
-            ],
-            'bio_completed_at' => [
-                'max:191',
-            ],
-            'bio_approved_at' => [
-                'max:191',
-            ],
-            'footnotes' => [
-                'nullable',
-            ],
-            'notes' => [
-                'nullable',
-            ],
-            'log_link' => [
-                'max:191',
-            ],
-        ]);
+        $validated = $request->validate($this->rules);
 
         $place->fill($validated);
 
@@ -169,10 +136,6 @@ class PlacesController extends Controller
     {
         return view('admin.dashboard.places.edit', [
             'place' => $place,
-            'researchers' => User::query()
-                ->role(['researcher'])
-                ->orderBy('name')
-                ->get(),
             'countries' => DB::table('subjects')
                 ->select('country')
                 ->distinct()
@@ -204,68 +167,7 @@ class PlacesController extends Controller
      */
     public function update(Request $request, Subject $place)
     {
-        $validated = $request->validate([
-            'country' => [
-                'max:191',
-            ],
-            'state_province' => [
-                'max:191',
-            ],
-            'county' => [
-                'max:191',
-            ],
-            'city' => [
-                'max:191',
-            ],
-            'specific_place' => [
-                'max:191',
-            ],
-            'alternate_names' => [
-                'max:191',
-            ],
-            'maiden_name' => [
-                'max:191',
-            ],
-            'birth_date' => [
-                'max:191',
-            ],
-            'baptism_date' => [
-                'max:191',
-            ],
-            'death_date' => [
-                'max:191',
-            ],
-            'life_years' => [
-                'max:191',
-            ],
-            'pid' => [
-                'max:191',
-            ],
-            'pid_identified_at' => [
-                'max:191',
-            ],
-            'researcher_id' => [
-                'nullable',
-            ],
-            'bio' => [
-                'nullable',
-            ],
-            'bio_completed_at' => [
-                'max:191',
-            ],
-            'bio_approved_at' => [
-                'max:191',
-            ],
-            'footnotes' => [
-                'nullable',
-            ],
-            'notes' => [
-                'nullable',
-            ],
-            'log_link' => [
-                'max:191',
-            ],
-        ]);
+        $validated = $request->validate($this->rules);
 
         $place->fill($validated);
 
