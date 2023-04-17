@@ -219,7 +219,7 @@
             <div class="grid gap-12 px-4 md:grid-cols-2 md:px-0">
                 <div class="grid justify-center items-center sm:grid-cols-2">
                     <a href="https://www.guidestar.org/profile/84-4318803" target="_blank" class="text-center">
-                        <img src="{{ asset('img/donate/gold-guidestar.png') }}"
+                        <img src="{{ asset('img/donate/platinum-guidestar.png') }}"
                              alt="Wilford Woodruff Papers Foundation is a gold-level GuideStar participant, demonstrating its commitment to transparency."
                              title="Wilford Woodruff Papers Foundation is a gold-level GuideStar participant, demonstrating its commitment to transparency."
                              class="inline w-auto h-[240px]"

@@ -75,7 +75,7 @@
                     <div class="pb-12">
                         <div class="grid grid-cols-2 justify-center items-center mt-12">
                             <a href="https://www.guidestar.org/profile/84-4318803" target="_blank" class="text-center">
-                                <img src="https://wilfordwoodruffpapers.org/img/donate/gold-guidestar.png" alt="Wilford Woodruff Papers Foundation is a gold-level GuideStar participant, demonstrating its commitment to transparency." title="Wilford Woodruff Papers Foundation is a gold-level GuideStar participant, demonstrating its commitment to transparency." class="inline w-auto h-[120px]">
+                                <img src="https://wilfordwoodruffpapers.org/img/donate/platinum-guidestar.png" alt="Wilford Woodruff Papers Foundation is a gold-level GuideStar participant, demonstrating its commitment to transparency." title="Wilford Woodruff Papers Foundation is a gold-level GuideStar participant, demonstrating its commitment to transparency." class="inline w-auto h-[120px]">
                             </a>
                             <a href="https://www.charitynavigator.org/ein/844318803" target="_blank" class="text-center">
                                 <img src="https://wilfordwoodruffpapers.org/img/donate/fours-star-charity-navigator.png" alt="Wilford Woodruff Papers Foundation 4 Star profile on Charity Navigator." title="Wilford Woodruff Papers Foundation 4 Star profile on Charity Navigator." class="inline w-auto h-[120px]">
