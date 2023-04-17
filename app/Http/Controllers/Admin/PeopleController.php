@@ -10,6 +10,70 @@ use Illuminate\Http\Request;
 
 class PeopleController extends Controller
 {
+    private $rules = [
+        'name' => [
+            'required',
+            'max:191',
+        ],
+        'first_name' => [
+            'max:191',
+        ],
+        'middle_name' => [
+            'max:191',
+        ],
+        'last_name' => [
+            'max:191',
+        ],
+        'suffix' => [
+            'max:191',
+        ],
+        'alternate_names' => [
+            'max:191',
+        ],
+        'maiden_name' => [
+            'max:191',
+        ],
+        'birth_date' => [
+            'max:191',
+        ],
+        'baptism_date' => [
+            'max:191',
+        ],
+        'death_date' => [
+            'max:191',
+        ],
+        'life_years' => [
+            'max:191',
+        ],
+        'pid' => [
+            'max:191',
+        ],
+        'pid_identified_at' => [
+            'max:191',
+        ],
+        'researcher_id' => [
+            'nullable',
+        ],
+        'bio' => [
+            'nullable',
+        ],
+        'bio_completed_at' => [
+            'max:191',
+        ],
+        'bio_approved_at' => [
+            'max:191',
+        ],
+        'footnotes' => [
+            'nullable',
+        ],
+        'notes' => [
+            'nullable',
+        ],
+        'log_link' => [
+            'max:191',
+        ],
+    ];
+
     /**
      * Show the form for creating a new resource.
      *
@@ -49,66 +113,7 @@ class PeopleController extends Controller
     {
         $person = new Subject();
 
-        $validated = $request->validate([
-            'first_name' => [
-                'required',
-                'max:191',
-            ],
-            'middle_name' => [
-                'max:191',
-            ],
-            'last_name' => [
-                'max:191',
-            ],
-            'suffix' => [
-                'max:191',
-            ],
-            'alternate_names' => [
-                'max:191',
-            ],
-            'maiden_name' => [
-                'max:191',
-            ],
-            'birth_date' => [
-                'max:191',
-            ],
-            'baptism_date' => [
-                'max:191',
-            ],
-            'death_date' => [
-                'max:191',
-            ],
-            'life_years' => [
-                'max:191',
-            ],
-            'pid' => [
-                'max:191',
-            ],
-            'pid_identified_at' => [
-                'max:191',
-            ],
-            'researcher_id' => [
-                'nullable',
-            ],
-            'bio' => [
-                'nullable',
-            ],
-            'bio_completed_at' => [
-                'max:191',
-            ],
-            'bio_approved_at' => [
-                'max:191',
-            ],
-            'footnotes' => [
-                'nullable',
-            ],
-            'notes' => [
-                'nullable',
-            ],
-            'log_link' => [
-                'max:191',
-            ],
-        ]);
+        $validated = $request->validate($this->rules);
 
         $person->fill($validated);
 
@@ -176,66 +181,7 @@ class PeopleController extends Controller
      */
     public function update(Request $request, Subject $person)
     {
-        $validated = $request->validate([
-            'first_name' => [
-                'required',
-                'max:191',
-            ],
-            'middle_name' => [
-                'max:191',
-            ],
-            'last_name' => [
-                'max:191',
-            ],
-            'suffix' => [
-                'max:191',
-            ],
-            'alternate_names' => [
-                'max:191',
-            ],
-            'maiden_name' => [
-                'max:191',
-            ],
-            'birth_date' => [
-                'max:191',
-            ],
-            'baptism_date' => [
-                'max:191',
-            ],
-            'death_date' => [
-                'max:191',
-            ],
-            'life_years' => [
-                'max:191',
-            ],
-            'pid' => [
-                'max:191',
-            ],
-            'pid_identified_at' => [
-                'max:191',
-            ],
-            'researcher_id' => [
-                'nullable',
-            ],
-            'bio' => [
-                'nullable',
-            ],
-            'bio_completed_at' => [
-                'max:191',
-            ],
-            'bio_approved_at' => [
-                'max:191',
-            ],
-            'footnotes' => [
-                'nullable',
-            ],
-            'notes' => [
-                'nullable',
-            ],
-            'log_link' => [
-                'max:191',
-            ],
-        ]);
+        $validated = $request->validate($this->rules);
 
         $person->fill($validated);
 

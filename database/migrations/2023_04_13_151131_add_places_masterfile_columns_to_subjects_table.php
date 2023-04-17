@@ -24,10 +24,15 @@ return new class extends Migration
                 ->nullable();
             $table->string('years')
                 ->nullable();
-            $table->string('parent_location')
-                ->nullable();
             $table->string('modern_location')
                 ->nullable();
+            $table->boolean('visited')
+                ->default(false);
+            $table->boolean('mentioned')
+                ->default(false);
+
+            $table->string('reference', 2048)
+                ->change();
         });
     }
 
@@ -36,15 +41,24 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('subjects', function (Blueprint $table) {
-            $table->dropColumn('country');
-            $table->dropColumn('state_province');
-            $table->dropColumn('county');
-            $table->dropColumn('county');
-            $table->dropColumn('specific_place');
-            $table->dropColumn('years');
-            $table->dropColumn('parent_location');
-            $table->dropColumn('modern_location');
+        $columns = [
+            'country',
+            'state_province',
+            'county',
+            'city',
+            'specific_place',
+            'years',
+            'modern_location',
+            'visited',
+            'mentioned',
+        ];
+
+        Schema::table('subjects', function (Blueprint $table) use ($columns) {
+            foreach ($columns as $column) {
+                if (Schema::hasColumn('subjects', $column)) {
+                    $table->dropColumn($column);
+                }
+            }
         });
     }
 };

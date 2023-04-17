@@ -211,10 +211,23 @@
 
                             <div class="grid grid-cols-12 gap-6 mt-12">
                                 <div class="col-span-3">
+                                    <label for="name"
+                                           class="block text-sm font-medium text-gray-700"
+                                    >
+                                        <span class="font-semibold">Full Name (As used in FTP)</span> <span class="text-red-600">*</span>
+                                    </label>
+                                    <input type="text"
+                                           name="name"
+                                           id="name"
+                                           value="{{ $person->name }}"
+                                           class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
+                                    />
+                                </div>
+                                <div class="col-span-3">
                                     <label for="first_name"
                                            class="block text-sm font-medium text-gray-700"
                                     >
-                                        <span class="font-semibold">Given Name</span> <span class="text-red-600">*</span>
+                                        <span class="font-semibold">Given Name</span>
                                     </label>
                                     <input type="text"
                                            name="first_name"

@@ -23,8 +23,8 @@
                             </div>
                         </div>
                         <div class="pl-4">
-                            <div class="flex gap-x-4 gap-y-4 items-center">
-                                <div class="pr-2 space-y-4">
+                            <div class="grid grid-cols-3 gap-x-4 gap-y-4 items-center">
+                                <div class="">
                                     <x-input.group borderless for="filter-type" label="Status">
                                         <x-input.select wire:model="filters.tagged" id="filter-type">
                                             <option value=""> -- Any -- </option>
@@ -33,7 +33,7 @@
                                         </x-input.select>
                                     </x-input.group>
                                 </div>
-                                <div class="pr-2 space-y-4">
+                                <div class="">
                                     <x-input.group borderless for="filter-type" label="Country">
                                         <x-input.select wire:model="filters.country" id="filter-type">
                                             <option value=""> -- Any -- </option>
@@ -43,7 +43,7 @@
                                         </x-input.select>
                                     </x-input.group>
                                 </div>
-                                <div class="pr-2 space-y-4">
+                                <div class="whitespace-nowrap">
                                     <x-input.group borderless for="filter-type" label="State or Province">
                                         <x-input.select wire:model="filters.state" id="filter-type">
                                             <option value=""> -- Any -- </option>

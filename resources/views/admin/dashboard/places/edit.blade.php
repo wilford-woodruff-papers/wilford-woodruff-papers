@@ -3,6 +3,8 @@
         x-data="{
             shadow: false,
             showSuccess: true,
+            visited: @if(empty($place->visited)) false @else {{ $place->visited }} @endif,
+            mentioned: @if(empty($place->mentioned)) false @else {{ $place->mentioned }} @endif,
             setResearcher: function(userid){
                 document.getElementById('researcher').value = userid;
             },
@@ -10,7 +12,7 @@
                 document.getElementById(id).value = new Date().toISOString().slice(0, 10);
             }
         }"
-        x-init="setTimeout(() => showSuccess = false, 3000)"
+        x-init="setTimeout(() => showSuccess = false, 3000); $watch('visited', value => mentioned = value);"
     >
         <div class="px-4 pb-6 mx-auto max-w-screen-xl sm:px-6 lg:px-8 lg:pb-16">
             <div class="bg-white rounded-lg shadow">
@@ -125,19 +127,6 @@
                             </div>
 
                             <div class="grid grid-cols-12 gap-6 mt-12">
-                                {{--<div class="col-span-3">
-                                    <label for="country"
-                                           class="block text-sm font-medium text-gray-700"
-                                    >
-                                        <span class="font-semibold">Country</span>
-                                    </label>
-                                    <input type="text"
-                                           name="country"
-                                           id="country"
-                                           value="{{ $place->country }}"
-                                           class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
-                                    />
-                                </div>--}}
                                 <div class="col-span-3"
                                      x-ignore
                                 >
@@ -229,7 +218,7 @@
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
-                                <div class="col-span-12">
+                                <div class="col-span-6">
                                     <label for="specific_place"
                                            class="block text-sm font-medium text-gray-700"
                                     >
@@ -239,6 +228,19 @@
                                            name="specific_place"
                                            id="specific_place"
                                            value="{{ $place->specific_place }}"
+                                           class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
+                                    />
+                                </div>
+                                <div class="col-span-6">
+                                    <label for="modern_location"
+                                           class="block text-sm font-medium text-gray-700"
+                                    >
+                                        <span class="font-semibold">Modern Location</span>
+                                    </label>
+                                    <input type="text"
+                                           name="modern_location"
+                                           id="modern_location"
+                                           value="{{ $place->modern_location }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
@@ -257,6 +259,81 @@
                                            value="{{ $place->years }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
+                                </div>
+                                <div class="col-span-3">
+                                    <fieldset>
+                                        <legend class="block text-sm font-semibold text-gray-700">Visited or Mentioned</legend>
+                                        <div class="flex gap-x-8 items-center">
+                                            <div class="flex relative items-start py-3">
+                                                <div class="flex items-center h-6">
+                                                    <input x-model="visited"
+                                                           id="visited"
+                                                           name="visited"
+                                                           type="checkbox"
+                                                           value="1"
+                                                           @checked($place->visited)
+                                                           class="w-4 h-4 text-indigo-600 rounded border-gray-300 focus:ring-indigo-600"
+                                                    >
+                                                    <input id="visited"
+                                                           name="visited"
+                                                           type="hidden"
+                                                           value="0"
+                                                           :disabled="visited"
+                                                    >
+                                                </div>
+                                                <div class="ml-3 text-sm leading-6">
+                                                    <label for="visited" class="font-medium text-gray-900">Visited</label>
+                                                </div>
+                                            </div>
+                                            <div class="flex relative items-start">
+                                                <div class="flex items-center h-6">
+                                                    <input x-model="mentioned"
+                                                           id="mentioned"
+                                                           name="mentioned"
+                                                           type="checkbox"
+                                                           value="1"
+                                                           @checked($place->mentioned)
+                                                           class="w-4 h-4 text-indigo-600 rounded border-gray-300 focus:ring-indigo-600"
+                                                    >
+                                                    <input id="mentioned"
+                                                           name="mentioned"
+                                                           type="hidden"
+                                                           value="0"
+                                                           :disabled="mentioned"
+                                                    >
+                                                </div>
+                                                <div class="ml-3 text-sm leading-6">
+                                                    <label for="mentioned" class="font-medium text-gray-900">Only Mentioned</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                                <div class="col-span-3"
+                                     x-ignore
+                                >
+                                    <div class="w-full max-w-sm">
+                                        <label for="parent_location"
+                                               class="block mb-1 text-sm font-medium text-gray-700"
+                                        >
+                                            <span class="font-semibold">Parent Location</span>
+                                        </label>
+                                        <select name="subject_id"
+                                                id="parent_location"
+                                                class="block py-2 px-3 mt-2 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500">
+                                            <option value="">
+                                                -- Select a Parent Location --
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-span-3">
+                                    <div class="w-full max-w-sm">
+                                        @if(! empty($place->subject_id))
+                                            <div class="block mb-1 text-sm font-semibold text-gray-700">Assigned Parent Location</div>
+                                            {{ $place->parent?->name }}
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
 
@@ -384,6 +461,20 @@
                         text: 'Select a County'
                     },
                     allowClear: true,
+                });
+                $('#parent_location').select2({
+                    allowClear: true,
+                    ajax: {
+                        url: "{{ route('api.locations.index') }}",
+                        dataType: 'json',
+                        delay: 250,
+                        data: function (params) {
+                            var query = {
+                                q: params.term,
+                            };
+                            return query;
+                        }
+                    }
                 });
             });
 

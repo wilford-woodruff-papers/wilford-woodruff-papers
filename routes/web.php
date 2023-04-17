@@ -343,6 +343,10 @@ Route::middleware('role:Super Admin|Editor')->group(function () {
     Route::middleware(['auth:sanctum', 'verified'])
         ->get('/admin/exports', \App\Http\Livewire\Admin\Exports::class)
         ->name('admin.exports');
+
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->get('/locations', \App\Http\Controllers\Api\LocationsController::class)
+        ->name('api.locations.index');
 });
 
 if (app()->environment('local')) {

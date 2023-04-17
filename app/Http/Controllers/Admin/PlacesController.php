@@ -32,6 +32,12 @@ class PlacesController extends Controller
         'place_confirmed_at' => [
             'max:191',
         ],
+        'visited' => [
+            'nullable',
+        ],
+        'mentioned' => [
+            'nullable',
+        ],
         'reference' => [
             'nullable',
         ],
@@ -103,6 +109,10 @@ class PlacesController extends Controller
             ->implode(', ');
 
         $place->save();
+
+        if (! empty($request->get('subject_id'))) {
+            $place->subject_id = $request->get('subject_id');
+        }
 
         $place->category()->syncWithoutDetaching(
             Category::query()
@@ -190,6 +200,10 @@ class PlacesController extends Controller
         ])
             ->filter()
             ->implode(', ');
+
+        if (! empty($request->get('subject_id'))) {
+            $place->subject_id = $request->get('subject_id');
+        }
 
         $place->save();
 

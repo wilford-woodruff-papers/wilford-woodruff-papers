@@ -40,7 +40,6 @@ class Index extends Component
         'specific_place' => 'specific_place',
         'years' => 'years',
         'place_confirmed_at' => 'confirmed_at',
-        'parent_location' => 'parent_location',
         'modern_location' => 'modern_location',
         'added_to_ftp_at' => 'added_to_ftp',
         'reference' => 'reference',
@@ -70,7 +69,7 @@ class Index extends Component
             ->pluck('country', 'country')
             ->toArray();
 
-        $this->countries = DB::table('subjects')
+        $this->states = DB::table('subjects')
             ->select('state_province')
             ->distinct()
             ->whereNotNull('state_province')
@@ -79,8 +78,11 @@ class Index extends Component
             ->toArray();
     }
 
-    public function updatedFilters()
+    public function updatedFilters($value, $key)
     {
+        if ($key == 'country') {
+            $this->filters['state'] = null;
+        }
         $this->resetPage();
     }
 
@@ -100,11 +102,12 @@ class Index extends Component
     public function getRowsQueryProperty()
     {
 
-        if (array_key_exists('country', $this->filters) && ! empty($this->filters['state'])) {
+        if (array_key_exists('country', $this->filters) && ! empty($this->filters['country'])) {
             $this->states = DB::table('subjects')
                 ->select('state_province')
                 ->distinct()
-                ->where('state_province', $this->filters['country'])
+                ->where('country', $this->filters['country'])
+                ->whereNotNull('state_province')
                 ->orderBy('state_province', 'asc')
                 ->pluck('state_province', 'state_province')
                 ->toArray();
@@ -119,10 +122,16 @@ class Index extends Component
             })
             ->when(array_key_exists('search', $this->filters) && $this->filters['search'], function ($query, $search) {
                 $query->where(function ($query) {
-                    foreach ($this->columns as $key => $column) {
+                    foreach (['name' => 'name'] + $this->columns as $key => $column) {
                         $query->orWhere($key, 'like', '%'.$this->filters['search'].'%');
                     }
                 });
+            })
+            ->when(array_key_exists('country', $this->filters) && $this->filters['country'], function ($query, $search) {
+                $query->where('country', $this->filters['country']);
+            })
+            ->when(array_key_exists('state', $this->filters) && $this->filters['state'], function ($query, $search) {
+                $query->where('state_province', $this->filters['state']);
             });
         // TODO: Cache pages for people
         if (array_key_exists('tagged', $this->filters) && ! empty($this->filters['tagged'])) {
