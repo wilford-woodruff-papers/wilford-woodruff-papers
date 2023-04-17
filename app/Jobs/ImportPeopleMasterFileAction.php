@@ -36,7 +36,7 @@ class ImportPeopleMasterFileAction implements ShouldQueue
             return;
         }
 
-        if ($subject = Subject::query()->firstWhere('name', trim($this->row['name_in_ftp']))) {
+        if ($subject = Subject::query()->firstOrNew(['name' => trim($this->row['name_in_ftp'])])) {
             if (! empty(trim($this->row['date_pid_identified']))) {
                 $subject->pid_identified_at = $this->toCarbonDate(trim($this->row['date_pid_identified']));
             }

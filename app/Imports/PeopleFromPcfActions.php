@@ -21,7 +21,8 @@ class PeopleFromPcfActions implements ToCollection, WithHeadingRow
         foreach ($rows as $row) {
             switch ($this->action) {
                 case 'Import Master File':
-                    ImportPeopleMasterFileAction::dispatch($row);
+                    ImportPeopleMasterFileAction::dispatch($row)
+                        ->onQueue('import');
                     break;
             }
         }

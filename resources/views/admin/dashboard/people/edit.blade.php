@@ -18,11 +18,18 @@
                      x-intersect:enter="shadow = false"
                 ></div>
                 <div class="divide-y divide-gray-200 lg:grid lg:grid-cols-12 lg:divide-y-0 lg:divide-x">
+                    @if($person->exists)
                     <form action="{{ route('admin.dashboard.people.update', ['person' => $person]) }}"
                           method="POST"
                           class="divide-y divide-gray-200 lg:col-span-12">
-                        @csrf()
                         @method('PUT')
+                    @else
+                    <form action="{{ route('admin.dashboard.people.store') }}"
+                          method="POST"
+                          class="divide-y divide-gray-200 lg:col-span-12">
+                        @method('POST')
+                    @endif
+                        @csrf()
                         <div class="sticky top-0 z-10 bg-white"
                              :class="shadow && 'drop-shadow-md'"
                         >
@@ -95,22 +102,24 @@
                         <div class="py-6 px-4 sm:p-6 lg:pb-8">
                             <div>
                                 <h2 class="text-2xl font-bold leading-6 text-gray-900">
-                                    <a href="{{ route('subjects.show', ['subject' => $person->slug]) }}"
-                                       target="_blank"
-                                       class="text-secondary"
-                                    >
-                                        {{ $person->name }}
-                                    </a>
+                                    @if($person->exists)
+                                        <a href="{{ route('subjects.show', ['subject' => $person->slug]) }}"
+                                           target="_blank"
+                                           class="text-secondary"
+                                        >
+                                            {{ $person->name }}
+                                        </a>
+                                    @endif
                                 </h2>
                                 <div class="flex gap-x-8 mt-1 text-base font-semibold text-gray-500">
                                     <div>
                                         Unique ID: {{ $person->unique_id ?? 'N/A' }}
                                     </div>
                                     <div>
-                                        Last Updated: {{ $person->updated_at->toDayDateTimeString() }}
+                                        Last Updated: {{ $person->updated_at?->toDayDateTimeString() }}
                                     </div>
                                     <div>
-                                        Created: {{ $person->created_at->toDayDateTimeString() }}
+                                        Created: {{ $person->created_at?->toDayDateTimeString() }}
                                     </div>
                                 </div>
                             </div>
@@ -202,10 +211,23 @@
 
                             <div class="grid grid-cols-12 gap-6 mt-12">
                                 <div class="col-span-3">
+                                    <label for="name"
+                                           class="block text-sm font-medium text-gray-700"
+                                    >
+                                        <span class="font-semibold">Full Name (As used in FTP)</span> <span class="text-red-600">*</span>
+                                    </label>
+                                    <input type="text"
+                                           name="name"
+                                           id="name"
+                                           value="{{ $person->name }}"
+                                           class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
+                                    />
+                                </div>
+                                <div class="col-span-3">
                                     <label for="first_name"
                                            class="block text-sm font-medium text-gray-700"
                                     >
-                                        <span class="font-semibold">Given Name</span> <span class="text-red-600">*</span>
+                                        <span class="font-semibold">Given Name</span>
                                     </label>
                                     <input type="text"
                                            name="first_name"

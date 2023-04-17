@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Admin\People;
+namespace App\Http\Livewire\Admin\Places;
 
 use App\Http\Livewire\DataTable\WithBulkActions;
 use App\Http\Livewire\DataTable\WithCachedRows;
@@ -8,6 +8,7 @@ use App\Http\Livewire\DataTable\WithPerPagePagination;
 use App\Http\Livewire\DataTable\WithSorting;
 use App\Models\Subject;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class Index extends Component
@@ -27,26 +28,27 @@ class Index extends Component
     public $filters = [
         'search' => '',
         'tagged' => '',
+        'country' => '',
+        'state' => '',
     ];
 
     public $columns = [
-        'reference' => 'reference',
-        'relationship' => 'relationship_to_ww',
-        'birth_date' => 'birth_date',
-        'death_date' => 'death_date',
-        'life_years' => 'b_d_dates',
-        'pid' => 'pid_fsid',
+        'country' => 'country',
+        'state_province' => 'state_or_province',
+        'county' => 'county',
+        'city' => 'city',
+        'specific_place' => 'specific_place',
+        'years' => 'years',
+        'place_confirmed_at' => 'confirmed_at',
+        'modern_location' => 'modern_location',
         'added_to_ftp_at' => 'added_to_ftp',
-        'first_name' => 'given_name',
-        'middle_name' => 'middle_name',
-        'last_name' => 'surname',
-        'suffix' => 'suffix',
-        'alternate_names' => 'alternate_names',
-        'maiden_name' => 'maiden_name',
-        'baptism_date' => 'baptism_date',
+        'reference' => 'reference',
         'notes' => 'notes',
-        'bio_completed_at' => 'date_bio_completed',
     ];
+
+    public $countries = [];
+
+    public $states = [];
 
     protected $queryString = [
         'sorts',
@@ -59,11 +61,28 @@ class Index extends Component
 
     public function mount()
     {
-        //
+        $this->countries = DB::table('subjects')
+            ->select('country')
+            ->distinct()
+            ->whereNotNull('country')
+            ->orderBy('country', 'asc')
+            ->pluck('country', 'country')
+            ->toArray();
+
+        $this->states = DB::table('subjects')
+            ->select('state_province')
+            ->distinct()
+            ->whereNotNull('state_province')
+            ->orderBy('state_province', 'asc')
+            ->pluck('state_province', 'state_province')
+            ->toArray();
     }
 
-    public function updatedFilters()
+    public function updatedFilters($value, $key)
     {
+        if ($key == 'country') {
+            $this->filters['state'] = null;
+        }
         $this->resetPage();
     }
 
@@ -82,12 +101,24 @@ class Index extends Component
 
     public function getRowsQueryProperty()
     {
+
+        if (array_key_exists('country', $this->filters) && ! empty($this->filters['country'])) {
+            $this->states = DB::table('subjects')
+                ->select('state_province')
+                ->distinct()
+                ->where('country', $this->filters['country'])
+                ->whereNotNull('state_province')
+                ->orderBy('state_province', 'asc')
+                ->pluck('state_province', 'state_province')
+                ->toArray();
+        }
+
         $query = Subject::query()
             ->with([
                 'researcher',
             ])
             ->whereHas('category', function (Builder $query) {
-                $query->whereIn('categories.name', ['People']);
+                $query->whereIn('categories.name', ['Places']);
             })
             ->when(array_key_exists('search', $this->filters) && $this->filters['search'], function ($query, $search) {
                 $query->where(function ($query) {
@@ -95,6 +126,12 @@ class Index extends Component
                         $query->orWhere($key, 'like', '%'.$this->filters['search'].'%');
                     }
                 });
+            })
+            ->when(array_key_exists('country', $this->filters) && $this->filters['country'], function ($query, $search) {
+                $query->where('country', $this->filters['country']);
+            })
+            ->when(array_key_exists('state', $this->filters) && $this->filters['state'], function ($query, $search) {
+                $query->where('state_province', $this->filters['state']);
             });
         // TODO: Cache pages for people
         if (array_key_exists('tagged', $this->filters) && ! empty($this->filters['tagged'])) {
@@ -122,8 +159,8 @@ class Index extends Component
 
     public function render()
     {
-        return view('livewire.admin.people.index', [
-            'people' => $this->rows,
+        return view('livewire.admin.places.index', [
+            'places' => $this->rows,
         ])
             ->layout('layouts.admin');
     }
