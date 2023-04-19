@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\ContestSubmission;
 use App\Models\Item;
 use App\Models\Page;
+use App\Models\PeopleIdentification;
 use App\Models\Photo;
 use App\Models\Press;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -46,6 +47,10 @@ class RouteServiceProvider extends ServiceProvider
 
         Route::bind('item', function ($item) {
             return Item::whereUuid($item)->first();
+        });
+
+        Route::bind('identification', function ($item) {
+            return PeopleIdentification::findOrFail($item);
         });
 
         Route::bind('page', function ($page) {

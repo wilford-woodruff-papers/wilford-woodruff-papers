@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Jobs\ImportPeopleIdentificationFileAction;
 use App\Jobs\ImportPeopleMasterFileAction;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
@@ -22,6 +23,10 @@ class PeopleFromPcfActions implements ToCollection, WithHeadingRow
             switch ($this->action) {
                 case 'Import Master File':
                     ImportPeopleMasterFileAction::dispatch($row)
+                        ->onQueue('import');
+                    break;
+                case 'Import Identification':
+                    ImportPeopleIdentificationFileAction::dispatch($row)
                         ->onQueue('import');
                     break;
             }

@@ -8,7 +8,7 @@
                 <div class="grid grid-cols-5 gap-x-2 justify-between py-2">
                     <div class="col-span-3 px-4 w-full">
                         <div class="w-full">
-                            <h1 class="mb-4 text-2xl font-bold leading-6 text-gray-900">Search Places</h1>
+                            <h1 class="mb-4 text-2xl font-bold leading-6 text-gray-900">Search Unidentified Places</h1>
                             <label for="search" class="block text-sm font-medium leading-6 text-gray-900 sr-only">Search</label>
                             <div class="relative w-full rounded-md shadow-sm">
                                 <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
@@ -23,9 +23,9 @@
                                        class="block py-1.5 pl-10 w-full text-gray-900 rounded-md border-0 ring-1 ring-inset ring-gray-300 sm:text-sm sm:leading-6 focus:ring-2 focus:ring-inset placeholder:text-gray-400 focus:ring-secondary" placeholder="Search places...">
                             </div>
                         </div>
-                        <div class="pl-4">
-                            <div class="grid grid-cols-3 gap-x-4 gap-y-4 items-center">
-                                <div class="">
+                        {{--<div class="pl-4">
+                            <div class="flex gap-x-4 gap-y-4 items-center">
+                                <div class="pr-2 space-y-4">
                                     <x-input.group borderless for="filter-type" label="Status">
                                         <x-input.select wire:model="filters.tagged" id="filter-type">
                                             <option value=""> -- Any -- </option>
@@ -34,28 +34,8 @@
                                         </x-input.select>
                                     </x-input.group>
                                 </div>
-                                <div class="">
-                                    <x-input.group borderless for="filter-type" label="Country">
-                                        <x-input.select wire:model="filters.country" id="filter-type">
-                                            <option value=""> -- Any -- </option>
-                                            @foreach($countries as $country)
-                                                <option value="{{ $country }}">{{ $country }}</option>
-                                            @endforeach
-                                        </x-input.select>
-                                    </x-input.group>
-                                </div>
-                                <div class="whitespace-nowrap">
-                                    <x-input.group borderless for="filter-type" label="State or Province">
-                                        <x-input.select wire:model="filters.state" id="filter-type">
-                                            <option value=""> -- Any -- </option>
-                                            @foreach($states as $state)
-                                                <option value="{{ $state }}">{{ $state }}</option>
-                                            @endforeach
-                                        </x-input.select>
-                                    </x-input.group>
-                                </div>
                             </div>
-                        </div>
+                        </div>--}}
                     </div>
 
                     <div class="col-span-2">
@@ -74,7 +54,7 @@
                             </div>
 
                             <div class="py-2">
-                                <a href="{{ route('admin.dashboard.places.create') }}"
+                                <a href="{{ route('admin.dashboard.identification.places.create') }}"
                                    class="py-2 px-4 text-white bg-indigo-600 border-indigo-600 hover:bg-indigo-500 active:bg-indigo-700"
                                 ><x-icon.plus/> New</a>
                             </div>
@@ -108,15 +88,12 @@
                                                 class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">
                             ID
                         </x-admin.quotes.heading>
-                        <x-admin.quotes.heading class="whitespace-nowrap">
-                            Researcher
-                        </x-admin.quotes.heading>
                         <x-admin.quotes.heading sortable
                                                 multi-column
-                                                wire:click="sortBy('last_name')"
-                                                :direction="$sorts['last_name'] ?? null"
+                                                wire:click="sortBy('editorial_assistant')"
+                                                :direction="$sorts['editorial_assistant'] ?? null"
                                                 class="sticky left-0 z-50 w-full bg-gray-100">
-                            Name
+                            Name as Written
                         </x-admin.quotes.heading>
                         @foreach($columns as $key => $column)
                             <x-admin.quotes.heading class="whitespace-nowrap">
@@ -155,19 +132,7 @@
 
                                 <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">
                                     <div class="inline-flex space-x-2 text-sm leading-5 whitespace-nowrap">
-                                        {{ $place->unique_id }}
-                                    </div>
-                                </x-admin.quotes.cell>
-
-                                <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">
-                                    <div class="whitespace-nowrap">
-                                        @if(! empty($place->researcher_id))
-                                            {{ $place->researcher?->name }}
-                                        @elseif(! empty($place->researcher_text))
-                                            {{ $place->researcher_text }}
-                                        @else
-                                            <livewire:admin.claim-subject :subject="$place" :wire:key="$place->id"/>
-                                        @endif
+                                        {{ $place->id }}
                                     </div>
                                 </x-admin.quotes.cell>
 
@@ -177,11 +142,10 @@
                                             {{--<x-icon.cash class="text-cool-gray-400"/>--}}
 
                                             <p class="flex gap-x-1 items-center w-96 text-cool-gray-600">
-                                                <x-icon.status :status="$place->enabled"/>
                                                 <a class="font-medium text-indigo-600 break-word"
-                                                   href="{{ route('admin.dashboard.places.edit', ['place' => $place]) }}"
+                                                   href="{{ route('admin.dashboard.identification.places.edit', ['identification' => $place]) }}"
                                                    target="_blank">
-                                                    {{ str($place->name)->replace('_', ' ') }}
+                                                    {{ $place->location }}
                                                 </a>
                                             </p>
                                         </div>
@@ -191,7 +155,16 @@
                                 @foreach($columns as $key => $column)
                                     <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">
                                         <div class="whitespace-nowrap">
-                                            {!! str($place->{$key})->limit(150, '...') !!}
+                                            @if(str($place->{$key})->startsWith('http'))
+                                                <a href="{!! str($place->{$key}) !!}"
+                                                   class="text-secondary"
+                                                   target="_blank"
+                                                >
+                                                    {!! str($place->{$key})->after('//')->before('/') !!}
+                                                </a>
+                                            @else
+                                                {!! str($place->{$key})->limit(150, '...') !!}
+                                            @endif
                                         </div>
                                     </x-admin.quotes.cell>
                                 @endforeach

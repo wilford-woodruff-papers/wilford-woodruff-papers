@@ -8,6 +8,7 @@
                 <div class="grid grid-cols-5 gap-x-2 justify-between py-2">
                     <div class="col-span-3 px-4 w-full">
                         <div class="w-full">
+                            <h1 class="mb-4 text-2xl font-bold leading-6 text-gray-900">Search People</h1>
                             <label for="search" class="block text-sm font-medium leading-6 text-gray-900 sr-only">Search</label>
                             <div class="relative w-full rounded-md shadow-sm">
                                 <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">

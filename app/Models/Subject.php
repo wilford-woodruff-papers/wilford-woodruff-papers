@@ -15,6 +15,7 @@ class Subject extends Model
 
     protected $casts = [
         'geolocation' => 'array',
+        'bio_approved_at' => 'date',
     ];
 
     public function category()

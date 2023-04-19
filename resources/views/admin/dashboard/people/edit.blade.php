@@ -390,7 +390,7 @@
                                     <label for="bio"
                                            class="block text-sm font-medium text-gray-700"
                                     >
-                                        <span class="font-semibold">Bio</span>
+                                        <span class="font-semibold">Biography</span>
                                     </label>
                                     @if(auth()->user()->hasRole('Bio Editor'))
                                         <textarea type="text"
@@ -403,7 +403,7 @@
                                             @if(! empty($person->bio))
                                                 {!! $person->bio !!}
                                             @else
-                                                <span class="text-gray-500">No bio available.</span>
+                                                <span class="text-gray-500">No biography available.</span>
                                             @endif
                                         </div>
                                     @endif
@@ -414,7 +414,7 @@
                                         <label for="bio_completed_at"
                                                class="block text-sm font-medium text-gray-700"
                                         >
-                                            <span class="font-semibold">Bio Completed At</span>
+                                            <span class="font-semibold">Biography Completed At</span>
                                         </label>
                                         <div class="flex gap-x-2 items-center">
                                             <div class="flex-1">
@@ -438,25 +438,33 @@
                                         <label for="bio_approved_at"
                                                class="block text-sm font-medium text-gray-700"
                                         >
-                                            <span class="font-semibold">Bio Approved At</span>
+                                            <span class="font-semibold">Biography Approved At</span>
                                         </label>
-                                        <div class="flex gap-x-2 items-center">
-                                            <div class="flex-1">
-                                                <input type="date"
-                                                       name="bio_approved_at"
-                                                       id="bio_approved_at"
-                                                       value="{{ $person->bio_approved_at }}"
-                                                       class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
-                                                />
+                                        @if(auth()->user()->hasRole('Bio Editor'))
+                                            <div class="flex gap-x-2 items-center">
+                                                <div class="flex-1">
+                                                    <input type="date"
+                                                           name="bio_approved_at"
+                                                           id="bio_approved_at"
+                                                           value="{{ $person->bio_approved_at }}"
+                                                           class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <button x-on:click.prevent="setDateToNow('bio_approved_at')"
+                                                            type="button"
+                                                            class="inline-flex justify-center py-2 px-4 mt-1 mr-2 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:outline-none focus:ring-sky-500">
+                                                        Now
+                                                    </button>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <button x-on:click.prevent="setDateToNow('bio_approved_at')"
-                                                        type="button"
-                                                        class="inline-flex justify-center py-2 px-4 mt-1 mr-2 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:outline-none focus:ring-sky-500">
-                                                    Now
-                                                </button>
-                                            </div>
-                                        </div>
+                                        @else
+                                            @if(! empty($person->bio_approved_at))
+                                                <div class="pt-3 text-gray-500">{{ $person->bio_approved_at?->toDayDateTimeString() }}</div>
+                                            @else
+                                                <div class="pt-3 text-gray-500 text-red-700">Not Approved</div>
+                                            @endif
+                                        @endif
                                     </div>
                                 </div>
 

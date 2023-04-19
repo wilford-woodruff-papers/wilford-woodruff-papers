@@ -8,7 +8,7 @@
                 <div class="grid grid-cols-5 gap-x-2 justify-between py-2">
                     <div class="col-span-3 px-4 w-full">
                         <div class="w-full">
-                            <h1 class="mb-4 text-2xl font-bold leading-6 text-gray-900">Search Places</h1>
+                            <h1 class="mb-4 text-2xl font-bold leading-6 text-gray-900">Search Unidentified People</h1>
                             <label for="search" class="block text-sm font-medium leading-6 text-gray-900 sr-only">Search</label>
                             <div class="relative w-full rounded-md shadow-sm">
                                 <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
@@ -20,12 +20,12 @@
                                        type="search"
                                        name="search"
                                        id="search"
-                                       class="block py-1.5 pl-10 w-full text-gray-900 rounded-md border-0 ring-1 ring-inset ring-gray-300 sm:text-sm sm:leading-6 focus:ring-2 focus:ring-inset placeholder:text-gray-400 focus:ring-secondary" placeholder="Search places...">
+                                       class="block py-1.5 pl-10 w-full text-gray-900 rounded-md border-0 ring-1 ring-inset ring-gray-300 sm:text-sm sm:leading-6 focus:ring-2 focus:ring-inset placeholder:text-gray-400 focus:ring-secondary" placeholder="Search people...">
                             </div>
                         </div>
-                        <div class="pl-4">
-                            <div class="grid grid-cols-3 gap-x-4 gap-y-4 items-center">
-                                <div class="">
+                        {{--<div class="pl-4">
+                            <div class="flex gap-x-4 gap-y-4 items-center">
+                                <div class="pr-2 space-y-4">
                                     <x-input.group borderless for="filter-type" label="Status">
                                         <x-input.select wire:model="filters.tagged" id="filter-type">
                                             <option value=""> -- Any -- </option>
@@ -34,28 +34,8 @@
                                         </x-input.select>
                                     </x-input.group>
                                 </div>
-                                <div class="">
-                                    <x-input.group borderless for="filter-type" label="Country">
-                                        <x-input.select wire:model="filters.country" id="filter-type">
-                                            <option value=""> -- Any -- </option>
-                                            @foreach($countries as $country)
-                                                <option value="{{ $country }}">{{ $country }}</option>
-                                            @endforeach
-                                        </x-input.select>
-                                    </x-input.group>
-                                </div>
-                                <div class="whitespace-nowrap">
-                                    <x-input.group borderless for="filter-type" label="State or Province">
-                                        <x-input.select wire:model="filters.state" id="filter-type">
-                                            <option value=""> -- Any -- </option>
-                                            @foreach($states as $state)
-                                                <option value="{{ $state }}">{{ $state }}</option>
-                                            @endforeach
-                                        </x-input.select>
-                                    </x-input.group>
-                                </div>
                             </div>
-                        </div>
+                        </div>--}}
                     </div>
 
                     <div class="col-span-2">
@@ -74,7 +54,7 @@
                             </div>
 
                             <div class="py-2">
-                                <a href="{{ route('admin.dashboard.places.create') }}"
+                                <a href="{{ route('admin.dashboard.identification.people.create') }}"
                                    class="py-2 px-4 text-white bg-indigo-600 border-indigo-600 hover:bg-indigo-500 active:bg-indigo-700"
                                 ><x-icon.plus/> New</a>
                             </div>
@@ -108,13 +88,10 @@
                                                 class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">
                             ID
                         </x-admin.quotes.heading>
-                        <x-admin.quotes.heading class="whitespace-nowrap">
-                            Researcher
-                        </x-admin.quotes.heading>
                         <x-admin.quotes.heading sortable
                                                 multi-column
-                                                wire:click="sortBy('last_name')"
-                                                :direction="$sorts['last_name'] ?? null"
+                                                wire:click="sortBy('editorial_assistant')"
+                                                :direction="$sorts['editorial_assistant'] ?? null"
                                                 class="sticky left-0 z-50 w-full bg-gray-100">
                             Name
                         </x-admin.quotes.heading>
@@ -134,40 +111,28 @@
                                 <x-admin.quotes.cell colspan="6">
                                     @unless ($selectAll)
                                         <div>
-                                            <span>You have selected <strong>{{ $places->count() }}</strong> quotes, do you want to select all <strong>{{ $places->total() }}</strong>?</span>
+                                            <span>You have selected <strong>{{ $people->count() }}</strong> quotes, do you want to select all <strong>{{ $people->total() }}</strong>?</span>
                                             <x-button.link wire:click="selectAll" class="ml-1 text-blue-600">Select All</x-button.link>
                                         </div>
                                     @else
-                                        <span>You are currently selecting all <strong>{{ $places->total() }}</strong> items.</span>
+                                        <span>You are currently selecting all <strong>{{ $people->total() }}</strong> items.</span>
                                     @endif
                                 </x-admin.quotes.cell>
                             </x-admin.quotes.row>
                         @endif
 
-                        @forelse ($places as $place)
+                        @forelse ($people as $person)
                             <x-admin.quotes.row wire:loading.class.delay="opacity-50"
-                                                wire:key="row-{{ $place->id }}"
+                                                wire:key="row-{{ $person->id }}"
                                                 class="h-12"
                             >
                                 <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">
-                                    <x-input.checkbox wire:model="selected" value="{{ $place->id }}" />
+                                    <x-input.checkbox wire:model="selected" value="{{ $person->id }}" />
                                 </x-admin.quotes.cell>
 
                                 <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">
                                     <div class="inline-flex space-x-2 text-sm leading-5 whitespace-nowrap">
-                                        {{ $place->unique_id }}
-                                    </div>
-                                </x-admin.quotes.cell>
-
-                                <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">
-                                    <div class="whitespace-nowrap">
-                                        @if(! empty($place->researcher_id))
-                                            {{ $place->researcher?->name }}
-                                        @elseif(! empty($place->researcher_text))
-                                            {{ $place->researcher_text }}
-                                        @else
-                                            <livewire:admin.claim-subject :subject="$place" :wire:key="$place->id"/>
-                                        @endif
+                                        {{ $person->id }}
                                     </div>
                                 </x-admin.quotes.cell>
 
@@ -177,11 +142,10 @@
                                             {{--<x-icon.cash class="text-cool-gray-400"/>--}}
 
                                             <p class="flex gap-x-1 items-center w-96 text-cool-gray-600">
-                                                <x-icon.status :status="$place->enabled"/>
                                                 <a class="font-medium text-indigo-600 break-word"
-                                                   href="{{ route('admin.dashboard.places.edit', ['place' => $place]) }}"
+                                                   href="{{ route('admin.dashboard.identification.people.edit', ['identification' => $person]) }}"
                                                    target="_blank">
-                                                    {{ str($place->name)->replace('_', ' ') }}
+                                                    {{ $person->title }} {{ str($person->first_middle_name)->replace('_', ' ') }} {{ str($person->last_name)->replace('_', ' ') }}
                                                 </a>
                                             </p>
                                         </div>
@@ -191,14 +155,23 @@
                                 @foreach($columns as $key => $column)
                                     <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">
                                         <div class="whitespace-nowrap">
-                                            {!! str($place->{$key})->limit(150, '...') !!}
+                                            @if(str($person->{$key})->startsWith('http'))
+                                                <a href="{!! str($person->{$key}) !!}"
+                                                   class="text-secondary"
+                                                   target="_blank"
+                                                >
+                                                    {!! str($person->{$key})->after('//')->before('/') !!}
+                                                </a>
+                                            @else
+                                                {!! str($person->{$key})->limit(150, '...') !!}
+                                            @endif
                                         </div>
                                     </x-admin.quotes.cell>
                                 @endforeach
 
                                 <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">
                                     <div class="whitespace-nowrap">
-                                        {{ $place->updated_at->toDayDateTimeString() }}
+                                        {{ $person->updated_at->toDayDateTimeString() }}
                                     </div>
                                 </x-admin.quotes.cell>
 
@@ -208,7 +181,7 @@
                                 <x-admin.quotes.cell colspan="6">
                                     <div class="flex justify-center items-center space-x-2">
                                         {{--<x-icon.inbox class="w-8 h-8 text-cool-gray-400" />--}}
-                                        <span class="py-8 text-xl font-medium text-cool-gray-400">No places found...</span>
+                                        <span class="py-8 text-xl font-medium text-cool-gray-400">No people found...</span>
                                     </div>
                                 </x-admin.quotes.cell>
                             </x-admin.quotes.row>
@@ -217,7 +190,7 @@
                 </x-admin.quotes.table>
 
                 <div>
-                    {{ $places->links() }}
+                    {{ $people->links() }}
                 </div>
             </div>
         </div>

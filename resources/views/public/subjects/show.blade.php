@@ -11,9 +11,11 @@
                 <div class="grid grid-cols-12 py-12">
                     <div class="col-span-12 py-6 px-8 content">
                         <h2>{!! $subject->name !!}</h2>
-                        <p>
-                            {!! $subject->bio !!}
-                        </p>
+                        @if(! empty($subject->bio_approved_at))
+                            <p>
+                                {!! $subject->bio !!}
+                            </p>
+                        @endif
                         @if(! empty($subject->subject_id))
                             <ul class="flex flex-col gap-y-1 ml-1">
                                 <li>
@@ -45,7 +47,7 @@
                             />
                         @endif
 
-                        @if(! empty($subject->footnotes))
+                        @if(! empty($subject->bio_approved_at) && ! empty($subject->footnotes))
                             <h3 class="mt-8 text-2xl border-b border-primary">Footnotes</h3>
                             <p class="mt-4 mb-4">
                                 {!! $subject->footnotes !!}
