@@ -52,7 +52,11 @@
                                                             Date
                                                         </td>
                                                         <td class="py-4 px-6 text-sm text-gray-500">
-                                                            {{ $photo->date?->format('m d, Y') ?? $photo->date  }}
+                                                            @if(str($photo->date)->contains('-'))
+                                                                {{ \Carbon\Carbon::createFromFormat('Y-m-d', $photo->date)->format('M d, Y') }}
+                                                            @else
+                                                                {{ $photo->date  }}
+                                                            @endif
                                                         </td>
                                                     </tr>
                                                 @endif
