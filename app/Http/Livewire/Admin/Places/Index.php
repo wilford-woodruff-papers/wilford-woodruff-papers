@@ -136,9 +136,9 @@ class Index extends Component
         // TODO: Cache pages for people
         if (array_key_exists('tagged', $this->filters) && ! empty($this->filters['tagged'])) {
             if ($this->filters['tagged'] == 'true') {
-                $query = $query->where('total_usage_count', '>', 0);
+                $query = $query->where('tagged_count', '>', 0);
             } elseif ($this->filters['tagged'] == 'false') {
-                $query = $query->where('total_usage_count', '=', 0);
+                $query = $query->where('tagged_count', '=', 0);
             }
         }
 

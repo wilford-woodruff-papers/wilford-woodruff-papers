@@ -244,6 +244,10 @@ Route::middleware('role:Super Admin|Editor')->group(function () {
         ->put('/admin/dashboard/people/{person}', [\App\Http\Controllers\Admin\PeopleController::class, 'update'])
         ->name('admin.dashboard.people.update');
 
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->delete('/admin/dashboard/people/{person}', [\App\Http\Controllers\Admin\PeopleController::class, 'destroy'])
+        ->name('admin.dashboard.people.destroy');
+
     /* People Identification */
     Route::middleware(['auth:sanctum', 'verified'])
         ->get('/admin/identification/people', \App\Http\Livewire\Admin\People\Identification::class)

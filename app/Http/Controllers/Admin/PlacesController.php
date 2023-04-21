@@ -225,6 +225,8 @@ class PlacesController extends Controller
      */
     public function destroy(Subject $place)
     {
-        //
+        $place->delete();
+
+        return redirect()->route('admin.places.index');
     }
 }

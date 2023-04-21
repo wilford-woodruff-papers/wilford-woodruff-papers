@@ -15,6 +15,10 @@ class PeopleController extends Controller
             'required',
             'max:191',
         ],
+        'added_to_ftp__at' => [
+            'max:191',
+            'required_with:name',
+        ],
         'first_name' => [
             'max:191',
         ],
@@ -47,9 +51,11 @@ class PeopleController extends Controller
         ],
         'pid' => [
             'max:191',
+            'required_with:pid_identified_at',
         ],
         'pid_identified_at' => [
             'max:191',
+            'required_with:pid',
         ],
         'researcher_id' => [
             'nullable',
@@ -72,6 +78,23 @@ class PeopleController extends Controller
         'log_link' => [
             'max:191',
         ],
+        'reference' => [
+            'max:191',
+        ],
+        'relationship' => [
+            'max:191',
+        ],
+    ];
+
+    private $categories = [
+        'Apostles',
+        '1840 British Converts',
+        'Business',
+        'Family',
+        'Host',
+        'Scriptural Figures',
+        '1835 Southern Converts',
+        'Historical Figures',
     ];
 
     /**
@@ -90,15 +113,7 @@ class PeopleController extends Controller
                 ->orderBy('name')
                     ->get(),
             'categories' => Category::query()
-                ->whereIn('name', [
-                    'Apostles',
-                    '1840 British Converts',
-                    'Business',
-                    'Family',
-                    'Host',
-                    'Scriptural Figures',
-                    '1835 Southern Converts',
-                ])
+                ->whereIn('name', $this->categories)
                 ->orderBy('name')
                 ->get(),
         ]);
@@ -160,15 +175,7 @@ class PeopleController extends Controller
                 ->orderBy('name')
                 ->get(),
             'categories' => Category::query()
-                ->whereIn('name', [
-                    'Apostles',
-                    '1840 British Converts',
-                    'Business',
-                    'Family',
-                    'Host',
-                    'Scriptural Figures',
-                    '1835 Southern Converts',
-                ])
+                ->whereIn('name', $this->categories)
                 ->orderBy('name')
                 ->get(),
         ]);
@@ -217,6 +224,10 @@ class PeopleController extends Controller
      */
     public function destroy(Subject $person)
     {
-        //
+        abort_unless(auth()->user()->hasRole('Bio Editor'), 403);
+
+        $person->delete();
+
+        return redirect()->route('admin.people.index');
     }
 }

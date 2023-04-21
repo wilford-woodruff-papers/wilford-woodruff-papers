@@ -49,6 +49,8 @@
                                         <option value="10">10</option>
                                         <option value="25">25</option>
                                         <option value="50">50</option>
+                                        <option value="100">100</option>
+                                        <option value="200">200</option>
                                     </x-input.select>
                                 </x-input.group>
                             </div>
@@ -62,6 +64,12 @@
                     </div>
 
                 </div>
+            </div>
+
+            <div id="top-pagination"
+                 class="pl-4"
+            >
+                {{ $people->links() }}
             </div>
 
             <div class="relative space-y-4 shadow">
@@ -87,9 +95,6 @@
                                                 :direction="$sorts['name'] ?? null"
                                                 class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">
                             ID
-                        </x-admin.quotes.heading>
-                        <x-admin.quotes.heading class="whitespace-nowrap">
-                            Researcher
                         </x-admin.quotes.heading>
                         <x-admin.quotes.heading sortable
                                                 multi-column
@@ -127,7 +132,7 @@
                         @forelse ($people as $person)
                             <x-admin.quotes.row wire:loading.class.delay="opacity-50"
                                                 wire:key="row-{{ $person->id }}"
-                                                class="h-12"
+                                                class="h-6"
                             >
                                 <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">
                                     <x-input.checkbox wire:model="selected" value="{{ $person->id }}" />
@@ -139,30 +144,21 @@
                                     </div>
                                 </x-admin.quotes.cell>
 
-                                <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">
-                                    <div class="whitespace-nowrap">
-                                        @if(! empty($person->researcher_id))
-                                            {{ $person->researcher?->name }}
-                                        @elseif(! empty($person->researcher_text))
-                                            {{ $person->researcher_text }}
-                                        @else
-                                            <livewire:admin.claim-subject :subject="$person" :wire:key="$person->id"/>
-                                        @endif
-                                    </div>
-                                </x-admin.quotes.cell>
-
                                 <x-admin.quotes.cell class="sticky left-0 py-0 px-0 bg-gray-50 border border-gray-400">
                                     <div class="w-full h-full border-r-2 border-gray-400">
-                                        <div href="#" class="py-4 px-6 space-x-2 text-sm leading-5">
+                                        <div href="#" class="py-2 px-6 space-x-2 text-sm leading-5">
                                             {{--<x-icon.cash class="text-cool-gray-400"/>--}}
 
-                                            <p class="flex gap-x-1 items-center w-96 text-cool-gray-600">
-                                                <x-icon.status :status="$person->enabled"/>
+                                            <p class="flex justify-between items-center w-96 text-cool-gray-600">
+                                                {{--<x-icon.status :status="$person->enabled"/>--}}
                                                 <a class="font-medium text-indigo-600 break-word"
                                                    href="{{ route('admin.dashboard.people.edit', ['person' => $person]) }}"
                                                    target="_blank">
                                                     {{ str($person->name)->replace('_', ' ') }}
                                                 </a>
+                                                <span>
+                                                    ({{ $person->tagged_count }})
+                                                </span>
                                             </p>
                                         </div>
                                     </div>
@@ -171,7 +167,30 @@
                                 @foreach($columns as $key => $column)
                                     <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">
                                         <div class="whitespace-nowrap">
-                                            {!! str($person->{$key})->limit(150, '...') !!}
+                                            @if($key == 'pid')
+                                                <a href="https://www.familysearch.org/tree/person/details/{{ $person->{$key} }}"
+                                                   target="_blank"
+                                                   class="text-secondary"
+                                                >
+                                                    {{ $person->{$key} }}
+                                                </a>
+                                            @elseif($column == 'researcher')
+                                                @if(! empty($person->researcher_id))
+                                                    {{ $person->researcher?->name }}
+                                                @elseif(! empty($person->researcher_text))
+                                                    {{ $person->researcher_text }}
+                                                @else
+                                                    <livewire:admin.claim-subject :subject="$person" :wire:key="$person->id"/>
+                                                @endif
+                                            @elseif($column == 'special_categories')
+                                                @foreach($person->category as $category)
+                                                    @if($category->name != 'People')
+                                                        <div>{{ $category->name }}</div>
+                                                    @endif
+                                                @endforeach
+                                            @else
+                                                {!! str($person->{$key})->limit(150, '...') !!}
+                                            @endif
                                         </div>
                                     </x-admin.quotes.cell>
                                 @endforeach
@@ -196,7 +215,9 @@
                     </x-slot>
                 </x-admin.quotes.table>
 
-                <div>
+                <div id="bottom-pagination"
+                     class="pl-4"
+                >
                     {{ $people->links() }}
                 </div>
             </div>

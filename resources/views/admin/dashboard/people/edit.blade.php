@@ -210,7 +210,7 @@
 
 
                             <div class="grid grid-cols-12 gap-6 mt-12">
-                                <div class="col-span-3">
+                                <div class="col-span-6">
                                     <label for="name"
                                            class="block text-sm font-medium text-gray-700"
                                     >
@@ -223,6 +223,32 @@
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
+                                <div class="col-span-3">
+                                    <label for="added_to_ftp_at"
+                                           class="block text-sm font-medium text-gray-700"
+                                    >
+                                        <span class="font-semibold">Added to FTP At</span>
+                                    </label>
+                                    <div class="flex gap-x-2 items-center">
+                                        <div class="flex-1">
+                                            <input type="date"
+                                                   name="added_to_ftp_at"
+                                                   id="added_to_ftp_at"
+                                                   value="{{ $person->added_to_ftp_at }}"
+                                                   class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
+                                            />
+                                        </div>
+                                        <div>
+                                            <button x-on:click.prevent="setDateToNow('added_to_ftp_at')"
+                                                    type="button"
+                                                    class="inline-flex justify-center py-2 px-4 mt-1 mr-2 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:outline-none focus:ring-sky-500">
+                                                Now
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-12 gap-6 mt-12">
                                 <div class="col-span-3">
                                     <label for="first_name"
                                            class="block text-sm font-medium text-gray-700"
@@ -301,6 +327,35 @@
                                            name="maiden_name"
                                            id="maiden_name"
                                            value="{{ $person->maiden_name }}"
+                                           class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-12 gap-6 mt-6">
+                                <div class="col-span-3">
+                                    <label for="reference"
+                                           class="block text-sm font-medium text-gray-700"
+                                    >
+                                        <span class="font-semibold">Reference</span>
+                                    </label>
+                                    <input type="text"
+                                           name="reference"
+                                           id="reference"
+                                           value="{{ $person->reference }}"
+                                           class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
+                                    />
+                                </div>
+                                <div class="col-span-3">
+                                    <label for="relationship"
+                                           class="block text-sm font-medium text-gray-700"
+                                    >
+                                        <span class="font-semibold">Relationship to Wilford Woodruff</span>
+                                    </label>
+                                    <input type="text"
+                                           name="relationship"
+                                           id="relationship"
+                                           value="{{ $person->relationship }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
@@ -521,6 +576,17 @@
                                     <button type="submit" class="inline-flex justify-center py-2 px-12 text-sm font-medium text-white rounded-md border border-transparent shadow-sm focus:ring-2 focus:ring-offset-2 focus:outline-none bg-sky-700 hover:bg-sky-800 focus:ring-sky-500">Save</button>
                                     <a href="{{ route('admin.people.index') }}"
                                        class="inline-flex justify-center py-2 px-12 ml-12 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:outline-none focus:ring-sky-500">Cancel</a>
+                                </div>
+                            </div>
+                            <div class="mt-12 divide-y divide-gray-200">
+                                <div class="flex justify-center py-4 px-4 sm:px-6">
+                                    @if(auth()->user()->hasRole('Bio Editor') && $person->exists)
+                                        <form action="{{ route('admin.dashboard.identification.people.destroy', ['identification' => $person]) }}"      method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="inline-flex justify-center py-2 px-12 text-sm font-medium text-white bg-red-700 rounded-md border border-transparent shadow-sm hover:bg-red-800 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:outline-none">Delete</button>
+                                        </form>
+                                    @endif
                                 </div>
                             </div>
                         </div>

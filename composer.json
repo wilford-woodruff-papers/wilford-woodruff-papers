@@ -37,6 +37,7 @@
         "maatwebsite/laravel-nova-excel": "^1.3",
         "mailersend/laravel-driver": "^2.2",
         "maize-tech/laravel-markable": "^2.0",
+        "misd/linkify": "^1.1",
         "mtvs/eloquent-hashids": "^3.4",
         "owen-it/laravel-auditing": "^13.1",
         "paquettg/php-html-parser": "^3.1",

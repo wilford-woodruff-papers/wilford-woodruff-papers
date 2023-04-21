@@ -30,8 +30,6 @@ class Index extends Component
     ];
 
     public $columns = [
-        'reference' => 'reference',
-        'relationship' => 'relationship_to_ww',
         'birth_date' => 'birth_date',
         'death_date' => 'death_date',
         'life_years' => 'b_d_dates',
@@ -44,7 +42,11 @@ class Index extends Component
         'alternate_names' => 'alternate_names',
         'maiden_name' => 'maiden_name',
         'baptism_date' => 'baptism_date',
+        'z100' => 'special_categories', // key starts with z to prevent searching column
+        'reference' => 'reference',
+        'relationship' => 'relationship_to_ww',
         'notes' => 'notes',
+        'researcher_text' => 'researcher',
         'bio_completed_at' => 'date_bio_completed',
     ];
 
@@ -92,16 +94,18 @@ class Index extends Component
             ->when(array_key_exists('search', $this->filters) && $this->filters['search'], function ($query, $search) {
                 $query->where(function ($query) {
                     foreach (['name' => 'name'] + $this->columns as $key => $column) {
-                        $query->orWhere($key, 'like', '%'.$this->filters['search'].'%');
+                        if (! str($key)->startsWith('z')) {
+                            $query->orWhere($key, 'like', '%'.$this->filters['search'].'%');
+                        }
                     }
                 });
             });
         // TODO: Cache pages for people
         if (array_key_exists('tagged', $this->filters) && ! empty($this->filters['tagged'])) {
             if ($this->filters['tagged'] == 'true') {
-                $query = $query->where('total_usage_count', '>', 0);
+                $query = $query->where('tagged_count', '>', 0);
             } elseif ($this->filters['tagged'] == 'false') {
-                $query = $query->where('total_usage_count', '=', 0);
+                $query = $query->where('tagged_count', '=', 0);
             }
         }
 
