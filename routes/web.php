@@ -273,6 +273,7 @@ Route::middleware('role:Super Admin|Editor')->group(function () {
         ->delete('/admin/dashboard/identification/people/{identification}', [\App\Http\Controllers\Admin\PeopleIdentificationController::class, 'destroy'])
         ->name('admin.dashboard.identification.people.destroy');
     /* People Identification */
+
     /* Places Identification */
     Route::middleware(['auth:sanctum', 'verified'])
         ->get('/admin/identification/places', \App\Http\Livewire\Admin\Places\Identification::class)

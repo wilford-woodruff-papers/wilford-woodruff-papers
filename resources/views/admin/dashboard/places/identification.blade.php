@@ -174,7 +174,7 @@
                                     <label for="ftp_link"
                                            class="block text-sm font-medium text-gray-700"
                                     >
-                                        <span class="font-semibold">FTP Link</span>
+                                        <span class="font-semibold">FTP Link <span class="text-red-600">*</span></span>
                                     </label>
                                     <input type="text"
                                            name="ftp_link"

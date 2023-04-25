@@ -1,6 +1,7 @@
 <div x-data="{
             shadow: false,
             perPage: @entangle('perPage'),
+            selectedColumns: $persist({{ json_encode(array_values($columns)) }}).as('places-columns'),
         }">
     <div class="grid grid-cols-12 gap-x-4">
         <div class="col-span-12 pr-8">
@@ -80,6 +81,59 @@
                                    class="py-2 px-4 text-white bg-indigo-600 border-indigo-600 hover:bg-indigo-500 active:bg-indigo-700"
                                 ><x-icon.plus/> New</a>
                             </div>
+                        </div><div x-data="{
+                            show: false
+                        }"
+                                   class="flex justify-end items-center mt-4"
+                                   x-on:mouseleave="show = false"
+                        >
+                            <div>
+                                <div class="inline-block relative text-left">
+                                    <div>
+                                        <button x-on:click="show = ! show"
+                                                type="button" class="inline-flex gap-x-1.5 justify-center py-2 px-3 w-full text-sm font-semibold text-gray-900 bg-white rounded-md ring-1 ring-inset ring-gray-300 shadow-sm hover:bg-gray-50" id="menu-button" aria-expanded="true" aria-haspopup="true">
+                                            Displayed Columns
+                                            <svg class="-mr-1 w-5 h-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                            </svg>
+                                        </button>
+                                    </div>
+
+                                    <!--
+                                      Dropdown menu, show/hide based on menu state.
+
+                                      Entering: "transition ease-out duration-100"
+                                        From: "transform opacity-0 scale-95"
+                                        To: "transform opacity-100 scale-100"
+                                      Leaving: "transition ease-in duration-75"
+                                        From: "transform opacity-100 scale-100"
+                                        To: "transform opacity-0 scale-95"
+                                    -->
+                                    <div x-show="show"
+                                         class="absolute right-0 mt-0 w-56 bg-white rounded-md divide-y divide-gray-100 ring-1 ring-black ring-opacity-5 shadow-lg origin-top-right focus:outline-none z-100"
+                                         x-cloak
+                                         role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1"
+                                    >
+                                        <div class="py-1 px-4" role="none">
+                                            @foreach($columns as $column)
+                                                <div class="flex relative items-start">
+                                                    <div class="flex items-center h-6">
+                                                        <input x-model="selectedColumns"
+                                                               id="columns-{{  $column }}"
+                                                               value="{{  $column }}"
+                                                               type="checkbox"
+                                                               class="w-4 h-4 text-indigo-600 rounded border-gray-300 focus:ring-indigo-600">
+                                                    </div>
+                                                    <div class="ml-3 text-sm leading-6">
+                                                        <label for="columns-{{  $column }}"
+                                                               class="font-medium text-gray-900 uppercase">{{ str($column)->replace('_', ' ') }}</label>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -105,13 +159,10 @@
                         <x-admin.quotes.heading class="pr-0 w-8">
                             <x-input.checkbox wire:model="selectPage" />
                         </x-admin.quotes.heading>
-                        <x-admin.quotes.heading sortable multi-column wire:click="sortBy('pcf_unique_id')"
-                                                :direction="$sorts['name'] ?? null"
+                        <x-admin.quotes.heading sortable multi-column wire:click="sortBy('unique_id')"
+                                                :direction="$sorts['unique_id'] ?? null"
                                                 class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">
                             ID
-                        </x-admin.quotes.heading>
-                        <x-admin.quotes.heading class="whitespace-nowrap">
-                            Researcher
                         </x-admin.quotes.heading>
                         <x-admin.quotes.heading sortable
                                                 multi-column
@@ -121,7 +172,12 @@
                             Name
                         </x-admin.quotes.heading>
                         @foreach($columns as $key => $column)
-                            <x-admin.quotes.heading class="whitespace-nowrap">
+                            <x-admin.quotes.heading class="whitespace-nowrap"
+                                                    sortable
+                                                    multi-column
+                                                    wire:click="sortBy('{{ $key }}')"
+                                                    :direction="$sorts[$key] ?? null"
+                                                    x-show="selectedColumns.includes('{{ $column }}')">
                                 {{ str($column)->replace('_', ' ') }}
                             </x-admin.quotes.heading>
                         @endforeach
@@ -149,7 +205,7 @@
                         @forelse ($places as $place)
                             <x-admin.quotes.row wire:loading.class.delay="opacity-50"
                                                 wire:key="row-{{ $place->id }}"
-                                                class="h-12"
+                                                class="h-6"
                             >
                                 <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">
                                     <x-input.checkbox wire:model="selected" value="{{ $place->id }}" />
@@ -161,21 +217,9 @@
                                     </div>
                                 </x-admin.quotes.cell>
 
-                                <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">
-                                    <div class="whitespace-nowrap">
-                                        @if(! empty($place->researcher_id))
-                                            {{ $place->researcher?->name }}
-                                        @elseif(! empty($place->researcher_text))
-                                            {{ $place->researcher_text }}
-                                        @else
-                                            <livewire:admin.claim-subject :subject="$place" :wire:key="$place->id"/>
-                                        @endif
-                                    </div>
-                                </x-admin.quotes.cell>
-
                                 <x-admin.quotes.cell class="sticky left-0 py-0 px-0 bg-gray-50 border border-gray-400">
                                     <div class="w-full h-full border-r-2 border-gray-400">
-                                        <div href="#" class="py-4 px-6 space-x-2 text-sm leading-5">
+                                        <div href="#" class="py-2 px-6 space-x-2 text-sm leading-5">
                                             {{--<x-icon.cash class="text-cool-gray-400"/>--}}
 
                                             <p class="flex gap-x-1 items-center w-96 text-cool-gray-600">
@@ -191,9 +235,29 @@
                                 </x-admin.quotes.cell>
 
                                 @foreach($columns as $key => $column)
-                                    <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">
+                                    <x-admin.quotes.cell class="bg-gray-50 border border-gray-400"
+                                                         x-show="selectedColumns.includes('{{$column}}')">
                                         <div class="whitespace-nowrap">
-                                            {!! str($place->{$key})->limit(150, '...') !!}
+                                            @if($column == 'researcher')
+                                                @if(! empty($place->researcher_id))
+                                                    {{ $place->researcher?->name }}
+                                                @elseif(! empty($place->researcher_text))
+                                                    {{ $place->researcher_text }}
+                                                @else
+                                                    <livewire:admin.claim-subject :subject="$place" :wire:key="$place->id"/>
+                                                @endif
+                                            @elseif(in_array($column, ['visited', 'mentioned']))
+                                                <div class="flex justify-center">
+                                                    @if($column == 'visited' && $place->visited)
+                                                        <x-icon.status :status="$place->visited"/>
+                                                    @endif
+                                                    @if($column == 'mentioned' && $place->mentioned)
+                                                        <x-icon.status :status="$place->mentioned"/>
+                                                    @endif
+                                                </div>
+                                            @else
+                                                {!! str($place->{$key})->limit(150, '...') !!}
+                                            @endif
                                         </div>
                                     </x-admin.quotes.cell>
                                 @endforeach

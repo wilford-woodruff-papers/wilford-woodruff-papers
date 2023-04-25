@@ -318,13 +318,15 @@
                                         >
                                             <span class="font-semibold">Parent Location</span>
                                         </label>
-                                        <select name="subject_id"
-                                                id="parent_location"
-                                                class="block py-2 px-3 mt-2 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500">
-                                            <option value="">
-                                                -- Select a Parent Location --
-                                            </option>
-                                        </select>
+                                        @if(auth()->user()->hasRole('Bio Editor'))
+                                            <select name="subject_id"
+                                                    id="parent_location"
+                                                    class="block py-2 px-3 mt-2 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500">
+                                                <option value="">
+                                                    -- Select a Parent Location --
+                                                </option>
+                                            </select>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-span-3">
@@ -365,7 +367,101 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
+                            <div class="grid grid-cols-12 gap-6 mt-6">
+                                <div class="col-span-12">
+                                    <label for="bio"
+                                           class="block text-sm font-medium text-gray-700"
+                                    >
+                                        <span class="font-semibold">Description</span>
+                                    </label>
+                                    @if(auth()->user()->hasRole('Bio Editor'))
+                                        <textarea type="text"
+                                                  name="bio"
+                                                  id="bio"
+                                                  class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none summernote focus:border-sky-500 focus:ring-sky-500"
+                                        >{!! $place->bio !!}</textarea>
+                                    @else
+                                        <div>
+                                            @if(! empty($place->bio))
+                                                {!! $place->bio !!}
+                                            @else
+                                                <span class="text-gray-500">No Description available.</span>
+                                            @endif
+                                        </div>
+                                    @endif
+                                </div>
+
+                                <div class="grid grid-cols-12 col-span-12 gap-6 mb-6">
+                                    <div class="col-span-3">
+                                        <label for="bio_completed_at"
+                                               class="block text-sm font-medium text-gray-700"
+                                        >
+                                            <span class="font-semibold">Description Completed At</span>
+                                        </label>
+                                        @if(auth()->user()->hasRole('Bio Editor'))
+                                            <div class="flex gap-x-2 items-center">
+                                                <div class="flex-1">
+                                                    <input type="date"
+                                                           name="bio_completed_at"
+                                                           id="bio_completed_at"
+                                                           value="{{ $place->bio_completed_at }}"
+                                                           class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <button x-on:click.prevent="setDateToNow('bio_completed_at')"
+                                                            type="button"
+                                                            class="inline-flex justify-center py-2 px-4 mt-1 mr-2 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:outline-none focus:ring-sky-500">
+                                                        Now
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        @else
+                                            @if(! empty($place->bio_completed_at))
+                                                <div class="pt-3 text-gray-500">{{ $place->bio_completed_at?->toDayDateTimeString() }}</div>
+                                            @else
+                                                <div class="pt-3 text-gray-500 text-red-700">Not Completed</div>
+                                            @endif
+                                        @endif
+                                    </div>
+                                    <div class="col-span-3">
+                                        <label for="bio_approved_at"
+                                               class="block text-sm font-medium text-gray-700"
+                                        >
+                                            <span class="font-semibold">Description Approved At</span>
+                                        </label>
+                                        @if(auth()->user()->hasRole('Bio Editor'))
+                                            <div class="flex gap-x-2 items-center">
+                                                <div class="flex-1">
+                                                    <input type="date"
+                                                           name="bio_approved_at"
+                                                           id="bio_approved_at"
+                                                           value="{{ $place->bio_approved_at }}"
+                                                           class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <button x-on:click.prevent="setDateToNow('bio_approved_at')"
+                                                            type="button"
+                                                            class="inline-flex justify-center py-2 px-4 mt-1 mr-2 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:outline-none focus:ring-sky-500">
+                                                        Now
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        @else
+                                            @if(! empty($place->bio_approved_at))
+                                                <div class="pt-3 text-gray-500">{{ $place->bio_approved_at?->toDayDateTimeString() }}</div>
+                                            @else
+                                                <div class="pt-3 text-gray-500 text-red-700">Not Approved</div>
+                                            @endif
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-12 gap-6 mt-6">
                                 <div class="col-span-12">
                                     <label for="reference"
                                            class="block text-sm font-medium text-gray-700"
@@ -386,11 +482,21 @@
                                     >
                                         <span class="font-semibold">Notes</span>
                                     </label>
-                                    <textarea type="text"
-                                              name="notes"
-                                              id="notes"
-                                              class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none summernote focus:border-sky-500 focus:ring-sky-500"
-                                    >{!! $place->notes !!}</textarea>
+                                    @if(auth()->user()->hasRole('Bio Editor'))
+                                        <textarea type="text"
+                                                  name="notes"
+                                                  id="notes"
+                                                  class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none summernote focus:border-sky-500 focus:ring-sky-500"
+                                        >{!! $place->notes !!}</textarea>
+                                    @else
+                                        <div>
+                                            @if(! empty($place->notes))
+                                                {!! $place->notes !!}
+                                            @else
+                                                <span class="text-gray-500">No Notes available.</span>
+                                            @endif
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
 
@@ -420,6 +526,18 @@
                                     <button type="submit" class="inline-flex justify-center py-2 px-12 text-sm font-medium text-white rounded-md border border-transparent shadow-sm focus:ring-2 focus:ring-offset-2 focus:outline-none bg-sky-700 hover:bg-sky-800 focus:ring-sky-500">Save</button>
                                     <a href="{{ route('admin.places.index') }}"
                                        class="inline-flex justify-center py-2 px-12 ml-12 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:outline-none focus:ring-sky-500">Cancel</a>
+                                </div>
+                            </div>
+
+                            <div class="mt-12 divide-y divide-gray-200">
+                                <div class="flex justify-end py-4 px-4 sm:px-6">
+                                    @if(auth()->user()->hasRole('Bio Editor') && $place->exists)
+                                        <form action="{{ route('admin.dashboard.identification.places.destroy', ['identification' => $place]) }}"      method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="inline-flex justify-center py-2 px-12 text-sm font-medium text-white bg-red-700 rounded-md border border-transparent shadow-sm hover:bg-red-800 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:outline-none">Delete</button>
+                                        </form>
+                                    @endif
                                 </div>
                             </div>
                         </div>

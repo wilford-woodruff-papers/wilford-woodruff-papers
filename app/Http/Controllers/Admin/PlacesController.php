@@ -38,6 +38,15 @@ class PlacesController extends Controller
         'mentioned' => [
             'nullable',
         ],
+        'bio' => [
+            'nullable',
+        ],
+        'bio_completed_at' => [
+            'max:191',
+        ],
+        'bio_approved_at' => [
+            'max:191',
+        ],
         'reference' => [
             'nullable',
         ],

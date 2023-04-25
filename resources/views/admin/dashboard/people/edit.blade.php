@@ -579,7 +579,7 @@
                                 </div>
                             </div>
                             <div class="mt-12 divide-y divide-gray-200">
-                                <div class="flex justify-center py-4 px-4 sm:px-6">
+                                <div class="flex justify-end py-4 px-4 sm:px-6">
                                     @if(auth()->user()->hasRole('Bio Editor') && $person->exists)
                                         <form action="{{ route('admin.dashboard.identification.people.destroy', ['identification' => $person]) }}"      method="POST">
                                             @csrf

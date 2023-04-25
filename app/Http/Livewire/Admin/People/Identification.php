@@ -34,9 +34,9 @@ class Identification extends Component
         'last_name' => 'surname_or_initial',
         'other' => 'other',
         'link_to_ftp' => 'link_to_ftp',
-        'guesses' => 'guesses_or_notes_if_any',
+        /*'guesses' => 'guesses_or_notes_if_any',*/
         'location' => 'location',
-        'completed_at' => 'date_completed',
+        /*'completed_at' => 'date_completed',
         'notes' => 'research_notes',
         'fs_id' => 'fs_id',
         'approximate_birth_date' => 'approx_birth',
@@ -51,7 +51,7 @@ class Identification extends Component
         'eighteen_fifty_census' => '1850_census',
         'eighteen_sixty_census' => '1860_census',
         'other_census' => 'other_census',
-        'other_records' => 'other_records',
+        'other_records' => 'other_records',*/
     ];
 
     protected $queryString = [

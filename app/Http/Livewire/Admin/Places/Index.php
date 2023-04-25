@@ -39,11 +39,14 @@ class Index extends Component
         'city' => 'city',
         'specific_place' => 'specific_place',
         'years' => 'years',
+        'visited' => 'visited',
+        'mentioned' => 'mentioned',
         'place_confirmed_at' => 'confirmed_at',
         'modern_location' => 'modern_location',
         'added_to_ftp_at' => 'added_to_ftp',
-        'reference' => 'reference',
+        'reference' => 'source',
         'notes' => 'notes',
+        'researcher_text' => 'researcher',
     ];
 
     public $countries = [];

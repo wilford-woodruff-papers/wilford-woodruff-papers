@@ -137,19 +137,6 @@
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
-                                <div class="col-span-3">
-                                    <label for="fs_id"
-                                           class="block text-sm font-medium text-gray-700"
-                                    >
-                                        <span class="font-semibold">FS ID</span>
-                                    </label>
-                                    <input type="text"
-                                           name="fs_id"
-                                           id="fs_id"
-                                           value="{{ $person->fs_id }}"
-                                           class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
-                                    />
-                                </div>
                             </div>
 
 
@@ -201,7 +188,7 @@
                                     <label for="ftp_link"
                                            class="block text-sm font-medium text-gray-700"
                                     >
-                                        <span class="font-semibold">FTP Link</span>
+                                        <span class="font-semibold">FTP Link <span class="text-red-600">*</span></span>
                                     </label>
                                     <input type="text"
                                            name="ftp_link"
@@ -232,20 +219,6 @@
                                 </div>
 
                                 <div class="col-span-12">
-                                    <label for="location"
-                                           class="block text-sm font-medium text-gray-700"
-                                    >
-                                        <span class="font-semibold">Location</span>
-                                    </label>
-                                    <input type="text"
-                                           name="location"
-                                           id="location"
-                                           value="{{ $person->location }}"
-                                           class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
-                                    />
-                                </div>
-
-                                <div class="col-span-12">
                                     <label for="notes"
                                            class="block text-sm font-medium text-gray-700"
                                     >
@@ -256,6 +229,20 @@
                                            id="notes"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none summernote focus:border-sky-500 focus:ring-sky-500"
                                     >{!! $person->notes !!}</textarea>
+                                </div>
+                                <div class="col-span-3">
+                                    <label for="fs_id"
+                                           class="block text-sm font-medium text-gray-700"
+                                    >
+                                        <span class="font-semibold">FS ID</span>
+                                    </label>
+                                    <input type="text"
+                                           name="fs_id"
+                                           id="fs_id"
+                                           value="{{ $person->fs_id }}"
+                                           class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
+                                    />
+                                </div>
                                 </div>
                             </div>
 
@@ -463,6 +450,30 @@
                                     />
                                 </div>
                             </div>
+
+                            <div class="grid grid-cols-12 gap-6 mt-6">
+                                <div class="col-span-12">
+                                    <label for="location"
+                                           class="block text-sm font-medium text-gray-700"
+                                    >
+                                        <span class="font-semibold">Location</span>
+                                    </label>
+                                    @if(auth()->user()->hasRole('Bio Editor'))
+                                        <input type="text"
+                                               name="location"
+                                               id="location"
+                                               value="{{ $person->location }}"
+                                               class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
+                                        />
+                                    @else
+                                        <div class="pt-3 text-gray-500">
+                                            {{ $person->location }}
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+
+
 
                             <div class="mt-12 divide-y divide-gray-200">
                                 <div class="flex justify-center py-4 px-4 sm:px-6">
