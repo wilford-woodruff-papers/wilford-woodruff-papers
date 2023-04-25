@@ -124,7 +124,9 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
     {
         return Str::of($this->transcript)->replaceMatches('/(?:\[\[)(.*?)(?:\]\])/s', function ($match) {
             return '<a href="/subjects/'.Str::of(Str::of($match[1])->explode('|')->first())->slug().'" class="text-secondary popup">'.Str::of($match[1])->explode('|')->last().'</a>';
-        })->replace('&amp;', '&');
+        })
+            ->replaceMatches('/QZ[0-9]*/', '')
+            ->replace('&amp;', '&');
     }
 
     public function getRouteKeyName()
