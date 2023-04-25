@@ -128,6 +128,9 @@ class Index extends Component
     {
         return view('livewire.admin.people.index', [
             'people' => $this->rows,
+            'linkify' => new \Misd\Linkify\Linkify(['callback' => function ($url, $caption, $bool) {
+                return '<a href="'.$url.'" class="text-secondary" target="_blank">'.str($caption)->after('//')->before('/').'</a>';
+            }]),
         ])
             ->layout('layouts.admin');
     }

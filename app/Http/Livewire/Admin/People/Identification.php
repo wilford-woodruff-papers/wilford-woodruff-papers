@@ -25,6 +25,7 @@ class Identification extends Component
 
     public $filters = [
         'search' => '',
+        'completed' => '',
     ];
 
     public $columns = [
@@ -36,8 +37,8 @@ class Identification extends Component
         'link_to_ftp' => 'link_to_ftp',
         /*'guesses' => 'guesses_or_notes_if_any',*/
         'location' => 'location',
-        /*'completed_at' => 'date_completed',
-        'notes' => 'research_notes',
+        'completed_at' => 'date_completed',
+        /*'notes' => 'research_notes',
         'fs_id' => 'fs_id',
         'approximate_birth_date' => 'approx_birth',
         'approximate_death_date' => 'approx_death',
@@ -96,6 +97,14 @@ class Identification extends Component
                     }
                 });
             });
+
+        if (array_key_exists('completed', $this->filters) && ! empty($this->filters['completed'])) {
+            if ($this->filters['completed'] == 'true') {
+                $query = $query->whereNotNull('completed_at');
+            } elseif ($this->filters['completed'] == 'false') {
+                $query = $query->whereNull('completed_at');
+            }
+        }
 
         if (empty($this->sorts)) {
             $query = $query->orderBy('created_at', 'asc');

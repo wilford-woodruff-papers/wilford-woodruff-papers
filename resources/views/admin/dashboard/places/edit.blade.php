@@ -528,20 +528,19 @@
                                        class="inline-flex justify-center py-2 px-12 ml-12 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:outline-none focus:ring-sky-500">Cancel</a>
                                 </div>
                             </div>
-
-                            <div class="mt-12 divide-y divide-gray-200">
-                                <div class="flex justify-end py-4 px-4 sm:px-6">
-                                    @if(auth()->user()->hasRole('Bio Editor') && $place->exists)
-                                        <form action="{{ route('admin.dashboard.identification.places.destroy', ['identification' => $place]) }}"      method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="inline-flex justify-center py-2 px-12 text-sm font-medium text-white bg-red-700 rounded-md border border-transparent shadow-sm hover:bg-red-800 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:outline-none">Delete</button>
-                                        </form>
-                                    @endif
-                                </div>
-                            </div>
                         </div>
                     </form>
+                </div>
+                <div class="mt-12 divide-y divide-gray-200">
+                    <div class="flex justify-end py-4 px-4 sm:px-6">
+                        @if(auth()->user()->hasRole('Bio Editor') && $place->exists)
+                            <form action="{{ route('admin.dashboard.identification.places.destroy', ['identification' => $place]) }}"      method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="inline-flex justify-center py-2 px-12 text-sm font-medium text-white bg-red-700 rounded-md border border-transparent shadow-sm hover:bg-red-800 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:outline-none">Delete</button>
+                            </form>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>

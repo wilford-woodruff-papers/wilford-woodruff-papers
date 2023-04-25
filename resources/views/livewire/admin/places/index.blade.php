@@ -262,7 +262,11 @@
                                     </x-admin.quotes.cell>
                                 @endforeach
 
-                                <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">
+                                <x-admin.quotes.cell class="bg-gray-50 border border-gray-400"
+                                                     sortable
+                                                     multi-column
+                                                     wire:click="sortBy('updated_at')"
+                                                     :direction="$sorts['updated_at'] ?? null">
                                     <div class="whitespace-nowrap">
                                         {{ $place->updated_at->toDayDateTimeString() }}
                                     </div>

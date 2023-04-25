@@ -171,7 +171,11 @@
                                 {{ str($column)->replace('_', ' ') }}
                             </x-admin.quotes.heading>
                         @endforeach
-                        <x-admin.quotes.heading class="whitespace-nowrap">
+                        <x-admin.quotes.heading class="whitespace-nowrap"
+                                                sortable
+                                                multi-column
+                                                wire:click="sortBy('updated_at')"
+                                                :direction="$sorts['updated_at'] ?? null">
                             Last Updated
                         </x-admin.quotes.heading>
                     </x-slot>
@@ -253,7 +257,11 @@
                                                     @endif
                                                 @endforeach
                                             @else
-                                                {!! str($person->{$key})->limit(150, '...') !!}
+                                                @if(str($person->{$key})->contains('http'))
+                                                    {!! $linkify->process(str($person->{$key})) !!}
+                                                @else
+                                                    {!! str($person->{$key})->limit(100, '...') !!}
+                                                @endif
                                             @endif
                                         </div>
                                     </x-admin.quotes.cell>

@@ -25,7 +25,7 @@ class PlacesIdentificationController extends Controller
             'max:191',
         ],
         'link_to_ftp' => [
-            'max:191',
+            'max:2048',
             'required',
         ],
         'guesses' => [
@@ -158,9 +158,9 @@ class PlacesIdentificationController extends Controller
         // TODO: Update the place's name
         $place->save();
 
-        $request->session()->flash('success', 'Person updated successfully!');
+        $request->session()->flash('success', 'Place updated successfully!');
 
-        return redirect()->route('admin.dashboard.identification.places.edit', ['identification' => $place->slug]);
+        return redirect()->route('admin.dashboard.identification.places.edit', ['identification' => $place]);
     }
 
     /**

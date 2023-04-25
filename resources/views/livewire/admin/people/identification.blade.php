@@ -24,6 +24,19 @@
                                        class="block py-1.5 pl-10 w-full text-gray-900 rounded-md border-0 ring-1 ring-inset ring-gray-300 sm:text-sm sm:leading-6 focus:ring-2 focus:ring-inset placeholder:text-gray-400 focus:ring-secondary" placeholder="Search people...">
                             </div>
                         </div>
+                        <div class="pl-4">
+                            <div class="flex gap-x-4 gap-y-4 items-center">
+                                <div class="pr-2 space-y-4">
+                                    <x-input.group borderless for="filter-type" label="Status">
+                                        <x-input.select wire:model="filters.completed" id="filter-type">
+                                            <option value=""> -- Any -- </option>
+                                            <option value="false"> Not Completed </option>
+                                            <option value="true"> Completed </option>
+                                        </x-input.select>
+                                    </x-input.group>
+                                </div>
+                            </div>
+                        </div>
                         {{--<div class="pl-4">
                             <div class="flex gap-x-4 gap-y-4 items-center">
                                 <div class="pr-2 space-y-4">
@@ -160,7 +173,11 @@
                                 {{ str($column)->replace('_', ' ') }}
                             </x-admin.quotes.heading>
                         @endforeach
-                        <x-admin.quotes.heading class="whitespace-nowrap">
+                        <x-admin.quotes.heading class="whitespace-nowrap"
+                                                sortable
+                                                multi-column
+                                                wire:click="sortBy('updated_at')"
+                                                :direction="$sorts['updated_at'] ?? null">
                             Last Updated
                         </x-admin.quotes.heading>
                     </x-slot>
@@ -226,6 +243,8 @@
                                                 >
                                                     {!! str($person->{$key})->after('//')->before('/') !!}
                                                 </a>
+                                            @elseif(in_array($key, ['completed_at']))
+                                                {{ $person->{$key}?->toFormattedDayDateString() }}
                                             @else
                                                 {!! str($person->{$key})->limit(150, '...') !!}
                                             @endif

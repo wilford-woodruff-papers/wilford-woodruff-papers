@@ -185,21 +185,21 @@
 
                             <div class="grid grid-cols-12 gap-6 mt-6">
                                 <div class="col-span-11">
-                                    <label for="ftp_link"
+                                    <label for="link_to_ftp"
                                            class="block text-sm font-medium text-gray-700"
                                     >
                                         <span class="font-semibold">FTP Link <span class="text-red-600">*</span></span>
                                     </label>
                                     <input type="text"
-                                           name="ftp_link"
-                                           id="ftp_link"
-                                           value="{{ $person->ftp_link }}"
+                                           name="link_to_ftp"
+                                           id="link_to_ftp"
+                                           value="{{ $person->link_to_ftp }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     >
                                 </div>
                                 <div class="col-span-1">
-                                    @if(! empty($person->ftp_link))
-                                        <a href="{{ $person->ftp_link }}" target="_blank" class="inline-flex justify-center py-2 px-12 ml-12 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:outline-none focus:ring-sky-500">View in FTP</a>
+                                    @if(! empty($person->link_to_ftp))
+                                        <a href="{{ $person->link_to_ftp }}" target="_blank" class="inline-flex justify-center py-2 px-12 ml-12 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:outline-none focus:ring-sky-500">View in FTP</a>
                                     @endif
                                 </div>
                             </div>
@@ -242,7 +242,6 @@
                                            value="{{ $person->fs_id }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
-                                </div>
                                 </div>
                             </div>
 
@@ -473,6 +472,44 @@
                                 </div>
                             </div>
 
+                            <div class="grid grid-cols-12 gap-6 mt-6">
+                                <div class="col-span-3">
+                                    <label for="added_to_ftp_at"
+                                           class="block text-sm font-medium text-gray-700"
+                                    >
+                                        <span class="font-semibold">Completed At</span>
+                                    </label>
+                                    <div class="flex gap-x-2 items-center">
+                                        <div class="flex-1">
+                                            @if(auth()->user()->hasRole('Bio Editor'))
+                                                <input type="date"
+                                                       name="completed_at"
+                                                       id="completed_at"
+                                                       value="{{ $person->completed_at }}"
+                                                       class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
+                                                />
+                                            @else
+                                                <div>
+                                                    @if(! empty($person->completed_at))
+                                                        {!! $person->completed_at !!}
+                                                    @else
+                                                        <span class="text-gray-500">Not completed.</span>
+                                                    @endif
+                                                </div>
+                                            @endif
+
+                                        </div>
+                                        <div>
+                                            <button x-on:click.prevent="setDateToNow('completed_at')"
+                                                    type="button"
+                                                    class="inline-flex justify-center py-2 px-4 mt-1 mr-2 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:outline-none focus:ring-sky-500">
+                                                Now
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
 
 
                             <div class="mt-12 divide-y divide-gray-200">
@@ -482,19 +519,19 @@
                                        class="inline-flex justify-center py-2 px-12 ml-12 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:outline-none focus:ring-sky-500">Cancel</a>
                                 </div>
                             </div>
-                            <div class="mt-12 divide-y divide-gray-200">
-                                <div class="flex justify-center py-4 px-4 sm:px-6">
-                                    @if($person->exists)
-                                        <form action="{{ route('admin.dashboard.identification.people.destroy', ['identification' => $person]) }}"      method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="inline-flex justify-center py-2 px-12 text-sm font-medium text-white bg-red-700 rounded-md border border-transparent shadow-sm hover:bg-red-800 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:outline-none">Delete</button>
-                                        </form>
-                                    @endif
-                                </div>
-                            </div>
                         </div>
                     </form>
+                </div>
+                <div class="mt-12 divide-y divide-gray-200">
+                    <div class="flex justify-end py-4 px-4 sm:px-6">
+                        @if($person->exists)
+                            <form action="{{ route('admin.dashboard.identification.people.destroy', ['identification' => $person]) }}"      method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="inline-flex justify-center py-2 px-12 text-sm font-medium text-white bg-red-700 rounded-md border border-transparent shadow-sm hover:bg-red-800 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:outline-none">Delete</button>
+                            </form>
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>

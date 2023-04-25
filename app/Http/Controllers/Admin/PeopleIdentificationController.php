@@ -25,7 +25,7 @@ class PeopleIdentificationController extends Controller
             'max:191',
         ],
         'link_to_ftp' => [
-            'max:191',
+            'max:2048',
             'required',
         ],
         'guesses' => [
