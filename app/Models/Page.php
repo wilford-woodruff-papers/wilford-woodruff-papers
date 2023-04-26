@@ -120,12 +120,16 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
         }
     }
 
-    public function text()
+    public function text($isQuoteTagger = false)
     {
         return Str::of($this->transcript)->replaceMatches('/(?:\[\[)(.*?)(?:\]\])/s', function ($match) {
             return '<a href="/subjects/'.Str::of(Str::of($match[1])->explode('|')->first())->slug().'" class="text-secondary popup">'.Str::of($match[1])->explode('|')->last().'</a>';
         })
-            ->replaceMatches('/QZ[0-9]*/', '')
+            ->replaceMatches('/QZ[0-9]*/smi', function ($match) use ($isQuoteTagger) {
+                return $isQuoteTagger
+                    ? '<span class="bg-green-300">'.array_pop($match).'</span>'
+                    : '';
+            })
             ->replace('&amp;', '&');
     }
 
