@@ -3,6 +3,7 @@
         x-data="{
             shadow: false,
             showSuccess: true,
+            skip_tagging: @if(empty($person->skip_tagging)) false @else {{ $person->skip_tagging }} @endif,
             setResearcher: function(userid){
                 document.getElementById('researcher').value = userid;
             },
@@ -10,7 +11,11 @@
                 document.getElementById(id).value = new Date().toISOString().slice(0, 10);
             }
         }"
-        x-init="setTimeout(() => showSuccess = false, 3000)"
+        x-init="setTimeout(() => showSuccess = false, 3000); $watch('skip_tagging', function(value){
+            if(value){
+                document.getElementById('completed_at').value = new Date().toISOString().slice(0, 10);
+            }
+        });"
     >
         <div class="px-4 pb-6 mx-auto max-w-screen-xl sm:px-6 lg:px-8 lg:pb-16">
             <div class="bg-white rounded-lg shadow">
@@ -507,6 +512,34 @@
                                             </button>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="col-span-3">
+                                    <fieldset>
+                                        <legend class="block text-sm font-semibold text-gray-700">Doesn't need to be tagged</legend>
+                                        <div class="flex gap-x-8 items-center">
+                                            <div class="flex relative items-start py-3">
+                                                <div class="flex items-center h-6">
+                                                    <input x-model="skip_tagging"
+                                                           id="skip_tagging"
+                                                           name="skip_tagging"
+                                                           type="checkbox"
+                                                           value="1"
+                                                           @checked($person->skip_tagging)
+                                                           class="w-4 h-4 text-indigo-600 rounded border-gray-300 focus:ring-indigo-600"
+                                                    >
+                                                    <input id="skip_tagging"
+                                                           name="skip_tagging"
+                                                           type="hidden"
+                                                           value="0"
+                                                           :disabled="skip_tagging"
+                                                    >
+                                                </div>
+                                                <div class="ml-3 text-sm leading-6">
+                                                    <label for="skip_tagging" class="font-medium text-gray-900">Skip Tagging</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
                                 </div>
                             </div>
 

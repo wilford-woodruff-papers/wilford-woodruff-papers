@@ -52,7 +52,7 @@ class ImportPeopleMasterFileAction implements ShouldQueue
                 'death_date' => 'death_date',
                 'life_years' => 'b_d_dates',
                 'pid' => 'pid_fsid',
-                'family_search_link' => 'fs_link',
+                /*'family_search_link' => 'fs_link',*/
                 'added_to_ftp_at' => 'added_to_ftp',
                 'first_name' => 'given_name',
                 'middle_name' => 'middle_name',

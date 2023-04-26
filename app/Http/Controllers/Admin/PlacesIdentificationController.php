@@ -82,6 +82,9 @@ class PlacesIdentificationController extends Controller
         'other_records' => [
             'max:191',
         ],
+        'skip_tagging' => [
+            'nullable',
+        ],
     ];
 
     /**
