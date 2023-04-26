@@ -76,7 +76,7 @@
          @close-options.window="options=false"
     >
         <div x-on:mouseup="captureSelection($event)">
-            {!! $page->text() !!}
+            {!! $page->text(auth()->check() && auth()->user()->hasAnyRole(['Quote Tagging', 'Super Admin'])) !!}
         </div>
 
 
