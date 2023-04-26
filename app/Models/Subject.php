@@ -32,9 +32,13 @@ class Subject extends Model
                 }
 
                 $name = $name
-                    ->replaceMatches('/\(OT\)/', '(Old Testament)')
-                    ->replaceMatches('/\(NT\)/', '(New Testament)')
-                    ->replaceMatches('/\(BofM\)/', '(Book of Mormon)');
+                    ->replaceMatches('/Jr./i', '(Jr.)')
+                    ->replaceMatches('/Sr./i', '(Sr.)')
+                    ->replaceMatches('/II/i', '(II)')
+                    ->replaceMatches('/III/i', '(III)')
+                    ->replaceMatches('/\(OT\)/i', '(Old Testament)')
+                    ->replaceMatches('/\(NT\)/i', '(New Testament)')
+                    ->replaceMatches('/\(BofM\)/i', '(Book of Mormon)');
 
                 return $name;
             },
