@@ -190,10 +190,11 @@
                             </div>
                         </div>
                     @else
+                        {{-- class="bg-green-300" --}}
                         @hasanyrole('Editor|Admin|Super Admin|Tagger|Quote Tagging')
                             <livewire:transcript :page="$page" />
                         @else
-                            {!! $page->text() !!}
+                            {!! $page->text(auth()->check() && auth()->user()->hasAnyRole(['Quote Tagging', 'Super Admin'])) !!}
                         @endhasanyrole
                     @endif
                 </div>
