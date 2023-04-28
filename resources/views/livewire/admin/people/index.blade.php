@@ -36,6 +36,42 @@
                                         </x-input.select>
                                     </x-input.group>
                                 </div>
+                                <div>
+                                    <div class="pr-2">
+                                        <div class="block xl:hidden">
+                                            <x-input.group borderless for="filter-type" label="Last Name Starts With">
+                                                <x-input.select wire:model="filters.starts_with" id="filter-type">
+                                                    <option value=""> -- Any -- </option>
+                                                    @foreach(range('A', 'Z') as $letter)
+                                                        <option value="{{ $letter }}">{{ $letter }}</option>
+                                                    @endforeach
+                                                </x-input.select>
+                                            </x-input.group>
+                                        </div>
+                                        <div class="hidden items-center sm:gap-4 sm:border-gray-200 xl:flex">
+
+                                            <label for="filter-type" class="block text-sm font-medium leading-5 text-gray-700">
+                                                Last Name Starts With
+                                            </label>
+
+                                            <div class="">
+
+                                                <div class="flex gap-1">
+                                                    <button wire:click="$set('filters.starts_with', '')"
+                                                            class="py-0.5 px-1 border border-secondary @if(empty(data_get($filters, 'starts_with'))) bg-secondary text-white @else bg-transparent text-gray-700 hover:bg-secondary-400 hover:text-white @endif">
+                                                        Any
+                                                    </button>
+                                                    @foreach(range('A', 'Z') as $letter)
+                                                        <button wire:click="$set('filters.starts_with', '{{ $letter }}')"
+                                                                class="py-0.5 px-1 border border-secondary @if(data_get($filters, 'starts_with') == $letter) bg-secondary text-white @else bg-transparent text-gray-700 hover:bg-secondary-400 hover:text-white @endif">
+                                                            {{ $letter }}
+                                                        </button>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

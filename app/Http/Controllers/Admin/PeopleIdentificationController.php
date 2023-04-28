@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\PeopleIdentification;
+use App\Models\User;
+use App\Notifications\NewCorrectionNeeded;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class PeopleIdentificationController extends Controller
 {
@@ -85,6 +88,10 @@ class PeopleIdentificationController extends Controller
         'skip_tagging' => [
             'nullable',
         ],
+        'correction_needed' => [
+            'nullable',
+            'boolean',
+        ],
     ];
 
     /**
@@ -119,6 +126,11 @@ class PeopleIdentificationController extends Controller
         $person->save();
 
         $request->session()->flash('success', 'Person created successfully!');
+
+        if ($person->correction_needed) {
+            $users = User::query()->role('Bio Editor')->get();
+            Notification::send($users, new NewCorrectionNeeded($person));
+        }
 
         return redirect()->route('admin.dashboard.identification.people.edit', ['identification' => $person]);
     }
@@ -158,7 +170,11 @@ class PeopleIdentificationController extends Controller
 
         $person->fill($validated);
 
-        // TODO: Update the person's name
+        if ($person->isDirty('correction_needed') && $person->correction_needed) {
+            $users = User::query()->role('Bio Editor')->get();
+            Notification::send($users, new NewCorrectionNeeded($person));
+        }
+
         $person->save();
 
         $request->session()->flash('success', 'Person updated successfully!');

@@ -29,6 +29,7 @@ class Identification extends Component
     ];
 
     public $columns = [
+        'correction_needed' => 'correction',
         'guesses' => 'possible_location',
         'editorial_assistant' => 'editorial_assistant',
         'link_to_ftp' => 'link_to_ftp',
@@ -85,6 +86,11 @@ class Identification extends Component
                 $query = $query->whereNotNull('completed_at');
             } elseif ($this->filters['completed'] == 'false') {
                 $query = $query->whereNull('completed_at');
+            }
+        }
+        if (array_key_exists('corrections', $this->filters) && ! empty($this->filters['corrections'])) {
+            if ($this->filters['corrections'] == 'true') {
+                $query = $query->where('correction_needed', 1);
             }
         }
 

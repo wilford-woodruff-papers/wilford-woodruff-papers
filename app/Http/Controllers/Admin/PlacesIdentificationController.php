@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\PlaceIdentification;
+use App\Models\User;
+use App\Notifications\NewCorrectionNeeded;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class PlacesIdentificationController extends Controller
 {
@@ -85,6 +88,10 @@ class PlacesIdentificationController extends Controller
         'skip_tagging' => [
             'nullable',
         ],
+        'correction_needed' => [
+            'nullable',
+            'boolean',
+        ],
     ];
 
     /**
@@ -119,6 +126,11 @@ class PlacesIdentificationController extends Controller
         $place->save();
 
         $request->session()->flash('success', 'Place created successfully!');
+
+        if ($place->correction_needed) {
+            $users = User::query()->role('Bio Editor')->get();
+            Notification::send($users, new NewCorrectionNeeded($place));
+        }
 
         return redirect()->route('admin.dashboard.identification.places.edit', ['identification' => $place]);
     }
@@ -158,7 +170,11 @@ class PlacesIdentificationController extends Controller
 
         $place->fill($validated);
 
-        // TODO: Update the place's name
+        if ($place->isDirty('correction_needed') && $place->correction_needed) {
+            $users = User::query()->role('Bio Editor')->get();
+            Notification::send($users, new NewCorrectionNeeded($place));
+        }
+
         $place->save();
 
         $request->session()->flash('success', 'Place updated successfully!');

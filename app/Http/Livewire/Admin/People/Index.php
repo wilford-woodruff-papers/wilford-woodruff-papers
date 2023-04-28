@@ -27,6 +27,7 @@ class Index extends Component
     public $filters = [
         'search' => '',
         'tagged' => '',
+        'starts_with' => '',
     ];
 
     public $columns = [
@@ -107,6 +108,9 @@ class Index extends Component
             } elseif ($this->filters['tagged'] == 'false') {
                 $query = $query->where('tagged_count', '=', 0);
             }
+        }
+        if (array_key_exists('starts_with', $this->filters) && ! empty($this->filters['starts_with'])) {
+            $query = $query->where('index', $this->filters['starts_with']);
         }
 
         if (empty($this->sorts)) {

@@ -4,6 +4,7 @@
             shadow: false,
             showSuccess: true,
             skip_tagging: @if(empty($place->skip_tagging)) false @else {{ $place->skip_tagging }} @endif,
+            correction_needed: @if(empty($place->correction_needed)) false @else {{ $place->correction_needed }} @endif,
             setResearcher: function(userid){
                 document.getElementById('researcher').value = userid;
             },
@@ -141,6 +142,34 @@
                                            value="{{ $place->editorial_assistant }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
+                                </div>
+                                <div class="col-span-3">
+                                    <fieldset>
+                                        <legend class="block text-sm font-semibold text-gray-700">Needs Correction?</legend>
+                                        <div class="flex gap-x-8 items-center">
+                                            <div class="flex relative items-start py-3">
+                                                <div class="flex items-center h-6">
+                                                    <input x-model="correction_needed"
+                                                           id="correction_needed"
+                                                           name="correction_needed"
+                                                           type="checkbox"
+                                                           value="1"
+                                                           @checked($place->correction_needed)
+                                                           class="w-4 h-4 text-indigo-600 rounded border-gray-300 focus:ring-indigo-600"
+                                                    >
+                                                    <input id="correction_needed"
+                                                           name="correction_needed"
+                                                           type="hidden"
+                                                           value="0"
+                                                           :disabled="correction_needed"
+                                                    >
+                                                </div>
+                                                <div class="ml-3 text-sm leading-6">
+                                                    <label for="correction_needed" class="font-medium text-gray-900">Correction Needed</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
                                 </div>
                             </div>
 

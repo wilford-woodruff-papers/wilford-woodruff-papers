@@ -26,9 +26,11 @@ class Identification extends Component
     public $filters = [
         'search' => '',
         'completed' => '',
+        'corrections' => '',
     ];
 
     public $columns = [
+        'correction_needed' => 'correction',
         'editorial_assistant' => 'editorial_assistant',
         'title' => 'title',
         'first_middle_name' => 'first_and_middle_names_or_initials',
@@ -103,6 +105,11 @@ class Identification extends Component
                 $query = $query->whereNotNull('completed_at');
             } elseif ($this->filters['completed'] == 'false') {
                 $query = $query->whereNull('completed_at');
+            }
+        }
+        if (array_key_exists('corrections', $this->filters) && ! empty($this->filters['corrections'])) {
+            if ($this->filters['corrections'] == 'true') {
+                $query = $query->where('correction_needed', 1);
             }
         }
 
