@@ -14,18 +14,11 @@ class ExportTimeline extends DownloadExcel implements WithMapping, WithHeadings
     {
         return [
             'ID',
-            'Headline',
+            'Context',
             'Description',
+            'Display Date',
             'Start Date',
-            'Start Year',
-            'Start Month',
-            'Start Day',
             'End Date',
-            'End Year',
-            'End Month',
-            'End Day',
-            'Group',
-            'Type',
             'Item URLs',
             'Pages URLs',
             'Photo URLs',
@@ -44,18 +37,11 @@ class ExportTimeline extends DownloadExcel implements WithMapping, WithHeadings
 
         return [
             $item->id,
-            $item->headline,
-            $item->text,
-            $item->start_at?->toDateString(),
-            $item->start_year,
-            $item->start_month,
-            $item->start_day,
-            $item->end_at?->toDateString(),
-            $item->end_year,
-            $item->end_month,
-            $item->end_day,
             $item->group,
-            $item->type,
+            $item->text,
+            $item->manual_display_date,
+            $item->start_at?->toDateString(),
+            $item->end_at?->toDateString(),
             $item->items->transform(function ($item) {
                 return route('short-url.item', ['hashid' => $item->hashid]);
             })->join('|'),
