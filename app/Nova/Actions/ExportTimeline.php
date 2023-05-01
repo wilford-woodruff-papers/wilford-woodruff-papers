@@ -8,7 +8,7 @@ use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 
 class ExportTimeline extends DownloadExcel implements WithMapping, WithHeadings
 {
-    public $name = 'PCF Export';
+    public $name = 'Timeline Export';
 
     public function headings(): array
     {
@@ -26,6 +26,10 @@ class ExportTimeline extends DownloadExcel implements WithMapping, WithHeadings
             'End Day',
             'Group',
             'Type',
+            'Items',
+            'Pages',
+            'Photos',
+            'Media',
         ];
     }
 
@@ -45,6 +49,10 @@ class ExportTimeline extends DownloadExcel implements WithMapping, WithHeadings
             $item->end_day,
             $item->group,
             $item->type,
+            $item->items->pluck('name')->join('|'),
+            $item->pages->pluck('name')->join('|'),
+            $item->photos->pluck('title')->join('|'),
+            $item->media->pluck('name')->join('|'),
         ];
     }
 }
