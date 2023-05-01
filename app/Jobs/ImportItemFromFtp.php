@@ -21,6 +21,13 @@ class ImportItemFromFtp implements ShouldQueue
 {
     use Batchable, Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    /**
+     * The number of seconds the job can run before timing out.
+     *
+     * @var int
+     */
+    public $timeout = 600;
+
     protected Item $item;
 
     public $enable;
@@ -32,7 +39,7 @@ class ImportItemFromFtp implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(Item $item, $enable = false, $download = false)
+    public function __construct(Item $item, $enable = 'false', $download = 'false')
     {
         $this->item = $item;
         $this->enable = $enable;
@@ -41,16 +48,15 @@ class ImportItemFromFtp implements ShouldQueue
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
-        if ($this->batch()->cancelled()) {
+        if (! empty($this->batch()) && $this->batch()->cancelled()) {
             // Determine if the batch has been cancelled...
             return;
         }
 
+        info('Importing: '.$this->item->name);
         $item = $this->item;
 
         if (empty($item->ftp_id)) {
@@ -63,9 +69,9 @@ class ImportItemFromFtp implements ShouldQueue
             foreach ($canvases as $key => $canvas) {
                 $page = Page::updateOrCreate([
                     'item_id' => $item->id,
-                    'ftp_id' => $canvas['@id'],
-                ], [
                     'name' => $canvas['label'],
+                ], [
+                    'ftp_id' => $canvas['@id'],
                     'transcript_link' => data_get($canvas, 'otherContent.0.@id', null),
                     'transcript' => $this->convertSubjectTags(
                         (array_key_exists('otherContent', $canvas))
@@ -75,9 +81,10 @@ class ImportItemFromFtp implements ShouldQueue
                         ? $canvas['related'][0]['@id']
                         : '',
                     'is_blank' => in_array('markedBlank', array_values(data_get($canvas, 'service.pageStatus', []))),
+                    'imported_at' => now(),
                 ]);
 
-                if (! $page->hasMedia() || ($this->download == true || $this->download == 1)) {
+                if (! $page->hasMedia() || $this->download == 'true') {
                     $page->clearMediaCollection();
 
                     if (! empty($canvas['images'][0]['resource']['@id'])) {
@@ -130,9 +137,10 @@ class ImportItemFromFtp implements ShouldQueue
         }
 
         $item->ftp_slug = str($response->json('related.0.@id'))->afterLast('/');
-        $item->imported_at = now('America/Denver');
+        $item->auto_page_count = $item->pages()->count();
+        $item->imported_at = now();
 
-        if ($this->enable == true || $this->enable == 1) {
+        if ($this->enable == 'true') {
             if ($item->enabled != true) {
                 $item->added_to_collection_at = now();
             }
@@ -141,7 +149,97 @@ class ImportItemFromFtp implements ShouldQueue
 
         $item->save();
 
-        OrderPages::dispatch($item);
+        // OrderPages::dispatch($item);
+
+        $this->item = $item;
+
+        $this->orderPages();
+        $this->cacheDates();
+    }
+
+    private function orderPages()
+    {
+        $this->item->refresh();
+
+        if (empty($this->item->item_id) && $this->item->items->count() == 0) {
+            $this->setOrderForItem($this->item);
+        } elseif (! empty($this->item->item_id)) {
+            $parent = $this->item->parent();
+            $this->setOrderForSectionsInContainer($parent);
+        }
+
+        logger()->info('Page Order Updated for '.$this->item->name);
+    }
+
+    private function setOrderForItem($item)
+    {
+        $pageSortColumn = $item->page_sort_column ?? 'id';
+        $pages = $item->pages->sortBy($pageSortColumn);
+        $pages->each(function ($page) use ($item) {
+            $page->parent_item_id = $item->parent()->id;
+            $page->type_id = $item->parent()->type_id;
+            $page->save();
+        });
+
+        Page::setNewOrder($pages->pluck('id')->all());
+
+        $item->fresh();
+        $pages = $item->pages;
+        $pages->each(function ($page) use ($item) {
+            $page->full_name = $item->name.': Page'.$page->order;
+            $page->save();
+        });
+
+        $this->item->fresh();
+    }
+
+    private function setOrderForSectionsInContainer($item)
+    {
+        $itemPages = collect([]);
+        $item->items->sortBy('order')->each(function ($child) use (&$itemPages) {
+            $pageSortColumn = $child->page_sort_column ?? 'id';
+            $itemPages = $itemPages->concat($child->pages->sortBy($pageSortColumn));
+        });
+        $itemPages->each(function ($page) use ($item) {
+            $page->parent_item_id = $item->parent()->id;
+            $page->type_id = $item->parent()->type_id;
+            $page->save();
+        });
+
+        Page::setNewOrder($itemPages->pluck('id')->all());
+
+        $item->fresh();
+        $pages = $item->pages;
+        $pages->each(function ($page) use ($item) {
+            $page->full_name = $item->name.': Page'.$page->order;
+            $page->save();
+        });
+
+        $this->item->fresh();
+    }
+
+    private function cacheDates()
+    {
+        $this->item->refresh();
+
+        if ($this->item->items->count() == 0) {
+            $dates = collect();
+            $this->item->pages->each(function ($page) use (&$dates) {
+                $dates = $dates->concat($page->dates);
+            });
+            $this->item->first_date = optional($dates->sortBy('date')->first())->date;
+        } else {
+            $this->item->first_date = optional($this->item->items->sortBy('date')->first())->first_date;
+        }
+
+        if ($this->item->first_date) {
+            $this->item->decade = floor($this->item->first_date->year / 10) * 10;
+            $this->item->year = $this->item->first_date->year;
+        }
+
+        $this->item->save();
+
+        logger()->info('Dates Cached for '.$this->item->name);
     }
 
     private function convertSubjectTags($transcript)

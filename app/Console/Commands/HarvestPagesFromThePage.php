@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use App\Jobs\ImportItemFromFtp;
 use App\Models\Item;
-use Illuminate\Bus\Batch;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Bus;
 
@@ -36,10 +35,8 @@ class HarvestPagesFromThePage extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $items = Item::query()
                         ->whereNotNull('ftp_id');
@@ -56,20 +53,13 @@ class HarvestPagesFromThePage extends Command
         }
 
         $batch = Bus::batch($jobs)
-            ->then(function (Batch $batch) {
-                // All jobs completed successfully...
-                /*Bus::chain([
-                    new \App\Jobs\OrderPages(),
-                    new \App\Jobs\CacheDates(),
-                ])
-                    ->dispatch();*/
-            })
+            ->onQueue('pages')
             ->name('Import Pages')
             ->allowFailures()
             ->dispatch();
 
         $this->info('Batch ID: '.$batch->id);
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

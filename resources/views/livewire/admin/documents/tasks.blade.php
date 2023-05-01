@@ -1,6 +1,6 @@
 <div x-data="{
-    actionType: $persist(@entangle('actionType')),
-    type: $persist(@entangle('type'))
+    actionType: @entangle('actionType'),
+    type: @entangle('type')
 }">
     @if($assignedItems->count())
         <div class="px-4 sm:px-6 lg:px-8">
@@ -80,8 +80,8 @@
                                     <th scope="col" class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">
                                         <select wire:model="type" class="text-sm">
                                             <option value="">-- Select Document Type --</option>
-                                            @foreach(\App\Models\Type::query()->orderBy('name')->get() as $type)
-                                                <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                            @foreach($types as $type)
+                                                <option value="{{ $type->name }}">{{ $type->name }}</option>
                                             @endforeach
                                         </select>
                                     </th>
@@ -90,8 +90,8 @@
                                     <th scope="col" class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">
                                         <select wire:model="actionType" class="text-sm">
                                             <option value="">-- Select Task Type --</option>
-                                            @foreach(\App\Models\ActionType::query()->where('type', 'Documents')->orderBy('name')->get() as $type)
-                                                <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                            @foreach($actionTypes as $actionType)
+                                                <option value="{{ $actionType->id }}">{{ $actionType->name }}</option>
                                             @endforeach
                                         </select>
                                     </th>
@@ -167,8 +167,16 @@
                 </div>
             </div>
             <div class="my-4">
-                {{ $unassignedItems->links() }}
+                {!! $unassignedItems->links() !!}
             </div>
         </div>
     @endif
+
+    @push('scripts')
+        <script>
+            Livewire.on('scroll-to-top', postId => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        </script>
+    @endpush
 </div>

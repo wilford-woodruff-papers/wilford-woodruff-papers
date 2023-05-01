@@ -25,10 +25,8 @@ class TestTranscriptProcessing extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $ftpTranscript = Http::get($this->argument('url'))->json('resources.0.resource.chars');
 
@@ -38,7 +36,7 @@ class TestTranscriptProcessing extends Command
 
         logger()->info(['Tagged Transcript: ', $transcript]);
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     private function convertSubjectTags($transcript)

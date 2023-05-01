@@ -6,6 +6,7 @@ use App\Models\Action;
 use App\Models\ActionType;
 use App\Models\Item;
 use App\Models\Page;
+use App\Models\Type;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
@@ -15,11 +16,10 @@ use Illuminate\Support\Str;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
+use Spatie\Regex\Regex;
 
 class AutobiographiesPcfImport implements ToCollection, WithHeadingRow
 {
-    public string $id;
-
     /**
      * @param  Collection  $collection
      */
@@ -29,58 +29,40 @@ class AutobiographiesPcfImport implements ToCollection, WithHeadingRow
 
         $actionTypes = ActionType::all();
 
+        $types = Type::query()
+            ->whereIn('name', [
+                'Autobiographies',
+                'Autobiography Sections',
+            ])
+            ->get();
+
         foreach ($rows as $row) {
-            info($row);
-            if (empty(data_get($row, str('Active')->lower()->snake()->toString()))) {
-                info('Not Active');
+            if (empty(data_get($row, 'ui'))) {
+                continue;
+            }
+            $ui = data_get($row, 'ui');
+            $result = Regex::match('/([a-z]{1,2})-([0-9]+)([a-z]{0,2})/i', $ui);
+            $prefix = $result->group(1);
+            $id = $result->group(2);
+            $suffix = ! empty($result->group(3)) ? $result->group(3) : null;
+            $item = Item::query()
+                ->where('pcf_unique_id_prefix', $prefix)
+                ->where('pcf_unique_id', $id)
+                ->when($suffix, function ($query, $suffix) {
+                    $query->where('pcf_unique_id_suffix', $suffix);
+                })
+                ->whereIn('type_id', $types->pluck('id')->all())
+                ->first();
+
+            if (empty($item)) {
+                info('Item not found: '.$ui);
 
                 continue;
             }
 
-            $slug = $this->getSLug(data_get($row, str('URL from Column C')->lower()->snake()->toString()));
-            info($slug);
+            $this->proccessItem($row, $item, $actionTypes);
 
-            if (! empty($slug)) {
-                $item = Item::query()
-                                ->firstWhere('ftp_slug', $slug);
-                if (empty($item)) {
-                    $name = data_get($row, str('Autobiographies')->replace('/', '')->lower()->snake()->toString());
-                    if (! empty($name)) {
-                        $item = Item::query()
-                                        ->firstWhere('name', $name);
-                    }
-                }
-
-                if (! empty($item)) {
-                    info($item->name);
-                    $this->proccessItem($row, $item, $actionTypes);
-                    $uniqueID = data_get($row, str('UI')->lower()->snake()->toString());
-                    // $item->pcf_unique_id_prefix = str($uniqueID)->explode('-')->first();
-                    // $item->pcf_unique_id = str($uniqueID)->explode('-')->last();
-                    $item->save();
-                    $this->id = $uniqueID;
-
-                    foreach ($item->items as $section) {
-                        $this->proccessItem($row, $section, $actionTypes);
-                    }
-                } else {
-                    logger()->warning('Could not find item for: '.$slug);
-                }
-
-                /*logger()->info(
-                    collect([
-                        data_get($row, str('Unique Identifier')->lower()->snake()->toString()),
-                        $this->getSlug(data_get($row, str('URL of Column E')->lower()->snake()->toString())),
-                        $this->toCarbonDate(data_get($row, str('Completed Transcriptions Uploaded to FTP')->lower()->snake()->toString())),
-                        $this->toCarbonDate(data_get($row, str('2LV Completion Date')->lower()->snake()->toString())),
-                        $this->toCarbonDate(data_get($row, str('Subject Links Completed')->lower()->snake()->toString())),
-                        $this->toCarbonDate(data_get($row, str('Stylization Completed')->lower()->snake()->toString())),
-                        $this->toCarbonDate(data_get($row, str('Date Topic Tagging Assigned')->lower()->snake()->toString())),
-                        $this->toCarbonDate(data_get($row, str('Date Topic Tagging Completed')->lower()->snake()->toString())),
-                    ])
-                    ->join(' | ')
-                );*/
-            }
+            unset($item);
         }
     }
 
@@ -101,9 +83,6 @@ class AutobiographiesPcfImport implements ToCollection, WithHeadingRow
             $subjectLinksAssignedTo = data_get($row, str('Subject Links Assigned')->lower()->snake()->toString());
             $subjectLinksCompletedAt = $this->toCarbonDate(data_get($row, str('Subject Links Completed')->lower()->snake()->toString()));
 
-            $placesIdentificationCompletedAt = $this->toCarbonDate(data_get($row, str('Places Identification Completed')->lower()->snake()->toString()));
-            $peopleIdentificationCompletedAt = $this->toCarbonDate(data_get($row, str('People Identification Completed')->lower()->snake()->toString()));
-
             $stylizationAssignedTo = data_get($row, str('Stylization Assigned')->lower()->snake()->toString());
             $stylizationCompletedAt = $this->toCarbonDate(data_get($row, str('Stylization Completed')->lower()->snake()->toString()));
 
@@ -113,6 +92,8 @@ class AutobiographiesPcfImport implements ToCollection, WithHeadingRow
 
             //$dateTaggingAssigned = data_get($row, str('Date Tags Completed')->lower()->snake()->toString());
 
+            $publishedToWebsiteAt = $this->toCarbonDate(data_get($row, str('Published on Website')->lower()->snake()->toString()));
+
             if (! empty($transcriptionCompletedAt)) {
                 Action::updateOrCreate([
                     'action_type_id' => $actionTypes->firstWhere('name', 'Transcription')->id,
@@ -121,8 +102,8 @@ class AutobiographiesPcfImport implements ToCollection, WithHeadingRow
                 ], [
                     'assigned_to' => $this->getUserID($transcriptionAssignedTo),
                     'assigned_at' => ! empty($transcriptionCompletedAt) ? $transcriptionCompletedAt : now(),
-                    'completed_by' => $this->getUserID($transcriptionAssignedTo),
-                    'completed_at' => $transcriptionCompletedAt,
+                    'completed_by' => ! empty($transcriptionCompletedAt) ? $this->getUserID($transcriptionAssignedTo) : null,
+                    'completed_at' => ! empty($transcriptionCompletedAt) ? $transcriptionCompletedAt : null,
                     'created_at' => $transcriptionCompletedAt,
                     'updated_at' => $transcriptionCompletedAt,
                 ]);
@@ -263,7 +244,7 @@ class AutobiographiesPcfImport implements ToCollection, WithHeadingRow
                 }
             }
 
-            if (! empty($topicTaggingAssignedTo)) {
+            if ($topicTaggingAssignedTo != 'N/A' && ! empty($topicTaggingAssignedTo)) {
                 Action::updateOrCreate([
                     'action_type_id' => $actionTypes->firstWhere('name', 'Topic Tagging')->id,
                     'actionable_type' => Item::class,
@@ -293,62 +274,32 @@ class AutobiographiesPcfImport implements ToCollection, WithHeadingRow
                 }
             }
 
-            if (! empty($placesIdentificationCompletedAt)) {
+            if (! empty($publishedToWebsiteAt)) {
                 Action::updateOrCreate([
-                    'action_type_id' => $actionTypes->firstWhere('name', 'Places Identification')->id,
+                    'action_type_id' => $actionTypes->firstWhere('name', 'Publish')->id,
                     'actionable_type' => Item::class,
                     'actionable_id' => $item->id,
                 ], [
-                    'assigned_to' => $this->getUserID('JM'),
-                    'assigned_at' => ! empty($placesIdentificationCompletedAt) ? $placesIdentificationCompletedAt : now(),
-                    'completed_by' => $this->getUserID('JM'),
-                    'completed_at' => $placesIdentificationCompletedAt,
-                    'created_at' => $placesIdentificationCompletedAt,
-                    'updated_at' => $placesIdentificationCompletedAt,
+                    'assigned_to' => $this->getUserID('Auto'),
+                    'assigned_at' => ! empty($publishedToWebsiteAt) ? $publishedToWebsiteAt : now(),
+                    'completed_by' => ! empty($publishedToWebsiteAt) ? $this->getUserID('Auto') : null,
+                    'completed_at' => ! empty($publishedToWebsiteAt) ? $publishedToWebsiteAt : null,
+                    'created_at' => $publishedToWebsiteAt,
+                    'updated_at' => $publishedToWebsiteAt,
                 ]);
 
                 foreach ($item->pages as $page) {
                     Action::updateOrCreate([
-                        'action_type_id' => $actionTypes->firstWhere('name', 'Places Identification')->id,
+                        'action_type_id' => $actionTypes->firstWhere('name', 'Publish')->id,
                         'actionable_type' => Page::class,
                         'actionable_id' => $page->id,
                     ], [
-                        'assigned_to' => $this->getUserID('JM'),
-                        'assigned_at' => ! empty($transcriptionCompletedAt) ? $transcriptionCompletedAt : now(),
-                        'completed_by' => $this->getUserID('JM'),
-                        'completed_at' => $transcriptionCompletedAt,
-                        'created_at' => $transcriptionCompletedAt,
-                        'updated_at' => $transcriptionCompletedAt,
-                    ]);
-                }
-            }
-
-            if (! empty($peopleIdentificationCompletedAt)) {
-                Action::updateOrCreate([
-                    'action_type_id' => $actionTypes->firstWhere('name', 'People Identification')->id,
-                    'actionable_type' => Item::class,
-                    'actionable_id' => $item->id,
-                ], [
-                    'assigned_to' => $this->getUserID('JM'),
-                    'assigned_at' => ! empty($peopleIdentificationCompletedAt) ? $peopleIdentificationCompletedAt : now(),
-                    'completed_by' => $this->getUserID('JM'),
-                    'completed_at' => $peopleIdentificationCompletedAt,
-                    'created_at' => $peopleIdentificationCompletedAt,
-                    'updated_at' => $peopleIdentificationCompletedAt,
-                ]);
-
-                foreach ($item->pages as $page) {
-                    Action::updateOrCreate([
-                        'action_type_id' => $actionTypes->firstWhere('name', 'People Identification')->id,
-                        'actionable_type' => Page::class,
-                        'actionable_id' => $page->id,
-                    ], [
-                        'assigned_to' => $this->getUserID('JM'),
-                        'assigned_at' => ! empty($peopleIdentificationCompletedAt) ? $peopleIdentificationCompletedAt : now(),
-                        'completed_by' => $this->getUserID('JM'),
-                        'completed_at' => $peopleIdentificationCompletedAt,
-                        'created_at' => $peopleIdentificationCompletedAt,
-                        'updated_at' => $peopleIdentificationCompletedAt,
+                        'assigned_to' => $this->getUserID('Auto'),
+                        'assigned_at' => ! empty($publishedToWebsiteAt) ? $publishedToWebsiteAt : now(),
+                        'completed_by' => ! empty($publishedToWebsiteAt) ? $this->getUserID('Auto') : null,
+                        'completed_at' => ! empty($publishedToWebsiteAt) ? $publishedToWebsiteAt : null,
+                        'created_at' => $publishedToWebsiteAt,
+                        'updated_at' => $publishedToWebsiteAt,
                     ]);
                 }
             }
@@ -381,6 +332,7 @@ class AutobiographiesPcfImport implements ToCollection, WithHeadingRow
     {
         if (in_array($initials, [
             'n/a',
+            'N/A',
         ])) {
             return null;
         }
@@ -394,7 +346,13 @@ class AutobiographiesPcfImport implements ToCollection, WithHeadingRow
             case 'crowd':
             case 'crowdsource':
             case 'crowdsourced':
+            case 'Crowdsource':
                 $name = 'Crowdsource';
+                $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
+                break;
+            case 'auto':
+            case 'Auto':
+                $name = 'Auto';
                 $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
                 break;
             case 'SCH':
@@ -596,7 +554,7 @@ class AutobiographiesPcfImport implements ToCollection, WithHeadingRow
                 $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
                 break;
             default:
-                logger()->info($this->id.' - Could not find user for: '.$initials);
+                logger()->info('Could not find user for: '.$initials);
                 $name = 'Jon Fackrell';
                 $email = str($name)->lower()->replace(' ', '.').'@wilfordwoodruffpapers.org';
         }

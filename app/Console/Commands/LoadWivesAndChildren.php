@@ -35,10 +35,8 @@ class LoadWivesAndChildren extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $wives = $this->getFamily();
 
@@ -75,7 +73,7 @@ class LoadWivesAndChildren extends Command
             }
         }
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     private function getFamily()

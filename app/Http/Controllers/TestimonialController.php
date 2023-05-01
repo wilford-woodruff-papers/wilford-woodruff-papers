@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Testimonial;
+use Illuminate\View\View;
 
 class TestimonialController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         $featured = Testimonial::query()
                                 ->whereFeatured(1)

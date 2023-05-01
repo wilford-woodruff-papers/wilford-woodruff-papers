@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
@@ -23,10 +24,8 @@ class GoogleLoginController extends Controller
 
     /**
      * Obtain the user information from Google.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function handleProviderCallback()
+    public function handleProviderCallback(): RedirectResponse
     {
         $googleUser = Socialite::driver('google')->user();
 
@@ -36,22 +35,21 @@ class GoogleLoginController extends Controller
                     'email' => 'An account has already been created using this email address. Try logging in with your '.Str::title($user->provider).' account.',
                 ]);
             }
-        }
 
-        $user = User::updateOrCreate(
-            [
+            $user->fill([
+                'provider' => 'google',
+                'password' => $googleUser->getId(),
+                'provider_id' => Hash::make(Str::uuid()),
+            ]);
+            $user->save();
+        } else {
+            $user = User::create([
                 'email' => $googleUser->getEmail(),
-            ],
-            [
                 'name' => $googleUser->getName(),
                 'provider' => 'google',
-                'provider_id' => $googleUser->getId(),
-            ]
-        );
-
-        if ($user->wasRecentlyCreated) {
-            $user->password = Hash::make(Str::uuid());
-            $user->save();
+                'password' => $googleUser->getId(),
+                'provider_id' => Hash::make(Str::uuid()),
+            ]);
             event(new Registered($user));
         }
 

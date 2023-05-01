@@ -34,10 +34,8 @@ class UpdatePageOrder extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $items = Item::query()
                         ->whereNull('item_id')
@@ -87,5 +85,7 @@ class UpdatePageOrder extends Command
             });
         });
         logger()->info('Page Order Updated: '.now());
+
+        return Command::SUCCESS;
     }
 }

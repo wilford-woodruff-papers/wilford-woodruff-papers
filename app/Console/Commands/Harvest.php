@@ -35,10 +35,8 @@ class Harvest extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $response = Http::get('https://fromthepage.com/iiif/collection/970');
 

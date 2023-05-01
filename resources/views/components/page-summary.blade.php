@@ -1,7 +1,7 @@
 <li class="grid grid-cols-7 py-4">
     <div class="col-span-1 px-2">
         <a class="col-span-1 my-2 mx-auto w-20 h-auto" href="{{ route('pages.show', ['item' => $page->item, 'page' => $page]) }}">
-            <img src="{{ optional($page->getFirstMedia())->getUrl('thumb') }}"
+            <img src="{{ $page->getFirstMedia()?->getUrl('thumb') }}"
                  alt=""
                  loading="lazy"
             >
@@ -11,12 +11,31 @@
         <p class="pb-1 text-lg font-medium capitalize text-secondary">
             <a href="{{ route('pages.show', ['item' => $page->parent, 'page' => $page]) }}">Page {{ $page->order }}</a>
         </p>
-        <p class="ml-2 text-base font-medium">
-            <span class="text-gray-600">Part of </span>
-            <span class="text-secondary">
-                <a href="{{ route('documents.show', ['item' => $page->parent]) }}">{{ \Illuminate\Support\Str::of($page->parent?->name)->replaceMatches('/\[.*?\]/', '')->trim() }}</a>
-            </span>
-        </p>
+        <div class="flex gap-x-3 ml-2 text-base font-medium">
+            <div>
+                <span class="text-gray-600">Part of </span>
+                <span class="text-secondary">
+                    <a href="{{ route('documents.show', ['item' => $page->parent]) }}">{{ \Illuminate\Support\Str::of($page->parent?->name)->replaceMatches('/\[.*?\]/', '')->trim() }}</a>
+                </span>
+            </div>
+            <div>
+                @auth()
+                    @hasanyrole('CFM Researcher')
+                        <div>
+                            @if($page->parent?->enabled)
+                                <span class="inline-flex items-center py-0.5 px-2.5 text-xs font-medium text-green-800 bg-green-100 rounded-full">
+                                    {{ __('Published') }}
+                                </span>
+                            @else
+                                <span class="inline-flex items-center py-0.5 px-2.5 text-xs font-medium text-red-800 bg-red-100 rounded-full">
+                                    {{ __('Not Published') }}
+                                </span>
+                            @endif
+                        </div>
+                    @endhasanyrole
+                @endauth
+            </div>
+        </div>
         {{--@if($page->item->type)
             <p class="ml-2 text-base text-primary">{{ $page->item->type->name }}</p>
         @endif--}}

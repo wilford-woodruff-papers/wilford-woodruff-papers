@@ -9,11 +9,18 @@ You may wish to configure a shell alias that allows you to execute Sail's comman
 
 ```alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'```
 
-Install PHP dependencies (you need PHP installed to do this)
-
-```composer install```
-
 Copy .env file to the root or your project directory
+
+Install PHP dependencies
+
+```
+docker run --rm \
+    -u "$(id -u):$(id -g)" \
+    -v "$(pwd):/var/www/html" \
+    -w /var/www/html \
+    laravelsail/php82-composer:latest \
+    composer install --ignore-platform-reqs
+```
 
 ## Installation and Setup of Sail
 
@@ -21,7 +28,19 @@ Copy .env file to the root or your project directory
 
 To make sure the packages are correct for the docker version of PHP run composer again
 
-```composer install```
+```sail composer install```
+
+## Install Node Modules
+
+```npm install```
+
+Assets are compiled using Lasso during deployment. To compile assets locally, run one of the following:
+
+```
+npm run dev
+npm run watch
+npm run prod
+```
 
 ## Import the sample database
 
@@ -29,7 +48,6 @@ To make sure the packages are correct for the docker version of PHP run composer
 ## Edit hosts file
 
 OSX ```sudo nano /private/etc/hosts```
-
 
 
 ## About Laravel

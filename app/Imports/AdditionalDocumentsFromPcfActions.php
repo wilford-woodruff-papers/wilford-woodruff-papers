@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Jobs\ImportAdditionalMasterFileAction;
 use App\Jobs\ImportNewAdditionalDocumentsFromPcfAction;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
@@ -22,6 +23,9 @@ class AdditionalDocumentsFromPcfActions implements ToCollection, WithHeadingRow
             switch ($this->action) {
                 case 'Import New':
                     ImportNewAdditionalDocumentsFromPcfAction::dispatch($row);
+                    break;
+                case 'Import Master File':
+                    ImportAdditionalMasterFileAction::dispatch($row);
                     break;
             }
         }

@@ -25,7 +25,7 @@
                             </p>
                         @endif
                         <img class="mx-auto w-full max-w-4xl md:w-1/2"
-                             src="{{ optional($photo->getFirstMedia())->getUrl('web') }}"
+                             src="{{ $photo->getFirstMedia()?->getUrl('web') }}"
                         />
                         <!-- This example requires Tailwind CSS v2.0+ -->
                         <div class="flex flex-col mt-12">
@@ -52,7 +52,11 @@
                                                             Date
                                                         </td>
                                                         <td class="py-4 px-6 text-sm text-gray-500">
-                                                            {{ optional($photo->date)->format('m d, Y') ?? $photo->date  }}
+                                                            @if(str($photo->date)->contains('-'))
+                                                                {{ \Carbon\Carbon::createFromFormat('Y-m-d', $photo->date)->format('M d, Y') }}
+                                                            @else
+                                                                {{ $photo->date  }}
+                                                            @endif
                                                         </td>
                                                     </tr>
                                                 @endif

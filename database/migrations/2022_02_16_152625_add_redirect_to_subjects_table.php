@@ -8,10 +8,8 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::table('subjects', function (Blueprint $table) {
             $table->unsignedBigInteger('redirect_to')->nullable();
@@ -20,10 +18,8 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::table('subjects', function (Blueprint $table) {
             $table->dropColumn('redirect_to');

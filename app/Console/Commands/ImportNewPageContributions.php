@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use App\Jobs\ImportItemFromFtp;
 use App\Models\Item;
-use Illuminate\Bus\Batch;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Http;
@@ -27,17 +26,15 @@ class ImportNewPageContributions extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         // Todo: Set start and end times
         $start = now('America/Denver')->subHours(24)->tz('UTC');
         $end = now('America/Denver')->tz('UTC');
         $url = 'https://fromthepage.com/iiif/contributions/woodruff/'.$start->toIso8601String().'/'.$end->toIso8601String();
         logger()->info('Getting new contributions from: '.$url);
-        $response = Http::timeout(3)
+        $response = Http::timeout(60)
             ->retry(3, 500)
             ->get($url);
 
@@ -56,14 +53,7 @@ class ImportNewPageContributions extends Command
             }
 
             $batch = Bus::batch($jobs)
-                ->then(function (Batch $batch) {
-                    // All jobs completed successfully...
-                    /*Bus::chain([
-                        new \App\Jobs\OrderPages(),
-                        new \App\Jobs\CacheDates(),
-                    ])
-                        ->dispatch();*/
-                })
+                ->onQueue('pages')
                 ->name('Import New Pages Contributions')
                 ->allowFailures()
                 ->dispatch();
@@ -71,6 +61,6 @@ class ImportNewPageContributions extends Command
             $this->info('Batch ID: '.$batch->id);
         }
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

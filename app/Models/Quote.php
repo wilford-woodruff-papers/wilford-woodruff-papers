@@ -25,6 +25,11 @@ class Quote extends Model
         return $this->belongsTo(Page::class);
     }
 
+    public function continuation()
+    {
+        return $this->hasOne(Quote::class, 'continued_from_previous_page', 'id');
+    }
+
     public function topics()
     {
         return $this->belongsToMany(Subject::class)->withPivot(['approved_at', 'approved_by', 'created_at', 'created_by']);

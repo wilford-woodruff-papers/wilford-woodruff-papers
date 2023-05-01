@@ -39,12 +39,21 @@
         <script src="https://cdn.tailwindcss.com"></script>
     </head>
     <body class="flex justify-center items-center min-h-screen">
-        <div class="bg-[#0B2836] w-[1200px] h-[630px] text-white p-12 border-[#B4A677] border-[16px]">
-            <h1 class="font-bold text-[90px] text-[#B4A677] leading-none">{!! explode(' - ', $title)[0] !!}</h1>
-            @if(isset($subtitle))
-                <h2 class="mt-6 font-bold text-white uppercase text-[50px]">{{ $subtitle }}</h2>
-            @endif
-            <div class="inline-block px-6 py-3 mt-10 text-[30px] font-bold text-[#792310] rounded-lg bg-[#B4A677]">Read more here</div>
+        <div class="bg-[#0B2836] w-[1200px] h-[630px] text-white p-12 border-[#B4A677] border-[16px] bg-cover bg-center"
+            style="background-image: url('{{ asset('img/opengraph.png') }}')"
+        >
+            <div class="grid grid-cols-2 gap-x-8">
+                <div>
+                    <img src="{{ asset('img/image-logo.png') }}" alt="Wilford Woodruff Papers Foundation" class="w-full h-auto">
+                    @if(! empty(str($title)->replace('_', ' ')->trim()))
+                        <h1 class="mt-6 font-bold text-white uppercase text-[32px]">{!! html_entity_decode(str($title)->replace('_', ' ')->trim()) !!}</h1>
+                    @endif
+                    <div class="inline-block px-6 py-3 @if(! empty(str($title)->replace('_', ' ')->trim())) mt-12 @else mt-20 @endif text-[24px] font-semibold text-[#FFFFFF] bg-[#B4A677]">Read More</div>
+                </div>
+                <div class="pl-32">
+                    <img src="{{ asset('img/wilford-woodruff.png') }}" alt="Wilford Woodruff" class="w-full h-auto">
+                </div>
+            </div>
         </div>
     </body>
 </html>

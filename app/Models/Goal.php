@@ -17,10 +17,6 @@ class Goal extends Model
         'finish_at' => 'datetime:Y-m-d',
     ];
 
-    protected $dates = [
-        'finish_at',
-    ];
-
     public function type()
     {
         return $this->belongsTo(Type::class);

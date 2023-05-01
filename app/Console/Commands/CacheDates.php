@@ -33,10 +33,8 @@ class CacheDates extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $items = Item::doesntHave('items')->get();
         $items->each(function ($item) {
@@ -63,5 +61,7 @@ class CacheDates extends Command
         });
 
         logger()->info('Dates Cached: '.now());
+
+        return Command::SUCCESS;
     }
 }

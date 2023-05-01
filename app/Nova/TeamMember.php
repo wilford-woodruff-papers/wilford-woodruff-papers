@@ -8,16 +8,17 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
-use MichielKempen\NovaOrderField\Orderable;
-use MichielKempen\NovaOrderField\OrderField;
+use Laravel\Nova\Http\Requests\NovaRequest;
+use PixelCreation\NovaFieldSortable\Concerns\SortsIndexEntries;
+use PixelCreation\NovaFieldSortable\Sortable;
 
 class TeamMember extends Resource
 {
-    use Orderable;
+    use SortsIndexEntries;
 
     public static $displayInNavigation = false;
 
-    public static $defaultOrderField = 'order';
+    public static $defaultSortField = 'order';
 
     /**
      * The model the resource corresponds to.
@@ -46,15 +47,13 @@ class TeamMember extends Resource
 
     /**
      * Get the fields displayed by the resource.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
      */
-    public function fields(Request $request)
+    public function fields(NovaRequest $request): array
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            OrderField::make('Order'),
+            Sortable::make('Order', 'order')
+                ->onlyOnIndex(),
             BelongsTo::make('Team', 'team', Team::class)->nullable(),
             Text::make(__('Name'), 'name')->sortable(),
             Text::make(__('Title'), 'title')->sortable(),
@@ -73,44 +72,32 @@ class TeamMember extends Resource
 
     /**
      * Get the cards available for the request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
      */
-    public function cards(Request $request)
+    public function cards(Request $request): array
     {
         return [];
     }
 
     /**
      * Get the filters available for the resource.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
      */
-    public function filters(Request $request)
+    public function filters(Request $request): array
     {
         return [];
     }
 
     /**
      * Get the lenses available for the resource.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
      */
-    public function lenses(Request $request)
+    public function lenses(Request $request): array
     {
         return [];
     }
 
     /**
      * Get the actions available for the resource.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
      */
-    public function actions(Request $request)
+    public function actions(Request $request): array
     {
         return [];
     }

@@ -35,6 +35,12 @@
                         </div>
                     @endif
 
+                    @env('local')
+                        <div class="py-4">
+                            <x-login-link key="1" label="Admin Quick Login"/>
+                        </div>
+                    @endenv
+
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 

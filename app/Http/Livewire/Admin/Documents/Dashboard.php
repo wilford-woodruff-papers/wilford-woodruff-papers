@@ -9,6 +9,7 @@ use App\Http\Livewire\DataTable\WithSorting;
 use App\Models\ActionType;
 use App\Models\Item;
 use App\Models\TargetPublishDate;
+use App\Models\Type;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 
@@ -25,6 +26,8 @@ class Dashboard extends Component
     public $targetDates = [];
 
     public $taskTypes = [];
+
+    public $types = [];
 
     public $filters = [
         'search' => '',
@@ -52,7 +55,18 @@ class Dashboard extends Component
             ->limit(3)
             ->get();
 
-        $this->taskTypes = ActionType::for('Documents')->ordered()->get();
+        $this->taskTypes = ActionType::query()
+            ->for('Documents')
+            ->ordered()
+            ->get();
+
+        $this->types = Type::query()
+            ->whereNull('type_id')
+            ->orderBy('name')
+            ->get();
+
+        //$this->filters['date-min'] = request('filters.date-min') ?? '1807-03-01';
+        //$this->filters['date-max'] = request('filters.date-max') ?? '1898-09-02';
     }
 
     public function updatedFilters()
@@ -94,6 +108,7 @@ class Dashboard extends Component
     {
         $query = Item::query()
             ->with('type', 'target_publish_dates', 'active_target_publish_date', 'actions')
+            ->whereNotNull('type_id')
             ->when(array_key_exists('search', $this->filters) && $this->filters['search'], fn ($query, $search) => $query->where('name', 'like', '%'.$this->filters['search'].'%'))
             ->when(array_key_exists('status', $this->filters) && $this->filters['status'], fn ($query, $status) => $query->where('enabled', $this->filters['status'] == 'on' ? 1 : 0))
             ->when(array_key_exists('needs', $this->filters) && $this->filters['needs'], function ($query, $status) {
@@ -117,7 +132,14 @@ class Dashboard extends Component
                     });
                 }
             })
-            ->when(array_key_exists('type', $this->filters) && $this->filters['type'], fn ($query, $type) => $query->where('type_id', $this->filters['type']));
+            ->when(array_key_exists('type', $this->filters) && $this->filters['type'], function ($query) {
+                $type = Type::query()->where('id', $this->filters['type'])->first();
+                $types = [$type->id];
+                if ($subType = Type::query()->where('type_id', $type->id)->first()) {
+                    $types[] = $subType->id;
+                }
+                $query->whereIn('type_id', $types);
+            });
 
         return $this->applySorting($query);
     }

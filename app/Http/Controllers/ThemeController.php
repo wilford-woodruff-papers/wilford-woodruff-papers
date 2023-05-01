@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Page;
 use App\Models\Quote;
 use App\Models\Theme;
 use Illuminate\Http\Request;
@@ -13,14 +14,12 @@ class ThemeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, Page $page)
     {
         $quotes = Theme::query()
                         ->select('text');
 
-        if ($request->has('page')) {
-            $quotes = $quotes->where('page_id', $request->get('page'));
-        }
+        $quotes = $quotes->where('page_id', $page->id);
 
         return $quotes->get();
     }
@@ -38,7 +37,6 @@ class ThemeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -49,7 +47,6 @@ class ThemeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Quote  $quote
      * @return \Illuminate\Http\Response
      */
     public function show(Quote $quote)
@@ -60,7 +57,6 @@ class ThemeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Quote  $quote
      * @return \Illuminate\Http\Response
      */
     public function edit(Quote $quote)
@@ -71,8 +67,6 @@ class ThemeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Quote  $quote
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Quote $quote)
@@ -83,7 +77,6 @@ class ThemeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Quote  $quote
      * @return \Illuminate\Http\Response
      */
     public function destroy(Quote $quote)

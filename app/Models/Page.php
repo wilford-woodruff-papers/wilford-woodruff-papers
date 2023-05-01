@@ -92,6 +92,11 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
         return $this->morphMany(Date::class, 'dateable');
     }
 
+    public function taggedDates()
+    {
+        return $this->morphMany(Date::class, 'dateable')->orderBy('date', 'ASC');
+    }
+
     public function getPageDateRangeAttribute()
     {
         // Is not a Journal so return page #
@@ -115,11 +120,17 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
         }
     }
 
-    public function text()
+    public function text($isQuoteTagger = false)
     {
         return Str::of($this->transcript)->replaceMatches('/(?:\[\[)(.*?)(?:\]\])/s', function ($match) {
             return '<a href="/subjects/'.Str::of(Str::of($match[1])->explode('|')->first())->slug().'" class="text-secondary popup">'.Str::of($match[1])->explode('|')->last().'</a>';
-        })->replace('&amp;', '&');
+        })
+            ->replaceMatches('/QZ[0-9]*/smi', function ($match) use ($isQuoteTagger) {
+                return $isQuoteTagger
+                    ? '<span class="bg-green-300">'.array_pop($match).'</span>'
+                    : '';
+            })
+            ->replace('&amp;', '&');
     }
 
     public function getRouteKeyName()

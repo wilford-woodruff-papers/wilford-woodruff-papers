@@ -1,7 +1,7 @@
 <div wire:init="loadStats">
 
     <div class="mx-auto mt-4 max-w-7xl">
-        <div class="py-4">
+        <div class="py-4 px-4 bg-white">
 
             <h1 class="mb-2 text-2xl font-semibold">
                 Progress Matrix
@@ -22,32 +22,20 @@
                         </select>
                     </div>
                 </div>
-                <div>
-                    <label for="start" class="block text-sm font-medium text-gray-700">Starting Date</label>
+                <div class="pr-8 mr-8">
+                    <label for="user" class="block text-sm font-medium text-gray-700">Stage</label>
                     <div class="mt-1">
-                        <input wire:model.defer="dates.start"
-                               id="start"
-                               type="date"
-                               class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-500 focus:ring-indigo-500"
-                        />
+                        <select wire:model="stage"
+                                id="stage"
+                                class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-500 focus:ring-indigo-500"
+                        >
+                            <option value="">-- Select Stage --</option>
+                            <option value="4">Stage 4</option>
+                            <option value="3">Stage 3</option>
+                            <option value="2">Stage 2</option>
+                            <option value="1">Stage 1</option>
+                        </select>
                     </div>
-                </div>
-                <div>
-                    <label for="end" class="block text-sm font-medium text-gray-700">Ending Date</label>
-                    <div class="mt-1">
-                        <input wire:model.defer="dates.end"
-                               id="end"
-                               type="date"
-                               class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-500 focus:ring-indigo-500"
-                        />
-                    </div>
-                </div>
-                <div>
-                    <button type="submit"
-                            class="inline-flex justify-center items-center py-2 px-8 mt-6 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm sm:ml-3 xl:ml-0 xl:w-full hover:bg-gray-50 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none"
-                    >
-                        Update
-                    </button>
                 </div>
             </form>
 
@@ -66,24 +54,21 @@
                     <table class="divide-y divide-gray-30">
                         <thead class="bg-black">
                             <tr>
-                                <th colspan="2" class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-white border border-black sm:pl-6"></th>
-                                <th class="py-3.5 pr-3 pl-4 text-sm font-semibold text-center text-white border border-black sm:pl-6">Letters<br/>(pages)</th>
-                                <th class="py-3.5 pr-3 pl-4 text-sm font-semibold text-center text-white border border-black sm:pl-6">Discourses<br/>(pages)</th>
-                                <th class="py-3.5 pr-3 pl-4 text-sm font-semibold text-center text-white border border-black sm:pl-6">Journals<br/>(pages)</th>
-                                <th class="py-3.5 pr-3 pl-4 text-sm font-semibold text-center text-white border border-black sm:pl-6">Additional<br/>(pages)</th>
-                                <th class="py-3.5 pr-3 pl-4 text-sm font-semibold text-center text-white border border-black sm:pl-6">Autobiographies<br/>(pages)</th>
+                                <th class="justify-center py-3.5 text-sm font-semibold text-white border border-black">
+                                   Category
+                                </th>
+                                <th class="justify-center py-3.5 text-sm font-semibold text-white border border-black">
+                                    Steps
+                                </th>
+                                <th class="py-1.5 pr-3 pl-4 text-sm font-semibold text-center text-white border border-black sm:pl-6">Letters<br/>(pages)</th>
+                                <th class="py-1.5 pr-3 pl-4 text-sm font-semibold text-center text-white border border-black sm:pl-6">Discourses<br/>(pages)</th>
+                                <th class="py-1.5 pr-3 pl-4 text-sm font-semibold text-center text-white border border-black sm:pl-6">Journals<br/>(pages)</th>
+                                <th class="py-1.5 pr-3 pl-4 text-sm font-semibold text-center text-white border border-black sm:pl-6">Additional<br/>(pages)</th>
+                                <th class="py-1.5 pr-3 pl-4 text-sm font-semibold text-center text-white border border-black sm:pl-6">Daybooks<br/>(pages)</th>
+                                <th class="py-1.5 pr-3 pl-4 text-sm font-semibold text-center text-white border border-black sm:pl-6">Autobiographies<br/>(pages)</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white">
-                            <tr class="bg-[#cccccc]">
-                                <td class="text-sm text-center text-black border border-black">Category</td>
-                                <td class="text-sm text-center text-black border border-black">Steps</td>
-                                <td class="text-sm text-center text-black border border-black">Actual/Goal</td>
-                                <td class="text-sm text-center text-black border border-black">Actual/Goal</td>
-                                <td class="text-sm text-center text-black border border-black">Actual/Goal</td>
-                                <td class="text-sm text-center text-black border border-black">Actual/Goal</td>
-                                <td class="text-sm text-center text-black border border-black">Actual/Goal</td>
-                            </tr>
 
                             <tr>
                                 <td rowspan="1" class="py-3.5 pr-3 pl-1 text-sm font-semibold text-left text-gray-900 border border-black">
@@ -92,17 +77,44 @@
                                 <td class="py-3.5 pr-3 pl-1 text-sm font-semibold text-left text-gray-900 border border-black">
                                     Access/Organize
                                 </td>
-                                <td class="border border-black"></td>
-                                <td class="border border-black"></td>
-                                <td class="border border-black"></td>
-                                <td class="border border-black"></td>
-                                <td class="border border-black"></td>
+                                @foreach($docTypes as $docType)
+                                    <td class="text-sm font-semibold text-center text-gray-900 border border-black">
+                                        {{ number_format($pageCounts[$docType]) }}
+                                    </td>
+                                @endforeach
+                            </tr>
+                            <tr>
+                                <td rowspan="1" colspan="2" class="py-3.5 pr-3 pl-1 text-sm font-semibold text-left text-gray-900 border border-black">
+                                    Published Prior to Current Stage
+                                </td>
+                                @foreach($docTypes as $docType)
+                                    <td class="text-sm font-semibold text-center text-gray-900 border border-black">
+                                        <livewire:admin.progress-matrix.past-work
+                                            :document_type="$this->typesMap[$docType]"
+                                            :action_type="'Publish'"
+                                            :dates="$dates"
+                                            :wire:key="$docType.'Publish'"
+                                        />
+                                    </td>
+                                @endforeach
+                            </tr>
+
+                            <tr class="bg-[#cccccc]">
+                                <td colspan="2" class="pl-1 text-sm font-semibold text-left text-black border border-black">
+                                    STAGE {{ $stage }} ({{ Carbon\Carbon::parse($dates['start'])->format('M Y') }} - {{ Carbon\Carbon::parse($dates['end'])->format('M Y') }})
+                                </td>
+                                <td class="text-sm text-center text-black border border-black">Actual / Goal</td>
+                                <td class="text-sm text-center text-black border border-black">Actual / Goal</td>
+                                <td class="text-sm text-center text-black border border-black">Actual / Goal</td>
+                                <td class="text-sm text-center text-black border border-black">Actual / Goal</td>
+                                <td class="text-sm text-center text-black border border-black">Actual / Goal</td>
+                                <td class="text-sm text-center text-black border border-black">Actual / Goal</td>
                             </tr>
 
                             @foreach($pageStats as $key => $stat)
                                 <tr>
                                     @if($loop->first)
-                                        <td rowspan="3" class="py-3.5 pr-3 pl-1 text-sm font-semibold text-left text-gray-900 border border-black">
+                                        <td rowspan="4" class="py-3.5 pr-3 pl-1 text-sm font-semibold text-left text-gray-900 border border-black">
                                             Processing
                                         </td>
                                     @endif
@@ -113,22 +125,37 @@
 
                                     @foreach($docTypes as $docType)
                                         <td class="text-sm font-semibold text-center text-gray-900 border border-black">
-                                            <div class="flex flex-col">
-                                                <div>
-                                                    {{ $stat->where('document_type', $docType)->first()?->total ?? 0}} / {{ $goals[$key][$docType] }}
-                                                </div>
-                                                <div @class([
-                                                      'bg-[#e06666]' =>  ($goalPercentages[$key][$docType] <= 70),
+                                            <div>
+                                                @if(
+                                                    ($stat->whereIn('document_type', $this->typesMap[$docType])->sum('total') ?? 0) == 0
+                                                    && $goals[$key][$docType] == 0)
+                                                    <div>
+
+                                                    </div>
+                                                @else
+                                                    <div class="flex flex-col">
+                                                        <div>
+                                                            <a href="{{ route('admin.page-activity', ['type' => $docType, 'activity' => $key, 'start_date' => $dates['start'], 'end_date' => $dates['end']]) }}"
+                                                               target="_blank"
+                                                               title="Click to view page activity"
+                                                            >
+                                                                {{ number_format($stat->whereIn('document_type', $this->typesMap[$docType])->sum('total')) ?? 0}} / {{ number_format($goals[$key][$docType]) }}
+                                                            </a>
+                                                        </div>
+                                                        <div @class([
+                                                      'bg-[#e06666]' =>  (($goalPercentages[$key][$docType] <= 70) && ($goalPercentages[$key][$docType] > 0)),
                                                       'bg-[#ffd966]' => (($goalPercentages[$key][$docType] >= 70) && ($goalPercentages[$key][$docType] <= 99)),
                                                       'bg-[#93c47d]' => (($goalPercentages[$key][$docType] >= 100) && ($goalPercentages[$key][$docType] <= 119)),
                                                       'bg-[#ff50c5]' => ($goalPercentages[$key][$docType] >= 120),
+                                                      'bg-[#93c47e]' => ($goals[$key][$docType] == 0),
                                                     ])>
-                                                    {{ $goalPercentages[$key][$docType] }}%
-                                                </div>
+                                                            @if($goals[$key][$docType] == 0) N/A @else {{ $goalPercentages[$key][$docType] }}% @endif
+                                                        </div>
+                                                    </div>
+                                                @endif
                                             </div>
                                         </td>
                                     @endforeach
-
                                 </tr>
                             @endforeach
                         </tbody>
@@ -163,9 +190,51 @@
                                 <td class="py-3.5 pr-4 pl-1 text-sm font-semibold text-left text-gray-900 border border-black">
                                     Access/Organize
                                 </td>
-                                <td class="border border-black"></td>
-                                <td class="border border-black"></td>
-                                <td class="border border-black"></td>
+                                <td class="text-sm font-semibold text-center text-gray-900 border border-black">
+                                    <div class="flex flex-col">
+                                        <div>
+                                            {{ number_format($subjectStats['identify_people']['actual']) }} / {{ number_format($subjectStats['identify_people']['goal']) }}
+                                        </div>
+                                        <div @class([
+                                                      'bg-[#e06666]' =>  ($subjectStats['identify_people']['percentage'] <= 70),
+                                                      'bg-[#ffd966]' => (($subjectStats['identify_people']['percentage'] >= 70) && ($subjectStats['identify_people']['percentage'] <= 99)),
+                                                      'bg-[#93c47d]' => (($subjectStats['identify_people']['percentage'] >= 100) && ($subjectStats['identify_people']['percentage'] <= 119)),
+                                                      'bg-[#ff50c5]' => ($subjectStats['identify_people']['percentage'] >= 120),
+                                                    ])>
+                                            {{ $subjectStats['identify_people']['percentage'] }}%
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-sm font-semibold text-center text-gray-900 border border-black">
+                                    <div class="flex flex-col">
+                                        <div>
+                                            {{ $subjectStats['write_biographies']['actual'] }} / {{ $subjectStats['write_biographies']['goal'] }}
+                                        </div>
+                                        <div @class([
+                                                      'bg-[#e06666]' =>  ($subjectStats['write_biographies']['percentage'] <= 70),
+                                                      'bg-[#ffd966]' => (($subjectStats['write_biographies']['percentage'] >= 70) && ($subjectStats['write_biographies']['percentage'] <= 99)),
+                                                      'bg-[#93c47d]' => (($subjectStats['write_biographies']['percentage'] >= 100) && ($subjectStats['write_biographies']['percentage'] <= 119)),
+                                                      'bg-[#ff50c5]' => ($subjectStats['write_biographies']['percentage'] >= 120),
+                                                    ])>
+                                            {{ $subjectStats['write_biographies']['percentage'] }}%
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-sm font-semibold text-center text-gray-900 border border-black">
+                                    <div class="flex flex-col">
+                                        <div>
+                                            {{ $subjectStats['identify_places']['actual'] }} / {{ $subjectStats['identify_places']['goal'] }}
+                                        </div>
+                                        <div @class([
+                                                      'bg-[#e06666]' =>  ($subjectStats['identify_places']['percentage'] <= 70),
+                                                      'bg-[#ffd966]' => (($subjectStats['identify_places']['percentage'] >= 70) && ($subjectStats['identify_places']['percentage'] <= 99)),
+                                                      'bg-[#93c47d]' => (($subjectStats['identify_places']['percentage'] >= 100) && ($subjectStats['identify_places']['percentage'] <= 119)),
+                                                      'bg-[#ff50c5]' => ($subjectStats['identify_places']['percentage'] >= 120),
+                                                    ])>
+                                            {{ $subjectStats['identify_places']['percentage'] }}%
+                                        </div>
+                                    </div>
+                                </td>
                             </tr>
                         </tbody>
                         <tfoot></tfoot>
@@ -181,7 +250,9 @@
                     <thead>
                         <tr>
                             <td class="text-sm text-center text-white bg-black border border-black">Color Key</td>
-                            <td colspan="3"></td>
+                            <td colspan="3" class="pl-8 text-sm">
+
+                            </td>
                         </tr>
                     </thead>
                     <tbody>

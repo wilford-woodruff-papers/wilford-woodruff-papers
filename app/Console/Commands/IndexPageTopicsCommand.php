@@ -13,7 +13,7 @@ class IndexPageTopicsCommand extends Command
 
     protected $description = 'Index all topics for pages';
 
-    public function handle()
+    public function handle(): void
     {
         set_time_limit(600);
 

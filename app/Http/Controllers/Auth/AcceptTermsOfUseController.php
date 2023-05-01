@@ -3,19 +3,19 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 use Laravel\Jetstream\Jetstream;
 
 class AcceptTermsOfUseController extends Controller
 {
     /**
      * Show form.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show(): View
     {
         $termsFile = Jetstream::localizedMarkdownPath('terms.md');
 
@@ -26,10 +26,8 @@ class AcceptTermsOfUseController extends Controller
 
     /**
      * Process form.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function submit(Request $request)
+    public function submit(Request $request): RedirectResponse
     {
         $user = Auth::user();
         $user->accepted_terms = 1;

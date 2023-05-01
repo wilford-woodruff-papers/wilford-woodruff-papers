@@ -9,14 +9,12 @@ class Kernel extends ConsoleKernel
 {
     /**
      * Define the application's command schedule.
-     *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
-     * @return void
      */
-    protected function schedule(Schedule $schedule)
+    protected function schedule(Schedule $schedule): void
     {
         $schedule->command('backup:clean')->daily()->at('04:00')->timezone('America/Denver');
         $schedule->command('backup:run')->daily()->at('04:30')->timezone('America/Denver');
+        $schedule->command('queue:prune-batches --hours=48')->daily();
 
         $schedule->command('import:instagram')
                  ->everyFourHours();
@@ -27,14 +25,14 @@ class Kernel extends ConsoleKernel
                  ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org')
                  ->pingOnSuccess('http://beats.envoyer.io/heartbeat/wc7wzwZhcB9Jfrk');
 
-        $schedule->command('import:pages')
+        /*$schedule->command('import:pages')
                  ->dailyAt('2:00 AM')
                  ->timezone('America/Denver')
                  ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org')
-                 ->pingOnSuccess('http://beats.envoyer.io/heartbeat/CdvYy969jSgJpsf');
+                 ->pingOnSuccess('http://beats.envoyer.io/heartbeat/CdvYy969jSgJpsf');*/
 
         $schedule->command('import:contributions')
-                 ->dailyAt('1:10 AM')
+                 ->dailyAt('2:10 AM')
                  ->timezone('America/Denver')
                  ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org')
                  ->pingOnSuccess('http://beats.envoyer.io/heartbeat/NBAuq5yMAJvwwS4');
@@ -103,10 +101,8 @@ class Kernel extends ConsoleKernel
 
     /**
      * Register the commands for the application.
-     *
-     * @return void
      */
-    protected function commands()
+    protected function commands(): void
     {
         $this->load(__DIR__.'/Commands');
 

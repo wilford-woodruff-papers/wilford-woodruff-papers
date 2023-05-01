@@ -6,6 +6,7 @@ use Dyrynda\Database\Casts\EfficientUuid;
 use Dyrynda\Database\Support\GeneratesUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 use Mtvs\EloquentHashids\HasHashid;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Encoders\Base64Encoder;
@@ -31,6 +32,11 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
         'first_date' => 'datetime',
         'imported_at' => 'datetime',
         'uuid' => EfficientUuid::class,
+    ];
+
+    private $suffixes = [
+        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+        'aa', 'bb', 'cc', 'dd', 'ee', 'ff', 'gg', 'hh', 'ii', 'jj', 'kk', 'll', 'mm', 'nn', 'oo', 'pp', 'qq', 'rr', 'ss', 'tt', 'uu', 'vv', 'ww', 'xx', 'yy', 'zz',
     ];
 
     public function pages()
@@ -111,6 +117,16 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
         return $this->morphMany(Date::class, 'dateable');
     }
 
+    public function taggedDates()
+    {
+        return $this->morphMany(Date::class, 'dateable');
+    }
+
+    public function values()
+    {
+        return $this->hasMany(Value::class);
+    }
+
     public function getRouteKeyName()
     {
         return 'uuid';
@@ -148,6 +164,23 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
         });
     }*/
 
+    protected static function booted()
+    {
+        static::creating(function ($item) {
+            if (empty($item->pcf_unique_id) && empty($item->item_id)) {
+                $uniqueId = DB::table('items')
+                    ->where('pcf_unique_id_prefix', $item->pcf_unique_id_prefix)
+                    ->max('pcf_unique_id');
+                $item->pcf_unique_id = $uniqueId + 1;
+            } elseif (empty($item->pcf_unique_id)) {
+                $item->pcf_unique_id = $item->parent()->pcf_unique_id;
+                $item->pcf_unique_id_suffix = $item->getSuffix(
+                    Item::where('item_id', $item->item_id)->count()
+                );
+            }
+        });
+    }
+
     public function activities()
     {
         return $this->morphMany(Activity::class, 'subject');
@@ -169,7 +202,7 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
         return $this->morphMany(Action::class, 'actionable')
             ->where(
                 'actionable_type',
-                'App\Models\Item'
+                \App\Models\Item::class
             )->where('assigned_to', auth()->id())
             ->whereNull('completed_at');
     }
@@ -179,7 +212,7 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
         return $this->morphMany(Action::class, 'actionable')
             ->where(
                 'actionable_type',
-                'App\Models\Item'
+                \App\Models\Item::class
             )->where('assigned_to', $userId)
             ->whereNull('completed_at')
             ->get();
@@ -203,7 +236,7 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
         return $this->hasManyThrough(Action::class, Page::class, 'item_id', 'actionable_id')
             ->where(
                 'actionable_type',
-                'App\Models\Page'
+                \App\Models\Page::class
             );
     }
 
@@ -212,7 +245,7 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
         return $this->hasManyThrough(Action::class, Page::class, 'item_id', 'actionable_id')
             ->where(
                 'actionable_type',
-                'App\Models\Page'
+                \App\Models\Page::class
             )
             ->where('assigned_to', auth()->id())
             ->whereNull('completed_at');
@@ -223,7 +256,7 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
         return $this->hasManyThrough(Action::class, Page::class, 'item_id', 'actionable_id')
             ->where(
                 'actionable_type',
-                'App\Models\Page'
+                \App\Models\Page::class
             )
             ->where('assigned_to', $userId)
             ->whereNull('completed_at')
@@ -246,12 +279,20 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
             ->where('publish_at', '>', now());
     }
 
+    public function getPublicNameAttribute()
+    {
+        return \Illuminate\Support\Str::of($this->name)->replaceMatches('/\[.*?\]/', '')->trim();
+    }
+
     public function getPcfUniqueIdFullAttribute()
     {
         return (! empty($this->pcf_unique_id_prefix)
                 ? ($this->pcf_unique_id_prefix.'-')
-                : (mb_substr($this->type?->name, 0, 1).'-'))
-            .($this->pcf_unique_id)
-            .($this->pcf_unique_id_suffix);
+                : (mb_substr($this->type?->name, 0, 1).'-')).($this->pcf_unique_id).($this->pcf_unique_id_suffix);
+    }
+
+    protected function getSuffix(int $index): string
+    {
+        return $this->suffixes[$index];
     }
 }

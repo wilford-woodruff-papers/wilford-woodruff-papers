@@ -35,10 +35,8 @@ class LoadEvents extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $events = Event::where('imported', 1)->get();
         $events->each(function ($event) {
@@ -48,6 +46,6 @@ class LoadEvents extends Command
 
         Excel::import(new TimelineImport, storage_path('app/timeline.csv'));
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

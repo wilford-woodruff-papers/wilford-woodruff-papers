@@ -40,7 +40,7 @@
                                                         <!-- Odd row -->
                                                         <tr class="bg-white">
                                                             <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-normal">
-                                                                @if($event->pages->count() > 0)
+                                                                @if($event->pages->count() > 0 && $event->pages->first()->parent?->uuid && $event->pages->first()?->uuid)
                                                                     <a class="text-secondary"
                                                                        href="{{ route('pages.show', ['item' => $event->pages->first()->parent->uuid, 'page' => $event->pages->first()->uuid]) }}"
                                                                        target="_timeline"
@@ -57,12 +57,12 @@
                                                                     - @if($event->end_month) {{ $event->end_at->toFormattedDateString() }} @else {{ $event->end_year }} @endif
                                                                 @endif--}}
 
-                                                                @if($event->pages->count() > 0)
+                                                                @if($event->pages->count() > 0 && $event->pages->first()->parent?->uuid && $event->pages->first()?->uuid)
                                                                     </a>
                                                                 @endif
                                                             </td>
                                                             <td>
-                                                                @if($event->photos->count() > 0)
+                                                                @if($event->photos->count() > 0 && $event->photos->first()?->uuid)
                                                                     <a class="text-secondary"
                                                                        href="{{ route('media.photos.show', ['photo' => $event->photos->first()->uuid]) }}"
                                                                        target="_timeline"
@@ -71,7 +71,7 @@
                                                                              src="{{ $event->photos->first()->getFirstMediaUrl('default','thumb') }}"
                                                                              alt=""/>
                                                                     </a>
-                                                                @elseif($event->pages->count() > 0)
+                                                                @elseif($event->pages->count() > 0 && $event->pages->first()->parent?->uuid && $event->pages->first()?->uuid)
                                                                     <a class="text-secondary"
                                                                        href="{{ route('pages.show', ['item' => $event->pages->first()->parent->uuid, 'page' => $event->pages->first()->uuid]) }}">
                                                                         <img class="w-auto h-12"
@@ -117,7 +117,7 @@
                                                                 @endif--}}
                                                             </td>
                                                             <td>
-                                                                @if($event->photos->count() > 0)
+                                                                @if($event->photos->count() > 0 && $event->photos->first()?->uuid)
                                                                     <a class="text-secondary"
                                                                        href="{{ route('media.photos.show', ['photo' => $event->photos->first()->uuid]) }}"
                                                                        target="_timeline"
@@ -126,7 +126,7 @@
                                                                              src="{{ $event->photos->first()->getFirstMediaUrl('default','thumb') }}"
                                                                              alt=""/>
                                                                     </a>
-                                                                @elseif($event->pages->count() > 0)
+                                                                @elseif($event->pages->count() > 0 && $event->pages->first()->parent?->uuid && $event->pages->first()?->uuid)
                                                                     <a class="text-secondary"
                                                                        href="{{ route('pages.show', ['item' => $event->pages->first()->parent->uuid, 'page' => $event->pages->first()->uuid]) }}">
                                                                         <img class="w-auto h-12"
@@ -146,13 +146,15 @@
                                                                 @if($event->pages->count() > 0)
                                                                     <div class="mt-2">
                                                                         @foreach($event->pages as $page)
-                                                                            <div>
-                                                                                <a class="text-secondary"
-                                                                                   href="{{ route('pages.show', ['item' => $page->parent->uuid, 'page' => $page->uuid]) }}"
-                                                                                   target="_blank">
-                                                                                    Page {{ $page->order }} from {{ $page->parent->name }}
-                                                                                </a>
-                                                                            </div>
+                                                                            @if($page->parent?->uuid)
+                                                                                <div>
+                                                                                    <a class="text-secondary"
+                                                                                       href="{{ route('pages.show', ['item' => $page->parent->uuid, 'page' => $page->uuid]) }}"
+                                                                                       target="_blank">
+                                                                                        Page {{ $page->order }} from {{ $page->parent->name }}
+                                                                                    </a>
+                                                                                </div>
+                                                                            @endif
                                                                         @endforeach
                                                                     </div>
                                                                 @endif

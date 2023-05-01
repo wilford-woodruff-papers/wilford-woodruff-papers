@@ -10,9 +10,6 @@ class ExportSubjectsWithChildren extends DownloadExcel implements WithMapping, W
 {
     public $name = 'Export Subjects with Children';
 
-    /**
-     * @return array
-     */
     public function headings(): array
     {
         return [
@@ -25,7 +22,6 @@ class ExportSubjectsWithChildren extends DownloadExcel implements WithMapping, W
 
     /**
      * @param $item
-     * @return array
      */
     public function map($subject): array
     {

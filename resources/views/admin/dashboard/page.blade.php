@@ -1,7 +1,7 @@
 <x-admin-layout>
 
     <main x-data="{
-                tab: $persist('activity')
+                tab: $persist('activity').as('page-tab')
             }"
           class="py-10">
         <!-- Page header -->

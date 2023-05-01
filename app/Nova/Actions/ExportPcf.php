@@ -10,9 +10,6 @@ class ExportPcf extends DownloadExcel implements WithMapping, WithHeadings
 {
     public $name = 'PCF Export';
 
-    /**
-     * @return array
-     */
     public function headings(): array
     {
         return [
@@ -51,14 +48,12 @@ class ExportPcf extends DownloadExcel implements WithMapping, WithHeadings
             'Quote Tagging Assigned Date',
             'Quote Tagging Completed Date',
 
+            'Published Date',
+
             'Pages',
         ];
     }
 
-    /**
-     * @param $item
-     * @return array
-     */
     public function map($item): array
     {
         $item->load(['type', 'actions', 'actions.type', 'actions.assignee', 'actions.finisher']);
@@ -99,6 +94,8 @@ class ExportPcf extends DownloadExcel implements WithMapping, WithHeadings
             $item->actions->firstWhere('type.name', 'Quote Tagging')?->assignee?->name,
             $item->actions->firstWhere('type.name', 'Quote Tagging')?->assigned_at?->toDateString(),
             $item->actions->firstWhere('type.name', 'Quote Tagging')?->completed_at?->toDateString(),
+
+            $item->actions->firstWhere('type.name', 'Publish')?->completed_at?->toDateString(),
 
             $item->pages_count,
         ];

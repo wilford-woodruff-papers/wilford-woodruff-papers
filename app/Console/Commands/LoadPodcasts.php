@@ -33,10 +33,8 @@ class LoadPodcasts extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $podcasts = $this->getPodcasts();
         foreach ($podcasts as $key => $podcast) {
@@ -44,7 +42,7 @@ class LoadPodcasts extends Command
             $press = Press::create($podcast);
         }
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     private function getPodcasts()

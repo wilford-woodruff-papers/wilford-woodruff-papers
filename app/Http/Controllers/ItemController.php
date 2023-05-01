@@ -9,15 +9,14 @@ use App\Models\Type;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 class ItemController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request): View
     {
         $decades = DB::table('items')
                         ->select('decade', DB::raw('count(*) as total'))
@@ -68,7 +67,6 @@ class ItemController extends Controller
                     break;
                 default:
                     $items = $items->orderBy('sort_date', $direction);
-
             }
         } else {
             $items = $items->orderBy('added_to_collection_at', 'DESC');
@@ -89,10 +87,8 @@ class ItemController extends Controller
 
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function dates(Request $request, $year = null, $month = null)
+    public function dates(Request $request, $year = null, $month = null): View
     {
         $months = null;
         $pages = null;
@@ -149,7 +145,6 @@ class ItemController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -159,11 +154,8 @@ class ItemController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  \App\Models\Item  $item
-     * @return \Illuminate\Http\Response
      */
-    public function show(Item $item)
+    public function show(Item $item): View
     {
         $pages = Page::with(['dates', 'subjects', 'parent'])
                         ->withCount('quotes')
@@ -181,11 +173,8 @@ class ItemController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  \App\Models\Item  $item
-     * @return \Illuminate\Http\Response
      */
-    public function transcript(Item $item)
+    public function transcript(Item $item): View
     {
         $pages = Page::query()
                         ->where('parent_item_id', $item->id)
@@ -202,7 +191,6 @@ class ItemController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Item  $item
      * @return \Illuminate\Http\Response
      */
     public function edit(Item $item)
@@ -213,8 +201,6 @@ class ItemController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Item  $item
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Item $item)
@@ -225,7 +211,6 @@ class ItemController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Item  $item
      * @return \Illuminate\Http\Response
      */
     public function destroy(Item $item)

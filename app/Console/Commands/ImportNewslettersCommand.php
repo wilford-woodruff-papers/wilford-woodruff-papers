@@ -15,7 +15,7 @@ class ImportNewslettersCommand extends Command
 
     protected $description = 'Import newsletters from Constant Contact';
 
-    public function handle()
+    public function handle(): int
     {
         $url = 'https://api.cc.email/v3/emails?limit=50';
 
@@ -61,6 +61,8 @@ class ImportNewslettersCommand extends Command
                 }
             }
         });
+
+        return Command::SUCCESS;
     }
 
     private function replaceImages($content, $newsletter)

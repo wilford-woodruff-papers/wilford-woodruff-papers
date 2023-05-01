@@ -33,10 +33,8 @@ class LoadNews extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $news = $this->getNews();
         foreach ($news as $key => $article) {
@@ -44,7 +42,7 @@ class LoadNews extends Command
             $press = Press::create($article);
         }
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     private function getNews()

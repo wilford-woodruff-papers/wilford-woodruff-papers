@@ -33,10 +33,8 @@ class LoadVideos extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $videos = $this->getVideos();
         foreach ($videos as $key => $video) {
@@ -44,7 +42,7 @@ class LoadVideos extends Command
             $press = Press::create($video);
         }
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     private function getVideos()

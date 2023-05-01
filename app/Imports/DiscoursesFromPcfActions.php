@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Jobs\ImportDiscoursesMasterFileAction;
 use App\Jobs\ImportNewDiscoursesFromPcfAction;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
@@ -22,6 +23,9 @@ class DiscoursesFromPcfActions implements ToCollection, WithHeadingRow
             switch ($this->action) {
                 case 'Import New':
                     ImportNewDiscoursesFromPcfAction::dispatch($row);
+                    break;
+                case 'Import Master File':
+                    ImportDiscoursesMasterFileAction::dispatch($row);
                     break;
             }
         }

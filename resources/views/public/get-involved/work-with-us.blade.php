@@ -1,6 +1,6 @@
 <x-guest-layout>
     <x-slot name="title">
-        Job & Volunteer Opportunities | {{ config('app.name') }}
+        Job Opportunities | {{ config('app.name') }}
     </x-slot>
     <div id="content" role="main">
         <div class="px-4 mx-auto max-w-7xl">
@@ -10,7 +10,7 @@
                         <x-submenu area="Get Involved"/>
                     </div>
                     <div class="col-span-12 md:col-span-9 content">
-                        <h2>Job & Volunteer Opportunities</h2>
+                        <h2>Job Opportunities</h2>
 
                         <div class="grid gap-16 mt-4 lg:grid-cols-1 lg:gap-y-12">
 

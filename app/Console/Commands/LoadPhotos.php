@@ -34,13 +34,11 @@ class LoadPhotos extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         Excel::import(new PhotoImport, storage_path('app/image_metadata.csv'));
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

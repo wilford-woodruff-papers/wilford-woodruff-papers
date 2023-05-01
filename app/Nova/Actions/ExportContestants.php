@@ -8,9 +8,6 @@ use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 
 class ExportContestants extends DownloadExcel implements WithMapping, WithHeadings
 {
-    /**
-     * @return array
-     */
     public function headings(): array
     {
         return [
@@ -27,7 +24,6 @@ class ExportContestants extends DownloadExcel implements WithMapping, WithHeadin
 
     /**
      * @param $item
-     * @return array
      */
     public function map($contestant): array
     {

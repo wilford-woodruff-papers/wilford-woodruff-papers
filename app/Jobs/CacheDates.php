@@ -27,10 +27,8 @@ class CacheDates implements ShouldQueue
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         if ($this->item->items->count() == 0) {
             $dates = collect();

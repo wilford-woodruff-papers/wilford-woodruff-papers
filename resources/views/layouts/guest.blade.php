@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}"
+      prefix="og: https://ogp.me/ns#"
+>
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,12 +10,12 @@
 
         <meta property="og:site_name" content="Wilford Woodruff Papers">
 
-        <x-open-graph-image::metatags title="Wilford Woodruff Papers Foundation" />
+        <x-open-graph-image::metatags title="{{ str($title ?? null)->before('|')->replaceMatches('/\[.*?\]/', '')->replace(' ', '_')->trim() }}" />
 
         <meta property="og:description" content="Explore Wilford Woodruff's powerful eyewitness account of the Restoration">
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://wilfordwoodruffpapers.org/img/wilford-woodruff.png">
-        <meta property="og:url" content="https://wilfordwoodruffpapers.org/">
+        {{--<meta property="og:image" content="https://wilfordwoodruffpapers.org/img/wilford-woodruff.png">--}}
+        <meta property="og:url" content="{{ request()->url() }}">
         <meta name="twitter:card" content="summary_large_image">
         <meta name="description" content="Explore Wilford Woodruff's powerful eyewitness account of the Restoration"/>
         <meta name="keywords" content="Wilford Woodruff, Restoration, Prophet, The Church of Jesus Christ of Latter-day Saints"/>

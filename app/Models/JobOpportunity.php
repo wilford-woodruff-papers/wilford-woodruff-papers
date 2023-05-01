@@ -36,10 +36,8 @@ class JobOpportunity extends Model implements HasMedia, \OwenIt\Auditing\Contrac
 
     /**
      * Get the route key for the model.
-     *
-     * @return string
      */
-    public function getRouteKeyName()
+    public function getRouteKeyName(): string
     {
         return 'slug';
     }

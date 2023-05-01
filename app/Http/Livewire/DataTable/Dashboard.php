@@ -1,11 +1,7 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\DataTable;
 
-use App\Http\Livewire\DataTable\WithBulkActions;
-use App\Http\Livewire\DataTable\WithCachedRows;
-use App\Http\Livewire\DataTable\WithPerPagePagination;
-use App\Http\Livewire\DataTable\WithSorting;
 use App\Models\Transaction;
 use Illuminate\Support\Carbon;
 use Livewire\Component;
