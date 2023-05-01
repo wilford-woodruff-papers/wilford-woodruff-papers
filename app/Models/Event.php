@@ -22,6 +22,26 @@ class Event extends Model implements HasMedia
         'end_at' => 'datetime',
     ];
 
+    public function getManualDisplayDateAttribute()
+    {
+        return $this->attributes['display_date'];
+    }
+
+    public function getDisplayDateAttribute()
+    {
+        if (! empty($this->attributes['display_date'])) {
+            return $this->attributes['display_date'];
+        }
+
+        $date = $this->start_at?->format('F j, Y');
+
+        if (! empty($this->end_at)) {
+            $date = $date.' - '.$this->end_at?->format('F j, Y');
+        }
+
+        return $date;
+    }
+
     /**
      * Get all of the resources that are assigned this item.
      */

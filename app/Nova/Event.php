@@ -4,9 +4,9 @@ namespace App\Nova;
 
 use App\Nova\Actions\ExportTimeline;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\MorphToMany;
-use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -60,16 +60,25 @@ class Event extends Resource
     {
         return [
             ID::make(__('ID'), 'id'),
+            Text::make('Display Date')
+                ->help('Only enter a display date if and exact date is unknown. Ex. Spring 1820 instead of April 12, 1820')
+                ->nullable(),
+            Date::make('Start At')
+                ->help('The start date is used for sorting purposes. The display date will be displayed instead when provided.')
+                ->required(),
+            Date::make('End At'),
             Text::make(__('Description'), 'text')
                 ->displayUsing(function ($value) {
                     return str($value)->limit(40, '...');
                 }),
-            Number::make('Start Year'),
+
+            /*Number::make('Start Year'),
             Number::make('Start Month'),
             Number::make('Start Day'),
             Number::make('End Year'),
             Number::make('End Month'),
-            Number::make('End Day'),
+            Number::make('End Day'),*/
+
             MorphToMany::make('Photos'),
             MorphToMany::make('Pages')->searchable(),
             /*->fields(function(){
