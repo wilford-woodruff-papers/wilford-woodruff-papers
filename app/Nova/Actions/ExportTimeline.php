@@ -26,15 +26,22 @@ class ExportTimeline extends DownloadExcel implements WithMapping, WithHeadings
             'End Day',
             'Group',
             'Type',
-            'Items',
-            'Pages',
-            'Photos',
-            'Media',
+            'Item URLs',
+            'Pages URLs',
+            'Photo URLs',
+            'Media IDs',
         ];
     }
 
     public function map($item): array
     {
+        $item->loadMissing([
+            'items',
+            'pages',
+            'photos',
+            'media',
+        ]);
+
         return [
             $item->id,
             $item->headline,
@@ -49,10 +56,16 @@ class ExportTimeline extends DownloadExcel implements WithMapping, WithHeadings
             $item->end_day,
             $item->group,
             $item->type,
-            $item->items->pluck('name')->join('|'),
-            $item->pages->pluck('name')->join('|'),
-            $item->photos->pluck('title')->join('|'),
-            $item->media->pluck('name')->join('|'),
+            $item->items->transform(function ($item) {
+                return route('short-url.item', ['hashid' => $item->hashid]);
+            })->join('|'),
+            $item->pages->transform(function ($page) {
+                return route('short-url.page', ['hashid' => $page->hashid]);
+            })->join('|'),
+            $item->photos->transform(function ($photo) {
+                return route('media.photos.show', ['photo' => $photo->uuid]);
+            })->join('|'),
+            $item->media->pluck('id')->join('|'),
         ];
     }
 }
