@@ -78,24 +78,15 @@ class Event extends Model implements HasMedia
     {
         $event = [];
 
-        if ($this->start_year) {
-            $event['start_date']['year'] = $this->start_year;
-        }
-        if ($this->start_month) {
-            $event['start_date']['month'] = $this->start_month;
-        }
-        if ($this->start_day) {
-            $event['start_date']['day'] = $this->start_day;
-        }
+        $event['start_date']['display_date'] = $this->display_date;
+        $event['start_date']['year'] = $this->start_at?->year;
+        $event['start_date']['month'] = $this->start_at?->month;
+        $event['start_date']['day'] = $this->start_at?->day;
 
-        if ($this->end_year) {
-            $event['end_date']['year'] = $this->end_year;
-        }
-        if ($this->end_month) {
-            $event['end_date']['month'] = $this->end_month;
-        }
-        if ($this->end_day) {
-            $event['end_date']['day'] = $this->end_day;
+        if (! empty($this->end_at)) {
+            $event['end_date']['year'] = $this->end_at?->year;
+            $event['end_date']['month'] = $this->end_at?->month;
+            $event['end_date']['day'] = $this->end_at?->day;
         }
 
         $event['text'] = [

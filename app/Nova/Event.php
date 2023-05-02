@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use App\Nova\Actions\ExportTimeline;
+use App\Nova\Actions\ImportTimeline;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\ID;
@@ -121,6 +122,7 @@ class Event extends Resource
     {
         return [
             new ExportTimeline,
+            new ImportTimeline,
         ];
     }
 }
