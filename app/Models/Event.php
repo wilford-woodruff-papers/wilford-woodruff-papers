@@ -78,12 +78,16 @@ class Event extends Model implements HasMedia
     {
         $event = [];
 
-        $event['start_date']['display_date'] = $this->display_date;
+        $displayStart = str($this->display_date)->before('-')->trim();
+        $displayEnd = str($this->display_date)->after('-')->trim();
+
+        $event['start_date']['display_date'] = $displayStart;
         $event['start_date']['year'] = $this->start_at?->year;
         $event['start_date']['month'] = $this->start_at?->month;
         $event['start_date']['day'] = $this->start_at?->day;
 
         if (! empty($this->end_at)) {
+            $event['end_date']['display_date'] = $displayEnd;
             $event['end_date']['year'] = $this->end_at?->year;
             $event['end_date']['month'] = $this->end_at?->month;
             $event['end_date']['day'] = $this->end_at?->day;
