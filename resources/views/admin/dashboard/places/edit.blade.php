@@ -318,7 +318,7 @@
                                         >
                                             <span class="font-semibold">Parent Location</span>
                                         </label>
-                                        @if(auth()->user()->hasRole('Bio Editor'))
+                                        @if(auth()->user()->hasRole('Bio Admin'))
                                             <select name="subject_id"
                                                     id="parent_location"
                                                     class="block py-2 px-3 mt-2 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500">
@@ -376,7 +376,7 @@
                                     >
                                         <span class="font-semibold">Description</span>
                                     </label>
-                                    @if(auth()->user()->hasRole('Bio Editor'))
+                                    @if(auth()->user()->hasRole('Bio Admin'))
                                         <textarea type="text"
                                                   name="bio"
                                                   id="bio"
@@ -400,7 +400,7 @@
                                         >
                                             <span class="font-semibold">Description Completed At</span>
                                         </label>
-                                        @if(auth()->user()->hasRole('Bio Editor'))
+                                        @if(auth()->user()->hasRole('Bio Admin'))
                                             <div class="flex gap-x-2 items-center">
                                                 <div class="flex-1">
                                                     <input type="date"
@@ -432,7 +432,7 @@
                                         >
                                             <span class="font-semibold">Description Approved At</span>
                                         </label>
-                                        @if(auth()->user()->hasRole('Bio Editor'))
+                                        @if(auth()->user()->hasRole('Bio Admin'))
                                             <div class="flex gap-x-2 items-center">
                                                 <div class="flex-1">
                                                     <input type="date"
@@ -482,7 +482,7 @@
                                     >
                                         <span class="font-semibold">Notes</span>
                                     </label>
-                                    @if(auth()->user()->hasRole('Bio Editor'))
+                                    @if(auth()->user()->hasRole('Bio Admin'))
                                         <textarea type="text"
                                                   name="notes"
                                                   id="notes"
@@ -533,7 +533,7 @@
                 </div>
                 <div class="mt-12 divide-y divide-gray-200">
                     <div class="flex justify-end py-4 px-4 sm:px-6">
-                        @if(auth()->user()->hasRole('Bio Editor') && $place->exists)
+                        @if(auth()->user()->hasRole('Bio Admin') && $place->exists)
                             <form action="{{ route('admin.dashboard.identification.places.destroy', ['identification' => $place]) }}"      method="POST">
                                 @csrf
                                 @method('DELETE')

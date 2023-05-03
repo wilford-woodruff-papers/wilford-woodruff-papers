@@ -224,7 +224,7 @@ class PeopleController extends Controller
      */
     public function destroy(Subject $person)
     {
-        abort_unless(auth()->user()->hasRole('Bio Editor'), 403);
+        abort_unless(auth()->user()->hasRole('Bio Admin'), 403);
 
         $person->delete();
 

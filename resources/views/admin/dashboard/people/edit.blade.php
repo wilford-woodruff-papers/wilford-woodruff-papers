@@ -447,7 +447,7 @@
                                     >
                                         <span class="font-semibold">Biography</span>
                                     </label>
-                                    @if(auth()->user()->hasRole('Bio Editor'))
+                                    @if(auth()->user()->hasRole('Bio Admin'))
                                         <textarea type="text"
                                                   name="bio"
                                                   id="bio"
@@ -495,7 +495,7 @@
                                         >
                                             <span class="font-semibold">Biography Approved At</span>
                                         </label>
-                                        @if(auth()->user()->hasRole('Bio Editor'))
+                                        @if(auth()->user()->hasRole('Bio Admin'))
                                             <div class="flex gap-x-2 items-center">
                                                 <div class="flex-1">
                                                     <input type="date"
@@ -583,7 +583,7 @@
                 </div>
                 <div class="mt-12 divide-y divide-gray-200">
                     <div class="flex justify-end py-4 px-4 sm:px-6">
-                        @if(auth()->user()->hasRole('Bio Editor') && $person->exists)
+                        @if(auth()->user()->hasRole('Bio Admin') && $person->exists)
                             <form action="{{ route('admin.dashboard.identification.people.destroy', ['identification' => $person]) }}"      method="POST">
                                 @csrf
                                 @method('DELETE')
