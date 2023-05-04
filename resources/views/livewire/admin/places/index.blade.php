@@ -53,7 +53,7 @@
                                     </div>
                                 </div>
                                 <div class="pr-2 space-y-4">
-                                    <x-input.group borderless for="filter-type" label="Bio Completed">
+                                    <x-input.group borderless for="filter-type" label="Confirmed Status">
                                         <x-input.select wire:model="filters.completed" id="filter-type">
                                             <option value=""> -- All -- </option>
                                             <option value="false"> Not Confirmed </option>
