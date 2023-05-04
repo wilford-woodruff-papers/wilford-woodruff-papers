@@ -264,7 +264,7 @@
                                     </label>
                                     <div class="flex gap-x-2 items-center">
                                         <div class="flex-1">
-                                            @if(auth()->user()->hasRole('Bio Editor'))
+                                            @if(auth()->user()->hasRole('Bio Admin'))
                                                 <input type="date"
                                                        name="completed_at"
                                                        id="completed_at"

@@ -128,7 +128,7 @@ class PeopleIdentificationController extends Controller
         $request->session()->flash('success', 'Person created successfully!');
 
         if ($person->correction_needed) {
-            $users = User::query()->role('Bio Editor')->get();
+            $users = User::query()->role('Bio Admin')->get();
             Notification::send($users, new NewCorrectionNeeded($person));
         }
 
@@ -171,7 +171,7 @@ class PeopleIdentificationController extends Controller
         $person->fill($validated);
 
         if ($person->isDirty('correction_needed') && $person->correction_needed) {
-            $users = User::query()->role('Bio Editor')->get();
+            $users = User::query()->role('Bio Admin')->get();
             Notification::send($users, new NewCorrectionNeeded($person));
         }
 

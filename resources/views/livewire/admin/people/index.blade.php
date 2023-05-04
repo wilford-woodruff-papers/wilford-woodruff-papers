@@ -27,15 +27,52 @@
                         </div>
                         <div class="pl-4">
                             <div class="flex gap-x-4 gap-y-4 items-center">
+                                <div class="flex gap-x-1 items-center pr-2">
+                                    <x-input.group borderless for="filter-type" label="Researcher">
+                                        <x-input.select wire:model="filters.researcher" id="filter-type">
+                                            <option value=""> -- All -- </option>
+                                            @foreach($researchers as $researcher)
+                                                <option value="{{ $researcher->id }}" @if(data_get('', $filters) == $researcher->id) selected @endif>{{ $researcher->name }}</option>
+                                            @endforeach
+                                        </x-input.select>
+                                    </x-input.group>
+                                    <div>
+                                        @if(! empty(data_get($filters, 'researcher')))
+                                            <button wire:click="$set('filters.researcher', '')"
+                                                    class="inline-flex justify-center py-1 px-2 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:outline-none focus:ring-sky-500"
+                                            >
+                                                All
+                                            </button>
+
+                                        @else
+                                            <button wire:click="$set('filters.researcher', {{ auth()->id() }})"
+                                                    class="inline-flex justify-center py-1 px-2 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:outline-none focus:ring-sky-500"
+                                            >
+                                                Assigned to Me
+                                            </button>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="pr-2 space-y-4">
+                                    <x-input.group borderless for="filter-type" label="Bio Completed">
+                                        <x-input.select wire:model="filters.completed" id="filter-type">
+                                            <option value=""> -- All -- </option>
+                                            <option value="false"> Bio Not Completed </option>
+                                            <option value="true"> Bio Completed </option>
+                                        </x-input.select>
+                                    </x-input.group>
+                                </div>
                                 <div class="pr-2 space-y-4">
                                     <x-input.group borderless for="filter-type" label="Status">
                                         <x-input.select wire:model="filters.tagged" id="filter-type">
-                                            <option value=""> -- Any -- </option>
+                                            <option value=""> -- All -- </option>
                                             <option value="false"> Not tagged </option>
                                             <option value="true"> Tagged </option>
                                         </x-input.select>
                                     </x-input.group>
                                 </div>
+                            </div>
+                            <div class="flex gap-x-4 gap-y-4 items-center">
                                 <div>
                                     <div class="pr-2">
                                         <div class="block xl:hidden">

@@ -7,6 +7,7 @@ use App\Http\Livewire\DataTable\WithCachedRows;
 use App\Http\Livewire\DataTable\WithPerPagePagination;
 use App\Http\Livewire\DataTable\WithSorting;
 use App\Models\Subject;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -14,6 +15,8 @@ use Livewire\Component;
 class Index extends Component
 {
     use WithPerPagePagination, WithSorting, WithBulkActions, WithCachedRows;
+
+    public $researchers = false;
 
     public $showDeleteModal = false;
 
@@ -79,6 +82,11 @@ class Index extends Component
             ->orderBy('state_province', 'asc')
             ->pluck('state_province', 'state_province')
             ->toArray();
+
+        $this->researchers = User::query()
+            ->role(['Bio Editor', 'Bio Admin'])
+            ->orderBy('name')
+            ->get();
     }
 
     public function updatedFilters($value, $key)
@@ -93,7 +101,7 @@ class Index extends Component
     {
         return response()->streamDownload(function () {
             echo $this->selectedRowsQuery->toCsv();
-        }, 'people.csv');
+        }, 'places.csv');
     }
 
     public function resetFilters()
@@ -142,6 +150,19 @@ class Index extends Component
                 $query = $query->where('tagged_count', '>', 0);
             } elseif ($this->filters['tagged'] == 'false') {
                 $query = $query->where('tagged_count', '=', 0);
+            }
+        }
+
+        if (array_key_exists('researcher', $this->filters) && ! empty($this->filters['researcher'])) {
+            $researcher = User::find($this->filters['researcher']);
+            $query = $query->where('researcher_id', $this->filters['researcher'])
+                ->orWhere('researcher_text', $researcher->name);
+        }
+        if (array_key_exists('completed', $this->filters) && ! empty($this->filters['completed'])) {
+            if ($this->filters['completed'] == 'true') {
+                $query = $query->whereNotNull('place_confirmed_at');
+            } elseif ($this->filters['completed'] == 'false') {
+                $query = $query->whereNull('place_confirmed_at');
             }
         }
 

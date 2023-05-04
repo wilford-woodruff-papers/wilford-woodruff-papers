@@ -7,12 +7,15 @@ use App\Http\Livewire\DataTable\WithCachedRows;
 use App\Http\Livewire\DataTable\WithPerPagePagination;
 use App\Http\Livewire\DataTable\WithSorting;
 use App\Models\Subject;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 
 class Index extends Component
 {
     use WithPerPagePagination, WithSorting, WithBulkActions, WithCachedRows;
+
+    public $researchers = false;
 
     public $showDeleteModal = false;
 
@@ -28,6 +31,8 @@ class Index extends Component
         'search' => '',
         'tagged' => '',
         'starts_with' => '',
+        'completed' => '',
+        'researcher' => '',
     ];
 
     public $columns = [
@@ -62,7 +67,10 @@ class Index extends Component
 
     public function mount()
     {
-        //
+        $this->researchers = User::query()
+            ->role(['Bio Editor', 'Bio Admin'])
+            ->orderBy('name')
+            ->get();
     }
 
     public function updatedFilters()
@@ -107,6 +115,18 @@ class Index extends Component
                 $query = $query->where('tagged_count', '>', 0);
             } elseif ($this->filters['tagged'] == 'false') {
                 $query = $query->where('tagged_count', '=', 0);
+            }
+        }
+        if (array_key_exists('researcher', $this->filters) && ! empty($this->filters['researcher'])) {
+            $researcher = User::find($this->filters['researcher']);
+            $query = $query->where('researcher_id', $this->filters['researcher'])
+                        ->orWhere('researcher_text', $researcher->name);
+        }
+        if (array_key_exists('completed', $this->filters) && ! empty($this->filters['completed'])) {
+            if ($this->filters['completed'] == 'true') {
+                $query = $query->whereNotNull('bio_completed_at');
+            } elseif ($this->filters['completed'] == 'false') {
+                $query = $query->whereNull('bio_completed_at');
             }
         }
         if (array_key_exists('starts_with', $this->filters) && ! empty($this->filters['starts_with'])) {

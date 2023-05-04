@@ -36,61 +36,52 @@
                                             </thead>
                                             <tbody>
                                                 @foreach($events as $event)
-                                                    @if($loop->odd)
-                                                        <!-- Odd row -->
-                                                        <tr class="bg-white">
-                                                            <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-normal">
-                                                                @if($event->pages->count() > 0 && $event->pages->first()->parent?->uuid && $event->pages->first()?->uuid)
-                                                                    <a class="text-secondary"
-                                                                       href="{{ route('pages.show', ['item' => $event->pages->first()->parent->uuid, 'page' => $event->pages->first()->uuid]) }}"
-                                                                       target="_timeline"
-                                                                    >
-                                                                @endif
+                                                    <tr class="@if($loop->odd) bg-white @else bg-gray-50  @endif ">
+                                                        <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-normal">
+                                                            @if($event->pages->count() > 0 && $event->pages->first()->parent?->uuid && $event->pages->first()?->uuid)
+                                                                <a class="text-secondary"
+                                                                   href="{{ route('pages.show', ['item' => $event->pages->first()->parent->uuid, 'page' => $event->pages->first()->uuid]) }}"
+                                                                   target="_timeline"
+                                                                >
+                                                            @endif
 
-                                                                {{ $event->formattedDate('start') }}
-                                                                @if(! empty($event->formattedDate('end')))
-                                                                   - {{ $event->formattedDate('end') }}
-                                                                @endif
+                                                            {{ $event->display_date }}
 
-                                                                {{--@if($event->start_month) {{ $event->start_at?->toFormattedDateString() }} @else {{ $event->start_year }} @endif
-                                                                @if($event->end_at)
-                                                                    - @if($event->end_month) {{ $event->end_at->toFormattedDateString() }} @else {{ $event->end_year }} @endif
-                                                                @endif--}}
-
-                                                                @if($event->pages->count() > 0 && $event->pages->first()->parent?->uuid && $event->pages->first()?->uuid)
-                                                                    </a>
-                                                                @endif
-                                                            </td>
-                                                            <td>
-                                                                @if($event->photos->count() > 0 && $event->photos->first()?->uuid)
-                                                                    <a class="text-secondary"
-                                                                       href="{{ route('media.photos.show', ['photo' => $event->photos->first()->uuid]) }}"
-                                                                       target="_timeline"
-                                                                    >
-                                                                        <img class="w-auto h-12"
-                                                                             src="{{ $event->photos->first()->getFirstMediaUrl('default','thumb') }}"
-                                                                             alt=""/>
-                                                                    </a>
-                                                                @elseif($event->pages->count() > 0 && $event->pages->first()->parent?->uuid && $event->pages->first()?->uuid)
-                                                                    <a class="text-secondary"
-                                                                       href="{{ route('pages.show', ['item' => $event->pages->first()->parent->uuid, 'page' => $event->pages->first()->uuid]) }}">
-                                                                        <img class="w-auto h-12"
-                                                                             src="{{ $event->pages->first()->getFirstMediaUrl('default','thumb') }}"
-                                                                             alt=""/>
-                                                                    </a>
-                                                                @elseif($event->media->count() > 0)
+                                                            @if($event->pages->count() > 0 && $event->pages->first()->parent?->uuid && $event->pages->first()?->uuid)
+                                                                </a>
+                                                            @endif
+                                                        </td>
+                                                        <td>
+                                                            @if($event->photos->count() > 0 && $event->photos->first()?->uuid)
+                                                                <a class="text-secondary"
+                                                                   href="{{ route('media.photos.show', ['photo' => $event->photos->first()->uuid]) }}"
+                                                                   target="_timeline"
+                                                                >
                                                                     <img class="w-auto h-12"
-                                                                         src="{{ $event->getFirstMediaUrl('default','thumb') }}"
+                                                                         src="{{ $event->photos->first()->getFirstMediaUrl('default','thumb') }}"
                                                                          alt=""/>
-                                                                @endif
-                                                            </td>
-                                                            <td class="py-4 px-6 text-sm text-gray-500 whitespace-normal">
-                                                                <div>
-                                                                    {!! $event->text !!}
-                                                                </div>
-                                                                {{--@if($event->pages->count() > 0)
-                                                                    <div class="mt-2">
-                                                                        @foreach($event->pages as $page)
+                                                                </a>
+                                                            @elseif($event->pages->count() > 0 && $event->pages->first()->parent?->uuid && $event->pages->first()?->uuid)
+                                                                <a class="text-secondary"
+                                                                   href="{{ route('pages.show', ['item' => $event->pages->first()->parent->uuid, 'page' => $event->pages->first()->uuid]) }}">
+                                                                    <img class="w-auto h-12"
+                                                                         src="{{ $event->pages->first()->getFirstMediaUrl('default','thumb') }}"
+                                                                         alt=""/>
+                                                                </a>
+                                                            @elseif($event->media->count() > 0)
+                                                                <img class="w-auto h-12"
+                                                                     src="{{ $event->getFirstMediaUrl('default','thumb') }}"
+                                                                     alt=""/>
+                                                            @endif
+                                                        </td>
+                                                        <td class="py-4 px-6 text-sm text-gray-500 whitespace-normal">
+                                                            <div>
+                                                                {!! $event->text !!}
+                                                            </div>
+                                                            @if($event->pages->count() > 0)
+                                                                <div class="mt-2">
+                                                                    @foreach($event->pages as $page)
+                                                                        @if($page->parent?->uuid)
                                                                             <div>
                                                                                 <a class="text-secondary"
                                                                                    href="{{ route('pages.show', ['item' => $page->parent->uuid, 'page' => $page->uuid]) }}"
@@ -98,69 +89,12 @@
                                                                                     Page {{ $page->order }} from {{ $page->parent->name }}
                                                                                 </a>
                                                                             </div>
-                                                                        @endforeach
-                                                                    </div>
-                                                                @endif--}}
-                                                            </td>
-                                                        </tr>
-                                                    @else
-                                                        <!-- Even row -->
-                                                        <tr class="bg-gray-50">
-                                                            <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-normal">
-                                                                {{ $event->formattedDate('start') }}
-                                                                @if(! empty($event->formattedDate('end')))
-                                                                    - {{ $event->formattedDate('end') }}
-                                                                @endif
-                                                                {{--@if($event->start_month) {{ $event->start_at?->toFormattedDateString() }} @else {{ $event->start_year }} @endif
-                                                                @if($event->end_at)
-                                                                    - @if($event->end_month) {{ $event->end_at->toFormattedDateString() }} @else {{ $event->end_year }} @endif
-                                                                @endif--}}
-                                                            </td>
-                                                            <td>
-                                                                @if($event->photos->count() > 0 && $event->photos->first()?->uuid)
-                                                                    <a class="text-secondary"
-                                                                       href="{{ route('media.photos.show', ['photo' => $event->photos->first()->uuid]) }}"
-                                                                       target="_timeline"
-                                                                    >
-                                                                        <img class="w-auto h-12"
-                                                                             src="{{ $event->photos->first()->getFirstMediaUrl('default','thumb') }}"
-                                                                             alt=""/>
-                                                                    </a>
-                                                                @elseif($event->pages->count() > 0 && $event->pages->first()->parent?->uuid && $event->pages->first()?->uuid)
-                                                                    <a class="text-secondary"
-                                                                       href="{{ route('pages.show', ['item' => $event->pages->first()->parent->uuid, 'page' => $event->pages->first()->uuid]) }}">
-                                                                        <img class="w-auto h-12"
-                                                                             src="{{ $event->pages->first()->getFirstMediaUrl('default','thumb') }}"
-                                                                             alt=""/>
-                                                                    </a>
-                                                                @elseif($event->media->count() > 0)
-                                                                    <img class="w-auto h-12"
-                                                                         src="{{ $event->getFirstMediaUrl('default','thumb') }}"
-                                                                         alt=""/>
-                                                                @endif
-                                                            </td>
-                                                            <td class="py-4 px-6 text-sm text-gray-500 whitespace-normal">
-                                                                <div>
-                                                                    {!! $event->text !!}
+                                                                        @endif
+                                                                    @endforeach
                                                                 </div>
-                                                                @if($event->pages->count() > 0)
-                                                                    <div class="mt-2">
-                                                                        @foreach($event->pages as $page)
-                                                                            @if($page->parent?->uuid)
-                                                                                <div>
-                                                                                    <a class="text-secondary"
-                                                                                       href="{{ route('pages.show', ['item' => $page->parent->uuid, 'page' => $page->uuid]) }}"
-                                                                                       target="_blank">
-                                                                                        Page {{ $page->order }} from {{ $page->parent->name }}
-                                                                                    </a>
-                                                                                </div>
-                                                                            @endif
-                                                                        @endforeach
-                                                                    </div>
-                                                                @endif
-                                                            </td>
-                                                        </tr>
-                                                    @endif
+                                                            @endif
+                                                        </td>
+                                                    </tr>
                                                 @endforeach
                                             </tbody>
                                         </table>
@@ -188,32 +122,38 @@
             .tl-menubar-button {
                 color: black;
             }
-            div.tl-timegroup:nth-child(5){
+            div.tl-timegroup:nth-child(4){
                 background-color: rgba(11,40,54,.2) !important;
+            }
+            div.tl-timegroup:nth-child(4) .tl-timegroup-message{
+                color: rgba(11,40,54,1) !important;
+            }
+            div.tl-timegroup:nth-child(5){
+                background-color: rgba(11,40,54,.25) !important;
             }
             div.tl-timegroup:nth-child(5) .tl-timegroup-message{
                 color: rgba(11,40,54,1) !important;
             }
             div.tl-timegroup:nth-child(6){
-                background-color: rgba(11,40,54,.25) !important;
+                background-color: rgba(11,40,54,.3) !important;
             }
             div.tl-timegroup:nth-child(6) .tl-timegroup-message{
                 color: rgba(11,40,54,1) !important;
             }
             div.tl-timegroup:nth-child(7){
-                background-color: rgba(11,40,54,.3) !important;
+                background-color: rgba(11,40,54,.35) !important;
             }
             div.tl-timegroup:nth-child(7) .tl-timegroup-message{
                 color: rgba(11,40,54,1) !important;
             }
             div.tl-timegroup:nth-child(8){
-                background-color: rgba(11,40,54,.35) !important;
+                background-color: rgba(11,40,54,.4) !important;
             }
             div.tl-timegroup:nth-child(8) .tl-timegroup-message{
                 color: rgba(11,40,54,1) !important;
             }
             div.tl-timegroup:nth-child(9){
-                background-color: rgba(11,40,54,.4) !important;
+                background-color: rgba(11,40,54,.45) !important;
             }
             div.tl-timegroup:nth-child(9) .tl-timegroup-message{
                 color: rgba(11,40,54,1) !important;

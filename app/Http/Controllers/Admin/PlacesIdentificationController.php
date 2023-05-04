@@ -128,7 +128,7 @@ class PlacesIdentificationController extends Controller
         $request->session()->flash('success', 'Place created successfully!');
 
         if ($place->correction_needed) {
-            $users = User::query()->role('Bio Editor')->get();
+            $users = User::query()->role('Bio Admin')->get();
             Notification::send($users, new NewCorrectionNeeded($place));
         }
 
@@ -171,7 +171,7 @@ class PlacesIdentificationController extends Controller
         $place->fill($validated);
 
         if ($place->isDirty('correction_needed') && $place->correction_needed) {
-            $users = User::query()->role('Bio Editor')->get();
+            $users = User::query()->role('Bio Admin')->get();
             Notification::send($users, new NewCorrectionNeeded($place));
         }
 
