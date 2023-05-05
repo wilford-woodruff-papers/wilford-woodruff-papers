@@ -192,7 +192,7 @@
                                     <label for="location"
                                            class="block text-sm font-medium text-gray-700"
                                     >
-                                        <span class="font-semibold">Name of Location as Written</span>
+                                        <span class="font-semibold">Name of Location as Written <span class="text-red-600">*</span></span>
                                     </label>
                                     <input type="text"
                                            name="location"

@@ -140,6 +140,12 @@
                 </div>
             </div>
 
+            <div id="top-pagination"
+                 class="pl-4"
+            >
+                {{ $places->links() }}
+            </div>
+
             <div class="relative space-y-4 shadow">
                 <div wire:loading
                      class="absolute z-10 w-full h-screen bg-white opacity-75"
@@ -217,7 +223,11 @@
 
                                 <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">
                                     <div class="inline-flex space-x-2 text-sm leading-5 whitespace-nowrap">
-                                        {{ $place->id }}
+                                        <a class="font-medium text-indigo-600 break-word"
+                                           href="{{ route('admin.dashboard.identification.places.edit', ['identification' => $place]) }}"
+                                           target="_blank">
+                                                {{ $place->id }}
+                                        </a>
                                     </div>
                                 </x-admin.quotes.cell>
 
@@ -227,11 +237,7 @@
                                             {{--<x-icon.cash class="text-cool-gray-400"/>--}}
 
                                             <p class="flex gap-x-1 items-center w-96 text-cool-gray-600">
-                                                <a class="font-medium text-indigo-600 break-word"
-                                                   href="{{ route('admin.dashboard.identification.places.edit', ['identification' => $place]) }}"
-                                                   target="_blank">
-                                                    {{ $place->location }}
-                                                </a>
+                                                {{ $place->location }}
                                             </p>
                                         </div>
                                     </div>
@@ -282,7 +288,9 @@
                     </x-slot>
                 </x-admin.quotes.table>
 
-                <div>
+                <div id="bottom-pagination"
+                     class="pl-4"
+                >
                     {{ $places->links() }}
                 </div>
             </div>

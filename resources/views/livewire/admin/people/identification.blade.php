@@ -140,6 +140,12 @@
                 </div>
             </div>
 
+            <div id="top-pagination"
+                 class="pl-4"
+            >
+                {{ $people->links() }}
+            </div>
+
             <div class="relative space-y-4 shadow">
                 <div wire:loading
                      class="absolute z-10 w-full h-screen bg-white opacity-75"
@@ -286,7 +292,9 @@
                     </x-slot>
                 </x-admin.quotes.table>
 
-                <div>
+                <div id="bottom-pagination"
+                     class="pl-4"
+                >
                     {{ $people->links() }}
                 </div>
             </div>

@@ -35,6 +35,7 @@ class PlacesIdentificationController extends Controller
             'nullable',
         ],
         'location' => [
+            'required',
             'max:191',
         ],
         'completed_at' => [
