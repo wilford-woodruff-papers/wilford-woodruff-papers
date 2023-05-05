@@ -178,4 +178,16 @@ class Subject extends Model
             $item->attributes['index'] = $item->calculateIndex();
         });
     }
+
+    public function toArray()
+    {
+        return [
+            'name' => $this->name,
+            'types' => $this->category,
+            'links' => [
+                'frontend_url' => route('subjects.show', ['subject' => $this->slug]),
+                'api_url' => route('api.subjects.show', ['subject' => $this->slug]),
+            ],
+        ];
+    }
 }
