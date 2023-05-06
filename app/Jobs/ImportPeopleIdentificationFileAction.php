@@ -61,7 +61,7 @@ class ImportPeopleIdentificationFileAction implements ShouldQueue
                 'link_to_ftp' => 'link_to_ftp',
                 'guesses' => 'guesses_or_notes_if_any',
                 'location' => 'location',
-                'completed_at' => 'date_completed',
+                /*'completed_at' => 'date_completed',*/
                 'notes' => 'research_notes',
                 'fs_id' => 'fs_id',
                 'approximate_birth_date' => 'approx_birth',
