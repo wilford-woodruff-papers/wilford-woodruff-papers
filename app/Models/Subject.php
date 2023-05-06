@@ -163,8 +163,10 @@ class Subject extends Model
     {
         if (! empty($this->attributes['last_name'])) {
             return str($this->attributes['last_name'])->substr(0, 1);
-        } else {
+        } elseif (! empty($this->attributes['first_name'])) {
             return str($this->attributes['first_name'])->substr(0, 1);
+        } else {
+            return null;
         }
     }
 
