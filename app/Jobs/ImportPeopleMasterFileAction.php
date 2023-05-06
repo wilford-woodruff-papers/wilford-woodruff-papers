@@ -36,13 +36,43 @@ class ImportPeopleMasterFileAction implements ShouldQueue
             return;
         }
 
-        if ($subject = Subject::query()->firstWhere('name', trim($this->row['name_in_ftp']))) {
+        if ($subject = Subject::query()->firstOrNew(['name' => trim($this->row['name_in_ftp'])])) {
             if (! empty(trim($this->row['date_pid_identified']))) {
                 $subject->pid_identified_at = $this->toCarbonDate(trim($this->row['date_pid_identified']));
             }
             if (! empty(trim($this->row['date_bio_approved_formula']))) {
                 $subject->bio_approved_at = $this->toCarbonDate(trim($this->row['date_bio_approved_formula']));
             }
+
+            $columns = [
+                'unique_id' => 'unique_identifier',
+                'reference' => 'reference',
+                'relationship' => 'relationship_to_ww',
+                'birth_date' => 'birth_date',
+                'death_date' => 'death_date',
+                'life_years' => 'b_d_dates',
+                'pid' => 'pid_fsid',
+                /*'family_search_link' => 'fs_link',*/
+                'added_to_ftp_at' => 'added_to_ftp',
+                'first_name' => 'given_name',
+                'middle_name' => 'middle_name',
+                'last_name' => 'surname',
+                'suffix' => 'suffix',
+                'alternate_names' => 'alternate_names',
+                'maiden_name' => 'maiden_name',
+                'baptism_date' => 'baptism_date',
+                'notes' => 'notes',
+                'bio_completed_at' => 'date_bio_completed',
+                //'log_link' => 'link_to_log',
+                'researcher_text' => 'researcher',
+            ];
+
+            foreach ($columns as $key => $column) {
+                if (! empty(trim($this->row[$column]))) {
+                    $subject->{$key} = trim($this->row[$column]);
+                }
+            }
+
             $subject->save();
         }
     }
@@ -66,5 +96,14 @@ class ImportPeopleMasterFileAction implements ShouldQueue
 
             return null;
         }
+    }
+
+    private function getResearcher($name)
+    {
+        if (empty($name) || str($name)->lower() == 'done' || str($name)->contains('/')) {
+            return null;
+        }
+
+        $name = str($name)->trim('.')->toString();
     }
 }

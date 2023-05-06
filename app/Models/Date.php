@@ -21,4 +21,11 @@ class Date extends Model
     protected $casts = [
         'date' => 'datetime',
     ];
+
+    public function toArray()
+    {
+        return [
+            'date' => $this->date?->toDateString(),
+        ];
+    }
 }

@@ -2,6 +2,7 @@
     <div x-data="{}"
          class="grid grid-cols-12 gap-x-4">
         <div class="col-span-12 pr-8">
+            <h1 class="px-4 my-4 text-2xl font-bold leading-6 text-gray-900">Browse People by Date</h1>
             <div class="py-4 px-4">
                 <div class="flex gap-8">
                     <div>

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
@@ -15,7 +16,34 @@ class Subject extends Model
 
     protected $casts = [
         'geolocation' => 'array',
+        'bio_approved_at' => 'date',
     ];
+
+    protected function displayName(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+
+                $name = str($this->name);
+
+                if (! empty($this->last_name)) {
+                    $name = $name->replace(' '.$this->last_name, '')
+                                    ->prepend($this->last_name.', ');
+                }
+
+                $name = $name
+                    ->replaceMatches('/Jr./i', '(Jr.)')
+                    ->replaceMatches('/Sr./i', '(Sr.)')
+                    ->replaceMatches('/II/i', '(II)')
+                    ->replaceMatches('/III/i', '(III)')
+                    ->replaceMatches('/\(OT\)/i', '(Old Testament)')
+                    ->replaceMatches('/\(NT\)/i', '(New Testament)')
+                    ->replaceMatches('/\(BofM\)/i', '(Book of Mormon)');
+
+                return $name;
+            },
+        );
+    }
 
     public function category()
     {
@@ -30,6 +58,11 @@ class Subject extends Model
     public function parent()
     {
         return $this->belongsTo(self::class, 'subject_id');
+    }
+
+    public function researcher()
+    {
+        return $this->belongsTo(User::class, 'researcher_id')->withTrashed();
     }
 
     public function children()
@@ -86,7 +119,7 @@ class Subject extends Model
 
     public function calculateNames()
     {
-        $name_suffix = '';
+        /*$name_suffix = '';
         $year = '';
 
         if (str($this->name)->contains(', b.')) {
@@ -119,17 +152,19 @@ class Subject extends Model
 
         $name = explode(' ', $name);
         if (count($name) > 1) {
-            $this->attributes['last_name'] = array_pop($name);
+            $this->attributes['sort_last_name'] = array_pop($name);
         } else {
-            $this->attributes['last_name'] = implode(' ', $name).(! empty($year) ? ', '.$year.' ' : '').(! empty($name_suffix) ? ' ('.$name_suffix.')' : '');
+            $this->attributes['sort_last_name'] = implode(' ', $name).(! empty($year) ? ', '.$year.' ' : '').(! empty($name_suffix) ? ' ('.$name_suffix.')' : '');
         }
-        $this->attributes['first_name'] = implode(' ', $name).(! empty($year) ? ', '.$year.' ' : '').(! empty($name_suffix) ? ' ('.$name_suffix.')' : '');
+        $this->attributes['sort_first_name'] = implode(' ', $name).(! empty($year) ? ', '.$year.' ' : '').(! empty($name_suffix) ? ' ('.$name_suffix.')' : '');*/
     }
 
     public function calculateIndex()
     {
         if (! empty($this->attributes['last_name'])) {
             return str($this->attributes['last_name'])->substr(0, 1);
+        } else {
+            return str($this->attributes['first_name'])->substr(0, 1);
         }
     }
 
@@ -142,5 +177,17 @@ class Subject extends Model
         static::updating(function ($item) {
             $item->attributes['index'] = $item->calculateIndex();
         });
+    }
+
+    public function toArray()
+    {
+        return [
+            'name' => $this->name,
+            'types' => $this->category,
+            'links' => [
+                'frontend_url' => route('subjects.show', ['subject' => $this->slug]),
+                'api_url' => route('api.subjects.show', ['subject' => $this->slug]),
+            ],
+        ];
     }
 }

@@ -18,7 +18,16 @@
                     @if(auth()->user()->hasAnyRole(['Researcher', 'Super Admin']))
                         <a href="{{ route('admin.documents.search') }}" class="px-3 py-2  @if(Route::currentRouteName() == 'admin.documents.search') text-indigo-600 @else text-gray-900 @endif text-sm font-medium"> Research </a>
                     @endif
-                    @if(auth()->user()->hasAnyRole(['Quote Tagging', 'Approve Quotes', 'Admin', 'Super Admin']))
+                    @if(auth()->user()->hasAnyRole(['Researcher', 'Super Admin']))
+                        <x-admin.menu.dropdown :text="'SUBJECTS'"
+                                               :links="[
+                                                    'Browse People by Date' => ['url' => route('admin.people.search'), 'auth' => 'true'],
+                                                    'People' => ['url' => route('admin.people.index'), 'auth' => 'true'],
+                                                    'Places' => ['url' => route('admin.places.index'), 'auth' => 'true'],
+                                                    'Unknown People' => ['url' => route('admin.people.identification'), 'auth' => 'true'],
+                                                    'Unknown Places' => ['url' => route('admin.places.identification'), 'auth' => 'true']]"
+                        />
+                    @elseif(auth()->user()->hasAnyRole(['Quote Tagging', 'Approve Quotes', 'Admin', 'Super Admin']))
                         <a href="{{ route('admin.people.search') }}" class="px-3 py-2 @if(Route::currentRouteName() == 'admin.people.search') text-indigo-600 @else text-gray-900 @endif text-sm font-medium"> People </a>
                         <x-admin.menu.dropdown :text="'QUOTES'" :links="['Needs Approval' => ['url' => route('admin.dashboard.quotes.index'), 'auth' => 'true'], 'Search' => ['url' => route('admin.quotes.search'), 'auth' => 'true']]"/>
                     @endif

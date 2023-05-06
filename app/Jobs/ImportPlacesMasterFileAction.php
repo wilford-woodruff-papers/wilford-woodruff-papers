@@ -36,11 +36,38 @@ class ImportPlacesMasterFileAction implements ShouldQueue
             return;
         }
 
-        if ($subject = Subject::query()->firstWhere('name', trim($this->row['ftp']))) {
-            if (! empty(trim($this->row['date_confirmed']))) {
-                $subject->place_confirmed_at = $this->toCarbonDate(trim($this->row['date_confirmed']));
-                $subject->save();
+        if ($subject = Subject::query()->firstOrNew(['name' => trim($this->row['ftp'])])) {
+
+            if (! empty($dateAdded = $this->toCarbonDate(trim($this->row['date_added'])))) {
+                $subject->created_at = $dateAdded;
             }
+            $subject->place_confirmed_at = $this->toCarbonDate(trim($this->row['date_confirmed']));
+
+            if (is_int($unique_id = $this->toCarbonDate(trim($this->row['ftp_identifier_formula'])))) {
+                $subject->unique_id = $unique_id;
+            }
+
+            $columns = [
+                'country' => 'country',
+                'state_province' => 'stateprovince',
+                'county' => 'county',
+                'city' => 'city',
+                'specific_place' => 'specific_place',
+                'years' => 'years',
+                'modern_location' => 'modern_location',
+                'reference' => 'sourcenote',
+                'notes' => 'other_notes',
+            ];
+
+            foreach ($columns as $key => $column) {
+                if (! empty(trim($this->row[$column]))) {
+                    $subject->{$key} = trim($this->row[$column]);
+                }
+            }
+
+            $subject->save();
+        } else {
+            info('Subject not found: '.$this->row['ftp']);
         }
     }
 

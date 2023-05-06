@@ -1,8 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,3 +16,22 @@ use Illuminate\Support\Facades\Route;
 });*/
 
 /*Route::get('/subjects/{subject}', [\App\Http\Controllers\SubjectController::class, 'show'])->name('api.subjects.show');*/
+
+Route::middleware(['auth:sanctum', 'throttle:30'])
+    ->prefix('v1')
+    ->group(function () {
+        Route::get('documents', [\App\Http\Controllers\Api\v1\DocumentController::class, 'index'])
+            ->name('api.documents.index');
+        Route::get('documents/{item}', [\App\Http\Controllers\Api\v1\DocumentController::class, 'show'])
+            ->name('api.documents.show');
+
+        Route::get('pages', [\App\Http\Controllers\Api\v1\PageController::class, 'index'])
+            ->name('api.pages.index');
+        Route::get('pages/{page}', [\App\Http\Controllers\Api\v1\PageController::class, 'show'])
+            ->name('api.pages.show');
+
+        Route::get('subjects', [\App\Http\Controllers\Api\v1\SubjectController::class, 'index'])
+            ->name('api.subjects.index');
+        Route::get('subjects/{subject}', [\App\Http\Controllers\Api\v1\SubjectController::class, 'show'])
+            ->name('api.subjects.show');
+});

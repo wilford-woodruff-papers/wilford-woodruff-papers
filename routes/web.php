@@ -225,6 +225,102 @@ Route::middleware('role:Super Admin|Editor')->group(function () {
         ->name('admin.people.search');
 
     Route::middleware(['auth:sanctum', 'verified'])
+        ->get('/admin/people', \App\Http\Livewire\Admin\People\Index::class)
+        ->name('admin.people.index');
+
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->get('/admin/dashboard/people/create', [\App\Http\Controllers\Admin\PeopleController::class, 'create'])
+        ->name('admin.dashboard.people.create');
+
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->post('/admin/dashboard/people', [\App\Http\Controllers\Admin\PeopleController::class, 'store'])
+        ->name('admin.dashboard.people.store');
+
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->get('/admin/dashboard/people/{person}/edit', [\App\Http\Controllers\Admin\PeopleController::class, 'edit'])
+        ->name('admin.dashboard.people.edit');
+
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->put('/admin/dashboard/people/{person}', [\App\Http\Controllers\Admin\PeopleController::class, 'update'])
+        ->name('admin.dashboard.people.update');
+
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->delete('/admin/dashboard/people/{person}', [\App\Http\Controllers\Admin\PeopleController::class, 'destroy'])
+        ->name('admin.dashboard.people.destroy');
+
+    /* People Identification */
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->get('/admin/identification/people', \App\Http\Livewire\Admin\People\Identification::class)
+        ->name('admin.people.identification');
+
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->get('/admin/dashboard/identification/people/create', [\App\Http\Controllers\Admin\PeopleIdentificationController::class, 'create'])
+        ->name('admin.dashboard.identification.people.create');
+
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->post('/admin/dashboard/identification/people', [\App\Http\Controllers\Admin\PeopleIdentificationController::class, 'store'])
+        ->name('admin.dashboard.identification.people.store');
+
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->get('/admin/dashboard/identification/people/{identification}/edit', [\App\Http\Controllers\Admin\PeopleIdentificationController::class, 'edit'])
+        ->name('admin.dashboard.identification.people.edit');
+
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->put('/admin/dashboard/identification/people/{identification}', [\App\Http\Controllers\Admin\PeopleIdentificationController::class, 'update'])
+        ->name('admin.dashboard.identification.people.update');
+
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->delete('/admin/dashboard/identification/people/{identification}', [\App\Http\Controllers\Admin\PeopleIdentificationController::class, 'destroy'])
+        ->name('admin.dashboard.identification.people.destroy');
+    /* People Identification */
+
+    /* Places Identification */
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->get('/admin/identification/places', \App\Http\Livewire\Admin\Places\Identification::class)
+        ->name('admin.places.identification');
+
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->get('/admin/dashboard/identification/places/create', [\App\Http\Controllers\Admin\PlacesIdentificationController::class, 'create'])
+        ->name('admin.dashboard.identification.places.create');
+
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->post('/admin/dashboard/identification/places', [\App\Http\Controllers\Admin\PlacesIdentificationController::class, 'store'])
+        ->name('admin.dashboard.identification.places.store');
+
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->get('/admin/dashboard/identification/places/{identification}/edit', [\App\Http\Controllers\Admin\PlacesIdentificationController::class, 'edit'])
+        ->name('admin.dashboard.identification.places.edit');
+
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->put('/admin/dashboard/identification/places/{identification}', [\App\Http\Controllers\Admin\PlacesIdentificationController::class, 'update'])
+        ->name('admin.dashboard.identification.places.update');
+
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->delete('/admin/dashboard/identification/places/{identification}', [\App\Http\Controllers\Admin\PlacesIdentificationController::class, 'destroy'])
+        ->name('admin.dashboard.identification.places.destroy');
+    /* End Places Identification */
+
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->get('/admin/places', \App\Http\Livewire\Admin\Places\Index::class)
+        ->name('admin.places.index');
+
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->get('/admin/dashboard/places/create', [\App\Http\Controllers\Admin\PlacesController::class, 'create'])
+        ->name('admin.dashboard.places.create');
+
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->post('/admin/dashboard/places', [\App\Http\Controllers\Admin\PlacesController::class, 'store'])
+        ->name('admin.dashboard.places.store');
+
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->get('/admin/dashboard/places/{place}/edit', [\App\Http\Controllers\Admin\PlacesController::class, 'edit'])
+        ->name('admin.dashboard.places.edit');
+
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->put('/admin/dashboard/places/{place}', [\App\Http\Controllers\Admin\PlacesController::class, 'update'])
+        ->name('admin.dashboard.places.update');
+
+    Route::middleware(['auth:sanctum', 'verified'])
         ->get('/admin/dashboard/quotes/{quote}', [\App\Http\Controllers\Admin\QuoteController::class, 'show'])
         ->name('admin.dashboard.quotes.show');
 
@@ -303,6 +399,10 @@ Route::middleware('role:Super Admin|Editor')->group(function () {
     Route::middleware(['auth:sanctum', 'verified'])
         ->get('/admin/exports', \App\Http\Livewire\Admin\Exports::class)
         ->name('admin.exports');
+
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->get('/locations', \App\Http\Controllers\Api\LocationsController::class)
+        ->name('api.locations.index');
 });
 
 if (app()->environment('local')) {

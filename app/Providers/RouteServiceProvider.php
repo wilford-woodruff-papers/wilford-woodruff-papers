@@ -48,6 +48,10 @@ class RouteServiceProvider extends ServiceProvider
             return Item::whereUuid($item)->first();
         });
 
+        Route::bind('identification', function ($item) {
+            return \App\Models\Identification::findOrFail($item);
+        });
+
         Route::bind('page', function ($page) {
             return Page::whereUuid($page)->first();
         });

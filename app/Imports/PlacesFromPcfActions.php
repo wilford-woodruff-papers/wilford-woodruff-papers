@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Jobs\ImportPlacesIdentificationFileAction;
 use App\Jobs\ImportPlacesMasterFileAction;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
@@ -21,7 +22,12 @@ class PlacesFromPcfActions implements ToCollection, WithHeadingRow
         foreach ($rows as $row) {
             switch ($this->action) {
                 case 'Import Master File':
-                    ImportPlacesMasterFileAction::dispatch($row);
+                    ImportPlacesMasterFileAction::dispatch($row)
+                        ->onQueue('import');
+                    break;
+                case 'Import Identification':
+                    ImportPlacesIdentificationFileAction::dispatch($row)
+                        ->onQueue('import');
                     break;
             }
         }
