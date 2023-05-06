@@ -39,7 +39,7 @@ class ImportPlacesIdentificationFileAction implements ShouldQueue
 
             return;
         }
-            $subject = PlaceIdentification::query()->where(['id' => trim($this->row['id'])])->first();
+            $subject = PlaceIdentification::query()->where(['file_id' => trim($this->row['id'])])->first();
         //if () {
             if (empty($subject)) {
                 logger()
