@@ -39,7 +39,7 @@ class ImportPeopleIdentificationFileAction implements ShouldQueue
 
             return;
         }
-            $subject = PeopleIdentification::query()->where(['id' => trim($this->row['id'])])->first();
+            $subject = PeopleIdentification::query()->where(['file_id' => trim($this->row['id'])])->first();
         //if () {
             if (empty($subject)) {
                 logger()
