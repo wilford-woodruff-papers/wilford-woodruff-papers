@@ -15,4 +15,11 @@ class Category extends Model
     {
         return $this->belongsToMany(Subject::class);
     }
+
+    public function toArray()
+    {
+        return [
+            'name' => $this->name,
+        ];
+    }
 }

@@ -69,6 +69,22 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
                         ->first();
     }
 
+    public function people()
+    {
+        return $this->belongsToMany(Subject::class)
+            ->whereHas('category', function (Builder $query) {
+                $query->where('name', 'People');
+            });
+    }
+
+    public function places()
+    {
+        return $this->belongsToMany(Subject::class)
+            ->whereHas('category', function (Builder $query) {
+                $query->where('name', 'Places');
+            });
+    }
+
     public function subjects()
     {
         return $this->belongsToMany(Subject::class);
@@ -204,5 +220,29 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
     {
         return LogOptions::defaults()
                 ->dontLogIfAttributesChangedOnly(['transcript']);
+    }
+
+    public function toArray()
+    {
+        return [
+            'id' => $this->id,
+            'uuid' => $this->uuid,
+            'full_name' => $this->full_name,
+            'name' => $this->name,
+            'transcript' => $this->transcript,
+            'text' => strip_tags($this->transcript),
+            'dates' => $this->dates,
+            'people' => $this->people,
+            'places' => $this->places,
+            'links' => [
+                'frontend_url' => route('pages.show', ['item' => $this->parent->uuid, 'page' => $this->uuid]),
+                'api_url' => route('api.pages.show', ['page' => $this->uuid]),
+                'images' => [
+                    'thumbnail_url' => $this->getFirstMedia()?->getUrl('thumb'),
+                    'original_url' => $this->getFirstMedia()?->getUrl(),
+                ],
+            ],
+
+        ];
     }
 }
