@@ -17,8 +17,7 @@
 
 /*Route::get('/subjects/{subject}', [\App\Http\Controllers\SubjectController::class, 'show'])->name('api.subjects.show');*/
 
-//Route::middleware(['auth:sanctum', 'throttle:30'])
-Route::middleware(['throttle:30'])
+Route::middleware(['auth:sanctum', 'throttle:30'])
     ->prefix('v1')
     ->group(function () {
         Route::get('documents', [\App\Http\Controllers\Api\v1\DocumentController::class, 'index'])
