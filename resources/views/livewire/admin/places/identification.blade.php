@@ -165,15 +165,15 @@
                         <x-admin.quotes.heading class="pr-0 w-8">
                             <x-input.checkbox wire:model="selectPage" />
                         </x-admin.quotes.heading>
-                        <x-admin.quotes.heading sortable multi-column wire:click="sortBy('pcf_unique_id')"
-                                                :direction="$sorts['name'] ?? null"
+                        <x-admin.quotes.heading sortable multi-column wire:click="sortBy('id')"
+                                                :direction="$sorts['id'] ?? null"
                                                 class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">
                             ID
                         </x-admin.quotes.heading>
                         <x-admin.quotes.heading sortable
                                                 multi-column
-                                                wire:click="sortBy('editorial_assistant')"
-                                                :direction="$sorts['editorial_assistant'] ?? null"
+                                                wire:click="sortBy('location')"
+                                                :direction="$sorts['location'] ?? null"
                                                 class="sticky left-0 z-50 w-full bg-gray-100">
                             Name as Written
                         </x-admin.quotes.heading>
