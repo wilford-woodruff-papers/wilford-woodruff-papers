@@ -78,6 +78,7 @@ class SearchController extends Controller
         if ($request->has('people') && ! empty($request->get('q'))) {
             $people = Subject::query()
                                 ->whereEnabled(1)
+                                ->where('tagged_count', '>', 0)
                                 ->whereHas('category', function (Builder $query) {
                                     $query->where('name', 'People');
                                 });
