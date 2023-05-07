@@ -15,7 +15,11 @@ class SubjectController extends Controller
         }
 
         if (request()->ajax()) {
-            return $subject;
+            return [
+                'name' => $subject->name,
+                'slug' => $subject->slug,
+                'bio' => $subject->bio,
+            ];
         }
 
         $subject->load(['parent', 'children' => function ($query) {
