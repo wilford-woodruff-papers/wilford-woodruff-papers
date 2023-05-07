@@ -29,7 +29,7 @@ class Index extends Component
 
     public $filters = [
         'search' => '',
-        'tagged' => '',
+        'tagged' => true,
         'starts_with' => '',
         'completed' => '',
         'researcher' => '',
