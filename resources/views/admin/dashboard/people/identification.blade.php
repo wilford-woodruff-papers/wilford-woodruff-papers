@@ -3,8 +3,8 @@
         x-data="{
             shadow: false,
             showSuccess: true,
-            skip_tagging: @if(empty($person->skip_tagging)) false @else {{ $person->skip_tagging }} @endif,
-            correction_needed: @if(empty($person->correction_needed)) false @else {{ $person->correction_needed }} @endif,
+            skip_tagging: @if(empty(old('skip_tagging', $person->skip_tagging))) false @else {{ old('skip_tagging', $person->skip_tagging) }} @endif,
+            correction_needed:  @if(empty(old('correction_needed', $person->correction_needed))) false @else {{ old('correction_needed', $person->correction_needed) }} @endif,
             setResearcher: function(userid){
                 document.getElementById('researcher').value = userid;
             },
@@ -139,7 +139,7 @@
                                     <input type="text"
                                            name="editorial_assistant"
                                            id="editorial_assistant"
-                                           value="{{ $person->editorial_assistant }}"
+                                           value="{{ old('editorial_assistant', $person->editorial_assistant) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
@@ -154,7 +154,7 @@
                                                            name="correction_needed"
                                                            type="checkbox"
                                                            value="1"
-                                                           @checked($person->correction_needed)
+                                                           @checked(old('correction_needed', $person->correction_needed))
                                                            class="w-4 h-4 text-indigo-600 rounded border-gray-300 focus:ring-indigo-600"
                                                     >
                                                     <input id="correction_needed"
@@ -184,7 +184,7 @@
                                     <input type="text"
                                            name="first_middle_name"
                                            id="first_middle_name"
-                                           value="{{ $person->first_middle_name }}"
+                                           value="{{ old('first_middle_name', $person->first_middle_name) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
@@ -197,7 +197,7 @@
                                     <input type="text"
                                            name="last_name"
                                            id="last_name"
-                                           value="{{ $person->last_name }}"
+                                           value="{{ old('last_name', $person->last_name) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
@@ -210,7 +210,7 @@
                                     <input type="text"
                                            name="other"
                                            id="other"
-                                           value="{{ $person->other }}"
+                                           value="{{ old('other', $person->other) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
@@ -227,7 +227,7 @@
                                     <input type="text"
                                            name="link_to_ftp"
                                            id="link_to_ftp"
-                                           value="{{ $person->link_to_ftp }}"
+                                           value="{{ old('link_to_ftp', $person->link_to_ftp) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     >
                                 </div>
@@ -249,7 +249,7 @@
                                               name="guesses"
                                               id="guesses"
                                               class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none summernote focus:border-sky-500 focus:ring-sky-500"
-                                    >{!! $person->guesses !!}</textarea>
+                                    >{!! old('guesses', $person->guesses) !!}</textarea>
                                 </div>
 
                                 <div class="col-span-12">
@@ -262,7 +262,7 @@
                                            name="notes"
                                            id="notes"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none summernote focus:border-sky-500 focus:ring-sky-500"
-                                    >{!! $person->notes !!}</textarea>
+                                    >{!! old('notes', $person->notes) !!}</textarea>
                                 </div>
                                 <div class="col-span-3">
                                     <label for="fs_id"
@@ -273,7 +273,7 @@
                                     <input type="text"
                                            name="fs_id"
                                            id="fs_id"
-                                           value="{{ $person->fs_id }}"
+                                           value="{{ old('fs_id', $person->fs_id) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
@@ -289,7 +289,7 @@
                                     <input type="date"
                                            name="approximate_birth_date"
                                            id="approximate_birth_date"
-                                           value="{{ $person->approximate_birth_date }}"
+                                           value="{{ old('approximate_birth_date', $person->approximate_birth_date) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     >
                                 </div>
@@ -302,7 +302,7 @@
                                     <input type="date"
                                            name="approximate_death_date"
                                            id="approximate_death_date"
-                                           value="{{ $person->approximate_death_date }}"
+                                           value="{{ old('approximate_death_date', $person->approximate_death_date) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     >
                                 </div>
@@ -318,7 +318,7 @@
                                     <input type="text"
                                            name="nauvoo_database"
                                            id="nauvoo_database"
-                                           value="{{ $person->nauvoo_database }}"
+                                           value="{{ old('nauvoo_database', $person->nauvoo_database) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
@@ -334,7 +334,7 @@
                                     <input type="text"
                                            name="pioneer_database"
                                            id="pioneer_database"
-                                           value="{{ $person->pioneer_database }}"
+                                           value="{{ old('pioneer_database', $person->pioneer_database) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
@@ -350,7 +350,7 @@
                                     <input type="text"
                                            name="missionary_database"
                                            id="missionary_database"
-                                           value="{{ $person->missionary_database }}"
+                                           value="{{ old('missionary_database', $person->missionary_database) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
@@ -366,7 +366,7 @@
                                     <input type="text"
                                            name="boston_index"
                                            id="boston_index"
-                                           value="{{ $person->boston_index }}"
+                                           value="{{ old('boston_index', $person->boston_index) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
@@ -382,7 +382,7 @@
                                     <input type="text"
                                            name="st_louis_index"
                                            id="st_louis_index"
-                                           value="{{ $person->st_louis_index }}"
+                                           value="{{ old('st_louis_index', $person->st_louis_index) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
@@ -398,7 +398,7 @@
                                     <input type="text"
                                            name="british_mission"
                                            id="british_mission"
-                                           value="{{ $person->british_mission }}"
+                                           value="{{ old('british_mission', $person->british_mission) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
@@ -414,7 +414,7 @@
                                     <input type="text"
                                            name="eighteen_forty_census"
                                            id="eighteen_forty_census"
-                                           value="{{ $person->eighteen_forty_census }}"
+                                           value="{{ old('eighteen_forty_census', $person->eighteen_forty_census) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
@@ -430,7 +430,7 @@
                                     <input type="text"
                                            name="eighteen_fifty_census"
                                            id="eighteen_fifty_census"
-                                           value="{{ $person->eighteen_fifty_census }}"
+                                           value="{{ old('eighteen_fifty_census', $person->eighteen_fifty_census) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
@@ -446,7 +446,7 @@
                                     <input type="text"
                                            name="eighteen_sixty_census"
                                            id="eighteen_sixty_census"
-                                           value="{{ $person->eighteen_sixty_census }}"
+                                           value="{{ old('eighteen_sixty_census', $person->eighteen_sixty_census) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
@@ -462,7 +462,7 @@
                                     <input type="text"
                                            name="other_census"
                                            id="other_census"
-                                           value="{{ $person->other_census }}"
+                                           value="{{ old('other_census', $person->other_census) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
@@ -478,7 +478,7 @@
                                     <input type="text"
                                            name="other_records"
                                            id="other_records"
-                                           value="{{ $person->other_records }}"
+                                           value="{{ old('other_records', $person->other_records) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
@@ -495,7 +495,7 @@
                                         <input type="text"
                                                name="location"
                                                id="location"
-                                               value="{{ $person->location }}"
+                                               value="{{ old('location', $person->location) }}"
                                                class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                         />
                                     @else
@@ -519,7 +519,7 @@
                                                 <input type="date"
                                                        name="completed_at"
                                                        id="completed_at"
-                                                       value="{{ $person->completed_at }}"
+                                                       value="{{ old('completed_at', $person->completed_at) }}"
                                                        class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                                 />
                                             @else
@@ -553,7 +553,7 @@
                                                            name="skip_tagging"
                                                            type="checkbox"
                                                            value="1"
-                                                           @checked($person->skip_tagging)
+                                                           @checked(old('skip_tagging', $person->skip_tagging))
                                                            class="w-4 h-4 text-indigo-600 rounded border-gray-300 focus:ring-indigo-600"
                                                     >
                                                     <input id="skip_tagging"

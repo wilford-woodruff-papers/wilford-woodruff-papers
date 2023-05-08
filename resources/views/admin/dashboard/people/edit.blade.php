@@ -150,7 +150,7 @@
                                                     </option>
                                                     @foreach($researchers as $researcher)
                                                         <option value="{{ $researcher->id }}"
-                                                                @if($researcher->id === $person->researcher_id) selected @endif
+                                                                @if($researcher->id == old('researcher_id', $person->researcher_id)) selected @endif
                                                         >
                                                             {{ $researcher->name }}
                                                         </option>
@@ -178,7 +178,7 @@
                                     <input type="text"
                                            name="pid"
                                            id="pid"
-                                           value="{{ $person->pid }}"
+                                           value="{{ old('pid', $person->pid) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
@@ -193,7 +193,7 @@
                                             <input type="date"
                                                    name="pid_identified_at"
                                                    id="pid_identified_at"
-                                                   value="{{ $person->pid_identified_at }}"
+                                                   value="{{ old('pid_identified_at', $person->pid_identified_at) }}"
                                                    class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                             />
                                         </div>
@@ -219,7 +219,7 @@
                                     <input type="text"
                                            name="name"
                                            id="name"
-                                           value="{{ $person->name }}"
+                                           value="{{ old('name', $person->name) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
@@ -234,7 +234,7 @@
                                             <input type="date"
                                                    name="added_to_ftp_at"
                                                    id="added_to_ftp_at"
-                                                   value="{{ $person->added_to_ftp_at }}"
+                                                   value="{{ old('added_to_ftp_at', $person->added_to_ftp_at) }}"
                                                    class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                             />
                                         </div>
@@ -258,7 +258,7 @@
                                     <input type="text"
                                            name="first_name"
                                            id="first_name"
-                                           value="{{ $person->first_name }}"
+                                           value="{{ old('first_name', $person->first_name) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
@@ -271,7 +271,7 @@
                                     <input type="text"
                                            name="middle_name"
                                            id="middle_name"
-                                           value="{{ $person->middle_name }}"
+                                           value="{{ old('middle_name', $person->middle_name) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
@@ -284,7 +284,7 @@
                                     <input type="text"
                                            name="last_name"
                                            id="last_name"
-                                           value="{{ $person->last_name }}"
+                                           value="{{ old('last_name', $person->last_name) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
@@ -297,7 +297,7 @@
                                     <input type="text"
                                            name="suffix"
                                            id="suffix"
-                                           value="{{ $person->suffix }}"
+                                           value="{{ old('suffix', $person->suffix) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
@@ -313,7 +313,7 @@
                                     <input type="text"
                                            name="alternate_names"
                                            id="alternate_names"
-                                           value="{{ $person->alternate_names }}"
+                                           value="{{ old('alternate_names', $person->alternate_names) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
@@ -326,7 +326,7 @@
                                     <input type="text"
                                            name="maiden_name"
                                            id="maiden_name"
-                                           value="{{ $person->maiden_name }}"
+                                           value="{{ old('maiden_name', $person->maiden_name) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
@@ -342,7 +342,7 @@
                                     <input type="text"
                                            name="reference"
                                            id="reference"
-                                           value="{{ $person->reference }}"
+                                           value="{{ old('reference', $person->reference) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
@@ -355,7 +355,7 @@
                                     <input type="text"
                                            name="relationship"
                                            id="relationship"
-                                           value="{{ $person->relationship }}"
+                                           value="{{ old('relationship', $person->relationship) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
@@ -371,7 +371,7 @@
                                     <input type="date"
                                            name="birth_date"
                                            id="birth_date"
-                                           value="{{ $person->birth_date }}"
+                                           value="{{ old('birth_date', $person->birth_date) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     >
                                 </div>
@@ -384,7 +384,7 @@
                                     <input type="date"
                                            name="baptism_date"
                                            id="baptism_date"
-                                           value="{{ $person->baptism_date }}"
+                                           value="{{ old('baptism_date', $person->baptism_date) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     >
                                 </div>
@@ -397,7 +397,7 @@
                                     <input type="date"
                                            name="death_date"
                                            id="death_date"
-                                           value="{{ $person->death_date }}"
+                                           value="{{ old('death_date', $person->death_date) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
@@ -410,7 +410,7 @@
                                     <input type="text"
                                            name="life_years"
                                            id="life_years"
-                                           value="{{ $person->life_years }}"
+                                           value="{{ old('life_years', $person->life_years) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     >
                                 </div>
@@ -452,11 +452,11 @@
                                                   name="bio"
                                                   id="bio"
                                                   class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none summernote focus:border-sky-500 focus:ring-sky-500"
-                                        >{!! $person->bio !!}</textarea>
+                                        >{!! old('bio', $person->bio) !!}</textarea>
                                     @else
                                         <div>
                                             @if(! empty($person->bio))
-                                                {!! $person->bio !!}
+                                                {!! old('bio', $person->bio) !!}
                                             @else
                                                 <span class="text-gray-500">No biography available.</span>
                                             @endif
@@ -476,7 +476,7 @@
                                                 <input type="date"
                                                        name="bio_completed_at"
                                                        id="bio_completed_at"
-                                                       value="{{ $person->bio_completed_at }}"
+                                                       value="{{ old('bio_completed_at', $person->bio_completed_at) }}"
                                                        class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                                 />
                                             </div>
@@ -501,7 +501,7 @@
                                                     <input type="date"
                                                            name="bio_approved_at"
                                                            id="bio_approved_at"
-                                                           value="{{ $person->bio_approved_at }}"
+                                                           value="{{ old('bio_approved_at', $person->bio_approved_at) }}"
                                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                                     />
                                                 </div>
@@ -514,8 +514,8 @@
                                                 </div>
                                             </div>
                                         @else
-                                            @if(! empty($person->bio_approved_at))
-                                                <div class="pt-3 text-gray-500">{{ $person->bio_approved_at?->toDayDateTimeString() }}</div>
+                                            @if(! empty($bio_approved_at = old('bio_approved_at', $person->bio_approved_at)))
+                                                <div class="pt-3 text-gray-500">{{ $bio_approved_at?->toDayDateTimeString() }}</div>
                                             @else
                                                 <div class="pt-3 text-gray-500 text-red-700">Not Approved</div>
                                             @endif
@@ -533,7 +533,7 @@
                                            name="footnotes"
                                            id="footnotes"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none summernote focus:border-sky-500 focus:ring-sky-500"
-                                    >{!! $person->footnotes !!}</textarea>
+                                    >{!! old('footnotes', $person->footnotes) !!}</textarea>
                                 </div>
 
                                 <div class="col-span-12">
@@ -546,7 +546,7 @@
                                               name="notes"
                                               id="notes"
                                               class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none summernote focus:border-sky-500 focus:ring-sky-500"
-                                    >{!! $person->notes !!}</textarea>
+                                    >{!! old('notes', $person->notes) !!}</textarea>
                                 </div>
                             </div>
 
@@ -560,13 +560,13 @@
                                     <input type="text"
                                            name="log_link"
                                            id="log_link"
-                                           value="{{ $person->log_link }}"
+                                           value="{{ old('log_link', $person->log_link) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     >
                                 </div>
                                 <div class="col-span-1">
-                                    @if(! empty($person->log_link))
-                                        <a href="{{ $person->log_link }}" target="_blank" class="inline-flex justify-center py-2 px-12 ml-12 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:outline-none focus:ring-sky-500">View Log</a>
+                                    @if(! empty($log_link = old('log_link', $person->log_link)))
+                                        <a href="{{ $log_link }}" target="_blank" class="inline-flex justify-center py-2 px-12 ml-12 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:outline-none focus:ring-sky-500">View Log</a>
                                     @endif
                                 </div>
                             </div>
