@@ -3,8 +3,8 @@
         x-data="{
             shadow: false,
             showSuccess: true,
-            skip_tagging: @if(empty($place->skip_tagging)) false @else {{ $place->skip_tagging }} @endif,
-            correction_needed: @if(empty($place->correction_needed)) false @else {{ $place->correction_needed }} @endif,
+            skip_tagging: @if(empty(old('skip_tagging', $place->skip_tagging))) false @else {{ old('skip_tagging', $place->skip_tagging) }} @endif,
+            correction_needed: @if(empty(old('correction_needed', $place->correction_needed))) false @else {{ old('correction_needed', $place->correction_needed) }} @endif,
             setResearcher: function(userid){
                 document.getElementById('researcher').value = userid;
             },
@@ -139,7 +139,7 @@
                                     <input type="text"
                                            name="editorial_assistant"
                                            id="editorial_assistant"
-                                           value="{{ $place->editorial_assistant }}"
+                                           value="{{ old('editorial_assistant', $place->editorial_assistant) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
@@ -154,7 +154,7 @@
                                                            name="correction_needed"
                                                            type="checkbox"
                                                            value="1"
-                                                           @checked($place->correction_needed)
+                                                           @checked(old('correction_needed', $place->correction_needed))
                                                            class="w-4 h-4 text-indigo-600 rounded border-gray-300 focus:ring-indigo-600"
                                                     >
                                                     <input id="correction_needed"
@@ -184,7 +184,7 @@
                                     <input type="text"
                                            name="guess"
                                            id="guess"
-                                           value="{{ $place->guess }}"
+                                           value="{{ old('guess', $place->guess) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
@@ -197,7 +197,7 @@
                                     <input type="text"
                                            name="location"
                                            id="location"
-                                           value="{{ $place->location }}"
+                                           value="{{ old('location', $place->location) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
@@ -213,7 +213,7 @@
                                     <input type="text"
                                            name="link_to_ftp"
                                            id="link_to_ftp"
-                                           value="{{ $place->link_to_ftp }}"
+                                           value="{{ old('link_to_ftp', $place->link_to_ftp) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     >
                                 </div>
@@ -236,7 +236,7 @@
                                            name="notes"
                                            id="notes"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none summernote focus:border-sky-500 focus:ring-sky-500"
-                                    >{!! $place->notes !!}</textarea>
+                                    >{!! old('notes', $place->notes) !!}</textarea>
                                 </div>
 
 
@@ -249,7 +249,7 @@
                                     <input type="text"
                                            name="other"
                                            id="other"
-                                           value="{{ $place->other }}"
+                                           value="{{ old('other', $place->other) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
@@ -268,7 +268,7 @@
                                                 <input type="date"
                                                        name="completed_at"
                                                        id="completed_at"
-                                                       value="{{ $place->completed_at }}"
+                                                       value="{{ old('completed_at', $place->completed_at) }}"
                                                        class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                                 />
                                             @else
@@ -302,7 +302,7 @@
                                                            name="skip_tagging"
                                                            type="checkbox"
                                                            value="1"
-                                                           @checked($place->skip_tagging)
+                                                           @checked(old('skip_tagging', $place->skip_tagging))
                                                            class="w-4 h-4 text-indigo-600 rounded border-gray-300 focus:ring-indigo-600"
                                                     >
                                                     <input id="skip_tagging"

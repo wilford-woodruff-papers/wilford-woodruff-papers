@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class PeopleController extends Controller
 {
@@ -128,6 +129,12 @@ class PeopleController extends Controller
     {
         $person = new Subject();
 
+        $this->rules['pid'] = [
+            'max:191',
+            'required_with:pid_identified_at',
+            'unique:subjects,pid',
+        ];
+
         $validated = $request->validate($this->rules);
 
         $person->fill($validated);
@@ -188,6 +195,12 @@ class PeopleController extends Controller
      */
     public function update(Request $request, Subject $person)
     {
+        $this->rules['pid'] = [
+            'max:191',
+            'required_with:pid_identified_at',
+            Rule::unique('subjects')->ignore($person->id),
+        ];
+
         $validated = $request->validate($this->rules);
 
         $person->fill($validated);

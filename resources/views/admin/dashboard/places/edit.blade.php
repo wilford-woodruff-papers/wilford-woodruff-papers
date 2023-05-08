@@ -145,7 +145,7 @@
                                             </option>
                                             @foreach($countries as $country)
                                                 <option value="{{ $country }}"
-                                                        @if($country === $place->country) selected @endif
+                                                        @if($country == old('country', $place->country)) selected @endif
                                                 >
                                                     {{ $country }}
                                                 </option>
@@ -171,7 +171,7 @@
                                             </option>
                                             @foreach($states as $state)
                                                 <option value="{{ $state }}"
-                                                        @if($state === $place->state_province) selected @endif
+                                                        @if($state == old('state_province', $place->state_province)) selected @endif
                                                 >
                                                     {{ $state }}
                                                 </option>
@@ -197,7 +197,7 @@
                                             </option>
                                             @foreach($counties as $county)
                                                 <option value="{{ $county }}"
-                                                        @if($county === $place->county) selected @endif
+                                                        @if($county == old('county', $place->county)) selected @endif
                                                 >
                                                     {{ $county }}
                                                 </option>
@@ -214,7 +214,7 @@
                                     <input type="text"
                                            name="city"
                                            id="city"
-                                           value="{{ $place->city }}"
+                                           value="{{ old('city', $place->city) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
@@ -227,7 +227,7 @@
                                     <input type="text"
                                            name="specific_place"
                                            id="specific_place"
-                                           value="{{ $place->specific_place }}"
+                                           value="{{ old('specific_place', $place->specific_place) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
@@ -240,7 +240,7 @@
                                     <input type="text"
                                            name="modern_location"
                                            id="modern_location"
-                                           value="{{ $place->modern_location }}"
+                                           value="{{ old('modern_location', $place->modern_location) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
@@ -256,7 +256,7 @@
                                     <input type="text"
                                            name="years"
                                            id="years"
-                                           value="{{ $place->years }}"
+                                           value="{{ old('years', $place->years) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
@@ -271,7 +271,7 @@
                                                            name="visited"
                                                            type="checkbox"
                                                            value="1"
-                                                           @checked($place->visited)
+                                                           @checked(old('visited', $place->visited))
                                                            class="w-4 h-4 text-indigo-600 rounded border-gray-300 focus:ring-indigo-600"
                                                     >
                                                     <input id="visited"
@@ -292,7 +292,7 @@
                                                            name="mentioned"
                                                            type="checkbox"
                                                            value="1"
-                                                           @checked($place->mentioned)
+                                                           @checked(old('mentioned', $place->mentioned))
                                                            class="w-4 h-4 text-indigo-600 rounded border-gray-300 focus:ring-indigo-600"
                                                     >
                                                     <input id="mentioned"
@@ -353,7 +353,7 @@
                                                 <input type="date"
                                                        name="place_confirmed_at"
                                                        id="place_confirmed_at"
-                                                       value="{{ $place->place_confirmed_at }}"
+                                                       value="{{ old('place_confirmed_at', $place->place_confirmed_at) }}"
                                                        class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                                 />
                                             </div>
@@ -381,7 +381,7 @@
                                                   name="bio"
                                                   id="bio"
                                                   class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none summernote focus:border-sky-500 focus:ring-sky-500"
-                                        >{!! $place->bio !!}</textarea>
+                                        >{!! old('bio', $place->bio) !!}</textarea>
                                     @else
                                         <div>
                                             @if(! empty($place->bio))
@@ -406,7 +406,7 @@
                                                     <input type="date"
                                                            name="bio_completed_at"
                                                            id="bio_completed_at"
-                                                           value="{{ $place->bio_completed_at }}"
+                                                           value="{{ old('bio_completed_at', $place->bio_completed_at) }}"
                                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                                     />
                                                 </div>
@@ -438,7 +438,7 @@
                                                     <input type="date"
                                                            name="bio_approved_at"
                                                            id="bio_approved_at"
-                                                           value="{{ $place->bio_approved_at }}"
+                                                           value="{{ old('bio_approved_at', $place->bio_approved_at) }}"
                                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                                     />
                                                 </div>
@@ -471,7 +471,7 @@
                                     <input type="text"
                                            name="reference"
                                            id="reference"
-                                           value="{{ $place->reference }}"
+                                           value="{{ old('reference', $place->reference) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
@@ -487,7 +487,7 @@
                                                   name="notes"
                                                   id="notes"
                                                   class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none summernote focus:border-sky-500 focus:ring-sky-500"
-                                        >{!! $place->notes !!}</textarea>
+                                        >{!! old('notes', $place->notes) !!}</textarea>
                                     @else
                                         <div>
                                             @if(! empty($place->notes))
@@ -510,7 +510,7 @@
                                     <input type="text"
                                            name="log_link"
                                            id="log_link"
-                                           value="{{ $place->log_link }}"
+                                           value="{{ old('log_link', $place->log_link) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     >
                                 </div>
