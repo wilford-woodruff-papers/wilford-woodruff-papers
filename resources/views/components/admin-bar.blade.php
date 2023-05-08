@@ -2,6 +2,8 @@
     'Tagger',
     'Quote Tagging',
     'Editor',
+    'Bio Editor',
+    'Bio Admin',
     'Admin',
     'Super Admin',
 ]))
