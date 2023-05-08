@@ -584,7 +584,7 @@
                 <div class="mt-12 divide-y divide-gray-200">
                     <div class="flex justify-end py-4 px-4 sm:px-6">
                         @if(auth()->user()->hasRole('Bio Admin') && $person->exists)
-                            <form action="{{ route('admin.dashboard.identification.people.destroy', ['identification' => $person]) }}"      method="POST">
+                            <form action="{{ route('admin.dashboard.people.destroy', ['person' => $person]) }}"      method="POST">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="inline-flex justify-center py-2 px-12 text-sm font-medium text-white bg-red-700 rounded-md border border-transparent shadow-sm hover:bg-red-800 focus:ring-2 focus:ring-red-500 focus:ring-offset-2 focus:outline-none">Delete</button>

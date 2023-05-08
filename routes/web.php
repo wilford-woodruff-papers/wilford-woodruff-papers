@@ -321,6 +321,10 @@ Route::middleware('role:Super Admin|Editor')->group(function () {
         ->name('admin.dashboard.places.update');
 
     Route::middleware(['auth:sanctum', 'verified'])
+        ->delete('/admin/dashboard/places/{place}', [\App\Http\Controllers\Admin\PlacesController::class, 'destroy'])
+        ->name('admin.dashboard.places.destroy');
+
+    Route::middleware(['auth:sanctum', 'verified'])
         ->get('/admin/dashboard/quotes/{quote}', [\App\Http\Controllers\Admin\QuoteController::class, 'show'])
         ->name('admin.dashboard.quotes.show');
 
