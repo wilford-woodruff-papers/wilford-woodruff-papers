@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Jobs\AssignCategoryToPeopleFromMasterFileAction;
 use App\Jobs\ImportPeopleIdentificationFileAction;
 use App\Jobs\ImportPeopleMasterFileAction;
 use Illuminate\Support\Collection;
@@ -27,6 +28,10 @@ class PeopleFromPcfActions implements ToCollection, WithHeadingRow
                     break;
                 case 'Import Identification':
                     ImportPeopleIdentificationFileAction::dispatch($row)
+                        ->onQueue('import');
+                    break;
+                case 'Assign Category':
+                    AssignCategoryToPeopleFromMasterFileAction::dispatch($row)
                         ->onQueue('import');
                     break;
             }
