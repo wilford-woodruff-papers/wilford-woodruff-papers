@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Jobs\AssignCategoryToPlacesFromMasterFileAction;
 use App\Jobs\ImportPlacesIdentificationFileAction;
 use App\Jobs\ImportPlacesMasterFileAction;
 use Illuminate\Support\Collection;
@@ -27,6 +28,10 @@ class PlacesFromPcfActions implements ToCollection, WithHeadingRow
                     break;
                 case 'Import Identification':
                     ImportPlacesIdentificationFileAction::dispatch($row)
+                        ->onQueue('import');
+                    break;
+                case 'Assign Category':
+                    AssignCategoryToPlacesFromMasterFileAction::dispatch($row)
                         ->onQueue('import');
                     break;
             }
