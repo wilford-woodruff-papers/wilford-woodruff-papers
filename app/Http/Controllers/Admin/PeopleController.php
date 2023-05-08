@@ -178,7 +178,7 @@ class PeopleController extends Controller
         return view('admin.dashboard.people.edit', [
             'person' => $person,
             'researchers' => User::query()
-                ->role(['researcher'])
+                ->role(['Bio Editor', 'Bio Admin'])
                 ->orderBy('name')
                 ->get(),
             'categories' => Category::query()

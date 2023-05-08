@@ -529,11 +529,21 @@
                                     >
                                         <span class="font-semibold">Footnotes</span>
                                     </label>
-                                    <textarea type="text"
-                                           name="footnotes"
-                                           id="footnotes"
-                                           class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none summernote focus:border-sky-500 focus:ring-sky-500"
-                                    >{!! old('footnotes', $person->footnotes) !!}</textarea>
+                                    @if(auth()->user()->hasRole('Bio Admin'))
+                                        <textarea type="text"
+                                               name="footnotes"
+                                               id="footnotes"
+                                               class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none summernote focus:border-sky-500 focus:ring-sky-500"
+                                        >{!! old('footnotes', $person->footnotes) !!}</textarea>
+                                    @else
+                                        <div>
+                                            @if(! empty($person->footnotes))
+                                                {!! old('footnotes', $person->footnotes) !!}
+                                            @else
+                                                <span class="text-gray-500">No footnotes available.</span>
+                                            @endif
+                                        </div>
+                                    @endif
                                 </div>
 
                                 <div class="col-span-12">
