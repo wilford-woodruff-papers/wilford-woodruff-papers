@@ -66,7 +66,7 @@
              class="grid grid-cols-1 gap-1 px-2 mb-4 sm:grid-cols-2 md:grid-cols-3">
             @forelse($people as $key => $person)
                 <div class="">
-                    <a class="text-secondary popup"
+                    <a class="text-secondary"
                        href="{{ route('subjects.show', ['subject' => $person])  }}"
                     >
                         {{ $person->display_name }} ({{ $person->tagged_count }})
@@ -83,7 +83,7 @@
             @foreach(range(1, 15) as $placeholder)
                 <div class="">
                     <div data-placeholder class="overflow-hidden relative mr-2 w-80 h-6 bg-gray-200 animate-pulse">
-                        <a class="text-secondary popup"
+                        <a class="text-secondary"
                            href="#"
                         >
                             &nbsp;
