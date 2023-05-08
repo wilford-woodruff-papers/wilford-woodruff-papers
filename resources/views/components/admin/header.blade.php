@@ -18,7 +18,7 @@
                     @if(auth()->user()->hasAnyRole(['Researcher', 'Super Admin']))
                         <a href="{{ route('admin.documents.search') }}" class="px-3 py-2  @if(Route::currentRouteName() == 'admin.documents.search') text-indigo-600 @else text-gray-900 @endif text-sm font-medium"> Research </a>
                     @endif
-                    @if(auth()->user()->hasAnyRole(['Researcher', 'Bio Editor', 'Bio Admin', 'Admin', 'Super Admin']))
+                    @if(auth()->user()->hasAnyRole(['Researcher', 'Bio Editor', 'Bio Admin', 'Quote Tagging', 'Approve Quotes', 'Admin', 'Super Admin']))
                         <x-admin.menu.dropdown :text="'SUBJECTS'"
                                                :links="[
                                                     'Browse People by Date' => ['url' => route('admin.people.search'), 'auth' => 'true'],
