@@ -307,7 +307,7 @@
                                 @foreach($columns as $key => $column)
                                     <x-admin.quotes.cell class="bg-gray-50 border border-gray-400"
                                                          x-show="selectedColumns.includes('{{$column}}')">
-                                        <div class="whitespace-nowrap">
+                                        <div class="break-words">
                                             @if($key == 'pid')
                                                 <a href="https://www.familysearch.org/tree/person/details/{{ $person->{$key} }}"
                                                    target="_blank"
@@ -329,6 +329,12 @@
                                                         <div>{{ $category->name }}</div>
                                                     @endif
                                                 @endforeach
+                                            @elseif(in_array($key, ['bio', 'footnotes']))
+                                                <div title="{{ strip_tags(str($person->{$key})) }}"
+                                                     class="min-w-[500px]"
+                                                >
+                                                    {{ strip_tags(str($person->{$key})->limit(75, '...')) }}
+                                                </div>
                                             @else
                                                 @if(str($person->{$key})->contains('http'))
                                                     {!! $linkify->process(str($person->{$key})) !!}
