@@ -53,7 +53,10 @@ class Index extends Component
         'relationship' => 'relationship_to_ww',
         'notes' => 'notes',
         'researcher_text' => 'researcher',
+        'bio' => 'biography',
+        'footnotes' => 'footnote',
         'bio_completed_at' => 'date_bio_completed',
+        'bio_approved_at' => 'date_bio_approved',
     ];
 
     protected $queryString = [
