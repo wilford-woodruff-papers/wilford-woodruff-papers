@@ -32,6 +32,7 @@ class Index extends Component
         'tagged' => true,
         'starts_with' => '',
         'completed' => '',
+        'approved' => '',
         'researcher' => '',
     ];
 
@@ -130,6 +131,13 @@ class Index extends Component
                 $query = $query->whereNotNull('bio_completed_at');
             } elseif ($this->filters['completed'] == 'false') {
                 $query = $query->whereNull('bio_completed_at');
+            }
+        }
+        if (array_key_exists('approved', $this->filters) && ! empty($this->filters['approved'])) {
+            if ($this->filters['approved'] == 'true') {
+                $query = $query->whereNotNull('bio_approved_at');
+            } elseif ($this->filters['approved'] == 'false') {
+                $query = $query->whereNull('bio_approved_at');
             }
         }
         if (array_key_exists('starts_with', $this->filters) && ! empty($this->filters['starts_with'])) {

@@ -2,7 +2,7 @@
 
 namespace App\Imports;
 
-use App\Jobs\AssignCategoryToPeopleFromMasterFileAction;
+use App\Jobs\ImportBioApprovedAtFromMasterFileAction;
 use App\Jobs\ImportPeopleIdentificationFileAction;
 use App\Jobs\ImportPeopleMasterFileAction;
 use Illuminate\Support\Collection;
@@ -30,8 +30,8 @@ class PeopleFromPcfActions implements ToCollection, WithHeadingRow
                     ImportPeopleIdentificationFileAction::dispatch($row)
                         ->onQueue('import');
                     break;
-                case 'Assign Category':
-                    AssignCategoryToPeopleFromMasterFileAction::dispatch($row)
+                case 'Import Bio Approved At':
+                    ImportBioApprovedAtFromMasterFileAction::dispatch($row)
                         ->onQueue('import');
                     break;
             }

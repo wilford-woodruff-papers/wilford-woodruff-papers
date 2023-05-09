@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -16,7 +17,10 @@ class Subject extends Model
 
     protected $casts = [
         'geolocation' => 'array',
-        'bio_approved_at' => 'date',
+        //'bio_approved_at' => 'date',
+        'added_to_ftp_at' => 'date',
+        'bio_completed_at' => 'date',
+        'place_confirmed_at' => 'date',
     ];
 
     protected function displayName(): Attribute
@@ -43,6 +47,24 @@ class Subject extends Model
                 return $name;
             },
         );
+    }
+
+    public function getBioApprovedAtAttribute()
+    {
+        if (str($this->attributes['bio_approved_at'])->contains('-')) {
+            return Carbon::createFromFormat('Y-m-d', $this->attributes['bio_approved_at'])->toDateString();
+        }
+
+        return $this->attributes['bio_approved_at'];
+    }
+
+    public function getBioCompletedAtAttribute()
+    {
+        if (str($this->attributes['bio_completed_at'])->contains('-')) {
+            return Carbon::createFromFormat('Y-m-d', $this->attributes['bio_completed_at'])->toDateString();
+        }
+
+        return $this->attributes['bio_completed_at'];
     }
 
     public function category()
