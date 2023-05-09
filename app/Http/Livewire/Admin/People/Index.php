@@ -60,6 +60,14 @@ class Index extends Component
         'bio_approved_at' => 'date_bio_approved',
     ];
 
+    public $searchColumns = [
+        'pid' => 'pid_fsid',
+        'first_name' => 'given_name',
+        'middle_name' => 'middle_name',
+        'last_name' => 'surname',
+        'alternate_names' => 'alternate_names',
+    ];
+
     protected $queryString = [
         'sorts',
         'filters' => ['except' => ''],
@@ -106,7 +114,7 @@ class Index extends Component
             })
             ->when(array_key_exists('search', $this->filters) && $this->filters['search'], function ($query, $search) {
                 $query->where(function ($query) {
-                    foreach (['name' => 'name'] + $this->columns as $key => $column) {
+                    foreach (['name' => 'name'] + $this->searchColumns as $key => $column) {
                         if (! str($key)->startsWith('z')) {
                             $query->orWhere($key, 'like', '%'.$this->filters['search'].'%');
                         }
