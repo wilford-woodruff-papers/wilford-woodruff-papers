@@ -135,6 +135,8 @@
                                         <option value="50">50</option>
                                         <option value="100">100</option>
                                         <option value="200">200</option>
+                                        <option value="400">400</option>
+                                        <option value="600">600</option>
                                     </x-input.select>
                                 </x-input.group>
                             </div>
