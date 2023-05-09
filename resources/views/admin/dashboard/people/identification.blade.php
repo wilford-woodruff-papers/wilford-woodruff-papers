@@ -519,13 +519,13 @@
                                                 <input type="date"
                                                        name="completed_at"
                                                        id="completed_at"
-                                                       value="{{ old('completed_at', $person->completed_at) }}"
+                                                       value="{{ old('completed_at', $person->completed_at?->toDateString()) }}"
                                                        class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                                 />
                                             @else
                                                 <div>
                                                     @if(! empty($person->completed_at))
-                                                        {!! $person->completed_at !!}
+                                                        {!! $person->completed_at?->toDateString() !!}
                                                     @else
                                                         <span class="text-gray-500">Not completed.</span>
                                                     @endif
