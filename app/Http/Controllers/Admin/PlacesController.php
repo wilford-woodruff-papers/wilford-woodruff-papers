@@ -65,7 +65,10 @@ class PlacesController extends Controller
      */
     public function create()
     {
-        $place = new Subject();
+        $place = new Subject([
+            'bio_completed_at' => null,
+            'bio_approved_at' => null,
+        ]);
 
         return view('admin.dashboard.places.edit', [
             'place' => $place,
