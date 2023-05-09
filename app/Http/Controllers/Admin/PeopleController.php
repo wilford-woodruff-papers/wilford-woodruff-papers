@@ -133,6 +133,8 @@ class PeopleController extends Controller
         $person = new Subject();
 
         $this->rules['pid'] = [
+            'nullable',
+            'sometimes',
             'max:191',
             'required_with:pid_identified_at',
             'unique:subjects,pid',
@@ -199,6 +201,8 @@ class PeopleController extends Controller
     public function update(Request $request, Subject $person)
     {
         $this->rules['pid'] = [
+            'nullable',
+            'sometimes',
             'max:191',
             'required_with:pid_identified_at',
             Rule::unique('subjects')->ignore($person->id),
