@@ -420,7 +420,7 @@
                                             </div>
                                         @else
                                             @if(! empty($place->bio_completed_at))
-                                                <div class="pt-3 text-gray-500">{{ $place->bio_completed_at?->toDayDateTimeString() }}</div>
+                                                <div class="pt-3 text-gray-500">{{ $place->bio_completed_at }}</div>
                                             @else
                                                 <div class="pt-3 text-gray-500 text-red-700">Not Completed</div>
                                             @endif
@@ -452,7 +452,7 @@
                                             </div>
                                         @else
                                             @if(! empty($place->bio_approved_at))
-                                                <div class="pt-3 text-gray-500">{{ $place->bio_approved_at?->toDayDateTimeString() }}</div>
+                                                <div class="pt-3 text-gray-500">{{ $place->bio_approved_at }}</div>
                                             @else
                                                 <div class="pt-3 text-gray-500 text-red-700">Not Approved</div>
                                             @endif

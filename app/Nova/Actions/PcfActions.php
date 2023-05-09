@@ -93,7 +93,7 @@ class PcfActions extends Action
                     'Import Master File' => 'Import Master File',
                     'Import Publish Dates' => 'Import Publish Dates (Any)',
                     'Import Identification' => 'Import Identification',
-                    'Assign Category' => 'Assign Category',
+                    'Import Bio Approved At' => 'Import Bio Approved At',
                 ])
                 ->rules('required'),
             File::make('File')

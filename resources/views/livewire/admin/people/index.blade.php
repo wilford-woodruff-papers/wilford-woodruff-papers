@@ -63,6 +63,15 @@
                                     </x-input.group>
                                 </div>
                                 <div class="pr-2 space-y-4">
+                                    <x-input.group borderless for="filter-type" label="Bio Approved">
+                                        <x-input.select wire:model="filters.approved" id="filter-type">
+                                            <option value=""> -- All -- </option>
+                                            <option value="false"> Bio Not Approved </option>
+                                            <option value="true"> Bio Approved </option>
+                                        </x-input.select>
+                                    </x-input.group>
+                                </div>
+                                <div class="pr-2 space-y-4">
                                     <x-input.group borderless for="filter-type" label="Status">
                                         <x-input.select wire:model="filters.tagged" id="filter-type">
                                             <option value=""> -- All -- </option>
