@@ -105,7 +105,10 @@ class PeopleController extends Controller
      */
     public function create()
     {
-        $person = new Subject();
+        $person = new Subject([
+            'bio_completed_at' => null,
+            'bio_approved_at' => null,
+        ]);
 
         return view('admin.dashboard.people.edit', [
             'person' => $person,
