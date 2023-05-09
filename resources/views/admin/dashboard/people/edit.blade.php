@@ -234,7 +234,7 @@
                                             <input type="date"
                                                    name="added_to_ftp_at"
                                                    id="added_to_ftp_at"
-                                                   value="{{ old('added_to_ftp_at', $person->added_to_ftp_at) }}"
+                                                   value="{{ old('added_to_ftp_at', $person->added_to_ftp_at?->toDateString()) }}"
                                                    class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                             />
                                         </div>
@@ -514,8 +514,8 @@
                                                 </div>
                                             </div>
                                         @else
-                                            @if(! empty($bio_approved_at = old('bio_approved_at', $person->bio_approved_at)))
-                                                <div class="pt-3 text-gray-500">{{ $bio_approved_at?->toDayDateTimeString() }}</div>
+                                            @if(! empty($person->bio_approved_at)))
+                                                <div class="pt-3 text-gray-500">{{ $person->bio_approved_at }}</div>
                                             @else
                                                 <div class="pt-3 text-gray-500 text-red-700">Not Approved</div>
                                             @endif
