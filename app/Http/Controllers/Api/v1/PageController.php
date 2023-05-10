@@ -70,6 +70,6 @@ class PageController extends Controller
     public function export()
     {
         return Storage::disk('exports')
-            ->download('pages-export.xlsx', now('America/Denver')->toDateString().'-pages-export.xlsx');
+            ->download('pages-export.csv', now('America/Denver')->toDateString().'-pages-export.csv');
     }
 }
