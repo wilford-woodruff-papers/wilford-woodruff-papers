@@ -97,6 +97,12 @@ class Kernel extends ConsoleKernel
             ->dailyAt('4:10 AM')
             ->timezone('America/Denver')
             ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org');
+
+        $schedule->command('pages:export')
+            ->sundays()
+            ->timezone('America/Denver')
+            ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org')
+            ->pingOnSuccess('http://beats.envoyer.io/heartbeat/hh0S9mWgC3Gc8ky');
     }
 
     /**
