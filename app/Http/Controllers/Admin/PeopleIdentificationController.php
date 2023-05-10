@@ -132,6 +132,10 @@ class PeopleIdentificationController extends Controller
             Notification::send($users, new NewCorrectionNeeded($person));
         }
 
+        if ($request->get('action') == 'new') {
+            return redirect()->route('admin.dashboard.identification.people.create');
+        }
+
         return redirect()->route('admin.dashboard.identification.people.edit', ['identification' => $person]);
     }
 
@@ -178,6 +182,10 @@ class PeopleIdentificationController extends Controller
         $person->save();
 
         $request->session()->flash('success', 'Person updated successfully!');
+
+        if ($request->get('action') == 'new') {
+            return redirect()->route('admin.dashboard.identification.people.create');
+        }
 
         return redirect()->route('admin.dashboard.identification.people.edit', ['identification' => $person]);
     }
