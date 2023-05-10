@@ -133,6 +133,10 @@ class PlacesIdentificationController extends Controller
             Notification::send($users, new NewCorrectionNeeded($place));
         }
 
+        if ($request->get('action') == 'new') {
+            return redirect()->route('admin.dashboard.identification.palces.create');
+        }
+
         return redirect()->route('admin.dashboard.identification.places.edit', ['identification' => $place]);
     }
 
@@ -179,6 +183,10 @@ class PlacesIdentificationController extends Controller
         $place->save();
 
         $request->session()->flash('success', 'Place updated successfully!');
+
+        if ($request->get('action') == 'new') {
+            return redirect()->route('admin.dashboard.identification.places.create');
+        }
 
         return redirect()->route('admin.dashboard.identification.places.edit', ['identification' => $place]);
     }
