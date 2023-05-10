@@ -17,6 +17,8 @@ class PartnerCategory extends Resource
 
     public static $group = 'Website';
 
+    public static $defaultSortField = 'order_column';
+
     /**
      * The model the resource corresponds to.
      *
