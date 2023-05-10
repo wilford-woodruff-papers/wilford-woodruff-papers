@@ -27,6 +27,7 @@
                                                     'Unknown People' => ['url' => route('admin.people.identification'), 'auth' => 'true'],
                                                     'Unknown Places' => ['url' => route('admin.places.identification'), 'auth' => 'true']]"
                         />
+                    @endif
                     @if(auth()->user()->hasAnyRole(['Quote Tagging', 'Approve Quotes', 'Admin', 'Super Admin']))
                         <x-admin.menu.dropdown :text="'QUOTES'" :links="['Needs Approval' => ['url' => route('admin.dashboard.quotes.index'), 'auth' => 'true'], 'Search' => ['url' => route('admin.quotes.search'), 'auth' => 'true']]"/>
                     @endif
