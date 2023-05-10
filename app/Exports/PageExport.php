@@ -11,12 +11,18 @@ use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Excel;
 
 class PageExport implements FromQuery, ShouldQueue, WithMapping, WithHeadings
 {
     use Exportable;
 
     public $user;
+
+    /**
+     * Optional Writer Type
+     */
+    private $writerType = Excel::CSV;
 
     public function __construct(User $user)
     {
