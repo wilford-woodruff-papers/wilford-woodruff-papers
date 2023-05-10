@@ -16,7 +16,7 @@ class Search extends Component
 
     public $search = null;
 
-    public $topics = [];
+    public $topics;
 
     protected $queryString = [
         'selectedTopic',
@@ -42,11 +42,12 @@ class Search extends Component
                 $query->where('text', 'LIKE', '%'.$this->search.'%');
             });
 
-        if ($this->readyToLoad && empty($this->topics)) {
+        if ($this->readyToLoad) {
             $this->topics = \App\Models\Subject::query()
                 ->select([
                     'subjects.id',
                     'subjects.name',
+                    'subjects.slug',
                 ])
                 ->withCount(['quotes' => function (Builder $query) {
                     $query->whereHas('actions');
@@ -57,8 +58,7 @@ class Search extends Component
                 ->whereNull('subject_id')
                 ->has('pages')
                 ->orderBy('name')
-                ->get()
-                ->toArray();
+                ->get();
         }
 
         return view('livewire.admin.quotes.search', [

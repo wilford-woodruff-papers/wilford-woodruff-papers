@@ -23,20 +23,24 @@
                     Topics
                 </h3>
                 <div class="mt-1 space-y-1" role="group" aria-labelledby="desktop-teams-headline">
-                    @foreach($topics as $topic)
-                        @if($topic['quotes_count'] > 0)
-                            <span wire:click="$set('selectedTopic', '{{ $topic['id'] }}')"
-                                  wire:key="topic_{{ $topic['id'] }}"
-                                  class="flex items-center py-2 px-2 text-sm font-medium group cursor-pointer @if($selectedTopic == $topic['id']) bg-secondary text-white @endif">
-                                <span class="flex-1">
-                                    {{ $topic['name'] }}
-                                </span>
-                                <span class="inline-block py-0.5 px-3 ml-3 text-xs font-medium @if($selectedTopic != $topic['id']) bg-secondary text-white  @endif rounded-full ">
-                                    {{ $topic['quotes_count'] }}
-                                </span>
-                            </span>
-                        @endif
-                    @endforeach
+                    @if(! empty($topics))
+                        @foreach($topics as $topic)
+                            <div>
+                                @if($topic->quotes_count > 0)
+                                    <span wire:click="$set('selectedTopic', '{{ $topic->id }}')"
+                                          wire:key="topic_{{ $topic->id }}"
+                                          class="flex items-center py-2 px-2 text-sm font-medium group cursor-pointer @if($selectedTopic == $topic->id) bg-secondary text-white @endif">
+                                        <span class="flex-1">
+                                            {{ $topic->name }}
+                                        </span>
+                                        <span class="inline-block py-0.5 px-3 ml-3 text-xs font-medium @if($selectedTopic != $topic->id) bg-secondary text-white  @endif rounded-full ">
+                                            {{ $topic->quotes_count }}
+                                        </span>
+                                    </span>
+                                @endif
+                            </div>
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </div>
