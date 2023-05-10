@@ -158,6 +158,10 @@ class PeopleController extends Controller
 
         $request->session()->flash('success', 'Person created successfully!');
 
+        if ($request->get('action') == 'new') {
+            return redirect()->route('admin.dashboard.people.create');
+        }
+
         return redirect()->route('admin.dashboard.people.edit', ['person' => $person]);
     }
 
@@ -234,7 +238,11 @@ class PeopleController extends Controller
 
         $request->session()->flash('success', 'Person updated successfully!');
 
-        return redirect()->route('admin.dashboard.people.edit', ['person' => $person->slug]);
+        if ($request->get('action') == 'new') {
+            return redirect()->route('admin.dashboard.people.create');
+        }
+
+        return redirect()->back();
     }
 
     /**
