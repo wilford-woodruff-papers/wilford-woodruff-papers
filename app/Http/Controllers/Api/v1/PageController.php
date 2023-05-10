@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Page;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PageController extends Controller
 {
@@ -64,5 +65,11 @@ class PageController extends Controller
     public function show(Page $page)
     {
         return $page;
+    }
+
+    public function export()
+    {
+        return Storage::disk('exports')
+            ->download('pages-export.xlsx');
     }
 }

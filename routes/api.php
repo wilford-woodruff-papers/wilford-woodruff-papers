@@ -29,6 +29,8 @@ Route::middleware(['auth:sanctum', 'throttle:30'])
             ->name('api.pages.index');
         Route::get('pages/{page}', [\App\Http\Controllers\Api\v1\PageController::class, 'show'])
             ->name('api.pages.show');
+        Route::get('pages/export', [\App\Http\Controllers\Api\v1\PageController::class, 'export'])
+            ->name('api.pages.export');
 
         Route::get('subjects', [\App\Http\Controllers\Api\v1\SubjectController::class, 'index'])
             ->name('api.subjects.index');
