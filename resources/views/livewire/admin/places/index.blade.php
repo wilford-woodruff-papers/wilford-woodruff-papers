@@ -116,6 +116,7 @@
                             <div class="py-2">
                                 <a href="{{ route('admin.dashboard.places.create') }}"
                                    class="py-2 px-4 text-white bg-indigo-600 border-indigo-600 hover:bg-indigo-500 active:bg-indigo-700"
+                                   target="_blank"
                                 ><x-icon.plus/> New</a>
                             </div>
                         </div><div x-data="{
