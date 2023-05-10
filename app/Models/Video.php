@@ -34,6 +34,10 @@ class Video extends Press implements HasMedia, \OwenIt\Auditing\Contracts\Audita
             $link = $link->replace('https://youtu.be/', 'https://www.youtube.com/watch?v=');
         }
 
+        if ($link->contains('shorts')) {
+            $link = $link->replace('shorts', 'embed');
+        }
+
         if ($link->contains('watch?v=')) {
             $link = $link->replace('watch?v=', 'embed/')->replaceFirst('&', '?');
         }
