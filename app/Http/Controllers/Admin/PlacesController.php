@@ -134,6 +134,10 @@ class PlacesController extends Controller
 
         $request->session()->flash('success', 'place created successfully!');
 
+        if ($request->get('action') == 'new') {
+            return redirect()->route('admin.dashboard.places.create');
+        }
+
         return redirect()->route('admin.dashboard.places.edit', ['place' => $place]);
     }
 
@@ -227,7 +231,11 @@ class PlacesController extends Controller
 
         $request->session()->flash('success', 'place updated successfully!');
 
-        return redirect()->route('admin.dashboard.places.edit', ['place' => $place->slug]);
+        if ($request->get('action') == 'new') {
+            return redirect()->route('admin.dashboard.places.create');
+        }
+
+        return redirect()->back();
     }
 
     /**
