@@ -16,9 +16,9 @@ class ExportPagesCommand extends Command
     public function handle(): void
     {
         $user = User::firstWhere('email', config('wwp.admin_email'));
-        $filename = 'pages-export.xlsx';
+        $filename = 'pages-export.csv';
         (new PageExport($user))
-            ->store($filename, 'exports')
+            ->store($filename, 'exports', \Maatwebsite\Excel\Excel::CSV)
             ->onQueue('exports')
             ->chain([
                 new NotifyUserOfCompletedExport(class_basename(PageExport::class), $filename, $user),
