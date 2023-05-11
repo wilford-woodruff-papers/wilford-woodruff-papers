@@ -28,6 +28,7 @@ class Search extends Component
         $quotes = \App\Models\Quote::query()
             ->with([
                 'page',
+                'page.parent',
                 'continuation',
                 'topics',
             ])
@@ -48,6 +49,9 @@ class Search extends Component
                     'subjects.id',
                     'subjects.name',
                     'subjects.slug',
+                ])
+                ->with([
+                    'category',
                 ])
                 ->withCount(['quotes' => function (Builder $query) {
                     $query->whereHas('actions');
