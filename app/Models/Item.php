@@ -298,19 +298,23 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
 
     public function toArray()
     {
-        return [
-            'id' => $this->id,
-            'uuid' => $this->uuid,
-            'name' => $this->name,
-            'links' => [
-                'frontend_url' => route('documents.show', ['item' => $this->uuid]),
-                'api_url' => route('api.documents.show', ['item' => $this->uuid]),
-                'images' => [
-                    'thumbnail_url' => $this->firstPage?->getFirstMedia()?->getUrl('thumb'),
-                    'original_url' => $this->firstPage?->getFirstMedia()?->getUrl(),
+        if ($this->exists) {
+            return [
+                'id' => $this->id,
+                'uuid' => $this->uuid,
+                'name' => $this->name,
+                'links' => [
+                    'frontend_url' => route('documents.show', ['item' => $this->uuid]),
+                    'api_url' => route('api.documents.show', ['item' => $this->uuid]),
+                    'images' => [
+                        'thumbnail_url' => $this->firstPage?->getFirstMedia()?->getUrl('thumb'),
+                        'original_url' => $this->firstPage?->getFirstMedia()?->getUrl(),
+                    ],
                 ],
-            ],
 
-        ];
+            ];
+        } else {
+            return array_merge($this->attributesToArray(), $this->relationsToArray());
+        }
     }
 }
