@@ -144,6 +144,15 @@ class PeopleController extends Controller
 
         $person->fill($validated);
 
+        if (empty($person->unique_id)) {
+            $uniqueId = Subject::query()
+                ->whereHas('category', function ($query) {
+                    $query->whereIn('categories.name', ['People']);
+                })
+                ->max('unique_id');
+            $person->unique_id = $uniqueId + 1;
+        }
+
         // TODO: Update the person's name
 
         $person->save();
