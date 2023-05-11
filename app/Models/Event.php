@@ -95,7 +95,8 @@ class Event extends Model implements HasMedia
 
         $event['text'] = [
             'headline' => $this->headline,
-            'text' => $this->text,
+            'text' => '<div class="view-more flex flex-col space-y-2"><div>'.$this->text.'</div><div><a href="#event-'.$this->id.'" class="bg-secondary py-1 px-2 text-sm" target="_self">View in Table</a></div></div>',
+            'autolink' => false,
         ];
 
         if ($this->photos->count() > 0) {

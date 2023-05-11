@@ -36,7 +36,8 @@
                                             </thead>
                                             <tbody>
                                                 @foreach($events as $event)
-                                                    <tr class="@if($loop->odd) bg-white @else bg-gray-50  @endif ">
+                                                    <tr id="event-{{ $event->id }}"
+                                                        class="@if($loop->odd) bg-white @else bg-gray-50  @endif ">
                                                         <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-normal">
                                                             @if($event->pages->count() > 0 && $event->pages->first()->parent?->uuid && $event->pages->first()?->uuid)
                                                                 <a class="text-secondary"
@@ -115,6 +116,9 @@
         <link title="timeline-styles" rel="stylesheet"
               href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
         <style>
+            .view-more a {
+                color: #ffffff !important;
+            }
             .tl-timemarker .tl-timemarker-content-container .tl-timemarker-content .tl-timemarker-text h2.tl-headline,
             .tl-timemarker .tl-timemarker-content-container .tl-timemarker-content .tl-timemarker-text h2.tl-headline p {
                 color: black;
