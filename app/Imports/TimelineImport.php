@@ -44,8 +44,12 @@ class TimelineImport implements ToCollection, WithHeadingRow
         ];
 
         foreach ($rows as $row) {
-            $event = Event::query()
-                ->findOrFail($this->getField($row['id']));
+            if (! empty($this->getField($row['id']))) {
+                $event = Event::query()
+                    ->findOrFail($this->getField($row['id']));
+            } else {
+                $event = new Event();
+            }
 
             foreach ($fields as $field => $properties) {
                 // Skip if the field is not in the csv
