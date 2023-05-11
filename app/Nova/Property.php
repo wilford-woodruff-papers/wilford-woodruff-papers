@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -43,6 +44,12 @@ class Property extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
             Text::make('Name')->sortable(),
+            Select::make('Type')->options([
+                'date' => 'Date',
+                'html' => 'Html',
+                'link' => 'Link',
+                'text' => 'Text',
+            ]),
         ];
     }
 
