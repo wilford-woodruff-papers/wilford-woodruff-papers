@@ -9,55 +9,57 @@ return new class extends Migration
      */
     public function up(): void
     {
-        \Illuminate\Support\Facades\DB::transaction(function () {
-            // Letters
-            $properties = $this->addLetterProperties();
+        if (! app()->environment(['testing'])) {
+            \Illuminate\Support\Facades\DB::transaction(function () {
+                // Letters
+                $properties = $this->addLetterProperties();
 
-            $type = \App\Models\Type::query()
-                ->firstWhere('name', 'Letters');
-            $template = \App\Models\Template::query()
-                ->firstOrCreate([
-                    'name' => 'Letters',
-                    'type_id' => $type->id,
-                ]);
-            $this->addTemplateProperties($template, $properties);
+                $type = \App\Models\Type::query()
+                    ->firstWhere('name', 'Letters');
+                $template = \App\Models\Template::query()
+                    ->firstOrCreate([
+                        'name' => 'Letters',
+                        'type_id' => $type->id,
+                    ]);
+                $this->addTemplateProperties($template, $properties);
 
-            // Discourses
-            $properties = $this->addDiscourseProperties();
+                // Discourses
+                $properties = $this->addDiscourseProperties();
 
-            $type = \App\Models\Type::query()
-                ->firstWhere('name', 'Discourses');
-            $template = \App\Models\Template::query()
-                ->firstOrCreate([
-                    'name' => 'Discourses',
-                    'type_id' => $type->id,
-                ]);
-            $this->addTemplateProperties($template, $properties);
+                $type = \App\Models\Type::query()
+                    ->firstWhere('name', 'Discourses');
+                $template = \App\Models\Template::query()
+                    ->firstOrCreate([
+                        'name' => 'Discourses',
+                        'type_id' => $type->id,
+                    ]);
+                $this->addTemplateProperties($template, $properties);
 
-            // Additional
-            $properties = $this->addAdditionalProperties();
+                // Additional
+                $properties = $this->addAdditionalProperties();
 
-            $type = \App\Models\Type::query()
-                ->firstWhere('name', 'Additional');
-            $template = \App\Models\Template::query()
-                ->firstOrCreate([
-                    'name' => 'Additional',
-                    'type_id' => $type->id,
-                ]);
-            $this->addTemplateProperties($template, $properties);
+                $type = \App\Models\Type::query()
+                    ->firstWhere('name', 'Additional');
+                $template = \App\Models\Template::query()
+                    ->firstOrCreate([
+                        'name' => 'Additional',
+                        'type_id' => $type->id,
+                    ]);
+                $this->addTemplateProperties($template, $properties);
 
-            // Daybooks
-            $properties = $this->addDaybookProperties();
+                // Daybooks
+                $properties = $this->addDaybookProperties();
 
-            $type = \App\Models\Type::query()
-                ->firstOrCreate(['name' => 'Daybooks']);
-            $template = \App\Models\Template::query()
-                ->firstOrCreate([
-                    'name' => 'Daybooks',
-                    'type_id' => $type->id,
-                ]);
-            $this->addTemplateProperties($template, $properties);
-        });
+                $type = \App\Models\Type::query()
+                    ->firstOrCreate(['name' => 'Daybooks']);
+                $template = \App\Models\Template::query()
+                    ->firstOrCreate([
+                        'name' => 'Daybooks',
+                        'type_id' => $type->id,
+                    ]);
+                $this->addTemplateProperties($template, $properties);
+            });
+        }
     }
 
     private function addAdditionalProperties()
