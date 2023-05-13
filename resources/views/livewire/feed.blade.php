@@ -137,7 +137,12 @@
                                      src="{{ \Illuminate\Support\Facades\Storage::disk('media')->url($media->cover_image)  }}"
                                      alt="{{ $media->title }}">--}}
                                 <div class="inline-block flex overflow-hidden relative items-center w-full image-parent h-128 bg-primary-50">
-                                    <div class="absolute z-0 z-10 w-full h-full bg-center bg-cover image-child" style="background-image: url({{ ($media->type == 'Instagram' ? $media->cover_image : \Illuminate\Support\Facades\Storage::disk('media')->url($media->cover_image)) }})">
+                                    <div class="absolute z-0 z-10 w-full h-full bg-center bg-cover image-child"
+                                         @if(! empty($media->cover_image))
+                                             style="background-image: url({{ ($media->type == 'Instagram' ? $media->cover_image : \Illuminate\Support\Facades\Storage::disk('media')->url($media->cover_image)) }})"
+                                         @endif
+
+                                    >
 
                                     </div>
                                     <div class="flex z-10 flex-row justify-center items-center py-3 w-full text-xl font-medium uppercase text-secondary bg-white-80">
@@ -232,7 +237,9 @@
                                 {{--<a href="{{ route('landing-areas.ponder.press', $article->slug) }}">--}}
                                     <div class="flex relative items-center py-5 px-2 space-x-3 bg-white shadow-sm focus-within:ring-2 focus-within:ring-offset-2 hover:border-gray-400 focus-within:ring-secondary">
                                         <div class="flex-shrink-0 w-14 h-14 bg-center bg-cover"
-                                             style="background-image: url({{ ($article->type == 'Instagram' ? $article->cover_image : \Illuminate\Support\Facades\Storage::disk('media')->url($article->cover_image))  }})"
+                                             @if(! empty($article->cover_image))
+                                                 style="background-image: url({{ ($article->type == 'Instagram' ? $article->cover_image : \Illuminate\Support\Facades\Storage::disk('media')->url($article->cover_image))  }})"
+                                             @endif
                                         >
 
                                         </div>
