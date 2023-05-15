@@ -39,6 +39,11 @@ class Press extends Model implements HasMedia
         return $this->belongsToMany(Author::class);
     }
 
+    public function scopeHasCoverImage()
+    {
+        return $this->whereNotNull('cover_image');
+    }
+
     /**
      * Get the options for generating the slug.
      */
