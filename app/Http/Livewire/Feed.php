@@ -36,6 +36,7 @@ class Feed extends Component
         $articles = Press::query()
                             ->select('id', 'type', 'title', 'cover_image', 'slug', 'date', 'subtitle', 'external_link_only', 'link', 'excerpt')
                             ->whereDate('date', '<=', DB::raw('NOW()'))
+                            ->hasCoverImage()
                             ->orderBy('date', 'DESC')
                             ->when(data_get($this->filters, 'search'), function ($query, $q) {
                                 $query->where('title', 'LIKE', '%'.$q.'%');
