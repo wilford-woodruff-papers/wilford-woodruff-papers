@@ -12,7 +12,7 @@
                     <div class="col-span-12 md:col-span-9 content videos">
                         <h2>Videos</h2>
                         @if($tags = \Spatie\Tags\Tag::withType('videos')->get())
-                            <div class="flex gap-4 px-4">
+                            <div class="flex-wrap gap-4 px-4">
                                 @foreach($tags as $tag)
                                     <a href="{{ route('media.videos', ['tag[]' => $tag->name]) }}"
                                        class="inline-flex items-center py-0.5 px-3 text-lg text-white bg-secondary">
