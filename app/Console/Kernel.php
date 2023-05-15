@@ -21,6 +21,7 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('import:items')
                  ->dailyAt('1:00 AM')
+                 ->withoutOverlapping()
                  ->timezone('America/Denver')
                  ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org')
                  ->pingOnSuccess('http://beats.envoyer.io/heartbeat/wc7wzwZhcB9Jfrk');
@@ -33,18 +34,21 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('import:contributions')
                  ->dailyAt('2:10 AM')
+                 ->withoutOverlapping()
                  ->timezone('America/Denver')
                  ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org')
                  ->pingOnSuccess('http://beats.envoyer.io/heartbeat/NBAuq5yMAJvwwS4');
 
         $schedule->command('topics:index')
             ->dailyAt('4:30 AM')
+            ->withoutOverlapping()
             ->timezone('America/Denver')
             ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org')
             ->pingOnSuccess('http://beats.envoyer.io/heartbeat/kCvDa59b9eOIquc');
 
         $schedule->command('topics:count')
             ->dailyAt('6:10 AM')
+            ->withoutOverlapping()
             ->timezone('America/Denver')
             ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org')
             ->pingOnSuccess('http://beats.envoyer.io/heartbeat/ccbDFveJkONtDEt');
@@ -98,11 +102,12 @@ class Kernel extends ConsoleKernel
             ->timezone('America/Denver')
             ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org');
 
-        /*$schedule->command('pages:export')
+        $schedule->command('pages:export')
             ->sundays()
+            ->withoutOverlapping()
             ->timezone('America/Denver')
             ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org')
-            ->pingOnSuccess('http://beats.envoyer.io/heartbeat/hh0S9mWgC3Gc8ky');*/
+            ->pingOnSuccess('http://beats.envoyer.io/heartbeat/hh0S9mWgC3Gc8ky');
     }
 
     /**
