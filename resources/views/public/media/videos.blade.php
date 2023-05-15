@@ -13,7 +13,7 @@
                         <h2>Videos</h2>
                         @if($tags = \Spatie\Tags\Tag::withType('videos')->get())
                             <div class="flex flex-wrap gap-y-2 gap-x-4 px-4">
-                                @foreach($tags as $tag)
+                                @foreach($tags->sortBy('name') as $tag)
                                     <a href="{{ route('media.videos', ['tag[]' => $tag->name]) }}"
                                        class="inline-flex items-center py-0.5 px-3 text-lg text-white bg-secondary">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 -ml-0.5 w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

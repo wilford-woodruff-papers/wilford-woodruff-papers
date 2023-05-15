@@ -141,7 +141,7 @@
                 @if(request()->is('media/photos*') && $tags = \Spatie\Tags\Tag::withType('photos')->get())
                     <div class="pl-4 mt-1 space-y-1" aria-labelledby="media-press-center-headline">
                         <div class="pl-4 space-y-4">
-                            @foreach($tags as $tag)
+                            @foreach($tags->sortBy('name') as $tag)
                                 <a href="{{ route('media.photos', ['tag[]' => $tag->name]) }}"
                                    class="group flex items-center px-3 py-2 text-sm font-medium @if(in_array($tag->name, request()->get('tag', []))) active @else @endif">
                                     <span class="truncate">
@@ -173,7 +173,7 @@
                 @if(request()->is('media/videos*') && $tags = \Spatie\Tags\Tag::withType('videos')->get())
                     <div class="pl-4 mt-1 space-y-1" aria-labelledby="media-press-center-headline">
                         <div class="pl-4 space-y-4">
-                            @foreach($tags as $tag)
+                            @foreach($tags->sortBy('name') as $tag)
                                 <a href="{{ route('media.videos', ['tag[]' => $tag->name]) }}"
                                    class="group flex items-center px-3 py-2 text-sm font-medium @if(in_array($tag->name, request()->get('tag', []))) active @else @endif">
                                     <span class="truncate">
