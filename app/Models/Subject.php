@@ -205,6 +205,10 @@ class Subject extends Model
 
     public function toArray()
     {
+        if (auth()->check() && auth()->user()->hasAnyRole(['Super Admin'])) {
+            return array_merge($this->attributesToArray(), $this->relationsToArray());
+        }
+
         return [
             'name' => $this->name,
             'types' => $this->category,
