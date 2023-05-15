@@ -12,6 +12,7 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Spatie\TagsField\Tags;
 
 class Article extends Resource
 {
@@ -96,6 +97,10 @@ class Article extends Resource
                 ->help('A link to the article should be provided if the Article is published on an external site.'),
             Boolean::make('Open in New Window?', 'external_link_only'),
             BelongsToMany::make('Authors')->hideFromIndex(),
+            Tags::make('Category', 'tags')
+                ->type('articles')
+                ->withMeta(['placeholder' => 'Add categories...'])
+                ->help('Type a category and hit \'Enter\' to add it. Existing tags will appear below the box as you type and can be clicked to add.'),
         ];
     }
 
