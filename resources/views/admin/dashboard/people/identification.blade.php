@@ -45,10 +45,12 @@
                                             name="action"
                                             value="continue"
                                             class="inline-flex justify-center py-2 px-12 text-sm font-medium text-white rounded-md border border-transparent shadow-sm focus:ring-2 focus:ring-offset-2 focus:outline-none bg-sky-700 hover:bg-sky-800 focus:ring-sky-500">Save</button>
-                                    <button type="submit"
-                                            name="action"
-                                            value="new"
-                                            class="inline-flex justify-center py-2 px-12 ml-12 text-sm font-medium text-white bg-green-700 rounded-md border border-transparent shadow-sm hover:bg-green-800 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:outline-none">Save & New</button>
+                                    @if(! $person->exists)
+                                        <button type="submit"
+                                                name="action"
+                                                value="new"
+                                                class="inline-flex justify-center py-2 px-12 ml-12 text-sm font-medium text-white bg-green-700 rounded-md border border-transparent shadow-sm hover:bg-green-800 focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:outline-none">Save & New</button>
+                                    @endif
                                 <a href="{{ route('admin.people.identification') }}"
                                    class="inline-flex justify-center py-2 px-12 ml-12 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:outline-none focus:ring-sky-500">Cancel</a>
                                 </div>
@@ -182,6 +184,19 @@
 
 
                             <div class="grid grid-cols-12 gap-6 mt-12">
+                                <div class="col-span-3">
+                                    <label for="title"
+                                           class="block text-sm font-medium text-gray-700"
+                                    >
+                                        <span class="font-semibold">Title</span>
+                                    </label>
+                                    <input type="text"
+                                           name="title"
+                                           id="title"
+                                           value="{{ old('title', $person->title) }}"
+                                           class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
+                                    />
+                                </div>
                                 <div class="col-span-3">
                                     <label for="first_middle_name"
                                            class="block text-sm font-medium text-gray-700"
