@@ -156,7 +156,7 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
     public function getScriptureLink($scripture)
     {
         $book = str($scripture)->match('/([1-9]*\s?[A-Za-z]+)/s')->toString();
-        $reference = str($scripture)->match('/([1-9]*:?[1-9-?]+)/s');
+        $reference = str($scripture)->match('/([0-9]+:?[0-9-]*)/s');
         $volume = $this->getVolume($book);
         $verseRange = '';
         // Sometimes the verse is a range "1-4" or might be non-existent
