@@ -158,7 +158,7 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
         $book = str($scripture)->match('/([1-9]*\s?[A-Za-z]+)/s')->toString();
         $reference = str($scripture)->match('/([1-9]*:?[1-9-?]+)/s');
         $volume = $this->getVolume($book);
-
+        $verseRange = '';
         // Sometimes the verse is a range "1-4" or might be non-existent
         if ($reference->isEmpty()) {
             $chapter = '';
@@ -166,7 +166,11 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
         } elseif ($reference->contains(':')) {
             $chapter = $reference->explode(':')->first();
             $verse = $reference->explode(':')->last();
+            $verseRange = "p$verse";
             if (str($verse)->contains('-')) {
+                $verseRange = str($verse)->explode('-')->map(function ($item) {
+                    return "p$item";
+                })->join('-');
                 $verse = str($verse)->explode('-')->first();
             }
         } else {
@@ -185,7 +189,7 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
             $query .= "/$chapter";
         }
         if (! empty($verse)) {
-            $query .= "?lang=eng&id=p$verse#p$verse";
+            $query .= "?lang=eng&id=$verseRange#p$verse";
         }
 
         return "https://www.churchofjesuschrist.org/study/scriptures/$query";
