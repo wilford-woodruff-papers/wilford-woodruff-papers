@@ -61,7 +61,7 @@ class Subject extends Model
     public function getBioCompletedAtAttribute()
     {
         if (str($this->attributes['bio_completed_at'])->contains('-')) {
-            return Carbon::createFromFormat('Y-m-d', $this->attributes['bio_completed_at'])->toDateString();
+            return Carbon::createFromFormat('Y-m-d', str($this->attributes['bio_completed_at'])->before(' '))->toDateString();
         }
 
         return $this->attributes['bio_completed_at'];
