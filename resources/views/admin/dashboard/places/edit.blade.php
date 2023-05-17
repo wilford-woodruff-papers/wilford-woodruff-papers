@@ -127,10 +127,10 @@
                                         Unique ID: {{ $place->unique_id ?? 'N/A' }}
                                     </div>
                                     <div>
-                                        Last Updated: {{ $place->updated_at?->toDayDateTimeString() }}
+                                        Last Updated: {{ $place->updated_at?->tz(auth()->user()->timzone ?? 'America/Denver')->toDayDateTimeString() }}
                                     </div>
                                     <div>
-                                        Created: {{ $place->created_at?->toDayDateTimeString() }}
+                                        Created: {{ $place->created_at?->tz(auth()->user()->timzone ?? 'America/Denver')->toDayDateTimeString() }}
                                     </div>
                                 </div>
                             </div>

@@ -312,7 +312,7 @@
                                                      wire:click="sortBy('updated_at')"
                                                      :direction="$sorts['updated_at'] ?? null">
                                     <div class="whitespace-nowrap">
-                                        {{ $place->updated_at->toDayDateTimeString() }}
+                                        {{ $place->updated_at?->tz(auth()->user()->timzone ?? 'America/Denver')->toDayDateTimeString() }}
                                     </div>
                                 </x-admin.quotes.cell>
 

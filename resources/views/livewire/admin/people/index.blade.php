@@ -360,7 +360,7 @@
 
                                 <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">
                                     <div class="whitespace-nowrap">
-                                        {{ $person->updated_at->toDayDateTimeString() }}
+                                        {{ $person->updated_at?->tz(auth()->user()->timzone ?? 'America/Denver')->toDayDateTimeString() }}
                                     </div>
                                 </x-admin.quotes.cell>
 
