@@ -56,6 +56,27 @@
                             </div>
                         </div>
                     @endif
+                    @if(! empty($sourceNotes) || ! empty($sourceLink))
+                        <div class="my-4 property">
+                            <h4>
+                                Document Source
+                            </h4>
+                            <div class="values">
+                                @if(! empty($sourceNotes))
+                                    <div>
+                                        {!! $sourceNotes->value !!}
+                                    </div>
+                                @endif
+                                @if(! empty($sourceLink))
+                                    <div>
+                                        <a href="{{ $sourceLink->value }}" target="_blank" class="text-secondary">
+                                            {{ str($sourceLink->value)->before('?') }}
+                                        </a>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                    @endif
                     @hasanyrole('Editor|Admin|Super Admin')
                         @if(! empty($item->count() > 0))
                             <div class="property">

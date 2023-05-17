@@ -263,6 +263,28 @@
                     "{{ \Illuminate\Support\Str::of($item->name)->replaceMatches('/\[.*?\]/', '')->trim() }}," {{ $page->page_date_range }}, The Wilford Woodruff Papers, accessed {{ now()->format('F j, Y') }}, {{ route('short-url.page', ['hashid' => $page->hashid()]) }}
                 </div>
             </div>
+
+            @if(! empty($sourceNotes) || ! empty($sourceLink))
+                <div class="property">
+                    <h4>
+                        Original Document/Image Source
+                    </h4>
+                    <div class="values">
+                        @if(! empty($sourceNotes))
+                            <div>
+                                {!! $sourceNotes->value !!}
+                            </div>
+                        @endif
+                        @if(! empty($sourceLink))
+                            <div>
+                                <a href="{{ $sourceLink->value }}" target="_blank" class="text-secondary">
+                                    {{ str($sourceLink->value)->before('?') }}
+                                </a>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
     <!-- End Modal for displaying subject quick view-->

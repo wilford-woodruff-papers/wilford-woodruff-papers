@@ -4,6 +4,8 @@ namespace App\Http\Livewire\Documents;
 
 use App\Models\Item;
 use App\Models\Page;
+use App\Models\Property;
+use App\Models\Value;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -19,6 +21,10 @@ class Show extends Component
 
     public Item $item;
 
+    public $sourceNotes = null;
+
+    public $sourceLink = null;
+
     protected $queryString = ['filters'];
 
     public function updatedFilters()
@@ -29,6 +35,31 @@ class Show extends Component
     public function mount(Item $item)
     {
         $this->item = $item;
+
+        $sourceNotesProperty = Property::query()
+            ->firstWhere('slug', 'source-notes-displays-publicly');
+
+        if ($sourceNotesProperty) {
+            $this->sourceNotes = Value::query()
+                ->where('item_id', $item->id)
+                ->where('property_id', $sourceNotesProperty->id)
+                ->whereNotNull('value')
+                ->first();
+        }
+
+        $sourceLinkProperty = Property::query()
+            ->whereIn('slug', [
+                'pdfimage',
+                'source-link',
+            ])->get();
+
+        if ($sourceLinkProperty) {
+            $this->sourceLink = Value::query()
+                ->where('item_id', $item->id)
+                ->whereIn('property_id', $sourceLinkProperty->pluck('id')->all())
+                ->whereNotNull('value')
+                ->first();
+        }
     }
 
     public function render()
