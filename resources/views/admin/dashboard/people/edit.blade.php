@@ -125,10 +125,10 @@
                                         Unique ID: {{ $person->unique_id ?? 'N/A' }}
                                     </div>
                                     <div>
-                                        Last Updated: {{ $person->updated_at?->toDayDateTimeString() }}
+                                        Last Updated: {{ $person->updated_at?->tz(auth()->user()->timzone ?? 'America/Denver')->toDayDateTimeString() }}
                                     </div>
                                     <div>
-                                        Created: {{ $person->created_at?->toDayDateTimeString() }}
+                                        Created: {{ $person->created_at?->tz(auth()->user()->timzone ?? 'America/Denver')->toDayDateTimeString() }}
                                     </div>
                                 </div>
                             </div>
