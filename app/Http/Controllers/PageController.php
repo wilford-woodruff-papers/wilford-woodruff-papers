@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use App\Models\Page;
+use App\Models\Property;
+use App\Models\Value;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\View\View;
 
@@ -18,11 +20,40 @@ class PageController extends Controller
             });
         }]);
 
+        $sourceNotes = null;
+        $sourceNotesProperty = Property::query()
+            ->firstWhere('slug', 'source-notes-displays-publicly');
+
+        if ($sourceNotesProperty) {
+            $sourceNotes = Value::query()
+                ->where('item_id', $item->id)
+                ->where('property_id', $sourceNotesProperty->id)
+                ->whereNotNull('value')
+                ->first();
+        }
+
+        $sourceLink = null;
+        $sourceLinkProperty = Property::query()
+            ->whereIn('slug', [
+                'pdfimage',
+                'source-link',
+            ])->get();
+
+        if ($sourceLinkProperty) {
+            $sourceLink = Value::query()
+                ->where('item_id', $item->id)
+                ->whereIn('property_id', $sourceLinkProperty->pluck('id')->all())
+                ->whereNotNull('value')
+                ->first();
+        }
+
         return view('public.pages.show', [
             'item' => $item,
             'page' => $page,
             'pages' => Page::where('parent_item_id', $item->id)
                         ->ordered()->get(),
+            'sourceNotes' => $sourceNotes,
+            'sourceLink' => $sourceLink,
         ]);
     }
 }
