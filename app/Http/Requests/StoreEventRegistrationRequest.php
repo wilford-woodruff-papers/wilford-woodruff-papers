@@ -25,7 +25,7 @@ class StoreEventRegistrationRequest extends FormRequest
             'first_name' => 'required|max:191',
             'last_name' => 'required|max:191',
             'email' => 'required|max:191|email',
-            'fields.*' => 'max:4096',
+            'fields.*' => 'max:2000',
         ];
     }
 }

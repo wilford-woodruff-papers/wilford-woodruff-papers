@@ -59,37 +59,71 @@
 
                                 <div class="grid grid-cols-1 gap-x-6 gap-y-8 py-12 max-w-2xl sm:grid-cols-6 md:col-span-1">
                                     <div class="sm:col-span-3">
-                                        <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900">First name <span class="text-red-700">*</span></label>
+                                        <label for="first-name" class="block text-base font-medium leading-6 text-gray-900">First name <span class="text-red-700">*</span></label>
                                         <div class="mt-2">
-                                            <input type="text" name="first_name" id="first-name" autocomplete="given-name" class="block py-1.5 w-full text-gray-900 rounded-md border-0 ring-1 ring-inset ring-gray-300 shadow-sm sm:text-sm sm:leading-6 focus:ring-2 focus:ring-inset placeholder:text-gray-400 focus:ring-secondary-600">
+                                            <input type="text"
+                                                   name="first_name"
+                                                   id="first-name"
+                                                   autocomplete="given-name"
+                                                   class="block py-1.5 w-full text-gray-900 rounded-md border-0 ring-1 ring-inset ring-gray-300 shadow-sm sm:text-sm sm:leading-6 focus:ring-2 focus:ring-inset placeholder:text-gray-400 focus:ring-secondary-600"
+                                                   maxlength="191"
+                                            >
                                         </div>
                                     </div>
 
                                     <div class="sm:col-span-3">
-                                        <label for="last-name" class="block text-sm font-medium leading-6 text-gray-900">Last name <span class="text-red-700">*</span></label>
+                                        <label for="last-name" class="block text-base font-medium leading-6 text-gray-900">Last name <span class="text-red-700">*</span></label>
                                         <div class="mt-2">
-                                            <input type="text" name="last_name" id="last-name" autocomplete="family-name" class="block py-1.5 w-full text-gray-900 rounded-md border-0 ring-1 ring-inset ring-gray-300 shadow-sm sm:text-sm sm:leading-6 focus:ring-2 focus:ring-inset placeholder:text-gray-400 focus:ring-secondary-600">
+                                            <input type="text"
+                                                   name="last_name"
+                                                   id="last-name"
+                                                   autocomplete="family-name"
+                                                   class="block py-1.5 w-full text-gray-900 rounded-md border-0 ring-1 ring-inset ring-gray-300 shadow-sm sm:text-sm sm:leading-6 focus:ring-2 focus:ring-inset placeholder:text-gray-400 focus:ring-secondary-600"
+                                                   maxlength="191"
+                                            >
                                         </div>
                                     </div>
 
                                     <div class="sm:col-span-4">
-                                        <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address <span class="text-red-700">*</span></label>
+                                        <label for="email" class="block text-base font-medium leading-6 text-gray-900">Email address <span class="text-red-700">*</span></label>
                                         <div class="mt-2">
-                                            <input id="email" name="email" type="email" autocomplete="email" class="block py-1.5 w-full text-gray-900 rounded-md border-0 ring-1 ring-inset ring-gray-300 shadow-sm sm:text-sm sm:leading-6 focus:ring-2 focus:ring-inset placeholder:text-gray-400 focus:ring-secondary-600">
+                                            <input id="email"
+                                                   name="email"
+                                                   type="email"
+                                                   autocomplete="email"
+                                                   class="block py-1.5 w-full text-gray-900 rounded-md border-0 ring-1 ring-inset ring-gray-300 shadow-sm sm:text-sm sm:leading-6 focus:ring-2 focus:ring-inset placeholder:text-gray-400 focus:ring-secondary-600"
+                                                   maxlength="191"
+                                            >
                                         </div>
                                     </div>
 
                                     <div class="col-span-full">
-                                        <label for="street-address" class="block text-sm font-medium leading-6 text-gray-900">Where is your missionary serving?</label>
+                                        <label for="street-address" class="block text-base font-medium leading-6 text-gray-900">Where is your missionary serving?</label>
                                         <div class="mt-2">
-                                            <input type="text" name="fields['Where is your missionary serving?']" id="street-address" autocomplete="street-address" class="block py-1.5 w-full text-gray-900 rounded-md border-0 ring-1 ring-inset ring-gray-300 shadow-sm sm:text-sm sm:leading-6 focus:ring-2 focus:ring-inset placeholder:text-gray-400 focus:ring-secondary-600">
+                                            <input type="text"
+                                                   name="fields['Where is your missionary serving?']"
+                                                   id="street-address"
+                                                   class="block py-1.5 w-full text-gray-900 rounded-md border-0 ring-1 ring-inset ring-gray-300 shadow-sm sm:text-sm sm:leading-6 focus:ring-2 focus:ring-inset placeholder:text-gray-400 focus:ring-secondary-600"
+                                                   maxlength="191"
+                                            >
                                         </div>
                                     </div>
 
-                                    <div class="col-span-full">
-                                        <label for="street-address" class="block text-sm font-medium leading-6 text-gray-900">What questions would you like to ask our guest Mission Presidents?</label>
+                                    <div x-data="{
+                                            text: '{{ old("fields.'What questions would you like to ask our guest Mission Presidents?'") }}',
+                                            count: 2000,
+                                        }"
+                                         x-init="$watch('text', text => count = 2000 - text.length)"
+                                         class="col-span-full">
+                                        <label for="street-address" class="block text-base font-medium leading-6 text-gray-900">What questions would you like to ask our guest Mission Presidents?</label>
                                         <div class="mt-2">
-                                            <textarea name="fields['What questions would you like to ask our guest Mission Presidents?']" id="street-address" autocomplete="street-address" class="block py-1.5 w-full text-gray-900 rounded-md border-0 ring-1 ring-inset ring-gray-300 shadow-sm sm:text-sm sm:leading-6 focus:ring-2 focus:ring-inset placeholder:text-gray-400 focus:ring-secondary-600">{{ old('') }}</textarea>
+                                            <textarea x-model="text"
+                                                      name="fields['What questions would you like to ask our guest Mission Presidents?']"
+                                                      id="street-address"
+                                                      class="block py-1.5 w-full text-gray-900 rounded-md border-0 ring-1 ring-inset ring-gray-300 shadow-sm sm:text-sm sm:leading-6 focus:ring-2 focus:ring-inset placeholder:text-gray-400 focus:ring-secondary-600"
+                                                      rows="4"
+                                            >{{ old("fields.'What questions would you like to ask our guest Mission Presidents?'") }}</textarea>
+                                            <div class="flex justify-end text-sm text-gray-900">Characters remaining: <span x-text="count"></span></div>
                                         </div>
                                     </div>
 
