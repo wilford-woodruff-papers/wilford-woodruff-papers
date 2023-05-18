@@ -115,7 +115,7 @@ class PlacesController extends Controller
             $place->city,
             $place->county,
             $place->state_province,
-            $place->country,
+            $place->includeCountryInName($place->state_province, $place->country),
         ])
             ->filter()
             ->implode(', ');
@@ -212,7 +212,7 @@ class PlacesController extends Controller
             $place->city,
             $place->county,
             $place->state_province,
-            $place->country,
+            $place->includeCountryInName($place->state_province, $place->country),
         ])
             ->filter()
             ->implode(', ');
@@ -235,7 +235,7 @@ class PlacesController extends Controller
             return redirect()->route('admin.dashboard.places.create');
         }
 
-        return redirect()->back();
+        return redirect()->route('admin.dashboard.places.edit', ['place' => $place]);
     }
 
     /**
