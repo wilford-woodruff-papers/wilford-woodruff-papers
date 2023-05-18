@@ -218,4 +218,29 @@ class Subject extends Model
             ],
         ];
     }
+
+    public function includeCountryInName($state, $country)
+    {
+        if (! str($country)->is('United States')) {
+            return $country;
+        }
+
+        if (
+            str($country)->is('United States')
+            && str($state)->contains('Washington, D.C.')
+        ) {
+            return $country;
+        } elseif (
+            str($country)->is('United States')
+            && empty($state)
+        ) {
+            return $country;
+        } elseif (
+            str($country)->is('United States')
+        ) {
+            return null;
+        }
+
+        return $country;
+    }
 }
