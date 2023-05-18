@@ -22,6 +22,8 @@ Route::domain('{year}.'.config('app.url'))->group(function () {
             return redirect()->away(config('app.url').'/wilford-woodruffs-witness');
         } elseif ($subdomain == 'arts') {
             return redirect()->away(config('app.url').'/announcements/2023-building-latter-day-faith-conference-arts-contest-rules');
+        } elseif ($subdomain == 'panel') {
+            return redirect()->away(config('app.url').'/ask-me-anything-mission-president-panel');
         } else {
             return redirect()->to(config('app.url'));
         }
@@ -34,6 +36,28 @@ Route::get('language/{locale}', function ($locale) {
 
     return redirect()->back();
 })->name('language.locale');
+
+Route::get('/ask-me-anything-mission-president-panel', [\App\Http\Controllers\EventRegistrationController::class, 'create'])->name('event.show');
+Route::post('/ask-me-anything-mission-president-panel', [\App\Http\Controllers\EventRegistrationController::class, 'store'])->name('event.register')
+    ->middleware(\Spatie\Honeypot\ProtectAgainstSpam::class);
+
+Route::get('/ask-me-anything-mission-president-panel/calendar', function () {
+    $calendar = \Spatie\IcalendarGenerator\Components\Calendar::create('Wilford Woodruff Papers Foundation')
+        ->event([
+            \Spatie\IcalendarGenerator\Components\Event::create('Ask Me Anything Mission President Panel')
+                ->attendee('lexie.bailey@wilfordwoodruffpapers.org', 'Lexie Bailey')
+                ->address('https://us04web.zoom.us/j/77671877108?pwd=HycJgzh5jDYPhCSDRRMb7kloqYZU3P.1')
+                ->addressName('Zoom')
+                ->startsAt(new DateTime('25 June 2025 19:00', new DateTimeZone('America/Denver')))
+                ->endsAt(new DateTime('25 June 2025 20:00', new DateTimeZone('America/Denver')))
+                ->alertMinutesBefore(10, 'Ask Me Anything Mission President Panel is going to start in 10 minutes'),
+        ]);
+
+    return response($calendar->get(), 200, [
+        'Content-Type' => 'text/calendar; charset=utf-8',
+        'Content-Disposition' => 'attachment; filename="ask-me-anything-mission-president-panel.ics"',
+    ]);
+})->name('event.calendar');
 
 Route::get('/donate', [\App\Http\Controllers\DonationController::class, 'index'])->name('donate');
 Route::get('/', \App\Http\Controllers\HomeController::class)->name('home');
