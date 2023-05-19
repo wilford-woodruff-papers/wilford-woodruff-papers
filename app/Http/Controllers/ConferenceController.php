@@ -21,22 +21,22 @@ class ConferenceController extends Controller
                 'photos' => Storage::disk('spaces')->files('files/conferences/2023/images/highlights/thumbnails'),
                 'speakers' => [
                     [
-                        'name' => 'Laurel Thatcher Ulrich',
-                        'title' => 'Pulitzer Prize Winning Historian',
+                        'name' => 'Laurel Thatcher Ulrich, Pulitzer Prize Winning Author & Historian',
+                        'title' => 'Keynote Speaker',
                         'bio' => '<p>Laurel Thatcher Ulrich is an award-winning author and historian. She approaches history as a tribute to “the silent work of ordinary people.” Her work focuses on early American history and the history of women. In addition to the Pulitzer Prize she received for her book A Midwife’s Tale: The Life of Martha Ballard Based on Her Diary, 1785-1812, she has received numerous awards for teaching, scholarship and public service.</p><p>Laurel received a BA in English from the University of Utah and went on to earn an MA in English at Simmons College, taking one course a semester to allow her to raise her growing family. She went on to receive her PhD in Early American History from the University of New Hampshire, only five years after her fifth child was born. In 1995, she accepted a position at Harvard University as James Duncan Phillips Professor of Early American History and Professor of Women’s Studies.</p><p>Laurel has published seven books and numerous articles throughout her career. She has dedicated her life to learning and helping others learn about early American history, particularly as it relates to women of the Church of Jesus Christ of Latter-Day Saints. Her work has touched the lives of students, historians and scholars across the globe.</p>',
-                        'video' => 'https://www.youtube.com/embed/vtQyUqwHN6k',
+                        'video' => 'https://youtube.com/embed/IjivvYMSh3Y',
                     ],
                     [
-                        'name' => 'Ellie Hancock',
-                        'title' => '',
+                        'name' => 'Ellie Hancock, Award Winner',
+                        'title' => 'Missionary Faith in Persecution',
                         'bio' => '<p>Ellie Hancock graduated from Brigham Young University in April 2022 with a BA in History. Throughout the course of her studies, she was able to participate on numerous research projects in 19th century, British, religious and women’s history. She is fascinated by understanding the nuances of church history and is grateful to be able to preserve and promote the legacy of Wilford Woodruff in the ongoing restoration. Ellie is a recipient of the Carol Sorenson Smith Award, earned through her research on missionary faith in persecution.</p>',
-                        'video' => 'https://www.youtube.com/embed/vtQyUqwHN6k',
+                        'video' => 'https://www.youtube.com/embed/jis0RPvO3vc',
                     ],
                     [
-                        'name' => 'Hovan Lawton',
-                        'title' => '',
+                        'name' => 'Hovan Lawton, Award Winner',
+                        'title' => 'Sacrifices of Those Called to Serve',
                         'bio' => '<p>Hovan Lawton is one of the recipients of the Carol Sorenson Smith Award, which he earned through his research on mission acceptance letters among early saints and the challenges that missionaries faced in the early days of the restoration. Hovan currently works as a Research Assistant while pursuing an MA from Utah State University. Hovan graduated from BYU in 2021 with a BA in history as department valedictorian. Before graduating, he worked for the Wilford Woodruff Papers Foundation as an editorial assistant. He has dedicated much of his time to researching the life of Wilford Woodruff and early American history.</p>',
-                        'video' => 'https://www.youtube.com/embed/vtQyUqwHN6k',
+                        'video' => 'https://www.youtube.com/embed/uVNPA1_HXQw',
                     ],
                     [
                         'name' => 'Joshua M. Matson',

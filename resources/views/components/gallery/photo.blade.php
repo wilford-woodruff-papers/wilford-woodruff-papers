@@ -1,7 +1,12 @@
 <div>
     <section class="gallery">
         <div class="container">
-            <h2 class="font-sans text-4xl font-semibold tracking-wide text-white leading-[3.5rem]">Conference Art</h2>
+            {{--<h2 class="py-8 mb-12 text-4xl font-black text-center text-white md:text-5xl">Conference Art</h2>--}}
+            <div class="!px-3 pt-6">
+                <img src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/conference-artwork-banner.png"
+                     class="w-full h-auto"
+                     alt="">
+            </div>
             <div class="contenedorImgs"></div>
         </div>
     </section>
@@ -214,7 +219,7 @@
                 padding: 0;
                 color: #1c1c1c;
                 box-sizing: border-box;
-                font-family: "Rajdhani", sans-serif;
+                font-family: 'Source Sans Pro', 'sans-serif';
             }
             body .gallery * li, body .gallery * ul {
                 list-style-type: none;
@@ -226,7 +231,7 @@
             .gallery {
                 width: 100%;
                 margin: 0 auto;
-                background-color: #1c1c1c;
+                background-color: #792310;
                 overflow: hidden;
             }
             .gallery.vis .container h1, .gallery.vis .container h2 {
@@ -284,10 +289,10 @@
             .gallery .container h1, .gallery .container h2 {
                 opacity: 0;
                 color: #fff;
-                font-weight: 500;
+                /*font-weight: 500;*/
                 text-align: center;
                 letter-spacing: 1px;
-                text-transform: uppercase;
+                /*text-transform: uppercase;*/
                 transform: translateY(-30px);
                 transition: ease all 0.5s;
             }
@@ -346,7 +351,7 @@
                 font-size: 30px;
                 text-align: center;
                 transform: translateY(100%);
-                text-shadow: -2px -2px 5px #1c1c1c;
+                /*text-shadow: -2px -2px 5px #1c1c1c;*/
                 transition: cubic-bezier(0.68, -0.55, 0.27, 1.55) all 0.5s;
             }
 
