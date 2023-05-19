@@ -28,7 +28,37 @@
 
         <div class="grid grid-cols-1 gap-8 px-8">
             @foreach($speakers as $speaker)
-                <div class="grid grid-cols-5">
+                <div class="grid grid-cols-5 gap-x-4 items-center my-24 mx-auto max-w-7xl">
+                    <div class="col-span-5 md:col-span-3 @if($loop->odd) order-2 md:order-1 @else order-2 md:order-2 @endif pt-4 md:pt-0 px-4 md:px-12">
+                        <h2 class="text-base font-extrabold tracking-tight text-gray-900 lg:text-2xl">
+                            {{ $speaker['title'] }}
+                        </h2>
+                        <div class="pt-1 my-4 border-t border-gray-200">
+                            <div class="flex items-center mt-3 space-x-3">
+                                <div class="text-sm font-semibold text-gray-900 lg:text-lg">
+                                    {{ $speaker['name'] }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex gap-x-4 mt-4 text-base text-gray-800 lg:text-lg">
+                            @if(! empty($speaker['bio']))
+                                <div class="text-sm text-dark-blue">
+                                    {!! $speaker['bio'] !!}
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col-span-5 md:col-span-2 @if($loop->odd) order-1 md:order-2 @else order-1 md:order-1 @endif">
+                        <div class="mx-auto w-[260px] h-[160px] lg:w-[480px] lg:h-[310px]">
+                            <iframe class="w-[260px] h-[160px] lg:w-[480px] lg:h-[310px]" src="{{ $speaker['video'] }}?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                {{--<div class="grid grid-cols-5">
                     <div class="col-span-2">
                         <iframe class="w-full aspect-[16/9]"
                                 src="{{ $speaker['video'] }}?rel=0"
@@ -51,7 +81,7 @@
                     <div class="text-base text-dark-blue">
                         {!! $speaker['bio'] !!}
                     </div>
-                @endif
+                @endif--}}
             @endforeach
         </div>
 {{--
@@ -202,7 +232,7 @@
 
     <div class="h-16"></div>
 
-    <div>
+    <div class="mb-32">
         <x-gallery.photo />
     </div>
 
@@ -216,6 +246,10 @@
                 </div>
             @endforeach
         </div>--}}
+
+        <h2 class="py-8 mb-12 text-4xl font-black text-center md:text-6xl text-secondary">
+            Conference Photos
+        </h2>
         <div class="gallery-container" id="animated-thumbnails-gallery">
             @foreach($photos as $photo)
                 <a href="{{ \Illuminate\Support\Facades\Storage::disk('spaces')->url(str($photo)->replace('thumbnails', 'medium')) }}" data-lg-size="1600-2400">
@@ -226,6 +260,8 @@
             @endforeach
         </div>
     </div>
+    @push('styles')
+    @endpush
     @push('scripts')
         <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.css'>
         <link type="text/css" rel="stylesheet" href="{{ asset('css/lightgallery.css') }}" />
