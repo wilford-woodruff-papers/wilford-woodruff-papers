@@ -102,12 +102,12 @@ class Kernel extends ConsoleKernel
             ->timezone('America/Denver')
             ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org');
 
-        $schedule->command('pages:export')
+        /*$schedule->command('pages:export')
             ->sundays()
             ->withoutOverlapping()
             ->timezone('America/Denver')
             ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org')
-            ->pingOnSuccess('http://beats.envoyer.io/heartbeat/hh0S9mWgC3Gc8ky');
+            ->pingOnSuccess('http://beats.envoyer.io/heartbeat/hh0S9mWgC3Gc8ky');*/
     }
 
     /**
