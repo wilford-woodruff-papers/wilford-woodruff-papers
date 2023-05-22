@@ -46,7 +46,7 @@ class Goals extends Component
     {
         if (! auth()->user()->hasRole(\App\Models\Type::query()->whereNull('type_id')->pluck('name')->transform(function ($type) {
             return $type.' Supervisor';
-        })->all())) {
+        })->push('Admin')->push('Super Admin')->all())) {
             abort(403);
         }
         $this->goal = new Goal(['finish_at' => now()->endOfMonth()]);
