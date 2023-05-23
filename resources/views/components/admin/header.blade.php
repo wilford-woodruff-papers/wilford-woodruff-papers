@@ -29,7 +29,10 @@
                         />
                     @endif
                     @if(auth()->user()->hasAnyRole(['Quote Tagging', 'Approve Quotes', 'Admin', 'Super Admin']))
-                        <x-admin.menu.dropdown :text="'QUOTES'" :links="['Needs Approval' => ['url' => route('admin.dashboard.quotes.index'), 'auth' => 'true'], 'Search' => ['url' => route('admin.quotes.search'), 'auth' => 'true']]"/>
+                        <x-admin.menu.dropdown :text="'QUOTES'" :links="[
+                                                'Needs Approval' => ['url' => route('admin.dashboard.quotes.index'), 'auth' => 'true'],
+                                                'Search' => ['url' => route('admin.quotes.search'), 'auth' => 'true'],
+                                                'Report' => ['url' => route('admin.quotes.report'), 'auth' => 'true']]"/>
                     @endif
                     <x-admin.menu.dropdown :text="'ADMIN'"
                                            :links="[
