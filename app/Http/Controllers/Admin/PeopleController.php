@@ -96,6 +96,8 @@ class PeopleController extends Controller
         'Scriptural Figures',
         '1835 Southern Converts',
         'Historical Figures',
+        'Stationery Header',
+        'Bishops in Letters',
     ];
 
     /**
