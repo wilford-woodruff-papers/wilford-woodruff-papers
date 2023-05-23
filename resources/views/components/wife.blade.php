@@ -2,13 +2,13 @@
 
             <div class="flex-1 min-w-0">
                 <div>
-                    <div class="text-sm" x-on:mouseenter="flyoutOpen = 'wife_{{ $wife->id }}'" x-on:mouseleave="flyoutOpen = null"><a class="text-3xl font-medium text-primary" target="person" href="/subjects/{{ $wife->person->slug }}">{{ $wife->name }}</a>
+                    <div class="text-sm" x-on:mouseenter="flyoutOpen = 'wife_{{ $wife->id }}'" x-on:mouseleave="flyoutOpen = null"><a class="text-3xl font-medium text-primary" target="person" href="/subjects/{{ $wife->person?->slug }}">{{ $wife->name }}</a>
 
                         <div class="absolute left-12 z-10 px-2 mt-3 w-screen max-w-md sm:px-0" x-description="" x-show="flyoutOpen == 'wife_{{ $wife->id }}'" x-transition:enter="transition ease-out duration-200" x-transition:enter-end="opacity-100 translate-y-0" x-transition:enter-start="opacity-0 translate-y-1" x-transition:leave="transition ease-in duration-150" x-transition:leave-end="opacity-0 translate-y-1" x-transition:leave-start="opacity-100 translate-y-0"
                         x-cloak
                         >
                             <div class="overflow-hidden ring-1 ring-black ring-opacity-5 shadow-lg">
-                                <div class="grid relative gap-2 py-6 px-5 bg-white sm:gap-2 sm:p-8"><a class="text-2xl font-medium border-b border-gray-200 text-primary" target="person" href="/subjects/{{ $wife->person->slug }}">{{ $wife->name }}</a>
+                                <div class="grid relative gap-2 py-6 px-5 bg-white sm:gap-2 sm:p-8"><a class="text-2xl font-medium border-b border-gray-200 text-primary" target="person" href="/subjects/{{ $wife->person?->slug }}">{{ $wife->name }}</a>
 
                                     <div class="grid relative grid-cols-7">
                                         <div class="col-span-2 pr-2 text-right text-gray-400">Birth</div>
