@@ -221,6 +221,10 @@ Route::middleware('role:Super Admin|Editor|Bio Editor')->group(function () {
         ->name('admin.quotes.search');
 
     Route::middleware(['auth:sanctum', 'verified'])
+        ->get('/admin/quotes/report', \App\Http\Controllers\Admin\QuoteTaggingReport::class)
+        ->name('admin.quotes.report');
+
+    Route::middleware(['auth:sanctum', 'verified'])
         ->get('/admin/search/people', App\Http\Livewire\Admin\People\Search::class)
         ->name('admin.people.search');
 
