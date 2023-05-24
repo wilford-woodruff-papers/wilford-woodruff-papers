@@ -3,9 +3,13 @@
         <div class="container">
             {{--<h2 class="py-8 mb-12 text-4xl font-black text-center text-white md:text-5xl">Conference Art</h2>--}}
             <div class="!px-3 pt-6">
-                <img src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/conference-artwork-banner.png"
-                     class="w-full h-auto"
-                     alt="">
+                <a href="https://airauctioneer.com/wilford-woodruff-project-art-auction"
+                   target="_blank"
+                >
+                    <img src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/conference-artwork-banner.png"
+                         class="w-full h-auto"
+                         alt="">
+                </a>
             </div>
             <div class="contenedorImgs"></div>
         </div>
@@ -18,9 +22,23 @@
                     {
                         type: 'image',
                         description: '',
-                        title: 'I Went Forward in Baptism',
-                        url: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2FI-went-forward-in-baptism.jpg',
-                        thumburl: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2FI-went-forward-in-baptism-thumb.jpg',
+                        title: 'I did not feel the cold - Wilford Woodruff\'s Baptism',
+                        url: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art/wilford-woodruffs-baptism.jpg',
+                        thumburl: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art/wilford-woodruffs-baptism-thumb.jpg',
+                    },
+                    {
+                        type: 'image',
+                        description: '',
+                        title: 'Language of Inspiration',
+                        url: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art/language-of-inspiration.jpg',
+                        thumburl: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art/language-of-inspiration-thumb.jpg',
+                    },
+                    {
+                        type: 'image',
+                        description: '',
+                        title: 'The Dawning of a Brighter Day',
+                        url: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art/the-dawning-of-a-brighter-day.png',
+                        thumburl: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art/the-dawning-of-a-brighter-day-thumb.jpg',
                     },
                     {
                         type: 'image',
@@ -28,6 +46,13 @@
                         title: 'Into',
                         url: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2Finto.jpg',
                         thumburl: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2Finto-thumb.jpg',
+                    },
+                    {
+                        type: 'image',
+                        description: '',
+                        title: 'I Went Forward in Baptism',
+                        url: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2FI-went-forward-in-baptism.jpg',
+                        thumburl: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2FI-went-forward-in-baptism-thumb.jpg',
                     },
                     {
                         type: 'image',

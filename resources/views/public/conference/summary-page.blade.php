@@ -20,9 +20,13 @@
         </div>
     </div>
 
+    <div class="px-4 pb-4 mx-auto max-w-5xl md:pb-8">
+        <iframe class="w-full aspect-[16/9]" src="https://www.youtube.com/embed/LisB6yEJ_Dk?rel=0" title="Building Latter-day Faith Conference | March 4, 2023 Highlight Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+
 
     <div class="px-4 pb-4 mx-auto max-w-7xl md:pb-8">
-        <h2 class="py-8 mb-12 text-4xl font-black text-center md:text-6xl text-secondary">
+        <h2 class="pt-12 text-4xl font-black text-center md:text-6xl text-secondary">
             Featured Speakers
         </h2>
 
@@ -52,6 +56,21 @@
                         <div class="mx-auto w-[260px] h-[160px] lg:w-[480px] lg:h-[310px]">
                             <iframe class="w-[260px] h-[160px] lg:w-[480px] lg:h-[310px]" src="{{ $speaker['video'] }}?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         </div>
+                        @if(! empty($speaker['article']))
+                            <a href="{{ $speaker['article'] }}"
+                               class="group"
+                                target="_blank"
+                            >
+                                <div class="flex gap-x-6 justify-center items-center text-lg text-secondary">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="inline mr-2 w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                    </svg>
+                                    <span class="group-hover:underline">
+                                        Read Article
+                                    </span>
+                                </div>
+                            </a>
+                        @endif
                     </div>
                 </div>
 
