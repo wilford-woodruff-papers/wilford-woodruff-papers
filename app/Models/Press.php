@@ -39,9 +39,9 @@ class Press extends Model implements HasMedia
         return $this->belongsToMany(Author::class);
     }
 
-    public function scopeHasCoverImage()
+    public function scopeHasCoverImage($query)
     {
-        return $this->whereNotNull('cover_image');
+        return $query->whereNotNull('cover_image');
     }
 
     /**
