@@ -225,11 +225,11 @@ Route::middleware('role:Super Admin|Editor|Bio Editor')->group(function () {
         ->name('admin.quotes.report');
 
     Route::middleware(['auth:sanctum', 'verified'])
-        ->get('/admin/search/people', App\Http\Livewire\Admin\People\Search::class)
+        ->get('/admin/search/people', \App\Http\Livewire\Admin\Subjects\People\Search::class)
         ->name('admin.people.search');
 
     Route::middleware(['auth:sanctum', 'verified'])
-        ->get('/admin/people', \App\Http\Livewire\Admin\People\Index::class)
+        ->get('/admin/people', \App\Http\Livewire\Admin\Subjects\People\Index::class)
         ->name('admin.people.index');
 
     Route::middleware(['auth:sanctum', 'verified'])
@@ -254,7 +254,7 @@ Route::middleware('role:Super Admin|Editor|Bio Editor')->group(function () {
 
     /* People Identification */
     Route::middleware(['auth:sanctum', 'verified'])
-        ->get('/admin/identification/people', \App\Http\Livewire\Admin\People\Identification::class)
+        ->get('/admin/identification/people', \App\Http\Livewire\Admin\Subjects\People\Identification::class)
         ->name('admin.people.identification');
 
     Route::middleware(['auth:sanctum', 'verified'])
@@ -280,7 +280,7 @@ Route::middleware('role:Super Admin|Editor|Bio Editor')->group(function () {
 
     /* Places Identification */
     Route::middleware(['auth:sanctum', 'verified'])
-        ->get('/admin/identification/places', \App\Http\Livewire\Admin\Places\Identification::class)
+        ->get('/admin/identification/places', \App\Http\Livewire\Admin\Subjects\Places\Identification::class)
         ->name('admin.places.identification');
 
     Route::middleware(['auth:sanctum', 'verified'])
@@ -305,7 +305,7 @@ Route::middleware('role:Super Admin|Editor|Bio Editor')->group(function () {
     /* End Places Identification */
 
     Route::middleware(['auth:sanctum', 'verified'])
-        ->get('/admin/places', \App\Http\Livewire\Admin\Places\Index::class)
+        ->get('/admin/places', \App\Http\Livewire\Admin\Subjects\Places\Index::class)
         ->name('admin.places.index');
 
     Route::middleware(['auth:sanctum', 'verified'])
@@ -395,6 +395,10 @@ Route::middleware('role:Super Admin|Editor|Bio Editor')->group(function () {
     Route::middleware(['auth:sanctum', 'verified'])
         ->get('/admin/objectives', \App\Http\Livewire\Admin\Stage::class)
         ->name('admin.reports.objectives');
+
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->get('/admin/subjects/objectives', \App\Http\Livewire\Admin\Subjects\Objectives::class)
+        ->name('admin.subjects.objectives');
 
     Route::middleware(['auth:sanctum', 'verified'])
         ->get('/admin/export-transcripts', \App\Http\Controllers\Admin\ExportItemFullTranscriptController::class)

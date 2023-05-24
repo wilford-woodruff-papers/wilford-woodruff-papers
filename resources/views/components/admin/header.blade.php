@@ -25,7 +25,8 @@
                                                     'People' => ['url' => route('admin.people.index'), 'auth' => 'true'],
                                                     'Places' => ['url' => route('admin.places.index'), 'auth' => 'true'],
                                                     'Unknown People' => ['url' => route('admin.people.identification'), 'auth' => 'true'],
-                                                    'Unknown Places' => ['url' => route('admin.places.identification'), 'auth' => 'true']]"
+                                                    'Unknown Places' => ['url' => route('admin.places.identification'), 'auth' => 'true'],
+                                                    'Objectives' => ['url' => route('admin.subjects.objectives'), 'auth' => 'true']]"
                         />
                     @endif
                     @if(auth()->user()->hasAnyRole(['Quote Tagging', 'Approve Quotes', 'Admin', 'Super Admin']))

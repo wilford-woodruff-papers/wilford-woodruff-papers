@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Admin\People;
+namespace App\Http\Livewire\Admin\Subjects\People;
 
 use App\Models\Date;
 use App\Models\Subject;

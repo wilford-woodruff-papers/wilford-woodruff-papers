@@ -1,6 +1,6 @@
 <div wire:init="loadStats"
     x-data="{
-        tab: 'documents'
+
     }"
 >
 
@@ -57,8 +57,7 @@
             </div>
         </div>
     </div>
-    <div x-show="tab == 'documents'"
-        class="mx-8">
+    <div class="mx-8">
         <div class="">
             <div class="relative mt-12 mb-4">
                 <div wire:loading
@@ -241,87 +240,5 @@
             </div>
 
         </div>
-    </div>
-    <div x-show="tab == 'subjects'"
-    class="mx-8">
-        <table class="mt-12 divide-y divide-gray-30">
-            <thead class="sticky top-0 text-white bg-black">
-            <tr class="text-lg text-center text-black bg-white">
-                <th></th>
-                <th colspan="4">Places</th>
-                <th colspan="7">Research</th>
-                <th colspan="5">Topics</th>
-            </tr>
-            <tr>
-                <th class="bg-white"></th>
-                <th colspan="4" class="bg-[#93c47d]"></th>
-                <th colspan="4" class="bg-[#f6b26b]"></th>
-                <th colspan="3" class="bg-[#6d9eeb]">Biographies</th>
-                <th colspan="3" class="bg-[#8e7cc3]">Documents Reviewed</th>
-                <th colspan="1" class="bg-[#c27ba0]"></th>
-                <th colspan="1" class="bg-[#e06666]"></th>
-            </tr>
-            <tr>
-                <th class="py-3.5 text-base font-semibold text-center text-black bg-white">
-                    Month
-                </th>
-
-                <th class="px-3 w-14 bg-[#b6d7a8] text-black">Added</th>
-                <th class="px-3 w-14 bg-[#b6d7a8] text-black">Goal</th>
-                <th class="px-3 w-14 bg-[#b6d7a8] text-black">Confirmed Places</th>
-                <th class="px-3 w-14 bg-[#b6d7a8] text-black">% of Goal</th>
-
-                <th class="px-3 w-14 bg-[#f9cb9c] text-black">Added to FTP</th>
-                <th class="px-3 w-14 bg-[#f9cb9c] text-black">Goal</th>
-                <th class="px-3 w-14 bg-[#f9cb9c] text-black">People Identified (PID Number Identified)</th>
-                <th class="px-3 w-14 bg-[#f9cb9c] text-black">% of Goal</th>
-                <th class="px-3 w-14 bg-[#a4c2f4] text-white">Goal</th>
-                <th class="px-3 w-14 bg-[#a4c2f4] text-white">Written</th>
-                <th class="px-3 w-14 bg-[#a4c2f4] text-white">% of Goal</th>
-
-                <th class="px-3 w-14 bg-[#d5a6bd] text-white">Goal</th>
-                <th class="px-3 w-14 bg-[#d5a6bd] text-white">Completed</th>
-                <th class="px-3 w-14 bg-[#d5a6bd] text-white">% of Goal</th>
-
-                <th class="px-3 w-14 bg-[#b4a7d6] text-white">Quotes Gathered</th>
-                <th class="px-3 w-14 bg-[#b4a7d6] text-white">Quotes Added to Library</th>
-            </tr>
-            </thead>
-            <tbody class="bg-white">
-                <tr class="text-white bg-black">
-                    <td class="px-2 text-center uppercase"></td>
-                    <td colspan="16" class="pl-2 text-left"></td>
-                </tr>
-                @foreach($months as $month)
-                    <tr class="text-center">
-                        <td>
-                            {{ $month['name'] }}
-                        </td>
-
-                        <td></td>
-                        <td>{{ $places[$month['name']]['goal'] }}</td>
-                        <td>{{ $places[$month['name']]['actual'] }}</td>
-                        <td>{{ $places[$month['name']]['goal'] ? $places[$month['name']]['percentage'].'%' : 'N/A' }}</td>
-
-                        <td></td>
-                        <td>{{ $people[$month['name']]['goal'] }}</td>
-                        <td>{{ $people[$month['name']]['actual'] }}</td>
-                        <td>{{ $people[$month['name']]['goal'] ? $people[$month['name']]['percentage'] .'%' : 'N/A' }}</td>
-                        <td>{{ $biographies[$month['name']]['goal'] }}</td>
-                        <td>{{ $biographies[$month['name']]['actual'] }}</td>
-                        <td>{{ $biographies[$month['name']]['goal'] ? $biographies[$month['name']]['percentage'] .'%' : 'N/A'  }}</td>
-
-                        <td></td>
-                        <td></td>
-                        <td></td>
-
-                        <td></td>
-                        <td></td>
-
-                    </tr>
-                @endforeach
-            </tbody>
-            <tfoot></tfoot>
-        </table>
     </div>
 </div>
