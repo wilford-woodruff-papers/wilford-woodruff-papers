@@ -8,7 +8,7 @@
         <div class="py-4">
 
             <h1 class="mb-2 text-2xl font-semibold">
-                WWPF Objectives & Key Results: {{ \Carbon\Carbon::createFromFormat('Y-m-d', $dates['start'])->format('F Y') }} - {{ \Carbon\Carbon::createFromFormat('Y-m-d', $dates['end'])->format('F Y') }}
+                WWPF Subject Objectives & Key Results: {{ \Carbon\Carbon::createFromFormat('Y-m-d', $dates['start'])->format('F Y') }} - {{ \Carbon\Carbon::createFromFormat('Y-m-d', $dates['end'])->format('F Y') }}
             </h1>
 
             <div class="flex gap-x-12">
@@ -74,8 +74,8 @@
                     <thead class="sticky top-0 text-white bg-black">
                         <tr>
                             <th class="bg-white"></th>
-                            <th colspan="4" class="text-black bg-white">Places</th>
-                            <th colspan="7" class="text-black bg-white">Research</th>
+                            <th colspan="4" class="py-3.5 text-black bg-white">Places</th>
+                            <th colspan="7" class="py-3.5 text-black bg-white">Research</th>
                         </tr>
                         <tr>
                             <th class="bg-white"></th>
@@ -111,12 +111,12 @@
                                     {{ $month['name'] }}
                                 </td>
 
-                                <td class="bg-[#e6b8af] text-black"></td>
+                                <td class="bg-[#e6b8af] text-black">{{ $places[$month['name']]['added'] }}</td>
                                 <td class="bg-[#f4cccc] text-black">{{ $places[$month['name']]['goal'] }}</td>
                                 <td class="bg-[#f4cccc] text-black">{{ $places[$month['name']]['actual'] }}</td>
                                 <td class="bg-[#f4cccc] text-black">{{ $places[$month['name']]['goal'] ? $places[$month['name']]['percentage'].'%' : 'N/A' }}</td>
 
-                                <td class="bg-[#fce5cd] text-black"></td>
+                                <td class="bg-[#fce5cd] text-black">{{ $people[$month['name']]['added_to_ftp'] }}</td>
                                 <td class="bg-[#fff2cc] text-black">{{ $people[$month['name']]['goal'] }}</td>
                                 <td class="bg-[#fff2cc] text-black">{{ $people[$month['name']]['actual'] }}</td>
                                 <td class="bg-[#fff2cc] text-black">{{ $people[$month['name']]['goal'] ? $people[$month['name']]['percentage'] .'%' : 'N/A' }}</td>

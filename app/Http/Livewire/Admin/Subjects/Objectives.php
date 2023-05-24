@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Admin\Subjects;
 
 use App\Models\ActionType;
 use App\Models\Goal;
+use App\Models\Subject;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
@@ -64,17 +65,33 @@ class Objectives extends Component
             $biographies = [];
 
             foreach ($months as $month) {
+                $places[$month['name']]['added'] = Subject::query()
+                    ->whereHas('category', function ($query) {
+                        $query->whereIn('categories.name', ['Places']);
+                    })
+                    ->whereMonth('created_at', $this->monthMap[$month['name']])
+                    ->whereYear('created_at', $month['year'])
+                    ->count();
                 $places[$month['name']]['goal'] = $goal = Goal::query()
                     ->where('type_id', 999)
                     ->where('action_type_id', ActionType::query()->where('name', 'Identify Places')->first()->id)
                     ->whereMonth('finish_at', $this->monthMap[$month['name']])
                     ->whereYear('finish_at', $month['year'])
                     ->first()->target ?? 0;
+
                 $places[$month['name']]['actual'] = DB::table('subjects')
                     ->whereMonth('place_confirmed_at', $this->monthMap[$month['name']])
                     ->whereYear('place_confirmed_at', $month['year'])
                     ->count();
                 $places[$month['name']]['percentage'] = ($places[$month['name']]['goal'] > 0) ? (intval(($places[$month['name']]['actual'] / $places[$month['name']]['goal']) * 100)) : 0;
+
+                $people[$month['name']]['added_to_ftp'] = Subject::query()
+                    ->whereHas('category', function ($query) {
+                        $query->whereIn('categories.name', ['People']);
+                    })
+                    ->whereMonth('added_to_ftp_at', $this->monthMap[$month['name']])
+                    ->whereYear('added_to_ftp_at', $month['year'])
+                    ->count();
                 $people[$month['name']]['goal'] = $goal = Goal::query()
                     ->where('type_id', 999)
                     ->where('action_type_id', ActionType::query()->where('name', 'Identify People')->first()->id)
@@ -86,6 +103,7 @@ class Objectives extends Component
                     ->whereYear('pid_identified_at', $month['year'])
                     ->count();
                 $people[$month['name']]['percentage'] = ($people[$month['name']]['goal'] > 0) ? (intval(($people[$month['name']]['actual'] / $people[$month['name']]['goal']) * 100)) : 0;
+
                 $biographies[$month['name']]['goal'] = $goal = Goal::query()
                     ->where('type_id', 999)
                     ->where('action_type_id', ActionType::query()->where('name', 'Write Biographies')->first()->id)
