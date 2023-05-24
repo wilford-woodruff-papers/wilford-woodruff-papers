@@ -4,13 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 use Wildside\Userstamps\Userstamps;
 
 class Quote extends Model
 {
     use HasFactory;
-    use SoftDeletes;
+    use KeepsDeletedModels;
     use Userstamps;
 
     protected $guarded = ['id'];

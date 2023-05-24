@@ -14,6 +14,7 @@ use OwenIt\Auditing\Encoders\Base64Encoder;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Models\Activity;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 use Spatie\MediaLibrary\HasMedia;
@@ -27,6 +28,7 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
     use HasFactory;
     use HasHashid;
     use InteractsWithMedia;
+    use KeepsDeletedModels;
     use LogsActivity;
     use SortableTrait;
 
@@ -391,5 +393,17 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
             ],
 
         ];
+    }
+
+    protected static function booted()
+    {
+        static::deleting(function ($page) {
+            foreach ($item->actions ?? [] as $action) {
+                $action->delete();
+            }
+            foreach ($item->quotes ?? [] as $quote) {
+                $quote->delete();
+            }
+        });
     }
 }
