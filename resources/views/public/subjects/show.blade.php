@@ -50,7 +50,7 @@
                         @if(! empty($subject->bio_approved_at) && ! empty($subject->footnotes))
                             <h3 class="mt-8 text-2xl border-b border-primary">Footnotes</h3>
                             <p class="mt-4 mb-4">
-                                {!! $subject->footnotes !!}
+                                {!! $linkify->process($subject->footnotes) !!}
                             </p>
                         @endif
 
