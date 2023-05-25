@@ -66,6 +66,9 @@ class SubjectController extends Controller
                     })*/;
                 })
                 ->paginate(10, ['*'], 'quotes_page'),
+            'linkify' => new \Misd\Linkify\Linkify(['callback' => function ($url, $caption, $bool) {
+                return '<a href="'.$url.'" class="text-secondary" target="_blank">'.$caption.'</a>';
+            }]),
         ]);
     }
 }
