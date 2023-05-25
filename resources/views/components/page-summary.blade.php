@@ -21,17 +21,17 @@
             <div>
                 @auth()
                     @hasanyrole('CFM Researcher')
-                        <div>
-                            @if($page->parent?->enabled)
-                                <span class="inline-flex items-center py-0.5 px-2.5 text-xs font-medium text-green-800 bg-green-100 rounded-full">
+                    <div>
+                        @if($page->parent?->enabled)
+                            <span class="inline-flex items-center py-0.5 px-2.5 text-xs font-medium text-green-800 bg-green-100 rounded-full">
                                     {{ __('Published') }}
                                 </span>
-                            @else
-                                <span class="inline-flex items-center py-0.5 px-2.5 text-xs font-medium text-red-800 bg-red-100 rounded-full">
+                        @else
+                            <span class="inline-flex items-center py-0.5 px-2.5 text-xs font-medium text-red-800 bg-red-100 rounded-full">
                                     {{ __('Not Published') }}
                                 </span>
-                            @endif
-                        </div>
+                        @endif
+                    </div>
                     @endhasanyrole
                 @endauth
             </div>
@@ -80,13 +80,13 @@
             @endif
         </div>
         @hasanyrole('Editor|Admin|Super Admin')
-            <div class="ml-3">
-                <p class="text-sm text-gray-900">Real name: {{ $page->name }}</p>
-                <p class="text-sm text-gray-900">Item: {{ $page->item->name }}</p>
-                @if($page->quotes_count > 0)
-                    <p class="text-sm text-gray-900">Quotes: {{ $page->quotes_count }}</p>
-                @endif
-            </div>
+        <div class="ml-3">
+            <p class="text-sm text-gray-900">Real name: {{ $page->name }}</p>
+            <p class="text-sm text-gray-900">Item: {{ $page->item->name }}</p>
+            @if($page->quotes_count > 0)
+                <p class="text-sm text-gray-900">Quotes: {{ $page->quotes_count }}</p>
+            @endif
+        </div>
         @endhasanyrole
     </div>
 </li>
