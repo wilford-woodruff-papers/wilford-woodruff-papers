@@ -1,4 +1,5 @@
 User-agent: *
+Crawl-delay: 20
 Disallow:
 
 User-agent: SemrushBot
