@@ -20,6 +20,7 @@
         "emilianotisato/nova-tinymce": "dev-master",
         "genealabs/laravel-caffeine": "^10.0",
         "guzzlehttp/guzzle": "^7.2",
+        "inspector-apm/inspector-laravel": "^4.7",
         "intervention/image": "^2.7",
         "jeffersonsimaogoncalves/nova-permission": "dev-nova-4-compatibility",
         "jessedp/php-timezones": "^0.2.3",
