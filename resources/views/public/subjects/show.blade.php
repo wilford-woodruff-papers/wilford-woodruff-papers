@@ -57,9 +57,9 @@
                     </div>
                     <div class="col-span-12 px-8 md:col-span-12">
                         <!--<h3 class="pt-7 mt-4 mb-8 font-serif text-3xl border-b border-gray-300 text-primary">Pages</h3>-->
-                        <div class="preview-block">
+                        {{--<div class="preview-block">
                             <h3 class="mt-4 text-2xl border-b border-primary">Mentioned in</h3>
-                            <ul class="divide-y divide-gray-200">
+
 
                                 @foreach($pages as $page)
 
@@ -69,10 +69,126 @@
 
                             </ul>
 
-                            <div>
-                                {!! $pages->withQueryString()->links() !!}
+
+                        </div>--}}
+
+
+                        <!-- Tabs -->
+                        <div
+                            x-data="{
+                                selectedId: $persist( '{{ ($quotes->count() > 0 ? 'tab-1-2' : 'tab-1-1') }}').using(sessionStorage).as('subject-tab'),
+                                init() {
+                                    // Set the first available tab on the page on page load.
+                                    this.$nextTick(() => this.determineDefaultTab())
+                                },
+                                determineDefaultTab() {
+                                    if(Array.from(document.getElementById('subject-tablist').children).length == 1){
+                                        this.select('tab-1-1');
+                                    }
+                                },
+                                select(id) {
+                                    this.selectedId = id
+                                },
+                                isSelected(id) {
+                                    return this.selectedId === id
+                                },
+                                whichChild(el, parent) {
+                                    return Array.from(parent.children).indexOf(el) + 1
+                                }
+                            }"
+                            x-id="['tab']"
+                            class="mx-auto max-w-7xl"
+                        >
+                            <!-- Tab List -->
+                            <ul
+                                id="subject-tablist"
+                                x-ref="tablist"
+                                @keydown.right.prevent.stop="$focus.wrap().next()"
+                                @keydown.home.prevent.stop="$focus.first()"
+                                @keydown.page-up.prevent.stop="$focus.first()"
+                                @keydown.left.prevent.stop="$focus.wrap().prev()"
+                                @keydown.end.prevent.stop="$focus.last()"
+                                @keydown.page-down.prevent.stop="$focus.last()"
+                                role="tablist"
+                                class="flex items-stretch -mb-px"
+                            >
+                                <!-- Tab -->
+                                @if($quotes->count() > 0)
+                                    <li>
+                                        <button
+                                            :id="$id('tab', whichChild($el.parentElement, $refs.tablist))"
+                                            @click="select($el.id)"
+                                            @mousedown.prevent
+                                            @focus="select($el.id)"
+                                            type="button"
+                                            :tabindex="isSelected($el.id) ? 0 : -1"
+                                            :aria-selected="isSelected($el.id)"
+                                            :class="isSelected($el.id) ? 'border-gray-200 bg-white' : 'border-transparent'"
+                                            class="inline-flex py-2.5 px-5 font-semibold border-t border-r border-l"
+                                            role="tab"
+                                        >Selected Quotes</button>
+                                    </li>
+                                @endif
+
+                                <li>
+                                    <button
+                                        :id="$id('tab', whichChild($el.parentElement, $refs.tablist))"
+                                        @click="select($el.id)"
+                                        @mousedown.prevent
+                                        @focus="select($el.id)"
+                                        type="button"
+                                        :tabindex="isSelected($el.id) ? 0 : -1"
+                                        :aria-selected="isSelected($el.id)"
+                                        :class="isSelected($el.id) ? 'border-gray-200 bg-white' : 'border-transparent'"
+                                        class="inline-flex py-2.5 px-5 font-semibold border-t border-r border-l"
+                                        role="tab"
+                                    >Mentioned In</button>
+                                </li>
+                            </ul>
+
+                            <!-- Panels -->
+                            <div role="tabpanels" class="bg-white rounded-b-md border border-gray-200">
+                                <!-- Panel -->
+                                @if($quotes->count() > 0)
+                                    <section
+                                        x-show="isSelected($id('tab', whichChild($el, $el.parentElement)))"
+                                        :aria-labelledby="$id('tab', whichChild($el, $el.parentElement))"
+                                        role="tabpanel"
+                                        class="p-8"
+                                    >
+                                        <ul class="divide-y divide-gray-200">
+                                            @foreach($quotes as $quote)
+
+                                                <x-quote-summary :quote="$quote" />
+
+                                            @endforeach
+                                        </ul>
+                                        <div>
+                                            {!! $quotes->withQueryString()->links() !!}
+                                        </div>
+                                    </section>
+                                @endif
+
+                                <section
+                                    x-show="isSelected($id('tab', whichChild($el, $el.parentElement)))"
+                                    :aria-labelledby="$id('tab', whichChild($el, $el.parentElement))"
+                                    role="tabpanel"
+                                    class="p-8"
+                                >
+                                    <ul class="divide-y divide-gray-200">
+                                        @foreach($pages as $page)
+
+                                            <x-page-summary :page="$page" />
+
+                                        @endforeach
+                                    </ul>
+                                    <div>
+                                        {!! $pages->withQueryString()->links() !!}
+                                    </div>
+                                </section>
                             </div>
                         </div>
+
                     </div>
                 </div>
 

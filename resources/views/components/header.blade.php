@@ -303,6 +303,11 @@
                         </div>
                     </div>--}}
                     <a href="{{ route('places') }}">Places</a>
+                    @auth()
+                        @hasanyrole(['Admin', 'Super Admin'])
+                            <a href="{{ route('topics') }}">Topics</a>
+                        @endhasanyrole
+                    @endauth
                     <div class="flex justify-center">
                         <div
                             x-data="{
@@ -399,7 +404,9 @@
                             </div>
                         </div>
                     </div>--}}
-                    <a href="{{ route('advanced-search') }}">Search</a>
+                    <a href="{{ route('advanced-search') }}"
+                       class="hidden lg:block"
+                    >Search</a>
                 </div>
                 <div class="flex mt-4 space-x-4 md:mt-0 md:ml-4 md:space-x-10">
                     {{--<a href="/s/wilford-woodruff-papers/page/about">About</a>--}}
