@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Admin\Places;
+namespace App\Http\Livewire\Admin\Subjects\People;
 
 use App\Http\Livewire\DataTable\WithBulkActions;
 use App\Http\Livewire\DataTable\WithCachedRows;
@@ -9,7 +9,6 @@ use App\Http\Livewire\DataTable\WithSorting;
 use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class Index extends Component
@@ -31,30 +30,43 @@ class Index extends Component
     public $filters = [
         'search' => '',
         'tagged' => '',
-        'country' => '',
-        'state' => '',
+        'starts_with' => '',
+        'completed' => '',
+        'approved' => '',
+        'researcher' => '',
     ];
 
     public $columns = [
-        'country' => 'country',
-        'state_province' => 'state_or_province',
-        'county' => 'county',
-        'city' => 'city',
-        'specific_place' => 'specific_place',
-        'years' => 'years',
-        'visited' => 'visited',
-        'mentioned' => 'mentioned',
-        'place_confirmed_at' => 'confirmed_at',
-        'modern_location' => 'modern_location',
+        'birth_date' => 'birth_date',
+        'death_date' => 'death_date',
+        'life_years' => 'b_d_dates',
+        'pid' => 'pid_fsid',
         'added_to_ftp_at' => 'added_to_ftp',
-        'reference' => 'source',
+        'first_name' => 'given_name',
+        'middle_name' => 'middle_name',
+        'last_name' => 'surname',
+        'suffix' => 'suffix',
+        'alternate_names' => 'alternate_names',
+        'maiden_name' => 'maiden_name',
+        'baptism_date' => 'baptism_date',
+        'z100' => 'special_categories', // key starts with z to prevent searching column
+        'reference' => 'reference',
+        'relationship' => 'relationship_to_ww',
         'notes' => 'notes',
         'researcher_text' => 'researcher',
+        'bio' => 'biography',
+        'footnotes' => 'footnote',
+        'bio_completed_at' => 'date_bio_completed',
+        'bio_approved_at' => 'date_bio_approved',
     ];
 
-    public $countries = [];
-
-    public $states = [];
+    public $searchColumns = [
+        'pid' => 'pid_fsid',
+        'first_name' => 'given_name',
+        'middle_name' => 'middle_name',
+        'last_name' => 'surname',
+        'alternate_names' => 'alternate_names',
+    ];
 
     protected $queryString = [
         'sorts',
@@ -67,33 +79,14 @@ class Index extends Component
 
     public function mount()
     {
-        $this->countries = DB::table('subjects')
-            ->select('country')
-            ->distinct()
-            ->whereNotNull('country')
-            ->orderBy('country', 'asc')
-            ->pluck('country', 'country')
-            ->toArray();
-
-        $this->states = DB::table('subjects')
-            ->select('state_province')
-            ->distinct()
-            ->whereNotNull('state_province')
-            ->orderBy('state_province', 'asc')
-            ->pluck('state_province', 'state_province')
-            ->toArray();
-
         $this->researchers = User::query()
             ->role(['Bio Editor', 'Bio Admin'])
             ->orderBy('name')
             ->get();
     }
 
-    public function updatedFilters($value, $key)
+    public function updatedFilters()
     {
-        if ($key == 'country') {
-            $this->filters['state'] = null;
-        }
         $this->resetPage();
     }
 
@@ -101,7 +94,7 @@ class Index extends Component
     {
         return response()->streamDownload(function () {
             echo $this->selectedRowsQuery->toCsv();
-        }, 'places.csv');
+        }, 'people.csv');
     }
 
     public function resetFilters()
@@ -112,37 +105,21 @@ class Index extends Component
 
     public function getRowsQueryProperty()
     {
-
-        if (array_key_exists('country', $this->filters) && ! empty($this->filters['country'])) {
-            $this->states = DB::table('subjects')
-                ->select('state_province')
-                ->distinct()
-                ->where('country', $this->filters['country'])
-                ->whereNotNull('state_province')
-                ->orderBy('state_province', 'asc')
-                ->pluck('state_province', 'state_province')
-                ->toArray();
-        }
-
         $query = Subject::query()
             ->with([
                 'researcher',
             ])
             ->whereHas('category', function (Builder $query) {
-                $query->whereIn('categories.name', ['Places']);
+                $query->whereIn('categories.name', ['People']);
             })
             ->when(array_key_exists('search', $this->filters) && $this->filters['search'], function ($query, $search) {
                 $query->where(function ($query) {
-                    foreach (['name' => 'name'] + $this->columns as $key => $column) {
-                        $query->orWhere($key, 'like', '%'.$this->filters['search'].'%');
+                    foreach (['name' => 'name'] + $this->searchColumns as $key => $column) {
+                        if (! str($key)->startsWith('z')) {
+                            $query->orWhere($key, 'like', '%'.$this->filters['search'].'%');
+                        }
                     }
                 });
-            })
-            ->when(array_key_exists('country', $this->filters) && $this->filters['country'], function ($query, $search) {
-                $query->where('country', $this->filters['country']);
-            })
-            ->when(array_key_exists('state', $this->filters) && $this->filters['state'], function ($query, $search) {
-                $query->where('state_province', $this->filters['state']);
             });
         // TODO: Cache pages for people
         if (array_key_exists('tagged', $this->filters) && ! empty($this->filters['tagged'])) {
@@ -152,18 +129,27 @@ class Index extends Component
                 $query = $query->where('tagged_count', '=', 0);
             }
         }
-
         if (array_key_exists('researcher', $this->filters) && ! empty($this->filters['researcher'])) {
             $researcher = User::find($this->filters['researcher']);
             $query = $query->where('researcher_id', $this->filters['researcher'])
-                ->orWhere('researcher_text', $researcher->name);
+                        ->orWhere('researcher_text', $researcher->name);
         }
         if (array_key_exists('completed', $this->filters) && ! empty($this->filters['completed'])) {
             if ($this->filters['completed'] == 'true') {
-                $query = $query->whereNotNull('place_confirmed_at');
+                $query = $query->whereNotNull('bio_completed_at');
             } elseif ($this->filters['completed'] == 'false') {
-                $query = $query->whereNull('place_confirmed_at');
+                $query = $query->whereNull('bio_completed_at');
             }
+        }
+        if (array_key_exists('approved', $this->filters) && ! empty($this->filters['approved'])) {
+            if ($this->filters['approved'] == 'true') {
+                $query = $query->whereNotNull('bio_approved_at');
+            } elseif ($this->filters['approved'] == 'false') {
+                $query = $query->whereNull('bio_approved_at');
+            }
+        }
+        if (array_key_exists('starts_with', $this->filters) && ! empty($this->filters['starts_with'])) {
+            $query = $query->where('index', $this->filters['starts_with']);
         }
 
         if (empty($this->sorts)) {
@@ -183,8 +169,11 @@ class Index extends Component
 
     public function render()
     {
-        return view('livewire.admin.places.index', [
-            'places' => $this->rows,
+        return view('livewire.admin.people.index', [
+            'people' => $this->rows,
+            'linkify' => new \Misd\Linkify\Linkify(['callback' => function ($url, $caption, $bool) {
+                return '<a href="'.$url.'" class="text-secondary" target="_blank">'.str($caption)->after('//')->before('/').'</a>';
+            }]),
         ])
             ->layout('layouts.admin');
     }

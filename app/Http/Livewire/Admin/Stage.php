@@ -279,56 +279,11 @@ class Stage extends Component
                     $index = $index + 1;
                 }
             }
-
-            $places = [];
-            $people = [];
-            $biographies = [];
-            $topics = [];
-
-            foreach ($months as $month) {
-                $places[$month['name']]['goal'] = $goal = Goal::query()
-                    ->where('type_id', 999)
-                    ->where('action_type_id', ActionType::query()->where('name', 'Identify Places')->first()->id)
-                    ->whereMonth('finish_at', $this->monthMap[$month['name']])
-                    ->whereYear('finish_at', $month['year'])
-                    ->first()->target ?? 0;
-                $places[$month['name']]['actual'] = DB::table('subjects')
-                    ->whereMonth('place_confirmed_at', $this->monthMap[$month['name']])
-                    ->whereYear('place_confirmed_at', $month['year'])
-                    ->count();
-                $places[$month['name']]['percentage'] = ($places[$month['name']]['goal'] > 0) ? (intval(($places[$month['name']]['actual'] / $places[$month['name']]['goal']) * 100)) : 0;
-                $people[$month['name']]['goal'] = $goal = Goal::query()
-                    ->where('type_id', 999)
-                    ->where('action_type_id', ActionType::query()->where('name', 'Identify People')->first()->id)
-                    ->whereMonth('finish_at', $this->monthMap[$month['name']])
-                    ->whereYear('finish_at', $month['year'])
-                    ->first()->target ?? 0;
-                $people[$month['name']]['actual'] = DB::table('subjects')
-                    ->whereMonth('pid_identified_at', $this->monthMap[$month['name']])
-                    ->whereYear('pid_identified_at', $month['year'])
-                    ->count();
-                $people[$month['name']]['percentage'] = ($people[$month['name']]['goal'] > 0) ? (intval(($people[$month['name']]['actual'] / $people[$month['name']]['goal']) * 100)) : 0;
-                $biographies[$month['name']]['goal'] = $goal = Goal::query()
-                    ->where('type_id', 999)
-                    ->where('action_type_id', ActionType::query()->where('name', 'Write Biographies')->first()->id)
-                    ->whereMonth('finish_at', $this->monthMap[$month['name']])
-                    ->whereYear('finish_at', $month['year'])
-                    ->first()->target ?? 0;
-                $biographies[$month['name']]['actual'] = DB::table('subjects')
-                    ->whereMonth('bio_approved_at', $this->monthMap[$month['name']])
-                    ->whereYear('bio_approved_at', $month['year'])
-                    ->count();
-                $biographies[$month['name']]['percentage'] = ($biographies[$month['name']]['goal'] > 0) ? (intval(($biographies[$month['name']]['actual'] / $biographies[$month['name']]['goal']) * 100)) : 0;
-            }
         }
 
         return view('livewire.admin.stage', [
             'months' => $months ?? [],
             'stats' => $stats ?? [],
-            'places' => $places ?? [],
-            'people' => $people ?? [],
-            'biographies' => $biographies ?? [],
-            'topics' => $topics ?? [],
         ])
             ->layout('layouts.admin');
     }

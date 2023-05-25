@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Admin\Places;
+namespace App\Http\Livewire\Admin\Subjects\Places;
 
 use App\Http\Livewire\DataTable\WithBulkActions;
 use App\Http\Livewire\DataTable\WithCachedRows;
