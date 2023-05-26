@@ -57,7 +57,6 @@ class Subject extends Component
                 ->updateOrCreate([
                     'name' => $item,
                 ], [
-                    'hide_on_index' => 0,
                     'subject_id' => $this->subject->id,
                 ]);
             $category->subjects()->syncWithoutDetaching($subject->id);
