@@ -33,4 +33,9 @@ class EventRegistrationController extends Controller
 
         return back()->with('success', "Thank you for registering for the Ask Me Anything Mission President Panel on <b>June 25th</b>! We'll send you a reminder email with the Zoom link a few days before the event.");
     }
+
+    public function live()
+    {
+        return view('event-registration.live');
+    }
 }
