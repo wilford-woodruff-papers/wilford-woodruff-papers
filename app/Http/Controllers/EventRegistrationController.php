@@ -31,7 +31,7 @@ class EventRegistrationController extends Controller
 
         $eventRegistration->save();
 
-        return back()->with('success', "Thank you for registering for the Ask Me Anything Mission President Panel on <b>June 25th</b>! We'll send you a reminder email with the Zoom link a few days before the event.");
+        return back()->with('success', "Thank you for registering for the Ask Me Anything Mission President Leadership Panel on <b>June 25th</b>! We'll send you a reminder email with the link to access the event a few days before the event.");
     }
 
     public function live()
