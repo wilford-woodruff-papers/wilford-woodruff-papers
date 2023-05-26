@@ -47,6 +47,25 @@
                                             >
                                         </div>
                                     </div>
+                                    <div class="flex gap-x-2 items-center py-4">
+                                        <label for="query" class="text-sm font-medium font-semibold text-gray-700">Add new children</label>
+                                        <div class="relative flex-1 mt-1 rounded-md shadow-sm">
+                                            <input wire:model.debounce="new"
+                                                   type="text"
+                                                   name="new"
+                                                   id="new"
+                                                   class="block pl-2 w-full rounded-md border-gray-300 sm:text-sm focus:border-indigo-500 focus:ring-indigo-500"
+                                                   placeholder="Example: child 1, child 2, child 3"
+                                            >
+                                        </div>
+                                        <div>
+                                            <button wire:click="addChildren()"
+                                                    wire:loading.attr="disabled"
+                                                    class="inline-flex items-center py-0.5 px-2.5 text-sm font-medium leading-5 text-gray-700 bg-white rounded-full border border-gray-300 shadow-sm hover:bg-gray-50">
+                                                Add
+                                            </button>
+                                        </div>
+                                    </div>
                                     <div class="py-4">
                                         <label for="query" class="text-sm font-medium text-gray-700 sr-only">Search for parent</label>
                                         <div class="relative mt-1 rounded-md shadow-sm">
