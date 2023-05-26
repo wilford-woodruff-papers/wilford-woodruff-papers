@@ -182,15 +182,17 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
 
         static::deleting(function ($item) {
             foreach ($item->pages ?? [] as $page) {
-                foreach ($item->quotes ?? [] as $quote) {
+                foreach ($page->quotes ?? [] as $quote) {
                     $quote->delete();
                 }
-                foreach ($item->actions ?? [] as $action) {
+                foreach ($page->actions ?? [] as $action) {
                     $action->delete();
                 }
                 $page->delete();
             }
-            $item->actions()->delete();
+            foreach ($item->actions ?? [] as $action) {
+                $action->delete();
+            }
         });
     }
 
