@@ -4,10 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\PeopleIdentification;
-use App\Models\User;
-use App\Notifications\NewCorrectionNeeded;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Notification;
 
 class PeopleIdentificationController extends Controller
 {
@@ -127,11 +124,6 @@ class PeopleIdentificationController extends Controller
 
         $request->session()->flash('success', 'Person created successfully!');
 
-        if ($person->correction_needed) {
-            $users = User::query()->role('Bio Admin')->get();
-            Notification::send($users, new NewCorrectionNeeded($person));
-        }
-
         if ($request->get('action') == 'new') {
             return redirect()->route('admin.dashboard.identification.people.create');
         }
@@ -173,11 +165,6 @@ class PeopleIdentificationController extends Controller
         $validated = $request->validate($this->rules);
 
         $person->fill($validated);
-
-        if ($person->isDirty('correction_needed') && $person->correction_needed) {
-            $users = User::query()->role('Bio Admin')->get();
-            Notification::send($users, new NewCorrectionNeeded($person));
-        }
 
         $person->save();
 

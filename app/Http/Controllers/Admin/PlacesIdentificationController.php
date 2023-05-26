@@ -4,10 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\PlaceIdentification;
-use App\Models\User;
-use App\Notifications\NewCorrectionNeeded;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Notification;
 
 class PlacesIdentificationController extends Controller
 {
@@ -128,11 +125,6 @@ class PlacesIdentificationController extends Controller
 
         $request->session()->flash('success', 'Place created successfully!');
 
-        if ($place->correction_needed) {
-            $users = User::query()->role('Bio Admin')->get();
-            Notification::send($users, new NewCorrectionNeeded($place));
-        }
-
         if ($request->get('action') == 'new') {
             return redirect()->route('admin.dashboard.identification.palces.create');
         }
@@ -174,11 +166,6 @@ class PlacesIdentificationController extends Controller
         $validated = $request->validate($this->rules);
 
         $place->fill($validated);
-
-        if ($place->isDirty('correction_needed') && $place->correction_needed) {
-            $users = User::query()->role('Bio Admin')->get();
-            Notification::send($users, new NewCorrectionNeeded($place));
-        }
 
         $place->save();
 
