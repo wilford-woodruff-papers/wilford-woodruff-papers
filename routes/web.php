@@ -51,7 +51,7 @@ Route::middleware('throttle:12,1')->group(function () {
             ->event([
                 \Spatie\IcalendarGenerator\Components\Event::create('Ask Me Anything Mission President Panel')
                     ->attendee('lexie.bailey@wilfordwoodruffpapers.org', 'Lexie Bailey')
-                    ->address(route('event.live'))
+                    ->address('https://ama-panel-2023.wilfordwoodruffpapers.org')
                     ->addressName('Zoom')
                     ->startsAt(new DateTime('25 June 2025 19:00', new DateTimeZone('America/Denver')))
                     ->endsAt(new DateTime('25 June 2025 20:00', new DateTimeZone('America/Denver')))
