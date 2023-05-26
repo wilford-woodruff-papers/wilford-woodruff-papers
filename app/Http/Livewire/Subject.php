@@ -11,6 +11,8 @@ class Subject extends Component
 
     public $query = null;
 
+    public $new;
+
     public $showModal = false;
 
     public \App\Models\Subject $subject;
@@ -41,6 +43,28 @@ class Subject extends Component
         }
 
         return view('livewire.subject');
+    }
+
+    public function addChildren()
+    {
+        $category = \App\Models\Category::query()
+            ->where('name', 'Index')
+            ->first();
+        $new = str($this->new)->explode(',')->map(function ($item) {
+            return trim($item);
+        })->each(function ($item) use ($category) {
+            $subject = \App\Models\Subject::query()
+                ->updateOrCreate([
+                    'name' => $item,
+                ], [
+                    'hide_on_index' => 0,
+                    'subject_id' => $this->subject->id,
+                ]);
+            $category->subjects()->syncWithoutDetaching($subject->id);
+        });
+        $this->new = null;
+        $this->subject->refresh();
+        $this->emit('reloadTopics');
     }
 
     public function updatingSubject($value, $field)
