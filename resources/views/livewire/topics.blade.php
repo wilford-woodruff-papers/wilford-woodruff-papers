@@ -31,7 +31,7 @@
                 <div class="!my-0">
                     @forelse($topicGroup as $key => $topic)
                         <div class="">
-                            <div>
+                            <div class="font-semibold">
                                 <livewire:subject :subject="$topic" :key="$topic->id"></livewire:subject>
                             </div>
 
