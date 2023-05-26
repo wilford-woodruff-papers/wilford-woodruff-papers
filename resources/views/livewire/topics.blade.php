@@ -13,7 +13,7 @@
             </form>
         </div>
 
-        <div class="h-16">
+        <div class="sticky top-0 z-10 h-16 bg-white">
             <div class="grid overflow-x-scroll grid-flow-col auto-cols-max gap-4 mb-4 no-scrollbar"
             >
                 @foreach(range('A', 'Z') as $l)
