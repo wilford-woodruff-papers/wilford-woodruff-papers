@@ -398,11 +398,11 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
     protected static function booted()
     {
         static::deleting(function ($page) {
-            foreach ($item->actions ?? [] as $action) {
-                $action->delete();
-            }
             foreach ($item->quotes ?? [] as $quote) {
                 $quote->delete();
+            }
+            foreach ($item->actions ?? [] as $action) {
+                $action->delete();
             }
         });
     }
