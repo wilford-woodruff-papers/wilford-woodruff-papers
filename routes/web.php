@@ -23,10 +23,15 @@ Route::middleware('throttle:12,1')->group(function () {
                 return redirect()->away(config('app.url').'/wilford-woodruffs-witness');
             } elseif ($subdomain == 'arts') {
                 return redirect()->away(config('app.url').'/announcements/2023-building-latter-day-faith-conference-arts-contest-rules');
+            } elseif ($subdomain == 'panel') {
+                return redirect()->away(config('app.url').'/ask-me-anything-mission-president-panel');
+            } elseif ($subdomain == 'ama-panel-2023') {
+                return redirect()->away(config('app.url').'/ask-me-anything-mission-president-panel-live');
             } else {
                 return redirect()->to(config('app.url'));
             }
         });
+
     });
 
     Route::get('language/{locale}', function ($locale) {
@@ -36,22 +41,46 @@ Route::middleware('throttle:12,1')->group(function () {
         return redirect()->back();
     })->name('language.locale');
 
+    Route::get('/ask-me-anything-mission-president-panel', [\App\Http\Controllers\EventRegistrationController::class, 'create'])->name('event.show');
+    Route::post('/ask-me-anything-mission-president-panel', [\App\Http\Controllers\EventRegistrationController::class, 'store'])->name('event.register')
+        ->middleware(\Spatie\Honeypot\ProtectAgainstSpam::class);
+    Route::get('/ask-me-anything-mission-president-panel-live', [\App\Http\Controllers\EventRegistrationController::class, 'live'])->name('event.live');
+
+    Route::get('/ask-me-anything-mission-president-panel/calendar', function () {
+        $calendar = \Spatie\IcalendarGenerator\Components\Calendar::create('Wilford Woodruff Papers Foundation')
+            ->event([
+                \Spatie\IcalendarGenerator\Components\Event::create('Ask Me Anything Mission President Panel')
+                    ->attendee('lexie.bailey@wilfordwoodruffpapers.org', 'Lexie Bailey')
+                    ->address(route('event.live'))
+                    ->addressName('Zoom')
+                    ->startsAt(new DateTime('25 June 2025 19:00', new DateTimeZone('America/Denver')))
+                    ->endsAt(new DateTime('25 June 2025 20:00', new DateTimeZone('America/Denver')))
+                    ->alertMinutesBefore(10, 'Ask Me Anything Mission President Panel is going to start in 10 minutes'),
+            ]);
+
+        return response($calendar->get(), 200, [
+            'Content-Type' => 'text/calendar; charset=utf-8',
+            'Content-Disposition' => 'attachment; filename="ask-me-anything-mission-president-panel.ics"',
+        ]);
+    })->name('event.calendar');
+
     Route::get('/donate', [\App\Http\Controllers\DonationController::class, 'index'])->name('donate');
     Route::get('/', \App\Http\Controllers\HomeController::class)->name('home');
     Route::get('/advanced-search', \App\Http\Controllers\SearchController::class)->name('advanced-search');
-// Route::get('/documents', [\App\Http\Controllers\ItemController::class, 'index'])->name('documents');
+
+    // Route::get('/documents', [\App\Http\Controllers\ItemController::class, 'index'])->name('documents');
     Route::get('/documents', \App\Http\Livewire\Documents\Browse::class)->name('documents');
     Route::get('/cktest', \App\Http\Livewire\Documents\Browse::class)->name('documents.cktest');
     Route::get('/dates/{year?}/{month?}', [\App\Http\Controllers\ItemController::class, 'dates'])->name('documents.dates');
     Route::get('/documents/{item}', \App\Http\Livewire\Documents\Show::class)->name('documents.show');
-//Route::get('/documents/{item}', [\App\Http\Controllers\ItemController::class, 'show'])->name('documents.show');
+    //Route::get('/documents/{item}', [\App\Http\Controllers\ItemController::class, 'show'])->name('documents.show');
     Route::get('/documents/{item}/transcript', [\App\Http\Controllers\ItemController::class, 'transcript'])->name('documents.show.transcript');
     Route::get('/documents/{item}/page/{page}', [\App\Http\Controllers\PageController::class, 'show'])->name('pages.show');
     Route::get('/d/{hashid}', [\App\Http\Controllers\ShortUrlController::class, 'item'])->name('short-url.item');
     Route::get('/p/{hashid}', [\App\Http\Controllers\ShortUrlController::class, 'page'])->name('short-url.page');
 
     Route::view('/wilford-woodruffs-witness', 'public.book.product-page')->name('book.product-page');
-//Route::view('/wilford-woodruffs-witness-test', 'public.book.test')->name('book.product-page-test');
+    //Route::view('/wilford-woodruffs-witness-test', 'public.book.test')->name('book.product-page-test');
 
     Route::get('/subjects/{subject}', [\App\Http\Controllers\SubjectController::class, 'show'])->name('subjects.show')
         ->missing(function (Illuminate\Http\Request $request) {
