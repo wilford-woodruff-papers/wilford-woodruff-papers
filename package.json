@@ -15,7 +15,7 @@
     "devDependencies": {
         "@alpinejs/collapse": "^3.10.2",
         "@alpinejs/focus": "^3.10.2",
-        "@alpinejs/intersect": "^3.9.1",
+        "@alpinejs/intersect": "^3.12",
         "@alpinejs/persist": "^3.10.3",
         "@prettier/plugin-php": "^0.19.1",
         "@tailwindcss/aspect-ratio": "^0.4.0",

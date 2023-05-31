@@ -22,6 +22,8 @@ class SubjectController extends Controller
      */
     public function index(Request $request)
     {
+        abort_unless($request->user()->tokenCan('read'), 401);
+
         $subjects = Subject::query();
 
         if ($request->has('types')) {
@@ -51,8 +53,10 @@ class SubjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Subject $subject)
+    public function show(Request $request, Subject $subject)
     {
+        abort_unless($request->user()->tokenCan('read'), 401);
+
         return $subject;
     }
 }

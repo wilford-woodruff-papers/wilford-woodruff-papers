@@ -26,6 +26,8 @@ class PageController extends Controller
      */
     public function index(Request $request)
     {
+        abort_unless($request->user()->tokenCan('read'), 401);
+
         $pages = Page::query();
 
         $pages->with([
@@ -62,13 +64,17 @@ class PageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Page $page)
+    public function show(Request $request, Page $page)
     {
+        abort_unless($request->user()->tokenCan('read'), 401);
+
         return $page;
     }
 
-    public function export()
+    public function export(Request $request)
     {
+        abort_unless($request->user()->tokenCan('read'), 401);
+
         return Storage::disk('exports')
             ->download('pages-export.csv', now('America/Denver')->toDateString().'-pages-export.csv');
     }

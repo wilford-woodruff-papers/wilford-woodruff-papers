@@ -151,9 +151,7 @@ Route::middleware('throttle:12,1')->group(function () {
         config('jetstream.auth_session'),
         'verified',
     ])->group(function () {
-        Route::get('/dashboard', function () {
-            return view('dashboard');
-        })->name('dashboard');
+        Route::get('/api/dashboard', \App\Http\Controllers\Api\v1\ApiWelcomeController::class)->name('dashboard');
 
         Route::get('/api/documentation', \App\Http\Controllers\Api\v1\DocumentationController::class)
             ->name('documentation');
