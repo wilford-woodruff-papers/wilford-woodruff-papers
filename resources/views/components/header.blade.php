@@ -122,6 +122,7 @@
                             <a href="{{ route('documents') }}">Documents</a>
                             <a href="{{ route('people') }}">People</a>
                             <a href="{{ route('places') }}">Places</a>
+                            <a href="{{ route('topics') }}">Topics</a>
                             <a href="{{ route('timeline') }}">Timeline</a>
                             <a href="{{ route('advanced-search') }}">Search</a>
                             <a href="{{ route('donate') }}">Donate</a>
@@ -303,11 +304,7 @@
                         </div>
                     </div>--}}
                     <a href="{{ route('places') }}">Places</a>
-                    @auth()
-                        @hasanyrole(['Admin', 'Super Admin'])
-                            <a href="{{ route('topics') }}">Topics</a>
-                        @endhasanyrole
-                    @endauth
+                    <a href="{{ route('topics') }}">Topics</a>
                     <div class="flex justify-center">
                         <div
                             x-data="{

@@ -116,6 +116,12 @@
                         </li>
 
                         <li>
+                            <a href="{{ route('topics') }}" class="text-base text-white hover:text-highlight">
+                                Topics
+                            </a>
+                        </li>
+
+                        <li>
                             <a href="{{ route('timeline') }}" class="text-base text-white hover:text-highlight">
                                 Timeline
                             </a>
