@@ -37,6 +37,10 @@ class DocumentController extends Controller
             });
         }
 
+        if ($request->has('q')) {
+            $items = $items->where('name', 'like', '%'.$request->get('q').'%');
+        }
+
         return response()->json(
             $items->paginate(
                 min($request->get('per_page', 100), 500)
