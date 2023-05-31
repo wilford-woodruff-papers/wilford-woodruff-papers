@@ -29,7 +29,7 @@
         <script src="{{ mix('js/app.js') }}" defer></script>
     </head>
     <body class="h-full font-sans antialiased">
-        {{--<x-jet-banner />--}}
+        {{--<x-banner />--}}
 
         <div class="min-h-full">
             <x-admin.header />

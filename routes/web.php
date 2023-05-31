@@ -142,9 +142,32 @@ Route::middleware('throttle:12,1')->group(function () {
     Route::get('/quotes/page/{page}', [\App\Http\Controllers\QuoteController::class, 'index'])->name('quotes.page.show');
     Route::get('/themes/page/{page}', [\App\Http\Controllers\ThemeController::class, 'index'])->name('themes.page.show');
 
-    Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    /*Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
         return redirect()->route('home');
-    })->name('dashboard');
+    })->name('dashboard');*/
+    Route::middleware([
+        'auth:sanctum',
+        'api-terms',
+        config('jetstream.auth_session'),
+        'verified',
+    ])->group(function () {
+        Route::get('/dashboard', function () {
+            return view('dashboard');
+        })->name('dashboard');
+
+        Route::get('/api/documentation', \App\Http\Controllers\Api\v1\DocumentationController::class)
+            ->name('documentation');
+    });
+
+    Route::middleware([
+        'auth:sanctum',
+        'verified',
+    ])->group(function () {
+        Route::get('api/terms-of-use', [\App\Http\Controllers\Api\AcceptApiTermsController::class, 'show'])
+            ->name('api.terms.accept');
+        Route::post('api/terms-of-use', [\App\Http\Controllers\Api\AcceptApiTermsController::class, 'submit'])
+            ->name('api.terms.submit');
+    });
 
     Route::prefix('filemanager')->middleware(['web', 'auth', 'role:Super Admin|Admin|Editor'])->group(function () {
         \UniSharp\LaravelFilemanager\Lfm::routes();

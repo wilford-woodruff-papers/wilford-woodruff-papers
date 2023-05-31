@@ -91,4 +91,9 @@ class User extends Authenticatable
             return ! $user->id !== 1;
         });
     }
+
+    public function hasAcceptedApiTerms()
+    {
+        return $this->accepted_api_terms;
+    }
 }

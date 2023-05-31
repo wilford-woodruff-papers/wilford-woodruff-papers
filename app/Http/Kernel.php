@@ -64,5 +64,6 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequestsWithRedis::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'api-terms' => \App\Http\Middleware\RequireApiTermsAcceptanceMiddleware::class,
     ];
 }

@@ -21,7 +21,8 @@
     </head>
     <body class="font-sans antialiased">
         @include('layouts.partials.google-tag-manager-no-script')
-        <x-jet-banner />
+        <x-header />
+        <x-banner />
 
         <div class="min-h-screen bg-gray-100">
             @livewire('navigation-menu')
