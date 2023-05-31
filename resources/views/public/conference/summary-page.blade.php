@@ -53,9 +53,15 @@
                         </div>
                     </div>
                     <div class="col-span-5 md:col-span-2 @if($loop->odd) order-1 md:order-2 @else order-1 md:order-1 @endif">
-                        <div class="mx-auto w-[260px] h-[160px] lg:w-[480px] lg:h-[310px]">
-                            <iframe class="w-[260px] h-[160px] lg:w-[480px] lg:h-[310px]" src="{{ $speaker['video'] }}?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
+                        @if(! empty($speaker['video']))
+                            <div class="mx-auto w-[260px] h-[160px] lg:w-[480px] lg:h-[310px]">
+                                <iframe class="w-[260px] h-[160px] lg:w-[480px] lg:h-[310px]" src="{{ $speaker['video'] }}?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                        @else
+                            <div class="flex justify-center items-center text-2xl font-semibold">
+                                Coming Soon
+                            </div>
+                        @endif
                         @if(! empty($speaker['article']))
                             <a href="{{ $speaker['article'] }}"
                                class="group"
