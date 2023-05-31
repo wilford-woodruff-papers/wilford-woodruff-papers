@@ -146,10 +146,6 @@ Route::middleware('throttle:12,1')->group(function () {
         return redirect()->route('home');
     })->name('dashboard');
 
-    Route::prefix('filemanager')->middleware(['web', 'auth', 'role:Super Admin|Admin|Editor'])->group(function () {
-        \UniSharp\LaravelFilemanager\Lfm::routes();
-    });
-
     Route::get('login/google', [\App\Http\Controllers\Auth\GoogleLoginController::class, 'redirectToProvider'])->name('login.google');
     Route::get('login/google/callback', [\App\Http\Controllers\Auth\GoogleLoginController::class, 'handleProviderCallback']);
     Route::get('login/facebook', [\App\Http\Controllers\Auth\FacebookLoginController::class, 'redirectToProvider'])->name('login.facebook');
@@ -240,6 +236,10 @@ Route::middleware('throttle:12,1')->group(function () {
     Route::get('/s/wilford-woodruff-papers/page/frequently-asked-questions', function () {
         return redirect()->route('about.frequently-asked-questions');
     });
+});
+
+Route::prefix('filemanager')->middleware(['web', 'auth', 'role:Super Admin|Admin|Editor', 'throttle:90,1'])->group(function () {
+    \UniSharp\LaravelFilemanager\Lfm::routes();
 });
 
 Route::middleware(['role:Super Admin|Editor|Bio Editor', 'throttle:30,1'])->group(function () {
