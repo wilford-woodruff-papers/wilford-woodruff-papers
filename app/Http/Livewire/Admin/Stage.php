@@ -328,6 +328,7 @@ class Stage extends Component
                     'start' => '2023-03-01',
                     'end' => '2024-02-29',
                 ];
+                break;
         }
     }
 }

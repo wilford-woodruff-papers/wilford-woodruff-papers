@@ -282,6 +282,7 @@ class ProgressMatrix extends Component
                     'start' => '2022-03-01',
                     'end' => '2023-02-28',
                 ];
+                break;
             case 4:
                 $this->dates = [
                     'start' => '2023-03-01',
