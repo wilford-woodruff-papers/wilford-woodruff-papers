@@ -90,6 +90,20 @@
                         thumburl: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art%2Fseek-ye-this-jesus-thumb.jpg',
                     },
                     {
+                        type: 'video',
+                        description: '',
+                        title: 'God Moves in a Mysterious Way',
+                        url: 'k0wmUOntCqM',
+                        thumburl: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art/god-moves-in-mysterious-ways.jpg',
+                    },
+                    {
+                        type: 'video',
+                        description: '',
+                        title: 'Sur Ma Croix',
+                        url: 'SUoubv_nRn8',
+                        thumburl: 'https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/2023-conference-art/sur-ma-croix.jpg',
+                    },
+                    {
                         type: 'pdf',
                         description: '',
                         title: 'The Ballad of 1841',
@@ -165,6 +179,10 @@
                                                 src="${url}"
                                                 class="hidden z-50 w-full border-0 iframe h-[900px]"
                                             ></iframe>
+                                            <iframe
+                                                src="https://www.youtube.com/embed/${url}?rel=0"
+                                                class="hidden z-50 w-full border-0 video h-[900px] aspect-[16/9]"
+                                            ></iframe>
                                         </div>
                                         <p class="desc">${description}</p>
                                       </div>
@@ -180,10 +198,17 @@
                             case 'image':
                                 $('.full-image').fadeIn().css('display','block');
                                 $('.iframe').fadeOut().css('display','none');
+                                $('.video').fadeIn().css('display','none');
                                 break;
                             case 'pdf':
                                 $('.full-image').fadeOut().css('display','none');
                                 $('.iframe').fadeIn().css('display','block');
+                                $('.video').fadeIn().css('display','none');
+                                break;
+                            case 'video':
+                                $('.full-image').fadeOut().css('display','none');
+                                $('.iframe').fadeIn().css('display','none');
+                                $('.video').fadeIn().css('display','block');
                                 break;
                         }
                     }
@@ -219,11 +244,19 @@
                                 $('.fullPreview').find('img').attr('src', imgs[index].url);
                                 $('.full-image').fadeIn().css('display','block');
                                 $('.iframe').fadeOut().css('display','none');
+                                $('.video').fadeIn().css('display','none');
                                 break;
                             case 'pdf':
-                                $('.fullPreview').find('iframe').attr('src', imgs[index].url);
+                                $('.fullPreview').find('.iframe').attr('src', imgs[index].url);
                                 $('.full-image').fadeOut().css('display','none');
                                 $('.iframe').fadeIn().css('display','block');
+                                $('.video').fadeIn().css('display','none');
+                                break;
+                            case 'video':
+                                $('.fullPreview').find('.video').attr('src', 'https://www.youtube.com/embed/'+imgs[index].url+'?rel=0');
+                                $('.full-image').fadeOut().css('display','none');
+                                $('.iframe').fadeIn().css('display','none');
+                                $('.video').fadeIn().css('display','block');
                                 break;
                         }
                     }, 500)
