@@ -132,11 +132,12 @@
                                         <div class="grid grid-cols-1 gap-8 mt-10 max-w-xl text-base leading-7 text-gray-700 lg:max-w-none">
                                             <div class="p-4 space-y-4 bg-gray-100 border border-gray-200 border-top border-bottom">
                                                 <p>
-                                                    Make sure you have the following content type headers are set on every request:
+                                                    In addition to the Authorization header, make sure you have the following content type headers are set on every request:
                                                 </p>
-                                                <p>
-                                                    <code class="p-1 bg-gray-300">
-                                                        Accept: application/json Content-Type: application/json
+                                                <p class="p-1 bg-gray-300">
+                                                    <code>
+                                                        Accept: application/json<br />
+                                                        Content-Type: application/json
                                                     </code>
                                                 </p>
                                             </div>
@@ -383,6 +384,14 @@
                                                 <code class="p-1 bg-gray-300">
                                                     GET /api/v1/pages/export
                                                 </code>
+                                            </p>
+                                            <p class="py-4">
+                                                <a href="{{ route('api.pages.export') }}"
+                                                   class="py-2 px-4 text-white bg-secondary hover:bg-secondary-600"
+                                                   download
+                                                >
+                                                    Download Export
+                                                </a>
                                             </p>
                                             <p class="">
                                                 Provides a CSV export of all pages and includes columns for {!!  collect(['Document Type', 'Parent ID', 'Order', 'Parent Name', 'UUID', 'Website URL', 'Website URL', 'Original Transcript', 'Text Only Transcript', 'People', 'Places', 'Dates', 'Topics'])->map(function($item){ return "<span class='px-0.5 bg-gray-300'>$item</span>"; })->join(', ', ', and ') !!}.

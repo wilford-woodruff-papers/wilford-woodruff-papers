@@ -65,6 +65,20 @@
             <x-input id="email" type="email" class="block mt-1 w-full" wire:model.defer="state.email" />
             <x-input-error for="email" class="mt-2" />
         </div>
+
+        <!-- Organization -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-label for="organization_name" value="{{ __('Organization Affiliation (if applicable)') }}" />
+            <x-input id="organization_name" type="text" class="block mt-1 w-full" wire:model.defer="state.organization_name" />
+            <x-input-error for="organization_name" class="mt-2" />
+        </div>
+
+        <!-- Organization -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-label for="proposed_use" value="{{ __('How do you plan to use the Wilford Woodruff Papers API? *') }}" />
+            <x-textarea id="proposed_use" class="block mt-1 w-full" wire:model.defer="state.proposed_use" required />
+            <x-input-error for="proposed_use" class="mt-2" />
+        </div>
     </x-slot>
 
     <x-slot name="actions">

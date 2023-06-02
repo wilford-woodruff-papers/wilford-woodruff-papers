@@ -36,7 +36,7 @@
 
         <div class="ml-12">
             <div class="mt-2 text-sm text-gray-500">
-                We provide a simple API for retrieving information from the Wilford woodruff Papers Project.
+                We provide a simple read only API for retrieving information from the Wilford woodruff Papers Project.
             </div>
 
             <a href="{{ route('documentation') }}">

@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use App\Nova\Actions\ExportUsers;
+use App\Nova\Filters\ApiUser;
 use Illuminate\Http\Request;
 use JeffersonSimaoGoncalves\NovaPermission\Nova\Fields\RoleBooleanGroup;
 use Laravel\Nova\Fields\Gravatar;
@@ -91,6 +92,7 @@ class User extends Resource
     public function filters(Request $request): array
     {
         return [
+            new ApiUser(),
             new \App\Nova\Filters\Role(),
         ];
     }

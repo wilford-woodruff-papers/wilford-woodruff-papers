@@ -34,6 +34,8 @@ class User extends Authenticatable
         'accepted_terms',
         'provider',
         'provider_id',
+        'organization_name',
+        'proposed_use',
     ];
 
     /**
@@ -95,5 +97,10 @@ class User extends Authenticatable
     public function hasAcceptedApiTerms()
     {
         return $this->accepted_api_terms;
+    }
+
+    public function hasProvidedApiUseFields()
+    {
+        return $this->provided_api_fields;
     }
 }

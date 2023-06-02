@@ -164,6 +164,12 @@
                             </a>
                         </li>
 
+                        <li>
+                            <a href="{{ route('developers') }}" class="text-base text-white hover:text-highlight">
+                                Developers
+                            </a>
+                        </li>
+
                         <li class="pt-2">
                             <a href="{{ route('donate') }}" class="py-2 px-4 text-base text-white uppercase border-2 border-highlight bg-highlight">
                                 Donate Online

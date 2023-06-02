@@ -142,6 +142,9 @@ Route::middleware('throttle:12,1')->group(function () {
     Route::get('/quotes/page/{page}', [\App\Http\Controllers\QuoteController::class, 'index'])->name('quotes.page.show');
     Route::get('/themes/page/{page}', [\App\Http\Controllers\ThemeController::class, 'index'])->name('themes.page.show');
 
+    Route::view('/developers', 'developers')
+        ->name('developers');
+
     /*Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
         return redirect()->route('home');
     })->name('dashboard');*/
@@ -151,6 +154,9 @@ Route::middleware('throttle:12,1')->group(function () {
         config('jetstream.auth_session'),
         'verified',
     ])->group(function () {
+        Route::get('/dashboard', function () {
+            return redirect()->route('dashboard');
+        });
         Route::get('/api/dashboard', \App\Http\Controllers\Api\v1\ApiWelcomeController::class)->name('dashboard');
 
         Route::get('/api/documentation', \App\Http\Controllers\Api\v1\DocumentationController::class)
@@ -163,8 +169,12 @@ Route::middleware('throttle:12,1')->group(function () {
     ])->group(function () {
         Route::get('api/terms-of-use', [\App\Http\Controllers\Api\AcceptApiTermsController::class, 'show'])
             ->name('api.terms.accept');
-        Route::post('api/terms-of-use', [\App\Http\Controllers\Api\AcceptApiTermsController::class, 'submit'])
-            ->name('api.terms.submit');
+        Route::post('api/terms-of-use', [\App\Http\Controllers\Api\AcceptApiTermsController::class, 'acceptsTerms'])
+            ->name('api.terms.accept')
+            ->middleware(\Spatie\Honeypot\ProtectAgainstSpam::class);
+        Route::post('api/update-user-fields', [\App\Http\Controllers\Api\AcceptApiTermsController::class, 'provideAdditionalFields'])
+            ->name('api.terms.update')
+            ->middleware(\Spatie\Honeypot\ProtectAgainstSpam::class);
     });
 
     Route::prefix('filemanager')->middleware(['web', 'auth', 'role:Super Admin|Admin|Editor'])->group(function () {

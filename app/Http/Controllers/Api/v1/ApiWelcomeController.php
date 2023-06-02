@@ -13,11 +13,16 @@ class ApiWelcomeController extends Controller
     public function __invoke()
     {
         return view('dashboard', [
-            'totalDocuments' => Item::query()->where('enabled', true)->count(),
-            'totalPages' => Page::query()->whereHas('item', function (Builder $query) {
-                $query->where('enabled', true);
-            })->count(),
-            'totalSubjects' => Subject::query()->where('total_usage_count', '>', 0)->count(),
+            'totalDocuments' => Item::query()
+                ->where('enabled', true)
+                ->count(),
+            'totalPages' => Page::query()
+                ->whereHas('item', function (Builder $query) {
+                    $query->where('enabled', true);
+                })->count(),
+            'totalSubjects' => Subject::query()
+                ->where('total_usage_count', '>', 0)
+                ->count(),
         ]);
     }
 }

@@ -12,7 +12,7 @@ class RequireApiTermsAcceptanceMiddleware
     {
         session(['url.intended' => Route::currentRouteName()]);
 
-        if (! $request->user()->hasAcceptedApiTerms()) {
+        if (! $request->user()->hasAcceptedApiTerms() || ! $request->user()->hasProvidedApiUseFields()) {
             return redirect()->route('api.terms.accept');
         }
 
