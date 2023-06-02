@@ -26,7 +26,7 @@ class PageController extends Controller
      */
     public function index(Request $request)
     {
-        abort_unless($request->user()->tokenCan('read'), 401);
+        abort_unless($request->ajax() || $request->user()->tokenCan('read'), 401);
 
         $pages = Page::query();
 
@@ -66,7 +66,7 @@ class PageController extends Controller
      */
     public function show(Request $request, Page $page)
     {
-        abort_unless($request->user()->tokenCan('read'), 401);
+        abort_unless($request->ajax() || $request->user()->tokenCan('read'), 401);
 
         return $page;
     }

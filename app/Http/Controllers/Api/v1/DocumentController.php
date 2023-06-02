@@ -20,7 +20,7 @@ class DocumentController extends Controller
 
     public function index(Request $request)
     {
-        abort_unless($request->user()->tokenCan('read'), 401);
+        abort_unless($request->ajax() || $request->user()->tokenCan('read'), 401);
 
         $items = Item::query()
             ->whereNull('item_id');
@@ -52,7 +52,7 @@ class DocumentController extends Controller
 
     public function show(Request $request, Item $item)
     {
-        abort_unless($request->user()->tokenCan('read'), 401);
+        abort_unless($request->ajax() || $request->user()->tokenCan('read'), 401);
 
         return [
             'id' => $item->id,

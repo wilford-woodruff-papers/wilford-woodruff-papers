@@ -486,3 +486,33 @@ if (app()->environment('local')) {
 Route::get('open-graph-image.jpg', [LaravelOpenGraphImageController::class, '__invoke'])->name('open-graph-image.file');
 
 //Route::view('test-og-image', 'public.test');
+Route::middleware(['auth', 'throttle:30'])
+    ->prefix('v1')
+    ->group(function () {
+        Route::get('documents', [\App\Http\Controllers\Api\v1\DocumentController::class, 'index'])
+            ->name('docs.documents.index');
+        Route::get('documents/{item}', [\App\Http\Controllers\Api\v1\DocumentController::class, 'show'])
+            ->name('docs.documents.show');
+
+        Route::get('pages', [\App\Http\Controllers\Api\v1\PageController::class, 'index'])
+            ->name('docs.pages.index');
+        Route::get('pages/export', [\App\Http\Controllers\Api\v1\PageController::class, 'export'])
+            ->name('docs.pages.export');
+        Route::get('pages/{page}', [\App\Http\Controllers\Api\v1\PageController::class, 'show'])
+            ->name('docs.pages.show');
+
+        Route::get('subjects', [\App\Http\Controllers\Api\v1\SubjectController::class, 'index'])
+            ->name('docs.subjects.index');
+        Route::get('subjects/{subject}', [\App\Http\Controllers\Api\v1\SubjectController::class, 'show'])
+            ->name('docs.subjects.show');
+
+        Route::get('people', [\App\Http\Controllers\Api\v1\PeopleController::class, 'index'])
+            ->name('docs.people.index');
+        Route::get('people/{id}', [\App\Http\Controllers\Api\v1\PeopleController::class, 'show'])
+            ->name('docs.people.show');
+
+        Route::get('places', [\App\Http\Controllers\Api\v1\PlacesController::class, 'index'])
+            ->name('docs.places.index');
+        Route::get('places/{id}', [\App\Http\Controllers\Api\v1\PlacesController::class, 'show'])
+            ->name('docs.places.show');
+    });

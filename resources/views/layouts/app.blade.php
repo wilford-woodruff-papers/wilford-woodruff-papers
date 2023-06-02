@@ -12,7 +12,7 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-
+        @stack('styles')
         @livewireStyles
 
         <!-- Scripts -->
@@ -48,5 +48,6 @@
         @livewireScripts
 
         <x-constant-contact />
+        @stack('scripts')
     </body>
 </html>

@@ -6,7 +6,22 @@
     </x-slot>
 
     <div x-data="{
-        id: 'introduction'
+        id: 'introduction',
+        makeAPICall: function (url, id) {
+        const options = {
+                headers: {
+                    'Authorization': 'Bearer {{ auth()->user()->tokens()->first()->plainTextToken }}',
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            };
+            axios.get(url, {}, options)
+                .then(response => {
+                    let code = document.getElementById(id);
+                    code.innerHTML = JSON.stringify(response.data, null, 2);
+                    hljs.highlightAll(code);
+                });
+        }
     }"
          class="py-12">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -63,6 +78,18 @@
                                            x-on:click="id = 'subjects'"
                                            :class="id =='subjects' ? 'text-secondary' : 'text-gray-700'"
                                            class="flex gap-x-3 p-2 pl-3 text-sm font-semibold leading-6 rounded-md hover:bg-gray-50 group hover:text-secondary">Subjects</a>
+                                    </li>
+                                    <li>
+                                        <a href="#people"
+                                           x-on:click="id = 'people'"
+                                           :class="id =='people' ? 'text-secondary' : 'text-gray-700'"
+                                           class="flex gap-x-3 p-2 pl-3 text-sm font-semibold leading-6 rounded-md hover:bg-gray-50 group hover:text-secondary">People</a>
+                                    </li>
+                                    <li>
+                                        <a href="#places"
+                                           x-on:click="id = 'places'"
+                                           :class="id =='places' ? 'text-secondary' : 'text-gray-700'"
+                                           class="flex gap-x-3 p-2 pl-3 text-sm font-semibold leading-6 rounded-md hover:bg-gray-50 group hover:text-secondary">Places</a>
                                     </li>
                                 </ul>
                             </nav>
@@ -285,8 +312,61 @@
                                                         <p>Any text value to search within the document name.</p>
                                                     </td>
                                                 </tr>
+                                                <tr class="even:bg-gray-50">
+                                                    <td class="px-4">per_page</td>
+                                                    <td class="px-4">
+                                                        <p>Number of documents to return each request. The default is 100 and the maximum is 500.</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="even:bg-gray-50">
+                                                    <td class="px-4">page</td>
+                                                    <td class="px-4">
+                                                        <p>The page of results to return. (not required for the first page)</p>
+                                                    </td>
+                                                </tr>
                                                 </tbody>
                                             </table>
+                                            <p class="text-lg font-semibold">
+                                                Example Response
+                                            </p>
+                                            <div x-data="{
+                                                    id: 1,
+                                                    loaded: false,
+                                                    get expanded() {
+                                                        return this.active === this.id
+                                                    },
+                                                    set expanded(value) {
+                                                        if(! this.loaded){
+                                                            this.makeAPICall('{{ route('docs.documents.index') }}?per_page=1', 'documents-response');
+                                                            this.loaded = true;
+                                                        }
+                                                        this.active = value ? this.id : null
+                                                    },
+                                                }" role="region" class="bg-white rounded-lg shadow">
+                                                <h2>
+                                                    <button
+                                                        x-on:click="expanded = !expanded"
+                                                        :aria-expanded="expanded"
+                                                        class="flex justify-between items-center py-4 px-6 w-full text-xl font-bold"
+                                                    >
+                                                        <span>Show / Hide</span>
+                                                        <span x-show="expanded" aria-hidden="true" class="ml-4">&minus;</span>
+                                                        <span x-show="!expanded" aria-hidden="true" class="ml-4">&plus;</span>
+                                                    </button>
+                                                </h2>
+
+                                                <div x-show="expanded" x-collapse>
+                                                    <div class="px-6 pb-4">
+                                                        <pre>
+                                                            <code class="language-json" id="documents-response"></code>
+                                                        </pre>
+                                                        {{--<textarea name=""
+                                                                  id="documents-response"
+                                                                  cols="30"
+                                                        ></textarea>--}}
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="p-4 space-y-4 bg-gray-100 border border-gray-200 border-top border-bottom">
                                             <h3 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-xl">
@@ -321,6 +401,48 @@
                                                 </tr>
                                                 </tbody>
                                             </table>
+                                            <p class="text-lg font-semibold">
+                                                Example Response
+                                            </p>
+                                            <div x-data="{
+                                                    id: 1,
+                                                    loaded: false,
+                                                    get expanded() {
+                                                        return this.active === this.id
+                                                    },
+                                                    set expanded(value) {
+                                                        if(! this.loaded){
+                                                            this.makeAPICall('{{ route('docs.documents.show', ['item' => \App\Models\Item::where('enabled', true)->where('type_id', 4)->first()]) }}', 'document-response');
+                                                            this.loaded = true;
+                                                        }
+
+                                                        this.active = value ? this.id : null
+                                                    },
+                                                }" role="region" class="bg-white rounded-lg shadow">
+                                                <h2>
+                                                    <button
+                                                        x-on:click="expanded = !expanded"
+                                                        :aria-expanded="expanded"
+                                                        class="flex justify-between items-center py-4 px-6 w-full text-xl font-bold"
+                                                    >
+                                                        <span>Show / Hide</span>
+                                                        <span x-show="expanded" aria-hidden="true" class="ml-4">&minus;</span>
+                                                        <span x-show="!expanded" aria-hidden="true" class="ml-4">&plus;</span>
+                                                    </button>
+                                                </h2>
+
+                                                <div x-show="expanded" x-collapse>
+                                                    <div class="px-6 pb-4">
+                                                        <pre>
+                                                            <code class="language-json" id="document-response"></code>
+                                                        </pre>
+                                                        {{--<textarea name=""
+                                                                  id="documents-response"
+                                                                  cols="30"
+                                                        ></textarea>--}}
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -370,8 +492,61 @@
                                                         </p>
                                                     </td>
                                                 </tr>
+                                                <tr class="even:bg-gray-50">
+                                                    <td class="px-4">per_page</td>
+                                                    <td class="px-4">
+                                                        <p>Number of pages to return each request. The default is 100 and the maximum is 500.</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="even:bg-gray-50">
+                                                    <td class="px-4">page</td>
+                                                    <td class="px-4">
+                                                        <p>The page of results to return. (not required for the first page)</p>
+                                                    </td>
+                                                </tr>
                                                 </tbody>
                                             </table>
+                                            <p class="text-lg font-semibold">
+                                                Example Response
+                                            </p>
+                                            <div x-data="{
+                                                    id: 1,
+                                                    loaded: false,
+                                                    get expanded() {
+                                                        return this.active === this.id
+                                                    },
+                                                    set expanded(value) {
+                                                        if(! this.loaded){
+                                                            this.makeAPICall('{{ route('docs.pages.index') }}?per_page=1', 'pages-response');
+                                                            this.loaded = true;
+                                                        }
+                                                        this.active = value ? this.id : null
+                                                    },
+                                                }" role="region" class="bg-white rounded-lg shadow">
+                                                <h2>
+                                                    <button
+                                                        x-on:click="expanded = !expanded"
+                                                        :aria-expanded="expanded"
+                                                        class="flex justify-between items-center py-4 px-6 w-full text-xl font-bold"
+                                                    >
+                                                        <span>Show / Hide</span>
+                                                        <span x-show="expanded" aria-hidden="true" class="ml-4">&minus;</span>
+                                                        <span x-show="!expanded" aria-hidden="true" class="ml-4">&plus;</span>
+                                                    </button>
+                                                </h2>
+
+                                                <div x-show="expanded" x-collapse>
+                                                    <div class="px-6 pb-4">
+                                                        <pre>
+                                                            <code class="language-json" id="pages-response"></code>
+                                                        </pre>
+                                                        {{--<textarea name=""
+                                                                  id="documents-response"
+                                                                  cols="30"
+                                                        ></textarea>--}}
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="p-4 space-y-4 bg-gray-100 border border-gray-200 border-top border-bottom">
                                             <h3 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-xl">
@@ -394,7 +569,7 @@
                                                 </a>
                                             </p>
                                             <p class="">
-                                                Provides a CSV export of all pages and includes columns for {!!  collect(['Document Type', 'Parent ID', 'Order', 'Parent Name', 'UUID', 'Website URL', 'Website URL', 'Original Transcript', 'Text Only Transcript', 'People', 'Places', 'Dates', 'Topics'])->map(function($item){ return "<span class='px-0.5 bg-gray-300'>$item</span>"; })->join(', ', ', and ') !!}.
+                                                Provides a CSV export of all pages and includes columns for {!!  collect(['Document Type', 'Parent ID', 'Order', 'Parent Name', 'UUID', 'Website URL', 'Image URL', 'Original Transcript', 'Text Only Transcript', 'People', 'Places', 'Dates', 'Topics'])->map(function($item){ return "<span class='px-0.5 bg-gray-300'>$item</span>"; })->join(', ', ', and ') !!}.
                                             </p>
                                         </div>
                                         <div class="p-4 space-y-4 bg-gray-100 border border-gray-200 border-top border-bottom">
@@ -430,6 +605,48 @@
                                                 </tr>
                                                 </tbody>
                                             </table>
+                                            <p class="text-lg font-semibold">
+                                                Example Response
+                                            </p>
+                                            <div x-data="{
+                                                    id: 1,
+                                                    loaded: false,
+                                                    get expanded() {
+                                                        return this.active === this.id
+                                                    },
+                                                    set expanded(value) {
+                                                        if(! this.loaded){
+                                                            this.makeAPICall('{{ route('docs.pages.show', ['page' => \App\Models\Item::where('enabled', true)->where('type_id', 4)->first()->firstPage]) }}', 'page-response');
+                                                            this.loaded = true;
+                                                        }
+
+                                                        this.active = value ? this.id : null
+                                                    },
+                                                }" role="region" class="bg-white rounded-lg shadow">
+                                                <h2>
+                                                    <button
+                                                        x-on:click="expanded = !expanded"
+                                                        :aria-expanded="expanded"
+                                                        class="flex justify-between items-center py-4 px-6 w-full text-xl font-bold"
+                                                    >
+                                                        <span>Show / Hide</span>
+                                                        <span x-show="expanded" aria-hidden="true" class="ml-4">&minus;</span>
+                                                        <span x-show="!expanded" aria-hidden="true" class="ml-4">&plus;</span>
+                                                    </button>
+                                                </h2>
+
+                                                <div x-show="expanded" x-collapse>
+                                                    <div class="px-6 pb-4">
+                                                        <pre>
+                                                            <code class="language-json" id="page-response"></code>
+                                                        </pre>
+                                                        {{--<textarea name=""
+                                                                  id="documents-response"
+                                                                  cols="30"
+                                                        ></textarea>--}}
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -480,12 +697,24 @@
                                                         </p>
                                                     </td>
                                                 </tr>
+                                                <tr class="even:bg-gray-50">
+                                                    <td class="px-4">per_page</td>
+                                                    <td class="px-4">
+                                                        <p>Number of subjects to return each request. The default is 100 and the maximum is 500.</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="even:bg-gray-50">
+                                                    <td class="px-4">page</td>
+                                                    <td class="px-4">
+                                                        <p>The page of results to return. (not required for the first page)</p>
+                                                    </td>
+                                                </tr>
                                                 </tbody>
                                             </table>
                                         </div>
                                         <div class="p-4 space-y-4 bg-gray-100 border border-gray-200 border-top border-bottom">
                                             <h3 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-xl">
-                                                Get Subjects
+                                                Get Subject
                                             </h3>
                                             <p class="text-lg font-semibold">
                                                 HTTP Request
@@ -523,10 +752,210 @@
                         </div>
 
 
+                        <div id="people"
+                             x-intersect.half="id = 'people'"
+                        >
+                            <div class="py-6 bg-white sm:py-12 min-h-[50vh]">
+                                <div class="px-6 mx-auto max-w-7xl lg:px-8">
+                                    <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
+                                        <h2 class="mt-2 mb-6 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">People</h2>
+                                        <div class="p-4 space-y-4 bg-gray-100 border border-gray-200 border-top border-bottom">
+                                            <h3 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-xl">
+                                                List People
+                                            </h3>
+                                            <p class="text-lg font-semibold">
+                                                HTTP Request
+                                            </p>
+                                            <p>
+                                                <code class="p-1 bg-gray-300">
+                                                    GET /api/v1/people
+                                                </code>
+                                            </p>
+                                            <p class="text-lg font-semibold">
+                                                Parameters
+                                            </p>
+                                            <table>
+                                                <thead class="font-semibold">
+                                                <tr>
+                                                    <th class="px-4">Key</th>
+                                                    <th class="px-4">Description</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr class="even:bg-gray-50">
+                                                    <td class="px-4">categories[]</td>
+                                                    <td class="px-4 space-y-3">
+                                                        <p>
+                                                            Should be an array of people categories. Valid values are: {!!  collect(['Apostles', '1840 British Converts', 'Family', 'Scriptural Figures', '1835 Southern Converts', 'Historical Figures', 'Bishops in Letters'])->map(function($item){ return "<span class='px-0.5 bg-gray-300'>$item</span>"; })->join(', ', ', and ') !!}
+                                                        </p>
+                                                        <p>
+                                                            <code class="p-1 bg-gray-300">
+                                                                /api/v1/people?categories[]=Family&categories[]=Historical%20Figures
+                                                            </code>
+                                                        </p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="even:bg-gray-50">
+                                                    <td class="px-4">per_page</td>
+                                                    <td class="px-4">
+                                                        <p>Number of people to return each request. The default is 100 and the maximum is 500.</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="even:bg-gray-50">
+                                                    <td class="px-4">page</td>
+                                                    <td class="px-4">
+                                                        <p>The page of results to return. (not required for the first page)</p>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="p-4 space-y-4 bg-gray-100 border border-gray-200 border-top border-bottom">
+                                            <h3 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-xl">
+                                                Get Person
+                                            </h3>
+                                            <p class="text-lg font-semibold">
+                                                HTTP Request
+                                            </p>
+                                            <p>
+                                                <code class="p-1 bg-gray-300">
+                                                    GET /api/v1/people/{id}
+                                                </code>
+                                            </p>
+                                            <p class="text-lg font-semibold">
+                                                Parameters
+                                            </p>
+                                            <table>
+                                                <thead class="font-semibold">
+                                                <tr>
+                                                    <th class="px-4">Key</th>
+                                                    <th class="px-4">Description</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr class="even:bg-gray-50">
+                                                    <td class="px-4">id</td>
+                                                    <td class="px-4 space-y-3">
+                                                        <p>
+                                                            Should be a valid person id.
+                                                        </p>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div id="places"
+                             x-intersect.half="id = 'places'"
+                        >
+                            <div class="py-6 bg-white sm:py-12 min-h-[50vh]">
+                                <div class="px-6 mx-auto max-w-7xl lg:px-8">
+                                    <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
+                                        <h2 class="mt-2 mb-6 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Places</h2>
+                                        <div class="p-4 space-y-4 bg-gray-100 border border-gray-200 border-top border-bottom">
+                                            <h3 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-xl">
+                                                List Places
+                                            </h3>
+                                            <p class="text-lg font-semibold">
+                                                HTTP Request
+                                            </p>
+                                            <p>
+                                                <code class="p-1 bg-gray-300">
+                                                    GET /api/v1/places
+                                                </code>
+                                            </p>
+                                            <p class="text-lg font-semibold">
+                                                Parameters
+                                            </p>
+                                            <table>
+                                                <thead class="font-semibold">
+                                                <tr>
+                                                    <th class="px-4">Key</th>
+                                                    <th class="px-4">Description</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr class="even:bg-gray-50">
+                                                    <td class="px-4">per_page</td>
+                                                    <td class="px-4">
+                                                        <p>Number of places to return each request. The default is 100 and the maximum is 500.</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="even:bg-gray-50">
+                                                    <td class="px-4">page</td>
+                                                    <td class="px-4">
+                                                        <p>The page of results to return. (not required for the first page)</p>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="p-4 space-y-4 bg-gray-100 border border-gray-200 border-top border-bottom">
+                                            <h3 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-xl">
+                                                Get Place
+                                            </h3>
+                                            <p class="text-lg font-semibold">
+                                                HTTP Request
+                                            </p>
+                                            <p>
+                                                <code class="p-1 bg-gray-300">
+                                                    GET /api/v1/places/{id}
+                                                </code>
+                                            </p>
+                                            <p class="text-lg font-semibold">
+                                                Parameters
+                                            </p>
+                                            <table>
+                                                <thead class="font-semibold">
+                                                <tr>
+                                                    <th class="px-4">Key</th>
+                                                    <th class="px-4">Description</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr class="even:bg-gray-50">
+                                                    <td class="px-4">id</td>
+                                                    <td class="px-4 space-y-3">
+                                                        <p>
+                                                            Should be a valid place id.
+                                                        </p>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
             </div>
         </div>
     </div>
+    @push('styles')
+        <link rel="stylesheet"
+              href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+        <stlye>
+
+        </stlye>
+    @endpush
+    @push('scripts')
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+        {{--<script>hljs.highlightAll();</script>--}}
+        <script>
+            /*var myData = {"address":{"House_Number":505,"Street_Direction":"","Street_Name":"Claremont","Street_Type":"Street","Apt":"15L","Burough":"Brooklyn","State":"NY","Zip":"10451","Phone":"718-777-7777"},"casehead":0,"adults":[{"Last_Name":"Foo","First_Name":"A","Sex":"M","Date_Of_Birth":"01011980"}],"children":[]};
+
+            var textedJson = JSON.stringify(myData, undefined, 4);
+            $('#myTextarea').text(textedJson);*/
+        </script>
+    @endpush
 </x-app-layout>

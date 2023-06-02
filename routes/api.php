@@ -36,4 +36,14 @@ Route::middleware(['auth:sanctum', 'throttle:30'])
             ->name('api.subjects.index');
         Route::get('subjects/{subject}', [\App\Http\Controllers\Api\v1\SubjectController::class, 'show'])
             ->name('api.subjects.show');
+
+        Route::get('people', [\App\Http\Controllers\Api\v1\PeopleController::class, 'index'])
+            ->name('api.people.index');
+        Route::get('people/{id}', [\App\Http\Controllers\Api\v1\PeopleController::class, 'show'])
+            ->name('api.people.show');
+
+        Route::get('places', [\App\Http\Controllers\Api\v1\PlacesController::class, 'index'])
+            ->name('api.places.index');
+        Route::get('places/{id}', [\App\Http\Controllers\Api\v1\PlacesController::class, 'show'])
+            ->name('api.places.show');
 });
