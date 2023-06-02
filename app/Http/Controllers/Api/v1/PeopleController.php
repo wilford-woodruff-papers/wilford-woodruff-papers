@@ -26,7 +26,7 @@ class PeopleController extends Controller
      */
     public function index(Request $request)
     {
-        abort_unless($request->user()->tokenCan('read'), 401);
+        abort_unless($request->ajax() || $request->user()->tokenCan('read'), 401);
 
         $subjects = Subject::query();
 
@@ -60,7 +60,7 @@ class PeopleController extends Controller
      */
     public function show(Request $request, $id)
     {
-        abort_unless($request->user()->tokenCan('read'), 401);
+        abort_unless($request->ajax() || $request->user()->tokenCan('read'), 401);
 
         $subject = Subject::findOrFail($id);
 

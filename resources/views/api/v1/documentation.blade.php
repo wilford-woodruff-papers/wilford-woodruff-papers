@@ -326,47 +326,10 @@
                                                 </tr>
                                                 </tbody>
                                             </table>
-                                            <p class="text-lg font-semibold">
-                                                Example Response
-                                            </p>
-                                            <div x-data="{
-                                                    id: 1,
-                                                    loaded: false,
-                                                    get expanded() {
-                                                        return this.active === this.id
-                                                    },
-                                                    set expanded(value) {
-                                                        if(! this.loaded){
-                                                            this.makeAPICall('{{ route('docs.documents.index') }}?per_page=1', 'documents-response');
-                                                            this.loaded = true;
-                                                        }
-                                                        this.active = value ? this.id : null
-                                                    },
-                                                }" role="region" class="bg-white rounded-lg shadow">
-                                                <h2>
-                                                    <button
-                                                        x-on:click="expanded = !expanded"
-                                                        :aria-expanded="expanded"
-                                                        class="flex justify-between items-center py-4 px-6 w-full text-xl font-bold"
-                                                    >
-                                                        <span>Show / Hide</span>
-                                                        <span x-show="expanded" aria-hidden="true" class="ml-4">&minus;</span>
-                                                        <span x-show="!expanded" aria-hidden="true" class="ml-4">&plus;</span>
-                                                    </button>
-                                                </h2>
-
-                                                <div x-show="expanded" x-collapse>
-                                                    <div class="px-6 pb-4">
-                                                        <pre>
-                                                            <code class="language-json" id="documents-response"></code>
-                                                        </pre>
-                                                        {{--<textarea name=""
-                                                                  id="documents-response"
-                                                                  cols="30"
-                                                        ></textarea>--}}
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <x-example-response :id="10"
+                                                                :model="new App\Models\Item"
+                                                                :url="route('docs.documents.index', ['per_page' => 1])"
+                                            />
                                         </div>
                                         <div class="p-4 space-y-4 bg-gray-100 border border-gray-200 border-top border-bottom">
                                             <h3 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-xl">
@@ -401,48 +364,10 @@
                                                 </tr>
                                                 </tbody>
                                             </table>
-                                            <p class="text-lg font-semibold">
-                                                Example Response
-                                            </p>
-                                            <div x-data="{
-                                                    id: 1,
-                                                    loaded: false,
-                                                    get expanded() {
-                                                        return this.active === this.id
-                                                    },
-                                                    set expanded(value) {
-                                                        if(! this.loaded){
-                                                            this.makeAPICall('{{ route('docs.documents.show', ['item' => \App\Models\Item::where('enabled', true)->where('type_id', 4)->first()]) }}', 'document-response');
-                                                            this.loaded = true;
-                                                        }
-
-                                                        this.active = value ? this.id : null
-                                                    },
-                                                }" role="region" class="bg-white rounded-lg shadow">
-                                                <h2>
-                                                    <button
-                                                        x-on:click="expanded = !expanded"
-                                                        :aria-expanded="expanded"
-                                                        class="flex justify-between items-center py-4 px-6 w-full text-xl font-bold"
-                                                    >
-                                                        <span>Show / Hide</span>
-                                                        <span x-show="expanded" aria-hidden="true" class="ml-4">&minus;</span>
-                                                        <span x-show="!expanded" aria-hidden="true" class="ml-4">&plus;</span>
-                                                    </button>
-                                                </h2>
-
-                                                <div x-show="expanded" x-collapse>
-                                                    <div class="px-6 pb-4">
-                                                        <pre>
-                                                            <code class="language-json" id="document-response"></code>
-                                                        </pre>
-                                                        {{--<textarea name=""
-                                                                  id="documents-response"
-                                                                  cols="30"
-                                                        ></textarea>--}}
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <x-example-response :id="11"
+                                                                :model="new App\Models\Item"
+                                                                :url="route('docs.documents.show', ['item' => \App\Models\Item::where('enabled', true)->where('type_id', 4)->first()])"
+                                            />
                                         </div>
                                     </div>
                                 </div>
@@ -506,47 +431,10 @@
                                                 </tr>
                                                 </tbody>
                                             </table>
-                                            <p class="text-lg font-semibold">
-                                                Example Response
-                                            </p>
-                                            <div x-data="{
-                                                    id: 1,
-                                                    loaded: false,
-                                                    get expanded() {
-                                                        return this.active === this.id
-                                                    },
-                                                    set expanded(value) {
-                                                        if(! this.loaded){
-                                                            this.makeAPICall('{{ route('docs.pages.index') }}?per_page=1', 'pages-response');
-                                                            this.loaded = true;
-                                                        }
-                                                        this.active = value ? this.id : null
-                                                    },
-                                                }" role="region" class="bg-white rounded-lg shadow">
-                                                <h2>
-                                                    <button
-                                                        x-on:click="expanded = !expanded"
-                                                        :aria-expanded="expanded"
-                                                        class="flex justify-between items-center py-4 px-6 w-full text-xl font-bold"
-                                                    >
-                                                        <span>Show / Hide</span>
-                                                        <span x-show="expanded" aria-hidden="true" class="ml-4">&minus;</span>
-                                                        <span x-show="!expanded" aria-hidden="true" class="ml-4">&plus;</span>
-                                                    </button>
-                                                </h2>
-
-                                                <div x-show="expanded" x-collapse>
-                                                    <div class="px-6 pb-4">
-                                                        <pre>
-                                                            <code class="language-json" id="pages-response"></code>
-                                                        </pre>
-                                                        {{--<textarea name=""
-                                                                  id="documents-response"
-                                                                  cols="30"
-                                                        ></textarea>--}}
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <x-example-response :id="20"
+                                                                :model="new App\Models\Page"
+                                                                :url="route('docs.pages.index', ['per_page' => 1])"
+                                            />
                                         </div>
                                         <div class="p-4 space-y-4 bg-gray-100 border border-gray-200 border-top border-bottom">
                                             <h3 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-xl">
@@ -605,48 +493,10 @@
                                                 </tr>
                                                 </tbody>
                                             </table>
-                                            <p class="text-lg font-semibold">
-                                                Example Response
-                                            </p>
-                                            <div x-data="{
-                                                    id: 1,
-                                                    loaded: false,
-                                                    get expanded() {
-                                                        return this.active === this.id
-                                                    },
-                                                    set expanded(value) {
-                                                        if(! this.loaded){
-                                                            this.makeAPICall('{{ route('docs.pages.show', ['page' => \App\Models\Item::where('enabled', true)->where('type_id', 4)->first()->firstPage]) }}', 'page-response');
-                                                            this.loaded = true;
-                                                        }
-
-                                                        this.active = value ? this.id : null
-                                                    },
-                                                }" role="region" class="bg-white rounded-lg shadow">
-                                                <h2>
-                                                    <button
-                                                        x-on:click="expanded = !expanded"
-                                                        :aria-expanded="expanded"
-                                                        class="flex justify-between items-center py-4 px-6 w-full text-xl font-bold"
-                                                    >
-                                                        <span>Show / Hide</span>
-                                                        <span x-show="expanded" aria-hidden="true" class="ml-4">&minus;</span>
-                                                        <span x-show="!expanded" aria-hidden="true" class="ml-4">&plus;</span>
-                                                    </button>
-                                                </h2>
-
-                                                <div x-show="expanded" x-collapse>
-                                                    <div class="px-6 pb-4">
-                                                        <pre>
-                                                            <code class="language-json" id="page-response"></code>
-                                                        </pre>
-                                                        {{--<textarea name=""
-                                                                  id="documents-response"
-                                                                  cols="30"
-                                                        ></textarea>--}}
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <x-example-response :id="21"
+                                                                :model="new App\Models\Page"
+                                                                :url="route('docs.pages.show', ['page' => \App\Models\Item::where('enabled', true)->where('type_id', 4)->first()->firstPage])"
+                                            />
                                         </div>
                                     </div>
                                 </div>
@@ -711,6 +561,10 @@
                                                 </tr>
                                                 </tbody>
                                             </table>
+                                            <x-example-response :id="30"
+                                                                :model="new App\Models\Subject"
+                                                                :url="route('docs.subjects.index', ['per_page' => 1])"
+                                            />
                                         </div>
                                         <div class="p-4 space-y-4 bg-gray-100 border border-gray-200 border-top border-bottom">
                                             <h3 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-xl">
@@ -745,6 +599,10 @@
                                                 </tr>
                                                 </tbody>
                                             </table>
+                                            <x-example-response :id="31"
+                                                                :model="new App\Models\Subject"
+                                                                :url="route('docs.subjects.show', ['subject' => App\Models\Subject::query()->inRandomOrder()->first()])"
+                                            />
                                         </div>
                                     </div>
                                 </div>
@@ -809,6 +667,10 @@
                                                 </tr>
                                                 </tbody>
                                             </table>
+                                            <x-example-response :id="40"
+                                                                :model="new App\Models\Subject"
+                                                                :url="route('docs.people.index', ['per_page' => 1])"
+                                            />
                                         </div>
                                         <div class="p-4 space-y-4 bg-gray-100 border border-gray-200 border-top border-bottom">
                                             <h3 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-xl">
@@ -843,6 +705,12 @@
                                                 </tr>
                                                 </tbody>
                                             </table>
+                                            <x-example-response :id="41"
+                                                                :model="new App\Models\Subject"
+                                                                :url="route('docs.people.show', ['id' => App\Models\Subject::query()->whereRelation('category', function ($query) {
+            $query->where('name', 'People');
+        })->inRandomOrder()->first()->id])"
+                                            />
                                         </div>
                                     </div>
                                 </div>
@@ -895,6 +763,10 @@
                                                 </tr>
                                                 </tbody>
                                             </table>
+                                            <x-example-response :id="50"
+                                                                :model="new App\Models\Subject"
+                                                                :url="route('docs.places.index', ['per_page' => 1])"
+                                            />
                                         </div>
                                         <div class="p-4 space-y-4 bg-gray-100 border border-gray-200 border-top border-bottom">
                                             <h3 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-xl">
@@ -929,6 +801,12 @@
                                                 </tr>
                                                 </tbody>
                                             </table>
+                                            <x-example-response :id="51"
+                                                                :model="new App\Models\Subject"
+                                                                :url="route('docs.places.show', ['id' => App\Models\Subject::query()->whereRelation('category', function ($query) {
+            $query->where('name', 'Places');
+        })->inRandomOrder()->first()->id])"
+                                            />
                                         </div>
                                     </div>
                                 </div>
