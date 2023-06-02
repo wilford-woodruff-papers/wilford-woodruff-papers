@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Item;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class DocumentController extends Controller
 {
@@ -68,5 +69,13 @@ class DocumentController extends Controller
             ],
             'pages' => $item->pages,
         ];
+    }
+
+    public function export(Request $request)
+    {
+        abort_unless($request->user()->tokenCan('read'), 401);
+
+        return Storage::disk('exports')
+            ->download('documents-export.csv', now('America/Denver')->toDateString().'-documents-export.csv');
     }
 }

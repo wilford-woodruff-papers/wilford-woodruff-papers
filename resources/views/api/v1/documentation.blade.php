@@ -333,6 +333,30 @@
                                         </div>
                                         <div class="p-4 space-y-4 bg-gray-100 border border-gray-200 border-top border-bottom">
                                             <h3 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-xl">
+                                                Export Documents
+                                            </h3>
+                                            <p class="text-lg font-semibold">
+                                                HTTP Request
+                                            </p>
+                                            <p>
+                                                <code class="p-1 bg-gray-300">
+                                                    GET /api/v1/documents/export
+                                                </code>
+                                            </p>
+                                            <p class="py-4">
+                                                <a href="{{ route('api.documents.export') }}"
+                                                   class="py-2 px-4 text-white bg-secondary hover:bg-secondary-600"
+                                                   download
+                                                >
+                                                    Download Export
+                                                </a>
+                                            </p>
+                                            <p class="">
+                                                Provides a CSV export of all documents and includes columns for {!!  collect(['Internal ID', 'Document Type', 'UUID', 'Name', 'Website URL', 'Short URL', 'Image URL',])->map(function($item){ return "<span class='px-0.5 bg-gray-300'>$item</span>"; })->join(', ', ', and ') !!}.
+                                            </p>
+                                        </div>
+                                        <div class="p-4 space-y-4 bg-gray-100 border border-gray-200 border-top border-bottom">
+                                            <h3 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-xl">
                                                 Get Document
                                             </h3>
                                             <p class="text-lg font-semibold">
@@ -674,6 +698,49 @@
                                         </div>
                                         <div class="p-4 space-y-4 bg-gray-100 border border-gray-200 border-top border-bottom">
                                             <h3 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-xl">
+                                                Export People
+                                            </h3>
+                                            <p class="text-lg font-semibold">
+                                                HTTP Request
+                                            </p>
+                                            <p>
+                                                <code class="p-1 bg-gray-300">
+                                                    GET /api/v1/people/export
+                                                </code>
+                                            </p>
+                                            <p class="py-4">
+                                                <a href="{{ route('api.people.export') }}"
+                                                   class="py-2 px-4 text-white bg-secondary hover:bg-secondary-600"
+                                                   download
+                                                >
+                                                    Download Export
+                                                </a>
+                                            </p>
+                                            <p class="">
+                                                Provides a CSV export of all people and includes columns for {!!  collect([
+                                                    'Internal ID',
+                                                    'Family Search ID',
+                                                    'Name',
+                                                    'First Name',
+                                                    'Middle Name',
+                                                    'Last Name',
+                                                    'Suffix',
+                                                    'Biography',
+                                                    'Footnotes',
+                                                    'Reference',
+                                                    'Relationship',
+                                                    'Birth Date',
+                                                    'Baptism Date',
+                                                    'Death Date',
+                                                    'Life Years',
+                                                    'Slug',
+                                                    'Categories',
+                                                    'Website URL',
+                                                ])->map(function($item){ return "<span class='px-0.5 bg-gray-300'>$item</span>"; })->join(', ', ', and ') !!}.
+                                            </p>
+                                        </div>
+                                        <div class="p-4 space-y-4 bg-gray-100 border border-gray-200 border-top border-bottom">
+                                            <h3 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-xl">
                                                 Get Person
                                             </h3>
                                             <p class="text-lg font-semibold">
@@ -767,6 +834,45 @@
                                                                 :model="new App\Models\Subject"
                                                                 :url="route('docs.places.index', ['per_page' => 1])"
                                             />
+                                        </div>
+                                        <div class="p-4 space-y-4 bg-gray-100 border border-gray-200 border-top border-bottom">
+                                            <h3 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-xl">
+                                                Export Places
+                                            </h3>
+                                            <p class="text-lg font-semibold">
+                                                HTTP Request
+                                            </p>
+                                            <p>
+                                                <code class="p-1 bg-gray-300">
+                                                    GET /api/v1/places/export
+                                                </code>
+                                            </p>
+                                            <p class="py-4">
+                                                <a href="{{ route('api.places.export') }}"
+                                                   class="py-2 px-4 text-white bg-secondary hover:bg-secondary-600"
+                                                   download
+                                                >
+                                                    Download Export
+                                                </a>
+                                            </p>
+                                            <p class="">
+                                                Provides a CSV export of all places and includes columns for {!!  collect([
+                                                    'Internal ID',
+                                                    'Name',
+                                                    'Address',
+                                                    'Country',
+                                                    'State or Province',
+                                                    'County',
+                                                    'City',
+                                                    'Specific Place',
+                                                    'Modern Location',
+                                                    'Visited',
+                                                    'Mentioned Only',
+                                                    'Latitude',
+                                                    'Longitude',
+                                                    'Website URL',
+                                                ])->map(function($item){ return "<span class='px-0.5 bg-gray-300'>$item</span>"; })->join(', ', ', and ') !!}.
+                                            </p>
                                         </div>
                                         <div class="p-4 space-y-4 bg-gray-100 border border-gray-200 border-top border-bottom">
                                             <h3 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-xl">

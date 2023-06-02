@@ -2,26 +2,26 @@
 
 namespace App\Console\Commands;
 
-use App\Exports\PageExport;
+use App\Exports\PlacesExport;
 use App\Jobs\NotifyUserOfCompletedExport;
 use App\Models\User;
 use Illuminate\Console\Command;
 
-class ExportPagesCommand extends Command
+class ExportPlacesCommand extends Command
 {
-    protected $signature = 'pages:export';
+    protected $signature = 'places:export';
 
-    protected $description = 'Create Pages CSV Export';
+    protected $description = 'Create Places CSV Export';
 
     public function handle(): void
     {
         $user = User::firstWhere('email', config('wwp.admin_email'));
-        $filename = 'pages-export.csv';
-        (new PageExport($user))
+        $filename = 'places-export.csv';
+        (new PlacesExport($user))
             ->store($filename, 'exports', \Maatwebsite\Excel\Excel::CSV)
             ->onQueue('exports')
             ->chain([
-                new NotifyUserOfCompletedExport(class_basename(PageExport::class), $filename, $user),
+                new NotifyUserOfCompletedExport(class_basename(PlacesExport::class), $filename, $user),
             ]);
     }
 }

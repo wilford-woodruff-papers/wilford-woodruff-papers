@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Subject;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PeopleController extends Controller
 {
@@ -65,5 +66,13 @@ class PeopleController extends Controller
         $subject = Subject::findOrFail($id);
 
         return response()->json($subject);
+    }
+
+    public function export(Request $request)
+    {
+        abort_unless($request->user()->tokenCan('read'), 401);
+
+        return Storage::disk('exports')
+            ->download('people-export.csv', now('America/Denver')->toDateString().'-people-export.csv');
     }
 }

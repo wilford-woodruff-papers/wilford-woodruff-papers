@@ -22,6 +22,8 @@ Route::middleware(['auth:sanctum', 'throttle:30'])
     ->group(function () {
         Route::get('documents', [\App\Http\Controllers\Api\v1\DocumentController::class, 'index'])
             ->name('api.documents.index');
+        Route::get('documents/export', [\App\Http\Controllers\Api\v1\DocumentationController::class, 'export'])
+            ->name('api.documents.export');
         Route::get('documents/{item}', [\App\Http\Controllers\Api\v1\DocumentController::class, 'show'])
             ->name('api.documents.show');
 
@@ -39,11 +41,15 @@ Route::middleware(['auth:sanctum', 'throttle:30'])
 
         Route::get('people', [\App\Http\Controllers\Api\v1\PeopleController::class, 'index'])
             ->name('api.people.index');
+        Route::get('people/export', [\App\Http\Controllers\Api\v1\PeopleController::class, 'export'])
+            ->name('api.people.export');
         Route::get('people/{id}', [\App\Http\Controllers\Api\v1\PeopleController::class, 'show'])
             ->name('api.people.show');
 
         Route::get('places', [\App\Http\Controllers\Api\v1\PlacesController::class, 'index'])
             ->name('api.places.index');
+        Route::get('places/export', [\App\Http\Controllers\Api\v1\PlacesController::class, 'export'])
+            ->name('api.places.export');
         Route::get('places/{id}', [\App\Http\Controllers\Api\v1\PlacesController::class, 'show'])
             ->name('api.places.show');
 });
