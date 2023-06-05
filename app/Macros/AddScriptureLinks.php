@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Mixins;
+namespace App\Macros;
 
 class AddScriptureLinks
 {
