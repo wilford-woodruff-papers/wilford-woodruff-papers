@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Exports\ItemExport;
 use App\Exports\PeopleExport;
 use App\Jobs\NotifyUserOfCompletedExport;
 use App\Models\User;
@@ -18,7 +17,7 @@ class ExportPeopleCommand extends Command
     {
         $user = User::firstWhere('email', config('wwp.admin_email'));
         $filename = 'people-export.csv';
-        (new PeopleExport()Export($user))
+        (new PeopleExport($user))
             ->store($filename, 'exports', \Maatwebsite\Excel\Excel::CSV)
             ->onQueue('exports')
             ->chain([
