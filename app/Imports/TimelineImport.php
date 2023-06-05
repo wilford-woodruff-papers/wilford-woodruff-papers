@@ -47,6 +47,11 @@ class TimelineImport implements ToCollection, WithHeadingRow
             if (! empty($this->getField($row['id']))) {
                 $event = Event::query()
                     ->findOrFail($this->getField($row['id']));
+                if ($this->getField($row['description']) == 'DELETE') {
+                    $event->delete();
+
+                    continue;
+                }
             } else {
                 $event = new Event();
             }
