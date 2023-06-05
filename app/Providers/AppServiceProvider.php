@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
-use App\Mixins\AddScriptureLinks;
+use App\Macros\AddScriptureLinks;
+use App\Macros\AddSubjectLinks;
+use App\Macros\RemoveQZCodes;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
@@ -25,7 +27,9 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
 
+        Stringable::macro('addSubjectLinks', app(AddSubjectLinks::class)());
         Stringable::macro('addScriptureLinks', app(AddScriptureLinks::class)());
+        Stringable::macro('removeQZCodes', app(RemoveQZCodes::class)());
 
         if (! app()->environment('production')) {
             Mail::alwaysTo('test@wilfordwoodruffpapers.org');
