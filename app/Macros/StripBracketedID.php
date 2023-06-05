@@ -2,7 +2,7 @@
 
 namespace App\Macros;
 
-class StripUniqueID
+class StripBracketedID
 {
     public function __invoke()
     {

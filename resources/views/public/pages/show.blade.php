@@ -137,7 +137,7 @@
         <div class="py-6 px-4 w-full md:w-2/5" id="transcript">
             <h2 class="mb-2 text-2xl border-b-2 border-gray-300 text-secondary">
                 <a href="{{ route('documents.show', ['item' => $item]) }}">
-                    {{ \Illuminate\Support\Str::of($item->name)->stripUniqueID() }}
+                    {{ \Illuminate\Support\Str::of($item->name)->stripBracketedID() }}
                 </a>
             </h2>
             <div class="property">

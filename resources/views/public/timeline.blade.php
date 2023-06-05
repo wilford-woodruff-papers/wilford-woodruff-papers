@@ -87,7 +87,7 @@
                                                                                 <a class="text-secondary"
                                                                                    href="{{ route('pages.show', ['item' => $page->parent->uuid, 'page' => $page->uuid]) }}"
                                                                                    target="_blank">
-                                                                                    Page {{ $page->order }} from {{ str($page->parent->name)->stripUniqueID() }}
+                                                                                    Page {{ $page->order }} from {{ str($page->parent->name)->stripBracketedID() }}
                                                                                 </a>
                                                                             </div>
                                                                         @endif
