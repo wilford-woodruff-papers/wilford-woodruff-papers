@@ -285,6 +285,11 @@
                     </div>
                 </div>
             @endif
+            <div>
+                @hasanyrole(['Editor', 'Super Admin', 'Admin'])
+                <livewire:attach-event-to-page :page="$page" />
+                @endhasanyrole
+            </div>
         </div>
     </div>
     <!-- End Modal for displaying subject quick view-->
@@ -309,11 +314,30 @@
 
     </script>
 
+
     <style>
         .overflow-hidden, form .sm\:overflow-hidden {
             overflow: visible !important;
         }
     </style>
+
+    @push('scripts')
+        <script>
+            Livewire.on('eventAttachedToPage', postId => {
+                document.getElementById('eventAttachedToPage').classList.remove('hidden');
+                setTimeout(function(){
+                    document.getElementById('eventAttachedToPage').classList.add('hidden');
+                }, 3000);
+            });
+
+            Livewire.on('eventRemovedFromPage', postId => {
+                document.getElementById('eventRemovedFromPage').classList.remove('hidden');
+                setTimeout(function(){
+                    document.getElementById('eventRemovedFromPage').classList.add('hidden');
+                }, 3000);
+            });
+        </script>
+    @endpush
 
 </x-guest-layout>
 
