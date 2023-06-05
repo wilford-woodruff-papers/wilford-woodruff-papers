@@ -77,7 +77,7 @@
                                                         </td>
                                                         <td class="py-4 px-6 text-sm text-gray-500 whitespace-normal">
                                                             <div>
-                                                                {!! $event->text !!}
+                                                                {!! str($event->text)->addScriptureLinks() !!}
                                                             </div>
                                                             @if($event->pages->count() > 0)
                                                                 <div class="mt-2">
