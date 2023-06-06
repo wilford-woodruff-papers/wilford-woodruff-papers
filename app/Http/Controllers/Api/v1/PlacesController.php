@@ -23,7 +23,27 @@ class PlacesController extends Controller
     {
         abort_unless($request->ajax() || $request->user()->tokenCan('read'), 401);
 
-        $subjects = Subject::query();
+        $subjects = Subject::query()
+            ->select([
+                'id',
+                'slug',
+                'name',
+                'address',
+                'country',
+                'state_province',
+                'county',
+                'city',
+                'specific_place',
+                'modern_location',
+                'latitude',
+                'longitude',
+                'created_at',
+                'updated_at',
+                'total_usage_count',
+                'reference',
+                'visited',
+                'mentioned',
+            ]);
 
         $categories = ['Places'];
 
@@ -48,7 +68,29 @@ class PlacesController extends Controller
     {
         abort_unless($request->ajax() || $request->user()->tokenCan('read'), 401);
 
-        $subject = Subject::findOrFail($id);
+        $subject = Subject::query()
+            ->where('id', $id)
+            ->select([
+                'id',
+                'slug',
+                'name',
+                'address',
+                'country',
+                'state_province',
+                'county',
+                'city',
+                'specific_place',
+                'modern_location',
+                'latitude',
+                'longitude',
+                'created_at',
+                'updated_at',
+                'total_usage_count',
+                'reference',
+                'visited',
+                'mentioned',
+            ])
+            ->firstOrFail();
 
         return response()->json($subject);
     }

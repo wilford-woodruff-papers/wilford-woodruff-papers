@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Page;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class PageController extends Controller
@@ -28,12 +29,60 @@ class PageController extends Controller
     {
         abort_unless($request->ajax() || $request->user()->tokenCan('read'), 401);
 
-        $pages = Page::query();
+        $pages = Page::query()->whereRelation('item', function (Builder $query) {
+            $query->whereNotNull('type_id');
+        });
 
         $pages->with([
+            'parent.type',
             'dates',
-            'people',
-            'places',
+            'people' => function ($query) {
+                $query->select([
+                    'id',
+                    DB::raw('pid as family_search_id'),
+                    'slug',
+                    'name',
+                    'first_name',
+                    'middle_name',
+                    'last_name',
+                    'suffix',
+                    'alternate_names',
+                    'maiden_name',
+                    'bio',
+                    'footnotes',
+                    'created_at',
+                    'updated_at',
+                    'total_usage_count',
+                    'reference',
+                    'relationship',
+                    'birth_date',
+                    'baptism_date',
+                    'death_date',
+                    'life_years',
+                ]);
+            },
+            'places' => function ($query) {
+                $query->select([
+                    'id',
+                    'slug',
+                    'name',
+                    'address',
+                    'country',
+                    'state_province',
+                    'county',
+                    'city',
+                    'specific_place',
+                    'modern_location',
+                    'latitude',
+                    'longitude',
+                    'created_at',
+                    'updated_at',
+                    'total_usage_count',
+                    'reference',
+                    'visited',
+                    'mentioned',
+                ]);
+            },
             'media',
         ]);
 

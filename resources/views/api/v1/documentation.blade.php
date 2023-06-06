@@ -625,7 +625,7 @@
                                             </table>
                                             <x-example-response :id="31"
                                                                 :model="new App\Models\Subject"
-                                                                :url="route('docs.subjects.show', ['subject' => App\Models\Subject::query()->inRandomOrder()->first()])"
+                                                                :url="route('docs.subjects.show', ['id' => App\Models\Subject::query()->inRandomOrder()->first()->id])"
                                             />
                                         </div>
                                     </div>

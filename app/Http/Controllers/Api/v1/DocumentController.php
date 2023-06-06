@@ -24,7 +24,11 @@ class DocumentController extends Controller
         abort_unless($request->ajax() || $request->user()->tokenCan('read'), 401);
 
         $items = Item::query()
-            ->whereNull('item_id');
+            ->whereNotNull('type_id')
+            ->whereNull('item_id')
+            ->with([
+                'type',
+            ]);
 
         if ($request->has('types')) {
             $types = [];
@@ -58,6 +62,7 @@ class DocumentController extends Controller
         return [
             'id' => $item->id,
             'uuid' => $item->uuid,
+            'type' => $item->type?->name,
             'name' => $item->name,
             'links' => [
                 'frontend_url' => route('documents.show', ['item' => $item->uuid]),

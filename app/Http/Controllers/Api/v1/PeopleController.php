@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Subject;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class PeopleController extends Controller
@@ -29,7 +30,30 @@ class PeopleController extends Controller
     {
         abort_unless($request->ajax() || $request->user()->tokenCan('read'), 401);
 
-        $subjects = Subject::query();
+        $subjects = Subject::query()
+            ->select([
+                'id',
+                DB::raw('pid as family_search_id'),
+                'slug',
+                'name',
+                'first_name',
+                'middle_name',
+                'last_name',
+                'suffix',
+                'alternate_names',
+                'maiden_name',
+                'bio',
+                'footnotes',
+                'created_at',
+                'updated_at',
+                'total_usage_count',
+                'reference',
+                'relationship',
+                'birth_date',
+                'baptism_date',
+                'death_date',
+                'life_years',
+            ]);
 
         $categories = [];
 
@@ -63,7 +87,32 @@ class PeopleController extends Controller
     {
         abort_unless($request->ajax() || $request->user()->tokenCan('read'), 401);
 
-        $subject = Subject::findOrFail($id);
+        $subject = Subject::query()
+            ->where('id', $id)
+            ->select([
+                'id',
+                DB::raw('pid as family_search_id'),
+                'slug',
+                'name',
+                'first_name',
+                'middle_name',
+                'last_name',
+                'suffix',
+                'alternate_names',
+                'maiden_name',
+                'bio',
+                'footnotes',
+                'created_at',
+                'updated_at',
+                'total_usage_count',
+                'reference',
+                'relationship',
+                'birth_date',
+                'baptism_date',
+                'death_date',
+                'life_years',
+            ])
+            ->firstOrFail();
 
         return response()->json($subject);
     }
