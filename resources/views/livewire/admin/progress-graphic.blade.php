@@ -54,6 +54,51 @@
                     </div>
                 @endif
 
+                @if(! empty($bioStats))
+                    <div class="pt-12 pb-24 bg-white sm:py-16">
+                        <div class="text-center">
+                            <h1 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">People & Places</h1>
+                        </div>
+                        <div class="px-6 pt-12 mx-auto max-w-7xl sm:py-16 lg:px-8">
+
+                            <dl class="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-4">
+                                <div class="flex flex-col gap-y-4 mx-auto max-w-xs">
+                                    <dt class="text-base leading-7 text-gray-600">Identified People</dt>
+                                    <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
+                                        {{ number_format($bioStats['total_identified_people']) }}
+                                    </dd>
+                                </div>
+
+                                <div class="flex flex-col gap-y-4 mx-auto max-w-xs">
+                                    <dt class="text-base leading-7 text-gray-600">Identified Places</dt>
+                                    <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
+                                        {{ number_format($bioStats['total_identified_places']) }}
+                                    </dd>
+                                </div>
+                            </dl>
+                        </div>
+                    </div>
+                @endif
+
+                @if(! empty($quoteStats))
+                    <div class="pt-12 pb-24 bg-white sm:py-16">
+                        <div class="text-center">
+                            <h1 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Quotes</h1>
+                        </div>
+                        <div class="px-6 pt-12 mx-auto max-w-7xl sm:py-16 lg:px-8">
+
+                            <dl class="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-4">
+                                <div class="flex flex-col gap-y-4 mx-auto max-w-xs">
+                                    <dt class="text-base leading-7 text-gray-600">Total Tagged</dt>
+                                    <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
+                                        {{ number_format($quoteStats['total_tagged_quotes']) }}
+                                    </dd>
+                                </div>
+                            </dl>
+                        </div>
+                    </div>
+                @endif
+
             </div>
 
         </div>
