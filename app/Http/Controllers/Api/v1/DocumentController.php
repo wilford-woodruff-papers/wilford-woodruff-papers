@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Item;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class DocumentController extends Controller
 {
@@ -20,8 +21,14 @@ class DocumentController extends Controller
 
     public function index(Request $request)
     {
+        abort_unless($request->ajax() || $request->user()->tokenCan('read'), 401);
+
         $items = Item::query()
-            ->whereNull('item_id');
+            ->whereNotNull('type_id')
+            ->whereNull('item_id')
+            ->with([
+                'type',
+            ]);
 
         if ($request->has('types')) {
             $types = [];
@@ -37,6 +44,10 @@ class DocumentController extends Controller
             });
         }
 
+        if ($request->has('q')) {
+            $items = $items->where('name', 'like', '%'.$request->get('q').'%');
+        }
+
         return response()->json(
             $items->paginate(
                 min($request->get('per_page', 100), 500)
@@ -44,11 +55,14 @@ class DocumentController extends Controller
         );
     }
 
-    public function show(Item $item)
+    public function show(Request $request, Item $item)
     {
+        abort_unless($request->ajax() || $request->user()->tokenCan('read'), 401);
+
         return [
             'id' => $item->id,
             'uuid' => $item->uuid,
+            'type' => $item->type?->name,
             'name' => $item->name,
             'links' => [
                 'frontend_url' => route('documents.show', ['item' => $item->uuid]),
@@ -60,5 +74,13 @@ class DocumentController extends Controller
             ],
             'pages' => $item->pages,
         ];
+    }
+
+    public function export(Request $request)
+    {
+        abort_unless($request->user()->tokenCan('read'), 401);
+
+        return Storage::disk('exports')
+            ->download('documents-export.csv', now('America/Denver')->toDateString().'-documents-export.csv');
     }
 }

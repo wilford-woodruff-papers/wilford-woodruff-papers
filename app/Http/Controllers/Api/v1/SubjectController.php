@@ -22,7 +22,20 @@ class SubjectController extends Controller
      */
     public function index(Request $request)
     {
-        $subjects = Subject::query();
+        abort_unless($request->ajax() || $request->user()->tokenCan('read'), 401);
+
+        $subjects = Subject::query()
+            ->with([
+                'category',
+            ])
+            ->select([
+                'id',
+                'slug',
+                'name',
+                'created_at',
+                'updated_at',
+                'total_usage_count',
+            ]);
 
         if ($request->has('types')) {
             $types = [];
@@ -51,8 +64,25 @@ class SubjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Subject $subject)
+    public function show(Request $request, $id)
     {
+        abort_unless($request->ajax() || $request->user()->tokenCan('read'), 401);
+
+        $subject = Subject::query()
+            ->with([
+                'category',
+            ])
+            ->where('id', $id)
+            ->select([
+                'id',
+                'slug',
+                'name',
+                'created_at',
+                'updated_at',
+                'total_usage_count',
+            ])
+            ->firstOrFail();
+
         return $subject;
     }
 }

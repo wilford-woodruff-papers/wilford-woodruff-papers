@@ -81,17 +81,17 @@
                         </x-input.select>
                     </x-input.group>
 
-                    <x-dropdown label="Bulk Actions">
-                        {{--<x-dropdown.item type="button" wire:click="exportSelected" class="flex items-center space-x-2">
+                    <x-custom-dropdown label="Bulk Actions">
+                        {{--<x-custom-dropdown.item type="button" wire:click="exportSelected" class="flex items-center space-x-2">
                             <x-icon.download class="text-cool-gray-400"/> <span>Export</span>
-                        </x-dropdown.item>--}}
+                        </x-custom-dropdown.item>--}}
                         @foreach($taskTypes as $taskType)
-                            <x-dropdown.item type="button" wire:click="addTasksInBulk({{ $taskType->id }})" class="flex items-center space-x-2">
+                            <x-custom-dropdown.item type="button" wire:click="addTasksInBulk({{ $taskType->id }})" class="flex items-center space-x-2">
                                 {{--<x-icon.trash class="text-cool-gray-400"/>--}} <span>Add {{ $taskType->name }} Task</span>
-                            </x-dropdown.item>
+                            </x-custom-dropdown.item>
                         @endforeach
 
-                    </x-dropdown>
+                    </x-custom-dropdown>
 
                     {{--<livewire:import-transactions />--}}
 

@@ -12,7 +12,7 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-
+        @stack('styles')
         @livewireStyles
 
         <!-- Scripts -->
@@ -21,7 +21,8 @@
     </head>
     <body class="font-sans antialiased">
         @include('layouts.partials.google-tag-manager-no-script')
-        <x-jet-banner />
+        <x-header />
+        <x-banner />
 
         <div class="min-h-screen bg-gray-100">
             @livewire('navigation-menu')
@@ -41,10 +42,12 @@
             </main>
         </div>
 
+        <x-footer />
         @stack('modals')
 
         @livewireScripts
 
         <x-constant-contact />
+        @stack('scripts')
     </body>
 </html>
