@@ -252,7 +252,15 @@
             </div>
             <div class="md:flex md:justify-between">
                 <div>
-                    Wilford Woodruff Papers Foundation &copy {{ date('Y') }} All Rights Reserved.
+                    <div>Wilford Woodruff Papers Foundation &copy {{ date('Y') }} All Rights Reserved.</div>
+                    <div class="grid grid-cols-3 justify-start items-center mt-6">
+                        <a href="https://www.guidestar.org/profile/84-4318803" target="_blank" class="">
+                            <img src="https://wilfordwoodruffpapers.org/img/donate/platinum-guidestar.png" alt="Wilford Woodruff Papers Foundation is a gold-level GuideStar participant, demonstrating its commitment to transparency." title="Wilford Woodruff Papers Foundation is a gold-level GuideStar participant, demonstrating its commitment to transparency." class="inline w-auto h-[120px]">
+                        </a>
+                        <a href="https://www.charitynavigator.org/ein/844318803" target="_blank" class="">
+                            <img src="https://wilfordwoodruffpapers.org/img/donate/fours-star-charity-navigator.png" alt="Wilford Woodruff Papers Foundation 4 Star profile on Charity Navigator." title="Wilford Woodruff Papers Foundation 4 Star profile on Charity Navigator." class="inline w-auto h-[120px]">
+                        </a>
+                    </div>
                 </div>
                 <div class="py-8 md:py-0">
                     @if(auth()->guest())
