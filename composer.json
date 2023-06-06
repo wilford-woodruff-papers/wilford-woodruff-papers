@@ -45,6 +45,7 @@
         "pixelcreation/nova-field-sortable": "^3.2",
         "ramsey/uuid": "^4.2",
         "sammyjo20/lasso": "^3.1",
+        "sentry/sentry-laravel": "^3.4",
         "socialiteproviders/facebook": "^4.1",
         "socialiteproviders/google": "^4.1",
         "spatie/eloquent-sortable": "^4.0",
