@@ -11,7 +11,7 @@ class ExportPagesCommand extends Command
 {
     protected $signature = 'pages:export';
 
-    protected $description = 'Command description';
+    protected $description = 'Create Pages CSV Export';
 
     public function handle(): void
     {

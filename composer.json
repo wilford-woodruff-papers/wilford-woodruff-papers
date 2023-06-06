@@ -26,7 +26,7 @@
         "jessedp/php-timezones": "^0.2.3",
         "laravel/framework": "^10.5",
         "laravel/horizon": "^5.12",
-        "laravel/jetstream": "^2.15",
+        "laravel/jetstream": "^3.0",
         "laravel/nova": "^4.23",
         "laravel/sanctum": "^3.2",
         "laravel/socialite": "^5.6",

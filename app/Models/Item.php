@@ -317,6 +317,7 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
             return [
                 'id' => $this->id,
                 'uuid' => $this->uuid,
+                'type' => $this->type->name,
                 'name' => $this->name,
                 'links' => [
                     'frontend_url' => route('documents.show', ['item' => $this->uuid]),
