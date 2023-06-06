@@ -23,16 +23,24 @@ class SubjectController extends Controller
             ];
         }
 
-        $subject->load(['parent', 'children' => function ($query) {
-            $query->when(auth()->guest() || (auth()->check() && ! auth()->user()->hasAnyRole(['Super Admin'])), fn ($query) => $query->where('hide_on_index', 0))
-                ->whereHas('pages')
-                ->withCount(['pages']);
-        }])
+        $subject->load([
+            'parent',
+            'children' => function ($query) {
+                $query->when(auth()->guest() || (auth()->check() && ! auth()->user()->hasAnyRole(['Super Admin'])), fn ($query) => $query->where('hide_on_index', 0))
+                    ->whereHas('pages')
+                    ->withCount(['pages']);
+                },
+        ])
             ->loadCount(['pages']);
 
         return view('public.subjects.show', [
             'subject' => $subject,
             'pages' => Page::query()
+                ->with([
+                    'item',
+                    'media',
+                    'dates',
+                ])
                 ->where(function ($query) use ($subject) {
                     $query->whereHas('item', function (Builder $query) {
                         $query->where('items.enabled', true);
@@ -50,6 +58,7 @@ class SubjectController extends Controller
                 ->with([
                     'page',
                     'page.item',
+                    'page.media',
                 ])
                 ->whereNotNull('text')
                 ->whereNull('continued_from_previous_page')

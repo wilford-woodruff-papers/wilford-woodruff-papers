@@ -9,20 +9,20 @@
     </div>
     <div class="col-span-6 py-2 px-4">
         <p class="pb-1 text-lg font-medium capitalize text-secondary">
-            <a href="{{ route('pages.show', ['item' => $page->parent, 'page' => $page]) }}">Page {{ $page->order }}</a>
+            <a href="{{ route('pages.show', ['item' => $page->item, 'page' => $page]) }}">Page {{ $page->order }}</a>
         </p>
         <div class="flex gap-x-3 ml-2 text-base font-medium">
             <div>
                 <span class="text-gray-600">Part of </span>
                 <span class="text-secondary">
-                    <a href="{{ route('documents.show', ['item' => $page->parent]) }}">{{ \Illuminate\Support\Str::of($page->parent?->name)->replaceMatches('/\[.*?\]/', '')->trim() }}</a>
+                    <a href="{{ route('documents.show', ['item' => $page->item]) }}">{{ \Illuminate\Support\Str::of($page->item?->name)->replaceMatches('/\[.*?\]/', '')->trim() }}</a>
                 </span>
             </div>
             <div>
                 @auth()
                     @hasanyrole('CFM Researcher')
                     <div>
-                        @if($page->parent?->enabled)
+                        @if($page->item?->enabled)
                             <span class="inline-flex items-center py-0.5 px-2.5 text-xs font-medium text-green-800 bg-green-100 rounded-full">
                                     {{ __('Published') }}
                                 </span>
