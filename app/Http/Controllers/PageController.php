@@ -14,11 +14,16 @@ class PageController extends Controller
     public function show(Item $item, Page $page): View
     {
         $item = $item->parent();
-        $page->load(['dates', 'topics', 'subjects' => function ($query) {
-            $query->whereHas('category', function (Builder $query) {
-                $query->whereIn('categories.name', ['People', 'Places']);
-            });
-        }]);
+        $page->load([
+            'parent.type',
+            'dates',
+            'topics',
+            'subjects' => function ($query) {
+                $query->whereHas('category', function (Builder $query) {
+                    $query->whereIn('categories.name', ['People', 'Places']);
+                });
+            },
+        ]);
 
         $sourceNotes = null;
         $sourceNotesProperty = Property::query()
@@ -50,8 +55,13 @@ class PageController extends Controller
         return view('public.pages.show', [
             'item' => $item,
             'page' => $page,
-            'pages' => Page::where('parent_item_id', $item->id)
-                        ->ordered()->get(),
+            'pages' => Page::query()
+                ->with([
+                    'parent.type',
+                ])
+                ->where('parent_item_id', $item->id)
+                ->ordered()
+                ->get(),
             'sourceNotes' => $sourceNotes,
             'sourceLink' => $sourceLink,
         ]);
