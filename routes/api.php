@@ -52,4 +52,11 @@ Route::middleware(['auth:sanctum', 'throttle:30'])
             ->name('api.places.export');
         Route::get('places/{id}', [\App\Http\Controllers\Api\v1\PlacesController::class, 'show'])
             ->name('api.places.show');
+
+        Route::get('topics', [\App\Http\Controllers\Api\v1\TopicsController::class, 'index'])
+            ->name('api.topics.index');
+        Route::get('topics/export', [\App\Http\Controllers\Api\v1\TopicsController::class, 'export'])
+            ->name('api.topics.export');
+        Route::get('topics/{id}', [\App\Http\Controllers\Api\v1\TopicsController::class, 'show'])
+            ->name('api.topics.show');
 });
