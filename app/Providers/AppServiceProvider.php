@@ -6,6 +6,7 @@ use App\Macros\AddScriptureLinks;
 use App\Macros\AddSubjectLinks;
 use App\Macros\RemoveQZCodes;
 use App\Macros\StripBracketedID;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
@@ -36,5 +37,7 @@ class AppServiceProvider extends ServiceProvider
         if (! app()->environment('production')) {
             Mail::alwaysTo('test@wilfordwoodruffpapers.org');
         }
+
+        Model::preventLazyLoading(! $this->app->isProduction());
     }
 }
