@@ -344,7 +344,7 @@
                                                 </code>
                                             </p>
                                             <p class="py-4">
-                                                <a href="{{ route('api.documents.export') }}"
+                                                <a href="{{ \Illuminate\Support\Facades\Storage::disk('exports')->temporaryUrl('documents-export.csv', now()->addMinutes(30)) }}"
                                                    class="py-2 px-4 text-white bg-secondary hover:bg-secondary-600"
                                                    download
                                                 >
@@ -473,7 +473,7 @@
                                                 </code>
                                             </p>
                                             <p class="py-4">
-                                                <a href="{{ route('api.pages.export') }}"
+                                                <a href="{{ \Illuminate\Support\Facades\Storage::disk('exports')->temporaryUrl('pages-export.csv', now()->addMinutes(30)) }}"
                                                    class="py-2 px-4 text-white bg-secondary hover:bg-secondary-600"
                                                    download
                                                 >
@@ -709,7 +709,7 @@
                                                 </code>
                                             </p>
                                             <p class="py-4">
-                                                <a href="{{ route('api.people.export') }}"
+                                                <a href="{{ \Illuminate\Support\Facades\Storage::disk('exports')->temporaryUrl('people-export.csv', now()->addMinutes(30)) }}"
                                                    class="py-2 px-4 text-white bg-secondary hover:bg-secondary-600"
                                                    download
                                                 >
@@ -848,7 +848,7 @@
                                                 </code>
                                             </p>
                                             <p class="py-4">
-                                                <a href="{{ route('api.places.export') }}"
+                                                <a href="{{ \Illuminate\Support\Facades\Storage::disk('exports')->temporaryUrl('places-export.csv', now()->addMinutes(30)) }}"
                                                    class="py-2 px-4 text-white bg-secondary hover:bg-secondary-600"
                                                    download
                                                 >
