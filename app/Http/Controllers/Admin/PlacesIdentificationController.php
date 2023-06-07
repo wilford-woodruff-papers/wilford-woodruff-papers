@@ -126,7 +126,7 @@ class PlacesIdentificationController extends Controller
         $request->session()->flash('success', 'Place created successfully!');
 
         if ($request->get('action') == 'new') {
-            return redirect()->route('admin.dashboard.identification.palces.create');
+            return redirect()->route('admin.dashboard.identification.places.create');
         }
 
         return redirect()->route('admin.dashboard.identification.places.edit', ['identification' => $place]);
