@@ -30,7 +30,7 @@ class PageActivityController extends Controller
             ->with([
                 'item',
                 'actions' => function ($query) use ($actionTypeId) {
-                    $query->where('action_type_id', $actionTypeId);
+                    $query->with(['type'])->where('action_type_id', $actionTypeId);
                 },
             ])
             ->whereHas('item', function ($query) use ($typeIds) {
