@@ -931,7 +931,7 @@
                             <div class="py-6 bg-white sm:py-12 min-h-[50vh]">
                                 <div class="px-6 mx-auto max-w-7xl lg:px-8">
                                     <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
-                                        <h2 class="mt-2 mb-6 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Places</h2>
+                                        <h2 class="mt-2 mb-6 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Topics</h2>
                                         <div class="p-4 space-y-4 bg-gray-100 border border-gray-200 border-top border-bottom">
                                             <h3 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-xl">
                                                 List Topics
