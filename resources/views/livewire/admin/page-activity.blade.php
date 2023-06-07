@@ -29,7 +29,7 @@
                             </a>
                         </td>
                         <td class="px-4">
-                            {{ $page->actions->first()?->type->name }}
+                            {{ $page->actions->first()?->type?->name }}
                         </td>
                         <td class="px-4">
                             <div class="whitespace-nowrap">
