@@ -21,6 +21,7 @@
     </head>
     <body class="font-sans antialiased">
         @include('layouts.partials.google-tag-manager-no-script')
+        <x-admin-bar />
         <x-header />
         <x-banner />
 
