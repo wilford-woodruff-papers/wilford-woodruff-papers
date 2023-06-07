@@ -21,6 +21,8 @@ class Subject extends Model
         'added_to_ftp_at' => 'date',
         'bio_completed_at' => 'date',
         'place_confirmed_at' => 'date',
+        'mentioned' => 'boolean',
+        'visited' => 'boolean',
     ];
 
     protected function displayName(): Attribute

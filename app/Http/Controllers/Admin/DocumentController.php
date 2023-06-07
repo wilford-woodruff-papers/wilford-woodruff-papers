@@ -113,7 +113,14 @@ class DocumentController extends Controller
             return $query->whereNotNull('actions.completed_at');
         }], 'activities');*/
 
-        $item->load(['actions.assignee', 'actions.finisher', 'activities']);
+        $item->load([
+            'actions.type',
+            'actions.type.roles',
+            'actions.assignee',
+            'actions.finisher',
+            'activities',
+            'pages.actions.type',
+        ]);
 
         return view('admin.dashboard.documents.show', [
             'item' => $item,
