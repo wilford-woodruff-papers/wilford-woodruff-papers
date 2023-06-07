@@ -213,8 +213,8 @@ class Subject extends Model
             'name' => $this->name,
             'types' => $this->category,
             'links' => [
-                'frontend_url' => route('subjects.show', ['subject' => $this->slug]),
-                'api_url' => route('api.subjects.show', ['subject' => $this->slug]),
+                'frontend_url' => $this->slug ?? route('subjects.show', ['subject' => $this->slug]),
+                'api_url' => $this->id ?? route('api.subjects.show', ['subject' => $this->id]),
             ],
         ];
     }
