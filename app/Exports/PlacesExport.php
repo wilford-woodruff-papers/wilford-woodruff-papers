@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Models\Item;
+use App\Models\Subject;
 use App\Models\User;
 use App\Notifications\ExportFailedNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -31,7 +31,7 @@ class PlacesExport implements FromQuery, ShouldQueue, WithMapping, WithHeadings
 
     public function query()
     {
-        return Item::query()
+        return Subject::query()
             ->whereRelation('category', function (Builder $query) {
                 $query->where('name', 'Places');
             })
