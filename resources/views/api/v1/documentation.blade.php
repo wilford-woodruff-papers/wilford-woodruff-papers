@@ -91,6 +91,12 @@
                                            :class="id =='places' ? 'text-secondary' : 'text-gray-700'"
                                            class="flex gap-x-3 p-2 pl-3 text-sm font-semibold leading-6 rounded-md hover:bg-gray-50 group hover:text-secondary">Places</a>
                                     </li>
+                                    <li>
+                                        <a href="#topics"
+                                           x-on:click="id = 'topics'"
+                                           :class="id =='topics' ? 'text-secondary' : 'text-gray-700'"
+                                           class="flex gap-x-3 p-2 pl-3 text-sm font-semibold leading-6 rounded-md hover:bg-gray-50 group hover:text-secondary">Topics</a>
+                                    </li>
                                 </ul>
                             </nav>
                         </div>
@@ -911,6 +917,129 @@
                                                                 :model="new App\Models\Subject"
                                                                 :url="route('docs.places.show', ['id' => App\Models\Subject::query()->whereRelation('category', function ($query) {
             $query->where('name', 'Places');
+        })->inRandomOrder()->first()->id])"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="topics"
+                             x-intersect.half="id = 'topics'"
+                        >
+                            <div class="py-6 bg-white sm:py-12 min-h-[50vh]">
+                                <div class="px-6 mx-auto max-w-7xl lg:px-8">
+                                    <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
+                                        <h2 class="mt-2 mb-6 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Places</h2>
+                                        <div class="p-4 space-y-4 bg-gray-100 border border-gray-200 border-top border-bottom">
+                                            <h3 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-xl">
+                                                List Topics
+                                            </h3>
+                                            <p class="text-lg font-semibold">
+                                                HTTP Request
+                                            </p>
+                                            <p>
+                                                <code class="p-1 bg-gray-300">
+                                                    GET /api/v1/topics
+                                                </code>
+                                            </p>
+                                            <p class="text-lg font-semibold">
+                                                Parameters
+                                            </p>
+                                            <table>
+                                                <thead class="font-semibold">
+                                                <tr>
+                                                    <th class="px-4">Key</th>
+                                                    <th class="px-4">Description</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr class="even:bg-gray-50">
+                                                    <td class="px-4">per_page</td>
+                                                    <td class="px-4">
+                                                        <p>Number of topics to return each request. The default is 100 and the maximum is 500.</p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="even:bg-gray-50">
+                                                    <td class="px-4">page</td>
+                                                    <td class="px-4">
+                                                        <p>The page of results to return. (not required for the first page)</p>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <x-example-response :id="60"
+                                                                :model="new App\Models\Subject"
+                                                                :url="route('docs.topics.index', ['per_page' => 1])"
+                                            />
+                                        </div>
+                                        <div class="p-4 space-y-4 bg-gray-100 border border-gray-200 border-top border-bottom">
+                                            <h3 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-xl">
+                                                Export Topics
+                                            </h3>
+                                            <p class="text-lg font-semibold">
+                                                HTTP Request
+                                            </p>
+                                            <p>
+                                                <code class="p-1 bg-gray-300">
+                                                    GET /api/v1/topics/export
+                                                </code>
+                                            </p>
+                                            <p class="py-4">
+                                                <a href="{{ \Illuminate\Support\Facades\Storage::disk('exports')->temporaryUrl('topics-export.csv', now()->addMinutes(30)) }}"
+                                                   class="py-2 px-4 text-white bg-secondary hover:bg-secondary-600"
+                                                   download
+                                                >
+                                                    Download Export
+                                                </a>
+                                            </p>
+                                            <p class="">
+                                                Provides a CSV export of all places and includes columns for {!!  collect([
+                                                    'Internal ID',
+                                                    'Slug',
+                                                    'Name',
+                                                    'Website URL',
+                                                ])->map(function($item){ return "<span class='px-0.5 bg-gray-300'>$item</span>"; })->join(', ', ', and ') !!}.
+                                            </p>
+                                        </div>
+                                        <div class="p-4 space-y-4 bg-gray-100 border border-gray-200 border-top border-bottom">
+                                            <h3 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-xl">
+                                                Get Topic
+                                            </h3>
+                                            <p class="text-lg font-semibold">
+                                                HTTP Request
+                                            </p>
+                                            <p>
+                                                <code class="p-1 bg-gray-300">
+                                                    GET /api/v1/topics/{id}
+                                                </code>
+                                            </p>
+                                            <p class="text-lg font-semibold">
+                                                Parameters
+                                            </p>
+                                            <table>
+                                                <thead class="font-semibold">
+                                                <tr>
+                                                    <th class="px-4">Key</th>
+                                                    <th class="px-4">Description</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr class="even:bg-gray-50">
+                                                    <td class="px-4">id</td>
+                                                    <td class="px-4 space-y-3">
+                                                        <p>
+                                                            Should be a valid topic id.
+                                                        </p>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                            <x-example-response :id="61"
+                                                                :model="new App\Models\Subject"
+                                                                :url="route('docs.topics.show', ['id' => App\Models\Subject::query()->whereRelation('category', function ($query) {
+            $query->where('name', 'Index');
         })->inRandomOrder()->first()->id])"
                                             />
                                         </div>

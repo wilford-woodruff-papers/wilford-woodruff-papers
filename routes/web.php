@@ -496,8 +496,6 @@ Route::middleware(['auth'])
 
         Route::get('pages', [\App\Http\Controllers\Api\v1\PageController::class, 'index'])
             ->name('docs.pages.index');
-        Route::get('pages/export', [\App\Http\Controllers\Api\v1\PageController::class, 'export'])
-            ->name('docs.pages.export');
         Route::get('pages/{page}', [\App\Http\Controllers\Api\v1\PageController::class, 'show'])
             ->name('docs.pages.show');
 
@@ -515,4 +513,9 @@ Route::middleware(['auth'])
             ->name('docs.places.index');
         Route::get('places/{id}', [\App\Http\Controllers\Api\v1\PlacesController::class, 'show'])
             ->name('docs.places.show');
+
+        Route::get('topics', [\App\Http\Controllers\Api\v1\TopicsController::class, 'index'])
+            ->name('docs.topics.index');
+        Route::get('topics/{id}', [\App\Http\Controllers\Api\v1\TopicsController::class, 'show'])
+            ->name('docs.topics.show');
     });
