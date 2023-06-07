@@ -58,6 +58,9 @@ class PageController extends Controller
             'pages' => Page::query()
                 ->with([
                     'parent.type',
+                    'dates',
+                    'people',
+                    'places',
                 ])
                 ->where('parent_item_id', $item->id)
                 ->ordered()
