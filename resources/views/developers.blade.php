@@ -1,4 +1,5 @@
 <x-guest-layout>
+    <x-slot name="title">Access the Wilford Woodruff Papers Developer API</x-slot>
     <div class="overflow-hidden relative py-24 px-6 bg-white sm:py-32 lg:overflow-visible lg:px-0 isolate">
         <div class="overflow-hidden absolute inset-0 -z-10">
             <svg class="absolute left-[max(50%,25rem)] top-0 h-[64rem] w-[128rem] -translate-x-1/2 stroke-gray-200 [mask-image:radial-gradient(64rem_64rem_at_top,white,transparent)]" aria-hidden="true">
