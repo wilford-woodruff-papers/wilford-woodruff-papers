@@ -17,9 +17,14 @@ class MediaController extends Controller
     public function articles(Request $request): View
     {
         return view('public.media.articles', [
-            'articles' => Article::latest('date')
-                                    ->whereDate('date', '<=', DB::raw('NOW()'))
-                                    ->paginate(10),
+            'articles' => Article::query()
+                ->with([
+                    'tags',
+                    'authors',
+                ])
+                ->latest('date')
+                ->whereDate('date', '<=', DB::raw('NOW()'))
+                ->paginate(10),
         ]);
     }
 
@@ -34,6 +39,9 @@ class MediaController extends Controller
     {
         return view('public.media.photos', [
             'photos' => Photo::query()
+                                ->with([
+                                    'tags',
+                                ])
                                 ->when($request->has('tag'), function ($query) use ($request) {
                                     $query->withAnyTags($request->get('tag'), 'photos');
                                 })
@@ -66,13 +74,17 @@ class MediaController extends Controller
     public function videos(Request $request): View
     {
         return view('public.media.videos', [
-            'videos' => Video::latest('date')
-                                ->whereDate('date', '<=', DB::raw('NOW()'))
-                                ->orderBy('title', 'ASC')
-                                ->when($request->has('tag'), function ($query) use ($request) {
-                                    $query->withAnyTags($request->get('tag'), 'videos');
-                                })
-                                ->paginate(10),
+            'videos' => Video::query()
+                ->with([
+                    'tags',
+                ])
+                ->latest('date')
+                ->whereDate('date', '<=', DB::raw('NOW()'))
+                ->orderBy('title', 'ASC')
+                ->when($request->has('tag'), function ($query) use ($request) {
+                    $query->withAnyTags($request->get('tag'), 'videos');
+                })
+                ->paginate(10),
         ]);
     }
 
