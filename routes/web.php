@@ -14,7 +14,7 @@ use Vormkracht10\LaravelOpenGraphImage\Http\Controllers\LaravelOpenGraphImageCon
 |
 */
 
-Route::middleware('throttle:12,1')->group(function () {
+Route::middleware([])->group(function () {
     Route::domain('{year}.'.config('app.url'))->group(function () {
         Route::get('/', function ($subdomain) {
             if ($subdomain == '2023') {
@@ -269,11 +269,11 @@ Route::middleware('throttle:12,1')->group(function () {
     });
 });
 
-Route::prefix('filemanager')->middleware(['web', 'auth', 'role:Super Admin|Admin|Editor', 'throttle:90,1'])->group(function () {
+Route::prefix('filemanager')->middleware(['web', 'auth', 'role:Super Admin|Admin|Editor'])->group(function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });
 
-Route::middleware(['role:Super Admin|Editor|Bio Editor', 'throttle:30,1'])->group(function () {
+Route::middleware(['role:Super Admin|Editor|Bio Editor'])->group(function () {
     Route::middleware(['auth:sanctum', 'verified'])
         ->get('/admin/dashboard/quotes', [\App\Http\Controllers\Admin\QuoteController::class, 'index'])
         ->name('admin.dashboard.quotes.index');
@@ -486,7 +486,7 @@ if (app()->environment('local')) {
 Route::get('open-graph-image.jpg', [LaravelOpenGraphImageController::class, '__invoke'])->name('open-graph-image.file');
 
 //Route::view('test-og-image', 'public.test');
-Route::middleware(['auth', 'throttle:30'])
+Route::middleware(['auth'])
     ->prefix('v1')
     ->group(function () {
         Route::get('documents', [\App\Http\Controllers\Api\v1\DocumentController::class, 'index'])

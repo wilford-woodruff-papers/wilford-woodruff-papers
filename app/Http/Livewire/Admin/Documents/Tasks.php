@@ -67,6 +67,7 @@ class Tasks extends Component
         $assignedItems = Item::query()
             ->whereNotNull('pcf_unique_id')
             ->with([
+                'type',
                 'pending_actions',
                 'pending_actions.type',
             ])
@@ -86,6 +87,7 @@ class Tasks extends Component
             ->select('items.*', DB::raw('(SELECT COUNT(*) FROM pages WHERE pages.item_id = items.id) as pages_count'))
             ->whereNotNull('pcf_unique_id')
             ->with([
+                'type',
                 'unassigned_actions',
                 'unassigned_actions.type',
                 'unassigned_actions.type.roles',

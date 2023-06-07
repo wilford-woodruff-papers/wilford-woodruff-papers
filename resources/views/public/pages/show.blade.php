@@ -287,7 +287,7 @@
             @endif
             <div>
                 @hasanyrole(['Editor', 'Super Admin', 'Admin'])
-                <livewire:attach-event-to-page :page="$page" />
+                    <livewire:attach-event-to-page :page="$page" />
                 @endhasanyrole
             </div>
         </div>
