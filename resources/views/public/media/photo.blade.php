@@ -36,7 +36,7 @@
                                             <tbody>
                                                 @if(! empty($photo->description))
                                                     <!-- Odd row -->
-                                                    <tr class="bg-white">
+                                                    <tr class="odd:bg-white even:bg-gray-50">
                                                         <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
                                                             Description
                                                         </td>
@@ -47,7 +47,7 @@
                                                 @endif
                                                 @if(! empty($photo->date))
                                                     <!-- Even row -->
-                                                    <tr class="bg-gray-50">
+                                                    <tr class="odd:bg-white even:bg-gray-50">
                                                         <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
                                                             Date
                                                         </td>
@@ -62,7 +62,7 @@
                                                 @endif
                                                 @if(! empty($photo->artist_or_photographer))
                                                     <!-- Odd row -->
-                                                    <tr class="bg-white">
+                                                    <tr class="odd:bg-white even:bg-gray-50">
                                                         <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
                                                             Artist or Photographer
                                                         </td>
@@ -73,7 +73,7 @@
                                                 @endif
                                                 @if(! empty($photo->location))
                                                     <!-- Even row -->
-                                                    <tr class="bg-gray-50">
+                                                    <tr class="odd:bg-white even:bg-gray-50">
                                                         <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
                                                             Location
                                                         </td>
@@ -84,7 +84,7 @@
                                                 @endif
                                                 @if(! empty($photo->journal_reference))
                                                     <!-- Odd row -->
-                                                    <tr class="bg-white">
+                                                    <tr class="odd:bg-white even:bg-gray-50">
                                                         <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
                                                             Journal Reference
                                                         </td>
@@ -95,7 +95,7 @@
                                                 @endif
                                                 @if(! empty($photo->identification))
                                                     <!-- Even row -->
-                                                    <tr class="bg-gray-50">
+                                                    <tr class="odd:bg-white even:bg-gray-50">
                                                         <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
                                                             Identification of Image
                                                         </td>
@@ -106,7 +106,7 @@
                                                 @endif
                                                 @if(! empty($photo->source))
                                                     <!-- Even row -->
-                                                    <tr class="bg-gray-50">
+                                                    <tr class="odd:bg-white even:bg-gray-50">
                                                         <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
                                                             Source of Image
                                                         </td>
@@ -122,7 +122,7 @@
                                                 @endif
                                                 @if(! empty($photo->editor))
                                                     <!-- Odd row -->
-                                                    <tr class="bg-white">
+                                                    <tr class="odd:bg-white even:bg-gray-50">
                                                         <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
                                                             Photo Editor
                                                         </td>
@@ -133,7 +133,7 @@
                                                 @endif
                                                 @if(! empty($photo->notes))
                                                     <!-- Even row -->
-                                                    <tr class="bg-gray-50">
+                                                    <tr class="odd:bg-white even:bg-gray-50">
                                                         <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap">
                                                             Notes
                                                         </td>
