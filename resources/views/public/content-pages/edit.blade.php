@@ -24,22 +24,26 @@
 
     </form>
 
-    <div class="my-8 mx-auto max-w-4xl text-center">
-        <div class="inline-flex gap-x-12">
-            <x-button size="xl"
-                      radius="lg"
-                      id="update-post"
-            >
-                <span class="whitespace-nowrap">{{ __('Save') }}</span>
-            </x-button>
-            <x-button type="tertiary" tag="a" href="{{ route('content-page.show', ['contentPage' => $contentPage->slug]) }}" size="xl" radius="lg">
-                <span class="whitespace-nowrap">{{ __('Cancel') }}</span>
-            </x-button>
+    <div class="sticky bottom-0">
+        <div class="py-8 mx-auto max-w-7xl text-center bg-white">
+            <div class="inline-flex gap-x-12">
+                <button id="update-post"
+                        class="py-3 px-6 text-white bg-secondary hover:bg-secondary-500"
+                >
+                    <span class="whitespace-nowrap">{{ __('Save') }}</span>
+                </button>
+                <a href="{{ route('content-page.show', ['contentPage' => $contentPage->slug]) }}"
+                   class="py-3 px-6 text-white bg-secondary hover:bg-secondary-500"
+                >
+                    {{ __('Cancel') }}
+                </a>
+            </div>
         </div>
     </div>
 
     @push('styles')
-        <link rel="stylesheet" href="/assets/minimalist-blocks/content-tailwind.css" />
+        <link rel="stylesheet" href="{{ asset('css/content-builder-styles.css') }}" />
+        <link rel="stylesheet" href="/assets/minimalist-blocks/content-tailwind.min.css" />
         <link rel="stylesheet" href="/contentbuilder/contentbuilder.css" />
     @endpush
 
@@ -49,15 +53,15 @@
             const builder = new ContentBuilder({
                 container: '.page-builder',
                 framework: 'tailwind',
-                disableConfig: true,
+                disableConfig: false,
+                paste: 'html-without-styles',
                 rowTool: 'left',
                 sidePanel: 'right',
                 assetPath: '/assets/',
                 snippetUrl: '/assets/minimalist-blocks/content.js',
                 snippetPath: '/assets/minimalist-blocks/',
                 snippetPathReplace: ['assets/minimalist-blocks/', '/assets/minimalist-blocks/'],
-                snippetOpen: true,
-                snippetDisplay: 'visible',
+                snippetOpen: false,
                 fontAssetPath: '/assets/fonts/',
                 plugins: [
                     { name: 'preview', showInMainToolbar: true, showInElementToolbar: true },

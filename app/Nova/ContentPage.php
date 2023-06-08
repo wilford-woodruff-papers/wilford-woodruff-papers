@@ -5,6 +5,7 @@ namespace App\Nova;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
 class ContentPage extends Resource
@@ -50,6 +51,8 @@ class ContentPage extends Resource
                 return '<a href="'.($page->id ? route('content-page.show', ['contentPage' => $page->slug]) : '#').'" class="no-underline dim text-primary font-bold" target="_preview">Preview</a>';
             })
                 ->asHtml(),
+            Textarea::make('Body')
+                ->hideFromIndex(),
         ];
     }
 
@@ -91,5 +94,14 @@ class ContentPage extends Resource
     public function actions(NovaRequest $request)
     {
         return [];
+    }
+
+    public function replicate()
+    {
+        return tap(parent::replicate(), function ($resource) {
+            $model = $resource->model();
+
+            $model->title = 'Duplicate of '.$model->title;
+        });
     }
 }

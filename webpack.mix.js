@@ -16,7 +16,21 @@ mix.js("resources/js/app.js", "public/js")
         require("tailwindcss"),
         require("autoprefixer"),
     ])
+    .postCss("resources/css/content-builder-styles.css", "public/css", [
+        require('postcss-import'),
+        require('tailwindcss/nesting'),
+        require("tailwindcss"),
+        require("autoprefixer"),
+    ])
+    .postCss("public/assets/minimalist-blocks/content-tailwind.css", "public/assets/minimalist-blocks/content-tailwind.min.css", [
+
+        require('tailwindcss/nesting'),
+        require("tailwindcss"),
+        require("autoprefixer"),
+    ])
     .postCss("resources/css/transcript.css", "public/css", [
+        require('postcss-import'),
+        require('tailwindcss/nesting'),
         require("tailwindcss"),
         require("autoprefixer"),
     ])
