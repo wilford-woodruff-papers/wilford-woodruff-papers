@@ -62,6 +62,7 @@ class SubjectController extends Controller
                 ->with([
                     'page',
                     'page.parent.type',
+                    'page.dates',
                     'page.item',
                     'page.media',
                 ])
