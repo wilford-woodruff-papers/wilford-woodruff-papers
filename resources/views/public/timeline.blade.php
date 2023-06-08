@@ -37,7 +37,7 @@
                                             <tbody>
                                                 @foreach($events as $event)
                                                     <tr id="event-{{ $event->id }}"
-                                                        class="@if($loop->odd) bg-white @else bg-gray-50  @endif ">
+                                                        class="odd:bg-white even:bg-gray-50">
                                                         <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-normal">
                                                             @if($event->pages->count() > 0 && $event->pages->first()->parent?->uuid && $event->pages->first()?->uuid)
                                                                 <a class="text-secondary"
