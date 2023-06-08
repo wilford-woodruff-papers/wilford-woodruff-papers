@@ -63,6 +63,8 @@ class SubjectController extends Controller
                     'page',
                     'page.parent.type',
                     'page.dates',
+                    'page.people',
+                    'page.places',
                     'page.item',
                     'page.media',
                 ])
