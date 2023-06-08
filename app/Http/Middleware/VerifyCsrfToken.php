@@ -14,5 +14,6 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         'login/constantcontact/callback',
         'testimonials',
+        'content-page/*/upload',
     ];
 }
