@@ -61,6 +61,7 @@ class SubjectController extends Controller
             'quotes' => Quote::query()
                 ->with([
                     'page',
+                    'page.parent.type',
                     'page.item',
                     'page.media',
                 ])
