@@ -38,6 +38,8 @@ class SubjectController extends Controller
             'pages' => Page::query()
                 ->with([
                     'item',
+                    'item.type',
+                    'parent.type',
                     'media',
                     'dates',
                 ])
