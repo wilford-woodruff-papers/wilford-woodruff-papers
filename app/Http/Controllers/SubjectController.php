@@ -42,6 +42,8 @@ class SubjectController extends Controller
                     'parent.type',
                     'media',
                     'dates',
+                    'people',
+                    'places',
                 ])
                 ->where(function ($query) use ($subject) {
                     $query->whereHas('item', function (Builder $query) {
