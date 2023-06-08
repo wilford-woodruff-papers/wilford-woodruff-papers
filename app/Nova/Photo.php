@@ -54,7 +54,8 @@ class Photo extends Resource
                 ->placeholder('Ex. 1898-09-08, 1890s, 1907'),
             Text::make(__('Description'), 'description')
                 ->hideFromIndex(),
-            Medialibrary::make('Image', 'default'),
+            Medialibrary::make('Image', 'default')
+                ->previewUsing('thumb'),
             Text::make(__('Artist or Photographer'), 'artist_or_photographer')
                 ->hideFromIndex(),
             Text::make(__('Location'), 'location'),
