@@ -30,8 +30,8 @@ class SubjectController extends Controller
                     ->whereHas('pages')
                     ->withCount(['pages']);
                 },
-        ])
-            ->loadCount(['pages']);
+        ]);
+            //->loadCount(['pages']);
 
         return view('public.subjects.show', [
             'subject' => $subject,
