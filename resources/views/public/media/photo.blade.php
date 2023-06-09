@@ -142,7 +142,13 @@
                                                         </td>
                                                     </tr>
                                                 @endif
-
+                                                @hasanyrole(['Editor', 'Super Admin', 'Admin'])
+                                                    <tr class="odd:bg-white even:bg-gray-50">
+                                                        <td colspan="2">
+                                                            <livewire:attach-event-to-photo :photo="$photo" />
+                                                        </td>
+                                                    </tr>
+                                                @endhasanyrole
                                             </tbody>
                                         </table>
                                     </div>

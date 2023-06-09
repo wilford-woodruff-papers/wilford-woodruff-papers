@@ -21,6 +21,8 @@ class Photo extends Resource
      */
     public static $model = \App\Models\Photo::class;
 
+    public static $with = ['tags'];
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
@@ -56,6 +58,9 @@ class Photo extends Resource
                 ->hideFromIndex(),
             Medialibrary::make('Image', 'default')
                 ->previewUsing('thumb'),
+            Text::make('View')->displayUsing(fn () => '<a href="'.($this?->id ? route('media.photos.show', ['photo' => $this->uuid]) : '#').'" class="no-underline dim text-primary font-bold" target="_preview">View</a>')
+                ->asHtml()
+                ->onlyOnIndex(),
             Text::make(__('Artist or Photographer'), 'artist_or_photographer')
                 ->hideFromIndex(),
             Text::make(__('Location'), 'location'),
