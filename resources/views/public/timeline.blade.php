@@ -73,6 +73,13 @@
                                                                 <img class="w-auto h-12"
                                                                      src="{{ $event->getFirstMediaUrl('default','thumb') }}"
                                                                      alt=""/>
+                                                            @elseif(auth()->check() && auth()->user()->hasAnyRole(['Editor', 'Super Admin', 'Admin']))
+                                                                <a href="/nova/resources/photos/new"
+                                                                   class="underline whitespace-nowrap text-secondary"
+                                                                   target="_upload_photo"
+                                                                >
+                                                                    Upload Photo
+                                                                </a>
                                                             @endif
                                                         </td>
                                                         <td class="py-4 px-6 text-sm text-gray-500 whitespace-normal">
