@@ -77,7 +77,10 @@ class Event extends Model implements HasMedia
     public function toArray()
     {
         $event = [];
-
+        $this->loadMissing([
+            'photos',
+            'media',
+        ]);
         $displayStart = str($this->display_date)->before('-')->trim();
         $displayEnd = str($this->display_date)->after('-')->trim();
 
