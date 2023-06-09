@@ -39,5 +39,6 @@ class AppServiceProvider extends ServiceProvider
         }
 
         Model::preventLazyLoading(! $this->app->isProduction());
+        Model::preventAccessingMissingAttributes(! $this->app->isProduction());
     }
 }
