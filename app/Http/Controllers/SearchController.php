@@ -25,10 +25,20 @@ class SearchController extends Controller
         }
 
         $pages = Page::query()->with('dates', 'media', 'parent');
-        $pages = $pages->with('item')
-                        ->whereHas('item', function (Builder $query) use ($enabled) {
-                            $query->whereIn('enabled', $enabled);
-                        });
+        $pages = $pages->with([
+            'item.type',
+            'parent.type',
+            'media',
+            'dates',
+            'people',
+            'places',
+        ])
+            ->withCount([
+                'quotes',
+            ])
+            ->whereHas('item', function (Builder $query) use ($enabled) {
+                $query->whereIn('enabled', $enabled);
+            });
 
         if ($request->has('q') && $request->get('q') != '*') {
             $pages = $pages->where(function ($query) use ($request) {
