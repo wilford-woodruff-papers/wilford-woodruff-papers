@@ -22,7 +22,7 @@ class UpdateContentPageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'body' => 'required|max:4000000',
+            'body' => 'sometimes|max:4000000',
         ];
     }
 }

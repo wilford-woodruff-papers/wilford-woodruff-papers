@@ -1,8 +1,13 @@
 <x-guest-layout>
 
+    <div class="p-4 my-12 mx-auto max-w-7xl">
+        <x-validation-errors :errors="$errors" />
+        <x-success-messages :message="session('success')" />
+    </div>
+
     <div class="p-4 mx-auto mt-12 max-w-7xl border-2 border-gray-300 border-dashed">
         <div class="page-builder">
-            {!! $contentPage->body !!}
+            {!! old('body', $contentPage->body) !!}
         </div>
     </div>
 

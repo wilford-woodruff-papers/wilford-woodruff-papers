@@ -9,10 +9,10 @@
         </div>
     @endhasanyrole
     @php
-        $headings = Spatie\Regex\Regex::matchAll('/(?:<h2.*>)(.*)(?:<\/h2>)/', $contentPage->body)->results();
+        $headings = Spatie\Regex\Regex::matchAll('/(?:<h2.*>)(.*)(?:<\/h2>)/', $contentPage->body ?? '')->results();
         $contentPage->body = Spatie\Regex\Regex::replace('/(?:<h2.*>)(.*)(?:<\/h2>)/', function (Spatie\Regex\MatchResult $result) {
             return str($result->result())->replace('h2', 'h2 id="'.str($result->group(1))->slug().'"');
-        }, $contentPage->body)->result();
+        }, $contentPage->body ?? '')->result();
     @endphp
     <div class="my-12 mx-auto max-w-7xl">
         <div class="grid grid-cols-5 gap-x-4">

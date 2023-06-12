@@ -11,7 +11,7 @@ class StoreContentPageRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return auth()->user()->hasAnyRole(['Admin']);
     }
 
     /**
@@ -22,7 +22,7 @@ class StoreContentPageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'body' => 'sometimes|max:4000000',
         ];
     }
 }

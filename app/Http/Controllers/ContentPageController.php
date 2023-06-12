@@ -64,6 +64,8 @@ class ContentPageController extends Controller
         $contentPage->body = $validated['body'];
         $contentPage->save();
 
+        $request->session()->flash('success', 'Page updated successfully!');
+
         return redirect()->route('content-page.edit', ['contentPage' => $contentPage->slug]);
     }
 
