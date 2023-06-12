@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Admin\Subjects;
 
-use App\Models\Subject;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class SupervisorDashboard extends Component
@@ -60,35 +60,36 @@ class SupervisorDashboard extends Component
             $people = [];
 
             foreach ($months as $month) {
-                $people[$month['name']]['biographies']['assigned'] = Subject::query()
-                    ->with([
-                        'researcher',
-                    ])
-                    ->whereNull('bio_completed_at')
+                $people[$month['name']]['biographies']['completed'] = DB::table('subjects')
+                    ->select('users.name', DB::raw('count(*) as completed'))
+                    ->join('users', 'subjects.researcher_id', '=', 'users.id')
+                    ->join('category_subject', 'subjects.id', '=', 'category_subject.subject_id')
+                    ->join('categories', 'categories.id', '=', 'category_subject.category_id')
+                    ->whereMonth('subjects.bio_completed_at', $this->monthMap[$month['name']])
+                    ->whereYear('subjects.bio_completed_at', $month['year'])
                     ->whereNotNull('researcher_id')
-                    ->whereHas('category', function ($query) {
-                        $query->whereIn('categories.name', ['People']);
-                    })
-
-                    ->count();
-
-                $people[$month['name']]['biographies']['completed'] = Subject::query()
-                    ->with([
-                        'researcher',
-                    ])
-                    ->whereHas('category', function ($query) {
-                        $query->whereIn('categories.name', ['People']);
-                    })
-                    ->whereMonth('bio_completed_at', $this->monthMap[$month['name']])
-                    ->whereYear('bio_completed_at', $month['year'])
-
-                    ->count();
+                    ->where('categories.name', 'People')
+                    ->groupBy('researcher_id')
+                    ->get();
             }
-            dd($people);
+
+            $biographies['assigned'] = DB::table('subjects')
+                ->select('users.name', DB::raw('count(*) as assigned'))
+                ->join('users', 'subjects.researcher_id', '=', 'users.id')
+                ->join('category_subject', 'subjects.id', '=', 'category_subject.subject_id')
+                ->join('categories', 'categories.id', '=', 'category_subject.category_id')
+                ->whereNull('bio_completed_at')
+                ->whereNotNull('researcher_id')
+                ->where('categories.name', 'People')
+                ->groupBy('researcher_id')
+                ->get();
+
         }
 
         return view('livewire.admin.subjects.supervisor-dashboard', [
             'months' => $months ?? [],
+            'people' => $people ?? [],
+            'biographies' => $biographies ?? [],
         ])
             ->layout('layouts.admin');
     }

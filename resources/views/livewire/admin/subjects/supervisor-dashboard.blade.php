@@ -70,27 +70,58 @@
 
                     </div>
                 </div>
-                <table class="divide-y divide-gray-30">
+                @if(! empty($biographies['assigned']))
+                    <table class="mb-12 divide-y divide-gray-30">
+                        <thead class="sticky top-0 text-white bg-black">
+                        <tr>
+                            <th class="px-4">Researcher</th>
+                            <th class="px-4">Biographies Currently In Progress</th>
+                        </tr>
+                        </thead>
+                        <tbody class="bg-white">
+                            @foreach($biographies['assigned'] as $key => $researcher)
+                                <tr class="text-center">
+                                    <td class="py-1 px-3.5 text-base font-semibold text-left text-black bg-white">
+                                        {{ $researcher->name }}
+                                    </td>
+                                    <td class="text-black">{{ $researcher->assigned }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot></tfoot>
+                    </table>
+                @endif
+
+                <table class="">
                     <thead class="sticky top-0 text-white bg-black">
                     <tr>
                         <th class="px-4 text-left">Month</th>
                         <th class="px-4">Researcher</th>
-                        <th class="px-4">Biographies Assigned</th>
                         <th class="px-4">Biographies Completed</th>
                     </tr>
                     </thead>
-                    <tbody class="bg-white">
-                        @php
-                            $quarter = 1;
-                        @endphp
+                    <tbody class="bg-white divide-y divide-gray-300">
                         @foreach($months as $key => $month)
                             <tr class="text-center">
                                 <td class="py-1 px-3.5 text-base font-semibold text-left text-black bg-white">
                                     {{ $month['name'] }}
                                 </td>
-                                <td class="text-black">Name</td>
-                                <td class="text-black">Assigned</td>
-                                <td class="text-black">Completed</td>
+                                <td colspan="2" class="px-4 text-black">
+                                    @if(count($people[$month['name']]['biographies']['completed']) > 0)
+                                        <table class="w-full">
+                                            <thead></thead>
+                                            <tbody class="bg-white divide-y divide-gray-200">
+                                                @foreach($people[$month['name']]['biographies']['completed'] as $key => $researcher)
+                                                    <tr class="">
+                                                        <td class="text-left text-black">{{ $researcher->name }}</td>
+                                                        <td class="text-right text-black">{{ $researcher->completed }}</td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                            <tfoot></tfoot>
+                                        </table>
+                                    @endif
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
