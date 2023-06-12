@@ -18,7 +18,7 @@ class PropertyTemplate extends Resource
 
     public static $defaultSortField = 'order_column';
 
-    public static $with = ['property'];
+    public static $with = ['property', 'template'];
 
     /**
      * The model the resource corresponds to.
