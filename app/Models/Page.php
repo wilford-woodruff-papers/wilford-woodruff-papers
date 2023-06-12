@@ -7,6 +7,7 @@ use Dyrynda\Database\Support\GeneratesUuid;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 use Mtvs\EloquentHashids\HasHashid;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Encoders\Base64Encoder;
@@ -29,6 +30,7 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
     use InteractsWithMedia;
     use KeepsDeletedModels;
     use LogsActivity;
+    use Searchable;
     use SortableTrait;
 
     protected $guarded = ['id'];
@@ -47,11 +49,11 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
 
     public function parent()
     {
-        if (! empty($this->item) && empty($this->item->item_id)) {
-            return $this->item();
-        } else {
+        //if (! empty($this->item) && empty($this->item->item_id)) {
+        //    return $this->item();
+        //} else {
             return $this->belongsTo(Item::class, 'parent_item_id');
-        }
+        //}
     }
 
     public function next()
@@ -299,5 +301,24 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
                 $action->delete();
             }
         });
+    }
+
+    public function toSearchableArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'resource_type' => 'Page',
+            'url' => ($this->parent ? route('pages.show', ['item' => $this->parent?->uuid, 'page' => $this->uuid]) : ''),
+            'thumbnail' => $this->getFirstMedia()?->getUrl('thumb'),
+            'uuid' => $this->uuid,
+            'type' => $this->parent?->type?->name,
+            'name' => $this->name,
+            'transcript' => strip_tags($this->transcript),
+        ];
+    }
+
+    public function searchableAs(): string
+    {
+        return 'pages';
     }
 }

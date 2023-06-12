@@ -7,6 +7,7 @@ use Dyrynda\Database\Support\GeneratesUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Laravel\Scout\Searchable;
 use Mtvs\EloquentHashids\HasHashid;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Encoders\Base64Encoder;
@@ -23,6 +24,7 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
     use HasHashid;
     use KeepsDeletedModels;
     use LogsActivity;
+    use Searchable;
 
     protected $guarded = ['id'];
 
@@ -332,5 +334,23 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
         } else {
             return array_merge($this->attributesToArray(), $this->relationsToArray());
         }
+    }
+
+    public function toSearchableArray(): array
+    {
+        return [
+            'id' => $this->id,
+            'resource_type' => 'Document',
+            'url' => route('documents.show', ['item' => $this->uuid]),
+            'thumbnail' => $this->firstPage?->getFirstMedia()?->getUrl('thumb'),
+            'uuid' => $this->uuid,
+            'type' => $this->type?->name,
+            'name' => $this->name,
+        ];
+    }
+
+    public function searchableAs(): string
+    {
+        return 'items';
     }
 }
