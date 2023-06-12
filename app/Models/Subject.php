@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Stringable;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
@@ -38,10 +39,13 @@ class Subject extends Model
                 }
 
                 $name = $name
+                    ->when(! empty($this->last_name), function (Stringable $string) {
+                        return $string
+                            ->replaceMatches('/\bII$/i', '(II)')
+                            ->replaceMatches('/\bIII$/i', '(III)');
+                    })
                     ->replaceMatches('/\bJr\.$/i', '(Jr.)')
                     ->replaceMatches('/\bSr\.$/i', '(Sr.)')
-                    ->replaceMatches('/\bII$/i', '(II)')
-                    ->replaceMatches('/\bIII$/i', '(III)')
                     ->replaceMatches('/\(OT\)/i', '(Old Testament)')
                     ->replaceMatches('/\(NT\)/i', '(New Testament)')
                     ->replaceMatches('/\(BofM\)/i', '(Book of Mormon)');
