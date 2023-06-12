@@ -24,6 +24,8 @@ class User extends Resource
      */
     public static $model = \App\Models\User::class;
 
+    public static $with = ['roles'];
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
