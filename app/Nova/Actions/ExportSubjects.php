@@ -11,6 +11,7 @@ class ExportSubjects extends DownloadExcel implements WithMapping, WithHeadings
     public function headings(): array
     {
         return [
+            'Family Search ID',
             'Name',
             'Category',
             'Number Occurrences',
@@ -25,12 +26,12 @@ class ExportSubjects extends DownloadExcel implements WithMapping, WithHeadings
     public function map($subject): array
     {
         $subject->load('category');
-        $subject->loadCount('pages');
 
         return [
+            $subject->pid,
             $subject->name,
             $subject->category->pluck('name')->join(';'),
-            $subject->pages_count,
+            $subject->total_usage_count,
             config('app.url').'/subjects/'.$subject->slug,
             $subject->bio,
         ];
