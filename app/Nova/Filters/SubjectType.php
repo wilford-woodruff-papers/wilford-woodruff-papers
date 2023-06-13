@@ -23,6 +23,7 @@ class SubjectType extends Filter
     public function apply(Request $request, $query, $value): Builder
     {
         if ($value == -1) {
+            $query = $query->whereDoesntHave('category');
         } else {
             $query = $query->whereHas('category', function (Builder $query) use ($value) {
                 $query->where('id', $value);
