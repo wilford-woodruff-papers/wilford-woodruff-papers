@@ -108,6 +108,7 @@ class Index extends Component
         $query = Subject::query()
             ->with([
                 'researcher',
+                'category',
             ])
             ->whereHas('category', function (Builder $query) {
                 $query->whereIn('categories.name', ['People']);
