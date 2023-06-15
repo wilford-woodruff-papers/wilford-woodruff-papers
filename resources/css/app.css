@@ -294,3 +294,25 @@ input[class^="numeric-"], select[class^="numeric-"]{
     @apply text-sm font-medium text-secondary uppercase;
 }
 /* End Admin */
+
+/* Begin Content Builder */
+.content-page a, .page-builder a{
+    @apply text-secondary underline !important;
+}
+.content-page ul, .page-builder ul{
+    @apply list-disc my-1 pl-12 !important;
+}
+.content-page ol, .page-builder ol{
+    @apply list-decimal my-1 pl-12 !important;
+}
+.content-page ul li, .page-builder ul li, .content-page ol li, .page-builder ol li{
+    @apply py-1 !important;
+}
+.content-page p+p, .page-builder p+p{
+    @apply mt-2 !important;
+}
+.content-page p br, .page-builder p br {
+    content: "";
+    @apply block text-2xl m-4 !important;
+}
+/* End Content Builder */

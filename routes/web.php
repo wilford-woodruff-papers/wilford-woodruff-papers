@@ -527,3 +527,14 @@ Route::middleware(['auth'])
         Route::get('topics/{id}', [\App\Http\Controllers\Api\v1\TopicsController::class, 'show'])
             ->name('docs.topics.show');
     });
+
+Route::get('/{contentPage}', [\App\Http\Controllers\ContentPageController::class, 'show'])
+    //->where('contentPage', '^(?!nova).*$')
+    ->name('content-page.show');
+Route::get('/{contentPage}/edit', [\App\Http\Controllers\ContentPageController::class, 'edit'])
+    //->where('contentPage', '^(?!nova).*$')
+    ->name('content-page.edit');
+Route::put('/content-page/{contentPage}', [\App\Http\Controllers\ContentPageController::class, 'update'])
+    ->name('content-page.update');
+Route::post('/content-page/{contentPage}/upload', [\App\Http\Controllers\ContentPageController::class, 'upload'])
+    ->name('content-page.upload');
