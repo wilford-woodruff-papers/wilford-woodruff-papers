@@ -30,16 +30,20 @@ class SubjectController extends Controller
                     ->whereHas('pages')
                     ->withCount(['pages']);
                 },
-        ])
-            ->loadCount(['pages']);
+        ]);
+            //->loadCount(['pages']);
 
         return view('public.subjects.show', [
             'subject' => $subject,
             'pages' => Page::query()
                 ->with([
                     'item',
+                    'item.type',
+                    'parent.type',
                     'media',
                     'dates',
+                    'people',
+                    'places',
                 ])
                 ->where(function ($query) use ($subject) {
                     $query->whereHas('item', function (Builder $query) {
@@ -57,6 +61,10 @@ class SubjectController extends Controller
             'quotes' => Quote::query()
                 ->with([
                     'page',
+                    'page.parent.type',
+                    'page.dates',
+                    'page.people',
+                    'page.places',
                     'page.item',
                     'page.media',
                 ])

@@ -32,7 +32,7 @@ class ConferenceController extends Controller
                     'title' => 'Missionary Faith in Persecution',
                     'bio' => '<p>Ellie Hancock graduated from Brigham Young University in April 2022 with a BA in History. Throughout the course of her studies, she was able to participate on numerous research projects in 19th century, British, religious and women’s history. She is fascinated by understanding the nuances of church history and is grateful to be able to preserve and promote the legacy of Wilford Woodruff in the ongoing restoration. Ellie is a recipient of the Carol Sorenson Smith Award, earned through her research on missionary faith in persecution.</p>',
                     'video' => 'https://www.youtube.com/embed/UU0G3v3oYJM',
-                    'article' => '',
+                    'article' => 'https://latterdaysaintmag.com/missionary-faith-in-persecution-wilford-woodruffs-first-mission-to-england/',
                 ],
                 [
                     'name' => 'Hovan Lawton, Award Winner',
@@ -52,7 +52,7 @@ class ConferenceController extends Controller
                     'name' => 'Amy Harris, PhD, BYU Professor',
                     'title' => 'The World of British Converts',
                     'bio' => '<p>Amy Harris is an associate professor of history and director of the Family History department at Brigham Young University. Her research focuses on women, families and gender in early modern Britain and has published several books on family relationships during that time. She has conducted extensive research on British families during the time in which Wilford Woodruff was a missionary, though she has also written on genealogy in a Latter-Day Saint context. She enjoys seeing the humanity and reality of the people who lived during the time periods she has studied and examining the effects that the events of the time had on them.</p>',
-                    'video' => null,
+                    'video' => 'https://www.youtube.com/embed/jaz0AO4a964',
                     'article' => '',
                 ],
                 [

@@ -1,4 +1,7 @@
 <x-guest-layout>
+    <x-slot name="title">
+        {{ $update->subject }}
+    </x-slot>
     <div class="py-12 px-12 mx-auto max-w-7xl">
         <div class="content">
             <h2>

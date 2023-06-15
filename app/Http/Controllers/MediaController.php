@@ -51,6 +51,10 @@ class MediaController extends Controller
 
     public function photo(Request $request, Photo $photo): View
     {
+        $photo->load([
+            'events',
+        ]);
+
         return view('public.media.photo', [
             'photo' => $photo,
         ]);

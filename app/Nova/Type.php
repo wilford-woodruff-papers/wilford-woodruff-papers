@@ -22,6 +22,8 @@ class Type extends Resource
      */
     public static $model = \App\Models\Type::class;
 
+    public static $with = ['roles'];
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *

@@ -105,7 +105,42 @@
                             <td class="px-2 text-center uppercase"></td>
                             <td colspan="12" class="pl-2 text-left"></td>
                         </tr>
-                        @foreach($months as $month)
+                        @php
+                            $quarter = 1;
+                            $quarterlyStats = [
+                                'places' => [
+                                    'added' => 0,
+                                    'goal' => 0,
+                                    'confirmed' => 0,
+                                ],
+                                'people' => [
+                                    'added' => 0,
+                                    'goal' => 0,
+                                    'identified' => 0,
+                                ],
+                                'biographies' => [
+                                    'goal' => 0,
+                                    'written' => 0,
+                                ],
+                            ];
+                            $annualStats = [
+                                'places' => [
+                                    'added' => 0,
+                                    'goal' => 0,
+                                    'confirmed' => 0,
+                                ],
+                                'people' => [
+                                    'added' => 0,
+                                    'goal' => 0,
+                                    'identified' => 0,
+                                ],
+                                'biographies' => [
+                                    'goal' => 0,
+                                    'written' => 0,
+                                ],
+                            ];
+                        @endphp
+                        @foreach($months as $key => $month)
                             <tr class="text-center">
                                 <td class="py-1 px-3.5 text-base font-semibold text-center text-black bg-white">
                                     {{ $month['name'] }}
@@ -126,6 +161,124 @@
                                 <td class="bg-[#d0e0e3] text-black">{{ $biographies[$month['name']]['goal'] ? $biographies[$month['name']]['percentage'] .'%' : 'N/A'  }}</td>
 
                             </tr>
+                            @php
+                                $quarterlyStats['places']['added'] += $places[$month['name']]['added'];
+                                $quarterlyStats['places']['goal'] += $places[$month['name']]['goal'];
+                                $quarterlyStats['places']['confirmed'] += $places[$month['name']]['actual'];
+
+                                $quarterlyStats['people']['added'] += $people[$month['name']]['added_to_ftp'];
+                                $quarterlyStats['people']['goal'] += $people[$month['name']]['goal'];
+                                $quarterlyStats['people']['identified'] += $people[$month['name']]['actual'];
+
+                                $quarterlyStats['biographies']['goal'] += $biographies[$month['name']]['goal'];
+                                $quarterlyStats['biographies']['written'] += $biographies[$month['name']]['actual'];
+                            @endphp
+                            @if( ($loop->index + 1) % 3 == 0)
+                                <tr class="text-center bg-[#d9d9d9] font-semibold">
+                                    <td class="">
+                                        Q{{ $quarter }}
+                                    </td>
+                                    <td>
+                                        {{ $quarterlyStats['places']['added'] }}
+                                    </td>
+                                    <td>
+                                        {{ $quarterlyStats['places']['goal'] }}
+                                    </td>
+                                    <td>
+                                        {{ $quarterlyStats['places']['confirmed'] }}
+                                    </td>
+                                    <td>
+                                        {{ $quarterlyStats['places']['goal'] ? number_format($quarterlyStats['places']['confirmed'] / $quarterlyStats['places']['goal'] * 100, 0) .'%' : 'N/A' }}
+                                    </td>
+                                    <td>
+                                        {{ $quarterlyStats['people']['added'] }}
+                                    </td>
+                                    <td>
+                                        {{ $quarterlyStats['people']['goal'] }}
+                                    </td>
+                                    <td>
+                                        {{ $quarterlyStats['people']['identified'] }}
+                                    </td>
+                                    <td>
+                                        {{ $quarterlyStats['people']['goal'] ? number_format($quarterlyStats['people']['identified'] / $quarterlyStats['people']['goal'] * 100, 0) .'%' : 'N/A' }}
+                                    </td>
+                                    <td>
+                                        {{ $quarterlyStats['biographies']['goal'] }}
+                                    </td>
+                                    <td>
+                                        {{ $quarterlyStats['biographies']['written'] }}
+                                    </td>
+                                    <td>
+                                        {{ $quarterlyStats['biographies']['goal'] ? number_format($quarterlyStats['biographies']['written'] / $quarterlyStats['biographies']['goal'] * 100, 0) .'%' : 'N/A' }}
+                                    </td>
+                                </tr>
+                                @php
+                                    $annualStats['places']['added'] += $quarterlyStats['places']['added'];
+                                    $annualStats['places']['goal'] += $quarterlyStats['places']['goal'];
+                                    $annualStats['places']['confirmed'] += $quarterlyStats['places']['confirmed'];
+
+                                    $annualStats['people']['added'] += $quarterlyStats['people']['added'];
+                                    $annualStats['people']['goal'] += $quarterlyStats['people']['goal'];
+                                    $annualStats['people']['identified'] += $quarterlyStats['people']['identified'];
+
+                                    $annualStats['biographies']['goal'] += $quarterlyStats['biographies']['goal'];
+                                    $annualStats['biographies']['written'] += $quarterlyStats['biographies']['written'];
+
+                                    $quarterlyStats['places']['added'] = 0;
+                                    $quarterlyStats['places']['goal'] = 0;
+                                    $quarterlyStats['places']['confirmed'] = 0;
+
+                                    $quarterlyStats['people']['added'] = 0;
+                                    $quarterlyStats['people']['goal'] = 0;
+                                    $quarterlyStats['people']['identified'] = 0;
+
+                                    $quarterlyStats['biographies']['goal'] = 0;
+                                    $quarterlyStats['biographies']['written'] = 0;
+
+                                    $quarter += 1;
+                                @endphp
+                            @endif
+
+                            @if($loop->last)
+                                <tr class="text-center bg-[#999999] text-white font-semibold">
+                                    <td class="">
+                                        Stage {{ $stage }}
+                                    </td>
+                                    <td>
+                                        {{ $annualStats['places']['added'] }}
+                                    </td>
+                                    <td>
+                                        {{ $annualStats['places']['goal'] }}
+                                    </td>
+                                    <td>
+                                        {{ $annualStats['places']['confirmed'] }}
+                                    </td>
+                                    <td>
+                                        {{ $annualStats['places']['goal'] ? number_format($annualStats['places']['confirmed'] / $annualStats['places']['goal'] * 100, 0) .'%' : 'N/A' }}
+                                    </td>
+                                    <td>
+                                        {{ $annualStats['people']['added'] }}
+                                    </td>
+                                    <td>
+                                        {{ $annualStats['people']['goal'] }}
+                                    </td>
+                                    <td>
+                                        {{ $annualStats['people']['identified'] }}
+                                    </td>
+                                    <td>
+                                        {{ $annualStats['people']['goal'] ? number_format($annualStats['people']['identified'] / $annualStats['people']['goal'] * 100, 0) .'%' : 'N/A' }}
+                                    </td>
+                                    <td>
+                                        {{ $annualStats['biographies']['goal'] }}
+                                    </td>
+                                    <td>
+                                        {{ $annualStats['biographies']['written'] }}
+                                    </td>
+                                    <td>
+                                        {{ $annualStats['biographies']['goal'] ? number_format($annualStats['biographies']['written'] / $annualStats['biographies']['goal'] * 100, 0) .'%' : 'N/A' }}
+                                    </td>
+                                </tr>
+                            @endif
                         @endforeach
                     </tbody>
                     <tfoot></tfoot>

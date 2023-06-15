@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\ExportPeople;
 use App\Nova\Actions\ExportSubjects;
 use App\Nova\Actions\ExportSubjectsWithChildren;
 use App\Nova\Actions\ImportBiographies;
@@ -30,6 +31,8 @@ class Subject extends Resource
      */
     public static $model = \App\Models\Subject::class;
 
+    public static $with = ['parent', 'category'];
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
@@ -55,6 +58,10 @@ class Subject extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
             Text::make(__('Name'), 'name')->sortable(),
+            Text::make('Category', function () {
+                return $this->category->pluck('name')->implode(', ');
+            })
+                ->onlyOnIndex(),
             Text::make(__('Slug'), 'slug')
                 ->hideFromIndex()
                 ->hideWhenCreating()
@@ -110,6 +117,8 @@ class Subject extends Resource
             new ImportSubjects,
             new ImportBiographies,
             (new ExportSubjects)
+                ->askForWriterType(),
+            (new ExportPeople)
                 ->askForWriterType(),
             (new ExportSubjectsWithChildren)
                 ->askForWriterType(),

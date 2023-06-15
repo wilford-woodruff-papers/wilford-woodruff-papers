@@ -37,7 +37,7 @@
                                             <tbody>
                                                 @foreach($events as $event)
                                                     <tr id="event-{{ $event->id }}"
-                                                        class="@if($loop->odd) bg-white @else bg-gray-50  @endif ">
+                                                        class="odd:bg-white even:bg-gray-50">
                                                         <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-normal">
                                                             @if($event->pages->count() > 0 && $event->pages->first()->parent?->uuid && $event->pages->first()?->uuid)
                                                                 <a class="text-secondary"
@@ -73,6 +73,13 @@
                                                                 <img class="w-auto h-12"
                                                                      src="{{ $event->getFirstMediaUrl('default','thumb') }}"
                                                                      alt=""/>
+                                                            @elseif(auth()->check() && auth()->user()->hasAnyRole(['Editor', 'Super Admin', 'Admin']))
+                                                                <a href="/nova/resources/photos/new"
+                                                                   class="underline whitespace-nowrap text-secondary"
+                                                                   target="_upload_photo"
+                                                                >
+                                                                    Upload Photo
+                                                                </a>
                                                             @endif
                                                         </td>
                                                         <td class="py-4 px-6 text-sm text-gray-500 whitespace-normal">

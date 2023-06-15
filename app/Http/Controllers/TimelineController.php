@@ -13,7 +13,11 @@ class TimelineController extends Controller
     public function index(): View
     {
         $events = Event::query()
-                            ->with('photos', 'pages.parent')
+                            ->with([
+                                'photos',
+                                'media',
+                                'pages.parent',
+                            ])
                             ->orderBy('start_at', 'asc')
                             ->get();
 

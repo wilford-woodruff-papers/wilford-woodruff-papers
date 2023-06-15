@@ -25,6 +25,8 @@ class Article extends Resource
      */
     public static $model = \App\Models\Article::class;
 
+    public static $with = ['tags'];
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *

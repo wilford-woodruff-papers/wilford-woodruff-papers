@@ -20,7 +20,13 @@ class PeopleController extends Controller
     public function family(): View
     {
         return view('public.family', [
-            'wives' => Wife::with('person', 'children')->get(),
+            'wives' => Wife::query()
+                ->with([
+                    'person',
+                    'children',
+                    'children.person',
+                ])
+                ->get(),
         ]);
     }
 

@@ -463,6 +463,14 @@ Route::middleware(['role:Super Admin|Editor|Bio Editor'])->group(function () {
         ->name('admin.subjects.objectives');
 
     Route::middleware(['auth:sanctum', 'verified'])
+        ->get('/admin/subjects/activity-report', \App\Http\Livewire\Admin\Subjects\ActivityReport::class)
+        ->name('admin.subjects.activity-report');
+
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->get('/admin/subjects/supervisor-dashboard', \App\Http\Livewire\Admin\Subjects\SupervisorDashboard::class)
+        ->name('admin.subjects.supervisor-dashboard');
+
+    Route::middleware(['auth:sanctum', 'verified'])
         ->get('/admin/export-transcripts', \App\Http\Controllers\Admin\ExportItemFullTranscriptController::class)
         ->name('admin.items.export-transcripts');
 
