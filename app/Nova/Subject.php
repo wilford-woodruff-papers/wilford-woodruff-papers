@@ -30,6 +30,8 @@ class Subject extends Resource
      */
     public static $model = \App\Models\Subject::class;
 
+    public static $with = ['parent', 'category'];
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
@@ -55,6 +57,10 @@ class Subject extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
             Text::make(__('Name'), 'name')->sortable(),
+            Text::make('Categorie(s)', function () {
+                return $this->category->pluck('name')->implode(', ');
+            })
+                ->onlyOnIndex(),
             Text::make(__('Slug'), 'slug')
                 ->hideFromIndex()
                 ->hideWhenCreating()
