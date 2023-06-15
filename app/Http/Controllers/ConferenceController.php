@@ -32,7 +32,7 @@ class ConferenceController extends Controller
                     'title' => 'Missionary Faith in Persecution',
                     'bio' => '<p>Ellie Hancock graduated from Brigham Young University in April 2022 with a BA in History. Throughout the course of her studies, she was able to participate on numerous research projects in 19th century, British, religious and women’s history. She is fascinated by understanding the nuances of church history and is grateful to be able to preserve and promote the legacy of Wilford Woodruff in the ongoing restoration. Ellie is a recipient of the Carol Sorenson Smith Award, earned through her research on missionary faith in persecution.</p>',
                     'video' => 'https://www.youtube.com/embed/UU0G3v3oYJM',
-                    'article' => '',
+                    'article' => 'https://latterdaysaintmag.com/missionary-faith-in-persecution-wilford-woodruffs-first-mission-to-england/',
                 ],
                 [
                     'name' => 'Hovan Lawton, Award Winner',
