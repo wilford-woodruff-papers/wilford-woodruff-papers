@@ -57,7 +57,7 @@ class Subject extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
             Text::make(__('Name'), 'name')->sortable(),
-            Text::make('Categorie(s)', function () {
+            Text::make('Category', function () {
                 return $this->category->pluck('name')->implode(', ');
             })
                 ->onlyOnIndex(),
