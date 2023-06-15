@@ -16,7 +16,7 @@
                                         <div class="col-span-5 text-left">
                                             <p>{{ $wife->birthdate }}</p>
 
-                                            <p>{{ $wife->birthplace }}</p>
+                                            {{--<p>{{ $wife->birthplace }}</p>--}}
                                         </div>
                                     </div>
 
@@ -26,7 +26,7 @@
                                         <div class="col-span-5 text-left">
                                             <p>{{ $wife->deathdate }}</p>
 
-                                            <p>{{ $wife->deathplace }}</p>
+                                            {{--<p>{{ $wife->deathplace }}</p>--}}
                                         </div>
                                     </div>
 
