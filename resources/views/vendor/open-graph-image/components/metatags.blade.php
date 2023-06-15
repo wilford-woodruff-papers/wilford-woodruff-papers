@@ -1,6 +1,6 @@
 @foreach(config('open-graph-image.metatags') as $property => $key)
     @if($attributes->has($key))
-        <meta property="{{ $property }}" content="{{ str($attributes->get($key))->replace('_', ' ')->trim() }}">
+        <meta property="{{ $property }}" content="{{ html_entity_decode(str($attributes->get($key))->replace('_', ' ')->trim()) }}">
     @endif
 @endforeach
 
