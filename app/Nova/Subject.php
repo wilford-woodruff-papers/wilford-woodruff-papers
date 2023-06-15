@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\ExportPeople;
 use App\Nova\Actions\ExportSubjects;
 use App\Nova\Actions\ExportSubjectsWithChildren;
 use App\Nova\Actions\ImportBiographies;
@@ -116,6 +117,8 @@ class Subject extends Resource
             new ImportSubjects,
             new ImportBiographies,
             (new ExportSubjects)
+                ->askForWriterType(),
+            (new ExportPeople)
                 ->askForWriterType(),
             (new ExportSubjectsWithChildren)
                 ->askForWriterType(),
