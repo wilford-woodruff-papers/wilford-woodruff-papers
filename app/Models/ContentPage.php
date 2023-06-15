@@ -22,6 +22,13 @@ class ContentPage extends Model implements HasMedia
 
     protected $guarded = ['id'];
 
+    // Create an accesor for the banner image url
+    public function getBannerImageUrlAttribute()
+    {
+        return ! empty($this->banner_image) ? \Illuminate\Support\Facades\Storage::disk('content_pages')
+            ->url($this->banner_image) : '';
+    }
+
     public function getRouteKeyName()
     {
         return 'slug';

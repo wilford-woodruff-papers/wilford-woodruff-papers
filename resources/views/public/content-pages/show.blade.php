@@ -1,4 +1,9 @@
 <x-guest-layout>
+
+    <x-banner-image :image="$contentPage->banner_image_url"
+                    :text="$contentPage->title"
+    />
+
     @hasanyrole('Admin')
         <div class="flex justify-center my-12 mx-auto max-w-7xl">
             <a href="{{ route('content-page.edit', ['contentPage' => $contentPage]) }}"
@@ -8,6 +13,7 @@
             </a>
         </div>
     @endhasanyrole
+    
     @php
         $headings = Spatie\Regex\Regex::matchAll('/(?:<h2.*>)(.*)(?:<\/h2>)/', $contentPage->body ?? '')->results();
         $contentPage->body = Spatie\Regex\Regex::replace('/(?:<h2.*>)(.*)(?:<\/h2>)/', function (Spatie\Regex\MatchResult $result) {

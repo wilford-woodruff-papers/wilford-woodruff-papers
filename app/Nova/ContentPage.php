@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Ctessier\NovaAdvancedImageField\AdvancedImage;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
@@ -45,8 +46,16 @@ class ContentPage extends Resource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Title')->sortable(),
-            DateTime::make('Created At')->sortable(),
+            Text::make('Title')
+                ->sortable(),
+            AdvancedImage::make('Banner Image')
+                ->disk('content_pages')
+                ->croppable()
+                ->resize(1920)
+                ->hideFromIndex(),
+            DateTime::make('Created At')
+                ->readonly(true)
+                ->sortable(),
             Text::make('Preview', function ($page) {
                 return '<a href="'.($page->id ? route('content-page.show', ['contentPage' => $page->slug]) : '#').'" class="no-underline dim text-primary font-bold" target="_preview">Preview</a>';
             })

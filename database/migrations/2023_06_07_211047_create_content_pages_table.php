@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('slug');
             $table->longText('body')->nullable();
             $table->longText('sidebar')->nullable();
+            $table->string('banner_image')->nullable();
             $table->timestamps();
             $table->softDeletes();
             $table->unsignedBigInteger('created_by')->nullable();

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "385e2dc4542020ac66aa58d9556c9f69",
+    "content-hash": "792874d413d305dad26c9e662b431712",
     "packages": [
         {
             "name": "alexpechkarev/geometry-library",
@@ -708,6 +708,72 @@
                 }
             ],
             "time": "2022-04-01T19:23:25+00:00"
+        },
+        {
+            "name": "ctessier/nova-advanced-image-field",
+            "version": "v2.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ctessier/nova-advanced-image-field.git",
+                "reference": "675329c0d1a60954e4e861efc64ea6c2ef579dbd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ctessier/nova-advanced-image-field/zipball/675329c0d1a60954e4e861efc64ea6c2ef579dbd",
+                "reference": "675329c0d1a60954e4e861efc64ea6c2ef579dbd",
+                "shasum": ""
+            },
+            "require": {
+                "intervention/image": "^2.7",
+                "laravel/nova": "^4.0",
+                "php": "^7.3|^8.0"
+            },
+            "suggest": {
+                "ext-exif": "Install the exif extension to orientate images automatically.",
+                "ext-gd": "Install the GD extension to process images using GD.",
+                "ext-imagick": "Install the Imagick extension to process image using ImageMagick."
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Ctessier\\NovaAdvancedImageField\\FieldServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Ctessier\\NovaAdvancedImageField\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "An advanced image field for Nova with cropping and resizing.",
+            "keywords": [
+                "advanced",
+                "advanced image",
+                "advanced image field",
+                "crop",
+                "image",
+                "image crop",
+                "image resize",
+                "laravel",
+                "nova",
+                "resize"
+            ],
+            "support": {
+                "issues": "https://github.com/ctessier/nova-advanced-image-field/issues",
+                "source": "https://github.com/ctessier/nova-advanced-image-field/tree/v2.0.3"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/ctessier",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-03-08T21:26:35+00:00"
         },
         {
             "name": "cweagans/composer-patches",
