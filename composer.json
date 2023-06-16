@@ -80,6 +80,7 @@
         "laravel/sail": "^1.18",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^7.0",
+        "openai-php/client": "^0.6.1",
         "pestphp/pest": "^2.0",
         "pestphp/pest-plugin-laravel": "^2.0",
         "spatie/laravel-horizon-watcher": "^1.0",
