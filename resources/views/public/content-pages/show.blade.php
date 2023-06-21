@@ -31,12 +31,14 @@
                             </div>
                             <ul role="list" class="pl-2 -mx-2 space-y-1">
                                 @foreach($headings as $heading)
-                                    <li>
-                                        <a href="#{{ str($heading->group(1))->slug() }}"
-                                           class="flex gap-x-3 p-2 pl-3 text-sm font-semibold leading-6 hover:bg-gray-50 text-secondary group">
-                                            {{ $heading->group(1) }}
-                                        </a>
-                                    </li>
+                                    @if(! empty($heading->group(1)))
+                                        <li>
+                                            <a href="#{{ str($heading->group(1))->slug() }}"
+                                               class="flex gap-x-3 p-2 pl-3 text-sm font-semibold leading-6 hover:bg-gray-50 text-secondary group">
+                                                {{ $heading->group(1) }}
+                                            </a>
+                                        </li>
+                                    @endif
                                 @endforeach
                             </ul>
                         </nav>
