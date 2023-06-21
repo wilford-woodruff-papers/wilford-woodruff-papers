@@ -59,6 +59,7 @@
                 container: '.page-builder',
                 framework: 'tailwind',
                 disableConfig: false,
+                maxColumns: 5,
                 paste: 'html-without-styles',
                 rowTool: 'left',
                 sidePanel: 'right',
