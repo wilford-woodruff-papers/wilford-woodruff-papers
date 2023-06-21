@@ -171,6 +171,44 @@ return [
                     'maxTotalHits' => 2000,
                 ],
             ],
+            'media' => [
+                'filterableAttributes' => [
+                    'resource_type',
+                    'type',
+                    'is_published',
+                ],
+                'sortableAttributes' => [
+                    'name',
+                ],
+                'typoTolerance' => [
+                    'minWordSizeForTypos' => [
+                        'oneTypo' => 4,
+                        'twoTypos' => 10,
+                    ],
+                ],
+                'pagination' => [
+                    'maxTotalHits' => 2000,
+                ],
+            ],
+            'resources' => [
+                'filterableAttributes' => [
+                    'resource_type',
+                    'type',
+                    'is_published',
+                ],
+                'sortableAttributes' => [
+                    'name',
+                ],
+                'typoTolerance' => [
+                    'minWordSizeForTypos' => [
+                        'oneTypo' => 4,
+                        'twoTypos' => 10,
+                    ],
+                ],
+                'pagination' => [
+                    'maxTotalHits' => 2000,
+                ],
+            ],
         ],
     ],
 

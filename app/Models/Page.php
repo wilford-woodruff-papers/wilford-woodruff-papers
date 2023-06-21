@@ -306,19 +306,28 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
     public function toSearchableArray(): array
     {
         return [
-            'id' => $this->id,
+            'id' => (int) $this->id,
+            'is_published' => true,
             'resource_type' => 'Page',
+            'type' => $this->parent?->type?->name,
             'url' => ($this->parent ? route('pages.show', ['item' => $this->parent?->uuid, 'page' => $this->uuid]) : ''),
             'thumbnail' => $this->getFirstMedia()?->getUrl('thumb'),
-            'uuid' => $this->uuid,
-            'type' => $this->parent?->type?->name,
             'name' => $this->name,
-            'transcript' => strip_tags($this->transcript),
+            'description' => strip_tags($this->transcript),
         ];
+    }
+
+    protected function makeAllSearchableUsing(Builder $query): Builder
+    {
+        return $query->with([
+            'parent',
+            'parent.type',
+            'media',
+        ]);
     }
 
     public function searchableAs(): string
     {
-        return 'pages';
+        return 'resources';
     }
 }
