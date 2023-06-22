@@ -115,6 +115,7 @@ Route::middleware([])->group(function () {
     if (app()->environment(['development', 'local'])) {
         //Route::get('/search', [\App\Http\Controllers\LandingAreasController::class, 'search'])->name('landing-areas.search');
         Route::get('/search', \App\Http\Livewire\Search::class)->name('search');
+        Route::get('/map', \App\Http\Livewire\Map::class)->name('map');
     }
     Route::get('/ponder', [\App\Http\Controllers\LandingAreasController::class, 'ponder'])->name('landing-areas.ponder');
     Route::get('/ponder/{press?}', [\App\Http\Controllers\LandingAreasController::class, 'ponder'])->name('landing-areas.ponder.press');

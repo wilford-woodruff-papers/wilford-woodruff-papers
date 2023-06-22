@@ -312,7 +312,7 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
             'type' => $this->parent?->type?->name,
             'url' => ($this->parent ? route('pages.show', ['item' => $this->parent?->uuid, 'page' => $this->uuid]) : ''),
             'thumbnail' => $this->getFirstMedia()?->getUrl('thumb'),
-            'name' => $this->name,
+            'name' => $this->full_name,
             'description' => strip_tags($this->transcript),
         ];
     }
