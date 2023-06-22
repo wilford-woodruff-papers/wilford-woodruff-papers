@@ -2,7 +2,12 @@
     <div class="my-12 mx-auto max-w-7xl">
         <div class="space-y-6">
 
-            @if(now()->isAfter('2023-06-25T18:00:00.000-06:00'))
+            @if(  now()->isAfter('2023-06-25T18:00:00.000-06:00')
+                  || (
+                        auth()->check()
+                        && auth()->user()->hasAnyRole(['Editor', 'Admin'])
+                      )
+            )
 
                 <div class="relative" style="padding:56.25% 0 0 0">
                     <iframe src="https://vimeo.com/event/3458833/embed"
