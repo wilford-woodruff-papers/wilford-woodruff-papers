@@ -7,6 +7,7 @@
                         auth()->check()
                         && auth()->user()->hasAnyRole(['Editor', 'Admin'])
                       )
+                  || request()->get('preview') === 'true'
             )
 
                 <div class="relative" style="padding:56.25% 0 0 0">
