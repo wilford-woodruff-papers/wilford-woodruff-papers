@@ -14,14 +14,19 @@ class MapLocationsController extends Controller
             ->with([
                 'category',
             ])
+            ->whereHas('pages', function (Builder $query) {
+                $query->whereHas('item', function (Builder $query) {
+                    $query->where('items.enabled', true);
+                });
+            })
             ->whereNotNull('geolocation')
             ->whereHas('category', function (Builder $query) {
                 $query->where('name', 'Places');
             })
-            ->limit(10)
             ->get()
             ->map(function ($item) {
                 return [
+                    'id' => $item->id,
                     'name' => $item->name,
                     'url' => route('subjects.show', ['subject' => $item->slug]),
                     'description' => '',
