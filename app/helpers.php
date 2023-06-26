@@ -131,8 +131,8 @@ function monthName($monthNum)
 function getScriptureLink($scripture)
 {
     //ray('Scripture Match: '.$scripture);
-    $book = str($scripture)->match('/([1-9]*\s?[A-Za-z]+)/s')->toString();
-    //ray('Book Match: '.$book);
+    $book = str($scripture)->match('/([1-9]*\s?[A-Za-z\s—]+)/s')->toString();
+    // ray('Book Match: '.$book);
     $reference = str($scripture)->after($book)->match('/([0-9]+:?[0-9-]*)/s');
     //ray('Reference Match: '.$reference);
     $volume = getVolume($book);
@@ -180,7 +180,9 @@ function getScriptureLink($scripture)
 
 function getVolume($volume)
 {
-    return match ($volume) {
+    // ray('Volume: '.$volume);
+
+    return match (trim($volume)) {
         'Genesis', 'Exodus', 'Leviticus', 'Numbers', 'Deuteronomy', 'Joshua', 'Judges', 'Ruth', '1 Samuel', '2 Samuel', '1 Kings', '2 Kings', '1 Chronicles', '2 Chronicles', 'Ezra', 'Nehemiah', 'Esther', 'Job', 'Psalms', 'Proverbs', 'Ecclesiastes', 'Song of Solomon', 'Isaiah', 'Jeremiah', 'Lamentations', 'Ezekiel', 'Daniel', 'Hosea', 'Joel', 'Amos', 'Obadiah', 'Jonah', 'Micah', 'Nahum', 'Habakkuk', 'Zephaniah', 'Haggai', 'Zechariah', 'Malachi' => 'ot',
         'Matthew', 'Mark', 'Luke', 'John', 'Acts', 'Romans', '1 Corinthians', '2 Corinthians', 'Galatians', 'Ephesians', 'Philippians', 'Colossians', '1 Thessalonians', '2 Thessalonians', '1 Timothy', '2 Timothy', 'Titus', 'Philemon', 'Hebrews', 'James', '1 Peter', '2 Peter', '1 John', '2 John', '3 John', 'Jude', 'Revelation' => 'nt',
         '1 Nephi', '2 Nephi', 'Jacob', 'Enos', 'Jarom', 'Omni', 'Words of Mormon', 'Mosiah', 'Alma', 'Helaman', '3 Nephi', '4 Nephi', 'Mormon', 'Ether', 'Moroni' => 'bofm',
@@ -192,7 +194,9 @@ function getVolume($volume)
 
 function getBookAbbreviation($book)
 {
-    return match ($book) {
+    // ray('Book: '.$book);
+
+    return match (trim($book)) {
         'Genesis' => 'gen', // Old Testament
         'Exodus' => 'ex',
         'Leviticus' => 'lev',
