@@ -52,7 +52,7 @@ class TimelineImport implements ToCollection, WithHeadingRow
 
                     continue;
                 }
-            } else {
+            } elseif ($this->getField($row['description']) != 'DELETE') {
                 $event = new Event();
             }
 
