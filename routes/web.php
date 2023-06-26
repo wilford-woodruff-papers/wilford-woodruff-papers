@@ -14,10 +14,6 @@ use Vormkracht10\LaravelOpenGraphImage\Http\Controllers\LaravelOpenGraphImageCon
 |
 */
 
-Route::get('/documents/f2fe250d-7f7a-493c-a191-fc02c233ea95', function () {
-    return redirect()->route('event.register');
-});
-
 Route::middleware([])->group(function () {
     Route::domain('{year}.'.config('app.url'))->group(function () {
         Route::get('/', function ($subdomain) {
