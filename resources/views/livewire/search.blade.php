@@ -99,7 +99,7 @@
                             <li x-data="{ expanded: $persist(true).as('{{ $facetKey }}_expanded') }">
                                 <ul role="list" class="space-y-1">
                                     <li>
-                                        
+
                                         <div>
                                             <button x-on:click="expanded = ! expanded"
                                                     type="button"
