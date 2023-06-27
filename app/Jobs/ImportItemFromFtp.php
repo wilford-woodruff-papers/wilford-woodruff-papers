@@ -279,9 +279,9 @@ class ImportItemFromFtp implements ShouldQueue
         $dates = [];
         $dom = new Dom;
         $dom->loadStr($transcript);
-        $dateNodes = $dom->find('date');
+        $dateNodes = $dom->find('time');
         foreach ($dateNodes as $node) {
-            $dates[] = $node->getAttribute('when');
+            $dates[] = $node->getAttribute('datetime');
         }
 
         return $dates;
