@@ -204,9 +204,9 @@
                                 </x-admin.quotes.cell>
 
                                 <x-admin.quotes.cell class="bg-gray-50">
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-{{ $item->status_color }}-100 text-{{ $item->status_color }}-800 capitalize">
+                                    {{--<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-{{ $item->status_color }}-100 text-{{ $item->status_color }}-800 capitalize">
                                         {{ $item->status }}
-                                    </span>
+                                    </span>--}}
                                 </x-admin.quotes.cell>
 
                                 <x-admin.quotes.cell class="bg-gray-50">
@@ -303,9 +303,9 @@
                                     </x-admin.quotes.cell>
 
                                     <x-admin.quotes.cell>
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-{{ $section->status_color }}-100 text-{{ $section->status_color }}-800 capitalize">
-                                        {{ $section->status }}
-                                    </span>
+                                        {{--<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-{{ $section->status_color }}-100 text-{{ $section->status_color }}-800 capitalize">
+                                            {{ $section->status }}
+                                        </span>--}}
                                     </x-admin.quotes.cell>
 
                                     <x-admin.quotes.cell>
@@ -350,7 +350,7 @@
                                 <x-admin.quotes.cell colspan="6">
                                     <div class="flex justify-center items-center space-x-2">
                                         {{--<x-icon.inbox class="w-8 h-8 text-cool-gray-400" />--}}
-                                        <span class="py-8 text-xl font-medium text-cool-gray-400">No quotes found...</span>
+                                        <span class="py-8 text-xl font-medium text-cool-gray-400">No documents found...</span>
                                     </div>
                                 </x-admin.quotes.cell>
                             </x-admin.quotes.row>
