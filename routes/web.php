@@ -463,6 +463,10 @@ Route::middleware(['role:Super Admin|Editor|Bio Editor'])->group(function () {
         ->name('admin.subjects.objectives');
 
     Route::middleware(['auth:sanctum', 'verified'])
+        ->get('/admin/people/progress-graphic', \App\Http\Livewire\Admin\Subjects\People\ProgressGraphic::class)
+        ->name('admin.people.progress-graphic');
+
+    Route::middleware(['auth:sanctum', 'verified'])
         ->get('/admin/subjects/activity-report', \App\Http\Livewire\Admin\Subjects\ActivityReport::class)
         ->name('admin.subjects.activity-report');
 

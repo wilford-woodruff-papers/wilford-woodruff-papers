@@ -34,6 +34,7 @@ class Index extends Component
         'completed' => '',
         'approved' => '',
         'researcher' => '',
+        'category' => '',
     ];
 
     public $columns = [
@@ -112,6 +113,11 @@ class Index extends Component
             ])
             ->whereHas('category', function (Builder $query) {
                 $query->whereIn('categories.name', ['People']);
+            })
+            ->when(array_key_exists('category', $this->filters), function ($query) {
+                $query->whereHas('category', function ($query) {
+                    $query->where('name', $this->filters['category']);
+                });
             })
             ->when(array_key_exists('search', $this->filters) && $this->filters['search'], function ($query, $search) {
                 $query->where(function ($query) {
