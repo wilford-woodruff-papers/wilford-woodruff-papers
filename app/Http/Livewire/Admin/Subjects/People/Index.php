@@ -111,14 +111,6 @@ class Index extends Component
                 'researcher',
                 'category',
             ])
-            ->whereHas('category', function (Builder $query) {
-                $query->whereIn('categories.name', ['People']);
-            })
-            ->when(array_key_exists('category', $this->filters), function ($query) {
-                $query->whereHas('category', function ($query) {
-                    $query->where('name', $this->filters['category']);
-                });
-            })
             ->when(array_key_exists('search', $this->filters) && $this->filters['search'], function ($query, $search) {
                 $query->where(function ($query) {
                     foreach (['name' => 'name'] + $this->searchColumns as $key => $column) {
@@ -155,6 +147,17 @@ class Index extends Component
                 $query = $query->whereNull('bio_approved_at');
             }
         }
+
+        if (array_key_exists('category', $this->filters) && ! empty($this->filters['category'])) {
+            $query = $query->whereHas('category', function ($query) {
+                $query->where('name', $this->filters['category']);
+            });
+        } else {
+            $query = $query->whereHas('category', function (Builder $query) {
+                $query->whereIn('categories.name', ['People']);
+            });
+        }
+
         if (array_key_exists('starts_with', $this->filters) && ! empty($this->filters['starts_with'])) {
             $query = $query->where('index', $this->filters['starts_with']);
         }
