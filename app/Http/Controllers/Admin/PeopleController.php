@@ -98,6 +98,7 @@ class PeopleController extends Controller
         'Historical Figures',
         'Stationery Header',
         'Bishops in Letters',
+        'United Brethren',
     ];
 
     /**
