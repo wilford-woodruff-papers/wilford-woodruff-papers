@@ -27,14 +27,14 @@
                                         <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
                                             <a href="{{ route('admin.people.index', ['filters[category]' => $category, 'filters[completed]' => 'true']) }}"
                                                class="text-secondary"
-                                               target="_blank"
+                                               target="_people"
                                             >
                                                 {{ number_format($stat['bio_completed']) }}
                                             </a>
                                             /
                                             <a href="{{ route('admin.people.index', ['filters[category]' => $category, 'filters[completed]' => 'false']) }}"
                                                class="text-secondary"
-                                               target="_blank"
+                                               target="_people"
                                             >
                                                 {{ number_format($stat['total']) }}
                                             </a>
