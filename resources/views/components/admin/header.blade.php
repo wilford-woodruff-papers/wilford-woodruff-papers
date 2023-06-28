@@ -28,6 +28,7 @@
                                                     'Unknown Places' => ['url' => route('admin.places.identification'), 'auth' => 'true'],
                                                     'Objectives' => ['url' => route('admin.subjects.objectives'), 'auth' => 'true'],
                                                     'Activity Report' => ['url' => route('admin.subjects.activity-report'), 'auth' => auth()->user()->hasAnyRole(['Bio Admin', 'Admin', 'Super Admin'])],
+                                                    'Progress by Category' => ['url' => route('admin.people.progress-graphic'), 'auth' => auth()->user()->hasAnyRole(['Bio Admin', 'Admin', 'Super Admin'])],
                                                     'Supervisor Dashboard' => ['url' => route('admin.subjects.supervisor-dashboard'), 'auth' => auth()->user()->hasAnyRole(['Bio Admin', 'Admin', 'Super Admin'])]]"
                         />
                     @endif
