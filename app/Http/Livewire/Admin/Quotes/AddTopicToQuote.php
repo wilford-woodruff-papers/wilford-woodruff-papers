@@ -5,12 +5,15 @@ namespace App\Http\Livewire\Admin\Quotes;
 use App\Models\Quote;
 use App\Models\Subject;
 use LivewireUI\Modal\ModalComponent;
+use Spatie\Tags\Tag;
 
 class AddTopicToQuote extends ModalComponent
 {
     public $quote;
 
     public $selectedTopics = [];
+
+    public $selectedAdditionalTopics = [];
 
     public function mount($quote)
     {
@@ -29,12 +32,18 @@ class AddTopicToQuote extends ModalComponent
                                     ->orderBy('name')
                                     ->pluck('name', 'id')
                                     ->all(),
+            'additional_topics' => Tag::query()
+                ->select('name')
+                ->withType('quotes')
+                ->orderBy('name')
+                ->get(),
         ]);
     }
 
     public function save()
     {
         $this->quote->topics()->syncWithoutDetaching($this->selectedTopics);
+        $this->quote->syncTagsWithType(array_values($this->selectedAdditionalTopics), 'quotes');
         $this->emit('refreshQuotes');
         $this->closeModal();
     }

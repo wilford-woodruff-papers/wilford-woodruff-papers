@@ -5,11 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
+use Spatie\Tags\HasTags;
 use Wildside\Userstamps\Userstamps;
 
 class Quote extends Model
 {
     use HasFactory;
+    use HasTags;
     use KeepsDeletedModels;
     use Userstamps;
 

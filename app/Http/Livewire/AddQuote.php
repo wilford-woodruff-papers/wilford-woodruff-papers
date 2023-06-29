@@ -7,6 +7,7 @@ use App\Models\Quote;
 use App\Models\Subject;
 use Illuminate\Support\Str;
 use LivewireUI\Modal\ModalComponent;
+use Spatie\Tags\Tag;
 
 class AddQuote extends ModalComponent
 {
@@ -21,6 +22,8 @@ class AddQuote extends ModalComponent
     public $selection;
 
     public $selectedTopics = [];
+
+    public $selectedAdditionalTopics = [];
 
     public function mount($page, $selection)
     {
@@ -41,6 +44,11 @@ class AddQuote extends ModalComponent
                                     ->orderBy('name')
                                     ->pluck('name', 'id')
                                     ->all(),
+            'additional_topics' => Tag::query()
+                                    ->select('name')
+                                    ->withType('quotes')
+                                    ->orderBy('name')
+                                    ->get(),
         ]);
     }
 
@@ -54,6 +62,7 @@ class AddQuote extends ModalComponent
             'author' => $this->author,
         ]);
         $quote->topics()->syncWithoutDetaching($this->selectedTopics);
+        $quote->syncTagsWithType(array_values($this->selectedAdditionalTopics), 'quotes');
         $this->dispatchBrowserEvent('deselect');
         $this->closeModal();
     }
