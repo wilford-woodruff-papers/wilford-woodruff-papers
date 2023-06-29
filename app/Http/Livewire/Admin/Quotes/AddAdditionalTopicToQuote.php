@@ -22,8 +22,8 @@ class AddAdditionalTopicToQuote extends ModalComponent
         return view('livewire.admin.quotes.add-additional-topic-to-quote', [
             'additional_topics' => Tag::query()
                 ->select('name')
+                ->orderBy('name->en', 'ASC')
                 ->withType('quotes')
-                ->orderBy('name')
                 ->get(),
         ]);
     }

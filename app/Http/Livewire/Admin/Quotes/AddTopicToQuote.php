@@ -34,8 +34,8 @@ class AddTopicToQuote extends ModalComponent
                                     ->all(),
             'additional_topics' => Tag::query()
                 ->select('name')
+                ->orderBy('name->en', 'ASC')
                 ->withType('quotes')
-                ->orderBy('name')
                 ->get(),
         ]);
     }
