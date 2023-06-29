@@ -10,6 +10,7 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Fields\Textarea;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Spatie\TagsField\Tags;
 
 class Quote extends Resource
 {
@@ -19,6 +20,8 @@ class Quote extends Resource
      * @var string
      */
     public static $model = \App\Models\Quote::class;
+
+    public static $with = ['page', 'creator', 'topics', 'tags', 'page.item'];
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -57,7 +60,13 @@ class Quote extends Resource
                 ->hideFromIndex(),
             BelongsTo::make('Creator', 'creator', User::class)
                 ->searchable(),
-            BelongsToMany::make('Topics', 'topics', Topic::class)->hideFromIndex(),
+            BelongsToMany::make('Topics', 'topics', Topic::class)
+                ->hideFromIndex(),
+            Tags::make('Additional Topics', 'tags')
+                ->type('quotes')
+                ->withMeta(['placeholder' => 'Add additional topics...'])
+                ->hideFromIndex()
+                ->help('Type an additional topic and hit \'Enter\' to add it. Existing tags will appear below the box as you type and can be clicked to add.'),
         ];
     }
 

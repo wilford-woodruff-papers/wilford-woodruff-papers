@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -40,6 +41,14 @@ class Tag extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
             Text::make('Name')->sortable(),
+            Select::make('Type')->options([
+                'articles' => 'Articles',
+                'photos' => 'Photos',
+                'quotes' => 'Quotes',
+                'Videos' => 'Videos',
+            ])
+                ->displayUsingLabels()
+                ->sortable(),
         ];
     }
 
