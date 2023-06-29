@@ -21,6 +21,8 @@ class Comment extends Resource
      */
     public static $model = \App\Models\Comment::class;
 
+    public static $with = ['commentable'];
+
     /**
      * The single value that should be used to represent the resource when being displayed.
      *
@@ -50,6 +52,14 @@ class Comment extends Resource
             Text::make('body', 'comment')->displayUsing(function ($value) {
                 return str($value)->limit(30, '...');
             })->onlyOnIndex(),
+            Text::make('Commented On', function ($comment) {
+                if ($comment->commentable) {
+                    return '<a href="'.route('landing-areas.ponder.press', ['press' => $comment->commentable->slug]).'" class="no-underline dim text-primary font-bold" target="_press">View</a>';
+                } else {
+                    return '';
+                }
+            })
+            ->asHtml(),
             Text::make('body', 'comment')->hideFromIndex(),
             Number::make('total_likes'),
         ];
