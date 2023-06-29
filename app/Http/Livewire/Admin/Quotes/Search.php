@@ -75,8 +75,8 @@ class Search extends Component
 
             $this->additionalTopics = Tag::query()
                 ->select('id', 'name')
+                ->orderBy('name->en', 'ASC')
                 ->withType('quotes')
-                ->orderBy('name')
                 ->get();
         }
 
