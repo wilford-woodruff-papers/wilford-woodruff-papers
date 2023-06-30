@@ -3,15 +3,19 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
 class Subject extends Model
 {
-    use HasFactory, HasSlug;
+    use HasFactory;
+    use HasSlug;
+    use Searchable;
 
     protected $guarded = ['id'];
 
@@ -219,6 +223,42 @@ class Subject extends Model
                 'api_url' => $this->id ?? route('api.subjects.show', ['subject' => $this->id]),
             ],
         ];
+    }
+
+    public function toSearchableArray(): array
+    {
+        if ($this->category->pluck('name')->contains('People')) {
+            $resourceType = 'People';
+        } elseif ($this->category->pluck('name')->contains('Places')) {
+            $resourceType = 'Places';
+        } elseif ($this->category->pluck('name')->contains('Index')) {
+            $resourceType = 'Topic';
+        } else {
+            $resourceType = 'Unknown';
+        }
+
+        return [
+            'id' => (int) $this->id,
+            'is_published' => (bool) $this->enabled,
+            'resource_type' => $resourceType,
+            'type' => $this->category->pluck('name')->toArray(),
+            'url' => route('subjects.show', ['subject' => $this->slug]),
+            //'thumbnail' => $this->getFirstMedia()?->getUrl('thumb'),
+            'name' => $this->name,
+            'description' => strip_tags($this->bio ?? ''),
+        ];
+    }
+
+    protected function makeAllSearchableUsing(Builder $query): Builder
+    {
+        return $query->with([
+            'category',
+        ]);
+    }
+
+    public function searchableAs(): string
+    {
+        return 'resources';
     }
 
     public function includeCountryInName($state, $country)

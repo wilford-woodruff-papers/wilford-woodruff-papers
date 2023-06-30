@@ -81,6 +81,12 @@
             }
         </script>
 
+        <script>
+            Livewire.on('scroll', function() {
+                scrollTo({top: 0, behavior: 'smooth'});
+            });
+        </script>
+
         <x-constant-contact />
     </body>
 </html>

@@ -78,16 +78,23 @@
     </div>
 
 
-    <div class="my-4">
-        <p class="text-sm leading-5 text-gray-700">
-            Showing
-            <span class="font-medium">{{ $first }}</span>
-            to
-            <span class="font-medium">{{ $last }}</span>
-            of
-            <span class="font-medium">{{ $total }}</span>
-            results
-        </p>
+    <div class="grid grid-cols-5 gap-x-4 my-4">
+        <div>
+            <p class="text-sm leading-5 text-gray-700">
+                Showing
+                <span class="font-medium">{{ $first }}</span>
+                to
+                <span class="font-medium">{{ $last }}</span>
+                of
+                <span class="font-medium">{{ number_format($total, 0, ',') }}</span>
+                results
+            </p>
+        </div>
+        <div id="top-pagination"
+             class="col-span-4 px-4"
+        >
+            @include('meilisearch.pagination.simple-tailwind', ['location' => 'top'])
+        </div>
     </div>
 
     <div class="grid grid-cols-5">
@@ -144,7 +151,7 @@
                                                                     <div class="flex gap-x-2 justify-between py-1 pr-2 pl-2 text-sm leading-6 text-gray-700 rounded-md hover:bg-gray-50"
                                                                     >
                                                                         <span class="truncate">{{ $key }}</span>
-                                                                        <span>({{ $value }})</span>
+                                                                        <span>({{ number_format($value, 0, ',') }})</span>
                                                                     </div>
                                                                 </label>
                                                             </div>
@@ -162,7 +169,7 @@
                 </nav>
             </div>
         </div>
-        <div class="@if(empty($indexes[$currentIndex])) col-span-5 @else col-span-4 @endif">
+        <div wire:loading.class.delay="opacity-50" class="@if(empty($indexes[$currentIndex])) col-span-5 @else col-span-4 @endif">
             <ul class="divide-y divide-gray-200">
                 @foreach ($hits as $hit)
                     <li class="grid grid-cols-7 py-4">
@@ -259,6 +266,10 @@
                     </li>
                 @endforeach
             </ul>
+            <div id="top-pagination"
+                 class="my-4">
+                @include('meilisearch.pagination.simple-tailwind', ['location' => 'bottom'])
+            </div>
         </div>
     </div>
 

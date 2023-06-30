@@ -14,6 +14,8 @@ class Search extends Component
 
     public $exact = false;
 
+    public $hitsPerPage = 20;
+
     public $currentIndex = 'All';
 
     public $indexes = [
@@ -32,6 +34,7 @@ class Search extends Component
 
     protected $queryString = [
         'q' => ['except' => ''],
+        'page' => ['except' => 1],
         'currentIndex' => ['except' => 'All'],
         'filters' => ['except' => []],
         'sort' => ['except' => ['name' => 'asc']],
@@ -72,6 +75,8 @@ class Search extends Component
                 'name',
                 'description',
             ],
+            'hitsPerPage' => $this->hitsPerPage,
+            'page' => $this->page,
             'filter' => $this->buildFilterSet(),
             'facets' => $this->indexes[$this->currentIndex],
         ]);
@@ -89,12 +94,17 @@ class Search extends Component
 
         //dd($result->getRaw());
 
+        //$client = new \Meilisearch\Client(config('services.meilisearch.host'), config('services.meilisearch.api_key'));
+        //$client->index('subjects')->delete();
+
         return view('livewire.search', [
             'hits' => $result->getRaw()['hits'],
             'facets' => $result->getFacetDistribution(),
-            'first' => $result->getEstimatedTotalHits() ? $result->getOffset() + 1 : 0,
-            'last' => min($result->getOffset() + $result->getLimit(), $result->getEstimatedTotalHits()),
-            'total' => $result->getEstimatedTotalHits(),
+            'first' => 1,
+            'previous' => max(1, $result->getPage() - 1),
+            'next' => min($result->getTotalPages(), $result->getPage() + 1),
+            'last' => $result->getTotalPages(),
+            'total' => $result->getTotalHits(),
         ])
             ->layout('layouts.guest', ['title' => 'Search']);
     }
@@ -142,6 +152,7 @@ class Search extends Component
         return match ($key) {
             'Documents' => 'Page',
             'Articles', 'Videos' => 'Media',
+            'People' => 'People',
         };
     }
 
@@ -150,6 +161,7 @@ class Search extends Component
         return match ($key) {
             'Articles' => 'Article',
             'Videos' => 'Video',
+            'People' => 'People',
         };
     }
 }

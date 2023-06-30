@@ -149,7 +149,7 @@ return [
                     ],
                 ],
                 'pagination' => [
-                    'maxTotalHits' => 2000,
+                    'maxTotalHits' => 100000,
                 ],
             ],
             'pages' => [
@@ -168,7 +168,7 @@ return [
                     ],
                 ],
                 'pagination' => [
-                    'maxTotalHits' => 2000,
+                    'maxTotalHits' => 100000,
                 ],
             ],
             'media' => [
@@ -187,7 +187,7 @@ return [
                     ],
                 ],
                 'pagination' => [
-                    'maxTotalHits' => 2000,
+                    'maxTotalHits' => 100000,
                 ],
             ],
             'resources' => [
@@ -206,7 +206,7 @@ return [
                     ],
                 ],
                 'pagination' => [
-                    'maxTotalHits' => 2000,
+                    'maxTotalHits' => 100000,
                 ],
             ],
         ],
