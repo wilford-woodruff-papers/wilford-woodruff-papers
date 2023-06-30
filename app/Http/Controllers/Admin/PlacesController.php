@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\DB;
 class PlacesController extends Controller
 {
     private $rules = [
+        'modern_location' => [
+            'max:191',
+        ],
         'country' => [
             'max:191',
         ],
@@ -229,7 +232,7 @@ class PlacesController extends Controller
                 ->first()
         );
 
-        $request->session()->flash('success', 'place updated successfully!');
+        $request->session()->flash('success', 'Place updated successfully!');
 
         if ($request->get('action') == 'new') {
             return redirect()->route('admin.dashboard.places.create');
