@@ -306,7 +306,7 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
     public function toSearchableArray(): array
     {
         return [
-            'id' => (int) $this->id,
+            'id' => 'page'.$this->id,
             'is_published' => true,
             'resource_type' => 'Page',
             'type' => $this->parent?->type?->name,

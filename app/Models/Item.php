@@ -339,7 +339,7 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
     public function toSearchableArray(): array
     {
         return [
-            'id' => $this->id,
+            'id' => 'item'.$this->id,
             'resource_type' => 'Document',
             'url' => route('documents.show', ['item' => $this->uuid]),
             'thumbnail' => $this->firstPage?->getFirstMedia()?->getUrl('thumb'),

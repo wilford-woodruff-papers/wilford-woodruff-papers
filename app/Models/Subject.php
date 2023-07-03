@@ -238,7 +238,7 @@ class Subject extends Model
         }
 
         return [
-            'id' => (int) $this->id,
+            'id' => 'subject'.$this->id,
             'is_published' => (bool) $this->enabled,
             'resource_type' => $resourceType,
             'type' => $this->category->pluck('name')->toArray(),
@@ -259,6 +259,11 @@ class Subject extends Model
     public function searchableAs(): string
     {
         return 'resources';
+    }
+
+    public function shouldBeSearchable(): bool
+    {
+        return ($this->tagged_count > 0) | ($this->text_count > 0) | ($this->total_usage_count > 0);
     }
 
     public function includeCountryInName($state, $country)

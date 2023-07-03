@@ -80,7 +80,7 @@ class Press extends Model implements HasMedia
         //dd($route);
 
         return [
-            'id' => (int) $this->id,
+            'id' => 'media'.$this->id,
             'is_published' => true,
             'resource_type' => 'Media',
             'type' => $this->type,
