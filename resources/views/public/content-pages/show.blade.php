@@ -1,5 +1,7 @@
 <x-guest-layout>
 
+    <x-slot name="title">{{ $contentPage->title }} | Wilford Woodruff Papers Foundation</x-slot>
+
     <x-banner-image :image="$contentPage->banner_image_url"
                     :text="$contentPage->title"
     />
