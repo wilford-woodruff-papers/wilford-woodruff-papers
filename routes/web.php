@@ -498,7 +498,7 @@ if (app()->environment('local')) {
 Route::get('open-graph-image.jpg', [LaravelOpenGraphImageController::class, '__invoke'])->name('open-graph-image.file');
 
 //Route::view('test-og-image', 'public.test');
-Route::middleware(['auth'])
+Route::middleware(['auth', \App\Http\Middleware\LogApiUsageMiddleware::class])
     ->prefix('v1')
     ->group(function () {
         Route::get('documents', [\App\Http\Controllers\Api\v1\DocumentController::class, 'index'])

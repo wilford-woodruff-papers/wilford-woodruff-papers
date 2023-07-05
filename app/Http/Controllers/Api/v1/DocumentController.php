@@ -28,6 +28,7 @@ class DocumentController extends Controller
             ->whereNull('item_id')
             ->with([
                 'type',
+                'firstPage',
             ]);
 
         if ($request->has('types')) {
