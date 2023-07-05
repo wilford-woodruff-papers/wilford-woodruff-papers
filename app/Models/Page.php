@@ -335,4 +335,9 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
     {
         return 'resources';
     }
+
+    public function shouldBeSearchable(): bool
+    {
+        return $this->parent && $this->parent->enabled;
+    }
 }

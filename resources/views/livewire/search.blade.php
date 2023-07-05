@@ -183,9 +183,13 @@
                             </a>
                         </div>
                         <div class="col-span-6 py-2 px-4">
-                            <p class="pb-1 text-lg font-medium capitalize text-secondary">
-                                <a href="{{ data_get($hit, '_formatted.url') }}">{!! data_get($hit, '_formatted.name') !!}</a>
-                            </p>
+                            <div class="flex gap-x-2 items-center pb-1">
+                                @includeFirst(['search.'.str(data_get($hit, 'resource_type'))->snake(), 'search.generic'])
+                                <a href="{{ data_get($hit, '_formatted.url') }}"
+                                class="text-lg font-medium capitalize text-secondary">
+                                    {!! data_get($hit, '_formatted.name') !!}
+                                </a>
+                            </div>
                             <div class="flex gap-x-3 ml-2 text-base font-medium">
                                 {{--<div>
                                     <span class="text-gray-600">Part of </span>
@@ -236,9 +240,6 @@
                                     {!! $description !!}
                                 @endif--}}
 
-                                <div class="mb-1 font-bold">
-                                    Excerpt:
-                                </div>
                                 <div class="line-clamp-3">
                                     {!! str(data_get($hit, '_formatted.description'))->remove('[[')->remove(']]') !!}
                                 </div>

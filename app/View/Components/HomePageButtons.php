@@ -28,7 +28,7 @@ class HomePageButtons extends Component
                 'image' => asset('img/home/documents.jpg'),
                 'title' => 'Search',
                 'description' => 'Search the Papers',
-                'link' => route('landing-areas.search'),
+                'link' => route('search'),
             ],
             [
                 'image' => asset('img/home/people.jpg'),

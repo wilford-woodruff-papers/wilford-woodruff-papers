@@ -358,4 +358,9 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
     {
         return 'items';
     }
+
+    public function shouldBeSearchable(): bool
+    {
+        return $this->enabled;
+    }
 }
