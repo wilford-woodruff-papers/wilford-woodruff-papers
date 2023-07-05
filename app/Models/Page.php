@@ -306,7 +306,7 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
     public function toSearchableArray(): array
     {
         return [
-            'id' => 'page'.$this->id,
+            'id' => 'page_'.$this->id,
             'is_published' => true,
             'resource_type' => 'Page',
             'type' => $this->parent?->type?->name,
@@ -315,6 +315,11 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
             'name' => $this->full_name,
             'description' => strip_tags($this->transcript),
         ];
+    }
+
+    public function getScoutKey(): mixed
+    {
+        return 'page_'.$this->id;
     }
 
     protected function makeAllSearchableUsing(Builder $query): Builder

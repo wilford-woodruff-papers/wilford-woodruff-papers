@@ -238,7 +238,7 @@ class Subject extends Model
         }
 
         return [
-            'id' => 'subject'.$this->id,
+            'id' => 'subject_'.$this->id,
             'is_published' => (bool) $this->enabled,
             'resource_type' => $resourceType,
             'type' => $this->category->pluck('name')->toArray(),
@@ -247,6 +247,11 @@ class Subject extends Model
             'name' => $this->name,
             'description' => strip_tags($this->bio ?? ''),
         ];
+    }
+
+    public function getScoutKey(): mixed
+    {
+        return 'subject_'.$this->id;
     }
 
     protected function makeAllSearchableUsing(Builder $query): Builder

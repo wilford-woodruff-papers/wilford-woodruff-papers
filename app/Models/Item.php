@@ -339,7 +339,7 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
     public function toSearchableArray(): array
     {
         return [
-            'id' => 'item'.$this->id,
+            'id' => 'item_'.$this->id,
             'resource_type' => 'Document',
             'url' => route('documents.show', ['item' => $this->uuid]),
             'thumbnail' => $this->firstPage?->getFirstMedia()?->getUrl('thumb'),
@@ -347,6 +347,11 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
             'type' => $this->type?->name,
             'name' => $this->name,
         ];
+    }
+
+    public function getScoutKey(): mixed
+    {
+        return 'item_'.$this->id;
     }
 
     public function searchableAs(): string

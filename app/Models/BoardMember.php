@@ -35,7 +35,7 @@ class BoardMember extends Model implements Sortable
     {
 
         return [
-            'id' => 'team'.$this->id,
+            'id' => 'team_'.$this->id,
             'is_published' => true,
             'resource_type' => 'Team Member',
             'type' => $this->team->name,
@@ -46,6 +46,11 @@ class BoardMember extends Model implements Sortable
                 })->join(', '),
             'description' => strip_tags($this->bio ?? ''),
         ];
+    }
+
+    public function getScoutKey(): mixed
+    {
+        return 'team_'.$this->id;
     }
 
     protected function makeAllSearchableUsing(Builder $query): Builder

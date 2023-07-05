@@ -80,7 +80,7 @@ class Press extends Model implements HasMedia
         //dd($route);
 
         return [
-            'id' => 'media'.$this->id,
+            'id' => 'media_'.$this->id,
             'is_published' => true,
             'resource_type' => 'Media',
             'type' => $this->type,
@@ -89,6 +89,11 @@ class Press extends Model implements HasMedia
             'name' => $this->title,
             'description' => strip_tags($this->description ?? ''),
         ];
+    }
+
+    public function getScoutKey(): mixed
+    {
+        return 'media_'.$this->id;
     }
 
     protected function makeAllSearchableUsing(Builder $query): Builder

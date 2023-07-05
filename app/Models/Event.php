@@ -175,7 +175,7 @@ class Event extends Model implements HasMedia
     {
 
         return [
-            'id' => 'event'.$this->id,
+            'id' => 'event_'.$this->id,
             'is_published' => true,
             'resource_type' => 'Timeline',
             'type' => $this->group,
@@ -184,6 +184,11 @@ class Event extends Model implements HasMedia
             'name' => $this->text,
             'description' => '',
         ];
+    }
+
+    public function getScoutKey(): mixed
+    {
+        return 'event_'.$this->id;
     }
 
     protected function makeAllSearchableUsing(Builder $query): Builder
