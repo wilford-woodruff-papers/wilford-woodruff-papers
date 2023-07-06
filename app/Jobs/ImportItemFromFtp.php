@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Models\Category;
 use App\Models\Date;
 use App\Models\Item;
 use App\Models\Page;
@@ -66,6 +67,11 @@ class ImportItemFromFtp implements ShouldQueue
         $response = Http::get($item->ftp_id);
         $canvases = $response->json('sequences.0.canvases');
         if (! empty($canvases)) {
+            $scripturalFigureCategories = Category::query()
+                ->whereIn('name', ['People', 'Scriptural Figures'])
+                ->pluck('id')
+                ->all();
+
             foreach ($canvases as $key => $canvas) {
                 $page = Page::updateOrCreate([
                     'item_id' => $item->id,
@@ -100,6 +106,7 @@ class ImportItemFromFtp implements ShouldQueue
 
                     return '[['.$match[0].']]';
                 });
+
                 foreach ($subjects as $subject) {
                     $subject = Subject::firstOrCreate([
                         'name' => $subject,
@@ -107,6 +114,14 @@ class ImportItemFromFtp implements ShouldQueue
                     $subject->enabled = 1;
                     $subject->save();
                     $page->subjects()->syncWithoutDetaching($subject->id);
+
+                    if (
+                        str($subject->name)->contains('(OT)')
+                        || str($subject->name)->contains('(NT)')
+                        || str($subject->name)->contains('(BofM)')
+                    ) {
+                        $subject->category()->syncWithoutDetaching($scripturalFigureCategories);
+                    }
                 }
 
                 $page->dates()->delete();
@@ -264,9 +279,9 @@ class ImportItemFromFtp implements ShouldQueue
         $dates = [];
         $dom = new Dom;
         $dom->loadStr($transcript);
-        $dateNodes = $dom->find('date');
+        $dateNodes = $dom->find('time');
         foreach ($dateNodes as $node) {
-            $dates[] = $node->getAttribute('when');
+            $dates[] = $node->getAttribute('datetime');
         }
 
         return $dates;

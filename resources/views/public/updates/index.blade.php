@@ -1,4 +1,7 @@
 <x-guest-layout>
+    <x-slot name="title">
+        Wilford Woodruff Papers Foundation Updates
+    </x-slot>
     <div class="py-12 px-12 mx-auto max-w-7xl">
         <div class="grid grid-cols-12">
             <div class="col-span-12 py-16 px-2 md:col-span-3">

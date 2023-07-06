@@ -2,7 +2,13 @@
     <div class="my-12 mx-auto max-w-7xl">
         <div class="space-y-6">
 
-            @if(now()->isAfter('2023-06-25T18:00:00.000-06:00'))
+            @if(  now()->isAfter(\Carbon\Carbon::create(2023, 6, 25, 19, 0, 0, 'America/Denver')->toAtomString())
+                  || (
+                        auth()->check()
+                        && auth()->user()->hasAnyRole(['Editor', 'Admin'])
+                      )
+                  || request()->get('preview') === 'true'
+            )
 
                 <div class="relative" style="padding:56.25% 0 0 0">
                     <iframe src="https://vimeo.com/event/3458833/embed"
@@ -24,7 +30,7 @@
                         seconds: 0,
                     }"
                      x-init="
-                        countDownDate = new Date('2023-06-25T19:00:00.000-06:00').getTime()
+                        countDownDate = new Date('{{ \Carbon\Carbon::create(2023, 6, 25, 19, 0, 0, 'America/Denver')->toAtomString() }}').getTime()
                         let timer = setInterval(function(){
                             now = new Date().getTime();
                             distance = countDownDate - now;
@@ -35,6 +41,7 @@
                                 hours = '00';
                                 minutes = '00';
                                 seconds = '00';
+                                window.location.reload();
                             } else {
                                 // Time calculations for days, hours, minutes and seconds
                                 days = Math.floor(distance / (1000 * 60 * 60 * 24));

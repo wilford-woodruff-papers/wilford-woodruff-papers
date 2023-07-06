@@ -1,6 +1,7 @@
 <x-guest-layout>
-
-
+    <x-slot name="title">
+        Wilford Woodruff Papers Foundation Conference 2023
+    </x-slot>
     <div class="px-4 pt-8 pb-4 mx-auto max-w-5xl md:pb-8">
         <div class="grid relative z-10 grid-cols-5 items-center">
             <div class="col-span-5 md:col-span-3">

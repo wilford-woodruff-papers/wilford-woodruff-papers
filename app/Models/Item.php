@@ -183,6 +183,20 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
             }
         });
 
+        static::updating(function ($item) {
+            if (empty($item->pcf_unique_id) && empty($item->item_id)) {
+                $uniqueId = DB::table('items')
+                    ->where('pcf_unique_id_prefix', $item->pcf_unique_id_prefix)
+                    ->max('pcf_unique_id');
+                $item->pcf_unique_id = $uniqueId + 1;
+            } elseif (empty($item->pcf_unique_id)) {
+                $item->pcf_unique_id = $item->parent()->pcf_unique_id;
+                $item->pcf_unique_id_suffix = $item->getSuffix(
+                    Item::where('item_id', $item->item_id)->count()
+                );
+            }
+        });
+
         static::deleting(function ($item) {
             foreach ($item->pages ?? [] as $page) {
                 foreach ($page->quotes ?? [] as $quote) {

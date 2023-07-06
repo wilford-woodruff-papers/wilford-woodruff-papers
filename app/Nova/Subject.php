@@ -2,10 +2,12 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\ExportPeople;
 use App\Nova\Actions\ExportSubjects;
 use App\Nova\Actions\ExportSubjectsWithChildren;
 use App\Nova\Actions\ImportBiographies;
 use App\Nova\Actions\ImportIndexTopics;
+use App\Nova\Actions\ImportPeople;
 use App\Nova\Actions\ImportSubjects;
 use App\Nova\Actions\ParseNames;
 use App\Nova\Filters\ParentSubjects;
@@ -29,6 +31,8 @@ class Subject extends Resource
      * @var string
      */
     public static $model = \App\Models\Subject::class;
+
+    public static $with = ['parent', 'category'];
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -55,6 +59,10 @@ class Subject extends Resource
         return [
             ID::make(__('ID'), 'id')->sortable(),
             Text::make(__('Name'), 'name')->sortable(),
+            Text::make('Category', function () {
+                return $this->category->pluck('name')->implode(', ');
+            })
+                ->onlyOnIndex(),
             Text::make(__('Slug'), 'slug')
                 ->hideFromIndex()
                 ->hideWhenCreating()
@@ -70,6 +78,7 @@ class Subject extends Resource
                 ->nullable()
                 ->searchable(),
             HasMany::make('Subjects', 'children', self::class),
+            BelongsToMany::make('Events'),
         ];
     }
 
@@ -108,8 +117,11 @@ class Subject extends Resource
         return [
             new ImportIndexTopics,
             new ImportSubjects,
+            new ImportPeople,
             new ImportBiographies,
             (new ExportSubjects)
+                ->askForWriterType(),
+            (new ExportPeople)
                 ->askForWriterType(),
             (new ExportSubjectsWithChildren)
                 ->askForWriterType(),

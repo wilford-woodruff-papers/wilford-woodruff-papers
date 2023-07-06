@@ -467,6 +467,18 @@ Route::middleware(['role:Super Admin|Editor|Bio Editor'])->group(function () {
         ->name('admin.subjects.objectives');
 
     Route::middleware(['auth:sanctum', 'verified'])
+        ->get('/admin/people/progress-graphic', \App\Http\Livewire\Admin\Subjects\People\ProgressGraphic::class)
+        ->name('admin.people.progress-graphic');
+
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->get('/admin/subjects/activity-report', \App\Http\Livewire\Admin\Subjects\ActivityReport::class)
+        ->name('admin.subjects.activity-report');
+
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->get('/admin/subjects/supervisor-dashboard', \App\Http\Livewire\Admin\Subjects\SupervisorDashboard::class)
+        ->name('admin.subjects.supervisor-dashboard');
+
+    Route::middleware(['auth:sanctum', 'verified'])
         ->get('/admin/export-transcripts', \App\Http\Controllers\Admin\ExportItemFullTranscriptController::class)
         ->name('admin.items.export-transcripts');
 
@@ -490,7 +502,7 @@ if (app()->environment('local')) {
 Route::get('open-graph-image.jpg', [LaravelOpenGraphImageController::class, '__invoke'])->name('open-graph-image.file');
 
 //Route::view('test-og-image', 'public.test');
-Route::middleware(['auth'])
+Route::middleware(['auth', \App\Http\Middleware\LogApiUsageMiddleware::class])
     ->prefix('v1')
     ->group(function () {
         Route::get('documents', [\App\Http\Controllers\Api\v1\DocumentController::class, 'index'])
@@ -523,3 +535,14 @@ Route::middleware(['auth'])
         Route::get('topics/{id}', [\App\Http\Controllers\Api\v1\TopicsController::class, 'show'])
             ->name('docs.topics.show');
     });
+
+Route::get('/{contentPage}', [\App\Http\Controllers\ContentPageController::class, 'show'])
+    //->where('contentPage', '^(?!nova).*$')
+    ->name('content-page.show');
+Route::get('/{contentPage}/edit', [\App\Http\Controllers\ContentPageController::class, 'edit'])
+    //->where('contentPage', '^(?!nova).*$')
+    ->name('content-page.edit');
+Route::put('/content-page/{contentPage}', [\App\Http\Controllers\ContentPageController::class, 'update'])
+    ->name('content-page.update');
+Route::post('/content-page/{contentPage}/upload', [\App\Http\Controllers\ContentPageController::class, 'upload'])
+    ->name('content-page.upload');

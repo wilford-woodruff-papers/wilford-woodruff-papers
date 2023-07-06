@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Admin\Quotes;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Spatie\Tags\Tag;
 
 class Search extends Component
 {
@@ -14,12 +15,17 @@ class Search extends Component
 
     public $selectedTopic = null;
 
+    public $selectedAdditionalTopic = null;
+
     public $search = null;
 
     public $topics;
 
+    public $additionalTopics;
+
     protected $queryString = [
         'selectedTopic',
+        'selectedAdditionalTopic',
         'search',
     ];
 
@@ -31,6 +37,7 @@ class Search extends Component
                 'page.parent',
                 'continuation',
                 'topics',
+                'tags',
             ])
             ->whereHas('actions')
             ->whereNull('continued_from_previous_page')
@@ -38,6 +45,8 @@ class Search extends Component
                 $query->whereHas('topics', function ($query) {
                     $query->where('subjects.id', $this->selectedTopic);
                 });
+            })->when($this->selectedAdditionalTopic, function ($query) {
+                $query->withAnyTags([$this->selectedAdditionalTopic], 'quotes');
             })
             ->when($this->search, function ($query) {
                 $query->where('text', 'LIKE', '%'.$this->search.'%');
@@ -63,6 +72,12 @@ class Search extends Component
                 ->has('pages')
                 ->orderBy('name')
                 ->get();
+
+            $this->additionalTopics = Tag::query()
+                ->select('id', 'name')
+                ->orderBy('name->en', 'ASC')
+                ->withType('quotes')
+                ->get();
         }
 
         return view('livewire.admin.quotes.search', [
@@ -74,6 +89,11 @@ class Search extends Component
     public function clearTopic()
     {
         $this->selectedTopic = null;
+    }
+
+    public function clearAdditionalTopic()
+    {
+        $this->selectedAdditionalTopic = null;
     }
 
     public function load()

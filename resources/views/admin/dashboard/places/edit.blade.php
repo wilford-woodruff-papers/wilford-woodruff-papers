@@ -362,7 +362,7 @@
                                                 <input type="date"
                                                        name="place_confirmed_at"
                                                        id="place_confirmed_at"
-                                                       value="{{ old('place_confirmed_at', $place->place_confirmed_at) }}"
+                                                       value="{{ old('place_confirmed_at', $place->place_confirmed_at?->toDateString()) }}"
                                                        class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                                 />
                                             </div>

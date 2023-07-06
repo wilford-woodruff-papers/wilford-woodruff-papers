@@ -34,7 +34,7 @@ class Feed extends Component
     public function render()
     {
         $articles = Press::query()
-                            ->select('id', 'type', 'title', 'cover_image', 'slug', 'date', 'subtitle', 'external_link_only', 'link', 'excerpt')
+                            ->select('id', 'type', 'title', 'cover_image', 'slug', 'date', 'subtitle', 'external_link_only', 'link', 'excerpt', 'publisher')
                             ->whereDate('date', '<=', DB::raw('NOW()'))
                             ->hasCoverImage()
                             ->orderBy('date', 'DESC')

@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <x-slot name="title">Giving Tuesday</x-slot>
+    <x-slot name="title">Donate to the Wilford Woodruff Papers Foundation</x-slot>
 
     <div class="bg-center bg-cover" style="background-image: url('{{ asset('img/donate/background.jpg') }}');">
         <div class="py-24 mx-auto max-w-5xl">

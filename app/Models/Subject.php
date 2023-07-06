@@ -7,14 +7,19 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Stringable;
 use Laravel\Scout\Searchable;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
-class Subject extends Model
+class Subject extends Model implements HasMedia
 {
     use HasFactory;
     use HasSlug;
+    use InteractsWithMedia;
     use Searchable;
 
     protected $guarded = ['id'];
@@ -42,10 +47,13 @@ class Subject extends Model
                 }
 
                 $name = $name
-                    ->replaceMatches('/Jr./i', '(Jr.)')
-                    ->replaceMatches('/Sr./i', '(Sr.)')
-                    ->replaceMatches('/II/i', '(II)')
-                    ->replaceMatches('/III/i', '(III)')
+                    ->when(! empty($this->last_name), function (Stringable $string) {
+                        return $string
+                            ->replaceMatches('/\bII$/i', '(II)')
+                            ->replaceMatches('/\bIII$/i', '(III)');
+                    })
+                    ->replaceMatches('/\bJr\.$/i', '(Jr.)')
+                    ->replaceMatches('/\bSr\.$/i', '(Sr.)')
                     ->replaceMatches('/\(OT\)/i', '(Old Testament)')
                     ->replaceMatches('/\(NT\)/i', '(New Testament)')
                     ->replaceMatches('/\(BofM\)/i', '(Book of Mormon)');
@@ -93,6 +101,18 @@ class Subject extends Model
         return $this->belongsTo(User::class, 'researcher_id')->withTrashed();
     }
 
+    public function events()
+    {
+        return $this->belongsToMany(Event::class, 'event_subject');
+    }
+
+    public function scopePeople(Builder $query): void
+    {
+        $query->whereHas('category', function ($query) {
+            $query->where('name', 'People');
+        });
+    }
+
     public function children()
     {
         return $this->hasMany(self::class)->with(['children' => function ($query) {
@@ -129,15 +149,32 @@ class Subject extends Model
 
     public function mapUrl()
     {
-        $url = 'https://maps.googleapis.com/maps/api/staticmap?';
+        if (! empty($this->geolocation) && empty($this->getMedia('map')->first())) {
+            $url = 'https://maps.googleapis.com/maps/api/staticmap?';
 
-        $url .= 'center='.$this->geolocation['formatted_address'];
-        $url .= '&zoom='.$this->zoomLevel().'&size=600x300&maptype=roadmap';
-        $url .= '&markers=color:red%7Clabel:.%7C'.$this->geolocation['geometry']['location']['lat'].','.$this->geolocation['geometry']['location']['lng'];
+            $url .= 'center='.$this->geolocation['formatted_address'];
+            $url .= '&zoom='.$this->zoomLevel().'&size=600x300&maptype=roadmap';
+            $url .= '&markers=color:red%7Clabel:.%7C'.$this->geolocation['geometry']['location']['lat'].','.$this->geolocation['geometry']['location']['lng'];
+            $url .= '&key='.config('googlemaps.public_key');
 
-        $url .= '&key='.config('googlemaps.public_key');
+            //$file = Storage::disk('local')
+            //    ->put($this->slug.'-map.png', file_get_contents($url));
+//            $file = file_put_contents(
+//                storage_path('app/maps/').$this->slug.'-maps.png',
+//                file_get_contents(str($url)->replace(' ', '%20'))
+//            );
 
-        return $url;
+            $this->addMediaFromUrl(str($url)->replace(' ', '%20'))
+                ->usingFileName($this->slug.'-map.png')
+                ->usingName($this->slug.'-map.png')
+                ->toMediaCollection('map', 'maps');
+        }
+
+        $this->load([
+            'media',
+        ]);
+
+        return $this->getMedia('map')->first()->getUrl('thumb');
     }
 
     private function zoomLevel()
@@ -243,7 +280,7 @@ class Subject extends Model
             'resource_type' => $resourceType,
             'type' => $this->category->pluck('name')->toArray(),
             'url' => route('subjects.show', ['subject' => $this->slug]),
-            //'thumbnail' => $this->getFirstMedia()?->getUrl('thumb'),
+            'thumbnail' => $this->getFirstMedia()?->getUrl('thumb'),
             'name' => $this->name,
             'description' => strip_tags($this->bio ?? ''),
         ];
@@ -294,5 +331,18 @@ class Subject extends Model
         }
 
         return $country;
+    }
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('thumb')
+            ->width(368)
+            ->height(232)
+            ->sharpen(10);
+
+        $this->addMediaConversion('medium')
+            ->width(640)
+            ->height(480)
+            ->sharpen(10);
     }
 }

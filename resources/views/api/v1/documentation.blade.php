@@ -11,7 +11,7 @@
         makeAPICall: function (url, id) {
         const options = {
                 headers: {
-                    'Authorization': 'Bearer {{ auth()->user()->tokens()->first()->plainTextToken }}',
+                    {{--'Authorization': 'Bearer {{ auth()->user()->tokens()->first()->plainTextToken }}',--}}
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 }

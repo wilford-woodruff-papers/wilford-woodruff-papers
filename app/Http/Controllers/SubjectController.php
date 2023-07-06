@@ -45,6 +45,9 @@ class SubjectController extends Controller
                     'people',
                     'places',
                 ])
+                ->withCount([
+                    'quotes',
+                ])
                 ->where(function ($query) use ($subject) {
                     $query->whereHas('item', function (Builder $query) {
                         $query->where('items.enabled', true);

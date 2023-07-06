@@ -263,16 +263,19 @@
 
                                 <x-admin.quotes.cell class="sticky left-0 py-0 px-0 bg-gray-50 border border-gray-400">
                                     <div class="w-full h-full border-r-2 border-gray-400">
-                                        <div href="#" class="py-2 px-6 space-x-2 text-sm leading-5">
+                                        <div class="py-2 px-6 space-x-2 text-sm leading-5">
                                             {{--<x-icon.cash class="text-cool-gray-400"/>--}}
 
-                                            <p class="flex gap-x-1 items-center w-96 text-cool-gray-600">
-                                                <x-icon.status :status="$place->enabled"/>
+                                            <p class="flex gap-x-1 justify-between items-center w-96 text-cool-gray-600">
+                                                {{--<x-icon.status :status="$place->enabled"/>--}}
                                                 <a class="font-medium text-indigo-600 break-word"
                                                    href="{{ route('admin.dashboard.places.edit', ['place' => $place]) }}"
                                                    target="_blank">
                                                     {{ str($place->name)->replace('_', ' ') }}
                                                 </a>
+                                                <span>
+                                                    ({{ $place->tagged_count }})
+                                                </span>
                                             </p>
                                         </div>
                                     </div>

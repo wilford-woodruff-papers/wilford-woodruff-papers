@@ -1,6 +1,6 @@
 <x-guest-layout>
 
-    <x-slot name="title">Wilford Woodruff Papers Developer Dashboard</x-slot>
+    <x-slot name="title">Wilford Woodruff Papers</x-slot>
 
     <div class="h-24 bg-center bg-cover md:h-28 xl:h-48"
          style="background-image: url({{ asset('img/banners/home.jpg') }})">
