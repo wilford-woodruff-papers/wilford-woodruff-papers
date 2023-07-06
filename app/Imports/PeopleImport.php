@@ -15,7 +15,7 @@ class PeopleImport implements ToCollection, WithHeadingRow
      */
     public function collection(Collection $rows)
     {
-        set_time_limit(2400);
+        set_time_limit(24000);
 
         $people = Category::query()
             ->where('name', 'People')
