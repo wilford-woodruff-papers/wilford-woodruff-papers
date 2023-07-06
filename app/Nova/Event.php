@@ -5,6 +5,7 @@ namespace App\Nova;
 use App\Nova\Actions\ExportTimeline;
 use App\Nova\Actions\ImportTimeline;
 use Illuminate\Http\Request;
+use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\MorphToMany;
@@ -82,6 +83,7 @@ class Event extends Resource
 
             MorphToMany::make('Photos'),
             MorphToMany::make('Pages')->searchable(),
+            BelongsToMany::make('Places', 'places', Subject::class),
             /*->fields(function(){
                     return [
                         Item::class,

@@ -94,6 +94,11 @@ class Subject extends Model
         return $this->belongsTo(User::class, 'researcher_id')->withTrashed();
     }
 
+    public function events()
+    {
+        return $this->belongsToMany(Event::class, 'event_subject');
+    }
+
     public function scopePeople(Builder $query): void
     {
         $query->whereHas('category', function ($query) {
