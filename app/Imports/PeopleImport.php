@@ -25,10 +25,32 @@ class PeopleImport implements ToCollection, WithHeadingRow
             ->where('category_id', $people->id)
             ->get();
 
+        $categories = $peopleCategories->push($people);
+
         foreach ($rows as $row) {
+
+            $commonValues = array_intersect(
+                $categories
+                    ->pluck('name')
+                    ->toArray(),
+                collect(explode(';', $row['categories']))
+                    ->map(function ($category) {
+                        return trim($category);
+                    })
+                    ->toArray()
+            );
+
+            if (empty($commonValues)) {
+                logger()->info($row['title'].' is not a person.');
+
+                continue;
+            }
+
+            logger()->info($row['title'].' is a person.');
+
             ImportPerson::class::dispatch(
                 $row,
-                $peopleCategories->push($people)
+                $categories
             )
                 ->onQueue('import');
         }
