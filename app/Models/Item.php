@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Dyrynda\Database\Casts\EfficientUuid;
 use Dyrynda\Database\Support\GeneratesUuid;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -340,11 +341,12 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
     {
         return [
             'id' => 'item_'.$this->id,
+            'is_published' => true,
             'resource_type' => 'Document',
+            'type' => $this->type?->name,
             'url' => route('documents.show', ['item' => $this->uuid]),
             'thumbnail' => $this->firstPage?->getFirstMedia()?->getUrl('thumb'),
             'uuid' => $this->uuid,
-            'type' => $this->type?->name,
             'name' => $this->name,
         ];
     }
@@ -356,7 +358,15 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
 
     public function searchableAs(): string
     {
-        return 'items';
+        return 'resources';
+    }
+
+    protected function makeAllSearchableUsing(Builder $query): Builder
+    {
+        return $query->with([
+            'firstPage',
+            'type',
+        ]);
     }
 
     public function shouldBeSearchable(): bool

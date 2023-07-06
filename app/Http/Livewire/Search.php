@@ -3,12 +3,13 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-use Livewire\WithPagination;
 use Meilisearch\Client;
 
 class Search extends Component
 {
-    use WithPagination;
+    //use WithPagination;
+
+    public $page = 1;
 
     public $q = '';
 
@@ -111,7 +112,7 @@ class Search extends Component
 
     public function updatedFilters($value, $name)
     {
-        $this->resetPage();
+        $this->page = 1;
     }
 
     public function updatedPage()
