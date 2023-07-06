@@ -8,12 +8,17 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Stringable;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
-class Subject extends Model
+class Subject extends Model implements HasMedia
 {
-    use HasFactory, HasSlug;
+    use HasFactory;
+    use HasSlug;
+    use InteractsWithMedia;
 
     protected $guarded = ['id'];
 
@@ -142,15 +147,32 @@ class Subject extends Model
 
     public function mapUrl()
     {
-        $url = 'https://maps.googleapis.com/maps/api/staticmap?';
+        if (! empty($this->geolocation) && empty($this->getMedia('map')->first())) {
+            $url = 'https://maps.googleapis.com/maps/api/staticmap?';
 
-        $url .= 'center='.$this->geolocation['formatted_address'];
-        $url .= '&zoom='.$this->zoomLevel().'&size=600x300&maptype=roadmap';
-        $url .= '&markers=color:red%7Clabel:.%7C'.$this->geolocation['geometry']['location']['lat'].','.$this->geolocation['geometry']['location']['lng'];
+            $url .= 'center='.$this->geolocation['formatted_address'];
+            $url .= '&zoom='.$this->zoomLevel().'&size=600x300&maptype=roadmap';
+            $url .= '&markers=color:red%7Clabel:.%7C'.$this->geolocation['geometry']['location']['lat'].','.$this->geolocation['geometry']['location']['lng'];
+            $url .= '&key='.config('googlemaps.public_key');
 
-        $url .= '&key='.config('googlemaps.public_key');
+            //$file = Storage::disk('local')
+            //    ->put($this->slug.'-map.png', file_get_contents($url));
+//            $file = file_put_contents(
+//                storage_path('app/maps/').$this->slug.'-maps.png',
+//                file_get_contents(str($url)->replace(' ', '%20'))
+//            );
 
-        return $url;
+            $this->addMediaFromUrl(str($url)->replace(' ', '%20'))
+                ->usingFileName($this->slug.'-map.png')
+                ->usingName($this->slug.'-map.png')
+                ->toMediaCollection('map', 'maps');
+        }
+
+        $this->load([
+            'media',
+        ]);
+
+        return $this->getMedia('map')->first()->getUrl('thumb');
     }
 
     private function zoomLevel()
@@ -261,5 +283,18 @@ class Subject extends Model
         }
 
         return $country;
+    }
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('thumb')
+            ->width(368)
+            ->height(232)
+            ->sharpen(10);
+
+        $this->addMediaConversion('medium')
+            ->width(640)
+            ->height(480)
+            ->sharpen(10);
     }
 }
