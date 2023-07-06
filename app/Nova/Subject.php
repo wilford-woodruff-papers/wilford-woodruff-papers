@@ -7,6 +7,7 @@ use App\Nova\Actions\ExportSubjects;
 use App\Nova\Actions\ExportSubjectsWithChildren;
 use App\Nova\Actions\ImportBiographies;
 use App\Nova\Actions\ImportIndexTopics;
+use App\Nova\Actions\ImportPeople;
 use App\Nova\Actions\ImportSubjects;
 use App\Nova\Actions\ParseNames;
 use App\Nova\Filters\ParentSubjects;
@@ -115,6 +116,7 @@ class Subject extends Resource
         return [
             new ImportIndexTopics,
             new ImportSubjects,
+            new ImportPeople,
             new ImportBiographies,
             (new ExportSubjects)
                 ->askForWriterType(),
