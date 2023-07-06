@@ -31,26 +31,6 @@ class ImportPerson implements ShouldQueue
      */
     public function handle(): void
     {
-
-        $commonValues = array_intersect(
-            $this->categories
-                ->pluck('name')
-                ->toArray(),
-            collect(explode(';', $this->row['categories']))
-                ->map(function ($category) {
-                    return trim($category);
-                })
-                ->toArray()
-        );
-
-        if (empty($commonValues)) {
-            logger()->info($this->row['title'].' is not a person.');
-
-            return;
-        }
-
-        logger()->info($this->row['title'].' is a person.');
-
         $subject = Subject::firstOrCreate([
             'name' => trim(html_entity_decode($this->row['title'])),
         ]);
