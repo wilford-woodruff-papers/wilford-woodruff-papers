@@ -78,6 +78,7 @@ class Subject extends Resource
                 ->nullable()
                 ->searchable(),
             HasMany::make('Subjects', 'children', self::class),
+            BelongsToMany::make('Events'),
         ];
     }
 
