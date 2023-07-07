@@ -153,6 +153,26 @@ return [
                     'maxTotalHits' => 100000,
                 ],
             ],
+            'dev-resources' => [
+                'filterableAttributes' => [
+                    'resource_type',
+                    'type',
+                    'is_published',
+                    'decade',
+                ],
+                'sortableAttributes' => [
+                    'name',
+                ],
+                'typoTolerance' => [
+                    'minWordSizeForTypos' => [
+                        'oneTypo' => 4,
+                        'twoTypos' => 10,
+                    ],
+                ],
+                'pagination' => [
+                    'maxTotalHits' => 100000,
+                ],
+            ],
         ],
     ],
 

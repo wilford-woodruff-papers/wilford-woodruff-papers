@@ -300,7 +300,7 @@ class Subject extends Model implements HasMedia
 
     public function searchableAs(): string
     {
-        return 'resources';
+        return app()->environment('production') ? 'resources' : 'dev-resources';
     }
 
     public function shouldBeSearchable(): bool

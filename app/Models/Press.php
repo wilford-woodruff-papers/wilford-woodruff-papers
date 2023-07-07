@@ -105,6 +105,6 @@ class Press extends Model implements HasMedia
 
     public function searchableAs(): string
     {
-        return 'resources';
+        return app()->environment('production') ? 'resources' : 'dev-resources';
     }
 }

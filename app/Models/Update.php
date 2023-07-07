@@ -81,7 +81,7 @@ class Update extends Model implements HasMedia
 
     public function searchableAs(): string
     {
-        return 'resources';
+        return app()->environment('production') ? 'resources' : 'dev-resources';
     }
 
     public function registerMediaConversions(Media $media = null): void

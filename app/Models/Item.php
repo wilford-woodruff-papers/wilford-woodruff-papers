@@ -372,7 +372,7 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
 
     public function searchableAs(): string
     {
-        return 'resources';
+        return app()->environment('production') ? 'resources' : 'dev-resources';
     }
 
     protected function makeAllSearchableUsing(Builder $query): Builder
