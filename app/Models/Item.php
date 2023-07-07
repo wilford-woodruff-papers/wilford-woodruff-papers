@@ -355,7 +355,7 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
     {
         return [
             'id' => 'item_'.$this->id,
-            'is_published' => true,
+            'is_published' => (bool) $this->enabled,
             'resource_type' => 'Document',
             'type' => $this->type?->name,
             'url' => route('documents.show', ['item' => $this->uuid]),

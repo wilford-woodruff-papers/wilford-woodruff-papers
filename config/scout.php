@@ -133,68 +133,12 @@ return [
         'host' => env('MEILISEARCH_HOST', 'http://localhost:7700'),
         'key' => env('MEILISEARCH_KEY'),
         'index-settings' => [
-            'items' => [
-                'filterableAttributes' => [
-                    'resource_type',
-                    'type',
-                    'is_published',
-                ],
-                'sortableAttributes' => [
-                    'name',
-                ],
-                'typoTolerance' => [
-                    'minWordSizeForTypos' => [
-                        'oneTypo' => 4,
-                        'twoTypos' => 10,
-                    ],
-                ],
-                'pagination' => [
-                    'maxTotalHits' => 100000,
-                ],
-            ],
-            'pages' => [
-                'filterableAttributes' => [
-                    'resource_type',
-                    'type',
-                    'is_published',
-                ],
-                'sortableAttributes' => [
-                    'name',
-                ],
-                'typoTolerance' => [
-                    'minWordSizeForTypos' => [
-                        'oneTypo' => 4,
-                        'twoTypos' => 10,
-                    ],
-                ],
-                'pagination' => [
-                    'maxTotalHits' => 100000,
-                ],
-            ],
-            'media' => [
-                'filterableAttributes' => [
-                    'resource_type',
-                    'type',
-                    'is_published',
-                ],
-                'sortableAttributes' => [
-                    'name',
-                ],
-                'typoTolerance' => [
-                    'minWordSizeForTypos' => [
-                        'oneTypo' => 4,
-                        'twoTypos' => 10,
-                    ],
-                ],
-                'pagination' => [
-                    'maxTotalHits' => 100000,
-                ],
-            ],
             'resources' => [
                 'filterableAttributes' => [
                     'resource_type',
                     'type',
                     'is_published',
+                    'decade',
                 ],
                 'sortableAttributes' => [
                     'name',

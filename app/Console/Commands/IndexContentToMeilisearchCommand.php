@@ -8,6 +8,7 @@ use App\Models\Item;
 use App\Models\Page;
 use App\Models\Press;
 use App\Models\Subject;
+use App\Models\Update;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -28,6 +29,7 @@ class IndexContentToMeilisearchCommand extends Command
             'Press',
             'Team',
             'Timeline',
+            'Newsletter',
         ];
 
         Item::removeAllFromSearch();
@@ -129,6 +131,22 @@ class IndexContentToMeilisearchCommand extends Command
         $count = 0;
 
         Event::query()
+            ->with([
+                'media',
+            ])
+            ->chunkById($this->chunkSize, function (Collection $items) use (&$count) {
+                $items->searchable();
+                $this->info('Indexed Count: '.($count += $items->count()));
+            });
+    }
+
+    private function Newsletter(): void
+    {
+        $count = 0;
+
+        Update::query()
+            ->where('enabled', true)
+            ->where('publish_at', '<', now('America/Denver'))
             ->with([
                 'media',
             ])

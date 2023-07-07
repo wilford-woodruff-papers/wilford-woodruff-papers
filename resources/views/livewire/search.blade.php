@@ -82,9 +82,9 @@
         <div>
             <p class="text-sm leading-5 text-gray-700">
                 Showing
-                <span class="font-medium">{{ $first }}</span>
+                <span class="font-medium">{{ $first_hit }}</span>
                 to
-                <span class="font-medium">{{ $last }}</span>
+                <span class="font-medium">{{ $last_hit }}</span>
                 of
                 <span class="font-medium">{{ number_format($total, 0, ',') }}</span>
                 results
@@ -170,12 +170,68 @@
             </div>
         </div>
         <div wire:loading.class.delay="opacity-50" class="@if(empty($indexes[$currentIndex])) col-span-5 @else col-span-4 @endif">
+            <div id="chart">
+                @if($currentIndex == 'Documents')
+                    {{-- TODO: Values update but chart does not --}}
+                    <div
+                        x-data="{
+                            labels: [
+                                {{ $decades->join(', ') }}
+                            ],
+                            values: [
+                                {{ $decadeCounts->join(', ') }}
+                            ],
+                            init() {
+                                let chart = new Chart(this.$refs.canvas.getContext('2d'), {
+                                    type: 'line',
+                                    data: {
+                                        labels: this.labels,
+                                        datasets: [{
+                                            data: this.values,
+                                            backgroundColor: 'rgb(103, 30, 13)',
+                                            borderColor: 'rgb(103, 30, 13)',
+                                        }],
+                                    },
+                                    options: {
+                                        interaction: { intersect: false },
+                                        scales: { y: { beginAtZero: true }},
+                                        plugins: {
+                                            legend: { display: false },
+                                            tooltip: {
+                                                displayColors: false,
+                                                callbacks: {
+                                                    label(point) {
+                                                        return 'Pages: '+point.raw
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                })
+
+                                this.$watch('values', () => {
+                                    chart.data.labels = this.labels
+                                    chart.data.datasets[0].data = this.values
+                                    chart.update()
+                                })
+                            }
+                        }"
+                        class="w-full"
+                    >
+                        <canvas x-ref="canvas" class="p-8 max-h-96 bg-white"></canvas>
+                    </div>
+                @endif
+            </div>
+
             <ul class="divide-y divide-gray-200">
                 @foreach ($hits as $hit)
                     <li class="grid grid-cols-7 py-4">
 
                         <div class="col-span-1 px-2">
-                            <a class="col-span-1 my-2 mx-auto w-20 h-auto" href="{{ data_get($hit, '_formatted.url') }}">
+                            <a class="col-span-1 my-2 mx-auto w-20 h-auto"
+                               href="{{ data_get($hit, '_formatted.url') }}"
+                               target="{{ (str(data_get($hit, '_formatted.url'))->contains(config('app.url')) ? '_self' : '_blank') }}"
+                            >
                                 <img src="{{ data_get($hit, '_formatted.thumbnail') }}"
                                      alt=""
                                      loading="lazy"
@@ -186,7 +242,9 @@
                             <div class="flex gap-x-2 items-center pb-1">
                                 @includeFirst(['search.'.str(data_get($hit, 'resource_type'))->snake(), 'search.generic'])
                                 <a href="{{ data_get($hit, '_formatted.url') }}"
-                                class="text-lg font-medium capitalize text-secondary">
+                                   class="text-lg font-medium capitalize text-secondary"
+                                   target="{{ (str(data_get($hit, '_formatted.url'))->contains(config('app.url')) ? '_self' : '_blank') }}"
+                                >
                                     {!! data_get($hit, '_formatted.name') !!}
                                 </a>
                             </div>
@@ -273,6 +331,11 @@
             </div>
         </div>
     </div>
+
+    @push('styles')
+        <!-- https://www.chartjs.org/ -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+    @endpush
 
     @push('scripts')
         <script>

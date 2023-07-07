@@ -21,7 +21,7 @@ class Search extends Component
 
     public $indexes = [
         'All' => ['resource_type'],
-        'Documents' => ['resource_type', 'type'],
+        'Documents' => ['resource_type', 'type', 'decade'],
         'Articles' => [],
         'Videos' => [],
     ];
@@ -46,27 +46,6 @@ class Search extends Component
         $facets = [];
         $hits = [];
 
-        /*$hits = Resource::search($this->q, function (Indexes $meiliSearch, string $query, array $options) use (&$facets) {
-            $options['sort'] = [(array_key_first($this->sort) ?? 'name').':'.($this->sort[array_key_first($this->sort)] ?? 'asc')];
-            $options['filter'] = $this->buildFilterSet();
-            $options['limit'] = 20;
-            $options['facets'] = [
-                'alpha_facet',
-                'vendor_facet',
-                'subject_facet',
-                'format_facet',
-            ];
-            $results = $meiliSearch->search($query, $options);
-            $facets = $results->getFacetDistribution();
-
-            return $results;
-        })
-            ->query(function ($query) {
-                $query->with([
-                    'type',
-                ]);
-            })->paginate(50);*/
-
         $client = new Client(config('scout.meilisearch.host'), config('scout.meilisearch.key'));
 
         $index = $client->index('resources');
@@ -82,25 +61,26 @@ class Search extends Component
             'facets' => $this->indexes[$this->currentIndex],
         ]);
 
-        /*$hits = $client->multiSearch([
-            (new SearchQuery())
-                ->setIndexUid('pages')
-                ->setQuery('wilford')
-                ->setLimit(5),
-            (new SearchQuery())
-                ->setIndexUid('media')
-                ->setQuery('wilford')
-                ->setLimit(5),
-        ]);*/
+        $facetDistribution = $result->getFacetDistribution();
+        //dd($facetDistribution['decade']);
+        $decades = collect([]);
+        $decadeCounts = collect([]);
+        $values = collect([]);
 
-        //dd($result->getRaw());
-
-        //$client = new \Meilisearch\Client(config('services.meilisearch.host'), config('services.meilisearch.api_key'));
-        //$client->index('subjects')->delete();
+        if (! empty($stats = $result->getFacetStats())) {
+            $decades = collect(range(max(1800, $stats['decade']['min']), $stats['decade']['max'], 10));
+            foreach ($decades as $decade) {
+                $values->push($facetDistribution['decade'][$decade] ?? 0);
+            }
+        }
 
         return view('livewire.search', [
             'hits' => $result->getRaw()['hits'],
-            'facets' => $result->getFacetDistribution(),
+            'facets' => $facetDistribution,
+            'decades' => $decades,
+            'decadeCounts' => $values,
+            'first_hit' => (($this->page - 1) * $this->hitsPerPage) + 1,
+            'last_hit' => min($result->getTotalHits(), $this->page * $this->hitsPerPage),
             'first' => 1,
             'previous' => max(1, $result->getPage() - 1),
             'next' => min($result->getTotalPages(), $result->getPage() + 1),
@@ -123,7 +103,7 @@ class Search extends Component
     private function buildFilterSet()
     {
         $query = [];
-        $query[] = '(is_published = true)';
+        $query[] = '(is_published = true OR is_published = 1)';
 
         if ($this->currentIndex != 'All') {
             $query[] = '(resource_type = "'.$this->getResourceType($this->currentIndex).'")';

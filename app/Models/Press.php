@@ -81,7 +81,7 @@ class Press extends Model implements HasMedia
 
         return [
             'id' => 'media_'.$this->id,
-            'is_published' => true,
+            'is_published' => ($this->date < now('America/Denver')),
             'resource_type' => 'Media',
             'type' => $this->type,
             'url' => route('media.'.$route, [$route => $this->slug]),

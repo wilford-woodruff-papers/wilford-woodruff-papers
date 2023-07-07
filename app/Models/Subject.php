@@ -276,7 +276,7 @@ class Subject extends Model implements HasMedia
 
         return [
             'id' => 'subject_'.$this->id,
-            'is_published' => (bool) $this->enabled,
+            'is_published' => ($this->tagged_count > 0) | ($this->text_count > 0) | ($this->total_usage_count > 0),
             'resource_type' => $resourceType,
             'type' => $this->category->pluck('name')->toArray(),
             'url' => route('subjects.show', ['subject' => $this->slug]),

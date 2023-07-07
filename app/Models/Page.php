@@ -307,13 +307,14 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
     {
         return [
             'id' => 'page_'.$this->id,
-            'is_published' => true,
+            'is_published' => (bool) $this->parent->enabled,
             'resource_type' => 'Page',
             'type' => $this->parent?->type?->name,
             'url' => ($this->parent ? route('pages.show', ['item' => $this->parent?->uuid, 'page' => $this->uuid]) : ''),
             'thumbnail' => $this->getFirstMedia()?->getUrl('thumb'),
             'name' => $this->full_name,
             'description' => strip_tags($this->transcript),
+            'decade' => $this->dates()->first()?->date ? (ceil($this->dates()->first()?->date?->year / 10) * 10) : null,
         ];
     }
 
