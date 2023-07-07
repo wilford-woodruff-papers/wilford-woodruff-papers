@@ -48,7 +48,7 @@ class Search extends Component
 
         $client = new Client(config('scout.meilisearch.host'), config('scout.meilisearch.key'));
 
-        $index = $client->index('resources');
+        $index = $client->index((app()->environment('production') ? 'resources' : 'dev-resources'));
 
         $result = $index->search($this->q, [
             'attributesToHighlight' => [
