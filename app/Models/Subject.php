@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Stringable;
+use Laravel\Scout\Searchable;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -19,6 +20,7 @@ class Subject extends Model implements HasMedia
     use HasFactory;
     use HasSlug;
     use InteractsWithMedia;
+    use Searchable;
 
     protected $guarded = ['id'];
 
@@ -258,6 +260,52 @@ class Subject extends Model implements HasMedia
                 'api_url' => $this->id ?? route('api.subjects.show', ['subject' => $this->id]),
             ],
         ];
+    }
+
+    public function toSearchableArray(): array
+    {
+        if ($this->category->pluck('name')->contains('People')) {
+            $resourceType = 'People';
+        } elseif ($this->category->pluck('name')->contains('Places')) {
+            $resourceType = 'Places';
+        } elseif ($this->category->pluck('name')->contains('Index')) {
+            $resourceType = 'Topic';
+        } else {
+            $resourceType = 'Unknown';
+        }
+
+        return [
+            'id' => 'subject_'.$this->id,
+            'is_published' => ($this->tagged_count > 0) | ($this->text_count > 0) | ($this->total_usage_count > 0),
+            'resource_type' => $resourceType,
+            'type' => $this->category->pluck('name')->toArray(),
+            'url' => route('subjects.show', ['subject' => $this->slug]),
+            'thumbnail' => $this->getFirstMedia()?->getUrl('thumb'),
+            'name' => $this->name,
+            'description' => strip_tags($this->bio ?? ''),
+        ];
+    }
+
+    public function getScoutKey(): mixed
+    {
+        return 'subject_'.$this->id;
+    }
+
+    protected function makeAllSearchableUsing(Builder $query): Builder
+    {
+        return $query->with([
+            'category',
+        ]);
+    }
+
+    public function searchableAs(): string
+    {
+        return 'resources';
+    }
+
+    public function shouldBeSearchable(): bool
+    {
+        return ($this->tagged_count > 0) | ($this->text_count > 0) | ($this->total_usage_count > 0);
     }
 
     public function includeCountryInName($state, $country)

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Scout\Searchable;
 use Parental\HasChildren;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -14,8 +15,11 @@ use Spatie\Sluggable\SlugOptions;
 
 class Press extends Model implements HasMedia
 {
-    use HasFactory, HasSlug, InteractsWithMedia;
     use HasChildren;
+    use HasFactory;
+    use HasSlug;
+    use InteractsWithMedia;
+    use Searchable;
 
     protected $guarded = ['id'];
 
@@ -69,4 +73,38 @@ class Press extends Model implements HasMedia
         'Video' => Video::class,
         'Instagram' => SocialMedia::class,
     ];
+
+    public function toSearchableArray(): array
+    {
+        $route = str($this->type)->lower()->toString();
+        //dd($route);
+
+        return [
+            'id' => 'media_'.$this->id,
+            'is_published' => ($this->date < now('America/Denver')),
+            'resource_type' => 'Media',
+            'type' => $this->type,
+            'url' => route('media.'.$route, [$route => $this->slug]),
+            'thumbnail' => $this->getFirstMedia()?->getUrl('thumb'),
+            'name' => $this->title,
+            'description' => strip_tags($this->description ?? ''),
+        ];
+    }
+
+    public function getScoutKey(): mixed
+    {
+        return 'media_'.$this->id;
+    }
+
+    protected function makeAllSearchableUsing(Builder $query): Builder
+    {
+        return $query->with([
+            'media',
+        ]);
+    }
+
+    public function searchableAs(): string
+    {
+        return 'resources';
+    }
 }

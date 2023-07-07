@@ -37,16 +37,26 @@ class Geolocation extends Command
      */
     public function handle(): int
     {
-        $places = Subject::whereEnabled(1)->whereHas('category', function (Builder $query) {
-            $query->where('name', 'Places');
-        })->get();
+        $places = Subject::query()
+            ->whereEnabled(1)
+            ->whereNull('geolocation')
+            ->whereHas('category', function (Builder $query) {
+                $query->where('name', 'Places');
+            })
+            ->limit(500)
+            ->orderBy('id', 'desc')
+            ->get();
 
         foreach ($places as $place) {
             $response = \GoogleMaps::load('geocoding')
                             ->setParam(['address' => $place->name])
                             ->get();
-            $place->geolocation = json_decode($response, true)['results'][0];
-            $place->save();
+            //dd($response);
+
+            if (! empty(json_decode($response, true)['results'])) {
+                $place->geolocation = json_decode($response, true)['results'][0];
+                $place->save();
+            }
         }
 
         return Command::SUCCESS;

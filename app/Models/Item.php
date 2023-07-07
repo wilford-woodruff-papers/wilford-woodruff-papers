@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Dyrynda\Database\Casts\EfficientUuid;
 use Dyrynda\Database\Support\GeneratesUuid;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Laravel\Scout\Searchable;
 use Mtvs\EloquentHashids\HasHashid;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Encoders\Base64Encoder;
@@ -23,6 +25,7 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
     use HasHashid;
     use KeepsDeletedModels;
     use LogsActivity;
+    use Searchable;
 
     protected $guarded = ['id'];
 
@@ -346,5 +349,42 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
         } else {
             return array_merge($this->attributesToArray(), $this->relationsToArray());
         }
+    }
+
+    public function toSearchableArray(): array
+    {
+        return [
+            'id' => 'item_'.$this->id,
+            'is_published' => (bool) $this->enabled,
+            'resource_type' => 'Document',
+            'type' => $this->type?->name,
+            'url' => route('documents.show', ['item' => $this->uuid]),
+            'thumbnail' => $this->firstPage?->getFirstMedia()?->getUrl('thumb'),
+            'uuid' => $this->uuid,
+            'name' => $this->name,
+        ];
+    }
+
+    public function getScoutKey(): mixed
+    {
+        return 'item_'.$this->id;
+    }
+
+    public function searchableAs(): string
+    {
+        return 'resources';
+    }
+
+    protected function makeAllSearchableUsing(Builder $query): Builder
+    {
+        return $query->with([
+            'firstPage',
+            'type',
+        ]);
+    }
+
+    public function shouldBeSearchable(): bool
+    {
+        return $this->enabled;
     }
 }
