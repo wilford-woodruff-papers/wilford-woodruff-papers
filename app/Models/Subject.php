@@ -163,18 +163,22 @@ class Subject extends Model implements HasMedia
 //                storage_path('app/maps/').$this->slug.'-maps.png',
 //                file_get_contents(str($url)->replace(' ', '%20'))
 //            );
+            try {
+                $this->addMediaFromUrl(str($url)->replace(' ', '%20'))
+                    ->usingFileName($this->slug.'-map.png')
+                    ->usingName($this->slug.'-map.png')
+                    ->toMediaCollection('default', 'maps');
+            } catch (\Exception $e) {
+                // TODO: Do Somethign when there's an errpr;
+            }
 
-            $this->addMediaFromUrl(str($url)->replace(' ', '%20'))
-                ->usingFileName($this->slug.'-map.png')
-                ->usingName($this->slug.'-map.png')
-                ->toMediaCollection('default', 'maps');
         }
 
         $this->load([
             'media',
         ]);
 
-        return $this->getMedia('default')->first()->getUrl('thumb');
+        return $this->getMedia('default')->first()?->getUrl('thumb');
     }
 
     private function zoomLevel()
