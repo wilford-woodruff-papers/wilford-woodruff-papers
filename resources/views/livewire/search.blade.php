@@ -82,9 +82,9 @@
         <div>
             <p class="text-sm leading-5 text-gray-700">
                 Showing
-                <span class="font-medium">{{ $first_hit }}</span>
+                <span class="font-medium">{{ number_format($first_hit, 0, ',') }}</span>
                 to
-                <span class="font-medium">{{ $last_hit }}</span>
+                <span class="font-medium">{{ number_format($last_hit, 0, ',') }}</span>
                 of
                 <span class="font-medium">{{ number_format($total, 0, ',') }}</span>
                 results
