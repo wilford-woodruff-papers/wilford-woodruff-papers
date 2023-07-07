@@ -90,6 +90,11 @@ class Search extends Component
             ->layout('layouts.guest', ['title' => 'Search']);
     }
 
+    public function updatedQ($value, $name)
+    {
+        $this->page = 1;
+    }
+
     public function updatedFilters($value, $name)
     {
         $this->page = 1;
