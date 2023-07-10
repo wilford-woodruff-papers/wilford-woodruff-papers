@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use Asantibanez\LivewireCharts\Models\LineChartModel;
 use Livewire\Component;
 use Meilisearch\Client;
 
@@ -12,6 +13,8 @@ class Search extends Component
     public $page = 1;
 
     public $q = '';
+
+    public $decades = '';
 
     public $exact = false;
 
@@ -63,21 +66,32 @@ class Search extends Component
 
         $facetDistribution = $result->getFacetDistribution();
         //dd($facetDistribution['decade']);
-        $decades = collect([]);
+        $this->decades = collect([]);
         $decadeCounts = collect([]);
         $values = collect([]);
 
         if (! empty($stats = $result->getFacetStats())) {
-            $decades = collect(range(max(1800, $stats['decade']['min']), $stats['decade']['max'], 10));
-            foreach ($decades as $decade) {
+            $this->decades = collect(range(max(1800, $stats['decade']['min']), $stats['decade']['max'], 10));
+            foreach ($this->decades as $decade) {
                 $values->push($facetDistribution['decade'][$decade] ?? 0);
             }
         }
 
+        $documentModel = (new LineChartModel())
+            ->setTitle('Documents')
+            ->singleLine()
+            ->setColors(['#671e0d'])
+            ->setAnimated(true)
+            ->withDataLabels();
+
+        foreach ($this->decades as $decade) {
+            $documentModel->addPoint($decade, $facetDistribution['decade'][$decade] ?? 0);
+        }
+
         return view('livewire.search', [
+            'documentModel' => $documentModel,
             'hits' => $result->getRaw()['hits'],
             'facets' => $facetDistribution,
-            'decades' => $decades,
             'decadeCounts' => $values,
             'first_hit' => (($this->page - 1) * $this->hitsPerPage) + 1,
             'last_hit' => min($result->getTotalHits(), $this->page * $this->hitsPerPage),
@@ -97,6 +111,9 @@ class Search extends Component
 
     public function updatedFilters($value, $name)
     {
+        if ($value == 0) {
+            $this->filters[$name] = null;
+        }
         $this->page = 1;
     }
 

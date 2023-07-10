@@ -173,8 +173,9 @@
             <div id="chart">
                 @if($currentIndex == 'Documents')
                     {{-- TODO: Values update but chart does not --}}
-                    <div
+                    {{--<div
                         x-data="{
+                            decades: @entangle('decades'),
                             labels: [
                                 {{ $decades->join(', ') }}
                             ],
@@ -209,6 +210,12 @@
                                     }
                                 })
 
+                                this.$watch('decades', () => {
+                                    chart.data.labels = this.labels
+                                    chart.data.datasets[0].data = this.values
+                                    chart.update()
+                                })
+
                                 this.$watch('values', () => {
                                     chart.data.labels = this.labels
                                     chart.data.datasets[0].data = this.values
@@ -219,6 +226,13 @@
                         class="w-full"
                     >
                         <canvas x-ref="canvas" class="p-8 max-h-96 bg-white"></canvas>
+                    </div>--}}
+
+                    <div class="h-[250px]">
+                        <livewire:livewire-line-chart
+                            key="{{ $documentModel->reactiveKey() }}"
+                            :line-chart-model="$documentModel"
+                        />
                     </div>
                 @endif
             </div>
@@ -335,6 +349,12 @@
     @push('styles')
         <!-- https://www.chartjs.org/ -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
+        @livewireChartsScripts
+        <style>
+            #chart [fill]{
+                color
+            }
+        </style>
     @endpush
 
     @push('scripts')
