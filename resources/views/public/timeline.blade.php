@@ -32,6 +32,11 @@
                                                 <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                                                     Description
                                                 </th>
+                                                @if(auth()->check() && auth()->user()->hasAnyRole(['Editor', 'Super Admin', 'Admin']))
+                                                    <th scope="col" class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                                                        Place
+                                                    </th>
+                                                @endif
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -102,6 +107,25 @@
                                                                 </div>
                                                             @endif
                                                         </td>
+                                                        @if(auth()->check() && auth()->user()->hasAnyRole(['Editor', 'Super Admin', 'Admin']))
+                                                            <td class="py-4 px-6 text-sm text-gray-500 whitespace-normal">
+                                                                @if($event->places->count() > 0)
+                                                                    @foreach($event->places as $place)
+                                                                        <a class="text-secondary"
+                                                                           href="{{ route('subjects.show', ['subject' => $place->slug]) }}"
+                                                                           target="_blank">
+                                                                            {{ $place->name }}
+                                                                        </a>
+                                                                    @endforeach
+                                                                @else
+                                                                    <a class="text-secondary"
+                                                                       href="{{ url('/nova/resources/events/'.$event->id) }}"
+                                                                       target="_blank">
+                                                                        Add Place
+                                                                    </a>
+                                                                @endif
+                                                            </td>
+                                                        @endif
                                                     </tr>
                                                 @endforeach
                                             </tbody>

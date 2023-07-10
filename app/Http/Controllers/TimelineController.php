@@ -17,6 +17,7 @@ class TimelineController extends Controller
                                 'photos',
                                 'media',
                                 'pages.parent',
+                                'places',
                             ])
                             ->orderBy('start_at', 'asc')
                             ->get();

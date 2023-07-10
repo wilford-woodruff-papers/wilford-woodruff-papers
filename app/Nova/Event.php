@@ -83,7 +83,8 @@ class Event extends Resource
 
             MorphToMany::make('Photos'),
             MorphToMany::make('Pages')->searchable(),
-            BelongsToMany::make('Places', 'places', Subject::class),
+            BelongsToMany::make('Places', 'places', Subject::class)
+                ->searchable(),
             /*->fields(function(){
                     return [
                         Item::class,
