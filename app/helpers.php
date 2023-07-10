@@ -133,8 +133,8 @@ function getScriptureLink($scripture)
     //ray('Scripture Match: '.$scripture);
     $book = str($scripture)->match('/([1-9]*\s?[A-Za-z\s—]+)/s')->toString();
     // ray('Book Match: '.$book);
-    $reference = str($scripture)->after($book)->match('/([0-9]+:?[0-9-]*)/s');
-    //ray('Reference Match: '.$reference);
+    $reference = str($scripture)->after($book)->match('/([0-9]+:?[0-9-,]*)/s');
+    // ray('Reference Match: '.$reference);
     $volume = getVolume($book);
     $verseRange = '';
     // Sometimes the verse is a range "1-4" or might be non-existent
@@ -145,14 +145,21 @@ function getScriptureLink($scripture)
         $chapter = $reference->explode(':')->first();
         $verse = $reference->explode(':')->last();
         $verseRange = "p$verse";
+        // ray($verse);
         if (str($verse)->contains('-')) {
             $verseRange = str($verse)->explode('-')->map(function ($item) {
                 return "p$item";
             })->join('-');
             $verse = str($verse)->explode('-')->first();
         }
+        if (str($verse)->contains(',')) {
+            $verseRange = str($verse)->explode(',')->map(function ($item) {
+                return 'p'.trim($item);
+            })->join(',');
+            $verse = str($verse)->explode(',')->first();
+        }
     } else {
-        $chapter = $reference->toString();
+        $chapter = $reference->explode('-')->first();
         $verse = '';
     }
 
@@ -172,6 +179,8 @@ function getScriptureLink($scripture)
     if (! empty($verse)) {
         //ray('Verse: '.$verse);
         $query .= "?lang=eng&id=$verseRange#p$verse";
+    } else {
+        $query .= '?lang=eng';
     }
 
     return "https://www.churchofjesuschrist.org/study/scriptures/$query";
