@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class IndexContentToMeilisearchCommand extends Command
 {
-    protected $signature = 'content:index {models=Items,Pages,Subject,Press,Team,Timeline,Newsletter}';
+    protected $signature = 'content:index {models=Items,Pages,Subject,Press,Team,Timeline,Newsletter} {--purge}';
 
     protected $description = 'Index all content to Meilisearch for site wide search';
 
@@ -22,9 +22,13 @@ class IndexContentToMeilisearchCommand extends Command
 
     public function handle(): void
     {
-        Item::removeAllFromSearch();
+        $models = explode(',', $this->argument('models'));
 
-        foreach (explode(',', $this->argument('models')) as $model) {
+        if ($this->option('purge')) {
+            Item::removeAllFromSearch();
+        }
+
+        foreach ($models as $model) {
             $this->info('Indexing '.$model);
             $this->$model();
         }

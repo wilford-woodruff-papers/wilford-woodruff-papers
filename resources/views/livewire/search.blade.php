@@ -1,5 +1,6 @@
 <div x-data="{
         q: @entangle('q'),
+        layout: $persist('list'),
         exact: @entangle('exact'),
         toggleExactMatch(value) {
             this.q = value ? window.addQuotes(this.q) : window.removeQuotes(this.q);
@@ -59,7 +60,7 @@
             </select>
         </div>
         <div class="hidden sm:block">
-            <div class="border-b border-gray-200">
+            <div class="flex justify-between items-center border-b border-gray-200">
                 <nav class="flex -mb-px space-x-8" aria-label="Tabs">
                     @foreach($indexes as $key => $index)
                         <button wire:click="$set('currentIndex', '{{ $key }}')"
@@ -73,6 +74,28 @@
                         </button>
                     @endforeach
                 </nav>
+                <div>
+                    <span class="inline-flex rounded-md shadow-sm isolate">
+                        <button x-on:click="layout = 'list'"
+                                type="button"
+                                class="inline-flex relative gap-x-1.5 items-center py-2 px-3 text-sm font-semibold ring-1 ring-inset ring-gray-300 focus:z-10"
+                                :class="layout ==='list' ? 'bg-secondary text-white' : 'bg-white text-gray-900 hover:bg-gray-50'"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" class="-ml-0.5 w-5 h-5" :class="layout ==='list' ? 'text-white' : 'text-gray-400'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                            </svg>
+                      </button>
+                        <button x-on:click="layout = 'grid'"
+                                type="button"
+                                class="inline-flex relative gap-x-1.5 items-center py-2 px-3 text-sm font-semibold ring-1 ring-inset ring-gray-300 focus:z-10"
+                                :class="layout ==='grid' ? 'bg-secondary text-white' : 'bg-white text-gray-900 hover:bg-gray-50'"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" class="-ml-0.5 w-5 h-5" :class="layout ==='grid' ? 'text-white' : 'text-gray-400'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                            </svg>
+                      </button>
+                    </span>
+                </div>
             </div>
         </div>
     </div>
@@ -237,7 +260,37 @@
                 @endif
             </div>
 
-            <ul class="divide-y divide-gray-200">
+            <div :class="layout ==='grid' ? '' : 'hidden'">
+                <div class="grid grid-cols-1 gap-x-8 gap-y-20 mx-2 mx-auto mt-16 max-w-2xl lg:grid-cols-3 lg:mx-0 lg:max-w-none">
+                    @foreach ($hits as $hit)
+                        <article class="flex flex-col justify-between items-start">
+                            <a href="{{ data_get($hit, '_formatted.url') }}">
+
+                                <div class="relative w-full">
+                                    <img src="{{ data_get($hit, '_formatted.thumbnail') }}"
+                                         alt=""
+                                         class="object-cover w-full bg-gray-100 rounded-2xl aspect-[16/9] sm:aspect-[2/1] lg:aspect-[3/2]">
+                                    <div class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10"></div>
+                                </div>
+                                <div class="max-w-xl">
+                                    <div class="relative group">
+                                        <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
+                                            <span class="absolute inset-0"></span>
+                                            {!! data_get($hit, '_formatted.name') !!}
+                                        </h3>
+                                        <div class="mt-5 text-sm leading-6 text-gray-600 line-clamp-3">
+                                            {!! str(data_get($hit, '_formatted.description'))->remove('[[')->remove(']]') !!}
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </article>
+                    @endforeach
+                </div>
+            </div>
+
+            <ul :class="layout ==='list' ? '' : 'hidden'"
+                class="divide-y divide-gray-200">
                 @foreach ($hits as $hit)
                     <li class="grid grid-cols-7 py-4">
 
