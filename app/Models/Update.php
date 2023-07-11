@@ -60,7 +60,7 @@ class Update extends Model implements HasMedia
             'is_published' => ($this->enabled && $this->publish_at < now('America/Denver')),
             'resource_type' => 'Newsletter',
             'type' => $this->type,
-            'url' => $this->link,
+            'url' => $this->url,
             'thumbnail' => $this->getFirstMedia('images', ['primary' => true])?->getFullUrl('thumb'),
             'name' => $this->subject,
             'description' => strip_tags($this->content ?? ''),
