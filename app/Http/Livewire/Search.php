@@ -24,7 +24,7 @@ class Search extends Component
 
     public $indexes = [
         'All' => ['resource_type'],
-        'Documents' => ['resource_type', 'type', 'decade'],
+        'Documents' => ['type', 'decade'],
         'Articles' => [],
         'Videos' => [],
     ];
