@@ -303,7 +303,7 @@
             </div>
 
             <div :class="layout ==='grid' ? '' : 'hidden'">
-                <div class="grid grid-cols-1 gap-x-8 gap-y-20 mx-2 mx-auto mt-16 max-w-2xl lg:grid-cols-3 lg:mx-0 lg:max-w-none">
+                <div class="grid grid-cols-1 gap-x-8 gap-y-20 mx-auto mt-16 max-w-2xl lg:grid-cols-3 lg:mx-2 lg:max-w-none">
                     @foreach ($hits as $hit)
                         <article class="flex flex-col justify-between items-start">
                             <a href="{{ data_get($hit, '_formatted.url') }}">
@@ -311,8 +311,8 @@
                                 <div class="relative w-full">
                                     <img src="{{ data_get($hit, '_formatted.thumbnail') }}"
                                          alt=""
-                                         class="object-cover w-full bg-gray-100 rounded-2xl aspect-[16/9] sm:aspect-[2/1] lg:aspect-[3/2]">
-                                    <div class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10"></div>
+                                         class="object-cover w-full bg-gray-100 aspect-[16/9] sm:aspect-[2/1] lg:aspect-[3/2]">
+                                    <div class="absolute inset-0 ring-1 ring-inset ring-gray-900/10"></div>
                                 </div>
                                 <div class="max-w-xl">
                                     <div class="relative group">
