@@ -188,7 +188,46 @@
                                 </ul>
                             </li>
                         @endforeach
+                            <li x-data="{ expanded: $persist(true).as('year_range_expanded') }">
+                                <ul role="list" class="space-y-1">
+                                    <li>
+
+                                        <div>
+                                            <button x-on:click="expanded = ! expanded"
+                                                    type="button"
+                                                    class="flex gap-x-3 items-center py-2 w-full text-base font-semibold leading-6 text-left text-gray-700 rounded-md hover:bg-gray-50"
+                                                    aria-controls="sub-menu-year_range"
+                                                    aria-expanded="false"
+                                                    x-bind:aria-expanded="expanded.toString()">
+                                                <!-- Expanded: "rotate-90 text-gray-500", Collapsed: "text-gray-400" -->
+                                                <svg class="w-5 h-5 text-gray-400 shrink-0"
+                                                     viewBox="0 0 20 20"
+                                                     fill="currentColor"
+                                                     aria-hidden="true"
+                                                     :class="{ 'rotate-90 text-gray-500': expanded, 'text-gray-400': !(expanded) }"
+                                                >
+                                                    <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
+                                                </svg>
+                                                Year Range
+                                            </button>
+                                            <ul  x-show="expanded"
+                                                 x-collapse.duration.300ms
+                                                 x-cloak
+                                                 class="px-2 mt-1 max-h-80"
+                                                 id="sub-menu-year_range">
+                                                <div wire:ignore
+                                                     class="px-8 mt-2"
+                                                >
+                                                    <div id="range" wire:model="year_range.min,year_range.max"></div>
+                                                </div>
+                                            </ul>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </li>
                     </ul>
+
                 </nav>
             </div>
         </div>
@@ -403,11 +442,6 @@
         <!-- https://www.chartjs.org/ -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
         @livewireChartsScripts
-        <style>
-            #chart [fill]{
-                color
-            }
-        </style>
     @endpush
 
     @push('scripts')
@@ -427,4 +461,56 @@
             }
         </style>
     @endpush
+    @push('styles')
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.css" integrity="sha512-qveKnGrvOChbSzAdtSs8p69eoLegyh+1hwOMbmpCViIwj7rn4oJjdmMvWOuyQlTOZgTlZA0N2PXA7iA8/2TUYA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <style>
+            .noUi-connect {
+                background: rgb(103, 30, 13);
+            }
+            .noUi-tooltip {
+                display: none;
+            }
+            .noUi-active .noUi-tooltip {
+                display: block;
+            }
+        </style>
+    @endpush
+
+    @push('scripts')
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.js" integrity="sha512-UOJe4paV6hYWBnS0c9GnIRH8PLm2nFK22uhfAvsTIqd3uwnWsVri1OPn5fJYdLtGY3wB11LGHJ4yPU1WFJeBYQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/wnumb/1.2.0/wNumb.min.js" integrity="sha512-igVQ7hyQVijOUlfg3OmcTZLwYJIBXU63xL9RC12xBHNpmGJAktDnzl9Iw0J4yrSaQtDxTTVlwhY730vphoVqJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script>
+            var range = document.getElementById('range');
+            var slider = noUiSlider.create(range, {
+                range: {
+                    'min': {{ $v_min }},
+                    'max': {{ $v_max }}
+                },
+                step: 1,
+                // Handles start at ...
+                start: [{{ $v_min }}, {{ $v_max }}],
+
+                // Display colored bars between handles
+                connect: true,
+
+                // Move handle on tap, bars are draggable
+                behaviour: 'tap-drag',
+                tooltips: true,
+                format: wNumb({
+                    decimals: 0
+                }),
+
+                // Show a scale with the slider
+                pips: {
+                    mode: 'range',
+                    stepped: true,
+                    density: 3
+                }
+            });
+            range.noUiSlider.on('change', function (v) {
+                @this.set('year_range', v);
+            });
+        </script>
+    @endpush
+
 </div>

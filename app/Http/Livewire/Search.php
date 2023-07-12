@@ -16,6 +16,12 @@ class Search extends Component
 
     public $decades = '';
 
+    public $v_min = 0;
+
+    public $v_max = 0;
+
+    public $year_range = [];
+
     public $exact = false;
 
     public $hitsPerPage = 20;
@@ -41,6 +47,7 @@ class Search extends Component
         'page' => ['except' => 1],
         'currentIndex' => ['except' => 'All'],
         'filters' => ['except' => []],
+        'year_range' => ['except' => ''],
         'sort' => ['except' => ['name' => 'asc']],
     ];
 
@@ -76,6 +83,9 @@ class Search extends Component
                 $values->push($facetDistribution['decade'][$decade] ?? 0);
             }
         }
+
+        $this->v_min = $stats['year']['min'] ?? 1800;
+        $this->v_max = $stats['year']['max'] ?? 1900;
 
         $documentModel = (new LineChartModel())
             ->setTitle('Documents by Decade')
@@ -130,8 +140,14 @@ class Search extends Component
         if ($this->currentIndex != 'All') {
             $query[] = '(resource_type = "'.$this->getResourceType($this->currentIndex).'")';
         }
+
         if (in_array($this->currentIndex, ['Articles', 'Videos'])) {
             $query[] = '(type = "'.$this->getType($this->currentIndex).'")';
+        }
+
+        if (! empty($this->year_range)) {
+            [$min, $max] = $this->year_range;
+            $query[] = "(year >= $min AND year <= $max)";
         }
 
         foreach ($this->filters as $filter => $values) {
