@@ -1,5 +1,6 @@
 <div x-data="{
         q: @entangle('q'),
+        currentIndex: @entangle('currentIndex'),
         layout: $persist('list'),
         exact: @entangle('exact'),
         toggleExactMatch(value) {
@@ -188,10 +189,12 @@
                                 </ul>
                             </li>
                         @endforeach
-                            <li x-data="{ expanded: $persist(true).as('year_range_expanded') }">
-                                <ul role="list" class="space-y-1">
-                                    <li>
 
+                            <li x-data="{ expanded: $persist(true).as('year_range_expanded') }">
+                                <ul x-show="currentIndex == 'Documents'"
+                                    role="list"
+                                    class="overflow-hidden space-y-1 h-40">
+                                    <li>
                                         <div>
                                             <button x-on:click="expanded = ! expanded"
                                                     type="button"
@@ -214,7 +217,8 @@
                                                  x-collapse.duration.300ms
                                                  x-cloak
                                                  class="px-2 mt-1 max-h-80"
-                                                 id="sub-menu-year_range">
+                                                 id="sub-menu-year_range"
+                                            >
                                                 <div wire:ignore
                                                      class="px-8 mt-2"
                                                 >
@@ -223,11 +227,10 @@
                                             </ul>
                                         </div>
                                     </li>
-
                                 </ul>
                             </li>
-                    </ul>
 
+                    </ul>
                 </nav>
             </div>
         </div>
