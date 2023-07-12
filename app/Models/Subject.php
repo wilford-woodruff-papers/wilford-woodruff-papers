@@ -275,7 +275,7 @@ class Subject extends Model implements HasMedia
         } elseif ($this->category->pluck('name')->contains('Index')) {
             $resourceType = 'Topic';
         } else {
-            $resourceType = 'Unknown';
+            $resourceType = null;
         }
 
         return [

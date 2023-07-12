@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Scout\Searchable;
 use Parental\HasChildren;
 use Spatie\MediaLibrary\HasMedia;
@@ -77,7 +78,10 @@ class Press extends Model implements HasMedia
     public function toSearchableArray(): array
     {
         $route = str($this->type)->lower()->toString();
-        //dd($route);
+
+        if (! empty($this->cover_image)) {
+            $image_url = ($this->type == 'Instagram' ? $this->cover_image : Storage::disk('media')->url($this->cover_image));
+        }
 
         return [
             'id' => 'media_'.$this->id,
@@ -85,7 +89,7 @@ class Press extends Model implements HasMedia
             'resource_type' => 'Media',
             'type' => $this->type,
             'url' => route('media.'.$route, [$route => $this->slug]),
-            'thumbnail' => $this->getFirstMedia()?->getUrl('thumb'),
+            'thumbnail' => $image_url ?? null,
             'name' => $this->title,
             'description' => strip_tags($this->description ?? ''),
         ];

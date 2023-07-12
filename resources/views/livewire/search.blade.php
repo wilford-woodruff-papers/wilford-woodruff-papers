@@ -304,6 +304,15 @@
                                      loading="lazy"
                                 >
                             </a>
+                            <a class="col-span-1 my-2 mx-auto w-20 h-auto"
+                               href="{{ data_get($hit, '_formatted.url') }}"
+                               target="{{ (str(data_get($hit, '_formatted.url'))->contains(config('app.url')) ? '_self' : '_blank') }}"
+                            >
+                                <img src="{{ data_get($hit, '_formatted.thumbnail') }}"
+                                     alt=""
+                                     loading="lazy"
+                                >
+                            </a>
                         </div>
                         <div class="col-span-6 py-2 px-4">
                             <div class="flex gap-x-2 items-center pb-1">
