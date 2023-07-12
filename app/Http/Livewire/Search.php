@@ -24,7 +24,7 @@ class Search extends Component
 
     public $indexes = [
         'All' => ['resource_type'],
-        'Documents' => ['type', 'decade'],
+        'Documents' => ['type', 'decade', 'year'],
         'Articles' => [],
         'Videos' => [],
     ];
@@ -78,7 +78,7 @@ class Search extends Component
         }
 
         $documentModel = (new LineChartModel())
-            ->setTitle('Documents')
+            ->setTitle('Documents by Decade')
             ->singleLine()
             ->setColors(['#671e0d'])
             ->setAnimated(true)

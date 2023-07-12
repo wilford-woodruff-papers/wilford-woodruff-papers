@@ -139,6 +139,7 @@ return [
                     'type',
                     'is_published',
                     'decade',
+                    'year',
                 ],
                 'sortableAttributes' => [
                     'name',
@@ -159,6 +160,7 @@ return [
                     'type',
                     'is_published',
                     'decade',
+                    'year',
                 ],
                 'sortableAttributes' => [
                     'name',

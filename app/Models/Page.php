@@ -315,6 +315,7 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
             'name' => $this->full_name,
             'description' => strip_tags($this->transcript),
             'decade' => $this->dates()->first()?->date ? (floor($this->dates()->first()?->date?->year / 10) * 10) : null,
+            'year' => $this->dates()->first()?->date ? $this->dates()->first()?->date?->year : null,
         ];
     }
 
