@@ -2,6 +2,10 @@
 
 namespace App\Http\Livewire;
 
+use App\src\Facets\DecadeFacet;
+use App\src\Facets\ResourceTypeFacet;
+use App\src\Facets\TypeFacet;
+use App\src\Facets\YearFacet;
 use Asantibanez\LivewireCharts\Models\LineChartModel;
 use Livewire\Component;
 use Meilisearch\Client;
@@ -28,12 +32,7 @@ class Search extends Component
 
     public $currentIndex = 'All';
 
-    public $indexes = [
-        'All' => ['resource_type'],
-        'Documents' => ['type', 'decade', 'year'],
-        'Articles' => [],
-        'Videos' => [],
-    ];
+    // public $indexes = [];
 
     public $filters = [
         'type' => [],
@@ -56,6 +55,23 @@ class Search extends Component
         $facets = [];
         $hits = [];
 
+        $indexes = [
+            'All' => [
+                new ResourceTypeFacet(),
+            ],
+            'Documents' => [
+                new TypeFacet(),
+                new DecadeFacet(false),
+                new YearFacet(false),
+            ],
+            'Articles' => [
+
+            ],
+            'Videos' => [
+
+            ],
+        ];
+
         $client = new Client(config('scout.meilisearch.host'), config('scout.meilisearch.key'));
 
         $index = $client->index((app()->environment('production') ? 'resources' : 'dev-resources'));
@@ -69,7 +85,12 @@ class Search extends Component
             'hitsPerPage' => $this->hitsPerPage,
             'page' => $this->page,
             'filter' => $this->buildFilterSet(),
-            'facets' => $this->indexes[$this->currentIndex],
+            'facets' => collect($indexes[$this->currentIndex])
+                ->map(function ($facet) {
+                    return $facet->key;
+                })
+                ->values()
+                ->toArray(),
         ]);
 
         $facetDistribution = $result->getFacetDistribution();
@@ -102,7 +123,9 @@ class Search extends Component
         return view('livewire.search', [
             'documentModel' => $documentModel,
             'hits' => $result->getRaw()['hits'],
-            'facets' => $facetDistribution,
+            'indexes' => $indexes,
+            'facets' => $indexes[$this->currentIndex],
+            'facetDistribution' => $facetDistribution,
             'decadeCounts' => $values,
             'first_hit' => (($this->page - 1) * $this->hitsPerPage) + 1,
             'last_hit' => min($result->getTotalHits(), $this->page * $this->hitsPerPage),
