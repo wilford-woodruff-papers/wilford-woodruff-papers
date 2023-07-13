@@ -65,6 +65,7 @@ class Search extends Component
                 'name',
                 'description',
             ],
+            'sort' => [(array_key_first($this->sort) ?? 'name').':'.($this->sort[array_key_first($this->sort)] ?? 'asc')],
             'hitsPerPage' => $this->hitsPerPage,
             'page' => $this->page,
             'filter' => $this->buildFilterSet(),
@@ -164,6 +165,25 @@ class Search extends Component
         }
 
         return empty($query) ? null : implode(' AND ', $query);
+    }
+
+    public function sortBy($field)
+    {
+        if (! isset($this->sort[$field])) {
+            $this->sort = [];
+
+            return $this->sort[$field] = 'asc';
+        }
+
+        if ($this->sort[$field] === 'asc') {
+            return $this->sort[$field] = 'desc';
+        } elseif ($this->sort[$field] === 'desc') {
+            return $this->sort[$field] = 'asc';
+        }
+
+        unset($this->sort[$field]);
+
+        $this->page = 1;
     }
 
     private function getResourceType($key)

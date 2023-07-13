@@ -164,6 +164,7 @@ return [
                 ],
                 'sortableAttributes' => [
                     'name',
+                    'date',
                 ],
                 'typoTolerance' => [
                     'minWordSizeForTypos' => [

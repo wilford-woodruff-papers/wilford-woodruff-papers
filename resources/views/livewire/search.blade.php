@@ -75,8 +75,44 @@
                         </button>
                     @endforeach
                 </nav>
-                <div>
-                    <span class="inline-flex rounded-md shadow-sm isolate">
+                <div class="flex gap-x-8 items-center">
+                    <div class="flex gap-x-4">
+                        <div>
+                            <button wire:click="sortBy('name')"
+                                    class="inline-flex gap-x-1.5 items-center text-sm text-gray-500">
+                                Name
+                                @if(array_key_exists('name', $sort))
+                                    @if($sort['name'] == 'asc')
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5L12 3m0 0l7.5 7.5M12 3v18" />
+                                        </svg>
+                                    @else
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" />
+                                        </svg>
+                                    @endif
+                                @endif
+                            </button>
+                        </div>
+                        <div>
+                            <button wire:click="sortBy('date')"
+                                    class="inline-flex gap-x-1.5 items-center text-sm text-gray-500">
+                                Date
+                                @if(array_key_exists('date', $sort))
+                                    @if($sort['date'] == 'asc')
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 10.5L12 3m0 0l7.5 7.5M12 3v18" />
+                                        </svg>
+                                    @else
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" />
+                                        </svg>
+                                    @endif
+                                @endif
+                            </button>
+                        </div>
+                    </div>
+                    <div class="inline-flex rounded-md shadow-sm isolate">
                         <button x-on:click="layout = 'list'"
                                 type="button"
                                 class="inline-flex relative gap-x-1.5 items-center py-2 px-3 text-sm font-semibold ring-1 ring-inset ring-gray-300 focus:z-10"
@@ -95,7 +131,7 @@
                               <path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
                             </svg>
                       </button>
-                    </span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -125,7 +161,10 @@
         <div class="@if(empty($indexes[$currentIndex])) hidden @endif col-span-1">
             <div class="flex flex-col gap-y-5 bg-white border-r border-gray-200 grow">
                 <nav class="flex flex-col flex-1">
-                    <ul role="list" class="flex flex-col flex-1 gap-y-7">
+                    <ul role="list"
+                        class="flex flex-col flex-1 gap-y-7 min-h-screen"
+                        x-cloak
+                    >
                         @foreach($facets as $facetKey => $facet)
                             <li x-data="{ expanded: $persist(true).as('{{ $facetKey }}_expanded') }">
                                 <ul role="list" class="space-y-1">
@@ -154,7 +193,8 @@
                                                  x-collapse.duration.300ms
                                                  x-cloak
                                                  class="overflow-x-hidden overflow-y-scroll px-2 mt-1 max-h-80"
-                                                 id="sub-menu-{{ $facetKey }}">
+                                                 id="sub-menu-{{ $facetKey }}"
+                                            >
                                                 @foreach($facet as $key => $value)
                                                     <li
                                                         class="pl-4 cursor-pointer"
@@ -198,7 +238,8 @@
                             <li x-data="{ expanded: $persist(true).as('year_range_expanded') }">
                                 <ul x-show="currentIndex == 'Documents'"
                                     role="list"
-                                    class="overflow-hidden space-y-1 h-40">
+                                    class="overflow-hidden space-y-1 h-40"
+                                >
                                     <li>
                                         <div>
                                             <button x-on:click="expanded = ! expanded"
@@ -242,62 +283,6 @@
         <div wire:loading.class.delay="opacity-50" class="@if(empty($indexes[$currentIndex])) col-span-5 @else col-span-4 @endif">
             <div id="chart">
                 @if($currentIndex == 'Documents')
-                    {{-- TODO: Values update but chart does not --}}
-                    {{--<div
-                        x-data="{
-                            decades: @entangle('decades'),
-                            labels: [
-                                {{ $decades->join(', ') }}
-                            ],
-                            values: [
-                                {{ $decadeCounts->join(', ') }}
-                            ],
-                            init() {
-                                let chart = new Chart(this.$refs.canvas.getContext('2d'), {
-                                    type: 'line',
-                                    data: {
-                                        labels: this.labels,
-                                        datasets: [{
-                                            data: this.values,
-                                            backgroundColor: 'rgb(103, 30, 13)',
-                                            borderColor: 'rgb(103, 30, 13)',
-                                        }],
-                                    },
-                                    options: {
-                                        interaction: { intersect: false },
-                                        scales: { y: { beginAtZero: true }},
-                                        plugins: {
-                                            legend: { display: false },
-                                            tooltip: {
-                                                displayColors: false,
-                                                callbacks: {
-                                                    label(point) {
-                                                        return 'Pages: '+point.raw
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                })
-
-                                this.$watch('decades', () => {
-                                    chart.data.labels = this.labels
-                                    chart.data.datasets[0].data = this.values
-                                    chart.update()
-                                })
-
-                                this.$watch('values', () => {
-                                    chart.data.labels = this.labels
-                                    chart.data.datasets[0].data = this.values
-                                    chart.update()
-                                })
-                            }
-                        }"
-                        class="w-full"
-                    >
-                        <canvas x-ref="canvas" class="p-8 max-h-96 bg-white"></canvas>
-                    </div>--}}
-
                     <div class="h-[250px]">
                         <livewire:livewire-line-chart
                             key="{{ $documentModel->reactiveKey() }}"
@@ -307,141 +292,142 @@
                 @endif
             </div>
 
-            <div :class="layout ==='grid' ? '' : 'hidden'">
-                <div class="grid grid-cols-1 gap-x-8 gap-y-20 mx-auto mt-16 max-w-2xl lg:grid-cols-3 lg:mx-2 lg:max-w-none">
-                    @foreach ($hits as $hit)
-                        <article class="flex flex-col justify-between items-start">
-                            <a href="{{ data_get($hit, '_formatted.url') }}">
+            <div class="min-h-screen">
+                <div :class="layout ==='grid' ? '' : 'hidden'"
+                     x-cloak
+                >
+                    <div class="grid grid-cols-1 gap-x-8 gap-y-20 mx-auto mt-16 max-w-2xl lg:grid-cols-3 lg:mx-2 lg:max-w-none">
+                        @foreach ($hits as $hit)
+                            <article class="flex flex-col justify-between items-start">
+                                <a href="{{ data_get($hit, '_formatted.url') }}">
 
-                                <div class="relative w-full">
-                                    <img src="{{ data_get($hit, '_formatted.thumbnail') }}"
-                                         alt=""
-                                         class="object-cover w-full bg-gray-100 aspect-[16/9] sm:aspect-[2/1] lg:aspect-[3/2]">
-                                    <div class="absolute inset-0 ring-1 ring-inset ring-gray-900/10"></div>
-                                </div>
-                                <div class="max-w-xl">
-                                    <div class="relative group">
-                                        <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-                                            <span class="absolute inset-0"></span>
-                                            {!! data_get($hit, '_formatted.name') !!}
-                                        </h3>
-                                        <div class="mt-5 text-sm leading-6 text-gray-600 line-clamp-3">
-                                            {!! str(data_get($hit, '_formatted.description'))->remove('[[')->remove(']]') !!}
-                                        </div>
+                                    <div class="relative w-full">
+                                        <img src="{{ data_get($hit, '_formatted.thumbnail') }}"
+                                             alt=""
+                                             class="object-cover w-full bg-gray-100 aspect-[16/9] sm:aspect-[2/1] lg:aspect-[3/2]">
+                                        <div class="absolute inset-0 ring-1 ring-inset ring-gray-900/10"></div>
                                     </div>
-                                </div>
-                            </a>
-                        </article>
-                    @endforeach
-                </div>
-            </div>
-
-            <ul :class="layout ==='list' ? '' : 'hidden'"
-                class="divide-y divide-gray-200">
-                @foreach ($hits as $hit)
-                    <li class="grid grid-cols-7 py-4">
-
-                        <div class="col-span-1 px-2">
-                            <a class="col-span-1 my-2 mx-auto w-20 h-auto"
-                               href="{{ data_get($hit, '_formatted.url') }}"
-                               target="{{ (str(data_get($hit, '_formatted.url'))->contains(config('app.url')) ? '_self' : '_blank') }}"
-                            >
-                                <img src="{{ data_get($hit, '_formatted.thumbnail') }}"
-                                     alt=""
-                                     loading="lazy"
-                                >
-                            </a>
-                        </div>
-                        <div class="col-span-6 py-2 px-4">
-                            <div class="flex gap-x-2 items-center pb-1">
-                                @includeFirst(['search.'.str(data_get($hit, 'resource_type'))->snake(), 'search.generic'])
-                                <a href="{{ data_get($hit, '_formatted.url') }}"
-                                   class="text-lg font-medium capitalize text-secondary"
-                                   target="{{ (str(data_get($hit, '_formatted.url'))->contains(config('app.url')) ? '_self' : '_blank') }}"
-                                >
-                                    {!! data_get($hit, '_formatted.name') !!}
-                                </a>
-                            </div>
-                            <div class="flex gap-x-3 ml-2 text-base font-medium">
-                                {{--<div>
-                                    <span class="text-gray-600">Part of </span>
-                                    <span class="text-secondary">
-                                        <a href="{{ route('documents.show', ['item' => $page->item]) }}">{{ \Illuminate\Support\Str::of($page->item?->name)->replaceMatches('/\[.*?\]/', '')->trim() }}</a>
-                                    </span>
-                                </div>--}}
-                                <div>
-                                    @auth()
-                                        @hasanyrole('CFM Researcher')
-                                        <div>
-                                            @if(data_get($hit, '_formatted.is_published'))
-                                                <span class="inline-flex items-center py-0.5 px-2.5 text-xs font-medium text-green-800 bg-green-100 rounded-full">
-                                                {{ __('Published') }}
-                                            </span>
-                                            @else
-                                                <span class="inline-flex items-center py-0.5 px-2.5 text-xs font-medium text-red-800 bg-red-100 rounded-full">
-                                                {{ __('Not Published') }}
-                                            </span>
-                                            @endif
-                                        </div>
-                                        @endhasanyrole
-                                    @endauth
-                                </div>
-                            </div>
-                            {{--@if($page->item->type)
-                                <p class="ml-2 text-base text-primary">{{ $page->item->type->name }}</p>
-                            @endif--}}
-                            <div class="py-2 px-4 font-serif text-sm text-gray-500">
-                                {{--@php
-                                    $description = '';
-                                    if(! empty( request('q')) && request('q') != '*'){
-                                        preg_match_all('~(?:[\p{L}\p{N}\']+[^\p{L}\p{N}\']+){0,10}'.request('q').'(?:[^\p{L}\p{N}\']+[\p{L}\p{N}\']+){0,10}~ui', str_replace(['[[', ']]'], '', strip_tags( $page->transcript ) ),$matches);
-                                        foreach ($matches[0] as $match) {
-                                            $description .= '<div>...' . str_highlight($match, request('q'), STR_HIGHLIGHT_SIMPLE, '<span class="bg-yellow-100">\1</span>') . '...</div>';
-                                        }
-
-                                    }else {
-                                        $description = (strlen($page->text()) > 0) ? get_snippet($page->text(), 100) . ((get_word_count($page->text()) > 100)?' ...':'') : '';
-                                        $description = str_replace(['[[', ']]'], '', strip_tags( $description ) );
-                                    }
-                                @endphp
-
-                                @if(! empty($description))
-                                    <div class="mb-1 font-bold">
-                                        Excerpt:
-                                    </div>
-                                    {!! $description !!}
-                                @endif--}}
-
-                                <div class="line-clamp-3">
-                                    {!! str(data_get($hit, '_formatted.description'))->remove('[[')->remove(']]') !!}
-                                </div>
-
-                                {{--{!! Str::of( strip_tags( $page->text() ) )->words(50) !!}--}}
-                                {{--@if($page->dates->count() > 0)
-                                    <div class="grid grid-cols-12 mt-3">
-                                        <div class="col-span-1 font-bold">
-                                            Dates:
-                                        </div>
-                                        <div class="col-span-11">
-                                            <div class="grid grid-cols-4 gap-1">
-                                                {!! $page->dates->sortBy('date')->map(function($date){
-                                                    return '<span class="inline-flex items-center py-0.5 px-2 text-xs font-medium text-gray-800 bg-gray-100 rounded">'
-                                                                . $date->date->format('F j, Y')
-                                                            . '</span>';
-                                                })->join(" ") !!}
+                                    <div class="max-w-xl">
+                                        <div class="relative group">
+                                            <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
+                                                <span class="absolute inset-0"></span>
+                                                {!! data_get($hit, '_formatted.name') !!}
+                                            </h3>
+                                            <div class="mt-5 text-sm leading-6 text-gray-600 line-clamp-3">
+                                                {!! str(data_get($hit, '_formatted.description'))->remove('[[')->remove(']]') !!}
                                             </div>
                                         </div>
                                     </div>
-                                @endif--}}
-                            </div>
-                        </div>
+                                </a>
+                            </article>
+                        @endforeach
+                    </div>
+                </div>
 
-                    </li>
-                @endforeach
-            </ul>
-            <div id="top-pagination"
-                 class="my-4">
-                @include('meilisearch.pagination.simple-tailwind', ['location' => 'bottom'])
+                <ul :class="layout ==='list' ? '' : 'hidden'"
+                    class="divide-y divide-gray-200"
+                    x-cloak
+                >
+                    @foreach ($hits as $hit)
+                        <li class="grid grid-cols-7 py-4">
+
+                            <div class="col-span-1 px-2">
+                                <a class="col-span-1 my-2 mx-auto w-20 h-auto"
+                                   href="{{ data_get($hit, '_formatted.url') }}"
+                                   target="{{ (str(data_get($hit, '_formatted.url'))->contains(config('app.url')) ? '_self' : '_blank') }}"
+                                >
+                                    <img src="{{ data_get($hit, '_formatted.thumbnail') }}"
+                                         alt=""
+                                         loading="lazy"
+                                    >
+                                </a>
+                            </div>
+                            <div class="col-span-6 py-2 px-4">
+                                <div class="flex gap-x-3 text-base font-medium">
+                                    <div class="pb-2">
+                                        @auth()
+                                            @hasanyrole('CFM Researcher')
+                                            <div>
+                                                @if(data_get($hit, '_formatted.is_published'))
+                                                    <span class="inline-flex items-center py-0.5 px-2.5 text-xs font-medium text-green-800 bg-green-100 rounded-full">
+                                                {{ __('Published') }}
+                                            </span>
+                                                @else
+                                                    <span class="inline-flex items-center py-0.5 px-2.5 text-xs font-medium text-red-800 bg-red-100 rounded-full">
+                                                {{ __('Not Published') }}
+                                            </span>
+                                                @endif
+                                            </div>
+                                            @endhasanyrole
+                                        @endauth
+                                    </div>
+                                </div>
+                                <div class="flex gap-x-2 items-center pb-1">
+                                    @includeFirst(['search.'.str(data_get($hit, 'resource_type'))->snake(), 'search.generic'])
+                                    <a href="{{ data_get($hit, '_formatted.url') }}"
+                                       class="text-lg font-medium capitalize text-secondary"
+                                       target="{{ (str(data_get($hit, '_formatted.url'))->contains(config('app.url')) ? '_self' : '_blank') }}"
+                                    >
+                                        {!! data_get($hit, '_formatted.name') !!}
+                                    </a>
+                                </div>
+
+                                {{--@if($page->item->type)
+                                    <p class="ml-2 text-base text-primary">{{ $page->item->type->name }}</p>
+                                @endif--}}
+                                <div class="py-2 px-4 font-serif text-sm text-gray-500">
+                                    {{--@php
+                                        $description = '';
+                                        if(! empty( request('q')) && request('q') != '*'){
+                                            preg_match_all('~(?:[\p{L}\p{N}\']+[^\p{L}\p{N}\']+){0,10}'.request('q').'(?:[^\p{L}\p{N}\']+[\p{L}\p{N}\']+){0,10}~ui', str_replace(['[[', ']]'], '', strip_tags( $page->transcript ) ),$matches);
+                                            foreach ($matches[0] as $match) {
+                                                $description .= '<div>...' . str_highlight($match, request('q'), STR_HIGHLIGHT_SIMPLE, '<span class="bg-yellow-100">\1</span>') . '...</div>';
+                                            }
+
+                                        }else {
+                                            $description = (strlen($page->text()) > 0) ? get_snippet($page->text(), 100) . ((get_word_count($page->text()) > 100)?' ...':'') : '';
+                                            $description = str_replace(['[[', ']]'], '', strip_tags( $description ) );
+                                        }
+                                    @endphp
+
+                                    @if(! empty($description))
+                                        <div class="mb-1 font-bold">
+                                            Excerpt:
+                                        </div>
+                                        {!! $description !!}
+                                    @endif--}}
+
+                                    <div class="line-clamp-3">
+                                        {!! str(data_get($hit, '_formatted.description'))->remove('[[')->remove(']]') !!}
+                                    </div>
+
+                                    {{--{!! Str::of( strip_tags( $page->text() ) )->words(50) !!}--}}
+                                    {{--@if($page->dates->count() > 0)
+                                        <div class="grid grid-cols-12 mt-3">
+                                            <div class="col-span-1 font-bold">
+                                                Dates:
+                                            </div>
+                                            <div class="col-span-11">
+                                                <div class="grid grid-cols-4 gap-1">
+                                                    {!! $page->dates->sortBy('date')->map(function($date){
+                                                        return '<span class="inline-flex items-center py-0.5 px-2 text-xs font-medium text-gray-800 bg-gray-100 rounded">'
+                                                                    . $date->date->format('F j, Y')
+                                                                . '</span>';
+                                                    })->join(" ") !!}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif--}}
+                                </div>
+                            </div>
+
+                        </li>
+                    @endforeach
+                </ul>
+                <div id="top-pagination"
+                     class="my-4">
+                    @include('meilisearch.pagination.simple-tailwind', ['location' => 'bottom'])
+                </div>
             </div>
         </div>
     </div>

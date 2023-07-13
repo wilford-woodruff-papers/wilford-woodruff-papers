@@ -92,6 +92,7 @@ class Press extends Model implements HasMedia
             'thumbnail' => $image_url ?? null,
             'name' => $this->title,
             'description' => strip_tags($this->description ?? ''),
+            'date' => $this->date ? $this->date?->timestamp : null,
         ];
     }
 

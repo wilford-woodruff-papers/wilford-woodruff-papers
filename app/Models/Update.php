@@ -64,6 +64,7 @@ class Update extends Model implements HasMedia
             'thumbnail' => $this->getFirstMedia('images', ['primary' => true])?->getFullUrl('thumb'),
             'name' => $this->subject,
             'description' => strip_tags($this->content ?? ''),
+            'date' => $this->publish_at ? $this->publish_at?->timestamp : null,
         ];
     }
 

@@ -188,6 +188,7 @@ class Event extends Model implements HasMedia
             'thumbnail' => '', // TODO: Add thumbnail
             'name' => $this->text,
             'description' => '',
+            'date' => $this->start_at ? $this->start_at?->timestamp : null,
         ];
     }
 
