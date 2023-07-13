@@ -174,7 +174,12 @@
                                                                        class="flex-1 font-medium text-gray-900 cursor-pointer">
                                                                     <div class="flex gap-x-2 justify-between py-1 pr-2 pl-2 text-sm leading-6 text-gray-700 rounded-md hover:bg-gray-50"
                                                                     >
-                                                                        <span class="truncate">{{ $key }}</span>
+                                                                        <div class="flex gap-2 items-center truncate">
+                                                                            @if($facetKey == 'resource_type')
+                                                                                @includeFirst(['search.'.str($key)->snake(), 'search.generic'])
+                                                                            @endif
+                                                                            {{ $key }}
+                                                                        </div>
                                                                         <span>({{ number_format($value, 0, ',') }})</span>
                                                                     </div>
                                                                 </label>
