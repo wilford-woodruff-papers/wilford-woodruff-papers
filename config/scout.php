@@ -140,6 +140,10 @@ return [
                     'is_published',
                     'decade',
                     'year',
+                    'topics',
+                ],
+                'faceting' => [
+                    'maxValuesPerFacet' => 1500,
                 ],
                 'sortableAttributes' => [
                     'name',
@@ -161,6 +165,10 @@ return [
                     'is_published',
                     'decade',
                     'year',
+                    'topics',
+                ],
+                'faceting' => [
+                    'maxValuesPerFacet' => 1500,
                 ],
                 'sortableAttributes' => [
                     'name',

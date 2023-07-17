@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\src\Facets\DecadeFacet;
 use App\src\Facets\ResourceTypeFacet;
+use App\src\Facets\TopicFacet;
 use App\src\Facets\TypeFacet;
 use App\src\Facets\YearFacet;
 use Asantibanez\LivewireCharts\Models\LineChartModel;
@@ -37,6 +38,7 @@ class Search extends Component
     public $filters = [
         'type' => [],
         'resource_type' => [],
+        'topics' => [],
     ];
 
     public $sort = ['name' => 'asc'];
@@ -58,17 +60,15 @@ class Search extends Component
         $indexes = [
             'All' => [
                 new ResourceTypeFacet(),
+                new TopicFacet(),
             ],
             'Documents' => [
                 new TypeFacet(),
                 new DecadeFacet(false),
                 new YearFacet(false),
             ],
-            'Articles' => [
-
-            ],
-            'Videos' => [
-
+            'Media' => [
+                new TypeFacet(),
             ],
         ];
 
@@ -127,7 +127,7 @@ class Search extends Component
             'facets' => $indexes[$this->currentIndex],
             'facetDistribution' => $facetDistribution,
             'decadeCounts' => $values,
-            'first_hit' => (($this->page - 1) * $this->hitsPerPage) + 1,
+            'first_hit' => (($this->page - 1) * $this->hitsPerPage) + ($result->getTotalHits() > 0 ? 1 : 0),
             'last_hit' => min($result->getTotalHits(), $this->page * $this->hitsPerPage),
             'first' => 1,
             'previous' => max(1, $result->getPage() - 1),
@@ -154,6 +154,17 @@ class Search extends Component
     public function updatedPage()
     {
         $this->emit('scroll');
+    }
+
+    public function updatedCurrentIndex()
+    {
+        $this->page = 1;
+        foreach ($this->filters as $key => $value) {
+            $this->filters[$key] = [];
+        }
+        $this->v_min = null;
+        $this->v_max = null;
+        $this->year_range = [];
     }
 
     private function buildFilterSet()
@@ -214,6 +225,7 @@ class Search extends Component
         return match ($key) {
             'Documents' => 'Page',
             'Articles', 'Videos' => 'Media',
+            'Media' => 'Media',
             'People' => 'People',
         };
     }

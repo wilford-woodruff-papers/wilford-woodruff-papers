@@ -90,7 +90,7 @@ class Press extends Model implements HasMedia
             'type' => $this->type,
             'url' => route('media.'.$route, [$route => $this->slug]),
             'thumbnail' => $image_url ?? null,
-            'name' => $this->title,
+            'name' => str($this->title)->trim('"')->toString(),
             'description' => strip_tags($this->description ?? ''),
             'date' => $this->date ? $this->date?->timestamp : null,
         ];

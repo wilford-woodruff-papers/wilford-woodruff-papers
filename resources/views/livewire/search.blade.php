@@ -218,6 +218,8 @@
                                                                             <div class="flex gap-2 items-center truncate">
                                                                                 @if($facet->key == 'resource_type')
                                                                                     @includeFirst(['search.'.str($key)->snake(), 'search.generic'])
+                                                                                @elseif($currentIndex == 'Media' && $facet->key == 'type')
+                                                                                    @includeFirst(['search.'.str($key)->snake(), 'search.generic'])
                                                                                 @endif
                                                                                 {{ $key }}
                                                                             </div>
@@ -365,7 +367,11 @@
                                     </div>
                                 </div>
                                 <div class="flex gap-x-2 items-center pb-1">
-                                    @includeFirst(['search.'.str(data_get($hit, 'resource_type'))->snake(), 'search.generic'])
+                                    @if(in_array(data_get($hit, 'resource_type'), ['Media']))
+                                        @includeFirst(['search.'.str(data_get($hit, 'type'))->snake(), 'search.generic'])
+                                    @else
+                                        @includeFirst(['search.'.str(data_get($hit, 'resource_type'))->snake(), 'search.generic'])
+                                    @endif
                                     <a href="{{ data_get($hit, '_formatted.url') }}"
                                        class="text-lg font-medium capitalize text-secondary"
                                        target="{{ (str(data_get($hit, '_formatted.url'))->contains(config('app.url')) ? '_self' : '_blank') }}"
