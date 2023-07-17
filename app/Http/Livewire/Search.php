@@ -65,6 +65,7 @@ class Search extends Component
             'Documents' => [
                 new TypeFacet(),
                 new DecadeFacet(false),
+                new TopicFacet(),
                 new YearFacet(false),
             ],
             'Media' => [
