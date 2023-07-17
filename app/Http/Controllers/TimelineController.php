@@ -20,7 +20,12 @@ class TimelineController extends Controller
                                 'places',
                             ])
                             ->orderBy('start_at', 'asc')
-                            ->get();
+                            ->get()
+                            ->map(function ($event) {
+                                $event->text = str($event->text)->addScriptureLinks()->addSubjectLinks();
+
+                                return $event;
+                            });
 
         return view('public.timeline', [
             'events' => $events,
