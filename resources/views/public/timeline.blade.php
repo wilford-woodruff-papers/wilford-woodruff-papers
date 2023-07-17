@@ -89,7 +89,7 @@
                                                         </td>
                                                         <td class="py-4 px-6 text-sm text-gray-500 whitespace-normal">
                                                             <div>
-                                                                {!! str($event->text)->addScriptureLinks() !!}
+                                                                {!! str($event->text)->addScriptureLinks()->addSubjectLinks() !!}
                                                             </div>
                                                             @if($event->pages->count() > 0)
                                                                 <div class="mt-2">
@@ -147,8 +147,13 @@
         <link title="timeline-styles" rel="stylesheet"
               href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
         <style>
-            .view-more a {
+            .view-more a.bg-secondary {
                 color: #ffffff !important;
+                margin-top: 8px;
+                display: inline-block;
+            }
+            .view-more a.text-secondary {
+                color: rgb(103, 30, 13) !important;
             }
             .tl-timemarker .tl-timemarker-content-container .tl-timemarker-content .tl-timemarker-text h2.tl-headline,
             .tl-timemarker .tl-timemarker-content-container .tl-timemarker-content .tl-timemarker-text h2.tl-headline p {
