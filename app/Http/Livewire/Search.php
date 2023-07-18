@@ -186,6 +186,8 @@ class Search extends Component
         $this->v_min = null;
         $this->v_max = null;
         $this->year_range = [];
+        $this->full_date_range = [];
+        $this->use_date_range = false;
     }
 
     private function buildFilterSet()

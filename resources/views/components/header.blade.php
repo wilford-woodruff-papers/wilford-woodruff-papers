@@ -71,7 +71,11 @@
                                         <a href="{{ route('places') }}">Places</a>
                                         <a href="{{ route('topics') }}">Topics</a>
                                         <a href="{{ route('timeline') }}">Timeline</a>
-                                        <a href="{{ route('advanced-search') }}">Search</a>
+                                        @hasanyrole('Editor|Admin')
+                                            <a href="{{ route('new-search') }}">Search</a>
+                                        @else
+                                            <a href="{{ route('advanced-search') }}">Search</a>
+                                        @endhasanyrole
                                         <a href="{{ route('donate') }}">Donate</a>
                                         <a href="{{ route('get-involved.index') }}">Get Involved</a>
                                         @auth()
@@ -157,7 +161,12 @@
                                 <div class="mr-0 mb-12 md:-mt-2 xl:-mt-8"
                                      id="search">
                                     <div>
-                                        <form action="{{ route('advanced-search') }}" id="search-form">
+                                        @hasanyrole('Editor|Admin')
+                                            <form action="{{ route('new-search') }}" id="search-form">
+                                        @else
+                                            <form action="{{ route('advanced-search') }}" id="search-form">
+                                        @endhasanyrole
+
                                             <div class="flex mt-1 max-w-full shadow-sm">
                                                 <div class="flex relative flex-grow items-stretch focus-within:z-10">
                                                     <input class="block pl-2 w-full rounded-none border-white sm:text-sm"
@@ -342,10 +351,15 @@
                             </div>
                         </div>
                     </div>
-
-                    <a href="{{ route('advanced-search') }}"
-                       class="hidden lg:block"
-                    >Search</a>
+                    @hasanyrole('Editor|Admin')
+                        <a href="{{ route('new-search') }}"
+                           class="hidden lg:block"
+                        >Search</a>
+                    @else
+                        <a href="{{ route('advanced-search') }}"
+                           class="hidden lg:block"
+                        >Search</a>
+                    @endhasanyrole
                 </div>
                 <div class="flex mt-4 space-x-4 md:mt-0 md:ml-4 md:space-x-10">
                     {{--<a href="/s/wilford-woodruff-papers/page/about">About</a>--}}
