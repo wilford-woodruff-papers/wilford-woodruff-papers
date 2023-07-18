@@ -1,5 +1,6 @@
 <div x-data="{
         q: @entangle('q'),
+        'filtersOpen': false,
         currentIndex: @entangle('currentIndex'),
         layout: $persist('list'),
         exact: @entangle('exact'),
@@ -8,7 +9,7 @@
         }
     }"
      x-init="$watch('exact', value => toggleExactMatch(value))"
-    class="mx-auto max-w-7xl"
+    class="px-4 mx-auto max-w-7xl"
 >
 
     <div class="pb-4 mt-12">
@@ -30,7 +31,7 @@
                 </div>
             </div>
         </div>
-        <div class="mt-1">
+        <div class="mt-2 ml-4">
             <div class="flex relative items-start">
                 <div class="flex items-center h-6">
                     <input x-model="exact"
@@ -48,17 +49,31 @@
 
     <div class="">
         <div class="sm:hidden">
-            <label for="tabs" class="sr-only">Select a tab</label>
-            <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
-            <select wire:model="currentIndex"
-                    id="tabs"
-                    name="tabs"
-                    class="block py-2 pr-10 pl-3 w-full text-base rounded-md border-gray-300 sm:text-sm focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none"
-            >
-                @foreach($indexes as $key => $index)
-                    <option @selected($currentIndex === $key)>{{ $key }}</option>
-                @endforeach
-            </select>
+            <div class="flex gap-x-4 items-center">
+                <div class="flex-1">
+                    <label for="tabs" class="sr-only">Select a tab</label>
+                    <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
+                    <select wire:model="currentIndex"
+                            id="tabs"
+                            name="tabs"
+                            class="block py-2 pr-10 pl-3 w-full text-base border-gray-300 sm:text-sm focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none"
+                    >
+                        @foreach($indexes as $key => $index)
+                            <option @selected($currentIndex === $key)>{{ $key }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="flex-0">
+                    <button x-on:click="filtersOpen = true"
+                            type="button"
+                            class="inline-flex gap-x-1.5 items-center py-3 px-3 text-sm font-semibold text-gray-900 border-gray-300 ring-1 ring-inset ring-gray-300 shadow-sm hover:bg-gray-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="-ml-0.5 w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
         </div>
         <div class="hidden sm:block">
             <div class="flex justify-between items-center border-b border-gray-200">
@@ -138,8 +153,8 @@
     </div>
 
 
-    <div class="grid grid-cols-5 gap-x-4 my-4">
-        <div>
+    <div class="grid grid-cols-5 gap-x-4 gap-y-4 items-center my-4">
+        <div class="col-span-5 text-center sm:col-span-1 sm:text-left">
             <p class="text-sm leading-5 text-gray-700">
                 Showing
                 <span class="font-medium">{{ number_format($first_hit, 0, ',') }}</span>
@@ -151,268 +166,78 @@
             </p>
         </div>
         <div id="top-pagination"
-             class="col-span-4 px-4"
+             class="col-span-5 px-4 sm:col-span-4"
         >
             @include('meilisearch.pagination.simple-tailwind', ['location' => 'top'])
         </div>
     </div>
 
-    <div class="grid grid-cols-5">
-        <div class="@if(empty($indexes[$currentIndex])) hidden @endif col-span-1">
-            <div class="flex flex-col gap-y-5 bg-white border-r border-gray-200 grow">
-                <nav class="flex flex-col flex-1">
-                    <ul role="list"
-                        class="flex flex-col flex-1 gap-y-7 min-h-screen"
-                        x-cloak
-                    >
-                        @foreach($facets as $facet)
-                            @if($facet->display && array_key_exists($facet->key, $facetDistribution))
-                                <li x-data="{ expanded: $persist(true).as('{{ $facet->key }}_expanded') }">
-                                    <ul role="list" class="space-y-1">
-                                        <li>
+    <div x-show="filtersOpen"
+         x-cloak
+         class="relative z-10"
+         aria-labelledby="slide-over-title"
+         role="dialog"
+         aria-modal="true"
+    >
+        <!--
+          Background backdrop, show/hide based on slide-over state.
 
-                                            <div>
-                                                <button x-on:click="expanded = ! expanded"
-                                                        type="button"
-                                                        class="flex gap-x-3 items-center py-2 w-full text-base font-semibold leading-6 text-left text-gray-700 rounded-md hover:bg-gray-50"
-                                                        aria-controls="sub-menu-{{ $facet->key }}"
-                                                        aria-expanded="false"
-                                                        x-bind:aria-expanded="expanded.toString()">
-                                                    <!-- Expanded: "rotate-90 text-gray-500", Collapsed: "text-gray-400" -->
-                                                    <svg class="w-5 h-5 text-gray-400 shrink-0"
-                                                         viewBox="0 0 20 20"
-                                                         fill="currentColor"
-                                                         aria-hidden="true"
-                                                         :class="{ 'rotate-90 text-gray-500': expanded, 'text-gray-400': !(expanded) }"
-                                                    >
-                                                        <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
-                                                    </svg>
-                                                    {{ str($facet->key)->before('_facet')->title()->replace('_', ' ') }}
-                                                </button>
-                                                <!-- Expandable link section, show/hide based on state. -->
-                                                <ul  x-show="expanded"
-                                                     x-collapse.duration.300ms
-                                                     x-cloak
-                                                     class="overflow-x-hidden overflow-y-scroll px-2 mt-1 max-h-80"
-                                                     id="sub-menu-{{ $facet->key }}"
-                                                >
-                                                    @foreach($facetDistribution[$facet->key] as $key => $value)
-                                                        <li
-                                                            class="pl-4 cursor-pointer"
-                                                            id="list_item_{{ str($facet->key) }}_{{ str($key)->snake() }}"
-                                                        >
-                                                            <div class="flex relative gap-x-1 items-center">
-                                                                <div class="flex items-center h-6 flex-0">
-                                                                    <input wire:model="filters.{{ str($facet->key)->before('_facet') }}"
-                                                                           id="{{ str($facet->key) }}_{{ str($key)->snake() }}"
-                                                                           name="{{ str($facet->key) }}"
-                                                                           type="checkbox"
-                                                                           value="{{ $key }}"
-                                                                           class="w-4 h-4 rounded border-gray-300 text-secondary focus:ring-secondary" />
-                                                                </div>
-                                                                <div class="overflow-hidden flex-1 text-sm leading-6">
-                                                                    <label for="{{ str($facet->key) }}_{{ str($key)->snake() }}"
-                                                                           class="flex-1 font-medium text-gray-900 cursor-pointer">
-                                                                        <div class="flex gap-x-2 justify-between py-1 pr-2 pl-2 text-sm leading-6 text-gray-700 rounded-md hover:bg-gray-50"
-                                                                        >
-                                                                            <div class="flex gap-2 items-center truncate">
-                                                                                @if($facet->key == 'resource_type')
-                                                                                    @includeFirst(['search.'.str($key)->snake(), 'search.generic'])
-                                                                                @elseif($currentIndex == 'Media' && $facet->key == 'type')
-                                                                                    @includeFirst(['search.'.str($key)->snake(), 'search.generic'])
-                                                                                @endif
-                                                                                {{ $key }}
-                                                                            </div>
-                                                                            <span>({{ number_format($value, 0, ',') }})</span>
-                                                                        </div>
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    @endforeach
-                                                </ul>
-                                            </div>
-                                        </li>
+          Entering: "ease-in-out duration-500"
+            From: "opacity-0"
+            To: "opacity-100"
+          Leaving: "ease-in-out duration-500"
+            From: "opacity-100"
+            To: "opacity-0"
+        -->
+        <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
 
-                                    </ul>
-                                </li>
-                            @endif
-                        @endforeach
+        <div class="overflow-hidden fixed inset-0">
+            <div class="overflow-hidden absolute inset-0">
+                <div class="flex fixed inset-y-0 right-0 pl-10 max-w-full pointer-events-none">
+                    <!--
+                      Slide-over panel, show/hide based on slide-over state.
 
-                            <li x-data="{ expanded: $persist(true).as('year_range_expanded') }">
-                                <ul x-show="currentIndex == 'Documents'"
-                                    role="list"
-                                    class="overflow-hidden space-y-1 h-32"
-                                >
-                                    <li>
-                                        <div>
-                                            <button x-on:click="expanded = ! expanded"
-                                                    type="button"
-                                                    class="flex gap-x-3 items-center py-2 w-full text-base font-semibold leading-6 text-left text-gray-700 rounded-md hover:bg-gray-50"
-                                                    aria-controls="sub-menu-year_range"
-                                                    aria-expanded="false"
-                                                    x-bind:aria-expanded="expanded.toString()">
-                                                <!-- Expanded: "rotate-90 text-gray-500", Collapsed: "text-gray-400" -->
-                                                <svg class="w-5 h-5 text-gray-400 shrink-0"
-                                                     viewBox="0 0 20 20"
-                                                     fill="currentColor"
-                                                     aria-hidden="true"
-                                                     :class="{ 'rotate-90 text-gray-500': expanded, 'text-gray-400': !(expanded) }"
-                                                >
-                                                    <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
-                                                </svg>
-                                                Year Range
-                                            </button>
-                                            <ul  x-show="expanded"
-                                                 x-collapse.duration.300ms
-                                                 x-cloak
-                                                 class="px-2 mt-1 max-h-80"
-                                                 id="sub-menu-year_range"
-                                            >
-                                                <div wire:ignore
-                                                     class="px-8 mt-2"
-                                                >
-                                                    <div id="range" wire:model="year_range.min,year_range.max"></div>
-                                                </div>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <li x-data="{
-                                expanded: $persist(@entangle('use_date_range')).as('date_range_expanded')
-                            }">
-                                <ul x-show="currentIndex == 'Documents'"
-                                    role="list"
-                                    class="space-y-1"
-                                >
-                                    <li>
-                                        <div>
-                                            <button x-on:click="expanded = ! expanded"
-                                                    type="button"
-                                                    class="flex gap-x-3 items-center py-2 w-full text-base font-semibold leading-6 text-left text-gray-700 rounded-md hover:bg-gray-50"
-                                                    aria-controls="sub-menu-year_range"
-                                                    aria-expanded="false"
-                                                    x-bind:aria-expanded="expanded.toString()">
-                                                <!-- Expanded: "rotate-90 text-gray-500", Collapsed: "text-gray-400" -->
-                                                <svg class="w-5 h-5 text-gray-400 shrink-0"
-                                                     viewBox="0 0 20 20"
-                                                     fill="currentColor"
-                                                     aria-hidden="true"
-                                                     :class="{ 'rotate-90 text-gray-500': expanded, 'text-gray-400': !(expanded) }"
-                                                >
-                                                    <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
-                                                </svg>
-                                                Specific Date Range
-                                            </button>
-                                            <ul  x-show="expanded"
-                                                 x-collapse.duration.300ms
-                                                 x-cloak
-                                                 class="px-2 mt-1 max-h-80"
-                                                 id="sub-menu-year_range"
-                                            >
-                                                <div wire:ignore
-                                                     class="px-2 mt-2"
-                                                >
-{{--                                                    <div--}}
-{{--                                                        x-data="{--}}
-{{--                                                            value: ['{{ $full_date_range['min']->format('m/d/Y') }}', '{{ $full_date_range['max']->format('m/d/Y') }}'],--}}
-{{--                                                            init() {--}}
-{{--                                                                $(this.$refs.picker).daterangepicker({--}}
-{{--                                                                    startDate: this.value[0],--}}
-{{--                                                                    endDate: this.value[1],--}}
-{{--                                                                }, (start, end) => {--}}
-{{--                                                                    this.value[0] = start.format('MM/DD/YYYY')--}}
-{{--                                                                    this.value[1] = end.format('MM/DD/YYYY')--}}
-{{--                                                                })--}}
-
-{{--                                                                this.$watch('value', () => {--}}
-{{--                                                                    $(this.$refs.picker).data('daterangepicker').setStartDate(this.value[0])--}}
-{{--                                                                    $(this.$refs.picker).data('daterangepicker').setEndDate(this.value[1])--}}
-{{--                                                                })--}}
-{{--                                                            },--}}
-{{--                                                        }"--}}
-{{--                                                        class="w-full max-w-sm"--}}
-{{--                                                    >--}}
-{{--                                                        <div class="relative">--}}
-{{--                                                            <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">--}}
-{{--                                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"> <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /> </svg>--}}
-{{--                                                            </div>--}}
-
-{{--                                                            <input type="text" x-ref="picker" class="py-2.5 pr-3 pl-12 w-full border border-gray-200">--}}
-{{--                                                        </div>--}}
-{{--                                                    </div>--}}
-
-                                                    <div
-                                                        x-data="{
-                                                            value: '{{ $full_date_range['min']->format('m/d/Y') }}',
-                                                            init() {
-                                                                let picker = flatpickr(this.$refs.picker, {
-                                                                    dateFormat: 'm/d/Y',
-                                                                    defaultDate: this.value,
-                                                                    onChange: (date, dateString) => {
-                                                                        this.value = dateString
-                                                                    }
-                                                                })
-
-                                                                this.$watch('value', function(value) {
-                                                                        picker.setDate(value);
-                                                                        $wire.set('full_date_range.min', value);
-                                                                    });
-
-                                                            },
-                                                        }"
-                                                        class="w-full max-w-sm"
-                                                    >
-                                                        <div class="mb-2 font-bold"></div>
-
-                                                        <input class="py-2.5 px-3 w-full rounded-md border border-gray-200" x-ref="picker" type="text">
-                                                    </div>
-                                                    <div class="relative mt-2">
-                                                        <div class="flex absolute inset-0 items-center" aria-hidden="true">
-                                                            <div class="w-full border-t border-gray-300"></div>
-                                                        </div>
-                                                        <div class="flex relative justify-center">
-                                                            <span class="px-3 text-base font-semibold leading-6 text-gray-600 bg-white">to</span>
-                                                        </div>
-                                                    </div>
-                                                    <div
-                                                        x-data="{
-                                                            value: '{{ $full_date_range['max']->format('m/d/Y') }}',
-                                                            init() {
-                                                                let picker = flatpickr(this.$refs.picker, {
-                                                                    dateFormat: 'm/d/Y',
-                                                                    defaultDate: this.value,
-                                                                    onChange: (date, dateString) => {
-                                                                        this.value = dateString
-                                                                    }
-                                                                })
-
-                                                                this.$watch('value', function(value) {
-                                                                        picker.setDate(value);
-                                                                        $wire.set('full_date_range.max', value);
-                                                                    });
-                                                            },
-                                                        }"
-                                                        class="w-full max-w-sm"
-                                                    >
-                                                        <div class="mb-2 font-bold"></div>
-
-                                                        <input class="py-2.5 px-3 w-full rounded-md border border-gray-200" x-ref="picker" type="text">
-                                                    </div>
-                                                </div>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-
-                    </ul>
-                </nav>
+                      Entering: "transform transition ease-in-out duration-500 sm:duration-700"
+                        From: "translate-x-full"
+                        To: "translate-x-0"
+                      Leaving: "transform transition ease-in-out duration-500 sm:duration-700"
+                        From: "translate-x-0"
+                        To: "translate-x-full"
+                    -->
+                    <div x-on:click.away="filtersOpen = false"
+                         class="w-screen max-w-md pointer-events-auto">
+                        <div class="flex overflow-y-scroll flex-col py-6 h-full bg-white shadow-xl">
+                            <div class="px-4 sm:px-6">
+                                <div class="flex justify-between items-start">
+                                    <h2 class="text-base font-semibold leading-6 text-gray-900" id="slide-over-title">Search Filters</h2>
+                                    <div class="flex items-center ml-3 h-7">
+                                        <button x-on:click="filtersOpen = false"
+                                                type="button" class="text-gray-400 bg-white rounded-md hover:text-gray-500 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none">
+                                            <span class="sr-only">Close panel</span>
+                                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="relative flex-1 px-4 mt-6 sm:px-6">
+                                @include('search.filters', ['location' => 'mobile'])
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div wire:loading.class.delay="opacity-50" class="@if(empty($indexes[$currentIndex])) col-span-5 @else col-span-4 @endif">
+    </div>
+
+    <div class="grid grid-cols-5">
+        <div class="hidden @if(! empty($indexes[$currentIndex])) sm:block @endif col-span-1">
+            <div class="flex flex-col gap-y-5 bg-white border-r border-gray-200 grow">
+                @include('search.filters', ['location' => 'left'])
+            </div>
+        </div>
+        <div wire:loading.class.delay="opacity-50" class="@if(empty($indexes[$currentIndex])) col-span-5 @else col-span-5 sm:col-span-4 @endif">
             <div id="chart">
                 @if($currentIndex == 'Documents')
                     <div class="h-[250px]">
@@ -463,7 +288,7 @@
                     @foreach ($hits as $hit)
                         <li class="grid grid-cols-7 py-4">
 
-                            <div class="col-span-1 px-2">
+                            <div class="col-span-3 px-2 sm:col-span-1">
                                 <a class="col-span-1 my-2 mx-auto w-20 h-auto"
                                    href="{{ data_get($hit, '_formatted.url') }}"
                                    target="{{ (str(data_get($hit, '_formatted.url'))->contains(config('app.url')) ? '_self' : '_blank') }}"
@@ -474,7 +299,7 @@
                                     >
                                 </a>
                             </div>
-                            <div class="col-span-6 py-2 px-4">
+                            <div class="col-span-4 py-2 px-4 sm:col-span-6">
                                 <div class="flex gap-x-3 text-base font-medium">
                                     <div class="pb-2">
                                         @auth()
@@ -628,8 +453,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.js" integrity="sha512-UOJe4paV6hYWBnS0c9GnIRH8PLm2nFK22uhfAvsTIqd3uwnWsVri1OPn5fJYdLtGY3wB11LGHJ4yPU1WFJeBYQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/wnumb/1.2.0/wNumb.min.js" integrity="sha512-igVQ7hyQVijOUlfg3OmcTZLwYJIBXU63xL9RC12xBHNpmGJAktDnzl9Iw0J4yrSaQtDxTTVlwhY730vphoVqJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script>
-            var range = document.getElementById('range');
-            var slider = noUiSlider.create(range, {
+            var mobile_range = document.getElementById('mobile_range');
+            var mobile_slider = noUiSlider.create(mobile_range, {
                 range: {
                     'min': {{ $v_min }},
                     'max': {{ $v_max }}
@@ -655,7 +480,38 @@
                     density: 3
                 }
             });
-            range.noUiSlider.on('change', function (v) {
+            mobile_range.noUiSlider.on('change', function (v) {
+                @this.set('year_range', v);
+            });
+
+            var left_range = document.getElementById('left_range');
+            var left_slider = noUiSlider.create(left_range, {
+                range: {
+                    'min': {{ $v_min }},
+                    'max': {{ $v_max }}
+                },
+                step: 1,
+                // Handles start at ...
+                start: [{{ $v_min }}, {{ $v_max }}],
+
+                // Display colored bars between handles
+                connect: true,
+
+                // Move handle on tap, bars are draggable
+                behaviour: 'tap-drag',
+                tooltips: true,
+                format: wNumb({
+                    decimals: 0
+                }),
+
+                // Show a scale with the slider
+                pips: {
+                    mode: 'range',
+                    stepped: true,
+                    density: 3
+                }
+            });
+            left_range.noUiSlider.on('change', function (v) {
                 @this.set('year_range', v);
             });
         </script>
