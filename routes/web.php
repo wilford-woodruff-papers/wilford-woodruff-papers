@@ -26,7 +26,7 @@ Route::middleware([])->group(function () {
             } elseif ($subdomain == 'panel') {
                 return redirect()->away(config('app.url').'/ask-me-anything-mission-president-panel');
             } elseif ($subdomain == 'ama-panel-2023') {
-                return redirect()->away(config('app.url').'/ask-me-anything-mission-president-panel-live');
+                return redirect()->away(config('app.url'));
             } else {
                 return redirect()->to(config('app.url'));
             }
@@ -41,10 +41,10 @@ Route::middleware([])->group(function () {
         return redirect()->back();
     })->name('language.locale');
 
-    Route::get('/ask-me-anything-mission-president-panel', [\App\Http\Controllers\EventRegistrationController::class, 'create'])->name('event.show');
-    Route::post('/ask-me-anything-mission-president-panel', [\App\Http\Controllers\EventRegistrationController::class, 'store'])->name('event.register')
-        ->middleware(\Spatie\Honeypot\ProtectAgainstSpam::class);
-    Route::get('/ask-me-anything-mission-president-panel-live', [\App\Http\Controllers\EventRegistrationController::class, 'live'])->name('event.live');
+    // Route::get('/ask-me-anything-mission-president-panel', [\App\Http\Controllers\EventRegistrationController::class, 'create'])->name('event.show');
+    // Route::post('/ask-me-anything-mission-president-panel', [\App\Http\Controllers\EventRegistrationController::class, 'store'])->name('event.register')
+        // ->middleware(\Spatie\Honeypot\ProtectAgainstSpam::class);
+    // Route::get('/ask-me-anything-mission-president-panel-live', [\App\Http\Controllers\EventRegistrationController::class, 'live'])->name('event.live');
 
     Route::get('/ask-me-anything-mission-president-panel/calendar', function () {
         $calendar = \Spatie\IcalendarGenerator\Components\Calendar::create('Wilford Woodruff Papers Foundation')
@@ -66,7 +66,6 @@ Route::middleware([])->group(function () {
 
     Route::get('/donate', [\App\Http\Controllers\DonationController::class, 'index'])->name('donate');
     Route::get('/', \App\Http\Controllers\HomeController::class)->name('home');
-    Route::get('/advanced-search', \App\Http\Controllers\SearchController::class)->name('advanced-search');
 
     // Route::get('/documents', [\App\Http\Controllers\ItemController::class, 'index'])->name('documents');
     Route::get('/documents', \App\Http\Livewire\Documents\Browse::class)->name('documents');
@@ -112,9 +111,22 @@ Route::middleware([])->group(function () {
         ]);
     });
 
-    if (app()->environment(['development', 'local'])) {
-        Route::get('/search', [\App\Http\Controllers\LandingAreasController::class, 'search'])->name('landing-areas.search');
-    }
+    Route::middleware([
+        'auth:sanctum',
+        'verified',
+        'role:Admin|Editor',
+    ])->group(function () {
+        //Route::get('/search', [\App\Http\Controllers\LandingAreasController::class, 'search'])->name('landing-areas.search');
+        Route::get('/map', \App\Http\Livewire\Map::class)->name('map');
+        Route::get('/map/locations', \App\Http\Controllers\MapLocationsController::class)->name('map.locations');
+        Route::get('/new-search', \App\Http\Livewire\Search::class)->name('new-search');
+    });
+
+    Route::get('/advanced-search', \App\Http\Controllers\SearchController::class)->name('advanced-search');
+    Route::get('/search', function () {
+        return redirect()->route('advanced-search');
+    })->name('search');
+
     Route::get('/ponder', [\App\Http\Controllers\LandingAreasController::class, 'ponder'])->name('landing-areas.ponder');
     Route::get('/ponder/{press?}', [\App\Http\Controllers\LandingAreasController::class, 'ponder'])->name('landing-areas.ponder.press');
     Route::get('/serve', [\App\Http\Controllers\LandingAreasController::class, 'serve'])->name('landing-areas.serve');
@@ -129,6 +141,7 @@ Route::middleware([])->group(function () {
     Route::get('/media/podcasts/{podcast}', [\App\Http\Controllers\MediaController::class, 'podcast'])->name('media.podcast');
     Route::get('/media/videos', [\App\Http\Controllers\MediaController::class, 'videos'])->name('media.videos');
     Route::get('/media/videos/{video}', [\App\Http\Controllers\MediaController::class, 'video'])->name('media.video');
+    Route::get('/media/instagrams/{instagram}', [\App\Http\Controllers\MediaController::class, 'instagram'])->name('media.instagram');
     Route::get('/media/media-kit', [\App\Http\Controllers\MediaController::class, 'kit'])->name('media.kit');
     Route::get('/media/requests', [\App\Http\Controllers\MediaController::class, 'requests'])->name('media.requests');
     Route::get('/media/newsroom', [\App\Http\Controllers\MediaController::class, 'newsroom'])->name('media.news');
@@ -259,11 +272,6 @@ Route::middleware([])->group(function () {
     Route::get('/s/wilford-woodruff-papers/item/search', function () {
         return redirect()->route('advanced-search');
     });
-    if (app()->environment('production')) {
-        Route::get('/search', function () {
-            return redirect()->route('advanced-search');
-        });
-    }
     Route::get('/s/wilford-woodruff-papers/page/frequently-asked-questions', function () {
         return redirect()->route('about.frequently-asked-questions');
     });

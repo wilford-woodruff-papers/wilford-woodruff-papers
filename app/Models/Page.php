@@ -7,6 +7,7 @@ use Dyrynda\Database\Support\GeneratesUuid;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 use Mtvs\EloquentHashids\HasHashid;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Encoders\Base64Encoder;
@@ -29,6 +30,7 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
     use InteractsWithMedia;
     use KeepsDeletedModels;
     use LogsActivity;
+    use Searchable;
     use SortableTrait;
 
     protected $guarded = ['id'];
@@ -47,11 +49,11 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
 
     public function parent()
     {
-        if (! empty($this->item) && empty($this->item->item_id)) {
-            return $this->item();
-        } else {
+        //if (! empty($this->item) && empty($this->item->item_id)) {
+        //    return $this->item();
+        //} else {
             return $this->belongsTo(Item::class, 'parent_item_id');
-        }
+        //}
     }
 
     public function next()
@@ -299,5 +301,50 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
                 $action->delete();
             }
         });
+    }
+
+    public function toSearchableArray(): array
+    {
+        return [
+            'id' => 'page_'.$this->id,
+            'is_published' => (bool) $this->parent->enabled,
+            'resource_type' => 'Page',
+            'type' => $this->parent?->type?->name,
+            'url' => ($this->parent ? route('pages.show', ['item' => $this->parent?->uuid, 'page' => $this->uuid]) : ''),
+            'thumbnail' => $this->getFirstMedia()?->getUrl('thumb'),
+            'name' => $this->full_name,
+            'description' => strip_tags($this->transcript),
+            'decade' => $this->dates()->first()?->date ? (floor($this->dates()->first()?->date?->year / 10) * 10) : null,
+            'year' => $this->dates()->first()?->date ? $this->dates()->first()?->date?->year : null,
+            'date' => $this->dates()->first()?->date ? $this->dates()->first()?->date?->timestamp : null,
+            'topics' => $this->topics->pluck('name')->map(function ($topic) {
+                    return str($topic)->title();
+                })->toArray(),
+        ];
+    }
+
+    public function getScoutKey(): mixed
+    {
+        return 'page_'.$this->id;
+    }
+
+    protected function makeAllSearchableUsing(Builder $query): Builder
+    {
+        return $query->with([
+            'parent',
+            'parent.type',
+            'media',
+            'topics',
+        ]);
+    }
+
+    public function searchableAs(): string
+    {
+        return app()->environment('production') ? 'resources' : 'dev-resources';
+    }
+
+    public function shouldBeSearchable(): bool
+    {
+        return $this->parent && $this->parent->enabled;
     }
 }

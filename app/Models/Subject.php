@@ -8,12 +8,19 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Stringable;
+use Laravel\Scout\Searchable;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
-class Subject extends Model
+class Subject extends Model implements HasMedia
 {
-    use HasFactory, HasSlug;
+    use HasFactory;
+    use HasSlug;
+    use InteractsWithMedia;
+    use Searchable;
 
     protected $guarded = ['id'];
 
@@ -142,15 +149,36 @@ class Subject extends Model
 
     public function mapUrl()
     {
-        $url = 'https://maps.googleapis.com/maps/api/staticmap?';
+        if (! empty($this->geolocation) && empty($this->getMedia('map')->first())) {
+            $url = 'https://maps.googleapis.com/maps/api/staticmap?';
 
-        $url .= 'center='.$this->geolocation['formatted_address'];
-        $url .= '&zoom='.$this->zoomLevel().'&size=600x300&maptype=roadmap';
-        $url .= '&markers=color:red%7Clabel:.%7C'.$this->geolocation['geometry']['location']['lat'].','.$this->geolocation['geometry']['location']['lng'];
+            $url .= 'center='.$this->geolocation['formatted_address'];
+            $url .= '&zoom='.$this->zoomLevel().'&size=600x300&maptype=roadmap';
+            $url .= '&markers=color:red%7Clabel:.%7C'.$this->geolocation['geometry']['location']['lat'].','.$this->geolocation['geometry']['location']['lng'];
+            $url .= '&key='.config('googlemaps.public_key');
 
-        $url .= '&key='.config('googlemaps.public_key');
+            //$file = Storage::disk('local')
+            //    ->put($this->slug.'-map.png', file_get_contents($url));
+//            $file = file_put_contents(
+//                storage_path('app/maps/').$this->slug.'-maps.png',
+//                file_get_contents(str($url)->replace(' ', '%20'))
+//            );
+            try {
+                $this->addMediaFromUrl(str($url)->replace(' ', '%20'))
+                    ->usingFileName($this->slug.'-map.png')
+                    ->usingName($this->slug.'-map.png')
+                    ->toMediaCollection('default', 'maps');
+            } catch (\Exception $e) {
+                // TODO: Do Somethign when there's an errpr;
+            }
 
-        return $url;
+        }
+
+        $this->load([
+            'media',
+        ]);
+
+        return $this->getMedia('default')->first()?->getUrl('thumb');
     }
 
     private function zoomLevel()
@@ -238,6 +266,52 @@ class Subject extends Model
         ];
     }
 
+    public function toSearchableArray(): array
+    {
+        if ($this->category->pluck('name')->contains('People')) {
+            $resourceType = 'People';
+        } elseif ($this->category->pluck('name')->contains('Places')) {
+            $resourceType = 'Places';
+        } elseif ($this->category->pluck('name')->contains('Index')) {
+            $resourceType = 'Topic';
+        } else {
+            $resourceType = null;
+        }
+
+        return [
+            'id' => 'subject_'.$this->id,
+            'is_published' => ($this->tagged_count > 0) | ($this->text_count > 0) | ($this->total_usage_count > 0),
+            'resource_type' => $resourceType,
+            'type' => $this->category->pluck('name')->toArray(),
+            'url' => route('subjects.show', ['subject' => $this->slug]),
+            'thumbnail' => $this->getFirstMedia()?->getUrl('thumb'),
+            'name' => $this->name,
+            'description' => strip_tags($this->bio ?? ''),
+        ];
+    }
+
+    public function getScoutKey(): mixed
+    {
+        return 'subject_'.$this->id;
+    }
+
+    protected function makeAllSearchableUsing(Builder $query): Builder
+    {
+        return $query->with([
+            'category',
+        ]);
+    }
+
+    public function searchableAs(): string
+    {
+        return app()->environment('production') ? 'resources' : 'dev-resources';
+    }
+
+    public function shouldBeSearchable(): bool
+    {
+        return ($this->tagged_count > 0) | ($this->text_count > 0) | ($this->total_usage_count > 0);
+    }
+
     public function includeCountryInName($state, $country)
     {
         if (! str($country)->is('United States')) {
@@ -261,5 +335,18 @@ class Subject extends Model
         }
 
         return $country;
+    }
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('thumb')
+            ->width(368)
+            ->height(232)
+            ->sharpen(10);
+
+        $this->addMediaConversion('medium')
+            ->width(640)
+            ->height(480)
+            ->sharpen(10);
     }
 }

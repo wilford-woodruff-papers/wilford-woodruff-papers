@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -12,6 +14,7 @@ class Event extends Model implements HasMedia
 {
     use HasFactory;
     use InteractsWithMedia;
+    use Searchable;
 
     protected $guarded = [
         'id',
@@ -171,5 +174,38 @@ class Event extends Model implements HasMedia
             case 12:
                 return 'Dec';
         }
+    }
+
+    public function toSearchableArray(): array
+    {
+
+        return [
+            'id' => 'event_'.$this->id,
+            'is_published' => true,
+            'resource_type' => 'Timeline',
+            'type' => $this->group,
+            'url' => route('timeline').'#event-'.$this->id,
+            'thumbnail' => '', // TODO: Add thumbnail
+            'name' => $this->text,
+            'description' => '',
+            'date' => $this->start_at ? $this->start_at?->timestamp : null,
+        ];
+    }
+
+    public function getScoutKey(): mixed
+    {
+        return 'event_'.$this->id;
+    }
+
+    protected function makeAllSearchableUsing(Builder $query): Builder
+    {
+        return $query->with([
+            'media',
+        ]);
+    }
+
+    public function searchableAs(): string
+    {
+        return app()->environment('production') ? 'resources' : 'dev-resources';
     }
 }

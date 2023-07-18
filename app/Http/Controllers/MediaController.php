@@ -99,6 +99,13 @@ class MediaController extends Controller
         ]);
     }
 
+    public function instagram(Request $request, Press $instagram): View
+    {
+        return view('public.media.instagram', [
+            'instagram' => $instagram,
+        ]);
+    }
+
     public function newsroom(Request $request): View
     {
         return view('public.media.newsroom', [
