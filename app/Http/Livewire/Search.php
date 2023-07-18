@@ -2,12 +2,14 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Date;
 use App\src\Facets\DecadeFacet;
 use App\src\Facets\ResourceTypeFacet;
 use App\src\Facets\TopicFacet;
 use App\src\Facets\TypeFacet;
 use App\src\Facets\YearFacet;
 use Asantibanez\LivewireCharts\Models\LineChartModel;
+use Carbon\Carbon;
 use Livewire\Component;
 use Meilisearch\Client;
 
@@ -26,6 +28,10 @@ class Search extends Component
     public $v_max = 0;
 
     public $year_range = [];
+
+    public $full_date_range = [];
+
+    public $use_date_range = false;
 
     public $exact = false;
 
@@ -49,13 +55,27 @@ class Search extends Component
         'currentIndex' => ['except' => 'All'],
         'filters' => ['except' => []],
         'year_range' => ['except' => ''],
+        'full_date_range' => ['except' => ''],
         'sort' => ['except' => ['name' => 'asc']],
     ];
+
+    public function mount()
+    {
+        //
+    }
 
     public function render()
     {
         $facets = [];
         $hits = [];
+
+        $this->full_date_range = [
+            'min' => $this->full_date_range['min'] ?? Carbon::create(Date::query()->min('date')),
+            'max' => $this->full_date_range['max'] ?? Carbon::create(Date::query()->max('date')),
+        ];
+
+        $this->full_date_range['min'] = is_string($this->full_date_range['min']) ? Carbon::parse($this->full_date_range['min']) : $this->full_date_range['min'];
+        $this->full_date_range['max'] = is_string($this->full_date_range['max']) ? Carbon::parse($this->full_date_range['max']) : $this->full_date_range['max'];
 
         $indexes = [
             'All' => [
@@ -184,6 +204,10 @@ class Search extends Component
         if (! empty($this->year_range)) {
             [$min, $max] = $this->year_range;
             $query[] = "(year >= $min AND year <= $max)";
+        }
+
+        if ($this->use_date_range == true) {
+            $query[] = '(date IS NOT NULL AND date >= '.$this->full_date_range['min']->startOfDay()->timestamp.' AND date <= '.$this->full_date_range['max']->endOfDay()->timestamp.')';
         }
 
         foreach ($this->filters as $filter => $values) {

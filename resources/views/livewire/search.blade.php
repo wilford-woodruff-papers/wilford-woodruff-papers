@@ -242,7 +242,7 @@
                             <li x-data="{ expanded: $persist(true).as('year_range_expanded') }">
                                 <ul x-show="currentIndex == 'Documents'"
                                     role="list"
-                                    class="overflow-hidden space-y-1 h-40"
+                                    class="overflow-hidden space-y-1 h-32"
                                 >
                                     <li>
                                         <div>
@@ -273,6 +273,134 @@
                                                      class="px-8 mt-2"
                                                 >
                                                     <div id="range" wire:model="year_range.min,year_range.max"></div>
+                                                </div>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li x-data="{
+                                expanded: $persist(@entangle('use_date_range')).as('date_range_expanded')
+                            }">
+                                <ul x-show="currentIndex == 'Documents'"
+                                    role="list"
+                                    class="space-y-1"
+                                >
+                                    <li>
+                                        <div>
+                                            <button x-on:click="expanded = ! expanded"
+                                                    type="button"
+                                                    class="flex gap-x-3 items-center py-2 w-full text-base font-semibold leading-6 text-left text-gray-700 rounded-md hover:bg-gray-50"
+                                                    aria-controls="sub-menu-year_range"
+                                                    aria-expanded="false"
+                                                    x-bind:aria-expanded="expanded.toString()">
+                                                <!-- Expanded: "rotate-90 text-gray-500", Collapsed: "text-gray-400" -->
+                                                <svg class="w-5 h-5 text-gray-400 shrink-0"
+                                                     viewBox="0 0 20 20"
+                                                     fill="currentColor"
+                                                     aria-hidden="true"
+                                                     :class="{ 'rotate-90 text-gray-500': expanded, 'text-gray-400': !(expanded) }"
+                                                >
+                                                    <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
+                                                </svg>
+                                                Specific Date Range
+                                            </button>
+                                            <ul  x-show="expanded"
+                                                 x-collapse.duration.300ms
+                                                 x-cloak
+                                                 class="px-2 mt-1 max-h-80"
+                                                 id="sub-menu-year_range"
+                                            >
+                                                <div wire:ignore
+                                                     class="px-2 mt-2"
+                                                >
+{{--                                                    <div--}}
+{{--                                                        x-data="{--}}
+{{--                                                            value: ['{{ $full_date_range['min']->format('m/d/Y') }}', '{{ $full_date_range['max']->format('m/d/Y') }}'],--}}
+{{--                                                            init() {--}}
+{{--                                                                $(this.$refs.picker).daterangepicker({--}}
+{{--                                                                    startDate: this.value[0],--}}
+{{--                                                                    endDate: this.value[1],--}}
+{{--                                                                }, (start, end) => {--}}
+{{--                                                                    this.value[0] = start.format('MM/DD/YYYY')--}}
+{{--                                                                    this.value[1] = end.format('MM/DD/YYYY')--}}
+{{--                                                                })--}}
+
+{{--                                                                this.$watch('value', () => {--}}
+{{--                                                                    $(this.$refs.picker).data('daterangepicker').setStartDate(this.value[0])--}}
+{{--                                                                    $(this.$refs.picker).data('daterangepicker').setEndDate(this.value[1])--}}
+{{--                                                                })--}}
+{{--                                                            },--}}
+{{--                                                        }"--}}
+{{--                                                        class="w-full max-w-sm"--}}
+{{--                                                    >--}}
+{{--                                                        <div class="relative">--}}
+{{--                                                            <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">--}}
+{{--                                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"> <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /> </svg>--}}
+{{--                                                            </div>--}}
+
+{{--                                                            <input type="text" x-ref="picker" class="py-2.5 pr-3 pl-12 w-full border border-gray-200">--}}
+{{--                                                        </div>--}}
+{{--                                                    </div>--}}
+
+                                                    <div
+                                                        x-data="{
+                                                            value: '{{ $full_date_range['min']->format('m/d/Y') }}',
+                                                            init() {
+                                                                let picker = flatpickr(this.$refs.picker, {
+                                                                    dateFormat: 'm/d/Y',
+                                                                    defaultDate: this.value,
+                                                                    onChange: (date, dateString) => {
+                                                                        this.value = dateString
+                                                                    }
+                                                                })
+
+                                                                this.$watch('value', function(value) {
+                                                                        picker.setDate(value);
+                                                                        $wire.set('full_date_range.min', value);
+                                                                    });
+
+                                                            },
+                                                        }"
+                                                        class="w-full max-w-sm"
+                                                    >
+                                                        <div class="mb-2 font-bold"></div>
+
+                                                        <input class="py-2.5 px-3 w-full rounded-md border border-gray-200" x-ref="picker" type="text">
+                                                    </div>
+                                                    <div class="relative mt-2">
+                                                        <div class="flex absolute inset-0 items-center" aria-hidden="true">
+                                                            <div class="w-full border-t border-gray-300"></div>
+                                                        </div>
+                                                        <div class="flex relative justify-center">
+                                                            <span class="px-3 text-base font-semibold leading-6 text-gray-600 bg-white">to</span>
+                                                        </div>
+                                                    </div>
+                                                    <div
+                                                        x-data="{
+                                                            value: '{{ $full_date_range['max']->format('m/d/Y') }}',
+                                                            init() {
+                                                                let picker = flatpickr(this.$refs.picker, {
+                                                                    dateFormat: 'm/d/Y',
+                                                                    defaultDate: this.value,
+                                                                    onChange: (date, dateString) => {
+                                                                        this.value = dateString
+                                                                    }
+                                                                })
+
+                                                                this.$watch('value', function(value) {
+                                                                        picker.setDate(value);
+                                                                        $wire.set('full_date_range.max', value);
+                                                                    });
+                                                            },
+                                                        }"
+                                                        class="w-full max-w-sm"
+                                                    >
+                                                        <div class="mb-2 font-bold"></div>
+
+                                                        <input class="py-2.5 px-3 w-full rounded-md border border-gray-200" x-ref="picker" type="text">
+                                                    </div>
                                                 </div>
                                             </ul>
                                         </div>
@@ -441,6 +569,9 @@
     </div>
 
     @push('styles')
+{{--        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />--}}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
         <!-- https://www.chartjs.org/ -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
         @livewireChartsScripts
@@ -461,9 +592,24 @@
             em {
                 background-color: #fff59d;
             }
+            .flatpickr-day.selected {
+                background: rgb(103, 30, 13);
+                border-color: rgb(93, 27, 12);
+            }
+            .flatpickr-day.selected:hover {
+                background: rgb(140, 68, 51);
+                border-color: rgb(113, 33, 14);
+            }
+            /*.flatpickr-day:hover {*/
+            /*    background: rgb(113, 33, 14);*/
+            /*    border-color: rgb(103, 30, 13);*/
+            /*}*/
         </style>
     @endpush
     @push('styles')
+{{--        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>--}}
+
+{{--        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>--}}
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.css" integrity="sha512-qveKnGrvOChbSzAdtSs8p69eoLegyh+1hwOMbmpCViIwj7rn4oJjdmMvWOuyQlTOZgTlZA0N2PXA7iA8/2TUYA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <style>
             .noUi-connect {
