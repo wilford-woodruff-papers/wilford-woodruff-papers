@@ -83,14 +83,29 @@ class Press extends Model implements HasMedia
             $image_url = ($this->type == 'Instagram' ? $this->cover_image : Storage::disk('media')->url($this->cover_image));
         }
 
+        if (str($this->title)->contains('Instagram:')) {
+            $title = str(strip_tags($this->description))
+                ->limit(64, '...')
+                ->trim('"')
+                ->trim(' ')
+                ->trim("'")
+                ->toString();
+        } else {
+            $title = str($this->title)
+                ->trim('"')
+                ->trim(' ')
+                ->trim("'")
+                ->toString();
+        }
+
         return [
             'id' => 'media_'.$this->id,
             'is_published' => ($this->date < now('America/Denver')),
             'resource_type' => 'Media',
             'type' => $this->type,
-            'url' => route('media.'.$route, [$route => $this->slug]),
+            'url' => route('landing-areas.ponder.press', ['press' => $this->slug]),
             'thumbnail' => $image_url ?? null,
-            'name' => str($this->title)->trim('"')->toString(),
+            'name' => $title,
             'description' => strip_tags($this->description ?? ''),
             'date' => $this->date ? $this->date?->timestamp : null,
         ];
