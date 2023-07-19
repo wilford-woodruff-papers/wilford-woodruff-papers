@@ -11,12 +11,18 @@ class PressModal extends ModalComponent
 {
     public $press;
 
+    public $error;
+
     public function mount($press)
     {
         if (is_int($press)) {
             $this->press = Press::find($press);
         } else {
             $this->press = Press::where('slug', $press)->first();
+        }
+
+        if (! $this->press) {
+            $this->error = 'Item not found.';
         }
     }
 
