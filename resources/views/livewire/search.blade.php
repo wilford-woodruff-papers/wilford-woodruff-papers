@@ -67,6 +67,7 @@
                     <button x-on:click="filtersOpen = true"
                             type="button"
                             class="inline-flex gap-x-1.5 items-center py-3 px-3 text-sm font-semibold text-gray-900 border-gray-300 ring-1 ring-inset ring-gray-300 shadow-sm hover:bg-gray-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                        <span class="sr-only">Show filtering options</span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="-ml-0.5 w-5 h-5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
                         </svg>
@@ -133,6 +134,7 @@
                                 class="inline-flex relative gap-x-1.5 items-center py-2 px-3 text-sm font-semibold ring-1 ring-inset ring-gray-300 focus:z-10"
                                 :class="layout ==='list' ? 'bg-secondary text-white' : 'bg-white text-gray-900 hover:bg-gray-50'"
                         >
+                            <span class="sr-only">Display results as list</span>
                             <svg xmlns="http://www.w3.org/2000/svg" class="-ml-0.5 w-5 h-5" :class="layout ==='list' ? 'text-white' : 'text-gray-400'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                               <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
                             </svg>
@@ -142,6 +144,7 @@
                                 class="inline-flex relative gap-x-1.5 items-center py-2 px-3 text-sm font-semibold ring-1 ring-inset ring-gray-300 focus:z-10"
                                 :class="layout ==='grid' ? 'bg-secondary text-white' : 'bg-white text-gray-900 hover:bg-gray-50'"
                         >
+                            <span class="sr-only">Display results as grid</span>
                             <svg xmlns="http://www.w3.org/2000/svg" class="-ml-0.5 w-5 h-5" :class="layout ==='grid' ? 'text-white' : 'text-gray-400'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                               <path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
                             </svg>
