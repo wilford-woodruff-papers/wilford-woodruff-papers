@@ -1,3 +1,7 @@
+<x-slot name="title">
+    Search | {{ config('app.name') }}
+</x-slot>
+
 <div x-data="{
         q: @entangle('q'),
         'filtersOpen': false,
