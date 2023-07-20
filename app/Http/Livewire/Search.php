@@ -56,6 +56,7 @@ class Search extends Component
         'filters' => ['except' => []],
         'year_range' => ['except' => ''],
         'full_date_range' => ['except' => ''],
+        'use_date_range' => ['except' => false],
         'sort' => ['except' => ['name' => 'asc']],
     ];
 
