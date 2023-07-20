@@ -262,10 +262,20 @@
                                 <a href="{{ data_get($hit, '_formatted.url') }}">
 
                                     <div class="relative w-full">
-                                        <img src="{{ data_get($hit, '_formatted.thumbnail') }}"
-                                             alt=""
-                                             class="object-cover w-full bg-gray-100 aspect-[16/9] sm:aspect-[2/1] lg:aspect-[3/2]">
-                                        <div class="absolute inset-0 ring-1 ring-inset ring-gray-900/10"></div>
+                                        @if(! empty(data_get($hit, '_formatted.thumbnail')))
+                                            <img src="{{ data_get($hit, '_formatted.thumbnail') }}"
+                                                 alt=""
+                                                 class="object-cover w-full bg-gray-100 aspect-[16/9] sm:aspect-[2/1] lg:aspect-[3/2]">
+                                            <div class="absolute inset-0 ring-1 ring-inset ring-gray-900/10"></div>
+                                        @else
+                                            <div class="flex justify-center items-center w-full text-white bg-gray-400 aspect-[16/9]">
+                                                @if(in_array(data_get($hit, 'resource_type'), ['Media']))
+                                                    @includeFirst(['search.'.str(data_get($hit, 'type'))->snake(), 'search.generic'])
+                                                @else
+                                                    @includeFirst(['search.'.str(data_get($hit, 'resource_type'))->snake(), 'search.generic'])
+                                                @endif
+                                            </div>
+                                        @endif
                                     </div>
                                     <div class="max-w-xl">
                                         <div class="relative group">
@@ -296,14 +306,21 @@
                             <li class="grid grid-cols-7 py-4">
 
                                 <div class="col-span-3 px-2 sm:col-span-1">
-                                    <div class="col-span-1 my-2 mx-auto w-20 h-auto"
-                                       href="{{ data_get($hit, '_formatted.url') }}"
-                                       target="{{ (str(data_get($hit, '_formatted.url'))->contains(config('app.url')) ? '_self' : '_blank') }}"
-                                    >
-                                        <img src="{{ data_get($hit, '_formatted.thumbnail') }}"
-                                             alt=""
-                                             loading="lazy"
-                                        >
+                                    <div class="col-span-1 my-2 mx-auto w-20 h-auto">
+                                        @if(! empty(data_get($hit, '_formatted.thumbnail')))
+                                            <img src="{{ data_get($hit, '_formatted.thumbnail') }}"
+                                                 alt=""
+                                                 loading="lazy"
+                                            >
+                                        @else
+                                            <div class="flex justify-center items-center w-full text-white bg-gray-400 aspect-[16/9]">
+                                                @if(in_array(data_get($hit, 'resource_type'), ['Media']))
+                                                    @includeFirst(['search.'.str(data_get($hit, 'type'))->snake(), 'search.generic'])
+                                                @else
+                                                    @includeFirst(['search.'.str(data_get($hit, 'resource_type'))->snake(), 'search.generic'])
+                                                @endif
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-span-4 py-2 px-4 sm:col-span-6">
