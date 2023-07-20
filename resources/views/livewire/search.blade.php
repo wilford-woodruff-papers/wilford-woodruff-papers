@@ -259,7 +259,9 @@
                     <div class="grid grid-cols-1 gap-x-8 gap-y-20 mx-auto mt-16 max-w-2xl lg:grid-cols-3 lg:mx-2 lg:max-w-none">
                         @foreach ($hits as $hit)
                             <article class="flex flex-col justify-between items-start">
-                                <a href="{{ data_get($hit, '_formatted.url') }}">
+                                <a href="{{ data_get($hit, '_formatted.url') }}"
+                                   class="w-full"
+                                >
 
                                     <div class="relative w-full">
                                         @if(! empty(data_get($hit, '_formatted.thumbnail')))
@@ -299,11 +301,11 @@
                     x-cloak
                 >
                     @foreach ($hits as $hit)
-                        <a class="col-span-1 my-2 mx-auto w-20 h-auto"
+                        <a class="col-span-1 my-2 mx-auto w-20 h-auto group"
                            href="{{ data_get($hit, '_formatted.url') }}"
                            target="{{ (str(data_get($hit, '_formatted.url'))->contains(config('app.url')) ? '_self' : '_blank') }}"
                         >
-                            <li class="grid grid-cols-7 py-4">
+                            <li class="grid grid-cols-7 py-4 group-focus:bg-gray-100 hover:bg-gray-100">
 
                                 <div class="col-span-3 px-2 sm:col-span-1">
                                     <div class="col-span-1 my-2 mx-auto w-20 h-auto">
