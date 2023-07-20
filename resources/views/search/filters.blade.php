@@ -177,7 +177,7 @@
                                 >
                                     <div class="mb-2 font-bold"></div>
 
-                                    <input class="py-2.5 px-3 w-full rounded-md border border-gray-200" x-ref="picker" type="text">
+                                    <input class="py-2.5 px-3 w-full border-0 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-secondary" x-ref="picker" type="text">
                                 </div>
                                 <div class="relative mt-2">
                                     <div class="flex absolute inset-0 items-center" aria-hidden="true">
@@ -209,7 +209,7 @@
                                 >
                                     <div class="mb-2 font-bold"></div>
 
-                                    <input class="py-2.5 px-3 w-full rounded-md border border-gray-200" x-ref="picker" type="text">
+                                    <input class="py-2.5 px-3 w-full border-0 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-secondary" x-ref="picker" type="text">
                                 </div>
                             </div>
                         </ul>

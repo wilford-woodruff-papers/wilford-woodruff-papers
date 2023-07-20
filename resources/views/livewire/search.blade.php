@@ -1,3 +1,7 @@
+<x-slot name="title">
+    Search | {{ config('app.name') }}
+</x-slot>
+
 <div x-data="{
         q: @entangle('q'),
         'filtersOpen': false,
@@ -26,22 +30,64 @@
                            type="search"
                            name="search"
                            id="search"
-                           class="block py-1.5 pl-10 w-full rounded-md border-0 ring-1 ring-inset ring-gray-300 sm:text-lg sm:leading-10 focus:ring-2 focus:ring-inset placeholder:text-gray-400 focus:ring-secondary"
+                           class="block py-1.5 pl-10 w-full border-0 ring-1 ring-inset ring-gray-300 sm:text-lg sm:leading-10 focus:ring-2 focus:ring-inset placeholder:text-gray-400 focus:ring-secondary"
                            placeholder="Search" />
                 </div>
             </div>
         </div>
         <div class="mt-2 ml-4">
-            <div class="flex relative items-start">
-                <div class="flex items-center h-6">
-                    <input x-model="exact"
-                           id="exact"
-                           name="exact"
-                           type="checkbox"
-                           class="w-4 h-4 rounded border-gray-300 text-secondary focus:ring-secondary">
+            <div class="flex relative flex-col gap-4 items-center sm:flex-row">
+                <div class="flex items-start">
+                    <div class="flex items-center h-6">
+                        <input x-model="exact"
+                               id="exact"
+                               name="exact"
+                               type="checkbox"
+                               class="w-4 h-4 rounded border-gray-300 text-secondary focus:ring-secondary">
+                    </div>
+                    <div class="ml-3 text-sm leading-6">
+                        <label for="exact" class="font-medium text-gray-900">Search for exact word or phrase</label>
+                    </div>
                 </div>
-                <div class="ml-3 text-sm leading-6">
-                    <label for="exact" class="font-medium text-gray-900">Search for exact word or phrase</label>
+                <div class="flex flex-col gap-4 items-center sm:flex-row">
+                    @if(! empty($q))
+                        <button wire:click="$set('q', '')"
+                                type="button" class="inline-flex gap-x-1.5 items-center py-1.5 px-2.5 text-sm font-semibold text-white rounded-md shadow-sm bg-secondary-600 hover:bg-secondary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-600">
+                            Search term: {{ $q }}
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="-mr-0.5 w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    @endif
+                    @foreach($filters as $key => $filter)
+                        @if(! empty($filters[$key]))
+                            <button wire:click="$set('filters.{{$key}}', [])"
+                                    type="button" class="inline-flex gap-x-1.5 items-center py-1.5 px-2.5 text-sm font-semibold text-white rounded-md shadow-sm bg-secondary-600 hover:bg-secondary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-600">
+                                {{ str($key)->title()->replace('_', ' ') }}: {{ collect($filters[$key])->join(', ') }}
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="-mr-0.5 w-5 h-5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        @endif
+                    @endforeach
+                    @if(! empty($year_range))
+                        <button wire:click="$set('year_range', [])"
+                                type="button" class="inline-flex gap-x-1.5 items-center py-1.5 px-2.5 text-sm font-semibold text-white rounded-md shadow-sm bg-secondary-600 hover:bg-secondary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-600">
+                            Year Range: {{ $year_range[0] }} - {{ $year_range[1] }}
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="-mr-0.5 w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    @endif
+                    @if(! empty($use_date_range))
+                        <button wire:click="$set('use_date_range', false)"
+                                type="button" class="inline-flex gap-x-1.5 items-center py-1.5 px-2.5 text-sm font-semibold text-white rounded-md shadow-sm bg-secondary-600 hover:bg-secondary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-600">
+                            Full Date Range: {{ \Carbon\Carbon::create($full_date_range['min'])->toFormattedDateString() }} - {{ \Carbon\Carbon::create($full_date_range['max'])->toFormattedDateString() }}
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="-mr-0.5 w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    @endif
                 </div>
             </div>
         </div>
