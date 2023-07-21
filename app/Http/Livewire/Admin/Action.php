@@ -62,11 +62,12 @@ class Action extends Component
             });
         }
 
-        $this->action = $this->action->fresh(['assignee', 'finisher']);
+        $this->action = $this->action->fresh(['assignee', 'finisher'])
+            ->loadMissing(['type']);
         activity('activity')
             ->on(Page::find($this->action->actionable_id))
             ->event('assigned')
-            ->log($this->action->description.' assigned to <span class="user">'.$this->action->assignee->name.'</span>');
+            ->log($this->action->type->name.' assigned to <span class="user">'.$this->action->assignee->name.'</span>');
     }
 
     public function deleteAction()
@@ -129,11 +130,12 @@ class Action extends Component
 
         // TODO: I think I need to update this so that if it's an item, all pages are also marked as complete.
 
-        $this->action = $this->action->fresh(['assignee', 'finisher']);
+        $this->action = $this->action->fresh(['assignee', 'finisher'])
+            ->loadMissing(['type']);
         activity('activity')
             ->on($this->action->actionable)
             ->event('completed')
-            ->log($this->action->description.' completed by <span class="user">'.$this->action->finisher->name.'</span>');
+            ->log($this->action->type->name.' completed by <span class="user">'.$this->action->finisher->name.'</span>');
     }
 
     public function unassignAction($actionId)
@@ -162,7 +164,7 @@ class Action extends Component
 //        activity('activity')
 //            ->on(Page::find($this->action->actionable_id))
 //            ->event('completed')
-//            ->log($this->action->description.' unnassigned by <span class="user">'.auth()->user()->name.'</span>');
+//            ->log($this->action->type->name.' unnassigned by <span class="user">'.auth()->user()->name.'</span>');
     }
 
     public function uncompleteAction($actionId)
@@ -191,6 +193,6 @@ class Action extends Component
 //        activity('activity')
 //            ->on(Page::find($this->action->actionable_id))
 //            ->event('completed')
-//            ->log($this->action->description.' unnassigned by <span class="user">'.auth()->user()->name.'</span>');
+//            ->log($this->action->type->name.' unnassigned by <span class="user">'.auth()->user()->name.'</span>');
     }
 }
