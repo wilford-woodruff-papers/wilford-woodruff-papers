@@ -142,6 +142,8 @@ class Search extends Component
             $documentModel->addPoint($decade, $facetDistribution['decade'][$decade] ?? 0);
         }
 
+        $this->logSearch();
+
         return view('livewire.search', [
             'documentModel' => $documentModel,
             'hits' => $result->getRaw()['hits'],
@@ -158,6 +160,23 @@ class Search extends Component
             'total' => $result->getTotalHits(),
         ])
             ->layout('layouts.guest', ['title' => 'Search']);
+    }
+
+    public function logSearch()
+    {
+        try {
+            activity('search')
+                ->event('search')
+                ->withProperties(array_merge(
+                    ['types' => $this->filters['resource_type'] ?? []],
+                    request()->except('types'),
+                    ['referrer' => request()->headers->get('referer')],
+                    ['user_agent' => request()->server('HTTP_USER_AGENT')],
+                ))
+                ->log((! empty($this->q) ? $this->q : '*'));
+        } catch (\Exception $e) {
+            logger()->error($e->getMessage());
+        }
     }
 
     public function updatedQ($value, $name)
