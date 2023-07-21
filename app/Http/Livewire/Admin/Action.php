@@ -131,7 +131,7 @@ class Action extends Component
 
         $this->action = $this->action->fresh(['assignee', 'finisher']);
         activity('activity')
-            ->on(Page::find($this->action->actionable_id))
+            ->on($this->action->actionable)
             ->event('completed')
             ->log($this->action->description.' completed by <span class="user">'.$this->action->finisher->name.'</span>');
     }

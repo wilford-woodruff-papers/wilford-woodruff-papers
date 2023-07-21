@@ -317,6 +317,9 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
             'decade' => $this->dates()->first()?->date ? (floor($this->dates()->first()?->date?->year / 10) * 10) : null,
             'year' => $this->dates()->first()?->date ? $this->dates()->first()?->date?->year : null,
             'date' => $this->dates()->first()?->date ? $this->dates()->first()?->date?->timestamp : null,
+            'dates' => $this->dates()->pluck('date')->map(function ($date) {
+                    return $date->toDateString();
+                })->toArray(),
             'topics' => $this->topics->pluck('name')->map(function ($topic) {
                     return str($topic)->title();
                 })->toArray(),
