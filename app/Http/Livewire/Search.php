@@ -12,6 +12,7 @@ use Asantibanez\LivewireCharts\Models\LineChartModel;
 use Carbon\Carbon;
 use Livewire\Component;
 use Meilisearch\Client;
+use Spatie\Regex\Regex;
 
 class Search extends Component
 {
@@ -94,6 +95,10 @@ class Search extends Component
             ],
         ];
 
+        if ($this->isDate() && ! str_contains($this->q, '"')) {
+            $this->q = '"'.$this->q.'"';
+        }
+
         $client = new Client(config('scout.meilisearch.host'), config('scout.meilisearch.key'));
 
         $index = $client->index((app()->environment('production') ? 'resources' : 'dev-resources'));
@@ -160,6 +165,12 @@ class Search extends Component
             'total' => $result->getTotalHits(),
         ])
             ->layout('layouts.guest', ['title' => 'Search']);
+    }
+
+    public function isDate()
+    {
+        return Regex::match('/^\d{4}-\d{2}-\d{2}$/', $this->q)->hasMatch()
+            || Regex::match('/^\d{4}\/\d{2}\/\d{2}$/', $this->q)->hasMatch();
     }
 
     public function logSearch()
