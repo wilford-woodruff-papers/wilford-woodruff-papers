@@ -54,7 +54,7 @@ class Quote extends Model
             'type' => 'Quote',
             'url' => ($this->page ? route('pages.show', ['item' => $this->page->item?->uuid, 'page' => $this->page?->uuid]) : ''),
             'thumbnail' => $this->page->getFirstMedia()?->getUrl('thumb'),
-            'name' => $this->page->full_name,
+            'name' => 'Page '.$this->page->order.' of '.str($this->page->parent?->name)->stripBracketedID()->toString(),
             'description' => strip_tags($this->text),
             'decade' => null,
             'year' => null,
@@ -76,6 +76,7 @@ class Quote extends Model
             ->with([
                 'page',
                 'page.item',
+                'page.parent',
                 'page.media',
                 'topics',
             ])
