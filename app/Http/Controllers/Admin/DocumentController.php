@@ -44,6 +44,10 @@ class DocumentController extends Controller
             'type_id' => 'required',
             'pcf_unique_id_prefix' => 'sometimes|required|string',
             'manual_page_count' => 'integer',
+            'section_count' => 'exclude_one',
+        ], [
+            'type_id.required' => 'You must select a document type.',
+            'section_count.exclude_one' => 'You probably don\'t need to create a document with just one section. Sections are used for larger documents where the pages have been split into 20-50 page sections.',
         ]);
 
         $item->fill($validated);

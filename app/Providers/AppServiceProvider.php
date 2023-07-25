@@ -9,6 +9,7 @@ use App\Macros\StripBracketedID;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Stringable;
 
@@ -37,6 +38,10 @@ class AppServiceProvider extends ServiceProvider
         if (! app()->environment('production')) {
             Mail::alwaysTo('test@wilfordwoodruffpapers.org');
         }
+
+        Validator::extend('exclude_one', function ($attribute, $value, $parameters, $validator) {
+            return $value != 1;
+        });
 
         Model::preventLazyLoading(! $this->app->isProduction());
         Model::preventAccessingMissingAttributes(! $this->app->isProduction());
