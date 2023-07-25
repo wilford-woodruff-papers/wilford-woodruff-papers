@@ -316,7 +316,7 @@
                                                  class="object-cover w-full bg-gray-100 aspect-[16/9] sm:aspect-[2/1] lg:aspect-[3/2]">
                                             <div class="absolute inset-0 ring-1 ring-inset ring-gray-900/10"></div>
                                         @else
-                                            <div class="flex justify-center items-center w-full text-white bg-gray-400 aspect-[16/9]">
+                                            <div class="flex justify-center items-center w-full text-white bg-gray-400 aspect-[16/9] sm:aspect-[2/1] lg:aspect-[3/2]">
                                                 @if(in_array(data_get($hit, 'resource_type'), ['Media']))
                                                     @includeFirst(['search.'.str(data_get($hit, 'type'))->snake(), 'search.generic'])
                                                 @else
