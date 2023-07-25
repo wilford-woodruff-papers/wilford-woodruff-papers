@@ -111,6 +111,7 @@
                                                class="block py-2 pr-10 pl-3 mt-1 w-full text-base rounded-md border-gray-300 sm:text-sm focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none"
                                                max="40"
                                         />
+                                        <p class="mt-3 text-sm leading-6 text-red-800">Only add sections if the document has been split up into multiple sections. Usually if a document is under 20 pages this field will not be used.</p>
                                     </div>
                                 </div>
                             </div>
