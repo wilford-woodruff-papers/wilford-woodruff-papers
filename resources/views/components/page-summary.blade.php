@@ -15,14 +15,14 @@
             <div>
                 <span class="text-gray-600">Part of </span>
                 <span class="text-secondary">
-                    <a href="{{ route('documents.show', ['item' => $page->item]) }}">{{ \Illuminate\Support\Str::of($page->item?->name)->replaceMatches('/\[.*?\]/', '')->trim() }}</a>
+                    <a href="{{ route('documents.show', ['item' => $page->parent]) }}">{{ \Illuminate\Support\Str::of($page->parent?->name)->replaceMatches('/\[.*?\]/', '')->trim() }}</a>
                 </span>
             </div>
             <div>
                 @auth()
                     @hasanyrole('CFM Researcher')
                     <div>
-                        @if($page->item?->enabled)
+                        @if($page->parent?->enabled)
                             <span class="inline-flex items-center py-0.5 px-2.5 text-xs font-medium text-green-800 bg-green-100 rounded-full">
                                     {{ __('Published') }}
                                 </span>
