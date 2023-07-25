@@ -162,6 +162,7 @@ class IndexContentToMeilisearchCommand extends Command
             ->with([
                 'page',
                 'page.item',
+                'page.parent',
                 'page.media',
                 'topics',
             ])
