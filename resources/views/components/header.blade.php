@@ -71,11 +71,7 @@
                                         <a href="{{ route('places') }}">Places</a>
                                         <a href="{{ route('topics') }}">Topics</a>
                                         <a href="{{ route('timeline') }}">Timeline</a>
-                                        @hasanyrole('Editor|Admin')
-                                            <a href="{{ route('new-search') }}">Search</a>
-                                        @else
-                                            <a href="{{ route('advanced-search') }}">Search</a>
-                                        @endhasanyrole
+                                        <a href="{{ route('advanced-search') }}">Search</a>
                                         <a href="{{ route('donate') }}">Donate</a>
                                         <a href="{{ route('get-involved.index') }}">Get Involved</a>
                                         @auth()
@@ -161,12 +157,7 @@
                                 <div class="mr-0 mb-12 md:-mt-2 xl:-mt-8"
                                      id="search">
                                     <div>
-                                        @hasanyrole('Editor|Admin')
-                                            <form action="{{ route('new-search') }}" id="search-form">
-                                        @else
-                                            <form action="{{ route('advanced-search') }}" id="search-form">
-                                        @endhasanyrole
-
+                                        <form action="{{ route('advanced-search') }}" id="search-form">
                                             <div class="flex mt-1 max-w-full shadow-sm">
                                                 <div class="flex relative flex-grow items-stretch focus-within:z-10">
                                                     <input class="block pl-2 w-full rounded-none border-white sm:text-sm"
@@ -175,13 +166,6 @@
                                                            value="{{ request('q') }}"
                                                            placeholder="Search website"
                                                            aria-label="Search website">
-                                                    <input type="hidden" name="people" value="1" />
-                                                    @foreach(\App\Models\Type::all() as $type)
-                                                        <input type="hidden"
-                                                               name="types[]"
-                                                               type="checkbox"
-                                                               value="{{ $type->id }}" />
-                                                    @endforeach
                                                 </div>
                                                 <button class="inline-flex relative items-center py-2 px-4 -ml-px space-x-2 text-sm font-medium text-gray-700 bg-white hover:bg-gray-100 focus:ring-2 focus:outline-none">
                                                     <svg class="w-5 h-5 text-secondary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -351,15 +335,9 @@
                             </div>
                         </div>
                     </div>
-                    @hasanyrole('Editor|Admin')
-                        <a href="{{ route('new-search') }}"
-                           class="hidden lg:block"
-                        >Search</a>
-                    @else
-                        <a href="{{ route('advanced-search') }}"
-                           class="hidden lg:block"
-                        >Search</a>
-                    @endhasanyrole
+                    <a href="{{ route('advanced-search') }}"
+                       class="hidden lg:block"
+                    >Search</a>
                 </div>
                 <div class="flex mt-4 space-x-4 md:mt-0 md:ml-4 md:space-x-10">
                     {{--<a href="/s/wilford-woodruff-papers/page/about">About</a>--}}

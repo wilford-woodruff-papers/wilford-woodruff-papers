@@ -122,7 +122,7 @@ Route::middleware([])->group(function () {
         Route::get('/new-search', \App\Http\Livewire\Search::class)->name('new-search');
     });
 
-    Route::get('/advanced-search', \App\Http\Controllers\SearchController::class)->name('advanced-search');
+    Route::get('/advanced-search', \App\Http\Livewire\Search::class)->name('advanced-search');
     Route::get('/search', function () {
         return redirect()->route('advanced-search');
     })->name('search');

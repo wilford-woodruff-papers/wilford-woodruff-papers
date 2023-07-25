@@ -46,6 +46,7 @@ class IndexContentToMeilisearchCommand extends Command
                 'type',
             ])
             ->where('enabled', true)
+            ->whereNull('item_id')
             ->chunkById($this->chunkSize, function (Collection $items) use (&$count) {
                 $items->searchable();
                 $this->info('Indexed Count: '.($count += $items->count()));
