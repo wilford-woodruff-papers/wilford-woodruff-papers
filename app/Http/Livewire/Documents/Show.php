@@ -36,6 +36,10 @@ class Show extends Component
     {
         $this->item = $item;
 
+        if (! empty($this->item->item_id)) {
+            return redirect()->route('documents.show', ['item' => $this->item->item]);
+        }
+
         $sourceNotesProperty = Property::query()
             ->firstWhere('slug', 'source-notes-displays-publicly');
 

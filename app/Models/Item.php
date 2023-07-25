@@ -361,7 +361,7 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
             'url' => route('documents.show', ['item' => $this->uuid]),
             'thumbnail' => $this->firstPage?->getFirstMedia()?->getUrl('thumb'),
             'uuid' => $this->uuid,
-            'name' => $this->name,
+            'name' => str($this->name)->stripBracketedID()->toString(),
         ];
     }
 
@@ -385,6 +385,6 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
 
     public function shouldBeSearchable(): bool
     {
-        return (bool) $this->enabled;
+        return (bool) $this->enabled && empty($this->item_id);
     }
 }
