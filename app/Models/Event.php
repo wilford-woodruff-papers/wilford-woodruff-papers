@@ -46,7 +46,7 @@ class Event extends Model implements HasMedia
             $thumbnail = $this->getFirstMediaUrl('default', 'thumb');
         }
 
-        return '';
+        return $thumbnail;
     }
 
     public function getDisplayDateAttribute()
