@@ -85,7 +85,7 @@ class PlacesExport implements FromQuery, ShouldQueue, WithMapping, WithHeadings
             $place->latitude,
             $place->longitude,
             route('subjects.show', ['subject' => $place->slug]),
-            $place->total_usage_count,
+            ($place->tagged_count + $place->text_count),
         ];
     }
 }
