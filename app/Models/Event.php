@@ -210,6 +210,7 @@ class Event extends Model implements HasMedia
             'name' => $this->text,
             'description' => '',
             'date' => $this->start_at ? $this->start_at?->timestamp : null,
+            'year' => $this->start_at ? $this->start_at?->year : null,
         ];
     }
 

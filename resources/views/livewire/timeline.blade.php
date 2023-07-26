@@ -6,6 +6,9 @@
     <div x-data="{
             event: @entangle('event'),
             activeEvent: null,
+            @foreach($groups as $group)
+                {{ str($group)->snake() }}: true,
+            @endforeach
             isOverlap: $overlap('#event-selector')
         }"
          x-init="$watch('activeEvent', (value, oldValue) => $wire.set('event', value))"
@@ -15,14 +18,15 @@
                 Left Sidebar
             </div>
         </div>
-        <div class="col-span-3 bg-gray-400">
+        <div class="col-span-3 pb-96 bg-gray-400">
             Main
             <div x-ref="container" class="relative pt-32">
 
                 <div class="sticky top-32 z-10 bg-white">
                     <div class="grid grid-cols-5 items-center text-center">
                         @foreach($groups as $group)
-                            <div>
+                            <div x-on:click="{{ str($group)->snake() }} = ! {{ str($group)->snake() }}"
+                                 class="cursor-pointer">
                                 {{ $group }}
                             </div>
                         @endforeach
@@ -33,17 +37,43 @@
                     </div>
                 </div>
                 <div class="">
+                    @php
+                        $previousYear = null;
+                    @endphp
                     @foreach ($hits as $key => $events)
-                        <div class="grid grid-cols-5 gap-x-4 px-4">
+                        @php
+                            $count = 0;
+                            $currentYear = \Carbon\Carbon::createFromTimestamp($key)->year;
+                        @endphp
+                        @if(($previousYear < $currentYear) && ($currentYear % 10) == 0)
+                            <div class="flex sticky top-10 justify-center items-center my-8 w-full h-24 text-4xl font-bold text-white bg-primary">
+                                {{ $currentYear }}
+                            </div>
+                        @endif
+                        <div class="grid grid-cols-6 px-4 mt-4">
+                            <div>
+                                {{ \Carbon\Carbon::createFromTimestamp($key)->toFormattedDateString() }}
+                            </div>
                             @foreach($groups as $group)
-                                <div class="{{ str($group)->slug() }} col-span-1">
+                                @php
+                                    if($count == 0){
+                                      $count = $events->where('type', $group)->count();
+                                    }                                    
+                                @endphp
+                                <div x-show="{{ str($group)->snake() }}"
+                                     @class([
+                                        str($group)->slug().' col-span-1',
+                                        'border-t-2' => $count == 0,
+                                      ])
+                                     class="{{ str($group)->slug() }} col-span-1"
+                                >
                                     @foreach($events->where('type', $group)->all() as $hit)
                                         <div x-on:click="activeEvent = '{{ str($hit['id'])->after('_') }}'"
                                              id="{{ $hit['id'] }}"
                                              class="z-10 w-full h-auto cursor-pointer"
                                         >
-                                            <div @scroll.window.throttle.100ms="$overlap('#event-selector') ? activeEvent = '{{ str($hit['id'])->after('_') }}' : null"
-                                                 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600"
+                                            <div @scroll.window.throttle.50ms="$overlap('#event-selector') ? activeEvent = '{{ str($hit['id'])->after('_') }}' : null"
+                                                 class="text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600"
                                                  id="{{ $hit['id'] }}"
                                             >
                                                 <img src="{{ data_get($hit, 'thumbnail') }}"
@@ -56,6 +86,12 @@
                                 </div>
                             @endforeach
                         </div>
+
+                        @php
+                            if($currentYear > $previousYear){
+                                $previousYear = $currentYear;
+                            }
+                        @endphp
                     @endforeach
                 </div>
             </div>
