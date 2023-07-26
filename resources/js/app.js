@@ -5,6 +5,7 @@ import intersect from "@alpinejs/intersect";
 import focus from "@alpinejs/focus";
 import collapse from "@alpinejs/collapse";
 import persist from "@alpinejs/persist";
+import overlap from "alpinejs-overlap";
 
 window.rangy = require("./rangy-core");
 window.classapplier = require('./rangy-classapplier');
@@ -15,6 +16,7 @@ Alpine.plugin(intersect)
 Alpine.plugin(focus)
 Alpine.plugin(collapse)
 Alpine.plugin(persist)
+Alpine.plugin(overlap)
 Alpine.start()
 
 // A function is used for dragging and moving
