@@ -39,6 +39,7 @@
                                 <div class="{{ str($group)->slug() }} col-span-1">
                                     @foreach($events->where('type', $group)->all() as $hit)
                                         <div x-on:click="activeEvent = '{{ str($hit['id'])->after('_') }}'"
+                                             id="{{ $hit['id'] }}"
                                              class="z-10 w-full h-auto cursor-pointer"
                                         >
                                             <div @scroll.window.throttle.100ms="$overlap('#event-selector') ? activeEvent = '{{ str($hit['id'])->after('_') }}' : null"
@@ -47,9 +48,8 @@
                                             >
                                                 <img src="{{ data_get($hit, '_formatted.thumbnail') }}"
                                                      alt=""
-                                                     title="{{ data_get($hit, 'name') }}"
                                                      class="object-cover w-full bg-gray-100 aspect-[16/9] sm:aspect-[2/1] lg:aspect-[3/2]">
-                                                <div class="absolute inset-0 ring-1 ring-inset ring-gray-900/10"></div>
+                                                {{--<div class="absolute inset-0 ring-1 ring-inset ring-gray-900/10"></div>--}}
                                             </div>
                                         </div>
                                     @endforeach
@@ -62,20 +62,22 @@
         </div>
         <div class="relative col-span-1 bg-gray-200">
 
-            <div class="sticky top-10">
+            <div class="sticky top-10 py-8 px-4 h-screen bg-primary">
                 Right Sidebar
                 @if($event)
                     @php
                         $currentEvent = \App\Models\Event::find($event);
                     @endphp
                     <div>
+                        <img src="{{ $currentEvent->thumbnail_url }}"
+                             alt=""
+                             class="w-full h-auto">
+                    </div>
+                    <div class="py-4 text-2xl text-white">
+                        {{ $currentEvent->display_date }}
+                    </div>
+                    <div class="text-lg text-white">
                         {!! str($currentEvent->text)->addScriptureLinks() !!}
-                    </div>
-                    <div>
-
-                    </div>
-                    <div>
-
                     </div>
                 @endif
             </div>
