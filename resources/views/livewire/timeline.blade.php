@@ -46,7 +46,7 @@
                                                  class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600"
                                                  id="{{ $hit['id'] }}"
                                             >
-                                                <img src="{{ data_get($hit, '_formatted.thumbnail') }}"
+                                                <img src="{{ data_get($hit, 'thumbnail') }}"
                                                      alt=""
                                                      class="object-cover w-full bg-gray-100 aspect-[16/9] sm:aspect-[2/1] lg:aspect-[3/2]">
                                                 {{--<div class="absolute inset-0 ring-1 ring-inset ring-gray-900/10"></div>--}}

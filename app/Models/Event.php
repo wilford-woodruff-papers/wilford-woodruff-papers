@@ -206,7 +206,7 @@ class Event extends Model implements HasMedia
             'resource_type' => 'Timeline',
             'type' => $this->group,
             'url' => route('timeline').'#event-'.$this->id,
-            'thumbnail' => $this->thumbnail_url, // TODO: Add thumbnail
+            'thumbnail' => $this->thumbnail_url,
             'name' => $this->text,
             'description' => '',
             'date' => $this->start_at ? $this->start_at?->timestamp : null,
