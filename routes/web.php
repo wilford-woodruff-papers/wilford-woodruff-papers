@@ -120,6 +120,7 @@ Route::middleware([])->group(function () {
         Route::get('/map', \App\Http\Livewire\Map::class)->name('map');
         Route::get('/map/locations', \App\Http\Controllers\MapLocationsController::class)->name('map.locations');
         Route::get('/new-search', \App\Http\Livewire\Search::class)->name('new-search');
+        Route::get('/new-timeline', \App\Http\Livewire\Timeline::class)->name('new-timeline');
     });
 
     Route::get('/advanced-search', \App\Http\Livewire\Search::class)->name('advanced-search');

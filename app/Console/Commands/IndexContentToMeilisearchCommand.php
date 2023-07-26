@@ -130,6 +130,7 @@ class IndexContentToMeilisearchCommand extends Command
         Event::query()
             ->with([
                 'media',
+                'photos',
             ])
             ->chunkById($this->chunkSize, function (Collection $items) use (&$count) {
                 $items->searchable();
