@@ -82,26 +82,40 @@
                                              class="z-10 w-full h-auto cursor-pointer"
                                         >
                                             <div @scroll.window.throttle.50ms="$overlap('#event-selector') ? event = {image: '{{ data_get($hit, 'thumbnail') }}', date: '{{ data_get($hit, 'display_date') }}', text: '{{ addslashes(str($hit['name'])->addScriptureLinks()->toString()) }}'} : null"
-                                                 class="relative text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600"
+                                                 class="relative h-10 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600"
                                                  id="{{ $hit['id'] }}"
                                             >
                                                 <div @class([
-                                                        'absolute text-sm font-normal bg-white p-1 w-64',
-                                                        'right-[-120%]' => ($key <= 2),
-                                                        'left-[-120%]' => ($key > 2),
+                                                        'absolute w-80 text-sm font-normal bg-white hover:z-10',
+                                                        'left-0' => ($key <= 2),
+                                                        'right-0' => ($key > 2),
                                                     ])>
-                                                    <div class="">
-                                                        <p class="font-semibold">
-                                                            {{ data_get($hit, 'display_date') }}
-                                                        </p>
-                                                        <p class="line-clamp-1">
-                                                            {{ str($hit['name'])->limit(40, '...') }}
-                                                        </p>
+                                                    <div class="flex">
+                                                        <div @class([
+                                                                'p-1',
+                                                                'order-2' => ($key <= 2),
+                                                                'order-1' => ($key > 2),
+                                                            ])>
+                                                            <div class="">
+                                                                <p class="font-semibold">
+                                                                    {{ data_get($hit, 'display_date') }}
+                                                                </p>
+                                                                <p class="line-clamp-1">
+                                                                    {{ str($hit['name'])->limit(40, '...') }}
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <div @class([
+                                                                'flex-0 w-20',
+                                                                'order-1' => ($key <= 2),
+                                                                'order-2' => ($key > 2),
+                                                            ])>
+                                                            <img src="{{ data_get($hit, 'thumbnail') }}"
+                                                                 alt=""
+                                                                 class="object-cover object-top mx-auto w-full bg-gray-100 aspect-[16/9] sm:aspect-[2/1] lg:aspect-[3/2]">
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <img src="{{ data_get($hit, 'thumbnail') }}"
-                                                     alt=""
-                                                     class="object-cover mx-auto w-1/3 bg-gray-100 aspect-[16/9] sm:aspect-[2/1] lg:aspect-[3/2]">
                                                 {{--<div class="absolute inset-0 ring-1 ring-inset ring-gray-900/10"></div>--}}
                                             </div>
                                         </div>
