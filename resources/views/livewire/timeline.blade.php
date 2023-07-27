@@ -117,7 +117,7 @@
                                                  id="{{ $hit['id'] }}"
                                             >
                                                 <div @class([
-                                                        'absolute w-80 text-sm font-normal bg-white hover:z-10',
+                                                        'absolute w-[22rem] text-sm font-normal bg-white hover:z-10',
                                                         'left-2' => ($key <= 2),
                                                         'right-2' => ($key > 2),
                                                     ])>
