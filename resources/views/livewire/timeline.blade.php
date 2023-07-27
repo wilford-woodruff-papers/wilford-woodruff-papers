@@ -58,7 +58,7 @@
                                 @php
                                     if($count == 0){
                                       $count = $events->where('type', $group)->count();
-                                    }                                    
+                                    }
                                 @endphp
                                 <div x-show="{{ str($group)->snake() }}"
                                      @class([
