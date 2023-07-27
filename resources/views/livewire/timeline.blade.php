@@ -24,7 +24,8 @@
             <div x-ref="container" class="relative pt-32">
 
                 <div class="sticky top-32 z-10 bg-white">
-                    <div class="grid grid-cols-5 items-center text-center">
+                    <div class="grid grid-cols-6 items-center text-center">
+                        <div></div>
                         @foreach($groups as $group)
                             <div x-on:click="{{ str($group)->snake() }} = ! {{ str($group)->snake() }}"
                                  class="cursor-pointer">
