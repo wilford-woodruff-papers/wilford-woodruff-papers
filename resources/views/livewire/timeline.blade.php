@@ -45,10 +45,16 @@
                             $count = 0;
                             $currentYear = \Carbon\Carbon::createFromTimestamp($key)->year;
                         @endphp
-                        @if(($previousYear < $currentYear) && ($currentYear % 10) == 0)
-                            <div class="flex sticky top-10 justify-center items-center my-8 w-full h-24 text-4xl font-bold text-white bg-primary">
-                                {{ $currentYear }}
-                            </div>
+                        @if(($previousYear < $currentYear))
+                            @if(($currentYear % 10) == 0)
+                                <div class="flex sticky top-10 justify-center items-center my-8 w-full h-24 text-4xl font-bold text-white bg-primary">
+                                    {{ $currentYear }}
+                                </div>
+                            @else
+                                <div class="flex items-center my-2 w-full text-2xl font-bold text-gray-900">
+                                    {{ $currentYear }}
+                                </div>
+                            @endif
                         @endif
                         <div class="grid grid-cols-6 px-4 mt-4">
                             <div>
