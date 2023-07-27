@@ -86,7 +86,7 @@
                                                  id="{{ $hit['id'] }}"
                                             >
                                                 <div @class([
-                                                        'absolute text-sm font-normal bg-white p-1 w-60',
+                                                        'absolute text-sm font-normal bg-white p-1 w-64',
                                                         'right-[-120%]' => ($key <= 2),
                                                         'left-[-120%]' => ($key > 2),
                                                     ])>
