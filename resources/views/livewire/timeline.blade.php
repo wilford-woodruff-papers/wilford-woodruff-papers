@@ -4,7 +4,8 @@
     </x-slot>
 
     <div x-data="{
-            event: @entangle('event'),
+            {{--event: @entangle('event'),--}}
+            event: {image: '', date: '', text: ''},
             activeEvent: null,
             @foreach($groups as $group)
                 {{ str($group)->snake() }}: true,
@@ -74,11 +75,11 @@
                                      class="{{ str($group)->slug() }} col-span-1"
                                 >
                                     @foreach($events->where('type', $group)->all() as $hit)
-                                        <div x-on:click="activeEvent = '{{ str($hit['id'])->after('_') }}'"
+                                        <div x-on:click="event = {image: '{{ data_get($hit, 'thumbnail') }}', date: '{{ data_get($hit, 'display_date') }}', text: '{{ addslashes(str($hit['name'])->addScriptureLinks()->toString()) }}'}"
                                              id="{{ $hit['id'] }}"
                                              class="z-10 w-full h-auto cursor-pointer"
                                         >
-                                            <div @scroll.window.throttle.50ms="$overlap('#event-selector') ? activeEvent = '{{ str($hit['id'])->after('_') }}' : null"
+                                            <div @scroll.window.throttle.50ms="$overlap('#event-selector') ? event = {image: '{{ data_get($hit, 'thumbnail') }}', date: '{{ data_get($hit, 'display_date') }}', text: '{{ addslashes(str($hit['name'])->addScriptureLinks()->toString()) }}'} : null"
                                                  class="text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600"
                                                  id="{{ $hit['id'] }}"
                                             >
@@ -106,7 +107,7 @@
 
             <div class="sticky top-10 py-8 px-4 h-screen bg-primary">
                 Right Sidebar
-                @if($event)
+                {{--@if($event)
                     @php
                         $currentEvent = \App\Models\Event::find($event);
                     @endphp
@@ -121,7 +122,20 @@
                     <div class="text-lg text-white">
                         {!! str($currentEvent->text)->addScriptureLinks() !!}
                     </div>
-                @endif
+
+
+                @endif--}}
+                <div>
+                    <img x-bind:src="event.image"
+                         alt=""
+                         class="w-full h-auto">
+                </div>
+                <div x-text="event.date"
+                     class="py-4 text-2xl text-white">
+                </div>
+                <div x-html="event.text"
+                     class="text-lg text-white">
+                </div>
             </div>
         </div>
     </div>
