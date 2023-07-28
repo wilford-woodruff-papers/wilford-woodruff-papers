@@ -49,9 +49,8 @@ class Timeline extends Component
             'filter' => $this->buildFilterSet(),
         ]);
 
+        // TODO: This should be calculated and be the first and last years in the results.
         $yearList = range(1807, 1900);
-        /*$years = array_combine($years, array_fill(0, count($years), []));
-        $yearList = collect($years);*/
 
         $monthList = collect([
             'January' => [],

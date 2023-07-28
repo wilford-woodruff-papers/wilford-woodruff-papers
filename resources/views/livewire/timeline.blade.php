@@ -4,7 +4,6 @@
     </x-slot>
 
     <div x-data="{
-            {{--event: @entangle('event'),--}}
             event: {image: '', date: '', text: ''},
             activeEvent: null,
             @foreach($groups as $group)
@@ -42,16 +41,9 @@
                     <div class="flex sticky top-0 z-10 justify-center items-center my-8 w-full text-4xl font-bold text-white h-18 bg-primary">
                         1800
                     </div>
-                    @php
-                        //$previousYear = null;
-                        //$previousDate = null;
-                        //$currentYear = 1800;
-                    @endphp
                     @foreach ($years as $year => $months)
                         @php
                             $count = 0;
-                            //$currentYear = $key;
-                            //$currentDate = \Carbon\Carbon::createFromTimestamp($key);
                         @endphp
                         @if(($year % 10) == 0)
                             <div class="grid grid-cols-6 px-4 h-8 divide-x divide-slate-200">
@@ -89,19 +81,89 @@
                                 <div></div>
                             </div>
                         @endif
-                        {{--
-                        TODO: This logic isn't quite right.
-                                I think I want to put in a line for every missing month not just the months between events.
-
-                                Idea:
-                                    Group by Year and then month.
-                                    Loop through year. Create an array of months. Merge the months from each year.
-                                    Then loop through each month and if there are no events for that month, add a line.
-
-                         --}}
-                        {{--@if(! $loop->first && ( $monthDifference = $currentDate->diffInMonths($previousDate) ) > 0)
-                            @foreach( range(2, min([12, $monthDifference])) as $month)
-                                <div class="grid grid-cols-6 px-4 h-2 divide-x divide-slate-200">
+                        @foreach($months as $month => $monthEvents)
+                            @if(count($monthEvents) > 0)
+                                <div class="grid grid-cols-6 px-4 h-8 divide-x divide-slate-200">
+                                    <div class="font-semibold">
+                                        {{ $month }}
+                                    </div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                                @foreach($monthEvents->groupBy('date') as $events)
+                                        @php
+                                            $count = 0;
+                                        @endphp
+                                        <div class="grid grid-cols-6 px-4 divide-x divide-slate-200 min-h-[3.5rem]">
+                                            <div class="border-t border-gray-400 border-1">
+                                            </div>
+                                            @foreach($groups as $key => $group)
+                                                @php
+                                                    if($count == 0){
+                                                      $count = $events->where('type', $group)->count();
+                                                    }
+                                                @endphp
+                                                <div x-show="{{ str($group)->snake() }}"
+                                                     @class([
+                                                        str($group)->slug().' col-span-1',
+                                                        'border-t !border-t-gray-400 border-1' => $count == 0,
+                                                      ])
+                                                     class="{{ str($group)->slug() }} col-span-1"
+                                                >
+                                                    @foreach($events->where('type', $group)->all() as $hit)
+                                                        <div x-on:click="event = {image: '{{ data_get($hit, 'thumbnail') }}', date: '{{ data_get($hit, 'display_date') }}', text: '{{ addslashes(str($hit['name'])->addScriptureLinks()->toString()) }}'}"
+                                                             id="{{ $hit['id'] }}"
+                                                             class="z-10 w-full h-14 cursor-pointer"
+                                                        >
+                                                            <div @scroll.window.throttle.50ms="$overlap('#event-selector') ? event = {image: '{{ data_get($hit, 'thumbnail') }}', date: '{{ data_get($hit, 'display_date') }}', text: '{{ addslashes(str($hit['name'])->addScriptureLinks()->toString()) }}'} : null"
+                                                                 class="relative h-10 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600"
+                                                                 id="{{ $hit['id'] }}"
+                                                            >
+                                                                <div @class([
+                                                                    'absolute w-[22rem] text-sm font-normal bg-white hover:z-10 drop-shadow-md',
+                                                                    'left-2' => ($key <= 2),
+                                                                    'right-2' => ($key > 2),
+                                                                ])>
+                                                                    <div class="flex">
+                                                                        <div @class([
+                                                                            'flex-1 p-1',
+                                                                            'order-2' => ($key <= 2),
+                                                                            'order-1' => ($key > 2),
+                                                                        ])>
+                                                                            <div class="">
+                                                                                <p class="font-semibold">
+                                                                                    {{ data_get($hit, 'display_date') }}
+                                                                                </p>
+                                                                                <p class="line-clamp-1">
+                                                                                    {{ str($hit['name'])->limit(40, '...') }}
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
+                                                                        @if(data_get($hit, 'thumbnail'))
+                                                                            <div @class([
+                                                                                'flex-0',
+                                                                                'order-1' => ($key <= 2),
+                                                                                'order-2' => ($key > 2),
+                                                                            ])>
+                                                                                <img src="{{ data_get($hit, 'thumbnail') }}"
+                                                                                     alt=""
+                                                                                     class="object-cover object-top mx-auto w-20 bg-gray-100 aspect-[16/9] sm:aspect-[2/1] lg:aspect-[3/2]">
+                                                                            </div>
+                                                                        @endif
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                @endforeach
+                            @else
+                                <div class="grid grid-cols-6 px-4 h-8 divide-x divide-slate-200">
                                     <div>
                                         <div class="w-1/2 border-t border-gray-400 border-1"></div>
                                     </div>
@@ -111,113 +173,8 @@
                                     <div></div>
                                     <div></div>
                                 </div>
-                            @endforeach
-                        @endif--}}
-
-                    @foreach($months as $month => $monthEvents)
-                        @if(count($monthEvents) > 0)
-                            <div class="grid grid-cols-6 px-4 h-8 divide-x divide-slate-200">
-                                <div class="font-semibold">
-                                    {{ $month }}
-                                </div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                            </div>
-                            @foreach($monthEvents->groupBy('date') as $events)
-                                    @php
-                                        $count = 0;
-                                    @endphp
-                                    <div class="grid grid-cols-6 px-4 divide-x divide-slate-200 min-h-[3.5rem]">
-                                        <div class="border-t border-gray-400 border-1">
-                                        </div>
-                                        @foreach($groups as $key => $group)
-                                            @php
-                                                if($count == 0){
-                                                  $count = $events->where('type', $group)->count();
-                                                }
-                                            @endphp
-                                            <div x-show="{{ str($group)->snake() }}"
-                                                 @class([
-                                                    str($group)->slug().' col-span-1',
-                                                    'border-t !border-t-gray-400 border-1' => $count == 0,
-                                                  ])
-                                                 class="{{ str($group)->slug() }} col-span-1"
-                                            >
-                                                @foreach($events->where('type', $group)->all() as $hit)
-                                                    <div x-on:click="event = {image: '{{ data_get($hit, 'thumbnail') }}', date: '{{ data_get($hit, 'display_date') }}', text: '{{ addslashes(str($hit['name'])->addScriptureLinks()->toString()) }}'}"
-                                                         id="{{ $hit['id'] }}"
-                                                         class="z-10 w-full h-14 cursor-pointer"
-                                                    >
-                                                        <div @scroll.window.throttle.50ms="$overlap('#event-selector') ? event = {image: '{{ data_get($hit, 'thumbnail') }}', date: '{{ data_get($hit, 'display_date') }}', text: '{{ addslashes(str($hit['name'])->addScriptureLinks()->toString()) }}'} : null"
-                                                             class="relative h-10 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600"
-                                                             id="{{ $hit['id'] }}"
-                                                        >
-                                                            <div @class([
-                                                                'absolute w-[22rem] text-sm font-normal bg-white hover:z-10 drop-shadow-md',
-                                                                'left-2' => ($key <= 2),
-                                                                'right-2' => ($key > 2),
-                                                            ])>
-                                                                <div class="flex">
-                                                                    <div @class([
-                                                                        'flex-1 p-1',
-                                                                        'order-2' => ($key <= 2),
-                                                                        'order-1' => ($key > 2),
-                                                                    ])>
-                                                                        <div class="">
-                                                                            <p class="font-semibold">
-                                                                                {{ data_get($hit, 'display_date') }}
-                                                                            </p>
-                                                                            <p class="line-clamp-1">
-                                                                                {{ str($hit['name'])->limit(40, '...') }}
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-                                                                    @if(data_get($hit, 'thumbnail'))
-                                                                        <div @class([
-                                                                            'flex-0',
-                                                                            'order-1' => ($key <= 2),
-                                                                            'order-2' => ($key > 2),
-                                                                        ])>
-                                                                            <img src="{{ data_get($hit, 'thumbnail') }}"
-                                                                                 alt=""
-                                                                                 class="object-cover object-top mx-auto w-20 bg-gray-100 aspect-[16/9] sm:aspect-[2/1] lg:aspect-[3/2]">
-                                                                        </div>
-                                                                    @endif
-                                                                </div>
-                                                            </div>
-                                                            {{--<div class="absolute inset-0 ring-1 ring-inset ring-gray-900/10"></div>--}}
-                                                        </div>
-                                                    </div>
-                                                @endforeach
-                                            </div>
-                                        @endforeach
-                                    </div>
-                            @endforeach
-                        @else
-                            <div class="grid grid-cols-6 px-4 h-8 divide-x divide-slate-200">
-                                <div>
-                                    <div class="w-1/2 border-t border-gray-400 border-1"></div>
-                                </div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                                <div></div>
-                            </div>
-                        @endif
-                    @endforeach
-
-                        {{--@php
-                            if($currentYear > $previousYear){
-                                $previousYear = $currentYear;
-                            }
-                            if($currentDate > $previousDate){
-                                $previousDate = $currentDate;
-                            }
-                        @endphp--}}
+                            @endif
+                        @endforeach
                     @endforeach
                 </div>
             </div>
@@ -226,24 +183,6 @@
 
             <div class="sticky top-0 py-8 px-4 h-screen bg-primary">
                 Right Sidebar
-                {{--@if($event)
-                    @php
-                        $currentEvent = \App\Models\Event::find($event);
-                    @endphp
-                    <div>
-                        <img src="{{ $currentEvent->thumbnail_url }}"
-                             alt=""
-                             class="w-full h-auto">
-                    </div>
-                    <div class="py-4 text-2xl text-white">
-                        {{ $currentEvent->display_date }}
-                    </div>
-                    <div class="text-lg text-white">
-                        {!! str($currentEvent->text)->addScriptureLinks() !!}
-                    </div>
-
-
-                @endif--}}
                 <div>
                     <img x-bind:src="event.image"
                          alt=""
