@@ -44,12 +44,14 @@
                     </div>
                     @php
                         $previousYear = null;
+                        $previousDate = null;
                         //$currentYear = 1800;
                     @endphp
                     @foreach ($hits as $key => $events)
                         @php
                             $count = 0;
                             $currentYear = \Carbon\Carbon::createFromTimestamp($key)->year;
+                            $currentDate = \Carbon\Carbon::createFromTimestamp($key);
                         @endphp
                         @if(($previousYear < $currentYear))
                             @if(($currentYear % 10) == 0)
@@ -89,6 +91,21 @@
                                 </div>
                             @endif
                         @endif
+                        {{-- TODO: This logic isn't quite right. I think I want to put in a line for every missing month not just the months between events. --}}
+                        {{--@if(! $loop->first && ( $monthDifference = $currentDate->diffInMonths($previousDate) ) > 0)
+                            @foreach( range(2, min([12, $monthDifference])) as $month)
+                                <div class="grid grid-cols-6 px-4 h-2 divide-x divide-slate-200">
+                                    <div>
+                                        <div class="w-1/2 border-t border-gray-400 border-1"></div>
+                                    </div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                            @endforeach
+                        @endif--}}
                         <div class="grid grid-cols-6 px-4 h-14 divide-x divide-slate-200">
                             <div>
                                 {{ \Carbon\Carbon::createFromTimestamp($key)->toFormattedDateString() }}
@@ -158,6 +175,9 @@
                         @php
                             if($currentYear > $previousYear){
                                 $previousYear = $currentYear;
+                            }
+                            if($currentDate > $previousDate){
+                                $previousDate = $currentDate;
                             }
                         @endphp
                     @endforeach
