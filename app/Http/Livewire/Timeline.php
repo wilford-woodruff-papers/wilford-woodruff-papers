@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Meilisearch\Client;
 
@@ -28,8 +27,13 @@ class Timeline extends Component
 
     public function mount()
     {
-        $this->groups = DB::table('events')->select('group')->distinct('group')->pluck('group')->toArray();
-        //dd($this->groups);
+        $this->groups = [
+            'Personal',
+            'Family',
+            'Religious',
+            'LDS Church Context',
+            'Historical Context',
+        ];
     }
 
     public function render()
@@ -45,8 +49,34 @@ class Timeline extends Component
             'filter' => $this->buildFilterSet(),
         ]);
 
+        $monthList = collect([
+            'January' => [],
+            'February' => [],
+            'March' => [],
+            'April' => [],
+            'May' => [],
+            'June' => [],
+            'July' => [],
+            'August' => [],
+            'September' => [],
+            'October' => [],
+            'November' => [],
+            'December' => [],
+        ]);
+
+        $years = collect($result->getRaw()['hits'])
+            ->groupBy('year')
+            ->map(function ($events, $year) {
+                return collect($events)
+                    ->groupBy('month');
+            })->map(function ($events, $year) use ($monthList) {
+                $events = $events->sortBy('date');
+
+                return $monthList->merge($events);
+            });
+
         return view('livewire.timeline', [
-            'hits' => collect($result->getRaw()['hits'])->groupBy('date'),
+            'years' => $years,
         ])
             ->layout('layouts.guest');
     }
