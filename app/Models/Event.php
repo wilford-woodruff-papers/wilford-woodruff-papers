@@ -212,6 +212,7 @@ class Event extends Model implements HasMedia
             'date' => $this->start_at ? $this->start_at?->timestamp : null,
             'display_date' => $this->display_date,
             'year' => $this->start_at ? $this->start_at?->year : null,
+            'month' => $this->start_at ? $this->start_at?->month : null,
         ];
     }
 

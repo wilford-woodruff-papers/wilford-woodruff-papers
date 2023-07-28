@@ -23,7 +23,7 @@
             Main
             <div x-ref="container" class="relative pt-32">
 
-                <div class="sticky top-24 z-10">
+                <div class="sticky z-10 top-18">
                     <div class="grid z-50 grid-cols-6 items-center text-center bg-white">
                         <div></div>
                         @foreach($groups as $group)
@@ -39,7 +39,7 @@
                     </div>
                 </div>
                 <div class="">
-                    <div class="flex sticky top-0 z-10 justify-center items-center my-8 w-full h-24 text-4xl font-bold text-white bg-primary">
+                    <div class="flex sticky top-0 z-10 justify-center items-center my-8 w-full text-4xl font-bold text-white h-18 bg-primary">
                         1800
                     </div>
                     @php
@@ -64,7 +64,7 @@
                                     <div>&nbsp;</div>
                                 </div>
 
-                                <div class="flex sticky top-0 z-10 justify-center items-center w-full h-24 text-4xl font-bold text-white bg-primary">
+                                <div class="flex sticky top-0 z-10 justify-center items-center w-full text-4xl font-bold text-white h-18 bg-primary">
                                     {{ $currentYear }}
                                 </div>
 
@@ -91,7 +91,16 @@
                                 </div>
                             @endif
                         @endif
-                        {{-- TODO: This logic isn't quite right. I think I want to put in a line for every missing month not just the months between events. --}}
+                        {{--
+                        TODO: This logic isn't quite right.
+                                I think I want to put in a line for every missing month not just the months between events.
+
+                                Idea:
+                                    Group by Year and then month.
+                                    Loop through year. Create an array of months. Merge the months from each year.
+                                    Then loop through each month and if there are no events for that month, add a line.
+
+                         --}}
                         {{--@if(! $loop->first && ( $monthDifference = $currentDate->diffInMonths($previousDate) ) > 0)
                             @foreach( range(2, min([12, $monthDifference])) as $month)
                                 <div class="grid grid-cols-6 px-4 h-2 divide-x divide-slate-200">
