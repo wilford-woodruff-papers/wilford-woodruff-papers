@@ -49,6 +49,10 @@ class Timeline extends Component
             'filter' => $this->buildFilterSet(),
         ]);
 
+        $yearList = range(1807, 1900);
+        /*$years = array_combine($years, array_fill(0, count($years), []));
+        $yearList = collect($years);*/
+
         $monthList = collect([
             'January' => [],
             'February' => [],
@@ -66,6 +70,16 @@ class Timeline extends Component
 
         $years = collect($result->getRaw()['hits'])
             ->groupBy('year')
+            ->pipe(function ($events) use ($yearList) {
+                foreach ($yearList as $year) {
+                    ray($events->get($year));
+                    if (! $events->get($year)) {
+                        $events->put($year, []);
+                    }
+                }
+
+                return $events->sortKeys();
+            })
             ->map(function ($events, $year) {
                 return collect($events)
                     ->groupBy('month');
