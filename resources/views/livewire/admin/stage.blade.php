@@ -132,7 +132,7 @@
                                               'bg-[#d5a6bd]' =>  ($actionName == 'Stylization'),
                                               'bg-[#ea9999]' =>  ($actionName == 'Publish'),
                                         ])>
-                                            {{ $actionType['goal'] }}
+                                            {{ number_format($actionType['goal'], 0, ',') }}
                                         </td>
                                         <td title="{{ $actionName }}"
                                             @class([
@@ -143,7 +143,7 @@
                                               'bg-[#d5a6bd]' =>  ($actionName == 'Stylization'),
                                               'bg-[#ea9999]' =>  ($actionName == 'Publish'),
                                         ])>
-                                            {{ $actionType['completed'] }}
+                                            {{ number_format($actionType['completed'], 0, ',') }}
                                         </td>
                                         @if($actionName == 'Transcription')
                                             <td @class([
@@ -154,7 +154,7 @@
                                               'bg-[#d5a6bd]' =>  ($actionName == 'Stylization'),
                                               'bg-[#ea9999]' =>  ($actionName == 'Publish'),
                                         ])>
-                                                {{ $actionType['completed_crowd'] ?? 0 }}
+                                                {{ number_format($actionType['completed_crowd'], 0, ',') ?? 0 }}
                                             </td>
                                         @endif
                                         <td @class([
@@ -165,7 +165,7 @@
                                               'bg-[#d5a6bd]' =>  ($actionName == 'Stylization'),
                                               'bg-[#ea9999]' =>  ($actionName == 'Publish'),
                                         ])>
-                                            {{ $actionType['percentage'] }}%
+                                            {{ number_format($actionType['percentage'], 0, ',') }}%
                                         </td>
                                     @endforeach
                                 </tr>
@@ -176,18 +176,18 @@
                                     </td>
                                     @foreach($monthData as $actionName => $actionType)
                                         <td>
-                                            {{ $actionType['summary']['goal'] }}
+                                            {{ number_format($actionType['summary']['goal'], 0, ',') }}
                                         </td>
                                         <td>
-                                            {{ $actionType['summary']['completed'] }}
+                                            {{ number_format($actionType['summary']['completed'], 0, ',') }}
                                         </td>
                                         @if($actionName == 'Transcription')
                                             <td>
-                                                {{ $actionType['summary']['completed_crowd'] ?? 0 }}
+                                                {{ number_format($actionType['summary']['completed_crowd'], 0, ',') ?? 0 }}
                                             </td>
                                         @endif
                                         <td>
-                                            {{ $actionType['summary']['percentage'] }}%
+                                            {{ number_format($actionType['summary']['percentage'], 0, ',') }}%
                                         </td>
                                     @endforeach
                                 </tr>
@@ -204,7 +204,7 @@
                                                     return $tasks[$actionName]['goal'];
                                                 });
                                             @endphp
-                                            {{ $goal }}
+                                            {{ number_format($goal, 0, ',') }}
                                         </td>
                                         <td>
                                             @php
@@ -212,21 +212,23 @@
                                                 return $tasks[$actionName]['completed'];
                                             });
                                             @endphp
-                                            {{ $completed }}
+                                            {{ number_format($completed, 0, ',') }}
                                         </td>
                                         @if($actionName == 'Transcription')
                                             <td>
-                                                {{ $crowdCompleted = collect($docType)->sum(function($tasks) use ($actionName){
-                                                    return $tasks[$actionName]['completed_crowd'];
-                                                }) }}
+                                                @php
+                                                    $crowdCompleted = collect($docType)->sum(function($tasks) use ($actionName){
+                                                        return $tasks[$actionName]['completed_crowd'];
+                                                    });
+                                                @endphp
+                                                {{ number_format($crowdCompleted, 0, ',') }}
                                             </td>
                                         @endif
                                         <td>
-
                                             @php
                                                 $percentage = (($goal > 0) ? (intval(($completed / $goal) * 100)) : 0);
                                             @endphp
-                                            {{ $percentage }}%
+                                            {{ number_format($percentage, 0, ',') }}%
                                         </td>
                                     @endforeach
                                 </tr>
