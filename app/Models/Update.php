@@ -61,7 +61,7 @@ class Update extends Model implements HasMedia
             'resource_type' => 'Newsletter',
             'type' => $this->type,
             'url' => $this->url,
-            'thumbnail' => $this->getFirstMedia('images', ['primary' => true])?->getFullUrl('thumb'),
+            'thumbnail' => $this->getFirstMedia('images', ['primary' => true])?->getFullUrl(),
             'name' => $this->subject,
             'description' => strip_tags($this->content ?? ''),
             'date' => $this->publish_at ? $this->publish_at?->timestamp : null,
