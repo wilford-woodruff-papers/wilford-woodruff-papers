@@ -199,24 +199,34 @@
                                     </td>
                                     @foreach($monthData as $actionName => $actionType)
                                         <td>
-                                            {{ $goal = collect($docType)->sum(function($tasks) use ($actionName){
-                                                return $tasks[$actionName]['goal'];
-                                            }) }}
+                                            @php
+                                                $goal = collect($docType)->sum(function($tasks) use ($actionName){
+                                                    return $tasks[$actionName]['goal'];
+                                                });
+                                            @endphp
+                                            {{ $goal }}
                                         </td>
                                         <td>
-                                            {{ $completed = collect($docType)->sum(function($tasks) use ($actionName){
+                                            @php
+                                                $completed = collect($docType)->sum(function($tasks) use ($actionName){
                                                 return $tasks[$actionName]['completed'];
-                                            }) }}
+                                            });
+                                            @endphp
+                                            {{ $completed }}
                                         </td>
                                         @if($actionName == 'Transcription')
                                             <td>
-                                                {{ $completed = collect($docType)->sum(function($tasks) use ($actionName){
-                                                return $tasks[$actionName]['completed_crowd'];
-                                            }) }}
+                                                {{ $crowdCompleted = collect($docType)->sum(function($tasks) use ($actionName){
+                                                    return $tasks[$actionName]['completed_crowd'];
+                                                }) }}
                                             </td>
                                         @endif
                                         <td>
-                                            {{ (($goal > 0) ? intval($completed / $goal) * 100 : 0) }}%
+
+                                            @php
+                                                $percentage = (($goal > 0) ? (intval(($completed / $goal) * 100)) : 0);
+                                            @endphp
+                                            {{ $percentage }}%
                                         </td>
                                     @endforeach
                                 </tr>
