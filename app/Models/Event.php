@@ -213,6 +213,12 @@ class Event extends Model implements HasMedia
             'display_date' => $this->display_date,
             'year' => $this->start_at ? $this->start_at?->year : null,
             'month' => $this->start_at ? $this->start_at?->monthName : null,
+            'links' => $this->pages()->select('pages.full_name', 'pages.id')->get()->map(function ($page) {
+                return [
+                    'name' => addslashes($page->full_name),
+                    'url' => addslashes(route('short-url.page', ['hashid' => $page->hashid()])),
+                ];
+            }),
         ];
     }
 
@@ -226,6 +232,7 @@ class Event extends Model implements HasMedia
         return $query->with([
             'photos',
             'media',
+            'pages',
         ]);
     }
 

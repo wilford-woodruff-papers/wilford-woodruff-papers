@@ -4,7 +4,7 @@
     </x-slot>
 
     <div x-data="{
-            event: {image: '', date: '', text: ''},
+            event: {image: '', date: '', text: '', links: []},
             activeEvent: null,
             @foreach($groups as $group)
                 {{ str($group)->snake() }}: true,
@@ -114,11 +114,31 @@
                                                      class="{{ str($group)->slug() }} col-span-1"
                                                 >
                                                     @foreach($events->where('type', $group)->all() as $hit)
-                                                        <div x-on:click="event = {image: '{{ data_get($hit, 'thumbnail') }}', date: '{{ data_get($hit, 'display_date') }}', text: '{{ addslashes(str($hit['name'])->addScriptureLinks()->toString()) }}'}"
+                                                        <div x-on:click="event = {
+                                                                image: '{{ data_get($hit, 'thumbnail') }}',
+                                                                date: '{{ data_get($hit, 'display_date') }}',
+                                                                text: '{{ addslashes(str($hit['name'])->addScriptureLinks()->toString()) }}',
+                                                                links: [
+                                                                    @foreach(data_get($hit, 'links', []) as $link)
+                                                                        { name: '{{ $link['name'] }}',
+                                                                        url: '{{ $link['url'] }}'},
+                                                                    @endforeach
+                                                                ]
+                                                            }"
                                                              id="{{ $hit['id'] }}"
                                                              class="z-10 w-full h-14 cursor-pointer"
                                                         >
-                                                            <div @scroll.window.throttle.50ms="$overlap('#event-selector') ? event = {image: '{{ data_get($hit, 'thumbnail') }}', date: '{{ data_get($hit, 'display_date') }}', text: '{{ addslashes(str($hit['name'])->addScriptureLinks()->toString()) }}'} : null"
+                                                            <div @scroll.window.throttle.50ms="$overlap('#event-selector') ? event = {
+                                                                    image: '{{ data_get($hit, 'thumbnail') }}',
+                                                                    date: '{{ data_get($hit, 'display_date') }}',
+                                                                    text: '{{ addslashes(str($hit['name'])->addScriptureLinks()->toString()) }}',
+                                                                    links: [
+                                                                        @foreach(data_get($hit, 'links', []) as $link)
+                                                                            { name: '{{ $link['name'] }}',
+                                                                            url: '{{ $link['url'] }}'},
+                                                                        @endforeach
+                                                                    ]
+                                                                } : null"
                                                                  class="relative h-10 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600"
                                                                  id="{{ $hit['id'] }}"
                                                             >
@@ -193,6 +213,22 @@
                 </div>
                 <div x-html="event.text"
                      class="text-lg text-white">
+                </div>
+                <div x-show="event.links.length > 0"
+                     class="my-4">
+                    <div class="py-4 text-lg text-white">
+                        Read More
+                    </div>
+                    <ul>
+                        <template x-for="link in event.links">
+                            <li>
+                                <a x-text="link.name"
+                                   x-bind:href="link.url"
+                                   class="py-2 px-4 my-4 text-white text-md bg-secondary">
+                                </a>
+                            </li>
+                        </template>
+                    </ul>
                 </div>
             </div>
         </div>
