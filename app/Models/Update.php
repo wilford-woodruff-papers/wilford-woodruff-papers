@@ -55,6 +55,12 @@ class Update extends Model implements HasMedia
         $route = str($this->type)->lower()->toString();
         //dd($route);
 
+        if ($this->type == 'Newsletter') {
+            $summary = str(strip_tags(str($this->content)->after('</head>')->replace('[[trackingImage]]', '') ?? ''))->limit(200)->trim(' ')->toString();
+        } else {
+            $summary = strip_tags($this->content);
+        }
+
         return [
             'id' => 'newsletter_'.$this->id,
             'is_published' => ($this->enabled && $this->publish_at < now('America/Denver')),
@@ -63,7 +69,7 @@ class Update extends Model implements HasMedia
             'url' => $this->url,
             'thumbnail' => $this->getFirstMedia('images', ['primary' => true])?->getFullUrl(),
             'name' => $this->subject,
-            'description' => strip_tags($this->content ?? ''),
+            'description' => $summary,
             'date' => $this->publish_at ? $this->publish_at?->timestamp : null,
         ];
     }
