@@ -46,7 +46,7 @@
                             $count = 0;
                         @endphp
                         @if(($year % 10) == 0)
-                            <div class="grid grid-cols-6 px-4 h-8 divide-x divide-slate-200">
+                            <div class="grid grid-cols-6 px-4 h-8 divide-x divide-slate-300">
                                 <div>&nbsp;</div>
                                 <div>&nbsp;</div>
                                 <div>&nbsp;</div>
@@ -59,7 +59,7 @@
                                 {{ $year }}
                             </div>
 
-                            <div class="grid grid-cols-6 px-4 h-8 divide-x divide-slate-200">
+                            <div class="grid grid-cols-6 px-4 h-8 divide-x divide-slate-300">
                                 <div>&nbsp;</div>
                                 <div>&nbsp;</div>
                                 <div>&nbsp;</div>
@@ -68,7 +68,7 @@
                                 <div>&nbsp;</div>
                             </div>
                         @else
-                            <div class="grid grid-cols-6 px-4 h-14 divide-x divide-slate-200">
+                            <div class="grid grid-cols-6 px-4 h-14 divide-x divide-slate-300">
                                 <div>
                                     <p class="text-2xl font-bold text-gray-900">
                                         {{ $year }}
@@ -81,23 +81,28 @@
                                 <div></div>
                             </div>
                         @endif
-                        @foreach($months as $month => $monthEvents)
-                            @if(count($monthEvents) > 0)
-                                <div class="grid grid-cols-6 px-4 h-8 divide-x divide-slate-200">
-                                    <div class="font-semibold">
-                                        {{ $month }}
+
+                        @if($months->filter(function($month){
+                                return count($month) > 0;
+                            })->count() > 0)
+                            @foreach($months as $month => $monthEvents)
+
+                                @if(count($monthEvents) > 0)
+                                    <div class="grid grid-cols-6 px-4 h-8 divide-x divide-slate-300">
+                                        <div class="font-semibold">
+                                            {{ $month }}
+                                        </div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
                                     </div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                </div>
-                                @foreach($monthEvents->groupBy('date') as $events)
+                                    @foreach($monthEvents->groupBy('date') as $events)
                                         @php
                                             $count = 0;
                                         @endphp
-                                        <div class="grid grid-cols-6 px-4 divide-x divide-slate-200 min-h-[3.5rem]">
+                                        <div class="grid grid-cols-6 px-4 divide-x divide-slate-300 min-h-[3.5rem]">
                                             <div class="border-t border-gray-400 border-1">
                                             </div>
                                             @foreach($groups as $key => $group)
@@ -181,20 +186,22 @@
                                                 </div>
                                             @endforeach
                                         </div>
-                                @endforeach
-                            @else
-                                <div class="grid grid-cols-6 px-4 h-8 divide-x divide-slate-200">
-                                    <div>
-                                        <div class="w-1/2 border-t border-gray-400 border-1"></div>
+                                    @endforeach
+                                @else
+                                    <div class="grid grid-cols-6 px-4 h-8 divide-x divide-slate-300">
+                                        <div>
+                                            <div class="w-1/2 border-t border-gray-400 border-1"></div>
+                                        </div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
                                     </div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                </div>
-                            @endif
-                        @endforeach
+                                @endif
+
+                          @endforeach
+                        @endif
                     @endforeach
                 </div>
             </div>

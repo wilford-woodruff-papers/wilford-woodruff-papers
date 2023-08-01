@@ -71,7 +71,6 @@ class Timeline extends Component
             ->groupBy('year')
             ->pipe(function ($events) use ($yearList) {
                 foreach ($yearList as $year) {
-                    ray($events->get($year));
                     if (! $events->get($year)) {
                         $events->put($year, []);
                     }
