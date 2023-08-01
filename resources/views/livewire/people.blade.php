@@ -51,9 +51,19 @@
                             </div>
                         </div>
                     </div>
-                    <p class="!mt-0 py-4 px-4 text-black !mb-12 bg-gray-100">
-                        The first missionaries arrived in England on July 19, 1837. Apostle Heber C. Kimball baptized the first converts on July 30, 1837 in the River Ribble, near Preston, Lancashire, England. The Preston Ward is the longest continuously functioning Latter Day Saint congregation in the world.
-                    </p>
+                    <div class=" !mb-12 bg-gray-100">
+                        <p class="!mt-0 py-4 px-4 text-black">
+                            The first missionaries arrived in England on July 19, 1837. Apostle Heber C. Kimball baptized the first converts on July 30, 1837 in the River Ribble, near Preston, Lancashire, England. The Preston Ward is the longest continuously functioning Latter Day Saint congregation in the world.
+                        </p>
+                        <p class="p-4 !m-0">
+                            <a href="https://www.familysearch.org/eurona/travel/sites/98957/-british-converts?cid=fs_copy"
+                               class="py-2 px-4 text-white bg-secondary"
+                               target="_blank"
+                            >
+                                View 1840 British Converts on FamilySearch
+                            </a>
+                        </p>
+                    </div>
                 </div>
             @elseif($category == '1835 Southern Converts')
                 <div>
@@ -79,6 +89,14 @@
                         </p>
                         <p class="py-4 px-4 text-black !my-0">
                             This list of individuals was compiled by Wilford Woodruff during his missionary service in the Southern United States between 1835 and 1837.
+                        </p>
+                        <p class="p-4 !m-0">
+                            <a href="https://www.familysearch.org/eurona/travel/sites/98958/-southern-converts?cid=fs_copy"
+                               class="py-2 px-4 text-white bg-secondary"
+                               target="_blank"
+                            >
+                                View 1835 Southern Converts on FamilySearch
+                            </a>
                         </p>
                     </div>
                 </div>
