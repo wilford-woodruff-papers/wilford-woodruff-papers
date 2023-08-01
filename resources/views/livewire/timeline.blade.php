@@ -149,14 +149,14 @@
                                                             >
                                                                 <div @class([
                                                                     'absolute w-[22rem] text-sm font-normal bg-white hover:z-10 drop-shadow-md',
-                                                                    'left-2' => ($key <= 2),
-                                                                    'right-2' => ($key > 2),
+                                                                    'left-[25%]' => ($key <= 2),
+                                                                    'right-[25%]' => ($key > 2),
                                                                 ])>
                                                                     <div class="flex">
                                                                         <div @class([
-                                                                            'flex-1 p-1',
-                                                                            'order-2' => ($key <= 2),
-                                                                            'order-1' => ($key > 2),
+                                                                            'flex-1 py-1',
+                                                                            'order-2 pl-8 pr-1' => ($key <= 2),
+                                                                            'order-1 pr-8 pl-1' => ($key > 2),
                                                                         ])>
                                                                             <div class="">
                                                                                 <p class="font-semibold">
@@ -175,7 +175,7 @@
                                                                             ])>
                                                                                 <img src="{{ data_get($hit, 'thumbnail') }}"
                                                                                      alt=""
-                                                                                     class="object-cover object-top mx-auto w-20 bg-gray-100 aspect-[16/9] sm:aspect-[2/1] lg:aspect-[3/2]">
+                                                                                     class="object-cover object-top mx-auto w-20 bg-gray-100 scale-150 aspect-[16/9] sm:aspect-[2/1] lg:aspect-[3/2]">
                                                                             </div>
                                                                         @endif
                                                                     </div>
