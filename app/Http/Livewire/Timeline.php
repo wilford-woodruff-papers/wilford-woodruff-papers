@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire;
 
+use App\src\Facets\TimelineCategoryFacet;
+use App\src\Facets\YearFacet;
 use Livewire\Component;
 use Meilisearch\Client;
 
@@ -18,6 +20,14 @@ class Timeline extends Component
     public $sort = ['date' => 'asc'];
 
     public $hitsPerPage = 1000;
+
+    public $v_min = 0;
+
+    public $v_max = 0;
+
+    public $year_range = [];
+
+    public $currentIndex = 'Documents';
 
     public $filters = [
         'type' => [],
@@ -38,6 +48,11 @@ class Timeline extends Component
 
     public function render()
     {
+        $indexes = [
+            new TimelineCategoryFacet(),
+            new YearFacet(false),
+        ];
+
         $client = new Client(config('scout.meilisearch.host'), config('scout.meilisearch.key'));
 
         $index = $client->index((app()->environment('production') ? 'resources' : 'dev-resources'));
@@ -47,10 +62,22 @@ class Timeline extends Component
             'hitsPerPage' => $this->hitsPerPage,
             'page' => $this->page,
             'filter' => $this->buildFilterSet(),
+            'facets' => collect($indexes)
+                ->map(function ($facet) {
+                    return $facet->key;
+                })
+                ->values()
+                ->toArray(),
         ]);
 
+        $facetDistribution = $result->getFacetDistribution();
+        $facetStats = $result->getFacetStats();
+
+        $this->v_min = intval($facetStats['year']['min']);
+        $this->v_max = intval($facetStats['year']['max']);
+
         // TODO: This should be calculated and be the first and last years in the results.
-        $yearList = range(1807, 1900);
+        $yearList = range($this->v_min, $this->v_max);
 
         $monthList = collect([
             'January' => [],
@@ -89,6 +116,8 @@ class Timeline extends Component
 
         return view('livewire.timeline', [
             'years' => $years,
+            'facets' => $indexes,
+            'facetDistribution' => $facetDistribution,
         ])
             ->layout('layouts.guest');
     }
@@ -99,6 +128,11 @@ class Timeline extends Component
         $query[] = '(is_published = true OR is_published = 1)';
 
         $query[] = '(resource_type = "Timeline")';
+
+        if (! empty($this->year_range)) {
+            [$min, $max] = $this->year_range;
+            $query[] = "(year >= $min AND year <= $max)";
+        }
 
         foreach ($this->filters as $filter => $values) {
             if (! empty($values)) {
