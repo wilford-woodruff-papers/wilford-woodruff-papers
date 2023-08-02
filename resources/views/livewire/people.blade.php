@@ -51,7 +51,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class=" !mb-12 bg-gray-100">
+                    <div class=" !m-0 !mb-12 bg-gray-100">
                         <p class="!mt-0 py-4 px-4 text-black">
                             The first missionaries arrived in England on July 19, 1837. Apostle Heber C. Kimball baptized the first converts on July 30, 1837 in the River Ribble, near Preston, Lancashire, England. The Preston Ward is the longest continuously functioning Latter Day Saint congregation in the world.
                         </p>

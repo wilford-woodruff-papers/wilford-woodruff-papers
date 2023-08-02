@@ -113,7 +113,7 @@ class Index extends Component
             ])
             ->when(array_key_exists('search', $this->filters) && $this->filters['search'], function ($query, $search) {
                 $query->where(function ($query) {
-                    foreach (['name' => 'name'] + $this->searchColumns as $key => $column) {
+                    foreach (['name' => 'name', 'unique_id' => 'unique_id'] + $this->searchColumns as $key => $column) {
                         if (! str($key)->startsWith('z')) {
                             $query->orWhere($key, 'like', '%'.$this->filters['search'].'%');
                         }
