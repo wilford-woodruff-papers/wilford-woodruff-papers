@@ -207,19 +207,17 @@
                                                                                         </p>
                                                                                     </div>
                                                                                 </div>
-                                                                                <div>
-                                                                                    @if(data_get($hit, 'thumbnail'))
-                                                                                        <div @class([
-                                                                                'flex-0',
-                                                                                'order-1' => ($key <= 2),
-                                                                                'order-2' => ($key > 2),
-                                                                            ])>
-                                                                                            <img src="{{ data_get($hit, 'thumbnail') }}"
-                                                                                                 alt=""
-                                                                                                 class="object-cover object-top mx-auto w-20 bg-gray-100 scale-150 aspect-[16/9] sm:aspect-[2/1] lg:aspect-[3/2]">
-                                                                                        </div>
-                                                                                    @endif
-                                                                                </div>
+                                                                                @if(data_get($hit, 'thumbnail'))
+                                                                                    <div @class([
+                                                                                        'flex-0',
+                                                                                        'order-1' => ($key <= 2),
+                                                                                        'order-2' => ($key > 2),
+                                                                                    ])>
+                                                                                        <img src="{{ data_get($hit, 'thumbnail') }}"
+                                                                                             alt=""
+                                                                                             class="object-cover object-top mx-auto w-20 bg-gray-100 scale-150 aspect-[16/9] sm:aspect-[2/1] lg:aspect-[3/2]">
+                                                                                    </div>
+                                                                                @endif        
                                                                             </div>
                                                                         </div>
                                                                     </div>
