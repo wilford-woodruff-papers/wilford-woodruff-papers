@@ -70,19 +70,17 @@
                     </div>
                 </div>
                 <div class="">
-                    <div>
-                        @if($v_min < 1810)
-                            <div class="flex sticky top-0 z-10 justify-center items-center my-0 w-full text-4xl font-bold text-white h-18 bg-primary">
-                                1800
-                            </div>
-                        @endif
-                    </div>
+                    @if($v_min < 1810)
+                        <div class="flex sticky top-0 z-10 justify-center items-center my-0 w-full text-4xl font-bold text-white h-18 bg-primary">
+                            1800
+                        </div>
+                    @endif
 
                     @foreach ($years as $year => $months)
                         @php
                             $count = 0;
                         @endphp
-                        <div>
+
                             @if(($year % 10) == 0)
                                 <div class="grid grid-cols-6 px-4 h-8 divide-x divide-slate-300">
                                     <div>&nbsp;</div>
@@ -119,7 +117,7 @@
                                     <div></div>
                                 </div>
                             @endif
-                        </div>
+
 
                         <div>
                             @if($months->filter(function($month){
@@ -217,7 +215,7 @@
                                                                                              alt=""
                                                                                              class="object-cover object-top mx-auto w-20 bg-gray-100 scale-150 aspect-[16/9] sm:aspect-[2/1] lg:aspect-[3/2]">
                                                                                     </div>
-                                                                                @endif        
+                                                                                @endif
                                                                             </div>
                                                                         </div>
                                                                     </div>
