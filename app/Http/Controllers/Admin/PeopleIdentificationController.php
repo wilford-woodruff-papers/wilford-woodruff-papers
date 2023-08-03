@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\PeopleIdentification;
 use App\Models\Subject;
 use App\Models\User;
+use App\Notifications\UnknownPersonAssignmentNotification;
 use Illuminate\Http\Request;
 
 class PeopleIdentificationController extends Controller
@@ -130,6 +131,12 @@ class PeopleIdentificationController extends Controller
 
         $request->session()->flash('success', 'Person created successfully!');
 
+        if (! empty($person->researcher_id)
+            && ($person->researcher_id !== auth()->id())
+        ) {
+            $person->researcher->notify(new UnknownPersonAssignmentNotification($person));
+        }
+
         if ($request->get('action') == 'new') {
             return redirect()->route('admin.dashboard.identification.people.create');
         }
@@ -179,6 +186,13 @@ class PeopleIdentificationController extends Controller
         $person->save();
 
         $request->session()->flash('success', 'Person updated successfully!');
+
+        if (! empty($person->researcher_id)
+            && $person->wasChanged('researcher_id')
+            && ($person->researcher_id !== auth()->id())
+        ) {
+            $person->researcher->notify(new UnknownPersonAssignmentNotification($person));
+        }
 
         if ($request->get('action') == 'new') {
             return redirect()->route('admin.dashboard.identification.people.create');
