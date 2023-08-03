@@ -3,6 +3,7 @@
         x-data="{
             shadow: false,
             showSuccess: true,
+            cant_be_identified: @if(empty(old('cant_be_identified', $person->cant_be_identified))) false @else {{ old('cant_be_identified', $person->cant_be_identified) }} @endif,
             skip_tagging: @if(empty(old('skip_tagging', $person->skip_tagging))) false @else {{ old('skip_tagging', $person->skip_tagging) }} @endif,
             correction_needed:  @if(empty(old('correction_needed', $person->correction_needed))) false @else {{ old('correction_needed', $person->correction_needed) }} @endif,
             setResearcher: function(userid){
@@ -638,7 +639,48 @@
                                 </div>
                             </div>
 
-
+                            <div class="my-6">
+                                <div class="p-4 bg-yellow-50 border-l-4 border-yellow-400">
+                                    <div class="flex">
+                                        <div class="flex-shrink-0">
+                                            <svg class="w-5 h-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                <path fill-rule="evenodd" d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 5a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 5zm0 9a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                        <div class="ml-3">
+                                            <div class="text-sm text-yellow-700">
+                                                <fieldset>
+                                                    <div class="flex gap-x-8 items-center">
+                                                        <div class="flex relative items-start">
+                                                            <div class="flex items-center h-6">
+                                                                <input x-model="cant_be_identified"
+                                                                       id="cant_be_identified"
+                                                                       name="cant_be_identified"
+                                                                       type="checkbox"
+                                                                       value="1"
+                                                                       @checked(old('cant_be_identified', $person->cant_be_identified))
+                                                                       class="w-4 h-4 text-yellow-600 rounded border-gray-300 focus:ring-yellow-600"
+                                                                >
+                                                                <input id="cant_be_identified"
+                                                                       name="cant_be_identified"
+                                                                       type="hidden"
+                                                                       value="0"
+                                                                       :disabled="cant_be_identified"
+                                                                >
+                                                            </div>
+                                                            <div class="ml-3 text-sm leading-6">
+                                                                <label for="cant_be_identified" class="font-medium text-gray-900">
+                                                                    Can't be Identified
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="mt-12 divide-y divide-gray-200">
                                 <div class="flex justify-center py-4 px-4 sm:px-6">

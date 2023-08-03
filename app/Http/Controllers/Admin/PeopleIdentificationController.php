@@ -89,6 +89,9 @@ class PeopleIdentificationController extends Controller
         'skip_tagging' => [
             'nullable',
         ],
+        'cant_be_identified' => [
+            'nullable',
+        ],
         'correction_needed' => [
             'nullable',
             'boolean',

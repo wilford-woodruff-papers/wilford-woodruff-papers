@@ -29,6 +29,7 @@ class Identification extends Component
     public $filters = [
         'search' => '',
         'completed' => false,
+        'cant_be_identified' => '',
         'corrections' => '',
         'researcher' => '',
     ];
@@ -46,6 +47,7 @@ class Identification extends Component
         'location' => 'location',
         'completed_at' => 'date_completed',
         'notes' => 'research_notes',
+        'cant_be_identified' => 'identifiable',
         /*'fs_id' => 'fs_id',
         'approximate_birth_date' => 'approx_birth',
         'approximate_death_date' => 'approx_death',
@@ -118,6 +120,15 @@ class Identification extends Component
                 $query = $query->whereNull('completed_at');
             }
         }
+
+        if (array_key_exists('cant_be_identified', $this->filters) && ! empty($this->filters['cant_be_identified'])) {
+            if ($this->filters['cant_be_identified'] == 'true') {
+                $query = $query->where('cant_be_identified', true);
+            } elseif ($this->filters['cant_be_identified'] == 'false') {
+                $query = $query->where('cant_be_identified', false);
+            }
+        }
+
         if (array_key_exists('corrections', $this->filters) && ! empty($this->filters['corrections'])) {
             if ($this->filters['corrections'] == 'true') {
                 $query = $query->where('correction_needed', 1);
