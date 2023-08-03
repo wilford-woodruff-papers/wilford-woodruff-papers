@@ -69,6 +69,15 @@
                                         </x-input.select>
                                     </x-input.group>
                                 </div>
+                                <div class="pr-2 space-y-4">
+                                    <x-input.group borderless for="filter-type" label="Identifiable">
+                                        <x-input.select wire:model="filters.cant_be_identified" id="filter-type">
+                                            <option value=""> -- Any -- </option>
+                                            <option value="false"> Yes </option>
+                                            <option value="true"> No </option>
+                                        </x-input.select>
+                                    </x-input.group>
+                                </div>
                             </div>
                         </div>
                         {{--<div class="pl-4">
@@ -290,6 +299,8 @@
                                                 @else
                                                     <livewire:admin.claim-identification :subject="$person" :wire:key="$person->id"/>
                                                 @endif
+                                            @elseif($column == 'identifiable')
+                                                <x-icon.status :status="!$person->cant_be_identified"/>
                                             @elseif(in_array($key, ['correction_needed']))
                                                 @if($person->{$key})
                                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-yellow-600">
