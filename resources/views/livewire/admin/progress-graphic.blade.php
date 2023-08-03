@@ -70,6 +70,13 @@
                                 </div>
 
                                 <div class="flex flex-col gap-y-4 mx-auto max-w-xs">
+                                    <dt class="text-base leading-7 text-gray-600">Bios Approved</dt>
+                                    <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
+                                        {{ number_format($bioStats['total_bios_approved']) }}
+                                    </dd>
+                                </div>
+
+                                <div class="flex flex-col gap-y-4 mx-auto max-w-xs">
                                     <dt class="text-base leading-7 text-gray-600">Identified Places</dt>
                                     <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
                                         {{ number_format($bioStats['total_identified_places']) }}
