@@ -112,6 +112,10 @@ class PeopleIdentificationController extends Controller
 
         return view('admin.dashboard.people.identification', [
             'person' => $person,
+            'researchers' => User::query()
+                ->role(['Bio Editor', 'Bio Admin'])
+                ->orderBy('name')
+                ->get(),
         ]);
     }
 
