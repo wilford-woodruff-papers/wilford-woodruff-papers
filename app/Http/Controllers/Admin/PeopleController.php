@@ -172,7 +172,7 @@ class PeopleController extends Controller
         $request->session()->flash('success', 'Person created successfully!');
 
         if (! empty($person->researcher_id)
-            && ($person->researcher_id !== auth()->id())
+            && ($person->researcher_id != auth()->id())
         ) {
             $person->researcher->notify(new PersonAssignmentNotification($person));
         }
@@ -259,7 +259,7 @@ class PeopleController extends Controller
 
         if (! empty($person->researcher_id)
             && $person->wasChanged('researcher_id')
-            && ($person->researcher_id !== auth()->id())
+            && ($person->researcher_id != auth()->id())
         ) {
             $person->researcher->notify(new PersonAssignmentNotification($person));
         }
