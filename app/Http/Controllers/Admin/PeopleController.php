@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Subject;
 use App\Models\User;
+use App\Notifications\PersonAssignmentNotification;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -170,6 +171,12 @@ class PeopleController extends Controller
 
         $request->session()->flash('success', 'Person created successfully!');
 
+        if (! empty($person->researcher_id)
+            && ($person->researcher_id !== auth()->id())
+        ) {
+            $person->researcher->notify(new PersonAssignmentNotification($person));
+        }
+
         if ($request->get('action') == 'new') {
             return redirect()->route('admin.dashboard.people.create');
         }
@@ -249,6 +256,13 @@ class PeopleController extends Controller
         );
 
         $request->session()->flash('success', 'Person updated successfully!');
+
+        if (! empty($person->researcher_id)
+            && $person->wasChanged('researcher_id')
+            && ($person->researcher_id !== auth()->id())
+        ) {
+            $person->researcher->notify(new PersonAssignmentNotification($person));
+        }
 
         if ($request->get('action') == 'new') {
             return redirect()->route('admin.dashboard.people.create');
