@@ -60,6 +60,12 @@ class ProgressGraphic extends Component
                     })
                     ->whereNotNull('pid_identified_at')
                     ->count(),
+                'total_bios_approved' => Subject::query()
+                    ->whereHas('category', function (Builder $query) {
+                        $query->where('name', 'People');
+                    })
+                    ->whereNotNull('bio_approved_at')
+                    ->count(),
                 'total_identified_places' => Subject::query()
                     ->whereHas('category', function (Builder $query) {
                         $query->where('name', 'Places');
