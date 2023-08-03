@@ -139,7 +139,51 @@
                             </div>
 
                             <div class="grid grid-cols-12 gap-6 mt-6">
-                                <div class="col-span-6">
+                                <div class="col-span-5">
+                                    <label for="researcher"
+                                           class="block text-sm font-medium text-gray-700"
+                                    >
+                                        <span class="font-semibold">Researcher</span>
+                                    </label>
+                                    @if(! empty($person->researcher_text))
+                                        <input type="text"
+                                               name="researcher_text"
+                                               id="researcher"
+                                               value="{{ $person->researcher_text }}"
+                                               class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
+                                        />
+                                    @else
+                                        <div class="flex gap-x-8 items-center">
+                                            <div class="flex-1">
+                                                <select name="researcher_id"
+                                                        id="researcher"
+                                                        class="block flex-1 py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
+                                                >
+                                                    <option value="">
+                                                        -- Assign to Researcher --
+                                                    </option>
+                                                    @foreach($researchers as $researcher)
+                                                        <option value="{{ $researcher->id }}"
+                                                                @if($researcher->id == old('researcher_id', $person->researcher_id)) selected @endif
+                                                        >
+                                                            {{ $researcher->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div>
+                                                @if(@empty($person->researcher_id))
+                                                    <button x-on:click.prevent="setResearcher({{ auth()->id() }})"
+                                                            type="button"
+                                                            class="inline-flex justify-center py-2 px-4 mr-24 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:outline-none focus:ring-sky-500">
+                                                        Assign to Me
+                                                    </button>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div>
+                                <div class="col-span-5">
                                     <label for="editorial_assistant"
                                            class="block text-sm font-medium text-gray-700"
                                     >
@@ -152,7 +196,7 @@
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
-                                <div class="col-span-3">
+                                <div class="col-span-2">
                                     <fieldset>
                                         <legend class="block text-sm font-semibold text-gray-700">Needs Correction?</legend>
                                         <div class="flex gap-x-8 items-center">
@@ -612,6 +656,17 @@
                             </div>
                         </div>
                     </form>
+                </div>
+                <div class="mt-12 divide-y divide-gray-200">
+                    <div class="flex justify-center py-4 px-4 sm:px-6">
+                        @if($person->exists)
+                            <form action="{{ route('admin.dashboard.identification.people.copyToPeople', ['identification' => $person]) }}"      method="POST">
+                                @csrf
+                                @method('POST')
+                                <button type="submit" class="inline-flex justify-center py-2 px-12 text-sm font-medium text-white bg-teal-700 rounded-md border border-transparent shadow-sm hover:bg-teal-800 focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 focus:outline-none">Copy to Known People</button>
+                            </form>
+                        @endif
+                    </div>
                 </div>
                 <div class="mt-12 divide-y divide-gray-200">
                     <div class="flex justify-end py-4 px-4 sm:px-6">

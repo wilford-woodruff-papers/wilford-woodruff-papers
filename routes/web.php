@@ -347,6 +347,10 @@ Route::middleware(['role:Super Admin|Editor|Bio Editor'])->group(function () {
     Route::middleware(['auth:sanctum', 'verified'])
         ->delete('/admin/dashboard/identification/people/{identification}', [\App\Http\Controllers\Admin\PeopleIdentificationController::class, 'destroy'])
         ->name('admin.dashboard.identification.people.destroy');
+
+    Route::middleware(['auth:sanctum', 'verified'])
+        ->post('/admin/dashboard/identification/copy-to-people/{identification}', [\App\Http\Controllers\Admin\PeopleIdentificationController::class, 'copyToPeople'])
+        ->name('admin.dashboard.identification.people.copyToPeople');
     /* People Identification */
 
     /* Places Identification */
