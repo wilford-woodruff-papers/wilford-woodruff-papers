@@ -7,11 +7,14 @@ use App\Http\Livewire\DataTable\WithCachedRows;
 use App\Http\Livewire\DataTable\WithPerPagePagination;
 use App\Http\Livewire\DataTable\WithSorting;
 use App\Models\PeopleIdentification;
+use App\Models\User;
 use Livewire\Component;
 
 class Identification extends Component
 {
     use WithPerPagePagination, WithSorting, WithBulkActions, WithCachedRows;
+
+    public $researchers = false;
 
     public $showDeleteModal = false;
 
@@ -27,10 +30,12 @@ class Identification extends Component
         'search' => '',
         'completed' => false,
         'corrections' => '',
+        'researcher' => '',
     ];
 
     public $columns = [
         'correction_needed' => 'correction',
+        'researcher_id' => 'researcher',
         'editorial_assistant' => 'editorial_assistant',
         'title' => 'title',
         'first_middle_name' => 'first_and_middle_names_or_initials',
@@ -68,7 +73,10 @@ class Identification extends Component
 
     public function mount()
     {
-        //
+        $this->researchers = User::query()
+            ->role(['Bio Editor', 'Bio Admin'])
+            ->orderBy('name')
+            ->get();
     }
 
     public function updatedFilters()
@@ -92,9 +100,12 @@ class Identification extends Component
     public function getRowsQueryProperty()
     {
         $query = PeopleIdentification::query()
+            ->with([
+                'researcher',
+            ])
             ->when(array_key_exists('search', $this->filters) && $this->filters['search'], function ($query, $search) {
                 $query->where(function ($query) {
-                    foreach ($this->columns as $key => $column) {
+                    foreach (['id' => 'id'] + $this->columns as $key => $column) {
                         $query->orWhere($key, 'like', '%'.$this->filters['search'].'%');
                     }
                 });
@@ -111,6 +122,11 @@ class Identification extends Component
             if ($this->filters['corrections'] == 'true') {
                 $query = $query->where('correction_needed', 1);
             }
+        }
+
+        if (array_key_exists('researcher', $this->filters) && ! empty($this->filters['researcher'])) {
+            $researcher = User::find($this->filters['researcher']);
+            $query = $query->where('researcher_id', $this->filters['researcher']);
         }
 
         if (empty($this->sorts)) {

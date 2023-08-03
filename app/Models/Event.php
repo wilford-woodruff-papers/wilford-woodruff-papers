@@ -25,9 +25,28 @@ class Event extends Model implements HasMedia
         'end_at' => 'datetime',
     ];
 
+    protected $appends = [
+        'manual_display_date',
+        'display_date',
+        'thumbnail_url',
+    ];
+
     public function getManualDisplayDateAttribute()
     {
         return $this->attributes['display_date'];
+    }
+
+    public function getThumbnailUrlAttribute()
+    {
+        $thumbnail = '';
+
+        if ($this->photos->count() > 0) {
+            $thumbnail = $this->photos->first()->getFirstMediaUrl('default', 'thumb');
+        } elseif ($this->media->count() > 0) {
+            $thumbnail = $this->getFirstMediaUrl('default', 'thumb');
+        }
+
+        return $thumbnail;
     }
 
     public function getDisplayDateAttribute()
@@ -122,6 +141,8 @@ class Event extends Model implements HasMedia
             ];
         }
 
+        $event['thumbnail_url'] = $this->thumbnail_url;
+
         $event['group'] = $this->group;
 
         return $event;
@@ -185,10 +206,19 @@ class Event extends Model implements HasMedia
             'resource_type' => 'Timeline',
             'type' => $this->group,
             'url' => route('timeline').'#event-'.$this->id,
-            'thumbnail' => '', // TODO: Add thumbnail
+            'thumbnail' => $this->thumbnail_url,
             'name' => $this->text,
             'description' => '',
             'date' => $this->start_at ? $this->start_at?->timestamp : null,
+            'display_date' => $this->display_date,
+            'year' => $this->start_at ? $this->start_at?->year : null,
+            'month' => $this->start_at ? $this->start_at?->monthName : null,
+            'links' => $this->pages()->select('pages.full_name', 'pages.id')->get()->map(function ($page) {
+                return [
+                    'name' => addslashes($page->full_name),
+                    'url' => addslashes(route('short-url.page', ['hashid' => $page->hashid()])),
+                ];
+            }),
         ];
     }
 
@@ -200,7 +230,9 @@ class Event extends Model implements HasMedia
     protected function makeAllSearchableUsing(Builder $query): Builder
     {
         return $query->with([
+            'photos',
             'media',
+            'pages',
         ]);
     }
 

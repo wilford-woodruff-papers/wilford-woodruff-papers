@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\PeopleIdentification;
+use App\Models\Subject;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PeopleIdentificationController extends Controller
@@ -89,6 +92,9 @@ class PeopleIdentificationController extends Controller
             'nullable',
             'boolean',
         ],
+        'researcher_id' => [
+            'nullable',
+        ],
     ];
 
     /**
@@ -152,6 +158,10 @@ class PeopleIdentificationController extends Controller
     {
         return view('admin.dashboard.people.identification', [
             'person' => $person,
+            'researchers' => User::query()
+                ->role(['Bio Editor', 'Bio Admin'])
+                ->orderBy('name')
+                ->get(),
         ]);
     }
 
@@ -175,6 +185,42 @@ class PeopleIdentificationController extends Controller
         }
 
         return redirect()->route('admin.dashboard.identification.people.edit', ['identification' => $person]);
+    }
+
+    public function copyToPeople(Request $request, PeopleIdentification $unidentifiedPerson)
+    {
+        $person = new Subject();
+
+        $person->first_name = str($unidentifiedPerson->first_middle_name)->explode(' ')->first();
+        $person->middle_name = str($unidentifiedPerson->first_middle_name)->after($person->first_name)->trim();
+        $person->last_name = $unidentifiedPerson->last_name;
+        $person->name = collect([$person->first_name, $person->middle_name, $person->last_name])->filter()->join(' ');
+
+        $person->pid = $unidentifiedPerson->fs_id;
+
+        $person->birth_date = $unidentifiedPerson->approximate_birth_date;
+        $person->death_date = $unidentifiedPerson->approximate_death_date;
+
+        $person->notes = $unidentifiedPerson->notes;
+
+        $uniqueId = Subject::query()
+            ->whereHas('category', function ($query) {
+                $query->whereIn('categories.name', ['People']);
+            })
+            ->max('unique_id');
+        $person->unique_id = $uniqueId + 1;
+
+        $person->save();
+
+        $person->category()->syncWithoutDetaching(
+            Category::query()
+                ->where('name', 'People')
+                ->first()
+        );
+
+        $request->session()->flash('success', 'Person created successfully!');
+
+        return redirect()->route('admin.dashboard.people.edit', ['person' => $person]);
     }
 
     /**

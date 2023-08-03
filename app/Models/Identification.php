@@ -23,4 +23,9 @@ class Identification extends Model
         'people' => PeopleIdentification::class,
         'place' => PlaceIdentification::class,
     ];
+
+    public function researcher()
+    {
+        return $this->belongsTo(User::class, 'researcher_id')->withTrashed();
+    }
 }
