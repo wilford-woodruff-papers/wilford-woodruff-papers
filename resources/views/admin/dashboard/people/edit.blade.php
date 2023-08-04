@@ -140,41 +140,37 @@
                                     >
                                         <span class="font-semibold">Researcher</span>
                                     </label>
-                                    @if(! empty($person->researcher_text))
-                                        <input type="text"
-                                               name="researcher_text"
-                                               id="researcher"
-                                               value="{{ $person->researcher_text }}"
-                                               class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
-                                        />
-                                    @else
-                                        <div class="flex gap-x-8 items-center">
-                                            <div class="flex-1">
-                                                <select name="researcher_id"
-                                                        id="researcher"
-                                                        class="block flex-1 py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
-                                                >
-                                                    <option value="">
-                                                        -- Assign to Researcher --
+                                    <div class="flex gap-x-8 items-center">
+                                        <div class="flex-1">
+                                            <select name="researcher_id"
+                                                    id="researcher"
+                                                    class="block flex-1 py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
+                                            >
+                                                <option value="">
+                                                    -- Assign to Researcher --
+                                                </option>
+                                                @foreach($researchers as $researcher)
+                                                    <option value="{{ $researcher->id }}"
+                                                            @if($researcher->id == old('researcher_id', $person->researcher_id)) selected @endif
+                                                    >
+                                                        {{ $researcher->name }}
                                                     </option>
-                                                    @foreach($researchers as $researcher)
-                                                        <option value="{{ $researcher->id }}"
-                                                                @if($researcher->id == old('researcher_id', $person->researcher_id)) selected @endif
-                                                        >
-                                                            {{ $researcher->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <div>
-                                                @if(@empty($person->researcher_id))
-                                                    <button x-on:click.prevent="setResearcher({{ auth()->id() }})"
-                                                            type="button"
-                                                            class="inline-flex justify-center py-2 px-4 mr-24 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:outline-none focus:ring-sky-500">
-                                                        Assign to Me
-                                                    </button>
-                                                @endif
-                                            </div>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div>
+                                            @if(empty($person->researcher_id))
+                                                <button x-on:click.prevent="setResearcher({{ auth()->id() }})"
+                                                        type="button"
+                                                        class="inline-flex justify-center py-2 px-4 mr-24 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:outline-none focus:ring-sky-500">
+                                                    Assign to Me
+                                                </button>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    @if(empty($person->researcher_id) && ! empty($person->researcher_text))
+                                        <div class="p-1">
+                                            <span class="font-semibold">Previously Assigned Researcher:</span> {{ $person->researcher_text }}
                                         </div>
                                     @endif
                                 </div>
