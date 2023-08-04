@@ -55,6 +55,16 @@
                                     </div>
                                 </div>
                                 <div class="pr-2 space-y-4">
+                                    <x-input.group borderless for="filter-type" label="Subcategory">
+                                        <x-input.select wire:model="filters.subcategory" id="filter-type">
+                                            <option value=""> -- All -- </option>
+                                            @foreach($subcategories as $subcategory)
+                                                <option value="{{ $subcategory }}" @if(data_get('subcategory', $filters) == $subcategory) selected @endif>{{ $subcategory }}</option>
+                                            @endforeach
+                                        </x-input.select>
+                                    </x-input.group>
+                                </div>
+                                <div class="pr-2 space-y-4">
                                     <x-input.group borderless for="filter-type" label="Bio Completed">
                                         <x-input.select wire:model="filters.completed" id="filter-type">
                                             <option value=""> -- All -- </option>
