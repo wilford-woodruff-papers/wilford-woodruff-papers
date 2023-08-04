@@ -129,9 +129,14 @@ class Index extends Component
             }
         }
         if (array_key_exists('researcher', $this->filters) && ! empty($this->filters['researcher'])) {
-            $researcher = User::find($this->filters['researcher']);
-            $query = $query->where('researcher_id', $this->filters['researcher'])
-                        ->orWhere('researcher_text', $researcher->name);
+            if ($this->filters['researcher'] == 'unassigned') {
+                $query = $query->whereNull('researcher_id')
+                    ->whereNull('researcher_text');
+            } else {
+                $researcher = User::find($this->filters['researcher']);
+                $query = $query->where('researcher_id', $this->filters['researcher'])
+                    ->orWhere('researcher_text', $researcher->name);
+            }
         }
         if (array_key_exists('completed', $this->filters) && ! empty($this->filters['completed'])) {
             if ($this->filters['completed'] == 'true') {

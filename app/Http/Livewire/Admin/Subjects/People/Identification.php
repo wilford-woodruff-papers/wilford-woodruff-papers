@@ -136,8 +136,12 @@ class Identification extends Component
         }
 
         if (array_key_exists('researcher', $this->filters) && ! empty($this->filters['researcher'])) {
-            $researcher = User::find($this->filters['researcher']);
-            $query = $query->where('researcher_id', $this->filters['researcher']);
+            if ($this->filters['researcher'] == 'unassigned') {
+                $query = $query->whereNull('researcher_id');
+            } else {
+                $researcher = User::find($this->filters['researcher']);
+                $query = $query->where('researcher_id', $this->filters['researcher']);
+            }
         }
 
         if (empty($this->sorts)) {
