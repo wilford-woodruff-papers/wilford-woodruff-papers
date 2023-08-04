@@ -30,6 +30,7 @@
                                     <x-input.group borderless for="filter-type" label="Researcher">
                                         <x-input.select wire:model="filters.researcher" id="filter-type">
                                             <option value=""> -- All -- </option>
+                                            <option value="unassigned"> -- Unassigned -- </option>
                                             @foreach($researchers as $researcher)
                                                 <option value="{{ $researcher->id }}" @if(data_get('', $filters) == $researcher->id) selected @endif>{{ $researcher->name }}</option>
                                             @endforeach
