@@ -38,6 +38,7 @@ class Index extends Component
         'approved' => '',
         'researcher' => '',
         'category' => '',
+        'subcategory' => '',
     ];
 
     public $columns = [
@@ -97,7 +98,6 @@ class Index extends Component
             ->orderBy('subcategory')
             ->pluck('subcategory')
             ->all();
-        dd($this->subcategories);
     }
 
     public function updatedFilters()
@@ -175,6 +175,10 @@ class Index extends Component
             $query = $query->whereHas('category', function (Builder $query) {
                 $query->whereIn('categories.name', ['People']);
             });
+        }
+
+        if (array_key_exists('subcategory', $this->filters) && ! empty($this->filters['subcategory'])) {
+            $query = $query->where('subcategory', $this->filters['subcategory']);
         }
 
         if (array_key_exists('starts_with', $this->filters) && ! empty($this->filters['starts_with'])) {

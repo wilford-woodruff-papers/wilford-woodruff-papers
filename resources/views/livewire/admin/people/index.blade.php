@@ -26,9 +26,9 @@
                             </div>
                         </div>
                         <div class="pl-4">
-                            <div class="flex gap-x-4 gap-y-4 items-center">
+                            <div class="flex gap-x-4 gap-y-4 items-center py-4">
                                 <div class="flex gap-x-1 items-center pr-2">
-                                    <x-input.group borderless for="filter-type" label="Researcher">
+                                    <x-input.group borderless for="filter-type" label="Researcher" inline="true">
                                         <x-input.select wire:model="filters.researcher" id="filter-type">
                                             <option value=""> -- All -- </option>
                                             <option value="unassigned"> -- Unassigned -- </option>
@@ -37,7 +37,7 @@
                                             @endforeach
                                         </x-input.select>
                                     </x-input.group>
-                                    <div>
+                                    <div class="mt-4">
                                         @if(! empty(data_get($filters, 'researcher')))
                                             <button wire:click="$set('filters.researcher', '')"
                                                     class="inline-flex justify-center py-1 px-2 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:outline-none focus:ring-sky-500"
@@ -55,7 +55,7 @@
                                     </div>
                                 </div>
                                 <div class="pr-2 space-y-4">
-                                    <x-input.group borderless for="filter-type" label="Subcategory">
+                                    <x-input.group borderless for="filter-type" label="Subcategory" inline="true">
                                         <x-input.select wire:model="filters.subcategory" id="filter-type">
                                             <option value=""> -- All -- </option>
                                             @foreach($subcategories as $subcategory)
@@ -65,7 +65,7 @@
                                     </x-input.group>
                                 </div>
                                 <div class="pr-2 space-y-4">
-                                    <x-input.group borderless for="filter-type" label="Bio Completed">
+                                    <x-input.group borderless for="filter-type" label="Bio Completed" inline="true">
                                         <x-input.select wire:model="filters.completed" id="filter-type">
                                             <option value=""> -- All -- </option>
                                             <option value="false"> Bio Not Completed </option>
@@ -74,7 +74,7 @@
                                     </x-input.group>
                                 </div>
                                 <div class="pr-2 space-y-4">
-                                    <x-input.group borderless for="filter-type" label="Bio Approved">
+                                    <x-input.group borderless for="filter-type" label="Bio Approved" inline="true">
                                         <x-input.select wire:model="filters.approved" id="filter-type">
                                             <option value=""> -- All -- </option>
                                             <option value="false"> Bio Not Approved </option>
@@ -83,7 +83,7 @@
                                     </x-input.group>
                                 </div>
                                 <div class="pr-2 space-y-4">
-                                    <x-input.group borderless for="filter-type" label="Status">
+                                    <x-input.group borderless for="filter-type" label="Status" inline="true">
                                         <x-input.select wire:model="filters.tagged" id="filter-type">
                                             <option value=""> -- All -- </option>
                                             <option value="false"> Not tagged </option>
