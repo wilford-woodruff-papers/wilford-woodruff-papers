@@ -9,6 +9,7 @@ use App\Http\Livewire\DataTable\WithSorting;
 use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class Index extends Component
@@ -16,6 +17,8 @@ class Index extends Component
     use WithPerPagePagination, WithSorting, WithBulkActions, WithCachedRows;
 
     public $researchers = false;
+
+    public $subcategories = [];
 
     public $showDeleteModal = false;
 
@@ -35,6 +38,7 @@ class Index extends Component
         'approved' => '',
         'researcher' => '',
         'category' => '',
+        'subcategory' => '',
     ];
 
     public $columns = [
@@ -84,6 +88,16 @@ class Index extends Component
             ->role(['Bio Editor', 'Bio Admin'])
             ->orderBy('name')
             ->get();
+
+        $this->subcategories = Subject::query()
+            ->select(DB::raw('DISTINCT(subcategory)'))
+            ->whereHas('category', function (Builder $query) {
+                $query->whereIn('categories.name', ['People']);
+            })
+            ->whereNotNull('subcategory')
+            ->orderBy('subcategory')
+            ->pluck('subcategory')
+            ->all();
     }
 
     public function updatedFilters()
@@ -161,6 +175,10 @@ class Index extends Component
             $query = $query->whereHas('category', function (Builder $query) {
                 $query->whereIn('categories.name', ['People']);
             });
+        }
+
+        if (array_key_exists('subcategory', $this->filters) && ! empty($this->filters['subcategory'])) {
+            $query = $query->where('subcategory', $this->filters['subcategory']);
         }
 
         if (array_key_exists('starts_with', $this->filters) && ! empty($this->filters['starts_with'])) {
