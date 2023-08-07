@@ -114,7 +114,7 @@ class Timeline extends Component
                 return $monthList->merge($events);
             });
 
-        return view('livewire.timeline', [
+        return view('livewire.timeline.index', [
             'years' => $years,
             'facets' => $indexes,
             'facetDistribution' => $facetDistribution,
