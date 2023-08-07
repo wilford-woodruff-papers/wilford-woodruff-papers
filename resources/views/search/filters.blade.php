@@ -2,7 +2,7 @@
      id="{{ $location }}-filters"
 >
     <ul role="list"
-        class="flex flex-col flex-1 gap-y-7 min-h-screen"
+        class="flex flex-col flex-1 gap-y-7"
         x-cloak
     >
         @foreach($facets as $facet)
