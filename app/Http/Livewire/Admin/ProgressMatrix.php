@@ -89,11 +89,6 @@ class ProgressMatrix extends Component
                 ->join('items', 'items.id', '=', 'pages.item_id')
                 ->join('types', 'types.id', '=', 'items.type_id')
                 ->where('actions.actionable_type', Page::class)
-                ->whereExists(function (\Illuminate\Database\Query\Builder $query) {
-                    $query->select('id')
-                        ->from('pages')
-                        ->whereColumn('actions.action_type_id', 'pages.id');
-                })
                 ->whereIn('actions.action_type_id', $this->types->pluck('id')->all())
                 ->when($this->currentUserId, function ($query, $userId) {
                     $query->where('actions.completed_by', $userId);
