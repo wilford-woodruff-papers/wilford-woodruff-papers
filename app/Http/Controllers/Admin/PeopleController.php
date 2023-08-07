@@ -86,6 +86,9 @@ class PeopleController extends Controller
         'relationship' => [
             'max:191',
         ],
+        'subcategory' => [
+            'max:191',
+        ],
     ];
 
     private $categories = [
@@ -124,6 +127,16 @@ class PeopleController extends Controller
                 ->whereIn('name', $this->categories)
                 ->orderBy('name')
                 ->get(),
+            'subcategories' => [
+                'British Convert',
+                'Family',
+                'Most Mentioned',
+                'New England',
+                'Other British',
+                'Other Southern',
+                'Southern Convert',
+                'Utah Deaths',
+            ],
         ]);
     }
 
@@ -213,6 +226,16 @@ class PeopleController extends Controller
                 ->whereIn('name', $this->categories)
                 ->orderBy('name')
                 ->get(),
+            'subcategories' => [
+                'British Convert',
+                'Family',
+                'Most Mentioned',
+                'New England',
+                'Other British',
+                'Other Southern',
+                'Southern Convert',
+                'Utah Deaths',
+            ],
         ]);
     }
 

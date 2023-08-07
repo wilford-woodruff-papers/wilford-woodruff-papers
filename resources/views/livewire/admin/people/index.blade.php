@@ -308,7 +308,18 @@
                                 </x-admin.quotes.cell>
 
                                 <x-admin.quotes.cell class="sticky left-0 py-0 px-0 bg-gray-50 border border-gray-400">
-                                    <div class="w-full h-full border-r-2 border-gray-400">
+                                    <div
+                                        @class([
+                                               '-ml-2 -my-2 w-full h-full border-r-2 border-gray-400',
+                                               'bg-purple-100' => $person->subcategory == 'British Convert',
+                                               'bg-red-100' => $person->subcategory == 'Family',
+                                               'bg-blue-100' => $person->subcategory == 'Most Mentioned',
+                                               'bg-orange-100' => $person->subcategory == 'New England',
+                                               'bg-purple-400' => $person->subcategory == 'Other British',
+                                               'bg-yellow-100' => $person->subcategory == 'Other Southern',
+                                               'bg-green-100' => $person->subcategory == 'Southern Convert',
+                                               'bg-fuchsia-300' => $person->subcategory == 'Utah Deaths',
+                                           ])>
                                         <div class="py-2 px-6 space-x-2 text-sm leading-5">
                                             {{--<x-icon.cash class="text-cool-gray-400"/>--}}
 
