@@ -445,6 +445,33 @@
                                 </fieldset>
                             </div>
 
+                            <div class="col-span-12 py-8">
+                                <label for="subcategory"
+                                       class="block text-sm font-medium text-gray-700"
+                                >
+                                    <span class="font-semibold">Subcategory</span>
+                                </label>
+                                <div class="flex gap-x-8 items-center">
+                                    <div class="flex-1">
+                                        <select name="subcategory"
+                                                id="subcategory"
+                                                class="block flex-1 py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
+                                        >
+                                            <option value="">
+                                                -- Assign Subcategory --
+                                            </option>
+                                            @foreach($subcategories as $subcategory)
+                                                <option value="{{ $subcategory }}"
+                                                        @if($subcategory == old('subcategory', $person->subcategory)) selected @endif
+                                                >
+                                                    {{ $subcategory }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="grid grid-cols-12 gap-6 mt-6">
                                 <div class="col-span-12">
                                     <label for="bio"

@@ -61,6 +61,7 @@ class Index extends Component
         'researcher_text' => 'researcher',
         'bio' => 'biography',
         'footnotes' => 'footnote',
+        'subcategory' => 'subcategory',
         'bio_completed_at' => 'date_bio_completed',
         'bio_approved_at' => 'date_bio_approved',
     ];
