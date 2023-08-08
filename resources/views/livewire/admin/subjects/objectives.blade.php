@@ -327,7 +327,7 @@
                                         {{ $annualStats['unknownPeopleIdentified']['removed'] }}
                                     </td>
                                     <td>
-                                        {{ $annualStats['unknownPeopleIdentified']['goal'] ? number_format($annualStats['unknownPeopleIdentified']['written'] / $annualStats['unknownPeopleIdentified']['goal'] * 100, 0) .'%' : 'N/A' }}
+                                        {{ $annualStats['unknownPeopleIdentified']['goal'] ? number_format($annualStats['unknownPeopleIdentified']['removed'] / $annualStats['unknownPeopleIdentified']['goal'] * 100, 0) .'%' : 'N/A' }}
                                     </td>
                                 </tr>
                             @endif
