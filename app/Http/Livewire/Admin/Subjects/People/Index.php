@@ -6,6 +6,7 @@ use App\Http\Livewire\DataTable\WithBulkActions;
 use App\Http\Livewire\DataTable\WithCachedRows;
 use App\Http\Livewire\DataTable\WithPerPagePagination;
 use App\Http\Livewire\DataTable\WithSorting;
+use App\Models\Category;
 use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
@@ -19,6 +20,8 @@ class Index extends Component
     public $researchers = false;
 
     public $subcategories = [];
+
+    public $categories = [];
 
     public $showDeleteModal = false;
 
@@ -98,6 +101,14 @@ class Index extends Component
             ->whereNotNull('subcategory')
             ->orderBy('subcategory')
             ->pluck('subcategory')
+            ->all();
+
+        $this->categories = Category::query()
+            ->where('category_id',
+                Category::query()->firstWhere('name', 'People')->id
+            )
+            ->orderBy('name')
+            ->pluck('name')
             ->all();
     }
 
