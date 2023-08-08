@@ -75,7 +75,7 @@
                         <tr>
                             <th class="bg-white"></th>
                             <th colspan="4" class="py-3.5 text-black bg-white">Places</th>
-                            <th colspan="7" class="py-3.5 text-black bg-white">Research</th>
+                            <th colspan="10" class="py-3.5 text-black bg-white">Research</th>
                         </tr>
                         <tr>
                             <th class="bg-white"></th>
@@ -84,6 +84,7 @@
                             <th colspan="1" class="bg-[#f6b26b]"></th>
                             <th colspan="3" class="bg-[#ffd966]"></th>
                             <th colspan="3" class="bg-[#76a5af] text-black">Biographies</th>
+                            <th colspan="3" class="bg-[#61A146]">Unidentified People</th>
                         </tr>
                         <tr>
                             <th class="py-3.5 text-base font-semibold text-center text-black bg-white">Month</th>
@@ -91,19 +92,25 @@
                             <th class="px-3 w-14 bg-[#ea9999] text-black">Goal</th>
                             <th class="px-3 w-14 bg-[#ea9999] text-black">Confirmed Places</th>
                             <th class="px-3 w-14 bg-[#ea9999] text-black">% of Goal</th>
+
                             <th class="px-3 w-14 bg-[#f9cb9c] text-black">Added to FTP</th>
                             <th class="px-3 w-14 bg-[#ffe599] text-black">Goal</th>
                             <th class="px-3 w-14 bg-[#ffe599] text-black">People Identified (PID Number Identified)</th>
                             <th class="px-3 w-14 bg-[#ffe599] text-black">% of Goal</th>
+
                             <th class="px-3 w-14 bg-[#a2c4c9] text-black">Goal</th>
                             <th class="px-3 w-14 bg-[#a2c4c9] text-black">Written</th>
                             <th class="px-3 w-14 bg-[#a2c4c9] text-black">% of Goal</th>
+
+                            <th class="px-3 w-14 bg-[#82BD69] text-black">Goal</th>
+                            <th class="px-3 w-14 bg-[#82BD69] text-black">Removed</th>
+                            <th class="px-3 w-14 bg-[#82BD69] text-black">% of Goal</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white">
                         <tr class="text-white bg-black">
                             <td class="px-2 text-center uppercase"></td>
-                            <td colspan="12" class="pl-2 text-left"></td>
+                            <td colspan="15" class="pl-2 text-left"></td>
                         </tr>
                         @php
                             $quarter = 1;
@@ -122,6 +129,10 @@
                                     'goal' => 0,
                                     'written' => 0,
                                 ],
+                                'unknownPeopleIdentified' => [
+                                    'goal' => 0,
+                                    'removed' => 0,
+                                ],
                             ];
                             $annualStats = [
                                 'places' => [
@@ -137,6 +148,10 @@
                                 'biographies' => [
                                     'goal' => 0,
                                     'written' => 0,
+                                ],
+                                'unknownPeopleIdentified' => [
+                                    'goal' => 0,
+                                    'removed' => 0,
                                 ],
                             ];
                         @endphp
@@ -160,6 +175,10 @@
                                 <td class="bg-[#d0e0e3] text-black">{{ $biographies[$month['name']]['actual'] }}</td>
                                 <td class="bg-[#d0e0e3] text-black">{{ $biographies[$month['name']]['goal'] ? $biographies[$month['name']]['percentage'] .'%' : 'N/A'  }}</td>
 
+                                <td class="bg-[#D3EAC8] text-black">{{ $unknownPeopleIdentified[$month['name']]['goal'] }}</td>
+                                <td class="bg-[#D3EAC8] text-black">{{ $unknownPeopleIdentified[$month['name']]['actual'] }}</td>
+                                <td class="bg-[#D3EAC8] text-black">{{ $unknownPeopleIdentified[$month['name']]['goal'] ? $unknownPeopleIdentified[$month['name']]['percentage'] .'%' : 'N/A'  }}</td>
+
                             </tr>
                             @php
                                 $quarterlyStats['places']['added'] += $places[$month['name']]['added'];
@@ -172,6 +191,9 @@
 
                                 $quarterlyStats['biographies']['goal'] += $biographies[$month['name']]['goal'];
                                 $quarterlyStats['biographies']['written'] += $biographies[$month['name']]['actual'];
+
+                                $quarterlyStats['unknownPeopleIdentified']['goal'] += $unknownPeopleIdentified[$month['name']]['goal'];
+                                $quarterlyStats['unknownPeopleIdentified']['removed'] += $unknownPeopleIdentified[$month['name']]['actual'];
                             @endphp
                             @if( ($loop->index + 1) % 3 == 0)
                                 <tr class="text-center bg-[#d9d9d9] font-semibold">
@@ -190,6 +212,7 @@
                                     <td>
                                         {{ $quarterlyStats['places']['goal'] ? number_format($quarterlyStats['places']['confirmed'] / $quarterlyStats['places']['goal'] * 100, 0) .'%' : 'N/A' }}
                                     </td>
+
                                     <td>
                                         {{ $quarterlyStats['people']['added'] }}
                                     </td>
@@ -202,6 +225,7 @@
                                     <td>
                                         {{ $quarterlyStats['people']['goal'] ? number_format($quarterlyStats['people']['identified'] / $quarterlyStats['people']['goal'] * 100, 0) .'%' : 'N/A' }}
                                     </td>
+
                                     <td>
                                         {{ $quarterlyStats['biographies']['goal'] }}
                                     </td>
@@ -210,6 +234,16 @@
                                     </td>
                                     <td>
                                         {{ $quarterlyStats['biographies']['goal'] ? number_format($quarterlyStats['biographies']['written'] / $quarterlyStats['biographies']['goal'] * 100, 0) .'%' : 'N/A' }}
+                                    </td>
+
+                                    <td>
+                                        {{ $quarterlyStats['unknownPeopleIdentified']['goal'] }}
+                                    </td>
+                                    <td>
+                                        {{ $quarterlyStats['unknownPeopleIdentified']['removed'] }}
+                                    </td>
+                                    <td>
+                                        {{ $quarterlyStats['unknownPeopleIdentified']['goal'] ? number_format($quarterlyStats['unknownPeopleIdentified']['removed'] / $quarterlyStats['unknownPeopleIdentified']['goal'] * 100, 0) .'%' : 'N/A' }}
                                     </td>
                                 </tr>
                                 @php
@@ -224,6 +258,9 @@
                                     $annualStats['biographies']['goal'] += $quarterlyStats['biographies']['goal'];
                                     $annualStats['biographies']['written'] += $quarterlyStats['biographies']['written'];
 
+                                    $annualStats['unknownPeopleIdentified']['goal'] += $quarterlyStats['unknownPeopleIdentified']['goal'];
+                                    $annualStats['unknownPeopleIdentified']['removed'] += $quarterlyStats['unknownPeopleIdentified']['removed'];
+
                                     $quarterlyStats['places']['added'] = 0;
                                     $quarterlyStats['places']['goal'] = 0;
                                     $quarterlyStats['places']['confirmed'] = 0;
@@ -234,6 +271,9 @@
 
                                     $quarterlyStats['biographies']['goal'] = 0;
                                     $quarterlyStats['biographies']['written'] = 0;
+
+                                    $quarterlyStats['unknownPeopleIdentified']['goal'] = 0;
+                                    $quarterlyStats['unknownPeopleIdentified']['removed'] = 0;
 
                                     $quarter += 1;
                                 @endphp
@@ -253,6 +293,7 @@
                                     <td>
                                         {{ $annualStats['places']['confirmed'] }}
                                     </td>
+
                                     <td>
                                         {{ $annualStats['places']['goal'] ? number_format($annualStats['places']['confirmed'] / $annualStats['places']['goal'] * 100, 0) .'%' : 'N/A' }}
                                     </td>
@@ -268,6 +309,7 @@
                                     <td>
                                         {{ $annualStats['people']['goal'] ? number_format($annualStats['people']['identified'] / $annualStats['people']['goal'] * 100, 0) .'%' : 'N/A' }}
                                     </td>
+
                                     <td>
                                         {{ $annualStats['biographies']['goal'] }}
                                     </td>
@@ -276,6 +318,16 @@
                                     </td>
                                     <td>
                                         {{ $annualStats['biographies']['goal'] ? number_format($annualStats['biographies']['written'] / $annualStats['biographies']['goal'] * 100, 0) .'%' : 'N/A' }}
+                                    </td>
+
+                                    <td>
+                                        {{ $annualStats['unknownPeopleIdentified']['goal'] }}
+                                    </td>
+                                    <td>
+                                        {{ $annualStats['unknownPeopleIdentified']['removed'] }}
+                                    </td>
+                                    <td>
+                                        {{ $annualStats['unknownPeopleIdentified']['goal'] ? number_format($annualStats['unknownPeopleIdentified']['written'] / $annualStats['unknownPeopleIdentified']['goal'] * 100, 0) .'%' : 'N/A' }}
                                     </td>
                                 </tr>
                             @endif
