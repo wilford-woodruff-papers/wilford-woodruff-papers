@@ -115,6 +115,18 @@ class Objectives extends Component
                     ->whereYear('bio_approved_at', $month['year'])
                     ->count();
                 $biographies[$month['name']]['percentage'] = ($biographies[$month['name']]['goal'] > 0) ? (intval(($biographies[$month['name']]['actual'] / $biographies[$month['name']]['goal']) * 100)) : 0;
+
+                $unknownPeopleIdentified[$month['name']]['goal'] = $goal = Goal::query()
+                    ->where('type_id', 999)
+                    ->where('action_type_id', ActionType::query()->where('name', 'Remove Unknown People')->first()->id)
+                    ->whereMonth('finish_at', $this->monthMap[$month['name']])
+                    ->whereYear('finish_at', $month['year'])
+                    ->first()->target ?? 0;
+                $unknownPeopleIdentified[$month['name']]['actual'] = DB::table('identifications')
+                    ->whereMonth('completed_at', $this->monthMap[$month['name']])
+                    ->whereYear('completed_at', $month['year'])
+                    ->count();
+                $unknownPeopleIdentified[$month['name']]['percentage'] = ($biographies[$month['name']]['goal'] > 0) ? (intval(($biographies[$month['name']]['actual'] / $biographies[$month['name']]['goal']) * 100)) : 0;
             }
         }
 
@@ -123,6 +135,7 @@ class Objectives extends Component
             'places' => $places ?? [],
             'people' => $people ?? [],
             'biographies' => $biographies ?? [],
+            'unknownPeopleIdentified' => $unknownPeopleIdentified ?? [],
         ])
             ->layout('layouts.admin');
     }
