@@ -35,6 +35,13 @@ class Timeline extends Component
         'topics' => [],
     ];
 
+    protected $queryString = [
+        'q' => ['except' => ''],
+        'page' => ['except' => 1],
+        'filters' => ['except' => []],
+        'year_range' => ['except' => ''],
+    ];
+
     public function mount()
     {
         $this->groups = [
@@ -148,5 +155,10 @@ class Timeline extends Component
         }
 
         return empty($query) ? null : implode(' AND ', $query);
+    }
+
+    public function updatingQ()
+    {
+        $this->emit('scroll-to-top');
     }
 }
