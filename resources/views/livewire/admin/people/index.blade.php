@@ -55,6 +55,16 @@
                                     </div>
                                 </div>
                                 <div class="pr-2 space-y-4">
+                                    <x-input.group borderless for="filter-type" label="Category" inline="true">
+                                        <x-input.select wire:model="filters.category" id="filter-type">
+                                            <option value=""> -- All -- </option>
+                                            @foreach($categories as $category)
+                                                <option value="{{ $category }}" @if(data_get('category', $filters) == $category) selected @endif>{{ $category }}</option>
+                                            @endforeach
+                                        </x-input.select>
+                                    </x-input.group>
+                                </div>
+                                <div class="pr-2 space-y-4">
                                     <x-input.group borderless for="filter-type" label="Subcategory" inline="true">
                                         <x-input.select wire:model="filters.subcategory" id="filter-type">
                                             <option value=""> -- All -- </option>
