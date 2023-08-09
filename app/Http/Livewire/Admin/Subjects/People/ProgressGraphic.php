@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin\Subjects\People;
 
 use App\Models\Category;
+use App\Models\PeopleIdentification;
 use App\Models\Subject;
 use Livewire\Component;
 
@@ -31,11 +32,19 @@ class ProgressGraphic extends Component
 
                     ->count();
             }
+            
+            $unknown_people = [];
+            $unknown_people['removed'] = PeopleIdentification::query()
+                ->whereNotNull('completed_at')
+                ->count();
+            $unknown_people['total'] = PeopleIdentification::query()
+                ->count();
 
         }
 
         return view('livewire.admin.people.progress-graphic', [
             'stats' => $stats ?? [],
+            'unknown_people' => $unknown_people ?? [],
         ])
             ->layout('layouts.admin');
     }
