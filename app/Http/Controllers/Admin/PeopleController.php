@@ -81,7 +81,7 @@ class PeopleController extends Controller
             'max:191',
         ],
         'reference' => [
-            'max:191',
+            'max:2048',
         ],
         'relationship' => [
             'max:191',
