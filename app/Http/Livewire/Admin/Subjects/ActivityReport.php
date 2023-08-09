@@ -57,6 +57,13 @@ class ActivityReport extends Component
                 ->where('categories.name', 'People')
                 ->count();
 
+            $overallStats['unknown_people']['removed'] = DB::table('identifications')
+                ->whereDate('completed_at', '>=', $this->dates['start'])
+                ->whereDate('completed_at', '<=', $this->dates['end'])
+                ->whereNotNull('researcher_id')
+                ->where('type', 'people')
+                ->count();
+
             $individualStats['biographies']['completed'] = DB::table('subjects')
                 ->select('users.name', DB::raw('count(*) as completed'))
                 ->join('users', 'subjects.researcher_id', '=', 'users.id')
@@ -66,6 +73,16 @@ class ActivityReport extends Component
                 ->whereDate('bio_completed_at', '<=', $this->dates['end'])
                 ->whereNotNull('researcher_id')
                 ->where('categories.name', 'People')
+                ->groupBy('researcher_id')
+                ->get();
+
+            $individualStats['unknown_people']['removed'] = DB::table('identifications')
+                ->select('users.name', DB::raw('count(*) as completed'))
+                ->join('users', 'identifications.researcher_id', '=', 'users.id')
+                ->whereDate('completed_at', '>=', $this->dates['start'])
+                ->whereDate('completed_at', '<=', $this->dates['end'])
+                ->whereNotNull('researcher_id')
+                ->where('type', 'people')
                 ->groupBy('researcher_id')
                 ->get();
             //dd($individualStats);

@@ -81,6 +81,14 @@
                                     {{ $overallStats['places']['confirmed'] }}
                                 </td>
                             </tr>
+                            <tr class="odd:bg-white even:bg-gray-50">
+                                <td class="p-4 text-left">
+                                    Unidentified People Removed
+                                </td>
+                                <td class="p-4 text-right">
+                                    {{ $overallStats['unknown_people']['removed'] }}
+                                </td>
+                            </tr>
                         </tbody>
                         <tfoot></tfoot>
                     </table>
@@ -96,6 +104,32 @@
                         </thead>
                         <tbody class="divide-y-2">
                             @foreach($individualStats['biographies']['completed']->groupBy('name') as $individualStat)
+                                <tr class="odd:bg-white even:bg-gray-50">
+                                    @foreach($individualStat as $stat)
+                                        <td class="p-4 text-left">
+                                            {{ $stat->name }}
+                                        </td>
+                                        <td class="p-4 text-right">
+                                            {{ $stat->completed }}
+                                        </td>
+                                    @endforeach
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot></tfoot>
+                    </table>
+                @endif
+
+                @if(! empty($individualStats['unknown_people']['removed']))
+                    <table class="">
+                        <thead>
+                            <tr class="font-semibold">
+                                <td class="p-4">Researcher</td>
+                                <td class="p-4">Unidentified People Removed</td>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y-2">
+                            @foreach($individualStats['unknown_people']['removed']->groupBy('name') as $individualStat)
                                 <tr class="odd:bg-white even:bg-gray-50">
                                     @foreach($individualStat as $stat)
                                         <td class="p-4 text-left">
