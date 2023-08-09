@@ -83,7 +83,7 @@
                             </tr>
                             <tr class="odd:bg-white even:bg-gray-50">
                                 <td class="p-4 text-left">
-                                    Unidentified People Removed
+                                    Unknown People Removed
                                 </td>
                                 <td class="p-4 text-right">
                                     {{ $overallStats['unknown_people']['removed'] }}
@@ -125,7 +125,7 @@
                         <thead>
                             <tr class="font-semibold">
                                 <td class="p-4">Researcher</td>
-                                <td class="p-4">Unidentified People Removed</td>
+                                <td class="p-4">Unknown People Removed</td>
                             </tr>
                         </thead>
                         <tbody class="divide-y-2">
