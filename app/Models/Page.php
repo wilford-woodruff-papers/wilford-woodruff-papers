@@ -148,6 +148,15 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
             ->replace('&amp;', '&');
     }
 
+    public function clearText($isQuoteTagger = false)
+    {
+        return str($this->clear_text_transcript)
+            ->addSubjectLinks()
+            ->addScriptureLinks()
+            ->removeQZCodes($isQuoteTagger)
+            ->replace('&amp;', '&');
+    }
+
     public function getRouteKeyName()
     {
         return 'uuid';
