@@ -191,11 +191,52 @@
                         </div>
                     @else
                         {{-- class="bg-green-300" --}}
-                        @hasanyrole('Editor|Admin|Super Admin|Tagger|Quote Tagging')
-                            <livewire:transcript :page="$page" />
-                        @else
-                            {!! $page->text(auth()->check() && auth()->user()->hasAnyRole(['Quote Tagging', 'Super Admin'])) !!}
-                        @endhasanyrole
+                        <div x-data="{
+                                version: 'default',
+                                clear_text: false,
+                            }"
+                            x-init="$watch('clear_text', value => {
+                               if(value){
+                                   version = 'clear';
+                               }else{
+                                   version = 'default';
+                               }
+                            })"
+                        >
+                            @if(! empty($page->clear_text_transcript))
+                                <div class="mt-2 space-y-6">
+                                    <div class="flex relative gap-x-3">
+                                        <div class="flex items-center h-6">
+                                            <input x-model="clear_text"
+                                                   id="clear_text"
+                                                   name="clear_text"
+                                                   type="checkbox"
+                                                   value="true"
+                                                   class="w-4 h-4 rounded border-gray-300 text-secondary focus:ring-secondary-600"
+                                            >
+                                        </div>
+                                        <div class="text-sm leading-6">
+                                            <label for="clear_text" class="font-medium text-gray-900">
+                                                Hide Editing Marks
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                            <div x-show.important="(version == 'default')">
+                                @hasanyrole('Editor|Admin|Super Admin|Tagger|Quote Tagging')
+                                    <livewire:transcript :page="$page" />
+                                @else
+                                    {!! $page->text(auth()->check() && auth()->user()->hasAnyRole(['Quote Tagging', 'Super Admin'])) !!}
+                                @endhasanyrole
+                            </div>
+                            <div x-show.important="(version == 'clear')"
+                                 x-cloak
+                            >
+                                {!! $page->clearText() !!}
+                            </div>
+                        </div>
+
                     @endif
                 </div>
             </div>
