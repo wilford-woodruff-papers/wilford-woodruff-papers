@@ -6,7 +6,7 @@
     <div x-data="{
             event: {image: '', date: '', text: '', links: []},
             filtersOpen: true,
-            view: 'timeline',
+            view: @entangle('view'),
             activeEvent: null,
             currentIndex: @entangle('currentIndex'),
             @foreach($groups as $group)

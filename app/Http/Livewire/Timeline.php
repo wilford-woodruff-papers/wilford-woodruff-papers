@@ -15,6 +15,8 @@ class Timeline extends Component
 
     public $q = '';
 
+    public $view = 'timeline';
+
     public $groups = [];
 
     public $sort = ['date' => 'asc'];
@@ -37,6 +39,7 @@ class Timeline extends Component
 
     protected $queryString = [
         'q' => ['except' => ''],
+        'view' => ['except' => ''],
         'page' => ['except' => 1],
         'filters' => ['except' => []],
         'year_range' => ['except' => ''],
