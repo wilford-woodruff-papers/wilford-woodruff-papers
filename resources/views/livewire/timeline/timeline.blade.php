@@ -49,19 +49,32 @@
                           class="flex justify-center items-center w-auto cursor-pointer"
                           title="Show {{ $group }} Events"
                     >
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                </span>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </span>
                 </div>
             @endforeach
         </div>
-        <div id="event-selector"
-             class="top-0 w-full h-20 bg-gray-800 opacity-25">
-
-        </div>
     </div>
-    <div class="">
+    <div class="relative pt-[9rem]">
+        <div class="sticky top-48 z-10 mb-[-14rem]">
+            <div id="event-selector"
+                 class="flex top-0 w-full h-20">
+                <div class="absolute w-full h-20 bg-gray-800 opacity-10"></div>
+                <div class="w-12 border-l-2 border-gray-800 border-y-2">
+
+                </div>
+                <div class="flex flex-col flex-1 h-full">
+                    <div class="h-1/2 border-b-2 border-gray-400"></div>
+                    <div class="h-1/2"></div>
+                </div>
+                <div class="w-12 border-r-2 border-gray-800 border-y-2">
+
+                </div>
+            </div>
+        </div>
+
         @if($v_min < 1810)
             <div class="flex sticky top-0 z-10 justify-center items-center my-0 w-full text-4xl font-bold text-white h-18 bg-primary">
                 1800
@@ -219,8 +232,8 @@
                                 @endforeach
                             @else
                                 <div class="grid grid-cols-6 px-4 h-8 divide-x divide-slate-300">
-                                    <div>
-                                        <div class="w-1/2 border-t border-gray-400 border-1"></div>
+                                    <div class="text-sm text-gray-600">
+                                        {{ $month }}
                                     </div>
                                     <div></div>
                                     <div></div>
@@ -234,5 +247,8 @@
                 @endif
             </div>
         @endforeach
+    </div>
+    <div class="h-80">
+
     </div>
 </div>
