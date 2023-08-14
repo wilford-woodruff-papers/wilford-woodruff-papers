@@ -52,7 +52,7 @@
                                 <span><strong class="font-semibold text-gray-900">Analyze</strong> Create visualizations, stories, and share insights with the community.</span>
                             </li>
                         </ul>
-                        <p class="mt-8">Before accessing to the API, we ask that you accept the terms of use and provide a brief explanation of you want to use the API.</p>
+                        <p class="mt-8">Before accessing the API, we ask that you accept the terms of use and provide a brief explanation of why you want to use the API.</p>
                         <p class="mt-12">
                             <a href="{{ route('dashboard') }}" class="py-4 px-6 font-semibold text-white bg-secondary hover:bg-secondary-600">
                                 Access the Developer API &rarr;
