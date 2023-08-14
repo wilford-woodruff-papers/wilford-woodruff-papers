@@ -5,6 +5,7 @@ namespace App\Imports;
 use App\Jobs\ImportBioApprovedAtFromMasterFileAction;
 use App\Jobs\ImportPeopleIdentificationFileAction;
 use App\Jobs\ImportPeopleMasterFileAction;
+use App\Jobs\ImportResearchLogLinkFromMasterFileAction;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -32,6 +33,10 @@ class PeopleFromPcfActions implements ToCollection, WithHeadingRow
                     break;
                 case 'Import Bio Approved At':
                     ImportBioApprovedAtFromMasterFileAction::dispatch($row)
+                        ->onQueue('import');
+                    break;
+                case 'Import Research Log':
+                    ImportResearchLogLinkFromMasterFileAction::dispatch($row)
                         ->onQueue('import');
                     break;
             }
