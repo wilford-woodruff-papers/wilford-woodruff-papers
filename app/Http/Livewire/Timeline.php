@@ -15,6 +15,8 @@ class Timeline extends Component
 
     public $q = '';
 
+    public $view = 'timeline';
+
     public $groups = [];
 
     public $sort = ['date' => 'asc'];
@@ -33,6 +35,14 @@ class Timeline extends Component
         'type' => [],
         'resource_type' => [],
         'topics' => [],
+    ];
+
+    protected $queryString = [
+        'q' => ['except' => ''],
+        'view' => ['except' => ''],
+        'page' => ['except' => 1],
+        'filters' => ['except' => []],
+        'year_range' => ['except' => ''],
     ];
 
     public function mount()
@@ -148,5 +158,10 @@ class Timeline extends Component
         }
 
         return empty($query) ? null : implode(' AND ', $query);
+    }
+
+    public function updatingQ()
+    {
+        $this->emit('scroll-to-top');
     }
 }

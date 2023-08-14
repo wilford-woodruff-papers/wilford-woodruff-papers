@@ -6,7 +6,7 @@
     <div x-data="{
             event: {image: '', date: '', text: '', links: []},
             filtersOpen: true,
-            view: 'timeline',
+            view: @entangle('view'),
             activeEvent: null,
             currentIndex: @entangle('currentIndex'),
             @foreach($groups as $group)
@@ -133,6 +133,14 @@
                 display: block;
             }
         </style>
+    @endpush
+
+    @push('scripts')
+        <script>
+            Livewire.on('scroll-to-top', postId => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        </script>
     @endpush
 
     @push('scripts')
