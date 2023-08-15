@@ -3,6 +3,10 @@
         Timeline | {{ config('app.name') }}
     </x-slot>
 
+    <x-banner-image :image="asset('img/banners/timeline.jpg')"
+                    :text="'Timeline'"
+    />
+
     <div x-data="{
             event: {image: '', date: '', text: '', links: []},
             filtersOpen: true,
