@@ -4,6 +4,7 @@ namespace App\Nova;
 
 use App\Nova\Actions\ExportPages;
 use App\Nova\Actions\ExportPagesAlternate;
+use App\Nova\Actions\ImportClearText;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\HasMany;
@@ -108,6 +109,7 @@ class Page extends Resource
                 ->askForWriterType(),
             (new ExportPagesAlternate())
                 ->askForWriterType(),
+            new ImportClearText(),
         ];
     }
 }
