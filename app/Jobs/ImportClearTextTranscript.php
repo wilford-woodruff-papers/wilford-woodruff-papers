@@ -30,20 +30,21 @@ class ImportClearTextTranscript implements ShouldQueue
      */
     public function handle(): void
     {
-        $pageID = data_get($this->row, str('Internal ID')->lower()->snake()->toString());
+        Page::withoutSyncingToSearch(function () {
+            $pageID = data_get($this->row, str('Internal ID')->lower()->snake()->toString());
 
-        if (empty($pageID)) {
-            info('No ID');
+            if (empty($pageID)) {
+                info('No ID');
 
-            return;
-        }
+                return;
+            }
 
-        if ($page = Page::find($pageID)) {
-            $page->clear_text_transcript = data_get($this->row, str('Clear Text')->lower()->snake()->toString());
-            $page->save();
-        } else {
-            info('No page found for:  '.$pageID);
-        }
-
+            if ($page = Page::find($pageID)) {
+                $page->clear_text_transcript = data_get($this->row, str('Clear Text')->lower()->snake()->toString());
+                $page->saveQuietly();
+            } else {
+                info('No page found for:  '.$pageID);
+            }
+        });
     }
 }
