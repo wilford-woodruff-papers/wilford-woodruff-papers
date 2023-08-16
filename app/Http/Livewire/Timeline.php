@@ -164,4 +164,9 @@ class Timeline extends Component
     {
         $this->emit('scroll-to-top');
     }
+
+    public function updatingView()
+    {
+        $this->emit('scroll-to-timeline');
+    }
 }

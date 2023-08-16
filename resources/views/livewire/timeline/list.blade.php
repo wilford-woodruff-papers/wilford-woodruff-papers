@@ -37,7 +37,7 @@
             </div>
         </div>
         <div id="event-selector"
-             class="top-0 w-full h-20 bg-gray-800 opacity-25">
+             class="hidden top-0 w-full h-20 bg-gray-800 opacity-25">
 
         </div>
     </div>
@@ -53,7 +53,7 @@
                 $count = 0;
             @endphp
 
-            @if(($year % 10) == 0)
+            @if((((int) $year) % 10) == 0)
                 {{--<div class="grid grid-cols-6 px-4 h-8 divide-x divide-slate-300">
                     <div>&nbsp;</div>
                     <div>&nbsp;</div>

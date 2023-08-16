@@ -86,7 +86,7 @@
                 $count = 0;
             @endphp
 
-            @if(($year % 10) == 0)
+            @if((((int) $year) % 10) == 0)
                 <div class="grid grid-cols-6 px-4 h-8 divide-x divide-slate-300">
                     <div>&nbsp;</div>
                     <div>&nbsp;</div>
