@@ -100,28 +100,73 @@
                             @if(count($monthEvents) > 0)
                                 <div>
                                     @foreach($monthEvents as $event)
-                                        <div class="grid grid-cols-5 gap-x-8 py-4 h-24">
-                                            <div class="">
-                                                @if(data_get($event, 'thumbnail'))
-                                                    <img src="{{ data_get($event, 'thumbnail') }}"
-                                                         alt=""
-                                                         class="object-cover object-top mx-auto w-20 bg-gray-100 scale-150 aspect-[16/9] sm:aspect-[2/1] lg:aspect-[3/2]">
-                                                @endif
-                                            </div>
-                                            <div class="col-span-3 gap-y-2">
-                                                <div>
-                                                    {!! str($event['name'])->addScriptureLinks()->toString() !!}
+                                        <div class="group">
+                                            <div class="grid grid-cols-5 gap-x-8 py-4 h-24 group-hover:hidden">
+                                                <div class="">
+                                                    @if(data_get($event, 'thumbnail'))
+                                                        <img src="{{ data_get($event, 'thumbnail') }}"
+                                                             alt=""
+                                                             class="object-cover object-top mx-auto w-20 bg-gray-100 scale-150 aspect-[16/9] sm:aspect-[2/1] lg:aspect-[3/2]">
+                                                    @endif
                                                 </div>
-                                                <div>
+                                                <div class="col-span-3 gap-y-2">
+                                                    <div>
+                                                        {!! str($event['name'])->addScriptureLinks()->toString() !!}
+                                                    </div>
+                                                    <div>
                                                     <span class="px-1.5 text-sm text-white py-0.25 bg-secondary">
                                                         {{ data_get($event, 'type') }}
                                                     </span>
+                                                    </div>
+                                                </div>
+                                                <div class="">
+                                                    <div class="text-lg font-semibold">
+                                                        {{ data_get($event, 'display_date') }}
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="">
-                                                <div class="text-lg font-semibold">
-                                                    {{ data_get($event, 'display_date') }}
+
+                                            <div class="hidden grid-cols-6 gap-x-12 p-4 text-white group-hover:grid bg-primary">
+                                                <div class="">
+                                                    @if(data_get($event, 'thumbnail'))
+                                                        <img src="{{ data_get($event, 'thumbnail') }}"
+                                                             alt=""
+                                                             class="object-cover object-top mx-auto w-full bg-gray-100">
+                                                    @endif
                                                 </div>
+                                                <div class="text-right">
+                                                    <div class="text-3xl">
+                                                        {{ data_get($event, 'display_date') }}
+                                                    </div>
+                                                </div>
+                                                <div class="flex flex-col col-span-3 gap-y-4">
+                                                    <div>
+                                                        <span class="px-1.5 text-sm text-white py-0.25 bg-secondary">
+                                                            {{ data_get($event, 'type') }}
+                                                        </span>
+                                                    </div>
+                                                    <div class="text-3xl">
+                                                        {!! str($event['name'])->addScriptureLinks()->toString() !!}
+                                                    </div>
+                                                </div>
+                                                @if(count($links = data_get($event, 'links')) > 0)
+                                                    <div class="flex flex-col justify-end my-4">
+                                                        <div class="py-4 text-lg text-white">
+                                                            Read More
+                                                        </div>
+                                                        <ul class="flex flex-col gap-6">
+                                                            @foreach($links as $link)
+                                                                <li>
+                                                                    <a title="{{ $link['name'] }}"
+                                                                       href="{{ $link['url'] }}"
+                                                                       class="py-2 px-4 my-4 text-white text-md bg-secondary">
+                                                                        View Source
+                                                                    </a>
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                                @endif
                                             </div>
                                         </div>
                                     @endforeach
