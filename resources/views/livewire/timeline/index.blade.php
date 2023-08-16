@@ -34,7 +34,10 @@
                 }
             });
         "
-         class="grid grid-cols-5">
+         class="grid"
+         :class="((view == 'timeline') && filtersOpen) ?'grid-cols-5' : 'grid-cols-4'"
+        x-cloak
+    >
         <div x-show="filtersOpen"
              x-transition
              class="relative col-span-1 bg-gray-200">
@@ -86,7 +89,7 @@
             </div>
         </div>
         <div id="timeline"
-             class="col-span-3 pb-96 bg-gray-100"
+             class="pb-96 bg-gray-100"
              :class="filtersOpen ?'col-span-3' : 'col-span-4'"
         >
             <div x-show="view == 'timeline'"
@@ -110,7 +113,8 @@
                 @include('livewire.timeline.map')
             </div>
         </div>
-        <div class="relative col-span-1 bg-gray-200">
+        <div class="relative bg-gray-200"
+             :class="(view == 'timeline') ?'col-span-1' : 'hidden'">
 
             <div class="sticky top-0 py-8 px-4 h-screen bg-primary">
                 <div>
