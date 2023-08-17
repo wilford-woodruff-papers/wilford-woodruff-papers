@@ -10,6 +10,23 @@
                 <form action="{{ route('terms.submit') }}" method="POST">
                     @csrf
                     @method('POST')
+
+                    <div class="mt-4">
+                        <x-label for="subscribe_to_newsletter">
+                            <div class="flex items-center">
+                                <x-checkbox name="subscribe_to_newsletter"
+                                            id="subscribe_to_newsletter"
+                                            value="true"
+                                            @checked(true)
+                                />
+
+                                <div class="ml-2">
+                                    Receive regular updates from the Wilford Woodruff Papers Foundation
+                                </div>
+                            </div>
+                        </x-label>
+                    </div>
+
                     <button type="submit"
                             class="block py-2 w-full font-semibold text-white bg-secondary"
                     >

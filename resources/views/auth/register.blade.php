@@ -47,6 +47,22 @@
                 </div>
             @endif
 
+            <div class="mt-4">
+                <x-label for="subscribe_to_newsletter">
+                    <div class="flex items-center">
+                        <x-checkbox name="subscribe_to_newsletter"
+                                    id="subscribe_to_newsletter"
+                                    value="true"
+                                    checked="checked"
+                        />
+
+                        <div class="ml-2">
+                            Receive regular updates from the Wilford Woodruff Papers Foundation
+                        </div>
+                    </div>
+                </x-label>
+            </div>
+
             <div class="flex flex-col gap-y-2 justify-center items-center mt-4">
                 <x-button class="py-3 text-center rounded-none md:py-4 bg-secondary">
                     <span class="mx-auto text-base font-medium md:text-lg">
