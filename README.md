@@ -1,15 +1,89 @@
 <p align="center"><a href="https://wilfordwoodruffpapers.org/img/image-logo.png" width="400"></a></p>
 
 ## Getting Started with Development
+
 Clone the Github repository
 
 ```git clone https://github.com/wilford-woodruff-papers/wilford-woodruff-papers```
+
+## Docker
+
+Both local development options use Docker. You first need to install Docker Desktop or OrbStack for your operating system.
+ - [OrbStack](https://orbstack.dev/) (Mac and Linux only)
+ - [Docker Desktop](https://www.docker.com/products/docker-desktop/) (Mac, Linux, and Windows)
+
+## Options for Local Development
+There are 2 supported options for doing local development: 
+ - [Herd](https://herd.laravel.com/) + [DBngine](https://dbngin.com/) (Mac only)
+ - [Sail](https://laravel.com/docs/10.x/sail) (Mac, Linux, and Windows)
+
+### Using Herd + Docker Meilisearch
+
+Herd is a recently released desktop application that handles configuring PHP and local development domains/SSL. However, since the project uses Meilisearch, you will need to run Meilisearch in a separate Docker container. 
+
+DBngin is a Mac only application that handles configuring MySQL and Redis.
+
+```
+docker run -it --rm --name=wwp_meilisearch \
+    -p 7700:7700 \
+    -v $(pwd)/meili_data:/meili_data \
+    getmeili/meilisearch:v1.3 \
+    meilisearch --master-key="6DWfC5xQuDulEUhYjGGwVAS00tpZxKlPpc71Fkpr2CQ"
+```
+
+You can then use the following connect parameters in your .env
+
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=wwp
+DB_USERNAME=root
+DB_PASSWORD=
+
+REDIS_HOST=127.0.0.1
+REDIS_PASSWORD=null
+REDIS_PORT=6379
+
+MEILISEARCH_HOST=http://wwp_meilisearch.orb.local:7700
+MEILISEARCH_KEY="6DWfC5xQuDulEUhYjGGwVAS00tpZxKlPpc71Fkpr2CQ"
+```
+
+
+### Using Sail
+
+Sail is a fully configured Docker environment for Laravel.
+
+#### Installing Sail (Docker)
 
 You may wish to configure a shell alias that allows you to execute Sail's commands more easily:
 
 ```alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'```
 
 Copy .env file to the root or your project directory
+
+You can then use the following connect parameters in your .env
+
+```
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=wwp
+DB_USERNAME=root
+DB_PASSWORD=
+
+REDIS_HOST=redis
+REDIS_PASSWORD=null
+REDIS_PORT=6379
+
+MEILISEARCH_HOST=http://meilisearch:7700
+MEILISEARCH_KEY=masterKey
+
+RAY_HOST=host.docker.internal
+RAY_PORT=23517
+RAY_REMOTE_PATH='/var/www'
+RAY_LOCAL_PATH='~/code/wilford-woodruff-papers'
+```
 
 Install PHP dependencies
 
@@ -22,7 +96,11 @@ docker run --rm \
     composer install --ignore-platform-reqs
 ```
 
-## Installation and Setup of Sail
+#### Setup of Sail and Installing Composer Dependencies
+
+```./vendor/bin/sail up```
+
+```./vendor/bin/sail composer install```
 
 ```./vendor/bin/sail up``` or if you created the alias ```sail up```
 

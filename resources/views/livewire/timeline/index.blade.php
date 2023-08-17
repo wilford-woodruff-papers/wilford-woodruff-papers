@@ -3,19 +3,41 @@
         Timeline | {{ config('app.name') }}
     </x-slot>
 
+    <x-banner-image :image="asset('img/banners/timeline.jpg')"
+                    :text="'Timeline'"
+    />
+
     <div x-data="{
             event: {image: '', date: '', text: '', links: []},
             filtersOpen: true,
             view: @entangle('view'),
-            activeEvent: null,
             currentIndex: @entangle('currentIndex'),
             @foreach($groups as $group)
                 {{ str($group)->snake() }}: true,
             @endforeach
             isOverlap: $overlap('#event-selector')
         }"
-         x-init="$watch('activeEvent', (value, oldValue) => $wire.set('event', value))"
-         class="grid grid-cols-5">
+         x-init="
+            if (view == 'map') {
+                setTimeout(() => {
+                    window.loadMap();
+                }, 500);
+            }
+            $watch('view', (value, oldValue) => {
+                setTimeout(() => {
+                    event = {image: '', date: '', text: '', links: []};
+                }, 1000);
+                if (value == 'map') {
+                    $nextTick(() => {
+                        window.loadMap();
+                    });
+                }
+            });
+        "
+         class="grid"
+         :class="((view == 'timeline') && filtersOpen) ?'grid-cols-5' : 'grid-cols-4'"
+        x-cloak
+    >
         <div x-show="filtersOpen"
              x-transition
              class="relative col-span-1 bg-gray-200">
@@ -66,18 +88,24 @@
                 </div>
             </div>
         </div>
-        <div class="col-span-3 pb-96 bg-gray-100"
+        <div id="timeline"
+             class="pb-96 bg-gray-100"
              :class="filtersOpen ?'col-span-3' : 'col-span-4'"
         >
             <div x-show="view == 'timeline'"
                  x-cloak
             >
-                @include('livewire.timeline.timeline')
+                @if($view == 'timeline')
+
+                    @include('livewire.timeline.timeline')
+                @endif
             </div>
             <div x-show="view == 'list'"
                  x-cloak
             >
-                @include('livewire.timeline.list')
+                @if($view == 'list')
+                    @include('livewire.timeline.list')
+                @endif
             </div>
             <div x-show="view == 'map'"
                  x-cloak
@@ -85,7 +113,8 @@
                 @include('livewire.timeline.map')
             </div>
         </div>
-        <div class="relative col-span-1 bg-gray-200">
+        <div class="relative bg-gray-200"
+             :class="(view == 'timeline') ?'col-span-1' : 'hidden'">
 
             <div class="sticky top-0 py-8 px-4 h-screen bg-primary">
                 <div>
@@ -133,11 +162,45 @@
                 display: block;
             }
         </style>
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prunecluster/2.1.0/PruneCluster.min.js" integrity="sha512-TIhw+s9KAwyAGM7n2qG2hM+lvQxja1Hieb3nS3F2y9AFEDImo6SNXoooqmajF/D5lMfriBIasQ6N+pizlF0wTA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script>
+            window.loadMap = function (){
+                const map = L.map('map')
+                    .setView([37.71859, -54.140625], 3);
+
+                L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                })
+                    .addTo(map);
+
+                var pruneCluster = new PruneClusterForLeaflet();
+
+
+                fetch("{{ route('map.locations') }}")
+                    .then(response => response.json())
+                    .then(data => {
+                        data.forEach(point => {
+                            /*var marker = L.marker([point.latitude, point.longitude])
+                                .bindPopup(`<a href="${point.url}" target="_blank" class="!text-secondary"><b>${point.name}</b></a><br>${point.description}`)
+                                .openPopup();*/
+                            var marker = new PruneCluster.Marker(point.latitude, point.longitude);
+                            marker.data.popup = `<button onclick="Livewire.emit('openPanel', 'Related Documents', ${point.id}, 'location')" class="!text-secondary"><b>${point.name}</b></button><br>${point.description}`;
+                            pruneCluster.RegisterMarker(marker);
+                            //markers.addLayer(marker);
+                        });
+
+                        map.addLayer(pruneCluster);
+                    })
+                    .catch(error => console.error('Error fetching data: ', error));
+            }
+        </script>
     @endpush
 
     @push('scripts')
         <script>
-            Livewire.on('scroll-to-top', postId => {
+            Livewire.on('scroll-to-top', () => {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
         </script>
@@ -147,6 +210,13 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.js" integrity="sha512-UOJe4paV6hYWBnS0c9GnIRH8PLm2nFK22uhfAvsTIqd3uwnWsVri1OPn5fJYdLtGY3wB11LGHJ4yPU1WFJeBYQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/wnumb/1.2.0/wNumb.min.js" integrity="sha512-igVQ7hyQVijOUlfg3OmcTZLwYJIBXU63xL9RC12xBHNpmGJAktDnzl9Iw0J4yrSaQtDxTTVlwhY730vphoVqJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script>
+            Livewire.on('scroll-to-timeline', () => {
+                window.scrollTo({ top: document.getElementById('timeline').offsetTop + 80, behavior: 'smooth' });
+                //document.getElementById('timeline').scrollIntoView();
+            });
+
+
+
             {{--var mobile_range = document.getElementById('mobile_range');--}}
             {{--var mobile_slider = noUiSlider.create(mobile_range, {--}}
             {{--    range: {--}}
