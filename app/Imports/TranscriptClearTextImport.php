@@ -14,8 +14,15 @@ class TranscriptClearTextImport implements ToCollection, WithHeadingRow
     public function collection(Collection $rows)
     {
         foreach ($rows as $row) {
-            ImportClearTextTranscript::dispatch($row)
-                ->onQueue('import');
+            $pageID = data_get($row, str('Internal ID')->lower()->snake()->toString());
+
+            if (! empty($pageID)
+                && ! empty(data_get($row, str('Clear Text')->lower()->snake()->toString()))
+                && data_get($row, str('Clear Text')->lower()->snake()->toString()) != 'nan'
+            ) {
+                ImportClearTextTranscript::dispatch($row)
+                    ->onQueue('import');
+            }
         }
     }
 

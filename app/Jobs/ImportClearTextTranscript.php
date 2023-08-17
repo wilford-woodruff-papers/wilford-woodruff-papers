@@ -33,12 +33,6 @@ class ImportClearTextTranscript implements ShouldQueue
         Page::withoutSyncingToSearch(function () {
             $pageID = data_get($this->row, str('Internal ID')->lower()->snake()->toString());
 
-            if (empty($pageID)) {
-                info('No ID');
-
-                return;
-            }
-
             if ($page = Page::find($pageID)) {
                 $page->clear_text_transcript = data_get($this->row, str('Clear Text')->lower()->snake()->toString());
                 $page->saveQuietly();
