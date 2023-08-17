@@ -1,6 +1,6 @@
 <x-guest-layout>
     <div class="py-4 bg-gray-100">
-        <div class="flex flex-col items-center pt-6 min-h-screen sm:pt-0">
+        <div class="flex flex-col items-center pt-6 sm:pt-0">
             <div class="overflow-hidden p-6 mt-6 w-full bg-white shadow-md sm:max-w-2xl prose">
                 {!! $terms !!}
             </div>
@@ -17,7 +17,7 @@
                                 <x-checkbox name="subscribe_to_newsletter"
                                             id="subscribe_to_newsletter"
                                             value="true"
-                                            @checked(true)
+                                            checked="checked"
                                 />
 
                                 <div class="ml-2">
