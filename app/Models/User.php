@@ -103,4 +103,18 @@ class User extends Authenticatable
     {
         return $this->provided_api_fields;
     }
+
+    public function getFirstNameAttribute()
+    {
+        return str($this->name)
+            ->explode(' ')
+            ->first();
+    }
+
+    public function getLastNameAttribute()
+    {
+        return str($this->name)
+            ->explode(' ')
+            ->last();
+    }
 }
