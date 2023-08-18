@@ -83,8 +83,8 @@ class Timeline extends Component
         $facetDistribution = $result->getFacetDistribution();
         $facetStats = $result->getFacetStats();
 
-        $this->v_min = intval($facetStats['year']['min']);
-        $this->v_max = intval($facetStats['year']['max']);
+        $this->v_min = intval(data_get($facetStats, 'year.min'));
+        $this->v_max = intval(data_get($facetStats, 'year.max'));
 
         // TODO: This should be calculated and be the first and last years in the results.
         $yearList = range($this->v_min, $this->v_max);
