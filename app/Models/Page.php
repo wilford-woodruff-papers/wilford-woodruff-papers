@@ -116,6 +116,11 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
         return $this->morphMany(Date::class, 'dateable')->orderBy('date', 'ASC');
     }
 
+    public function translations()
+    {
+        return $this->hasMany(Translation::class);
+    }
+
     public function getPageDateRangeAttribute()
     {
         // Is not a Journal so return page #

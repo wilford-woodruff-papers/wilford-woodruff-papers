@@ -71,7 +71,8 @@ class ImportItemFromFtp implements ShouldQueue
                 ->whereIn('name', ['People', 'Scriptural Figures'])
                 ->pluck('id')
                 ->all();
-
+            // TODO: Need to add a check to see if there is a translation. I think the best route is to make English the
+            // translation. So we need to check, swap, and save.
             foreach ($canvases as $key => $canvas) {
                 $page = Page::updateOrCreate([
                     'item_id' => $item->id,
