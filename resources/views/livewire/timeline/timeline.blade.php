@@ -75,15 +75,23 @@
             </div>
         </div>
 
-        @if($v_min < 1810)
+        @if(! empty($v_min) && $v_min < 1810)
             <div class="flex sticky top-0 z-10 justify-center items-center my-0 w-full text-4xl font-bold text-white h-18 bg-primary">
                 1800
             </div>
         @endif
 
+        @php
+            $totalYears = 0;
+        @endphp
+
         @foreach ($years as $year => $months)
+            @if($year == 0)
+                @continue
+            @endif
             @php
                 $count = 0;
+                $totalYears += 1;
             @endphp
 
             @if((((int) $year) % 10) == 0)
@@ -247,6 +255,25 @@
                 @endif
             </div>
         @endforeach
+        <div>
+            @if($totalYears == 0)
+                <div class="p-4 bg-yellow-50 border-l-4 border-yellow-400">
+                    <div class="flex justify-center">
+                        <div class="flex-shrink-0">
+                            <svg class="w-5 h-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 5a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 5zm0 9a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <div class="ml-3">
+                            <p class="text-base text-yellow-700">
+                                <span class="font-semibold">Sorry. </span>
+                                <span href="#" class="text-yellow-600">We could find any events in Wilford's life that match your search. Please try expanding your search or changing you search query.</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            @endif
+        </div>
     </div>
     <div class="h-80">
 
