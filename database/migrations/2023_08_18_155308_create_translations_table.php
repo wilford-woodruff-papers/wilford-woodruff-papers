@@ -16,7 +16,10 @@ return new class extends Migration
             $table->foreignIdFor(\App\Models\Page::class)
                 ->constrained()
                 ->cascadeOnDelete();
-            $table->longText('transcript');
+            $table->string('language')
+                ->nullable();
+            $table->longText('transcript')
+                ->nullable();
             $table->timestamps();
         });
     }
