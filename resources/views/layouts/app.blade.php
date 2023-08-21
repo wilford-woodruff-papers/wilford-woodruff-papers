@@ -20,6 +20,7 @@
         @livewireStyles
 
         <!-- Scripts -->
+
         <script src="{{ mix('js/app.js') }}" defer></script>
         @include('layouts.partials.google-tag-manager-head')
     </head>
