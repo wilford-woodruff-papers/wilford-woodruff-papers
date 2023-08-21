@@ -18,9 +18,9 @@
                             </div>
                         </div>
 
-                        <div class="px-4 pt-4 pb-20 bg-white sm:px-6 lg:px-8 lg:pb-28">
+                        <div class="px-4 pt-4 bg-white sm:px-6 lg:px-8">
                             <div class="relative">
-                                <div class="mb-8">
+                                <div class="">
                                     <h3 class="mt-4 mb-4 font-serif text-3xl text-left border-b border-gray-300 text-primary">Style Guidelines for Referring to <em>The Wilford Woodruff Papers</em></h3>
 
                                     <p>Use &quot;the Wilford Woodruff Papers Project&quot; or &quot;the Wilford Woodruff Papers&quot; to refer to the entire project&rsquo;s goals and structure. Do not capitalize shortened forms such as &quot;the project.&quot; The term &quot;Woodruff Papers&quot; is also sometimes used to refer to the project.</p>
@@ -55,6 +55,128 @@
                                 <div class="mb-8">
                                     <p>The project&rsquo;s website is typically known as the Wilford Woodruff Papers website. The URL is <a draggable="false" href="https://wilfordwoodruffpapers.org">wilfordwoodruffpapers.org</a>.</p>
                                 </div>
+                            </div>
+                        </div>
+
+                        <div class="px-4 pt-4 pb-20 bg-white sm:px-6 lg:px-8 lg:pb-28">
+                            <div class="relative">
+                                <div class="mb-8">
+                                    <h3 class="mt-4 mb-12 font-serif text-3xl text-left border-b border-gray-300 text-primary">
+                                        How to Cite Wilford Woodruff Papers Foundation when Resharing Content
+                                    </h3>
+
+                                    <h4 class="mt-8 mb-4 font-serif text-2xl text-left text-primary">
+                                        Social Media
+                                    </h4>
+
+                                    <ul>
+                                        <li class="list-none">
+                                            <h5 class="mt-4 mb-4 font-serif text-xl text-left text-primary">
+                                                Facebook
+                                            </h5>
+                                            <ul>
+                                                <li class="list-none">
+                                                    Use the 'Share' button on Facebook. Doing this will show the originating URL, the originating sharer, and the names of people who shared it.
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="list-none">
+                                            <h5 class="mt-4 mb-4 font-serif text-xl text-left text-primary">
+                                                Instagram
+                                            </h5>
+                                            <ul>
+                                                <li class="list-none">
+                                                    Include tag @wilfordwoodruffpapers when resharing.
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="list-none">
+                                            <h5 class="mt-4 mb-4 font-serif text-xl text-left text-primary">
+                                                TikTok
+                                            </h5>
+                                            <ul>
+                                                <li class="list-none">
+                                                    Include tag @wilfordwoodruffpapers when resharing.
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="list-none">
+                                            <h5 class="mt-4 mb-4 font-serif text-xl text-left text-primary">
+                                                YouTube
+                                            </h5>
+                                            <ul>
+                                                <li class="list-none">
+                                                    Include the name of the video and the name of the organization, “Wilford Woodruff Papers Foundation,” with a link to the video.
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li class="list-none">
+                                            <h5 class="mt-4 mb-4 font-serif text-xl text-left text-primary">
+                                                LinkedIn
+                                            </h5>
+                                            <ul>
+                                                <li class="list-none">
+                                                    Include the name of the organization, “Wilford Woodruff Papers Foundation,” with a link to the video.
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+
+
+                                <div>
+                                    <h4 class="mt-8 mb-4 font-serif text-2xl text-left text-primary">
+                                        Articles/Blogs
+                                    </h4>
+
+                                    <ul>
+                                        <li class="list-none">
+                                            <h5 class="mt-4 mb-4 font-serif text-xl text-left text-primary">
+                                                Articles
+                                            </h5>
+                                            <ul>
+                                                <li class="list-none">
+                                                    Note author name, company, bio, headshot, a link to their website (if they have one), and add the following blurb about the Foundation:
+                                                </li>
+
+                                                <li class="pt-8 italic list-none">
+                                                    The mission of the Wilford Woodruff Papers Foundation is to digitally preserve and publish Wilford Woodruff’s eyewitness account of the Restoration of the gospel of Jesus Christ from 1833 to 1898. The purpose in making Wilford Woodruff’s records universally accessible is to inspire all people, especially the rising generation, to study and to increase their faith in Jesus Christ. Please visit <a href="https://wilfordwoodruffpapers.org" class="underline text-secondary">wilfordwoodruffpapers.org</a>.
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div>
+                                    <h4 class="mt-8 mb-4 font-serif text-2xl text-left text-primary">
+                                        Media
+                                    </h4>
+
+                                    <ul>
+                                        <li class="list-none">
+                                            <h5 class="mt-4 mb-4 font-serif text-xl text-left text-primary">
+                                                Images
+                                            </h5>
+                                            <ul>
+                                                <li class="list-none">
+                                                    Note who the image is of and the date taken, and include the name of the organization, “Wilford Woodruff Papers Foundation,” with a link to the photo.
+                                                </li>
+                                            </ul>
+                                        </li>
+
+                                        <li class="list-none">
+                                            <h5 class="mt-4 mb-4 font-serif text-xl text-left text-primary">
+                                                Videos
+                                            </h5>
+                                            <ul>
+                                                <li class="list-none">
+                                                    Note the name of the video, who is in the video, and the videographer, and include the name of the organization, “Wilford Woodruff Papers Foundation,” with a link to the video.
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+
                             </div>
                         </div>
 
