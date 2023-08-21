@@ -36,6 +36,12 @@ jobs:
 
       - name: NPM install
         run: npm install
+        env:
+          PUSHER_APP_ID: ${{ secrets.PUSHER_APP_ID }}
+          PUSHER_APP_KEY: ${{ secrets.PUSHER_APP_KEY }}
+          PUSHER_APP_SECRET: ${{ secrets.PUSHER_APP_SECRET }}
+          PUSHER_HOST: ${{ secrets.PUSHER_HOST }}
+          PUSHER_PORT: ${{ secrets.PUSHER_PORT }}
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
