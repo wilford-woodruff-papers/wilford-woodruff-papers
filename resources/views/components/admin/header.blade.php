@@ -82,7 +82,7 @@
     <div class="px-4 mx-auto max-w-7xl sm:px-6">
         <div class="py-1 border-t border-gray-200">
             <nav class="flex" aria-label="Breadcrumb">
-                <x-online-users />
+                {{--<x-online-users />--}}
                 <div class="flex sm:hidden">
                     <a href="#" class="inline-flex space-x-3 text-sm font-medium text-gray-500 hover:text-gray-700 group">
                         <!-- Heroicon name: solid/arrow-narrow-left -->

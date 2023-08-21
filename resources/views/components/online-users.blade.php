@@ -3,7 +3,7 @@
         users: {},
     }"
          x-init="
-            window.Echo.join('application')
+            Echo.join('application')
                 .here((members) => {
                     console.log(members);
                     for(member of members) {
