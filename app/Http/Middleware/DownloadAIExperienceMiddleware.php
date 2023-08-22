@@ -30,19 +30,23 @@ class DownloadAIExperienceMiddleware
      */
     public function terminate(Request $request, Response $response): void
     {
+        $version = str(config('wwp.ai_download_path'))
+            ->beforeLast('.')
+            ->explode('-')
+            ->last();
         activity('ai-experience')
             ->event('download')
-            ->log('User downloaded the AI Experience.');
+            ->log('User downloaded the AI Experience v'.$version.'.');
 
-         $subscribeToConstantContactAction = new \App\Actions\SubscribeToConstantContactAction();
-            $subscribeToConstantContactAction->execute([
-                'email' => auth()->user()->email,
-                'first_name' => auth()->user()->first_name,
-                'last_name' => auth()->user()->last_name,
-            ],
-                [
-                    config('wwp.list_memberships.immersive_ai_experience'),
-                ]
-            );
+        $subscribeToConstantContactAction = new \App\Actions\SubscribeToConstantContactAction();
+        $subscribeToConstantContactAction->execute([
+            'email' => auth()->user()->email,
+            'first_name' => auth()->user()->first_name,
+            'last_name' => auth()->user()->last_name,
+        ],
+            [
+                config('wwp.list_memberships.immersive_ai_experience'),
+            ]
+        );
     }
 }
