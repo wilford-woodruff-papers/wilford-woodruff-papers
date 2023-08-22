@@ -36,6 +36,7 @@ class SubscribeToConstantContactAction
                                 'last_name' => $contact['last_name'],
                                 'list_memberships' => $listMemberships,
                             ]);
+        logger($response->json());
     }
 
     private function refreshToken($oauth)
