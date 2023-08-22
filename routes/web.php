@@ -66,18 +66,9 @@ Route::middleware([])->group(function () {
 
     Route::middleware([
         'auth:sanctum',
-        'role:Admin|Editor',
+        'ai-download',
     ])
-        ->get('/download/wilford-woodruff-immersive-learning-experience', function () {
-        $file = config('wwp.ai_download_path');
-
-        return response()->streamDownload(function () use ($file) {
-            $stream = \Illuminate\Support\Facades\Storage::disk('spaces')
-                ->readStream($file);
-            fpassthru($stream);
-            fclose($stream);
-        }, basename($file));
-    })
+        ->get('/download/wilford-woodruff-immersive-learning-experience', \App\Http\Controllers\AIDownloadController::class)
         ->name('download.wilford-woodruff-immersive-learning-experience');
 
     Route::get('/donate', [\App\Http\Controllers\DonationController::class, 'index'])->name('donate');
