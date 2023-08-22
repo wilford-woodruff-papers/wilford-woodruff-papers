@@ -22,6 +22,8 @@ return [
 
         'newsletter' => env('NEWSLETTER_LIST_ID'),
 
+        'immersive_ai_experience' => env('IMMERSIVE_AI_LIST_ID'),
+
     ],
 
     'ai_download_path' => env('AI_DOWNLOAD_PATH'),

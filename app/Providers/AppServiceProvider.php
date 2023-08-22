@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Http\Middleware\DownloadAIExperienceMiddleware;
 use App\Macros\AddSubjectLinks;
 use App\Macros\RemoveQZCodes;
 use App\Macros\StripBracketedID;
@@ -20,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton(DownloadAIExperienceMiddleware::class);
     }
 
     /**
