@@ -6,6 +6,7 @@ use App\Http\Requests\StoreContentPageRequest;
 use App\Http\Requests\UpdateContentPageRequest;
 use App\Models\ContentPage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Blade;
 
 class ContentPageController extends Controller
 {
@@ -41,6 +42,8 @@ class ContentPageController extends Controller
         session([
             'url.intended' => route('content-page.show', ['contentPage' => $contentPage->slug]),
         ]);
+
+        $contentPage->body = Blade::render($contentPage->body, [], deleteCachedView: true);
 
         return view('public.content-pages.show', [
             'contentPage' => $contentPage,
