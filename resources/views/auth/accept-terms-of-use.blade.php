@@ -11,7 +11,7 @@
                     @csrf
                     @method('POST')
 
-                    <div class="mt-4">
+                    <div class="my-4">
                         <x-label for="subscribe_to_newsletter">
                             <div class="flex items-center">
                                 <x-checkbox name="subscribe_to_newsletter"
@@ -20,7 +20,7 @@
                                             checked="checked"
                                 />
 
-                                <div class="ml-2">
+                                <div class="ml-2 text-lg">
                                     Receive regular updates from the Wilford Woodruff Papers Foundation
                                 </div>
                             </div>

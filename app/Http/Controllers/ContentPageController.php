@@ -38,6 +38,10 @@ class ContentPageController extends Controller
      */
     public function show(ContentPage $contentPage)
     {
+        session([
+            'url.intended' => route('content-page.show', ['contentPage' => $contentPage->slug]),
+        ]);
+
         return view('public.content-pages.show', [
             'contentPage' => $contentPage,
         ]);
