@@ -65,5 +65,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequestsWithRedis::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'api-terms' => \App\Http\Middleware\RequireApiTermsAcceptanceMiddleware::class,
+        'ai-download' => \App\Http\Middleware\DownloadAIExperienceMiddleware::class,
     ];
 }
