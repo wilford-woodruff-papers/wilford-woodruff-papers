@@ -24,6 +24,21 @@ class CreateNewUser implements CreatesNewUsers
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['required', 'accepted'] : '',
         ])->validate();
 
+        if ($input['subscribe_to_newsletter'] == 'true') {
+            $subscribeToConstantContactAction = new \App\Actions\SubscribeToConstantContactAction();
+            $subscribeToConstantContactAction->execute([
+                'email' => $input['email'],
+                'first_name' => str($input['name'])->explode(' ')->first(),
+                'last_name' => str($input['name'])->explode(' ')->count() > 1
+                    ? str($input['name'])->explode(' ')->last()
+                    : '',
+            ],
+                [
+                    config('wwp.list_memberships.newsletter'),
+                ]
+            );
+        }
+
         return User::create([
             'name' => $input['name'],
             'email' => $input['email'],

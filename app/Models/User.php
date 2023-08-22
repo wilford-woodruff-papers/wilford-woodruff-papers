@@ -113,8 +113,8 @@ class User extends Authenticatable
 
     public function getLastNameAttribute()
     {
-        return str($this->name)
-            ->explode(' ')
-            ->last();
+        return str($this->name)->explode(' ')->count() > 1
+            ? str($this->name)->explode(' ')->last()
+            : '';
     }
 }
