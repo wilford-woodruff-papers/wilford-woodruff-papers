@@ -24,4 +24,6 @@ return [
 
     ],
 
+    'ai_download_path' => env('AI_DOWNLOAD_PATH'),
+
 ];
