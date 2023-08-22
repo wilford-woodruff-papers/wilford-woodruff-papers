@@ -10,6 +10,11 @@ class DownloadAIExperienceMiddleware
     public function handle(Request $request, Closure $next)
     {
         if (auth()->check()) {
+
+            activity('ai-experience')
+                ->event('download')
+                ->log('User downloaded the AI Experience.');
+
             $file = config('wwp.ai_download_path');
 
             return response()->streamDownload(function () use ($file) {
