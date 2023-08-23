@@ -107,7 +107,7 @@
                                             </tr>
                                             </thead>
                                             <tbody class="bg-white divide-y divide-gray-200">
-                                            @foreach($item->pages as $page)
+                                            @foreach($item->realPages as $page)
                                                 <tr>
                                                     <td class="py-4 pr-3 pl-4 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-6">
                                                         <a href="{{ route('admin.dashboard.page', ['item' => $item, 'page' => $page]) }}"
