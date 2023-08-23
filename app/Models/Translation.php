@@ -14,4 +14,12 @@ class Translation extends Model
     {
         return $this->belongsTo(Page::class);
     }
+
+    public function text($isQuoteTagger = false)
+    {
+        return str($this->transcript)
+            ->addSubjectLinks()
+            ->addScriptureLinks()
+            ->replace('&amp;', '&');
+    }
 }

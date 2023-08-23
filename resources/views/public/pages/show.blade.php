@@ -192,6 +192,7 @@
                     @else
                         {{-- class="bg-green-300" --}}
                         <div x-data="{
+                                language: 'English',
                                 version: 'default',
                                 clear_text: false,
                             }"
@@ -203,8 +204,32 @@
                                }
                             })"
                         >
-                            @auth()
-                                @hasanyrole('Editor|Admin|Super Admin')
+                            @if($page->translations->count() > 0)
+                                <h5 class="mt-2 text-base font-medium uppercase">
+                                    Language
+                                </h5>
+                                <span class="inline-flex my-2 isolate">
+                                    <button x-on:click="language = 'English'"
+                                            type="button"
+                                            class="inline-flex relative items-center py-2 px-3 text-sm focus:z-10"
+                                            :class="(language == 'English') ? 'text-white bg-secondary' : 'font-semibold text-gray-900 bg-white hover:bg-gray-100'"
+                                    >
+                                        English
+                                    </button>
+                                    @foreach($page->translations as $translation)
+                                        <button x-on:click="language = '{{ $translation->language }}'"
+                                                type="button"
+                                                class="inline-flex relative items-center py-2 px-3 text-sm focus:z-10"
+                                                :class="(language == '{{ $translation->language }}') ? 'font-semibold text-white bg-secondary' : 'text-gray-900 bg-white hover:bg-gray-100'"
+                                        >
+                                            {{ $translation->language }}
+                                        </button>
+                                    @endforeach
+                                </span>
+                            @endif
+                            <div x-show="language == 'English'">
+                                @auth()
+                                    @hasanyrole('Editor|Admin|Super Admin')
                                     @if(! empty($page->clear_text_transcript))
                                         <div class="mt-2 space-y-6">
                                             <div class="flex relative gap-x-3">
@@ -225,20 +250,28 @@
                                             </div>
                                         </div>
                                     @endif
-                                @endhasanyrole
-                            @endauth
-                            <div x-show.important="(version == 'default')">
-                                @hasanyrole('Editor|Admin|Super Admin|Tagger|Quote Tagging')
+                                    @endhasanyrole
+                                @endauth
+                                <div x-show.important="(version == 'default')">
+                                    @hasanyrole('Editor|Admin|Super Admin|Tagger|Quote Tagging')
                                     <livewire:transcript :page="$page" />
-                                @else
-                                    {!! $page->text(auth()->check() && auth()->user()->hasAnyRole(['Quote Tagging', 'Super Admin'])) !!}
-                                @endhasanyrole
+                                    @else
+                                        {!! $page->text(auth()->check() && auth()->user()->hasAnyRole(['Quote Tagging', 'Super Admin'])) !!}
+                                        @endhasanyrole
+                                </div>
+                                <div x-show.important="(version == 'clear')"
+                                     x-cloak
+                                >
+                                    {!! $page->clearText() !!}
+                                </div>
                             </div>
-                            <div x-show.important="(version == 'clear')"
-                                 x-cloak
-                            >
-                                {!! $page->clearText() !!}
-                            </div>
+
+                            @foreach($page->translations as $translation)
+                                <div x-show="language == '{{ $translation->language }}'">
+                                    {!! $translation->text() !!}
+                                </div>
+                            @endforeach
+
                         </div>
 
                     @endif

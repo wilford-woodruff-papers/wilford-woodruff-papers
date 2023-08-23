@@ -5,7 +5,6 @@ namespace App\Providers;
 use App\Macros\AddSubjectLinks;
 use App\Macros\RemoveQZCodes;
 use App\Macros\StripBracketedID;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
@@ -35,6 +34,8 @@ class AppServiceProvider extends ServiceProvider
         Stringable::macro('addScriptureLinks', app(\App\Macros\Stringable\AddScriptureLinks::class)());
         Stringable::macro('removeQZCodes', app(RemoveQZCodes::class)());
         Stringable::macro('stripBracketedID', app(StripBracketedID::class)());
+        Str::macro('stripLanguageTag', app(\App\Macros\Str\StripLanguageTag::class)());
+        Stringable::macro('stripLanguageTag', app(\App\Macros\Stringable\StripLanguageTag::class)());
 
         if (! app()->environment('production')) {
             Mail::alwaysTo('test@wilfordwoodruffpapers.org');
@@ -44,7 +45,7 @@ class AppServiceProvider extends ServiceProvider
             return $value != 1;
         });
 
-        Model::preventLazyLoading(! $this->app->isProduction());
-        Model::preventAccessingMissingAttributes(! $this->app->isProduction());
+        //Model::preventLazyLoading(! $this->app->isProduction());
+        //Model::preventAccessingMissingAttributes(! $this->app->isProduction());
     }
 }

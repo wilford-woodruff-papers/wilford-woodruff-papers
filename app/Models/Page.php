@@ -118,7 +118,8 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
 
     public function translations()
     {
-        return $this->hasMany(Translation::class);
+        return $this->hasMany(Translation::class)
+            ->orderBy('language', 'ASC');
     }
 
     public function getPageDateRangeAttribute()
