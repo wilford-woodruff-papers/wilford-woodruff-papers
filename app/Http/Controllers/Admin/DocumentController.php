@@ -123,7 +123,8 @@ class DocumentController extends Controller
             'actions.assignee',
             'actions.finisher',
             'activities',
-            'pages.actions.type',
+            'realPages',
+            'realPages.actions.type',
         ]);
 
         return view('admin.dashboard.documents.show', [

@@ -56,6 +56,11 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
         }
     }
 
+    public function realPages()
+    {
+        return $this->hasMany(Page::class)->orderBy('order', 'ASC');
+    }
+
     public function firstPage()
     {
         return $this->hasOne(Page::class, 'parent_item_id')->ordered()->ofMany();
