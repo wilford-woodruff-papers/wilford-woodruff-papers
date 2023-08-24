@@ -89,6 +89,9 @@ class PeopleController extends Controller
         'subcategory' => [
             'max:191',
         ],
+        'incomplete_identification' => [
+            'nullable',
+        ],
     ];
 
     private $categories = [

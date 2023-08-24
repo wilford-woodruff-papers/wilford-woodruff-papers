@@ -42,6 +42,7 @@ class Index extends Component
         'researcher' => '',
         'category' => '',
         'subcategory' => '',
+        'incomplete_identification' => '',
     ];
 
     public $columns = [
@@ -49,6 +50,7 @@ class Index extends Component
         'death_date' => 'death_date',
         'life_years' => 'b_d_dates',
         'pid' => 'pid_fsid',
+        'incomplete_identification' => 'II',
         'added_to_ftp_at' => 'added_to_ftp',
         'first_name' => 'given_name',
         'middle_name' => 'middle_name',
@@ -178,7 +180,11 @@ class Index extends Component
                 $query = $query->whereNull('bio_approved_at');
             }
         }
-
+        if (array_key_exists('incomplete_identification', $this->filters) && ! empty($this->filters['incomplete_identification'])) {
+            if ($this->filters['incomplete_identification'] == 'true') {
+                $query = $query->where('incomplete_identification', true);
+            }
+        }
         if (array_key_exists('category', $this->filters) && ! empty($this->filters['category'])) {
             $query = $query->whereHas('category', function ($query) {
                 $query->where('name', $this->filters['category']);
