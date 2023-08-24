@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Metrics\CreatedPerMonth;
 use Emilianotisato\NovaTinyMCE\NovaTinyMCE;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -88,7 +89,9 @@ class News extends Resource
      */
     public function cards(Request $request): array
     {
-        return [];
+        return [
+            new CreatedPerMonth(\App\Models\News::class),
+        ];
     }
 
     /**

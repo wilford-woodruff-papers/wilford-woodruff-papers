@@ -103,7 +103,7 @@ class Podcast extends Resource
      */
     public function filters(Request $request): array
     {
-        return [];
+        return []; //I tried to add monthly stats here, but got an array error
     }
 
     /**
