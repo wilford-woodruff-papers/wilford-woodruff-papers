@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Metrics\CreatedPerMonth;
 use Emilianotisato\NovaTinyMCE\NovaTinyMCE;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsToMany;
@@ -92,7 +93,9 @@ class Video extends Resource
      */
     public function cards(Request $request): array
     {
-        return [];
+        return [
+            new CreatedPerMonth(\App\Models\Video::class),
+        ];
     }
 
     /**
