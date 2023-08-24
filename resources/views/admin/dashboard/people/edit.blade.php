@@ -3,6 +3,7 @@
         x-data="{
             shadow: false,
             showSuccess: true,
+            incomplete_identification: @if(empty(old('incomplete_identification', $person->incomplete_identification))) false @else {{ old('incomplete_identification', $person->incomplete_identification) }} @endif,
             setResearcher: function(userid){
                 document.getElementById('researcher').value = userid;
             },
@@ -637,6 +638,49 @@
                                     @if(! empty($log_link = old('log_link', $person->log_link)))
                                         <a href="{{ $log_link }}" target="_blank" class="inline-flex justify-center py-2 px-12 ml-12 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:outline-none focus:ring-sky-500">View Log</a>
                                     @endif
+                                </div>
+                            </div>
+
+                            <div class="my-6">
+                                <div class="p-4 bg-yellow-50 border-l-4 border-yellow-400">
+                                    <div class="flex">
+                                        <div class="flex-shrink-0">
+                                            <svg class="w-5 h-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                <path fill-rule="evenodd" d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 5a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 5zm0 9a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                        <div class="ml-3">
+                                            <div class="text-sm text-yellow-700">
+                                                <fieldset>
+                                                    <div class="flex gap-x-8 items-center">
+                                                        <div class="flex relative items-start">
+                                                            <div class="flex items-center h-6">
+                                                                <input x-model="incomplete_identification"
+                                                                       id="incomplete_identification"
+                                                                       name="incomplete_identification"
+                                                                       type="checkbox"
+                                                                       value="1"
+                                                                       @checked(old('incomplete_identification', $person->incomplete_identification))
+                                                                       class="w-4 h-4 text-yellow-600 rounded border-gray-300 focus:ring-yellow-600"
+                                                                >
+                                                                <input id="incomplete_identification"
+                                                                       name="incomplete_identification"
+                                                                       type="hidden"
+                                                                       value="0"
+                                                                       :disabled="incomplete_identification"
+                                                                >
+                                                            </div>
+                                                            <div class="ml-3 text-sm leading-6">
+                                                                <label for="incomplete_identification" class="font-medium text-gray-900">
+                                                                    Incomplete Identification
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
