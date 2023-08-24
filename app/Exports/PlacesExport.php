@@ -65,6 +65,7 @@ class PlacesExport implements FromQuery, ShouldQueue, WithMapping, WithHeadings
             'Longitude',
             'Website URL',
             'Total Usage Count',
+            'Confirmed',
         ];
     }
 
@@ -86,6 +87,7 @@ class PlacesExport implements FromQuery, ShouldQueue, WithMapping, WithHeadings
             $place->longitude,
             route('subjects.show', ['subject' => $place->slug]),
             ($place->tagged_count + $place->text_count),
+            $place->place_confirmed_at?->toDateString(),
         ];
     }
 }
