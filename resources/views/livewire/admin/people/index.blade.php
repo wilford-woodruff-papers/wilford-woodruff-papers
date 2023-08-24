@@ -101,6 +101,14 @@
                                         </x-input.select>
                                     </x-input.group>
                                 </div>
+                                <div class="pr-2 space-y-4">
+                                    <x-input.group borderless for="filter-type" label="II" inline="true">
+                                        <x-input.select wire:model="filters.incomplete_identification" id="filter-type">
+                                            <option value=""> -- All -- </option>
+                                            <option value="true"> Incomplete Identification </option>
+                                        </x-input.select>
+                                    </x-input.group>
+                                </div>
                             </div>
                             <div class="flex gap-x-4 gap-y-4 items-center">
                                 <div>
