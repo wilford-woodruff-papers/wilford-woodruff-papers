@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Models\User;
 use App\Nova\Dashboards\Main;
 use App\Nova\Metrics\NewPages;
 use App\Nova\Metrics\PublishedItems;
@@ -48,7 +47,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function gate(): void
     {
         Gate::define('viewNova', function ($user) {
-            return in_array($user->email, User::role(['Editor', 'Admin', 'Super Admin'])->pluck('email')->all());
+            return $user->hasAnyRole(['Editor', 'Admin', 'Super Admin']);
         });
     }
 
