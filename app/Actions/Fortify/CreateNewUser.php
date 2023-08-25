@@ -24,7 +24,7 @@ class CreateNewUser implements CreatesNewUsers
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['required', 'accepted'] : '',
         ])->validate();
 
-        if ($input['subscribe_to_newsletter'] == 'true') {
+        if ($input['subscribe_to_newsletter'] ?? 'false' == 'true') {
             $subscribeToConstantContactAction = new \App\Actions\SubscribeToConstantContactAction();
             $subscribeToConstantContactAction->execute([
                 'email' => $input['email'],
