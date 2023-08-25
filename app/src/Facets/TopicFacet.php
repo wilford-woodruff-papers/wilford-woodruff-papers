@@ -10,8 +10,13 @@ class TopicFacet
 
     public $display;
 
-    public function __construct($display = true)
+    public function __construct($display = true, $sortUsing = [])
     {
         $this->display = $display;
+    }
+
+    public function sort($facetDistribution)
+    {
+        return $facetDistribution;
     }
 }

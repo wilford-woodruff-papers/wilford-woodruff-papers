@@ -10,8 +10,21 @@ class TimelineCategoryFacet
 
     public $display;
 
-    public function __construct($display = true)
+    public $sortUsing = [];
+
+    public function __construct($display = true, $sortUsing = [])
     {
         $this->display = $display;
+        $this->sortUsing = $sortUsing;
+    }
+
+    public function sort($facetDistribution)
+    {
+        return collect($facetDistribution)->sortKeysUsing(function ($a, $b) {
+            $pos_a = array_search($a, $this->sortUsing);
+            $pos_b = array_search($b, $this->sortUsing);
+
+            return $pos_a - $pos_b;
+        })->toArray();
     }
 }
