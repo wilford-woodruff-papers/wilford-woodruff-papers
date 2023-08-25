@@ -75,30 +75,17 @@ class ImportItemFromFtp implements ShouldQueue
             // TODO: Need to add a check to see if there is a translation. I think the best route is to make English the
             // translation. So we need to check, swap, and save.
             foreach ($canvases as $key => $canvas) {
-                $transcript = '';
-                $translation = '';
+                $transcript = null;
+                $translation = null;
                 ray([
                     'Canvas',
                     $canvas['@id'],
                 ]);
-                ray([
-                    'Translation URL',
-                    data_get(collect($canvas['otherContent'])
-                        ->where('label', 'Translation')
-                        ->first(), '@id'),
-                ]);
-                if ($translationUrl = data_get(collect($canvas['otherContent'])
-                    ->where('label', 'Translation')
+
+                if ($transcriptionUrl = data_get(collect($canvas['otherContent'])
+                    ->where('label', 'Transcription')
                     ->first(), '@id')) {
-                    $transcript = Http::get($translationUrl)->json('resources.0.resource.chars');
-                    ray([
-                        'Translation (English)',
-                        $transcript,
-                    ]);
-                } else {
-                    $transcript = Http::get(data_get(collect($canvas['otherContent'])
-                        ->where('label', 'Transcription')
-                        ->first(), '@id'))->json('resources.0.resource.chars');
+                    $transcript = Http::get($transcriptionUrl)->json('resources.0.resource.chars');
                     ray([
                         'Transcription (English)',
                         $transcript,
@@ -119,23 +106,25 @@ class ImportItemFromFtp implements ShouldQueue
                     'imported_at' => now(),
                 ]);
 
-                if (! empty($translationUrl)) {
-                    $transcript = Http::get(data_get(collect($canvas['otherContent'])
-                        ->where('label', 'Transcription')
-                        ->first(), '@id'))->json('resources.0.resource.chars');
+                if ($translationUrl = data_get(collect($canvas['otherContent'])
+                    ->where('label', 'Translation')
+                    ->first(), '@id')) {
+                    $translation = Http::get($translationUrl)->json('resources.0.resource.chars');
+
                     ray([
-                        'Transcript (Original)',
-                        $transcript,
+                        'Translation (Other Language)',
+                        $translation,
                     ]);
+
                     $pageTranslation = Translation::updateOrCreate([
                         'page_id' => $page->id,
-                        'language' => str($transcript)
+                        'language' => str($translation)
                             ->match('/\[Language:.*?\]/')
                             ->after(':')
                             ->trim('[] ')
                             ->toString(),
                     ], [
-                        'transcript' => str($transcript)->stripLanguageTag(),
+                        'transcript' => str($translation)->stripLanguageTag(),
                     ]);
                     ray([
                         'New Translation',
