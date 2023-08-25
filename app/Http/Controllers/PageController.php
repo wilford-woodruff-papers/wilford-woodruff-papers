@@ -16,6 +16,7 @@ class PageController extends Controller
         $item = $item->parent();
         $page->load([
             'parent.type',
+            'translations',
             'dates',
             'topics',
             'subjects' => function ($query) {
