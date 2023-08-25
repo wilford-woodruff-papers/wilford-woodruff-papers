@@ -35,6 +35,7 @@ class Timeline extends Component
         'type' => [],
         'resource_type' => [],
         'topics' => [],
+        'year' => [],
     ];
 
     protected $queryString = [
@@ -48,9 +49,9 @@ class Timeline extends Component
     public function mount()
     {
         $this->groups = [
-            'Personal',
+            'Individual',
             'Family',
-            'Religious',
+            'Personal Religious',
             'LDS Church Context',
             'Historical Context',
         ];
@@ -59,7 +60,8 @@ class Timeline extends Component
     public function render()
     {
         $indexes = [
-            new TimelineCategoryFacet(),
+            new TimelineCategoryFacet(sortUsing: $this->groups),
+            new YearFacet(),
             new YearFacet(false),
         ];
 
