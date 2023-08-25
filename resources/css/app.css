@@ -299,10 +299,10 @@ input[class^="numeric-"], select[class^="numeric-"]{
 .content-page a, .page-builder a{
     @apply text-secondary underline !important;
 }
-.page-builder .primary-button a{
+.content-page .primary-button a, .page-builder .primary-button a{
     @apply text-white bg-secondary border-2 border-secondary hover:bg-secondary-900 !important;
 }
-.page-builder .secondary-button a{
+.content-page .secondary-button a, .page-builder .secondary-button a{
     @apply text-secondary bg-white border-2 border-secondary hover:bg-gray-300 !important;
 }
 .content-page ul, .page-builder ul{

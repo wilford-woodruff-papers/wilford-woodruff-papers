@@ -35,7 +35,7 @@
                                      class="overflow-x-hidden overflow-y-scroll px-2 mt-1 max-h-80"
                                      id="{{ $location }}_sub-menu-{{ $facet->key }}"
                                 >
-                                    @foreach($facetDistribution[$facet->key] as $key => $value)
+                                    @foreach($facet->sort($facetDistribution[$facet->key]) as $key => $value)
                                         <li
                                             class="pl-4 cursor-pointer"
                                             id="{{ $location }}_list_item_{{ str($facet->key) }}_{{ str($key)->snake() }}"
