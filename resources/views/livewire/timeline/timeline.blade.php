@@ -172,7 +172,7 @@
                                                     <div x-on:click="event = {
                                                                 image: '{{ data_get($hit, 'thumbnail') }}',
                                                                 date: '{{ data_get($hit, 'display_date') }}',
-                                                                text: '{{ addslashes(str($hit['name'])->addScriptureLinks()->toString()) }}',
+                                                                text: '{{ addslashes(str($hit['name'])->addSubjectLinks()->addScriptureLinks()->toString()) }}',
                                                                 links: [
                                                                     @foreach(data_get($hit, 'links', []) as $link)
                                                                         { name: '{{ $link['name'] }}',
@@ -187,7 +187,7 @@
                                                         <div @scroll.window.throttle.50ms="$overlap('#event-selector') ? event = {
                                                                     image: '{{ data_get($hit, 'thumbnail') }}',
                                                                     date: '{{ data_get($hit, 'display_date') }}',
-                                                                    text: '{{ addslashes(str($hit['name'])->addScriptureLinks()->toString()) }}',
+                                                                    text: '{{ addslashes(str($hit['name'])->addSubjectLinks()->addScriptureLinks()->toString()) }}',
                                                                     links: [
                                                                         @foreach(data_get($hit, 'links', []) as $link)
                                                                             { name: '{{ $link['name'] }}',
