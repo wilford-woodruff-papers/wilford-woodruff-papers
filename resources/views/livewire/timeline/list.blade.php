@@ -111,7 +111,7 @@
                                                 </div>
                                                 <div class="col-span-3 gap-y-2">
                                                     <div>
-                                                        {!! str($event['name'])->addScriptureLinks()->toString() !!}
+                                                        {!! str($event['name'])->addSubjectLinks()->addScriptureLinks()->toString() !!}
                                                     </div>
                                                     <div>
                                                     <span class="px-1.5 text-sm text-white py-0.25 bg-secondary">
@@ -146,7 +146,7 @@
                                                         </span>
                                                     </div>
                                                     <div class="text-3xl">
-                                                        {!! str($event['name'])->addScriptureLinks()->toString() !!}
+                                                        {!! str($event['name'])->addSubjectLinks()->addScriptureLinks()->toString() !!}
                                                     </div>
                                                 </div>
                                                 @if(count($links = data_get($event, 'links')) > 0)
