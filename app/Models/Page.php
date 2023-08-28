@@ -170,6 +170,11 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
 
     public function registerMediaConversions(Media $media = null): void
     {
+        $this->addMediaConversion('web')
+            ->width(1472)
+            ->height(928)
+            ->sharpen(10);
+
         $this->addMediaConversion('thumb')
             ->width(368)
             ->height(232)
