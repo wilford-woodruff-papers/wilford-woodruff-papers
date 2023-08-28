@@ -57,8 +57,8 @@
     >
         <div x-show="filtersOpen"
              x-transition
-             class="absolute top-10 z-50 bg-white bg-gray-200 lg:relative lg:col-span-1">
-            <div class="sticky top-0 z-50">
+             class="absolute top-10 bg-white bg-gray-200 lg:relative lg:col-span-1 z-[5]">
+            <div class="sticky top-0 z-[5]">
                 <div class="grid grid-flow-row auto-rows-max gap-y-5 py-8 px-4 min-h-screen bg-white border-r border-gray-200 grow">
                     <div class="flex-1 min-w-0">
                         <label for="search" class="sr-only">Search</label>

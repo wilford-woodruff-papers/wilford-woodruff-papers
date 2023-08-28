@@ -43,7 +43,7 @@
     </div>
     <div class="">
         @if($v_min < 1810)
-            <div class="flex sticky top-0 z-10 justify-center items-center my-0 w-full text-4xl font-bold text-white h-18 bg-primary">
+            <div class="flex sticky top-0 justify-center items-center my-0 w-full text-4xl font-bold text-white z-[2] h-18 bg-primary">
                 1800
             </div>
         @endif
@@ -63,7 +63,7 @@
                     <div>&nbsp;</div>
                 </div>--}}
 
-                <div class="flex sticky top-0 z-10 justify-center items-center w-full text-4xl font-bold text-white h-18 bg-primary">
+                <div class="flex sticky top-0 justify-center items-center w-full text-4xl font-bold text-white z-[2] h-18 bg-primary">
                     {{ $year }}
                 </div>
 
