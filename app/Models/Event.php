@@ -44,6 +44,10 @@ class Event extends Model implements HasMedia
             $thumbnail = $this->photos->first()->getFirstMediaUrl('default', 'thumb');
         } elseif ($this->media->count() > 0) {
             $thumbnail = $this->getFirstMediaUrl('default', 'thumb');
+        } elseif ($this->pages->count() > 0) {
+            $thumbnail = $this->pages->first()->getFirstMediaUrl('default', 'thumb');
+        } elseif ($this->items->count() > 0) {
+            $thumbnail = $this->items->fist()->firstPage->getFirstMediaUrl('default', 'thumb');
         }
 
         return $thumbnail;
