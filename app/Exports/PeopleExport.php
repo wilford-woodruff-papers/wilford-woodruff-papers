@@ -35,6 +35,9 @@ class PeopleExport implements FromQuery, ShouldQueue, WithMapping, WithHeadings
             ->with([
                 'category',
             ])
+            ->withCount([
+                'pages',
+            ])
             ->whereRelation('category', function (Builder $query) {
                 $query->where('name', 'People');
             })
@@ -70,6 +73,7 @@ class PeopleExport implements FromQuery, ShouldQueue, WithMapping, WithHeadings
             'Life Years',
             'Slug',
             'Categories',
+            'Mentions'.
             'Website URL',
         ];
     }
@@ -94,6 +98,7 @@ class PeopleExport implements FromQuery, ShouldQueue, WithMapping, WithHeadings
             $person->life_years,
             $person->slug,
             $person->category->pluck('name')->implode('|'),
+            $person->pages_count,
             route('subjects.show', ['subject' => $person->slug]),
         ];
     }
