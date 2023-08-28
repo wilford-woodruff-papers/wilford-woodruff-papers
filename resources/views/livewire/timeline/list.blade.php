@@ -104,9 +104,10 @@
                                             <div class="grid grid-cols-5 gap-x-8 py-4 h-24 group-hover:hidden">
                                                 <div class="">
                                                     @if(data_get($event, 'thumbnail'))
-                                                        <img src="{{ data_get($event, 'thumbnail') }}"
+                                                        <img x-on:click="Livewire.emit('openModal', 'photo-viewer', { url: '{{ data_get($event, 'thumbnail') }}' })"
+                                                             src="{{ data_get($event, 'thumbnail') }}"
                                                              alt=""
-                                                             class="object-cover object-top mx-auto w-20 bg-gray-100 scale-150 aspect-[16/9] sm:aspect-[2/1] lg:aspect-[3/2]">
+                                                             class="object-cover object-top mx-auto w-20 bg-gray-100 scale-150 cursor-pointer aspect-[16/9] sm:aspect-[2/1] lg:aspect-[3/2]">
                                                     @endif
                                                 </div>
                                                 <div class="col-span-3 gap-y-2">
@@ -129,9 +130,10 @@
                                             <div class="hidden grid-cols-6 gap-x-12 p-4 text-white group-hover:grid bg-primary">
                                                 <div class="">
                                                     @if(data_get($event, 'thumbnail'))
-                                                        <img src="{{ data_get($event, 'thumbnail') }}"
+                                                        <img x-on:click="Livewire.emit('openModal', 'photo-viewer', { url: '{{ data_get($event, 'thumbnail') }}' })"
+                                                             src="{{ data_get($event, 'thumbnail') }}"
                                                              alt=""
-                                                             class="object-cover object-top mx-auto w-full bg-gray-100">
+                                                             class="object-cover object-top mx-auto w-full bg-gray-100 cursor-pointer">
                                                     @endif
                                                 </div>
                                                 <div class="text-right">

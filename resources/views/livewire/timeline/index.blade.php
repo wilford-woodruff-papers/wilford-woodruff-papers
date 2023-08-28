@@ -118,9 +118,10 @@
 
             <div class="sticky top-0 py-8 px-4 h-screen bg-primary">
                 <div>
-                    <img x-bind:src="event.image"
+                    <img x-on:click="Livewire.emit('openModal', 'photo-viewer', { url: event.image })"
+                         x-bind:src="event.image"
                          alt=""
-                         class="w-full h-auto">
+                         class="w-full h-auto cursor-pointer">
                 </div>
                 <div x-text="event.date"
                      class="py-4 text-2xl text-white">

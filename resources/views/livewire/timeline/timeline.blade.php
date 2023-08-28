@@ -170,6 +170,7 @@
                                             >
                                                 @foreach($events->where('type', $group)->all() as $hit)
                                                     <div x-on:click="event = {
+                                                                id: '{{ data_get($hit, 'id') }}',
                                                                 image: '{{ data_get($hit, 'thumbnail') }}',
                                                                 date: '{{ data_get($hit, 'display_date') }}',
                                                                 text: '{{ addslashes(str($hit['name'])->addSubjectLinks()->addScriptureLinks()->toString()) }}',
@@ -185,6 +186,7 @@
                                                          class="z-10 w-full h-14 cursor-pointer"
                                                     >
                                                         <div @scroll.window.throttle.50ms="$overlap('#event-selector') ? event = {
+                                                                    id: '{{ data_get($hit, 'id') }}',
                                                                     image: '{{ data_get($hit, 'thumbnail') }}',
                                                                     date: '{{ data_get($hit, 'display_date') }}',
                                                                     text: '{{ addslashes(str($hit['name'])->addSubjectLinks()->addScriptureLinks()->toString()) }}',
