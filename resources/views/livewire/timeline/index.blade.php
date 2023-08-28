@@ -52,7 +52,7 @@
             });
         "
          class="grid relative"
-         :class="((view == 'timeline') && filtersOpen && isMobile) ?'grid-cols-5' : 'grid-cols-4'"
+         :class="((view == 'timeline') && (! filtersOpen || ! isMobile)) ?'grid-cols-5' : 'grid-cols-4'"
         x-cloak
     >
         <div x-show="filtersOpen"
@@ -173,6 +173,10 @@
     @push('styles')
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.css" integrity="sha512-qveKnGrvOChbSzAdtSs8p69eoLegyh+1hwOMbmpCViIwj7rn4oJjdmMvWOuyQlTOZgTlZA0N2PXA7iA8/2TUYA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <style>
+            div > a{
+                color: white !important;
+                text-decoration: underline;
+            }
             .noUi-connect {
                 background: rgb(103, 30, 13);
             }
