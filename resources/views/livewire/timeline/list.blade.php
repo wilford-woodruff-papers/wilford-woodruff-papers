@@ -110,19 +110,23 @@
                                                              class="object-cover object-top mx-auto w-20 bg-gray-100 scale-150 cursor-pointer aspect-[16/9] sm:aspect-[2/1] lg:aspect-[3/2]">
                                                     @endif
                                                 </div>
-                                                <div class="col-span-3 gap-y-2">
-                                                    <div>
-                                                        {!! str($event['name'])->addSubjectLinks()->addScriptureLinks()->toString() !!}
-                                                    </div>
-                                                    <div>
-                                                    <span class="px-1.5 text-sm text-white py-0.25 bg-secondary">
-                                                        {{ data_get($event, 'type') }}
-                                                    </span>
-                                                    </div>
-                                                </div>
-                                                <div class="">
-                                                    <div class="text-lg font-semibold">
-                                                        {{ data_get($event, 'display_date') }}
+                                                <div class="col-span-4">
+                                                    <div class="grid grid-cols-7 gap-x-2">
+                                                        <div class="col-span-5 gap-y-2">
+                                                            <div class="line-clamp-2">
+                                                                {!! str($event['name'])->addSubjectLinks()->addScriptureLinks()->toString() !!}
+                                                            </div>
+                                                            <div>
+                                                                <span class="px-1.5 text-sm text-white py-0.25 bg-secondary">
+                                                                    {{ data_get($event, 'type') }}
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-span-2">
+                                                            <div class="pr-8 text-sm font-semibold text-right md:text-lg">
+                                                                {{ data_get($event, 'display_date') }}
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -161,7 +165,7 @@
                                                                 <li>
                                                                     <a title="{{ $link['name'] }}"
                                                                        href="{{ $link['url'] }}"
-                                                                       class="py-2 px-4 my-4 text-white text-md bg-secondary">
+                                                                       class="block py-2 px-4 my-4 text-white text-md bg-secondary">
                                                                         View Source
                                                                     </a>
                                                                 </li>
