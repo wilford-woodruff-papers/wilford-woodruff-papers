@@ -1,4 +1,4 @@
-require("./bootstrap");
+import "./bootstrap";
 
 import Alpine from "alpinejs";
 import intersect from "@alpinejs/intersect";
@@ -7,11 +7,12 @@ import collapse from "@alpinejs/collapse";
 import persist from "@alpinejs/persist";
 import overlap from "alpinejs-overlap";
 
-window.rangy = require("./rangy-core");
-window.classapplier = require('./rangy-classapplier');
-window.highlighter = require('./rangy-highlighter');
+import rangy from "rangy/lib/rangy-core.js";
+import "rangy/lib/rangy-highlighter";
+import "rangy/lib/rangy-classapplier";
 
-window.Alpine = Alpine
+window.rangy = rangy;
+window.Alpine = Alpine;
 Alpine.plugin(intersect)
 Alpine.plugin(focus)
 Alpine.plugin(collapse)
