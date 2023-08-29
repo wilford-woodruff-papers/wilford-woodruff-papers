@@ -19,4 +19,10 @@ class ResourceTypeFacet
     {
         return $facetDistribution;
     }
+
+    public function tips()
+    {
+        return null;
+
+    }
 }

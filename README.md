@@ -24,11 +24,7 @@ Herd is a recently released desktop application that handles configuring PHP and
 DBngin is a Mac only application that handles configuring MySQL and Redis.
 
 ```
-docker run -it --rm --name=wwp_meilisearch \
-    -p 7700:7700 \
-    -v $(pwd)/meili_data:/meili_data \
-    getmeili/meilisearch:v1.3 \
-    meilisearch --master-key="6DWfC5xQuDulEUhYjGGwVAS00tpZxKlPpc71Fkpr2CQ"
+docker run -it --rm --name=meilisearch -p 7700:7700 -v ~/code/meilisearch/meili_data:/meili_data getmeili/meilisearch:v1.3 meilisearch --master-key="6DWfC5xQuDulEUhYjGGwVAS00tpZxKlPpc71Fkpr2CQ"
 ```
 
 You can then use the following connect parameters in your .env
@@ -45,7 +41,7 @@ REDIS_HOST=127.0.0.1
 REDIS_PASSWORD=null
 REDIS_PORT=6379
 
-MEILISEARCH_HOST=http://wwp_meilisearch.orb.local:7700
+MEILISEARCH_HOST=http://meilisearch.orb.local:7700
 MEILISEARCH_KEY="6DWfC5xQuDulEUhYjGGwVAS00tpZxKlPpc71Fkpr2CQ"
 ```
 
