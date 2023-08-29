@@ -7,6 +7,7 @@ use App\Models\Date;
 use App\Models\Item;
 use App\Models\Page;
 use App\Models\Subject;
+use App\Models\Translation;
 use Carbon\Carbon;
 use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
@@ -71,24 +72,65 @@ class ImportItemFromFtp implements ShouldQueue
                 ->whereIn('name', ['People', 'Scriptural Figures'])
                 ->pluck('id')
                 ->all();
-
+            // TODO: Need to add a check to see if there is a translation. I think the best route is to make English the
+            // translation. So we need to check, swap, and save.
             foreach ($canvases as $key => $canvas) {
+                $transcript = null;
+                $translation = null;
+                ray([
+                    'Canvas',
+                    $canvas['@id'],
+                ]);
+
+                if ($transcriptionUrl = data_get(collect($canvas['otherContent'])
+                    ->where('label', 'Transcription')
+                    ->first(), '@id')) {
+                    $transcript = Http::get($transcriptionUrl)->json('resources.0.resource.chars');
+                    ray([
+                        'Transcription (English)',
+                        $transcript,
+                    ]);
+                }
+
                 $page = Page::updateOrCreate([
                     'item_id' => $item->id,
                     'name' => $canvas['label'],
                 ], [
                     'ftp_id' => $canvas['@id'],
                     'transcript_link' => data_get($canvas, 'otherContent.0.@id', null),
-                    'transcript' => $this->convertSubjectTags(
-                        (array_key_exists('otherContent', $canvas))
-                            ? Http::get($canvas['otherContent'][0]['@id'])->json('resources.0.resource.chars')
-                            : ''),
+                    'transcript' => $transcript,
                     'ftp_link' => (array_key_exists('related', $canvas))
                         ? $canvas['related'][0]['@id']
                         : '',
                     'is_blank' => in_array('markedBlank', array_values(data_get($canvas, 'service.pageStatus', []))),
                     'imported_at' => now(),
                 ]);
+
+                if ($translationUrl = data_get(collect($canvas['otherContent'])
+                    ->where('label', 'Translation')
+                    ->first(), '@id')) {
+                    $translation = Http::get($translationUrl)->json('resources.0.resource.chars');
+
+                    ray([
+                        'Translation (Other Language)',
+                        $translation,
+                    ]);
+
+                    $pageTranslation = Translation::updateOrCreate([
+                        'page_id' => $page->id,
+                        'language' => str($translation)
+                            ->match('/\[Language:.*?\]/')
+                            ->after(':')
+                            ->trim('[] ')
+                            ->toString(),
+                    ], [
+                        'transcript' => str($translation)->stripLanguageTag(),
+                    ]);
+                    ray([
+                        'New Translation',
+                        $pageTranslation,
+                    ]);
+                }
 
                 if (! $page->hasMedia() || $this->download == 'true') {
                     $page->clearMediaCollection();
