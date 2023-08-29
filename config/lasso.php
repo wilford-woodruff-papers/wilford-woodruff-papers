@@ -112,5 +112,5 @@ return [
      * be stored within the /public directory in Laravel - but if
      * you have changed this - please specify it below.
      */
-    'public_path' => public_path('build/assets'),
+    'public_path' => public_path('build'),
 ];
