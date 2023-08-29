@@ -98,7 +98,7 @@ class ImportItemFromFtp implements ShouldQueue
                 ], [
                     'ftp_id' => $canvas['@id'],
                     'transcript_link' => data_get($canvas, 'otherContent.0.@id', null),
-                    'transcript' => $transcript,
+                    'transcript' => $this->convertSubjectTags($transcript),
                     'ftp_link' => (array_key_exists('related', $canvas))
                         ? $canvas['related'][0]['@id']
                         : '',
@@ -124,7 +124,7 @@ class ImportItemFromFtp implements ShouldQueue
                             ->trim('[] ')
                             ->toString(),
                     ], [
-                        'transcript' => str($translation)->stripLanguageTag(),
+                        'transcript' => $this->convertSubjectTags(str($translation)->stripLanguageTag()),
                     ]);
                     ray([
                         'New Translation',
