@@ -26,7 +26,73 @@
                                     >
                                         <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
                                     </svg>
-                                    {{ str($facet->name)->before('_facet')->title()->replace('_', ' ') }}
+                                    <div class="flex flex-1 gap-x-4 justify-between items-center">
+                                        <div>{{ str($facet->name)->before('_facet')->title()->replace('_', ' ') }}</div>
+                                        <div class="pr-4">
+                                            @if(! empty($facet->tips()))
+                                                <div x-data="{
+popoverOpen: false,
+popoverArrow: true,
+popoverPosition: 'bottom',
+popoverHeight: 0,
+popoverOffset: 8,
+popoverHeightCalculate() {
+this.$refs.popover.classList.add('invisible');
+this.popoverOpen=true;
+let that=this;
+$nextTick(function(){
+that.popoverHeight = that.$refs.popover.offsetHeight;
+that.popoverOpen=false;
+that.$refs.popover.classList.remove('invisible');
+that.$refs.popoverInner.setAttribute('x-transition', '');
+that.popoverPositionCalculate();
+});
+},
+popoverPositionCalculate(){
+if(window.innerHeight < (this.$refs.popoverButton.getBoundingClientRect().top + this.$refs.popoverButton.offsetHeight + this.popoverOffset + this.popoverHeight)){
+this.popoverPosition = 'top';
+} else {
+this.popoverPosition = 'bottom';
+}
+}
+}"
+                                                     x-init="
+that = this;
+window.addEventListener('resize', function(){
+popoverPositionCalculate();
+});
+$watch('popoverOpen', function(value){
+if(value){ popoverPositionCalculate(); document.getElementById('width').focus(); }
+});
+
+"
+                                                     class="relative z-[11]">
+                                                    <div role="button" x-ref="popoverButton" x-on:mouseover="popoverOpen=true"
+                                                         x-on:mouseout="popoverOpen=false" @click.stop="popoverOpen=!popoverOpen" class="flex justify-center items-center w-8 h-8 bg-white rounded-full border shadow-sm cursor-pointer focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:outline-none active:bg-white border-neutral-200/70 hover:bg-neutral-100">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
+                                                        </svg>
+                                                    </div>
+                                                    <div x-ref="popover"
+                                                         x-show="popoverOpen"
+                                                         x-init="setTimeout(function(){ popoverHeightCalculate(); }, 100);"
+                                                         x-trap.inert="popoverOpen"
+                                                         @click.away="popoverOpen=false;"
+                                                         @keydown.escape.window="popoverOpen=false"
+                                                         :class="{ 'top-0 mt-12' : popoverPosition == 'bottom', 'bottom-0 mb-12' : popoverPosition == 'top' }"
+                                                         class="absolute left-1/2 max-w-lg -translate-x-1/2 w-[400px]" x-cloak>
+                                                        <div x-ref="popoverInner" x-show="popoverOpen" class="p-4 w-full bg-white rounded-md border shadow-sm border-neutral-200/70">
+                                                            <div x-show="popoverArrow && popoverPosition == 'bottom'" class="inline-block overflow-hidden absolute top-0 left-1/2 mt-px w-5 -translate-x-2 -translate-y-2.5"><div class="w-2.5 h-2.5 bg-white rounded-sm border-t border-l transform origin-bottom-left rotate-45"></div></div>
+                                                            <div x-show="popoverArrow && popoverPosition == 'top'" class="inline-block overflow-hidden absolute bottom-0 left-1/2 mb-px w-5 -translate-x-2 translate-y-2.5"><div class="w-2.5 h-2.5 bg-white rounded-sm border-b border-l transform origin-top-left -rotate-45"></div></div>
+                                                            <div>
+                                                                {!! $facet->tips() !!}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
                                 </button>
                                 <!-- Expandable link section, show/hide based on state. -->
                                 <ul  x-show="expanded"

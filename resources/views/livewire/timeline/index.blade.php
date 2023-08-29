@@ -51,14 +51,14 @@
                 }
             });
         "
-         class="grid relative"
+         class="grid relative timeline"
          :class="((view == 'timeline') && (! filtersOpen || ! isMobile)) ?'grid-cols-5' : 'grid-cols-4'"
         x-cloak
     >
         <div x-show="filtersOpen"
              x-transition
-             class="absolute top-10 bg-white bg-gray-200 lg:relative lg:col-span-1 z-[5]">
-            <div class="sticky top-0 z-[5]">
+             class="absolute top-10 bg-white bg-gray-200 lg:relative lg:col-span-1 z-[11]">
+            <div class="sticky top-0 z-[11]">
                 <div class="grid grid-flow-row auto-rows-max gap-y-5 py-8 px-4 min-h-screen bg-white border-r border-gray-200 grow">
                     <div class="flex-1 min-w-0">
                         <label for="search" class="sr-only">Search</label>
@@ -160,7 +160,7 @@
                                 <a x-bind:title="link.name"
                                    x-bind:href="link.url"
                                    class="py-2 px-4 my-4 text-white text-md bg-secondary">
-                                    View Source
+                                    View Document
                                 </a>
                             </li>
                         </template>
@@ -173,7 +173,7 @@
     @push('styles')
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.css" integrity="sha512-qveKnGrvOChbSzAdtSs8p69eoLegyh+1hwOMbmpCViIwj7rn4oJjdmMvWOuyQlTOZgTlZA0N2PXA7iA8/2TUYA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <style>
-            div > a{
+            .timeline div > a{
                 color: white !important;
                 text-decoration: underline;
             }
@@ -239,6 +239,7 @@
                 window.scrollTo({ top: document.getElementById('timeline').offsetTop + 80, behavior: 'smooth' });
                 //document.getElementById('timeline').scrollIntoView();
             });
+
 
 
 

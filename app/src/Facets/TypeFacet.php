@@ -19,4 +19,10 @@ class TypeFacet
     {
         return $facetDistribution;
     }
+
+    public function tips()
+    {
+        return null;
+
+    }
 }
