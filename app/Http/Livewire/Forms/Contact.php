@@ -29,6 +29,11 @@ class Contact extends Component
         'message' => 'required',
     ];
 
+    public function mount()
+    {
+        $this->message = request()->get('message');
+    }
+
     public function render()
     {
         return view('livewire.forms.contact');
