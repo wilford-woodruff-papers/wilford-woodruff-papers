@@ -55,6 +55,13 @@
                         @endif
 
                     </div>
+
+                    @if($subject->incomplete_identification)
+                        <div class="col-span-12 my-8">
+                            <x-incomplete-identification :subject="$subject->name"/>
+                        </div>
+                    @endif
+
                     <div class="col-span-12 px-8 md:col-span-12">
                         <!--<h3 class="pt-7 mt-4 mb-8 font-serif text-3xl border-b border-gray-300 text-primary">Pages</h3>-->
                         {{--<div class="preview-block">
