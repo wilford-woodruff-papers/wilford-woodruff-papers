@@ -257,7 +257,7 @@
 
     <script src="https://slickscroll.musabhassan.com/slickscroll.min.js" type="text/javascript"></script>
 
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <!-- Slickscroll -->
     <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', () => {
