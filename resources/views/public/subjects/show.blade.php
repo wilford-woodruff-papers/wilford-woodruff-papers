@@ -40,7 +40,7 @@
                                 @endforeach
                             </ul>
                         @endif
-                        @if(! empty($subject->geolocation))
+                        @if(! empty($subject->latitude) && ! empty($subject->longitude))
                             <img src="{{ $subject->mapUrl() }}"
                                  alt=""
                                  class="mx-auto w-full h-auto md:w-1/2"
