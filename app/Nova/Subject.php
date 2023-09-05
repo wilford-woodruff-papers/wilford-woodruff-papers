@@ -5,7 +5,7 @@ namespace App\Nova;
 use App\Nova\Actions\ExportPeople;
 use App\Nova\Actions\ExportSubjects;
 use App\Nova\Actions\ExportSubjectsWithChildren;
-use App\Nova\Actions\ImportBiographies;
+use App\Nova\Actions\ImportGeolocation;
 use App\Nova\Actions\ImportIndexTopics;
 use App\Nova\Actions\ImportPeople;
 use App\Nova\Actions\ImportSubjects;
@@ -118,7 +118,8 @@ class Subject extends Resource
             new ImportIndexTopics,
             new ImportSubjects,
             new ImportPeople,
-            new ImportBiographies,
+            //new ImportBiographies,
+            new ImportGeolocation,
             (new ExportSubjects)
                 ->askForWriterType(),
             (new ExportPeople)
