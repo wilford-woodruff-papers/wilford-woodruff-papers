@@ -26,6 +26,8 @@ class Subject extends Model implements HasMedia
 
     protected $casts = [
         'geolocation' => 'array',
+        'northeast_box' => 'array',
+        'southwest_box' => 'array',
         //'bio_approved_at' => 'date',
         'added_to_ftp_at' => 'date',
         'bio_completed_at' => 'date',
@@ -43,7 +45,7 @@ class Subject extends Model implements HasMedia
 
                 if (! empty($this->last_name)) {
                     $name = $name->replace(' '.$this->last_name, '')
-                                    ->prepend($this->last_name.', ');
+                        ->prepend($this->last_name.', ');
                 }
 
                 $name = $name
@@ -149,27 +151,34 @@ class Subject extends Model implements HasMedia
 
     public function mapUrl()
     {
-        if (! empty($this->geolocation) && empty($this->getMedia('map')->first())) {
+        if (
+            ! empty($this->latitude)
+            && ! empty($this->longitude)
+            && ! empty($this->google_map_address)
+            && empty($this->getMedia('maps')->first())
+        ) {
             $url = 'https://maps.googleapis.com/maps/api/staticmap?';
 
-            $url .= 'center='.$this->geolocation['formatted_address'];
-            $url .= '&zoom='.$this->zoomLevel().'&size=600x300&maptype=roadmap';
-            $url .= '&markers=color:red%7Clabel:.%7C'.$this->geolocation['geometry']['location']['lat'].','.$this->geolocation['geometry']['location']['lng'];
+            $url .= 'center='.$this->google_map_address;
+            $url .= '&zoom=4&size=600x300&maptype=roadmap';
+            //$url .= '&zoom='.$this->zoomLevel().'&size=600x300&maptype=roadmap';
+            $url .= '&markers=color:red%7Clabel:.%7C'.$this->latitude.','.$this->longitude;
             $url .= '&key='.config('googlemaps.public_key');
 
             //$file = Storage::disk('local')
             //    ->put($this->slug.'-map.png', file_get_contents($url));
-//            $file = file_put_contents(
-//                storage_path('app/maps/').$this->slug.'-maps.png',
-//                file_get_contents(str($url)->replace(' ', '%20'))
-//            );
+            //            $file = file_put_contents(
+            //                storage_path('app/maps/').$this->slug.'-maps.png',
+            //                file_get_contents(str($url)->replace(' ', '%20'))
+            //            );
             try {
+                $this->clearMediaCollection();
                 $this->addMediaFromUrl(str($url)->replace(' ', '%20'))
                     ->usingFileName($this->slug.'-map.png')
                     ->usingName($this->slug.'-map.png')
-                    ->toMediaCollection('default', 'maps');
+                    ->toMediaCollection('maps', 'maps');
             } catch (\Exception $e) {
-                // TODO: Do Somethign when there's an errpr;
+                // TODO: Do Something when there's an error;
             }
 
         }
@@ -178,7 +187,7 @@ class Subject extends Model implements HasMedia
             'media',
         ]);
 
-        return $this->getMedia('default')->first()?->getUrl('thumb');
+        return $this->getMedia('maps')->first()?->getUrl('thumb');
     }
 
     private function zoomLevel()
