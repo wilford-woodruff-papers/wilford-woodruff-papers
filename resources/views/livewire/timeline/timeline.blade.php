@@ -3,7 +3,7 @@
 >
 
     <div class="sticky top-10 z-10">
-        <div class="grid z-50 grid-cols-6 gap-x-2 items-center py-4 text-center bg-white">
+        <div class="grid z-50 grid-cols-11 gap-x-2 items-center py-4 text-center bg-white">
             <div class="flex justify-start">
                 <div class="z-50 -ml-0.5 bg-white">
                     <div class="">
@@ -36,7 +36,7 @@
                 </div>
             </div>
             @foreach($groups as $group)
-                <div class="inline-block">
+                <div class="inline-block col-span-2 px-2">
                     <div x-on:click="{{ str($group)->snake() }} = ! {{ str($group)->snake() }}"
                          {{--x-show="{{ str($group)->snake() }}"--}}
                          class="font-semibold cursor-pointer"
@@ -76,21 +76,21 @@
             <div id="event-selector"
                  class="flex top-0 w-full h-20">
                 <div class="absolute z-50 w-full h-20 bg-gray-800 opacity-10"></div>
-                <div class="w-12 border-l-2 border-gray-800 border-y-2">
+                <div class="w-12">
 
                 </div>
                 <div class="flex flex-col flex-1 h-full">
-                    <div class="h-1/2 border-b-2 border-gray-400"></div>
+                    <div class="h-1/2"></div>
                     <div class="h-1/2"></div>
                 </div>
-                <div class="w-12 border-r-2 border-gray-800 border-y-2">
+                <div class="w-12">
 
                 </div>
             </div>
         </div>
 
         @if(! empty($v_min) && $v_min < 1810)
-            <div class="flex sticky top-0 z-10 justify-center items-center my-0 w-full text-4xl font-bold text-white h-18 bg-primary">
+            <div class="flex sticky top-0 z-10 justify-center items-center my-0 w-full text-4xl font-normal text-white h-18 bg-primary">
                 1800
             </div>
         @endif
@@ -109,39 +109,39 @@
             @endphp
 
             @if((((int) $year) % 10) == 0)
-                <div class="grid grid-cols-6 px-4 h-8 divide-x divide-slate-300">
+                <div class="grid grid-cols-11 px-4 h-8 divide-x divide-slate-300">
                     <div>&nbsp;</div>
-                    <div>&nbsp;</div>
-                    <div>&nbsp;</div>
-                    <div>&nbsp;</div>
-                    <div>&nbsp;</div>
-                    <div>&nbsp;</div>
+                    <div class="col-span-2">&nbsp;</div>
+                    <div class="col-span-2">&nbsp;</div>
+                    <div class="col-span-2">&nbsp;</div>
+                    <div class="col-span-2">&nbsp;</div>
+                    <div class="col-span-2">&nbsp;</div>
                 </div>
 
-                <div class="flex sticky top-0 z-10 justify-center items-center w-full text-4xl font-bold text-white h-18 bg-primary">
+                <div class="flex sticky top-0 z-10 justify-center items-center w-full text-4xl font-normal text-white h-18 bg-primary">
                     {{ $year }}
                 </div>
 
-                <div class="grid grid-cols-6 px-4 h-8 divide-x divide-slate-300">
+                <div class="grid grid-cols-11 px-4 h-8 divide-x divide-slate-300">
                     <div>&nbsp;</div>
-                    <div>&nbsp;</div>
-                    <div>&nbsp;</div>
-                    <div>&nbsp;</div>
-                    <div>&nbsp;</div>
-                    <div>&nbsp;</div>
+                    <div class="col-span-2">&nbsp;</div>
+                    <div class="col-span-2">&nbsp;</div>
+                    <div class="col-span-2">&nbsp;</div>
+                    <div class="col-span-2">&nbsp;</div>
+                    <div class="col-span-2">&nbsp;</div>
                 </div>
             @else
-                <div class="grid grid-cols-6 px-4 h-14 divide-x divide-slate-300">
+                <div class="grid grid-cols-11 px-4 h-14 divide-x divide-slate-300">
                     <div>
-                        <p class="text-2xl font-bold text-gray-900">
+                        <p class="text-2xl font-normal text-gray-900">
                             {{ $year }}
                         </p>
                     </div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                    <div></div>
+                    <div class="col-span-2"></div>
+                    <div class="col-span-2"></div>
+                    <div class="col-span-2"></div>
+                    <div class="col-span-2"></div>
+                    <div class="col-span-2"></div>
                 </div>
             @endif
 
@@ -153,21 +153,21 @@
                     @foreach($months as $month => $monthEvents)
                         <div>
                             @if(count($monthEvents) > 0)
-                                <div class="grid grid-cols-6 px-4 h-8 divide-x divide-slate-300">
+                                <div class="grid grid-cols-11 px-4 h-8 divide-x divide-slate-300">
                                     <div class="font-semibold">
                                         {{ $month }}
                                     </div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
+                                    <div class="col-span-2"></div>
+                                    <div class="col-span-2"></div>
+                                    <div class="col-span-2"></div>
+                                    <div class="col-span-2"></div>
+                                    <div class="col-span-2"></div>
                                 </div>
                                 @foreach($monthEvents->groupBy('date') as $events)
                                     @php
                                         $count = 0;
                                     @endphp
-                                    <div class="grid grid-cols-6 px-4 divide-x divide-slate-300 min-h-[3.5rem]">
+                                    <div class="grid grid-cols-11 px-4 divide-x divide-slate-300 min-h-[3.5rem]">
                                         <div class="border-t border-gray-400 border-1">
                                         </div>
                                         @foreach($groups as $key => $group)
@@ -177,10 +177,10 @@
                                                 }
                                             @endphp
                                             <div @class([
-                                                        str($group)->slug().' col-span-1',
+                                                        str($group)->slug().' col-span-2',
                                                         'border-t !border-t-gray-400 border-1' => $count == 0,
                                                       ])
-                                                 class="{{ str($group)->slug() }} col-span-1"
+                                                 class="{{ str($group)->slug() }} col-span-2"
                                             >
                                                 @foreach($events->where('type', $group)->all() as $hit)
                                                     <div x-on:click="event = {
@@ -255,15 +255,15 @@
                                     </div>
                                 @endforeach
                             @else
-                                <div class="grid grid-cols-6 px-4 h-8 divide-x divide-slate-300">
+                                <div class="grid grid-cols-11 px-4 h-8 divide-x divide-slate-300">
                                     <div class="text-sm text-gray-600">
                                         {{ $month }}
                                     </div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
+                                    <div class="col-span-2"></div>
+                                    <div class="col-span-2"></div>
+                                    <div class="col-span-2"></div>
+                                    <div class="col-span-2"></div>
+                                    <div class="col-span-2"></div>
                                 </div>
                             @endif
                         </div>

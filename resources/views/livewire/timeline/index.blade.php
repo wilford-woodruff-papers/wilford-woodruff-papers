@@ -59,7 +59,7 @@
              x-transition
              class="absolute top-10 bg-white bg-gray-200 lg:relative lg:col-span-1 z-[11]">
             <div class="sticky top-0 z-[11]">
-                <div class="grid grid-flow-row auto-rows-max gap-y-5 py-8 px-4 min-h-screen bg-white border-r border-gray-200 grow">
+                <div class="grid grid-flow-row auto-rows-max gap-y-5 py-10 px-4 min-h-screen bg-white border-r border-gray-200 grow">
                     <div class="flex-1 min-w-0">
                         <label for="search" class="sr-only">Search</label>
                         <div class="relative rounded-md shadow-sm">
@@ -136,7 +136,16 @@
         <div class="relative bg-gray-200"
              :class="(view == 'timeline') ?'col-span-1' : 'hidden'">
 
-            <div class="sticky top-0 py-8 px-4 h-screen bg-primary">
+            <div x-show="! event.date"
+                 class="py-3 px-4 bg-primary">
+                <a href="{{ route('miraculously-preserved-life') }}"
+                   class="block py-2 px-8 font-semibold text-center text-white bg-secondary hover:bg-secondary-500 !no-underline"
+                >
+                    View How Wilford Woodruff's Life Was Miraculously Preserved
+                </a>
+            </div>
+
+            <div class="sticky top-0 py-10 px-6 h-screen bg-primary">
                 <div>
                     <img x-on:click="Livewire.emit('openModal', 'photo-viewer', { url: event.image })"
                          x-bind:src="event.image"
@@ -144,7 +153,7 @@
                          class="w-full h-auto cursor-pointer">
                 </div>
                 <div x-text="event.date"
-                     class="py-4 text-2xl text-white">
+                     class="py-4 text-2xl font-semibold text-white">
                 </div>
                 <div x-html="event.text"
                      class="text-lg text-white">
