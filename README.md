@@ -17,15 +17,11 @@ There are 2 supported options for doing local development:
  - [Herd](https://herd.laravel.com/) + [DBngine](https://dbngin.com/) (Mac only)
  - [Sail](https://laravel.com/docs/10.x/sail) (Mac, Linux, and Windows)
 
-### Using Herd + Docker Meilisearch
+### Using Herd + Docker for Meilisearch
 
 Herd is a recently released desktop application that handles configuring PHP and local development domains/SSL. However, since the project uses Meilisearch, you will need to run Meilisearch in a separate Docker container. 
 
 DBngin is a Mac only application that handles configuring MySQL and Redis.
-
-```
-docker run -it --rm --name=meilisearch -p 7700:7700 -v ~/code/meilisearch/meili_data:/meili_data getmeili/meilisearch:v1.3 meilisearch --master-key="6DWfC5xQuDulEUhYjGGwVAS00tpZxKlPpc71Fkpr2CQ"
-```
 
 You can then use the following connect parameters in your .env
 
@@ -45,6 +41,11 @@ MEILISEARCH_HOST=http://meilisearch.orb.local:7700
 MEILISEARCH_KEY="6DWfC5xQuDulEUhYjGGwVAS00tpZxKlPpc71Fkpr2CQ"
 ```
 
+To start Meilisearch, run the following command to start Meilisearch in a Docker container
+
+``` 
+docker run -it --rm --name=meilisearch -p 7700:7700 -v ~/code/meilisearch/meili_data:/meili_data getmeili/meilisearch:v1.3 meilisearch --master-key="6DWfC5xQuDulEUhYjGGwVAS00tpZxKlPpc71Fkpr2CQ"
+```
 
 ### Using Sail
 
