@@ -277,10 +277,13 @@ class Subject extends Model implements HasMedia
 
     public function toSearchableArray(): array
     {
+        $collectionName = 'default';
+
         if ($this->category->pluck('name')->contains('People')) {
             $resourceType = 'People';
         } elseif ($this->category->pluck('name')->contains('Places')) {
             $resourceType = 'Places';
+            $collectionName = 'maps';
         } elseif ($this->category->pluck('name')->contains('Index')) {
             $resourceType = 'Topic';
         } else {
@@ -293,7 +296,7 @@ class Subject extends Model implements HasMedia
             'resource_type' => $resourceType,
             'type' => $this->category->pluck('name')->toArray(),
             'url' => route('subjects.show', ['subject' => $this->slug]),
-            'thumbnail' => $this->getFirstMedia()?->getUrl('thumb'),
+            'thumbnail' => $this->getFirstMedia($collectionName)?->getUrl('thumb'),
             'name' => $this->name,
             'description' => strip_tags($this->bio ?? ''),
         ];
