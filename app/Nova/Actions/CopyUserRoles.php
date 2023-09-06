@@ -43,6 +43,7 @@ class CopyUserRoles extends Action
             Select::make('User')->options(
                 User::query()
                     ->has('roles')
+                    ->orderBy('name')
                     ->pluck('name', 'id')
                     ->all()
             ),
