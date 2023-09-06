@@ -22,6 +22,8 @@ class Search extends Component
 
     public $q = '';
 
+    public $date;
+
     public $decades = '';
 
     public $v_min = 0;
@@ -57,6 +59,7 @@ class Search extends Component
         'filters' => ['except' => []],
         'year_range' => ['except' => ''],
         'full_date_range' => ['except' => ''],
+        'date' => ['except' => ''],
         'use_date_range' => ['except' => false],
         'sort' => ['except' => ['name' => 'asc']],
     ];
@@ -237,6 +240,11 @@ class Search extends Component
         if (! empty($this->year_range)) {
             [$min, $max] = $this->year_range;
             $query[] = "(year >= $min AND year <= $max)";
+        }
+
+        if (! empty($this->date)) {
+            $date = Carbon::parse($this->date);
+            $query[] = '(date IS NOT NULL AND date = '.$date->startOfDay()->timestamp.')';
         }
 
         if ($this->use_date_range == true) {
