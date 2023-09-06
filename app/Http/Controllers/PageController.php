@@ -56,13 +56,7 @@ class PageController extends Controller
         return view('public.pages.show', [
             'item' => $item,
             'page' => $page,
-            'pages' => Page::query()
-                ->with([
-                    'parent.type',
-                ])
-                ->where('parent_item_id', $item->id)
-                ->ordered()
-                ->get(),
+            'pages' => collect([]),
             'sourceNotes' => $sourceNotes,
             'sourceLink' => $sourceLink,
         ]);

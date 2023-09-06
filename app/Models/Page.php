@@ -52,24 +52,24 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
         //if (! empty($this->item) && empty($this->item->item_id)) {
         //    return $this->item();
         //} else {
-            return $this->belongsTo(Item::class, 'parent_item_id');
+        return $this->belongsTo(Item::class, 'parent_item_id');
         //}
     }
 
     public function next()
     {
         return Page::where('parent_item_id', $this->attributes['parent_item_id'])
-                        ->where('order', '>', $this->attributes['order'])
-                        ->orderBy('order', 'ASC')
-                        ->first();
+            ->where('order', '>', $this->attributes['order'])
+            ->orderBy('order', 'ASC')
+            ->first();
     }
 
     public function previous()
     {
         return Page::where('parent_item_id', $this->attributes['parent_item_id'])
-                        ->where('order', '<', $this->attributes['order'])
-                        ->orderBy('order', 'DESC')
-                        ->first();
+            ->where('order', '<', $this->attributes['order'])
+            ->orderBy('order', 'DESC')
+            ->first();
     }
 
     public function people()
@@ -96,9 +96,9 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
     public function topics()
     {
         return $this->belongsToMany(Subject::class)
-                    ->whereHas('category', function (Builder $query) {
-                        $query->whereIn('categories.name', ['Topic', 'Index']);
-                    });
+            ->whereHas('category', function (Builder $query) {
+                $query->whereIn('categories.name', ['Topic', 'Index']);
+            });
     }
 
     public function quotes()
@@ -215,14 +215,14 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
     public function pending_assigned_actions()
     {
         return $this->morphMany(Action::class, 'actionable')
-                    ->whereNotNull('assigned_at')
-                    ->whereNull('completed_at');
+            ->whereNotNull('assigned_at')
+            ->whereNull('completed_at');
     }
 
     public function completed_actions()
     {
         return $this->morphMany(Action::class, 'actionable')
-                    ->whereNotNull('completed_at');
+            ->whereNotNull('completed_at');
     }
 
     public function activities()
@@ -238,7 +238,7 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-                ->dontLogIfAttributesChangedOnly(['transcript']);
+            ->dontLogIfAttributesChangedOnly(['transcript']);
     }
 
     public function toArray()
@@ -338,11 +338,11 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
             'year' => $this->dates()->first()?->date ? $this->dates()->first()?->date?->year : null,
             'date' => $this->dates()->first()?->date ? $this->dates()->first()?->date?->timestamp : null,
             'dates' => $this->dates()->pluck('date')->map(function ($date) {
-                    return $date->toDateString();
-                })->toArray(),
+                return $date->toDateString();
+            })->toArray(),
             'topics' => $this->topics->pluck('name')->map(function ($topic) {
-                    return str($topic)->title();
-                })->toArray(),
+                return str($topic)->title();
+            })->toArray(),
         ];
     }
 
