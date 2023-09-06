@@ -61,7 +61,7 @@
                     pages: {
                         @foreach($pages as $p)
                             {{ $p->order }} : {
-                                url: '{{ route('pages.show', ['item' => $item, 'page' => $p]) }}'
+                                url: '{{ route('pages.show', ['item' => $item->uuid, 'page' => $p->uuid]) }}'
                             },
                         @endforeach
                     },
@@ -81,7 +81,7 @@
                        @if (! empty($previousPage = $pages->where('order', '<', $page->order)->sortByDesc('order')->first()))
                             {{--$this->hyperlink('Previous', $previousMedia->url(), ['class' => 'relative inline-flex items-center px-4 py-2 text-sm font-medium border border-secondary text-sm font-medium text-white bg-secondary hover:text-highlight', 'title' => $translate('Previous'), 'aria-label' => $translate('Previous')]);--}}
                             <a class="inline-flex relative items-center py-2 px-4 text-sm font-medium text-white border border-secondary bg-secondary hover:text-highlight"
-                               href="{{ route('pages.show', ['item' => $item, 'page' =>  $previousPage]) }}">
+                               href="{{ route('pages.show', ['item' => $item->uuid, 'page' =>  $previousPage->uuid]) }}">
                                 Previous
                             </a>
                        @endif
