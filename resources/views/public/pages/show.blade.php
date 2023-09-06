@@ -3,7 +3,13 @@
         {{ 'Page ' . $page->order . ' of ' . $item->parent()?->name }} | {{ config('app.name') }}
     </x-slot>
     @php
-
+        $pages = \App\Models\Page::query()
+                ->with([
+                    'parent.type',
+                ])
+                ->where('parent_item_id', $item->id)
+                ->ordered()
+                ->get();
     @endphp
     <div class="flex flex-wrap w-full h-full md:flex-nowrap">
         <div class="relative pt-16 w-full min-h-screen bg-gray-900 md:w-3/5" id="document-viewer">

@@ -6,7 +6,6 @@ use App\Http\Middleware\DownloadAIExperienceMiddleware;
 use App\Macros\AddSubjectLinks;
 use App\Macros\RemoveQZCodes;
 use App\Macros\StripBracketedID;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
@@ -47,7 +46,7 @@ class AppServiceProvider extends ServiceProvider
             return $value != 1;
         });
 
-        Model::preventLazyLoading(! $this->app->isProduction());
-        Model::preventAccessingMissingAttributes(! $this->app->isProduction());
+        //Model::preventLazyLoading(! $this->app->isProduction());
+        //Model::preventAccessingMissingAttributes(! $this->app->isProduction());
     }
 }
