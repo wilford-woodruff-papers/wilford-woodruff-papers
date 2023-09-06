@@ -106,6 +106,7 @@ class PeopleController extends Controller
         'Stationery Header',
         'Bishops in Letters',
         'United Brethren',
+        'Eminent Men and Women',
     ];
 
     /**
@@ -125,7 +126,7 @@ class PeopleController extends Controller
             'researchers' => User::query()
                 ->role(['researcher'])
                 ->orderBy('name')
-                    ->get(),
+                ->get(),
             'categories' => Category::query()
                 ->whereIn('name', $this->categories)
                 ->orderBy('name')
