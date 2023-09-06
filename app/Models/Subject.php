@@ -187,7 +187,7 @@ class Subject extends Model implements HasMedia
             'media',
         ]);
 
-        return $this->getMedia('maps')->first()?->getUrl('thumb');
+        return $this->getFirstMediaUrl('maps', 'thumb');
     }
 
     private function zoomLevel()

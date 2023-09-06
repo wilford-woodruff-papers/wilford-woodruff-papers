@@ -41,9 +41,9 @@
                             </ul>
                         @endif
                         @if(! empty($subject->latitude) && ! empty($subject->longitude))
-                            <img src="{{ $subject->mapUrl() }}"
+                            <img src="{{ $subject->getFirstMediaUrl('maps') }}"
                                  alt=""
-                                 class="mx-auto w-full h-auto md:w-1/2"
+                                 class="mx-auto w-full h-auto md:w-3/5"
                             />
                         @endif
 
