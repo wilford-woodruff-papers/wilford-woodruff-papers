@@ -2,6 +2,7 @@
 
 namespace App\Imports;
 
+use App\Jobs\ImportLetterLinksAction;
 use App\Jobs\ImportLettersMasterFileAction;
 use App\Jobs\UpdateLetterFromPcfAction;
 use Illuminate\Support\Collection;
@@ -32,6 +33,10 @@ class LettersFromPcfActions implements ToCollection, WithHeadingRow
                     break;
                 case 'Import Master File':
                     ImportLettersMasterFileAction::dispatch($row);
+                    break;
+                case 'Re-Import Links':
+                    ImportLetterLinksAction::dispatch($row)
+                        ->onQueue('import');
                     break;
             }
         }
