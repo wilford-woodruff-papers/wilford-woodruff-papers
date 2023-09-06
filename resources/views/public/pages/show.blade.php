@@ -351,7 +351,10 @@
                 </div>
             </div>
 
-            @if(! empty($sourceNotes) || ! empty($sourceLink))
+            @if(
+                ! empty($sourceNotes)
+                || (! empty($sourceLink) && ! str($sourceLink->value)->contains('google'))
+            )
                 <div class="property">
                     <h4>
                         Original Document/Image Source
@@ -362,7 +365,7 @@
                                 {!! $sourceNotes->value !!}
                             </div>
                         @endif
-                        @if(! empty($sourceLink))
+                        @if(! empty($sourceLink)  && ! str($sourceLink->value)->contains('google'))
                             <div>
                                 <a href="{{ $sourceLink->value }}" target="_blank" class="text-secondary">
                                     {{ str($sourceLink->value)->before('?') }}

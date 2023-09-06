@@ -56,7 +56,7 @@
                             </div>
                         </div>
                     @endif
-                    @if(! empty($sourceNotes) || ! empty($sourceLink))
+                    @if(! empty($sourceNotes) || (! empty($sourceLink)  && ! str($sourceLink->value)->contains('google')))
                         <div class="my-4 property">
                             <h4>
                                 Document Source
@@ -67,7 +67,7 @@
                                         {!! $sourceNotes->value !!}
                                     </div>
                                 @endif
-                                @if(! empty($sourceLink))
+                                @if(! empty($sourceLink)  && ! str($sourceLink->value)->contains('google'))
                                     <div>
                                         <a href="{{ $sourceLink->value }}" target="_blank" class="text-secondary">
                                             {{ str($sourceLink->value)->before('?') }}
@@ -78,7 +78,7 @@
                         </div>
                     @endif
                     @hasanyrole('Editor|Admin|Super Admin')
-                        @if(! empty($item->count() > 0))
+                        @if($item->items?->count() > 0)
                             <div class="property">
                                 <h4>Sections ({{ $item->items->count() }})</h4>
                                 @if(! empty($filters['section']))
