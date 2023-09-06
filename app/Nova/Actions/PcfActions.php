@@ -95,6 +95,7 @@ class PcfActions extends Action
                     'Import Identification' => 'Import Identification',
                     'Import Bio Approved At' => 'Import Bio Approved At',
                     'Import Research Log' => 'Import Research Log',
+                    'Re-Import Links' => 'Re-Import Links',
                 ])
                 ->rules('required'),
             File::make('File')
