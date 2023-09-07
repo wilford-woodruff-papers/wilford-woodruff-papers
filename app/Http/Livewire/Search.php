@@ -244,7 +244,7 @@ class Search extends Component
 
         if (! empty($this->date)) {
             $date = Carbon::parse($this->date);
-            $query[] = '(date IS NOT NULL AND date = '.$date->startOfDay()->timestamp.')';
+            $query[] = '(dates IS NOT NULL AND dates = "'.$date->toDateString().'")';
         }
 
         if ($this->use_date_range == true) {
