@@ -377,6 +377,11 @@
             @endif
             <div>
                 @hasanyrole(['Editor', 'Super Admin', 'Admin'])
+                    <x-related-pages-by-date :page="$page" />
+                @endhasanyrole
+            </div>
+            <div>
+                @hasanyrole(['Editor', 'Super Admin', 'Admin'])
                     <livewire:attach-event-to-page :page="$page" />
                 @endhasanyrole
             </div>
