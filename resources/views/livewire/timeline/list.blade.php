@@ -43,7 +43,7 @@
     </div>
     <div class="">
         @if($v_min < 1810)
-            <div class="flex sticky top-0 justify-center items-center my-0 w-full text-4xl font-bold text-white z-[2] h-18 bg-primary">
+            <div class="flex sticky top-0 justify-center items-center my-0 w-full text-4xl font-normal text-white z-[2] h-18 bg-primary">
                 1800
             </div>
         @endif
@@ -63,7 +63,7 @@
                     <div>&nbsp;</div>
                 </div>--}}
 
-                <div class="flex sticky top-0 justify-center items-center w-full text-4xl font-bold text-white z-[2] h-18 bg-primary">
+                <div class="flex sticky top-0 justify-center items-center w-full text-4xl font-normal text-white z-[2] h-18 bg-primary">
                     {{ $year }}
                 </div>
 
@@ -101,7 +101,7 @@
                                 <div>
                                     @foreach($monthEvents as $event)
                                         <div class="group">
-                                            <div class="grid grid-cols-5 gap-x-8 py-4 h-24 group-hover:hidden">
+                                            <div class="grid grid-cols-5 gap-x-8 py-4 h-24 group-hover:hidden light">
                                                 <div class="">
                                                     @if(data_get($event, 'thumbnail'))
                                                         <img x-on:click="Livewire.emit('openModal', 'photo-viewer', { url: '{{ data_get($event, 'thumbnail') }}' })"
@@ -131,7 +131,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="hidden grid-cols-6 gap-x-12 p-4 text-white group-hover:grid bg-primary">
+                                            <div class="hidden grid-cols-6 gap-x-12 p-4 text-white group-hover:grid bg-primary dark">
                                                 <div class="">
                                                     @if(data_get($event, 'thumbnail'))
                                                         <img x-on:click="Livewire.emit('openModal', 'photo-viewer', { url: '{{ data_get($event, 'thumbnail') }}' })"
@@ -141,7 +141,7 @@
                                                     @endif
                                                 </div>
                                                 <div class="text-right">
-                                                    <div class="text-3xl">
+                                                    <div class="text-3xl font-semibold">
                                                         {{ data_get($event, 'display_date') }}
                                                     </div>
                                                 </div>
@@ -151,7 +151,7 @@
                                                             {{ data_get($event, 'type') }}
                                                         </span>
                                                     </div>
-                                                    <div class="text-3xl">
+                                                    <div class="text-2xl">
                                                         {!! str($event['name'])->addSubjectLinks()->addScriptureLinks()->toString() !!}
                                                     </div>
                                                 </div>

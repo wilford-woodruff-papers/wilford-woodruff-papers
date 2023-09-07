@@ -322,3 +322,26 @@ input[class^="numeric-"], select[class^="numeric-"]{
     @apply block text-2xl m-4 !important;
 }
 /* End Content Builder */
+
+#sidebar-filters {
+    /* width */
+    &::-webkit-scrollbar {
+        width: 2px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 5px;
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+}

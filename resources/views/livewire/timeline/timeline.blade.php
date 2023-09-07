@@ -2,7 +2,7 @@
      class="relative"
 >
 
-    <div class="sticky top-10 z-10">
+    <div class="sticky top-10 z-50">
         <div class="grid z-50 grid-cols-11 gap-x-2 items-center py-4 text-center bg-white">
             <div class="flex justify-start">
                 <div class="z-50 -ml-0.5 bg-white">
