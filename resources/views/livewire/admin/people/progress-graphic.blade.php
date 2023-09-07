@@ -48,7 +48,7 @@
                                                class="text-secondary"
                                                target="_people"
                                             >
-                                                {{ number_format($unknown_people['bio_completed']) }}
+                                                {{ number_format($unknown_people['removed']) }}
                                             </a>
                                             /
                                             <a href="{{ route('admin.people.identification', ['filters[completed]' => 'false']) }}"
@@ -66,7 +66,7 @@
                                                class="text-secondary"
                                                target="_people"
                                             >
-                                                {{ number_format($known_people['removed']) }}
+                                                {{ number_format($known_people['bio_completed']) }}
                                             </a>
                                             /
                                             <a href="{{ route('admin.people.index', ['filters[approved]' => 'false']) }}"
