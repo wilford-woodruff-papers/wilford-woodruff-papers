@@ -34,15 +34,17 @@ class RelatedPagesByDate extends Component
      */
     public function render(): View|Closure|string
     {
-        $result = $this->index->search('', [
-            'sort' => ['date:asc'],
-            'hitsPerPage' => 10,
-            'page' => 1,
-            'filter' => $this->buildFilterSet(),
-        ]);
+        if (! empty($this->dates)) {
+            $result = $this->index->search('', [
+                'sort' => ['date:asc'],
+                'hitsPerPage' => 10,
+                'page' => 1,
+                'filter' => $this->buildFilterSet(),
+            ]);
+        }
 
         return view('components.related-pages-by-date', [
-            'hits' => $result->getRaw()['hits'],
+            'hits' => isset($result) ? $result->getRaw()['hits'] : [],
         ]);
     }
 
