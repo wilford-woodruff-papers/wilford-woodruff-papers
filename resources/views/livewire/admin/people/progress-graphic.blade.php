@@ -48,7 +48,7 @@
                                                class="text-secondary"
                                                target="_people"
                                             >
-                                                {{ number_format($unknown_people['removed']) }}
+                                                {{ number_format($unknown_people['bio_completed']) }}
                                             </a>
                                             /
                                             <a href="{{ route('admin.people.identification', ['filters[completed]' => 'false']) }}"
@@ -56,6 +56,24 @@
                                                target="_people"
                                             >
                                                 {{ number_format($unknown_people['total']) }}
+                                            </a>
+                                        </dd>
+                                    </div>
+                                    <div class="flex flex-col gap-y-4 mx-auto max-w-xs">
+                                        <dt class="text-base leading-7 text-gray-600">Identified People</dt>
+                                        <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
+                                            <a href="{{ route('admin.people.index', ['filters[approved]' => 'true']) }}"
+                                               class="text-secondary"
+                                               target="_people"
+                                            >
+                                                {{ number_format($known_people['removed']) }}
+                                            </a>
+                                            /
+                                            <a href="{{ route('admin.people.index', ['filters[approved]' => 'false']) }}"
+                                               class="text-secondary"
+                                               target="_people"
+                                            >
+                                                {{ number_format($known_people['total']) }}
                                             </a>
                                         </dd>
                                     </div>
