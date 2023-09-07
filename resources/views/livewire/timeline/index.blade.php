@@ -59,50 +59,52 @@
              x-transition
              class="absolute top-10 bg-white bg-gray-200 lg:relative lg:col-span-1 z-[11]">
             <div class="sticky top-0 z-[11]">
-                <div class="grid grid-flow-row auto-rows-max gap-y-5 py-10 px-4 min-h-screen bg-white border-r border-gray-200 grow">
-                    <div class="flex-1 min-w-0">
-                        <label for="search" class="sr-only">Search</label>
-                        <div class="relative rounded-md shadow-sm">
-                            <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                                <svg class="w-5 h-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                    <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd"></path>
-                                </svg>
+                <div id="sidebar-filters" class="overflow-y-scroll max-h-screen">
+                    <div class="grid grid-flow-row auto-rows-max gap-y-5 py-10 px-4 min-h-screen bg-white border-r border-gray-200 grow">
+                        <div class="flex-1 min-w-0">
+                            <label for="search" class="sr-only">Search</label>
+                            <div class="relative rounded-md shadow-sm">
+                                <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                                    <svg class="w-5 h-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                <input wire:model.debounce.400="q"
+                                       type="search"
+                                       name="search"
+                                       id="search"
+                                       class="block py-1.5 pl-10 w-full border-0 ring-1 ring-inset ring-gray-300 sm:text-lg sm:leading-10 focus:ring-2 focus:ring-inset placeholder:text-gray-400 focus:ring-secondary"
+                                       placeholder="Search" />
                             </div>
-                            <input wire:model.debounce.400="q"
-                                   type="search"
-                                   name="search"
-                                   id="search"
-                                   class="block py-1.5 pl-10 w-full border-0 ring-1 ring-inset ring-gray-300 sm:text-lg sm:leading-10 focus:ring-2 focus:ring-inset placeholder:text-gray-400 focus:ring-secondary"
-                                   placeholder="Search" />
                         </div>
-                    </div>
-                    @include('search.filters', ['location' => 'left'])
-                    <div class="my-4">
-                        <div class="flex w-full isolate">
-                            <button x-on:click="view = 'timeline'"
-                                    x-show="! isMobile"
-                                    type="button"
-                                    class="relative flex-1 items-center py-2 px-3 text-sm font-semibold ring-1 ring-inset focus:z-10"
-                                    :class="view =='timeline' ? 'bg-secondary text-white hover:bg-secondary-600 ring-secondary' : 'text-gray-900 bg-white hover:bg-gray-50 ring-gray-300'"
-                            >
-                                Timeline
-                            </button>
-                            <button x-on:click="view = 'list'"
-                                    type="button"
-                                    class="relative flex-1 items-center py-2 px-3 text-sm font-semibold ring-1 ring-inset focus:z-10"
-                                    :class="view =='list' ? 'bg-secondary text-white hover:bg-secondary-600 ring-secondary' : 'text-gray-900 bg-white hover:bg-gray-50 ring-gray-300'"
-                            >
-                                List
-                            </button>
-                            @env(['local', 'development', 'staging'])
-                                <button x-on:click="view = 'map'"
+                        @include('search.filters', ['location' => 'left'])
+                        <div class="my-4">
+                            <div class="flex w-full isolate">
+                                <button x-on:click="view = 'timeline'"
+                                        x-show="! isMobile"
                                         type="button"
                                         class="relative flex-1 items-center py-2 px-3 text-sm font-semibold ring-1 ring-inset focus:z-10"
-                                        :class="view =='map' ? 'bg-secondary text-white hover:bg-secondary-600 ring-secondary' : 'text-gray-900 bg-white hover:bg-gray-50 ring-gray-300'"
+                                        :class="view =='timeline' ? 'bg-secondary text-white hover:bg-secondary-600 ring-secondary' : 'text-gray-900 bg-white hover:bg-gray-50 ring-gray-300'"
                                 >
-                                    Map
+                                    Timeline
                                 </button>
-                            @endenv
+                                <button x-on:click="view = 'list'"
+                                        type="button"
+                                        class="relative flex-1 items-center py-2 px-3 text-sm font-semibold ring-1 ring-inset focus:z-10"
+                                        :class="view =='list' ? 'bg-secondary text-white hover:bg-secondary-600 ring-secondary' : 'text-gray-900 bg-white hover:bg-gray-50 ring-gray-300'"
+                                >
+                                    List
+                                </button>
+                                @env(['local', 'development', 'staging'])
+                                    <button x-on:click="view = 'map'"
+                                            type="button"
+                                            class="relative flex-1 items-center py-2 px-3 text-sm font-semibold ring-1 ring-inset focus:z-10"
+                                            :class="view =='map' ? 'bg-secondary text-white hover:bg-secondary-600 ring-secondary' : 'text-gray-900 bg-white hover:bg-gray-50 ring-gray-300'"
+                                    >
+                                        Map
+                                    </button>
+                                @endenv
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -133,7 +135,7 @@
                 @include('livewire.timeline.map')
             </div>
         </div>
-        <div class="relative bg-gray-200"
+        <div class="relative bg-gray-200 dark"
              :class="(view == 'timeline') ?'col-span-1' : 'hidden'">
 
             <div x-show="! event.date"
@@ -182,7 +184,7 @@
     @push('styles')
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.css" integrity="sha512-qveKnGrvOChbSzAdtSs8p69eoLegyh+1hwOMbmpCViIwj7rn4oJjdmMvWOuyQlTOZgTlZA0N2PXA7iA8/2TUYA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <style>
-            .timeline div > a{
+            .timeline .dark div > a{
                 color: white !important;
                 text-decoration: underline;
             }
