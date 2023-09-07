@@ -32,7 +32,7 @@ class ProgressGraphic extends Component
 
                     ->count();
             }
-            
+
             $unknown_people = [];
             $unknown_people['removed'] = PeopleIdentification::query()
                 ->whereNotNull('completed_at')
@@ -40,11 +40,21 @@ class ProgressGraphic extends Component
             $unknown_people['total'] = PeopleIdentification::query()
                 ->count();
 
+            $known_people = [];
+            $known_people['bio_completed'] = Subject::query()
+                ->people()
+                ->whereNotNull('bio_completed_at')
+                ->count();
+            $known_people['total'] = Subject::query()
+                ->people()
+                ->count();
+
         }
 
         return view('livewire.admin.people.progress-graphic', [
             'stats' => $stats ?? [],
             'unknown_people' => $unknown_people ?? [],
+            'known_people' => $known_people ?? [],
         ])
             ->layout('layouts.admin');
     }
