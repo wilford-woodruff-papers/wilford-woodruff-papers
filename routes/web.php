@@ -23,8 +23,8 @@ Route::middleware([])->group(function () {
                 return redirect()->away(config('app.url').'/wilford-woodruffs-witness');
             } elseif ($subdomain == 'arts') {
                 return redirect()->away(config('app.url').'/announcements/2023-building-latter-day-faith-conference-arts-contest-rules');
-            } elseif ($subdomain == 'panel') {
-                return redirect()->away(config('app.url').'/ask-me-anything-mission-president-panel');
+            } elseif ($subdomain == 'sg') {
+                return redirect()->away(config('app.url').'/development-of-temple-doctrine-reception');
             } elseif ($subdomain == 'ama-panel-2023') {
                 return redirect()->away(config('app.url'));
             } else {
@@ -41,26 +41,26 @@ Route::middleware([])->group(function () {
         return redirect()->back();
     })->name('language.locale');
 
-    // Route::get('/ask-me-anything-mission-president-panel', [\App\Http\Controllers\EventRegistrationController::class, 'create'])->name('event.show');
-    // Route::post('/ask-me-anything-mission-president-panel', [\App\Http\Controllers\EventRegistrationController::class, 'store'])->name('event.register')
-        // ->middleware(\Spatie\Honeypot\ProtectAgainstSpam::class);
+    Route::get('/development-of-temple-doctrine-reception', [\App\Http\Controllers\EventRegistrationController::class, 'create'])->name('event.show');
+    Route::post('/development-of-temple-doctrine-reception', [\App\Http\Controllers\EventRegistrationController::class, 'store'])->name('event.register')
+        ->middleware(\Spatie\Honeypot\ProtectAgainstSpam::class);
     // Route::get('/ask-me-anything-mission-president-panel-live', [\App\Http\Controllers\EventRegistrationController::class, 'live'])->name('event.live');
 
-    Route::get('/ask-me-anything-mission-president-panel/calendar', function () {
+    Route::get('/development-of-temple-doctrine-reception/calendar', function () {
         $calendar = \Spatie\IcalendarGenerator\Components\Calendar::create('Wilford Woodruff Papers Foundation')
             ->event([
-                \Spatie\IcalendarGenerator\Components\Event::create('Ask Me Anything Mission President Panel')
+                \Spatie\IcalendarGenerator\Components\Event::create('Development of Temple Doctrine Reception')
                     ->attendee('lexie.bailey@wilfordwoodruffpapers.org', 'Lexie Bailey')
-                    ->address('https://ama-panel-2023.wilfordwoodruffpapers.org')
-                    ->addressName('Zoom')
-                    ->startsAt(new DateTime('25 June 2025 19:00', new DateTimeZone('America/Denver')))
-                    ->endsAt(new DateTime('25 June 2025 20:00', new DateTimeZone('America/Denver')))
-                    ->alertMinutesBefore(10, 'Ask Me Anything Mission President Panel is going to start in 10 minutes'),
+                    ->address('St. George Tabernacle, 18 S. Main Street, St. George, Utah')
+                    ->addressName('St. George Tabernacle')
+                    ->startsAt(new DateTime('8 October 2023 18:00', new DateTimeZone('America/Denver')))
+                    ->endsAt(new DateTime('8 October 2023 19:00', new DateTimeZone('America/Denver')))
+                    ->alertMinutesBefore(60, 'The Development of Temple Doctrine Private Reception is starting 1 hour'),
             ]);
 
         return response($calendar->get(), 200, [
             'Content-Type' => 'text/calendar; charset=utf-8',
-            'Content-Disposition' => 'attachment; filename="ask-me-anything-mission-president-panel.ics"',
+            'Content-Disposition' => 'attachment; filename="development-of-temple-doctrine-reception.ics"',
         ]);
     })->name('event.calendar');
 
