@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreEventRegistrationRequest;
 use App\Models\EventRegistration;
+use App\Models\User;
 
 class EventRegistrationController extends Controller
 {
@@ -31,7 +32,10 @@ class EventRegistrationController extends Controller
 
         $eventRegistration->save();
 
-        return back()->with('success', "Thank you for registering for the Ask Me Anything Mission President Leadership Panel on <b>June 25th</b>! We'll send you a reminder email with the link to access the event a few days before the event.");
+        $user = User::firstWhere('email', 'lexie.bailey@wilfordwoodruffpapers.org');
+        $user->notify(new \App\Notifications\NewEventRegistrationNotification($eventRegistration));
+
+        return back()->with('success', "Thank you for registering for the Private Reception preceding the Development of Temple Doctrine Fireside on <b>October 8th</b>! We'll send you a reminder email with the link to access the event a few days before the event.");
     }
 
     public function live()

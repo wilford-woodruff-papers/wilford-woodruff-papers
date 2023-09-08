@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\ExportRegistrations;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
@@ -101,6 +102,8 @@ class EventRegistration extends Resource
      */
     public function actions(NovaRequest $request)
     {
-        return [];
+        return [
+            new ExportRegistrations,
+        ];
     }
 }
