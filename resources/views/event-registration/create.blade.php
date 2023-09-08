@@ -3,9 +3,9 @@
             <div class="space-y-12">
                 <div class="grid grid-cols-1 gap-x-8 gap-y-10 pb-12 md:grid-cols-2">
                     <div>
-                        <img src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/ama-mission-presidents.png"
+                        <img src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/development-of-temple-doctrine.png"
                              class="p-4 w-full h-auto"
-                             alt="Ask Me Anything Mission President Panel on June 25, 2023"
+                             alt="Private Reception preceding the Development of Temple Doctrine Fireside on October 8, 2023"
                         />
                     </div>
 
@@ -98,32 +98,15 @@
                                     </div>
 
                                     <div class="col-span-full">
-                                        <label for="street-address" class="block text-base font-medium leading-6 text-gray-900">Where is your missionary serving?</label>
+                                        <label for="fields['How many will be attending?']" class="block text-base font-medium leading-6 text-gray-900">
+                                            How many will be attending?
+                                        </label>
                                         <div class="mt-2">
-                                            <input type="text"
-                                                   name="fields['Where is your missionary serving?']"
-                                                   id="street-address"
+                                            <input type="number"
+                                                   name="fields['How many will be attending?']"
+                                                   id="fields['How many will be attending?']"
                                                    class="block py-1.5 w-full text-gray-900 rounded-md border-0 ring-1 ring-inset ring-gray-300 shadow-sm sm:text-sm sm:leading-6 focus:ring-2 focus:ring-inset placeholder:text-gray-400 focus:ring-secondary-600"
-                                                   maxlength="191"
                                             >
-                                        </div>
-                                    </div>
-
-                                    <div x-data="{
-                                            text: '{{ old("fields.'What questions would you like to ask our guest Mission Presidents?'") }}',
-                                            count: 2000,
-                                        }"
-                                         x-init="$watch('text', text => count = 2000 - text.length)"
-                                         class="col-span-full">
-                                        <label for="street-address" class="block text-base font-medium leading-6 text-gray-900">What questions would you like to ask our guest Mission Presidents?</label>
-                                        <div class="mt-2">
-                                            <textarea x-model="text"
-                                                      name="fields['What questions would you like to ask our guest Mission Presidents?']"
-                                                      id="street-address"
-                                                      class="block py-1.5 w-full text-gray-900 rounded-md border-0 ring-1 ring-inset ring-gray-300 shadow-sm sm:text-sm sm:leading-6 focus:ring-2 focus:ring-inset placeholder:text-gray-400 focus:ring-secondary-600"
-                                                      rows="4"
-                                            >{{ old("fields.'What questions would you like to ask our guest Mission Presidents?'") }}</textarea>
-                                            <div class="flex justify-end text-sm text-gray-900">Characters remaining: <span x-text="count"></span></div>
                                         </div>
                                     </div>
 
