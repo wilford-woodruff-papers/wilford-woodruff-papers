@@ -172,7 +172,7 @@ class Subject extends Model implements HasMedia
             //                file_get_contents(str($url)->replace(' ', '%20'))
             //            );
             try {
-                $this->clearMediaCollection();
+                //$this->clearMediaCollection();
                 $this->addMediaFromUrl(str($url)->replace(' ', '%20'))
                     ->usingFileName($this->slug.'-map.png')
                     ->usingName($this->slug.'-map.png')
