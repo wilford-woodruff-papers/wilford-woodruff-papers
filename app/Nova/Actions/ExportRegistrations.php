@@ -16,17 +16,25 @@ class ExportRegistrations extends DownloadExcel implements WithMapping, WithHead
             'Last Name',
             'Email',
             'Registration Date',
+            'Additional Fields',
         ];
     }
 
     public function map($item): array
     {
+        $extra = [];
+        $item->extra_attributes->each(function ($value, $key) use (&$extra) {
+            $extra["{$key}_0"] = $key;
+            $extra["{$key}_1"] = $value;
+        });
+
         return [
             $item->id,
             $item->first_name,
             $item->last_name,
             $item->email,
             $item->created_at->toDateString(),
+            ...$extra,
         ];
     }
 }
