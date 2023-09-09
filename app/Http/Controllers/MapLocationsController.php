@@ -19,7 +19,7 @@ class MapLocationsController extends Controller
                     $query->where('items.enabled', true);
                 });
             })
-            ->whereNotNull('geolocation')
+            ->whereNotNull('latitude')
             ->whereHas('category', function (Builder $query) {
                 $query->where('name', 'Places');
             })
@@ -30,8 +30,8 @@ class MapLocationsController extends Controller
                     'name' => $item->name,
                     'url' => route('subjects.show', ['subject' => $item->slug]),
                     'description' => '',
-                    'latitude' => data_get($item->geolocation, 'geometry.location.lat'),
-                    'longitude' => data_get($item->geolocation, 'geometry.location.lng'),
+                    'latitude' => $item->latitude,
+                    'longitude' => $item->longitude,
                 ];
             })
             ->toArray();
