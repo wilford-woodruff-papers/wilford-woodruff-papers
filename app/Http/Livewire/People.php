@@ -14,6 +14,16 @@ class People extends Component
 
     public $search = null;
 
+    public $selectCategories = [
+        'All',
+        'Family',
+        'Apostles',
+        '1840 British Converts',
+        '1835 Southern Converts',
+        'Scriptural Figures',
+        'Eminent Men and Women',
+    ];
+
     protected $queryString = [
         'category' => ['except' => 'All'],
         'letter' => ['except' => 'A'],
@@ -30,28 +40,28 @@ class People extends Component
     public function render()
     {
         $people = Subject::query()
-                            ->whereEnabled(1)
-                            ->when($this->category == 'All', fn ($query, $category) => $query->whereHas('category', function (Builder $query) {
-                                $query->where('name', 'People');
-                            }))
-                            ->when($this->category != 'All', fn ($query, $category) => $query->whereHas('category', function (Builder $query) {
-                                $query->where('name', $this->category);
-                            }))
-                            ->when($this->letter && $this->category == 'All', fn ($query, $letter) => $query->where('index', $this->letter))
-                            ->when($this->search, function ($query, $search) {
-                                $names = str($search)->explode(' ');
-                                foreach ($names as $name) {
-                                    $query = $query->where('name', 'LIKE', '%'.str($name)->trim(',')->toString().'%');
-                                }
-                            })
-                            ->where(function ($query) {
-                                $query->where('tagged_count', '>', 0)
-                                    ->orWhere('text_count', '>', 0);
-                            })
+            ->whereEnabled(1)
+            ->when($this->category == 'All', fn ($query, $category) => $query->whereHas('category', function (Builder $query) {
+                $query->where('name', 'People');
+            }))
+            ->when($this->category != 'All', fn ($query, $category) => $query->whereHas('category', function (Builder $query) {
+                $query->where('name', $this->category);
+            }))
+            ->when($this->letter && $this->category == 'All', fn ($query, $letter) => $query->where('index', $this->letter))
+            ->when($this->search, function ($query, $search) {
+                $names = str($search)->explode(' ');
+                foreach ($names as $name) {
+                    $query = $query->where('name', 'LIKE', '%'.str($name)->trim(',')->toString().'%');
+                }
+            })
+            ->where(function ($query) {
+                $query->where('tagged_count', '>', 0)
+                    ->orWhere('text_count', '>', 0);
+            })
                             //->whereHas('pages')
-                            ->orderBy('last_name', 'ASC')
-                            ->orderBy('name', 'ASC')
-                            ->get();
+            ->orderBy('last_name', 'ASC')
+            ->orderBy('name', 'ASC')
+            ->get();
 
         return view('livewire.people', [
             'people' => $people,
