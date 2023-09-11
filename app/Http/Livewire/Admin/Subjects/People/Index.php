@@ -162,8 +162,10 @@ class Index extends Component
                     ->whereNull('researcher_text');
             } else {
                 $researcher = User::find($this->filters['researcher']);
-                $query = $query->where('researcher_id', $this->filters['researcher'])
-                    ->orWhere('researcher_text', $researcher->name);
+                $query = $query->where(function ($query) use ($researcher) {
+                    $query->where('researcher_id', $this->filters['researcher'])
+                        ->orWhere('researcher_text', $researcher->name);
+                });
             }
         }
         if (array_key_exists('completed', $this->filters) && ! empty($this->filters['completed'])) {
