@@ -96,7 +96,7 @@ Route::middleware([])->group(function () {
     Route::get('/wives-and-children', [\App\Http\Controllers\PeopleController::class, 'family'])->name('wives-and-children');
     Route::get('/places', [\App\Http\Controllers\PlaceController::class, 'index'])->name('places');
     Route::get('/topics', [\App\Http\Controllers\TopicController::class, 'index'])->name('topics');
-    Route::get('/timeline', [\App\Http\Controllers\TimelineController::class, 'index'])->name('timeline');
+    Route::get('/timeline', \App\Http\Livewire\Timeline::class)->name('timeline');
     Route::get('/miraculously-preserved-life', \App\Http\Controllers\MiraculouslyPreservedLife::class)->name('miraculously-preserved-life');
     Route::get('/donate/online', [\App\Http\Controllers\DonationController::class, 'online'])->name('donate.online');
     Route::get('/donation-questions', [\App\Http\Controllers\DonationController::class, 'questions'])->name('donate.questions');
@@ -127,7 +127,7 @@ Route::middleware([])->group(function () {
         Route::get('/map', \App\Http\Livewire\Map::class)->name('map');
         Route::get('/map/locations', \App\Http\Controllers\MapLocationsController::class)->name('map.locations');
         Route::get('/new-search', \App\Http\Livewire\Search::class)->name('new-search');
-        Route::get('/new-timeline', \App\Http\Livewire\Timeline::class)->name('new-timeline');
+        Route::get('/old-timeline', [\App\Http\Controllers\TimelineController::class, 'index'])->name('old-timeline');
     });
 
     Route::get('/advanced-search', \App\Http\Livewire\Search::class)->name('advanced-search');
