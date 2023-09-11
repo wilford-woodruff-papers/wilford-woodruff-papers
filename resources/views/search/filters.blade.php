@@ -7,18 +7,32 @@
     >
         @foreach($facets as $facet)
             @if($facet->display && array_key_exists($facet->key, $facetDistribution))
-                <li x-data="{ expanded: $persist(true).as('{{ $facet->key }}_expanded') }">
+                <li x-data="{
+                    expanded: $persist(true).as('{{ $facet->key }}_expanded'),
+                    open: false,
+                }"
+                    x-init="$watch('open', value => {
+                        if(value === true) {
+                            document.getElementById('context-header').classList.toggle('z-50');
+                            document.getElementById('context-header').classList.toggle('z-11');
+                        } else {
+                            document.getElementById('context-header').classList.toggle('z-11');
+                            document.getElementById('context-header').classList.toggle('z-50')
+                        }
+                    })"
+                >
                     <ul role="list" class="space-y-1">
                         <li>
                             <div>
-                                <button x-on:click="expanded = ! expanded"
+                                <button
                                         type="button"
                                         class="flex gap-x-3 items-center py-2 w-full text-base font-semibold leading-6 text-left text-gray-700 rounded-md hover:bg-gray-50"
                                         aria-controls="sub-menu-{{ $facet->key }}"
                                         aria-expanded="false"
                                         x-bind:aria-expanded="expanded.toString()">
                                     <!-- Expanded: "rotate-90 text-gray-500", Collapsed: "text-gray-400" -->
-                                    <svg class="w-5 h-5 text-gray-400 shrink-0"
+                                    <svg  x-on:click="expanded = ! expanded"
+                                          class="w-5 h-5 text-gray-400 shrink-0"
                                          viewBox="0 0 20 20"
                                          fill="currentColor"
                                          aria-hidden="true"
@@ -26,70 +40,70 @@
                                     >
                                         <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
                                     </svg>
-                                    <div class="flex flex-1 gap-x-4 justify-between items-center">
-                                        <div>{{ str($facet->name)->before('_facet')->title()->replace('_', ' ') }}</div>
-                                        <div class="pr-4">
+                                    <div class="flex flex-1 gap-x-4 justify-between items-center z-[200]">
+                                        <div x-on:click="expanded = ! expanded" class="flex-1">{{ str($facet->name)->before('_facet')->title()->replace('_', ' ') }}</div>
+                                        <div class="pr-0 z-[200]">
                                             @if(! empty($facet->tips()))
-                                                <div x-data="{
-popoverOpen: false,
-popoverArrow: true,
-popoverPosition: 'bottom',
-popoverHeight: 0,
-popoverOffset: 8,
-popoverHeightCalculate() {
-this.$refs.popover.classList.add('invisible');
-this.popoverOpen=true;
-let that=this;
-$nextTick(function(){
-that.popoverHeight = that.$refs.popover.offsetHeight;
-that.popoverOpen=false;
-that.$refs.popover.classList.remove('invisible');
-that.$refs.popoverInner.setAttribute('x-transition', '');
-that.popoverPositionCalculate();
-});
-},
-popoverPositionCalculate(){
-if(window.innerHeight < (this.$refs.popoverButton.getBoundingClientRect().top + this.$refs.popoverButton.offsetHeight + this.popoverOffset + this.popoverHeight)){
-this.popoverPosition = 'top';
-} else {
-this.popoverPosition = 'bottom';
-}
-}
-}"
-                                                     x-init="
-that = this;
-window.addEventListener('resize', function(){
-popoverPositionCalculate();
-});
-$watch('popoverOpen', function(value){
-if(value){ popoverPositionCalculate(); document.getElementById('width').focus(); }
-});
 
-"
-                                                     class="relative z-[11]">
-                                                    <div role="button"
-                                                         x-ref="popoverButton"
-                                                         x-on:mouseover="popoverOpen=true"
-                                                         x-on:mouseout="popoverOpen=false"
-                                                         @click.stop="popoverOpen=!popoverOpen"
-                                                         class="flex justify-center items-center w-8 h-8 bg-white rounded-full cursor-pointer hover:text-white focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:outline-none active:text-white border-neutral-200/70 hover:bg-primary active:bg-primary">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 opacity-70">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
-                                                        </svg>
+                                                <div class="flex justify-center">
+                                                    <!-- Trigger -->
+                                                    <div x-on:click.stop="open = true"
+                                                         class="z-[200]"
+                                                    >
+                                                        <div role="button"
+                                                             class="flex justify-center items-center w-8 h-8 bg-white rounded-full cursor-pointer hover:text-white focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:outline-none active:text-white border-neutral-200/70 hover:bg-primary active:bg-primary"
+                                                        >
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 opacity-70">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
+                                                            </svg>
+                                                        </div>
                                                     </div>
-                                                    <div x-ref="popover"
-                                                         x-show="popoverOpen"
-                                                         x-init="setTimeout(function(){ popoverHeightCalculate(); }, 100);"
-                                                         x-trap.inert="popoverOpen"
-                                                         @click.away="popoverOpen=false;"
-                                                         @keydown.escape.window="popoverOpen=false"
-                                                         :class="{ 'top-0 mt-12' : popoverPosition == 'bottom', 'bottom-0 mb-12' : popoverPosition == 'top' }"
-                                                         class="absolute left-1/2 max-w-lg -translate-x-1/2 w-[400px]" x-cloak>
-                                                        <div x-ref="popoverInner" x-show="popoverOpen" class="p-4 w-full bg-white rounded-md border shadow-sm border-neutral-200/70">
-                                                            <div x-show="popoverArrow && popoverPosition == 'bottom'" class="inline-block overflow-hidden absolute top-0 left-1/2 mt-px w-5 -translate-x-2 -translate-y-2.5"><div class="w-2.5 h-2.5 bg-white rounded-sm border-t border-l transform origin-bottom-left rotate-45"></div></div>
-                                                            <div x-show="popoverArrow && popoverPosition == 'top'" class="inline-block overflow-hidden absolute bottom-0 left-1/2 mb-px w-5 -translate-x-2 translate-y-2.5"><div class="w-2.5 h-2.5 bg-white rounded-sm border-b border-l transform origin-top-left -rotate-45"></div></div>
-                                                            <div>
-                                                                {!! $facet->tips() !!}
+
+                                                    <!-- Modal -->
+                                                    <div
+                                                        x-dialog
+                                                        x-model="open"
+                                                        style="display: none"
+                                                        class="overflow-y-auto fixed inset-0 z-[200]"
+                                                    >
+                                                        <!-- Overlay -->
+                                                        <div x-dialog:overlay x-transition.opacity class="fixed inset-0 bg-black bg-opacity-70"></div>
+
+                                                        <!-- Panel -->
+                                                        <div
+                                                            class="flex relative justify-center items-center p-4 min-h-screen"
+                                                        >
+                                                            <div
+                                                                x-dialog:panel
+                                                                x-transition
+                                                                class="overflow-y-auto relative w-full max-w-xl bg-white rounded-xl shadow-lg"
+                                                            >
+                                                                <!-- Close Button -->
+                                                                <div class="absolute top-0 right-0 pt-4 pr-4">
+                                                                    <div role="button" @click="$dialog.close()" class="p-2 text-gray-600 bg-gray-50 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+                                                                        <span class="sr-only">Close modal</span>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+                                                                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                                                        </svg>
+                                                                    </div>
+                                                                </div>
+
+                                                                <!-- Body -->
+                                                                <div class="p-8">
+                                                                    <!-- Title -->
+                                                                    <h2 x-dialog:title class="text-2xl font-bold">Descriptions</h2>
+                                                                    <!-- Content -->
+                                                                    <div class="mt-3 text-gray-600">
+                                                                        {!! $facet->tips() !!}
+                                                                    </div>
+                                                                </div>
+
+                                                                <!-- Footer -->
+                                                                <div class="flex justify-end p-4 space-x-2 bg-gray-50">
+                                                                    <div role="button" x-on:click="$dialog.close()" class="py-2.5 px-5 text-gray-600 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">
+                                                                        Close
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -148,7 +162,9 @@ if(value){ popoverPositionCalculate(); document.getElementById('width').focus();
             @endif
         @endforeach
 
-        <li x-data="{ expanded: $persist(true).as('year_range_expanded') }">
+        <li x-data="{
+            expanded: $persist(true).as('year_range_expanded')
+        }">
             <ul x-show="currentIndex == 'Documents'"
                 role="list"
                 class="overflow-hidden space-y-1 h-32"
@@ -191,8 +207,8 @@ if(value){ popoverPositionCalculate(); document.getElementById('width').focus();
 
         @if(isset($use_date_range))
             <li x-data="{
-                                    expanded: $persist(@entangle('use_date_range')).as('date_range_expanded')
-                                }">
+                expanded: $persist(@entangle('use_date_range')).as('date_range_expanded')
+            }">
                 <ul x-show="currentIndex == 'Documents'"
                     role="list"
                     class="space-y-1"
@@ -227,23 +243,23 @@ if(value){ popoverPositionCalculate(); document.getElementById('width').focus();
                                 >
                                     <div
                                         x-data="{
-                                                                value: '{{ $full_date_range['min']->format('m/d/Y') }}',
-                                                                init() {
-                                                                    let picker = flatpickr(this.$refs.picker, {
-                                                                        dateFormat: 'm/d/Y',
-                                                                        defaultDate: this.value,
-                                                                        onChange: (date, dateString) => {
-                                                                            this.value = dateString
-                                                                        }
-                                                                    })
+                                            value: '{{ $full_date_range['min']->format('m/d/Y') }}',
+                                            init() {
+                                                let picker = flatpickr(this.$refs.picker, {
+                                                    dateFormat: 'm/d/Y',
+                                                    defaultDate: this.value,
+                                                    onChange: (date, dateString) => {
+                                                        this.value = dateString
+                                                    }
+                                                })
 
-                                                                    this.$watch('value', function(value) {
-                                                                            picker.setDate(value);
-                                                                            $wire.set('full_date_range.min', value);
-                                                                        });
+                                                this.$watch('value', function(value) {
+                                                        picker.setDate(value);
+                                                        $wire.set('full_date_range.min', value);
+                                                    });
 
-                                                                },
-                                                            }"
+                                            },
+                                        }"
                                         class="w-full max-w-sm"
                                     >
                                         <div class="mb-2 font-bold"></div>
@@ -260,22 +276,22 @@ if(value){ popoverPositionCalculate(); document.getElementById('width').focus();
                                     </div>
                                     <div
                                         x-data="{
-                                                                value: '{{ $full_date_range['max']->format('m/d/Y') }}',
-                                                                init() {
-                                                                    let picker = flatpickr(this.$refs.picker, {
-                                                                        dateFormat: 'm/d/Y',
-                                                                        defaultDate: this.value,
-                                                                        onChange: (date, dateString) => {
-                                                                            this.value = dateString
-                                                                        }
-                                                                    })
+                                            value: '{{ $full_date_range['max']->format('m/d/Y') }}',
+                                            init() {
+                                                let picker = flatpickr(this.$refs.picker, {
+                                                    dateFormat: 'm/d/Y',
+                                                    defaultDate: this.value,
+                                                    onChange: (date, dateString) => {
+                                                        this.value = dateString
+                                                    }
+                                                })
 
-                                                                    this.$watch('value', function(value) {
-                                                                            picker.setDate(value);
-                                                                            $wire.set('full_date_range.max', value);
-                                                                        });
-                                                                },
-                                                            }"
+                                                this.$watch('value', function(value) {
+                                                        picker.setDate(value);
+                                                        $wire.set('full_date_range.max', value);
+                                                    });
+                                            },
+                                        }"
                                         class="w-full max-w-sm"
                                     >
                                         <div class="mb-2 font-bold"></div>
