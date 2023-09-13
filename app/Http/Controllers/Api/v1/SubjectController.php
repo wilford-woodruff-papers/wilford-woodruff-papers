@@ -35,6 +35,8 @@ class SubjectController extends Controller
                 'created_at',
                 'updated_at',
                 'total_usage_count',
+                'bio',
+                'life_years',
             ]);
 
         if ($request->has('types')) {
