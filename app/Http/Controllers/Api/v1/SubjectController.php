@@ -51,6 +51,10 @@ class SubjectController extends Controller
             });
         }
 
+        if ($request->has('q')) {
+            $subjects = $subjects->where('name', 'like', '%'.$request->get('q').'%');
+        }
+
         return response()->json(
             $subjects->paginate(
                 min($request->get('per_page', 100), 500)
