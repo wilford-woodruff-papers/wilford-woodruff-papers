@@ -37,8 +37,8 @@
             </tr>
         </table>
      -->
-    <link rel="stylesheet" href="{{ mix('css/transcript.css') }}">
-
+    <{{--link rel="stylesheet" href="{{ mix('css/transcript.css') }}">--}}
+    @vite(['resources/css/transcript.css'])
     <style>
         [x-cloak] {
             display: none !important;
