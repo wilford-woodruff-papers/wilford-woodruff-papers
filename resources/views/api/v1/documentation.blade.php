@@ -566,6 +566,14 @@
                                                 </thead>
                                                 <tbody>
                                                 <tr class="even:bg-gray-50">
+                                                    <td class="px-4">q</td>
+                                                    <td class="px-4">
+                                                        <p>
+                                                            Search the name of the subject.
+                                                        </p>
+                                                    </td>
+                                                </tr>
+                                                <tr class="even:bg-gray-50">
                                                     <td class="px-4">types[]</td>
                                                     <td class="px-4 space-y-3">
                                                         <p>
