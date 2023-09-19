@@ -278,12 +278,17 @@ class Subject extends Model implements HasMedia
     public function toSearchableArray(): array
     {
         $collectionName = 'default';
+        $geo = null;
 
         if ($this->category->pluck('name')->contains('People')) {
             $resourceType = 'People';
         } elseif ($this->category->pluck('name')->contains('Places')) {
             $resourceType = 'Places';
             $collectionName = 'maps';
+            $geo = [
+                'lat' => $this->latitude,
+                'lng' => $this->longitude,
+            ];
         } elseif ($this->category->pluck('name')->contains('Index')) {
             $resourceType = 'Topic';
         } else {
@@ -299,7 +304,22 @@ class Subject extends Model implements HasMedia
             'thumbnail' => $this->getFirstMedia($collectionName)?->getUrl('thumb'),
             'name' => $this->name,
             'description' => strip_tags($this->bio ?? ''),
+            '_geo' => $geo,
+            'usages' => $this->getCount(),
         ];
+    }
+
+    public function getCount()
+    {
+        $count = 0;
+
+        if ($this->total_usage_count > 0) {
+            $count = $this->total_usage_count;
+        } else {
+            $count = $this->tagged_count + $count += $this->text_count;
+        }
+
+        return $count;
     }
 
     public function getScoutKey(): mixed
