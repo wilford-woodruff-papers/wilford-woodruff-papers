@@ -82,6 +82,8 @@ Route::middleware([])->group(function () {
     //Route::get('/documents/{item}', [\App\Http\Controllers\ItemController::class, 'show'])->name('documents.show');
     Route::get('/documents/{item}/transcript', [\App\Http\Controllers\ItemController::class, 'transcript'])->name('documents.show.transcript');
     Route::get('/documents/{item}/page/{page}', [\App\Http\Controllers\PageController::class, 'show'])->name('pages.show');
+    Route::get('/documents/{item}/page/{page}/preview', [\App\Http\Controllers\PageController::class, 'preview'])
+        ->name('pages.preview');
     Route::get('/d/{hashid}', [\App\Http\Controllers\ShortUrlController::class, 'item'])->name('short-url.item');
     Route::get('/p/{hashid}', [\App\Http\Controllers\ShortUrlController::class, 'page'])->name('short-url.page');
 
@@ -126,6 +128,8 @@ Route::middleware([])->group(function () {
         //Route::get('/search', [\App\Http\Controllers\LandingAreasController::class, 'search'])->name('landing-areas.search');
         Route::get('/map', \App\Http\Livewire\Map::class)->name('map');
         Route::get('/map/locations', \App\Http\Controllers\MapLocationsController::class)->name('map.locations');
+        Route::get('/map/documents', \App\Http\Controllers\MapDocumentsController::class)->name('map.documents');
+        Route::get('/map/pages', \App\Http\Controllers\MapPagesController::class)->name('map.pages');
         Route::get('/new-search', \App\Http\Livewire\Search::class)->name('new-search');
         Route::get('/old-timeline', [\App\Http\Controllers\TimelineController::class, 'index'])->name('old-timeline');
     });

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
 use Illuminate\Http\Request;
-use Meilisearch\Client;
 
-class MapLocationsController extends Controller
+class MapDocumentsController extends Controller
 {
     public $page = 1;
 
@@ -29,62 +29,20 @@ class MapLocationsController extends Controller
 
     public function __invoke(Request $request)
     {
-        $client = new Client(config('scout.meilisearch.host'), config('scout.meilisearch.key'));
-
-        $index = $client->index((app()->environment('production') ? 'resources' : 'dev-resources'));
-
-        $result = $index->search($this->q, [
-            'attributesToHighlight' => [
-                'name',
-                'description',
-            ],
-            'sort' => [(array_key_first($this->sort) ?? 'name').':'.($this->sort[array_key_first($this->sort)] ?? 'asc')],
-            'hitsPerPage' => $this->hitsPerPage,
-            'page' => $this->page,
-            'filter' => $this->buildFilterSet(),
-        ]);
-
-        $hits = collect($result->getRaw()['hits'])
-            ->map(function ($item) {
-                return [
-                    'id' => str(data_get($item, 'id'))->after('subject_'),
-                    'name' => data_get($item, 'name'),
-                    'url' => data_get($item, 'url'),
-                    'description' => data_get($item, 'description'),
-                    'latitude' => data_get($item, '_geo.lat'),
-                    'longitude' => data_get($item, '_geo.lng'),
-                    'usages' => data_get($item, 'usages'),
-                ];
-            });
-
-        return $hits;
-
-        /*return Subject::query()
-            ->select(['id', 'name', 'slug', 'latitude', 'longitude', 'geolocation'])
-            ->with([
-                'category',
-            ])
-            ->whereHas('pages', function (Builder $query) {
-                $query->whereHas('item', function (Builder $query) {
-                    $query->where('items.enabled', true);
-                });
-            })
-            ->whereNotNull('latitude')
-            ->whereHas('category', function (Builder $query) {
-                $query->where('name', 'Places');
-            })
+        return Item::query()
+            ->select('items.id', 'items.name')
+            ->join('pages', 'pages.parent_item_id', '=', 'items.id')
+            ->join('page_subject', 'page_subject.page_id', '=', 'pages.id')
+            ->where('page_subject.subject_id', $request->get('location'))
+            ->groupBy('items.id', 'items.name')
+            ->orderBy('items.name')
             ->get()
             ->map(function ($item) {
                 return [
                     'id' => $item->id,
-                    'name' => $item->name,
-                    'url' => route('subjects.show', ['subject' => $item->slug]),
-                    'description' => '',
-                    'latitude' => $item->latitude,
-                    'longitude' => $item->longitude,
+                    'name' => str($item->name)->stripBracketedID(),
                 ];
-            })
-            ->toArray();*/
+            });
     }
 
     private function preventOutOfBounds($number)

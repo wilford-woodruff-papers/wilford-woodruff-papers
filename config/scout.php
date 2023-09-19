@@ -143,6 +143,7 @@ return [
                     'decade',
                     'year',
                     'topics',
+                    '_geo',
                 ],
                 'faceting' => [
                     'maxValuesPerFacet' => 1500,
@@ -171,6 +172,7 @@ return [
                     'decade',
                     'year',
                     'topics',
+                    '_geo',
                 ],
                 'faceting' => [
                     'maxValuesPerFacet' => 1500,
