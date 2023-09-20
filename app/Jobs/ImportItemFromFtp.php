@@ -82,7 +82,7 @@ class ImportItemFromFtp implements ShouldQueue
                     $canvas['@id'],
                 ]);
 
-                if ($transcriptionUrl = data_get(collect($canvas['otherContent'])
+                if (array_key_exists('otherContent', $canvas) && $transcriptionUrl = data_get(collect($canvas['otherContent'])
                     ->where('label', 'Transcription')
                     ->first(), '@id')) {
                     $transcript = Http::get($transcriptionUrl)->json('resources.0.resource.chars');
@@ -106,7 +106,7 @@ class ImportItemFromFtp implements ShouldQueue
                     'imported_at' => now(),
                 ]);
 
-                if ($translationUrl = data_get(collect($canvas['otherContent'])
+                if (array_key_exists('otherContent', $canvas) && $translationUrl = data_get(collect($canvas['otherContent'])
                     ->where('label', 'Translation')
                     ->first(), '@id')) {
                     $translation = Http::get($translationUrl)->json('resources.0.resource.chars');
