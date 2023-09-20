@@ -285,10 +285,12 @@ class Subject extends Model implements HasMedia
         } elseif ($this->category->pluck('name')->contains('Places')) {
             $resourceType = 'Places';
             $collectionName = 'maps';
-            $geo = [
-                'lat' => $this->latitude,
-                'lng' => $this->longitude,
-            ];
+            if (! empty($this->latitude) && ! empty($this->longitude)) {
+                $geo = [
+                    'lat' => $this->latitude,
+                    'lng' => $this->longitude,
+                ];
+            }
         } elseif ($this->category->pluck('name')->contains('Index')) {
             $resourceType = 'Topic';
         } else {
