@@ -469,10 +469,11 @@
         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
         <!-- https://www.chartjs.org/ -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"></script>
-        @livewireChartsScripts
+
     @endpush
 
     @push('scripts')
+        @livewireChartsScripts
         <script>
             window.addQuotes = function (value) {
                 return '"' + value + '"';
