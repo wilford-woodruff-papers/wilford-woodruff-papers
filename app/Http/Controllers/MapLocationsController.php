@@ -104,7 +104,7 @@ class MapLocationsController extends Controller
         $query = [];
 
         $query[] = '(resource_type = "Places")';
-        $query[] = '_geoBoundingBox(['.request()->input('geo.northEast.lat', '69.25871535543818').', '.$this->preventOutOfBounds(request()->input('geo.northEast.lng', '15.996093750000002')).'], ['.request()->input('geo.southWest.lat', '14.356567145246045').', '.$this->preventOutOfBounds(request()->input('geo.southWest.lng', '-131.13281250000003')).'])';
+        $query[] = '_geoBoundingBox(['.request()->float('geo.northEast.lat', 69.25871535543818).', '.$this->preventOutOfBounds(request()->float('geo.northEast.lng', 15.996093750000002)).'], ['.request()->float('geo.southWest.lat', 14.356567145246045).', '.$this->preventOutOfBounds(request()->float('geo.southWest.lng', -131.13281250000003)).'])';
 
         foreach ($this->filters as $filter => $values) {
             if (! empty($values)) {
