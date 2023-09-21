@@ -1,6 +1,6 @@
 <div x-data="map">
     <div class="grid grid-cols-12">
-       <div class="col-span-9">
+       <div class="col-span-12 md:col-span-9">
            <div id="map"
                 class="z-10 w-full aspect-[16/9]"
                 wire:ignore
