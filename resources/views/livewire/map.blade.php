@@ -1,12 +1,12 @@
 <div x-data="map">
     <div class="grid grid-cols-12">
-       <div class="col-span-9">
+       <div class="col-span-12 md:col-span-9">
            <div id="map"
                 class="z-10 w-full aspect-[16/9]"
                 wire:ignore
            ></div>
        </div>
-       <div class="col-span-3 overflow-y-scroll max-h-[calc(100vh-34em)]">
+       <div class="col-span-12 md:col-span-3 overflow-y-scroll max-h-[calc(100vh-34em)]">
            <div x-show="view == 'locations'"
                 class="relative p-4"
            >
