@@ -25,12 +25,11 @@
                        </div>
                    </div>
                </div>
-                <ul class="divide-y divide-gray-200">
+                <ul id="locations" class="divide-y divide-gray-200">
                     <template x-for="location in locations" :key="location.id">
-                        <li x-on:click="setLocation(location.id)"
-                            x-text="location.name"
-                            class="flex items-center py-1 cursor-pointer"
-                        ></li>
+                        <li x-show="location.id" x-on:click="setLocation(location.id)"
+                            class="py-1 cursor-pointer"
+                        ><span x-text="location.name" class="pr-1"></span> (<span x-text="location.usages"></span>)</li>
                     </template>
                 </ul>
            </div>
@@ -60,12 +59,12 @@
                        </div>
                    </div>
                </div>
-               <ul class="divide-y divide-gray-200">
+               <ul id="documents" class="divide-y divide-gray-200">
                    <template x-for="document in documents" :key="document.id">
-                       <li x-on:click="setDocument(document.id)"
-                           x-text="document.name"
-                           class="flex items-center py-1 cursor-pointer"
-                       ></li>
+                       <li x-show="document.id" x-on:click="setDocument(document.id)"
+
+                           class="py-1 cursor-pointer"
+                       ><span x-text="document.name" class="pr-1"></span> (<span x-text="document.count"></span>)</li>
                    </template>
                </ul>
            </div>
@@ -95,9 +94,9 @@
                        </div>
                    </div>
                </div>
-               <ul>
+               <ul id="pages">
                    <template x-for="page in pages" :key="page.id">
-                       <li x-on:click="Livewire.emit('openModal', 'page', {'pageId': page.id})"
+                       <li x-show="page.id" x-on:click="Livewire.emit('openModal', 'page', {'pageId': page.id})"
                            x-text="page.name"
                            class="flex items-center py-1 cursor-pointer"
                        ></li>
