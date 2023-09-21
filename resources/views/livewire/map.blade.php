@@ -34,6 +34,7 @@
                 </ul>
            </div>
            <div x-show="view == 'documents'"
+                x-cloak
                 class="relative p-4"
            >
                <div class="sticky top-0 bg-white">
@@ -69,6 +70,7 @@
                </ul>
            </div>
            <div x-show="view == 'pages'"
+                x-cloak
                 class="relative p-4"
            >
                <div class="sticky top-0 bg-white">
