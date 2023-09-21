@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MapDocumentsController extends Controller
 {
@@ -30,7 +31,7 @@ class MapDocumentsController extends Controller
     public function __invoke(Request $request)
     {
         return Item::query()
-            ->select('items.id', 'items.name')
+            ->select('items.id', 'items.name', DB::raw('COUNT(page_subject.page_id) as total_usage_count'))
             ->join('pages', 'pages.parent_item_id', '=', 'items.id')
             ->join('page_subject', 'page_subject.page_id', '=', 'pages.id')
             ->where('page_subject.subject_id', $request->get('location'))
@@ -41,6 +42,7 @@ class MapDocumentsController extends Controller
                 return [
                     'id' => $item->id,
                     'name' => str($item->name)->stripBracketedID(),
+                    'count' => $item->total_usage_count,
                 ];
             });
     }
