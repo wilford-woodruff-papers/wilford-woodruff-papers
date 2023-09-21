@@ -9,6 +9,7 @@
        <div class="flex flex-col w-full md:w-1/4">
           <div class="overflow-y-scroll">
               <div x-show="view == 'locations'"
+                   id="locations-container"
                    class="relative p-4"
               >
                   <div class="sticky top-0 bg-white">
@@ -27,7 +28,7 @@
                       </div>
                   </div>
                   <ul id="locations" class="divide-y divide-gray-200">
-                      <template x-for="location in locations" :key="location.id">
+                      <template x-for="location in locations" :key="'location-'+location.id">
                           <li x-show="location.id" x-on:click="setLocation(location.id)"
                               class="py-1 cursor-pointer"
                           ><span x-text="location.name" class="pr-1"></span> (<span x-text="location.usages"></span> Mentions)</li>
@@ -36,6 +37,7 @@
               </div>
               <div x-show="view == 'documents'"
                    x-cloak
+                   id="documents-container"
                    class="relative p-4"
               >
                   <div class="sticky top-0 bg-white">
@@ -62,7 +64,7 @@
                       </div>
                   </div>
                   <ul id="documents" class="divide-y divide-gray-200">
-                      <template x-for="document in documents" :key="document.id">
+                      <template x-for="document in documents" :key="'document-'+document.id">
                           <li x-show="document.id" x-on:click="setDocument(document.id)"
 
                               class="py-1 cursor-pointer"
@@ -72,6 +74,7 @@
               </div>
               <div x-show="view == 'pages'"
                    x-cloak
+                   id="pages-container"
                    class="relative p-4"
               >
                   <div class="sticky top-0 bg-white">
@@ -98,7 +101,7 @@
                       </div>
                   </div>
                   <ul id="pages" class="divide-y divide-gray-200">
-                      <template x-for="page in pages" :key="page.id">
+                      <template x-for="page in pages" :key="'page-'+page.id">
                           <li x-show="page.id" x-on:click="Livewire.emit('openModal', 'page', {'pageId': page.id})"
                               x-text="page.name"
                               class="flex items-center py-1 cursor-pointer"
@@ -132,7 +135,7 @@
                     locations: [],
                     currentlocation: null,
                     documents: [],
-                    document: null,
+                    currentDocument: null,
                     pages: [],
                     reload: true,
                     init() {
@@ -259,7 +262,6 @@
                         this.reload = false;
                         this.map.setZoomAround(L.latLng(l.latitude, l.longitude), 9, true);
                         this.currentlocation = id;
-                        this.documents = [];
                         this.view = 'documents';
                         fetch('{{ route('map.documents') }}?location=' + id)
                             .then(response => response.json())
@@ -272,7 +274,7 @@
                             .catch(error => console.error('Error fetching data: ', error));
                     },
                     setDocument(id) {
-                        this.document = id;
+                        this.currentDocument = id;
                         this.pages = [];
                         this.view = 'pages';
                         fetch('{{ route('map.pages') }}?location=' + this.currentlocation + '&item=' + id)
