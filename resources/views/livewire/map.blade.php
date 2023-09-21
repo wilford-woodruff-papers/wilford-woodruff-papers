@@ -1,43 +1,44 @@
-<div x-data="map">
-    <div class="grid grid-cols-12">
-       <div class="col-span-12 md:col-span-9">
+<div x-data="map" class="">
+    <div class="flex flex-col pb-6 md:flex-row aspect-[16/7]">
+       <div class="w-full md:w-3/4">
            <div id="map"
                 class="z-10 w-full aspect-[16/9]"
                 wire:ignore
            ></div>
        </div>
-       <div class="col-span-12 md:col-span-3 overflow-y-scroll max-h-[calc(100vh-34em)]">
-           <div x-show="view == 'locations'"
-                class="relative p-4"
-           >
-               <div class="sticky top-0 bg-white">
-                   <div class="flex justify-between items-center pb-4">
-                       <h2 class="text-xl font-semibold text-black">
-                           Locations (<span x-text="locations.length"></span>)
-                       </h2>
-                       <div x-on:click="map.setView([37.71859, -54.140625], 3)"
-                            class="flex gap-x-2 items-center cursor-pointer"
-                       >
-                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                               <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
-                           </svg>
-                           Reset
-                       </div>
-                   </div>
-               </div>
-                <ul id="locations" class="divide-y divide-gray-200">
-                    <template x-for="location in locations" :key="location.id">
-                        <li x-show="location.id" x-on:click="setLocation(location.id)"
-                            class="py-1 cursor-pointer"
-                        ><span x-text="location.name" class="pr-1"></span> (<span x-text="location.usages"></span>)</li>
-                    </template>
-                </ul>
-           </div>
-           <div x-show="view == 'documents'"
-                x-cloak
-                class="relative p-4"
-           >
-               <div class="sticky top-0 bg-white">
+       <div class="flex flex-col w-full md:w-1/4">
+          <div class="overflow-y-scroll">
+              <div x-show="view == 'locations'"
+                   class="relative p-4"
+              >
+                  <div class="sticky top-0 bg-white">
+                      <div class="flex justify-between items-center pb-4">
+                          <h2 class="text-xl font-semibold text-black">
+                              Locations (<span x-text="locations.length"></span>)
+                          </h2>
+                          <div x-on:click="map.setView([37.71859, -54.140625], 3)"
+                               class="flex gap-x-2 items-center cursor-pointer"
+                          >
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                              </svg>
+                              Reset
+                          </div>
+                      </div>
+                  </div>
+                  <ul id="locations" class="divide-y divide-gray-200">
+                      <template x-for="location in locations" :key="location.id">
+                          <li x-show="location.id" x-on:click="setLocation(location.id)"
+                              class="py-1 cursor-pointer"
+                          ><span x-text="location.name" class="pr-1"></span> (<span x-text="location.usages"></span> Mentions)</li>
+                      </template>
+                  </ul>
+              </div>
+              <div x-show="view == 'documents'"
+                   x-cloak
+                   class="relative p-4"
+              >
+                  <div class="sticky top-0 bg-white">
                    <span x-on:click="view = 'locations'"
                          class="flex gap-x-2 items-center pb-2 cursor-pointer"
                    >
@@ -46,34 +47,34 @@
                         </svg>
                        Locations
                    </span>
-                   <div class="flex justify-between items-center pb-4">
-                       <h2 class="text-xl font-semibold text-black">
-                           Documents (<span x-text="documents.length"></span>)
-                       </h2>
-                       <div x-on:click="map.setView([37.71859, -54.140625], 3)"
-                            class="flex gap-x-2 items-center cursor-pointer"
-                       >
-                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                               <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
-                           </svg>
-                           Reset
-                       </div>
-                   </div>
-               </div>
-               <ul id="documents" class="divide-y divide-gray-200">
-                   <template x-for="document in documents" :key="document.id">
-                       <li x-show="document.id" x-on:click="setDocument(document.id)"
+                      <div class="flex justify-between items-center pb-4">
+                          <h2 class="text-xl font-semibold text-black">
+                              Documents (<span x-text="documents.length"></span>)
+                          </h2>
+                          <div x-on:click="map.setView([37.71859, -54.140625], 3)"
+                               class="flex gap-x-2 items-center cursor-pointer"
+                          >
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                              </svg>
+                              Reset
+                          </div>
+                      </div>
+                  </div>
+                  <ul id="documents" class="divide-y divide-gray-200">
+                      <template x-for="document in documents" :key="document.id">
+                          <li x-show="document.id" x-on:click="setDocument(document.id)"
 
-                           class="py-1 cursor-pointer"
-                       ><span x-text="document.name" class="pr-1"></span> (<span x-text="document.count"></span>)</li>
-                   </template>
-               </ul>
-           </div>
-           <div x-show="view == 'pages'"
-                x-cloak
-                class="relative p-4"
-           >
-               <div class="sticky top-0 bg-white">
+                              class="py-1 cursor-pointer"
+                          ><span x-text="document.name" class="pr-1"></span> (<span x-text="document.count"></span> Pages)</li>
+                      </template>
+                  </ul>
+              </div>
+              <div x-show="view == 'pages'"
+                   x-cloak
+                   class="relative p-4"
+              >
+                  <div class="sticky top-0 bg-white">
                    <span x-on:click="view = 'documents'"
                          class="flex gap-x-2 items-center pb-2 cursor-pointer"
                    >
@@ -82,29 +83,30 @@
                         </svg>
                        Documents
                    </span>
-                   <div class="flex justify-between items-center pb-4">
-                       <h2 class="text-xl font-semibold text-black">
-                           Pages (<span x-text="pages.length"></span>)
-                       </h2>
-                       <div x-on:click="map.setView([37.71859, -54.140625], 3)"
-                            class="flex gap-x-2 items-center cursor-pointer"
-                       >
-                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                               <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
-                           </svg>
-                           Reset
-                       </div>
-                   </div>
-               </div>
-               <ul id="pages">
-                   <template x-for="page in pages" :key="page.id">
-                       <li x-show="page.id" x-on:click="Livewire.emit('openModal', 'page', {'pageId': page.id})"
-                           x-text="page.name"
-                           class="flex items-center py-1 cursor-pointer"
-                       ></li>
-                   </template>
-               </ul>
-           </div>
+                      <div class="flex justify-between items-center pb-4">
+                          <h2 class="text-xl font-semibold text-black">
+                              Pages (<span x-text="pages.length"></span>)
+                          </h2>
+                          <div x-on:click="map.setView([37.71859, -54.140625], 3)"
+                               class="flex gap-x-2 items-center cursor-pointer"
+                          >
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                              </svg>
+                              Reset
+                          </div>
+                      </div>
+                  </div>
+                  <ul id="pages" class="divide-y divide-gray-200">
+                      <template x-for="page in pages" :key="page.id">
+                          <li x-show="page.id" x-on:click="Livewire.emit('openModal', 'page', {'pageId': page.id})"
+                              x-text="page.name"
+                              class="flex items-center py-1 cursor-pointer"
+                          ></li>
+                      </template>
+                  </ul>
+              </div>
+          </div>
        </div>
     </div>
 
