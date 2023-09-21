@@ -130,6 +130,7 @@
                     documents: [],
                     document: null,
                     pages: [],
+                    reload: true,
                     init() {
                         this.map = L.map('map')
                             .setView([37.71859, -54.140625], 3);
@@ -243,11 +244,15 @@
                             .catch(error => console.error('Error fetching data: ', error));
 
                         this.map.on('moveend', (function() {
-                            this.updateLocations();
+                            if(this.reload){
+                                this.updateLocations();
+                            }
+                            this.reload = true;
                         }).bind(this));
                     },
                     setLocation(id) {
                         var l = this.locations.find((location) => location.id == id);
+                        this.reload = false;
                         this.map.setZoomAround(L.latLng(l.latitude, l.longitude), 9, true);
                         this.currentlocation = id;
                         this.documents = [];
