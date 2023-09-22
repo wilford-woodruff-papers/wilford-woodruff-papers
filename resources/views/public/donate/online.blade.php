@@ -27,7 +27,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Italianno&display=swap" rel="stylesheet">
 
     <!-- Styles -->
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
     @stack('styles')
     <style>
@@ -152,7 +152,7 @@
 @livewire('livewire-ui-modal')
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js" charset="utf-8"></script>
-<script src="{{ mix('js/app.js') }}"></script>
+
 @stack('scripts')
 
 <x-constant-contact />
