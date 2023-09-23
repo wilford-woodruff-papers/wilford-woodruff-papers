@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Ai;
+namespace App\Http\Livewire\AI;
 
 use App\Models\AiQuestion;
 use App\Models\AiSession;
