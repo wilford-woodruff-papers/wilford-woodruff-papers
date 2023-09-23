@@ -20,7 +20,9 @@ class Topic extends Resource
 
     public static function indexQuery(NovaRequest $request, $query)
     {
-        return $query->whereRelation('category', 'name', 'Topics');
+        return $query
+            ->whereRelation('category', 'name', 'Index')
+            ->orderBy('name');
     }
 
     /**

@@ -115,6 +115,13 @@ class Subject extends Model implements HasMedia
         });
     }
 
+    public function scopeIndex(Builder $query): void
+    {
+        $query->whereHas('category', function ($query) {
+            $query->where('name', 'Index');
+        });
+    }
+
     public function children()
     {
         return $this->hasMany(self::class)->with(['children' => function ($query) {
