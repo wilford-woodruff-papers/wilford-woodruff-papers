@@ -134,8 +134,6 @@ Route::middleware([])->group(function () {
         Route::get('/old-timeline', [\App\Http\Controllers\TimelineController::class, 'index'])->name('old-timeline');
 
         Route::get('/ai/sessions', \App\Http\Livewire\Ai\Sessions::class)->name('ai.sessions');
-        Route::get('/ai/session/{session}', \App\Http\Livewire\Ai\Session::class)->name('ai.session');
-        Route::get('/ai/questions', \App\Http\Livewire\Ai\Questions::class)->name('ai.questions');
     });
 
     Route::get('/advanced-search', \App\Http\Livewire\Search::class)->name('advanced-search');
