@@ -133,7 +133,7 @@ Route::middleware([])->group(function () {
         Route::get('/new-search', \App\Http\Livewire\Search::class)->name('new-search');
         Route::get('/old-timeline', [\App\Http\Controllers\TimelineController::class, 'index'])->name('old-timeline');
 
-        Route::get('/ai/sessions', \App\Http\Livewire\Ai\Sessions::class)->name('ai.sessions');
+        Route::get('/ai/sessions', \App\Http\Livewire\AI\Sessions::class)->name('ai.sessions');
     });
 
     Route::get('/advanced-search', \App\Http\Livewire\Search::class)->name('advanced-search');
