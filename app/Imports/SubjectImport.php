@@ -10,6 +10,13 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class SubjectImport implements ToCollection, WithHeadingRow
 {
+    public $assignCategories;
+
+    public function __construct($assignCategories = true)
+    {
+        $this->assignCategories = $assignCategories;
+    }
+
     /**
      * @param  Collection  $collection
      */
@@ -20,7 +27,7 @@ class SubjectImport implements ToCollection, WithHeadingRow
         $categories = Category::all();
 
         foreach ($rows as $row) {
-            ImportSubject::dispatch($row, $categories)
+            ImportSubject::dispatch($row, [$categories, $this->assignCategories])
                 ->onQueue('import');
         }
     }
