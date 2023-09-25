@@ -10,6 +10,7 @@ use Illuminate\Support\Collection;
 use Laravel\Nova\Actions\Action;
 use Laravel\Nova\Fields\ActionFields;
 use Laravel\Nova\Fields\File;
+use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -26,7 +27,8 @@ class ImportSubjects extends Action
      */
     public function handle(ActionFields $fields, Collection $models)
     {
-        Excel::import(new SubjectImport, $fields->file);
+        //dd($fields->assign_categories);
+        Excel::import(new SubjectImport($fields->assign_categories), $fields->file);
 
         return Action::message('Subjects added to queue for processing successfully');
     }
@@ -37,6 +39,12 @@ class ImportSubjects extends Action
     public function fields(NovaRequest $request): array
     {
         return [
+            Select::make('Assign Categories')
+                ->options([
+                    'true' => 'Yes',
+                    'false' => 'No',
+                ])
+                ->rules('required'),
             File::make('File')->rules('required'),
         ];
     }
