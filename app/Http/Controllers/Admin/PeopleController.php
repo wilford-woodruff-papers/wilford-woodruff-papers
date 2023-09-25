@@ -21,6 +21,10 @@ class PeopleController extends Controller
             'max:191',
             'required_with:name',
         ],
+        'subject_uri' => [
+            'max:191',
+            'required_with:name',
+        ],
         'first_name' => [
             'max:191',
         ],

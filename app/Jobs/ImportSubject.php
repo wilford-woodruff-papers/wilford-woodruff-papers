@@ -17,13 +17,15 @@ class ImportSubject implements ShouldQueue
 
     public $categories;
 
+    public $assignCategories;
+
     /**
      * Create a new job instance.
      */
     public function __construct($row, $categories)
     {
         $this->row = $row;
-        $this->categories = $categories;
+        [$this->categories, $this->assignCategories] = $categories;
     }
 
     /**
@@ -35,9 +37,19 @@ class ImportSubject implements ShouldQueue
             'name' => trim(html_entity_decode($this->row['title'])),
         ]);
 
-        foreach (explode(';', $this->row['categories']) as $subjectCategory) {
-            if ($category = $this->categories->firstWhere('name', trim($subjectCategory))) {
-                $category->subjects()->syncWithoutDetaching($subject);
+        if ($subject->subject_uri !== $this->row['subject_uri']) {
+            Subject::withoutSyncingToSearch(function () use ($subject) {
+                $subject->subject_uri = $this->row['subject_uri'];
+                $subject->save();
+            });
+
+        }
+
+        if ($this->assignCategories === true || $this->assignCategories === 'true') {
+            foreach (explode(';', $this->row['categories']) as $subjectCategory) {
+                if ($category = $this->categories->firstWhere('name', trim($subjectCategory))) {
+                    $category->subjects()->syncWithoutDetaching($subject);
+                }
             }
         }
     }
