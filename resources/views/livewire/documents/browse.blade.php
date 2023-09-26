@@ -2,9 +2,19 @@
     <x-slot name="title">
         Browse Documents | {{ config('app.name') }}
     </x-slot>
+
+    <x-documents-banner-image :image="asset('img/banners/document.jpg')"
+                    :text="'Documents'"
+    />
+
     <div class="mx-auto max-w-7xl">
         <div class="page-title">
             Understand the unfolding Restoration through Wilford’s unique eyewitness account
+        </div>
+        <div class="col-span-12 px-8 pb-12 -mt-2">
+            <p class="text-black">
+                The Wilford Woodruff Papers consist of all extant documents written by Wilford Woodruff and correspondence written to Wilford Woodruff that have been located and digitized. Images of the documents are displayed side by side with transcriptions of the text. In addition, every date, person, place, scriptural reference, and topic within the documents is tagged and hyperlinked to allow for more in-depth study.
+            </p>
         </div>
         <div class="grid grid-cols-12">
             <div
@@ -46,7 +56,7 @@
                     <form wire:submit.prevent="submit">
                         <div class="pl-3">
                             <label for="search" class="sr-only">Search term</label>
-                            <div class="relative mt-1 rounded-md shadow-sm">
+                            <div class="relative mt-0 rounded-md shadow-sm">
                                 <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none" aria-hidden="true">
                                     <svg class="mr-3 w-4 h-4 text-gray-400" x-description="Heroicon name: solid/search" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                         <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path>
