@@ -14,7 +14,7 @@
         }"
         x-init="setTimeout(() => showSuccess = false, 3000); $watch('visited', value => mentioned = value);"
     >
-        <div class="px-4 pb-6 mx-auto max-w-screen-xl sm:px-6 lg:px-8 lg:pb-16">
+        <div class="px-4 mx-auto max-w-screen-xl sm:px-6 lg:px-8">
             <div class="bg-white rounded-lg shadow">
                 <div x-intersect:leave="shadow = true"
                      x-intersect:enter="shadow = false"
@@ -110,18 +110,33 @@
                                 </div>
                             @endif
                         </div>
-                        <div class="py-6 px-4 sm:p-6 lg:pb-8">
+                        <div class="px-4 sm:p-6">
                             <div>
-                                @if($place->exists)
-                                    <h2 class="text-2xl font-bold leading-6 text-gray-900">
-                                        <a href="{{ route('subjects.show', ['subject' => $place->slug]) }}"
-                                           target="_blank"
-                                           class="text-secondary"
-                                        >
-                                            {{ $place->name }}
-                                        </a>
-                                    </h2>
-                                @endif
+                                <div class="flex gap-x-4">
+                                    @if($place->exists)
+                                        <h2 class="text-2xl font-bold leading-6 text-gray-900">
+                                            <a href="{{ route('subjects.show', ['subject' => $place->slug]) }}"
+                                               target="_blank"
+                                               class="text-secondary"
+                                            >
+                                                {{ $place->name }}
+                                            </a>
+                                        </h2>
+                                        <span>
+                                            @if(! empty($place->subject_uri))
+                                                <a class="flex gap-x-1 items-center font-semibold text-[#4d4040] break-word"
+                                                   href="{{ $place->subject_uri }}"
+                                                   target="_blank">
+                                                                FTP
+                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                                                                </svg>
+
+                                                            </a>
+                                            @endif
+                                        </span>
+                                    @endif
+                                </div>
                                 <div class="flex gap-x-8 mt-1 text-base font-semibold text-gray-500">
                                     <div>
                                         Unique ID: {{ $place->unique_id ?? 'N/A' }}
@@ -375,6 +390,22 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-12 gap-6">
+                                <div class="col-span-12">
+                                    <label for="subject_uri"
+                                           class="block text-sm font-medium text-gray-700"
+                                    >
+                                        <span class="font-semibold">Full FTP URL</span> <span class="text-red-600">*</span>
+                                    </label>
+                                    <input type="text"
+                                           name="subject_uri"
+                                           id="subject_uri"
+                                           value="{{ old('subject_uri', $place->subject_uri) }}"
+                                           class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
+                                    />
                                 </div>
                             </div>
 
