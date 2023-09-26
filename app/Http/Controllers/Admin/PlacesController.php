@@ -35,6 +35,10 @@ class PlacesController extends Controller
         'place_confirmed_at' => [
             'max:191',
         ],
+        'subject_uri' => [
+            'max:191',
+            'required_with:place_confirmed_at',
+        ],
         'visited' => [
             'nullable',
         ],
