@@ -191,6 +191,38 @@ return [
                     'maxTotalHits' => 100000,
                 ],
             ],
+            'places' => [
+                'filterableAttributes' => [
+                    'types',
+                    'years',
+                    '_geo',
+                ],
+                'sortableAttributes' => [
+                    'name',
+                ],
+                'faceting' => [
+                    'maxValuesPerFacet' => 100,
+                ],
+                'pagination' => [
+                    'maxTotalHits' => 100000,
+                ],
+            ],
+            'dev-places' => [
+                'filterableAttributes' => [
+                    'types',
+                    'years',
+                    '_geo',
+                ],
+                'sortableAttributes' => [
+                    'name',
+                ],
+                'faceting' => [
+                    'maxValuesPerFacet' => 100,
+                ],
+                'pagination' => [
+                    'maxTotalHits' => 100000,
+                ],
+            ],
         ],
     ],
 

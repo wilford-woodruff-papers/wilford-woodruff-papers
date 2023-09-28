@@ -31,12 +31,15 @@ class MapLocationsController extends Controller
     {
         $client = new Client(config('scout.meilisearch.host'), config('scout.meilisearch.key'));
 
-        $index = $client->index((app()->environment('production') ? 'resources' : 'dev-resources'));
+        $index = $client->index((app()->environment('production') ? 'places' : 'dev-places'));
 
-        $result = $index->search($this->q, [
+        $result = $index->search($request->get('q'), [
             'attributesToHighlight' => [
                 'name',
-                'description',
+            ],
+            'facets' => [
+                'years',
+                'types',
             ],
             'sort' => [(array_key_first($this->sort) ?? 'name').':'.($this->sort[array_key_first($this->sort)] ?? 'asc')],
             'hitsPerPage' => $this->hitsPerPage,
@@ -57,7 +60,11 @@ class MapLocationsController extends Controller
                 ];
             });
 
-        return $hits;
+        return [
+            'hits' => $hits,
+            'facetStats' => $result->getFacetStats(),
+            'facetDistribution' => $result->getFacetDistribution(),
+        ];
 
         /*return Subject::query()
             ->select(['id', 'name', 'slug', 'latitude', 'longitude', 'geolocation'])
@@ -103,8 +110,24 @@ class MapLocationsController extends Controller
     {
         $query = [];
 
-        $query[] = '(resource_type = "Places")';
         $query[] = '_geoBoundingBox(['.request()->float('geo.northEast.lat', 69.25871535543818).', '.$this->preventOutOfBounds(request()->float('geo.northEast.lng', 15.996093750000002)).'], ['.request()->float('geo.southWest.lat', 14.356567145246045).', '.$this->preventOutOfBounds(request()->float('geo.southWest.lng', -131.13281250000003)).'])';
+
+        if (request()->has('types') && ! empty(request()->get('types'))) {
+            $typeValues = [];
+            $types = explode(',', request()->get('types'));
+            foreach ($types as $type) {
+                $typeValues[] = 'types = "'.$type.'"';
+            }
+            $query[] = '('.implode(' OR ', $typeValues).')';
+        }
+
+        if (request()->has('min_year') && ! empty(request()->get('min_year'))) {
+            $query[] = 'years >= "'.request()->get('min_year').'"';
+        }
+
+        if (request()->has('max_year') && ! empty(request()->get('max_year'))) {
+            $query[] = 'years <= "'.request()->get('max_year').'"';
+        }
 
         foreach ($this->filters as $filter => $values) {
             if (! empty($values)) {

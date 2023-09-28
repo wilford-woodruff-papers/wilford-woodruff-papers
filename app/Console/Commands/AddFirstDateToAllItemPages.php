@@ -21,7 +21,7 @@ class AddFirstDateToAllItemPages extends Command
      *
      * @var string
      */
-    protected $description = 'Add a date to all pages. Usefull for pages that have no date.';
+    protected $description = 'Add a date to all pages. Useful for pages that have no date.';
 
     /**
      * Execute the console command.
