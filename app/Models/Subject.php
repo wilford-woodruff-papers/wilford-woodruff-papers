@@ -115,6 +115,13 @@ class Subject extends Model implements HasMedia
         });
     }
 
+    public function scopePlaces(Builder $query): void
+    {
+        $query->whereHas('category', function ($query) {
+            $query->where('name', 'Places');
+        });
+    }
+
     public function scopeIndex(Builder $query): void
     {
         $query->whereHas('category', function ($query) {

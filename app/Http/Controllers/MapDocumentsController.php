@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -30,10 +31,37 @@ class MapDocumentsController extends Controller
 
     public function __invoke(Request $request)
     {
-        return Item::query()
+        $items = Item::query()
             ->select('items.id', 'items.name', DB::raw('COUNT(page_subject.page_id) as total_usage_count'))
             ->join('pages', 'pages.parent_item_id', '=', 'items.id')
             ->join('page_subject', 'page_subject.page_id', '=', 'pages.id')
+            ->where('enabled', true);
+
+        if ($request->has('types')
+             && ! empty($request->get('types'))
+        ) {
+            $items = $items->whereIn('items.type_id',
+                Type::query()
+                    ->whereIn('name', explode(',', $request->get('types')))
+                    ->pluck('id')
+                    ->all()
+            );
+        }
+
+        if ($request->has('min_year')
+             && ! empty($request->get('min_year'))
+             && $request->has('max_year')
+             && ! empty($request->get('max_year'))
+        ) {
+            $items = $items
+                ->distinct('items.id')
+                ->join('dates', 'dates.dateable_id', '=', 'pages.id')
+                ->where('dates.dateable_type', 'App\Models\Page')
+                ->whereYear('dates.date', '>=', $request->get('min_year'))
+                ->whereYear('dates.date', '<=', $request->get('max_year'));
+        }
+
+        return $items
             ->where('page_subject.subject_id', $request->get('location'))
             ->groupBy('items.id', 'items.name')
             ->orderBy('items.name')
