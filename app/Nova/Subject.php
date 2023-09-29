@@ -32,7 +32,10 @@ class Subject extends Resource
      */
     public static $model = \App\Models\Subject::class;
 
-    public static $with = ['parent', 'category'];
+    public static $with = [
+        'parent',
+        'category',
+    ];
 
     /**
      * The single value that should be used to represent the resource when being displayed.

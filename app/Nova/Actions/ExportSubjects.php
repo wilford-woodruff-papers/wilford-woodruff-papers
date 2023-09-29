@@ -11,11 +11,15 @@ class ExportSubjects extends DownloadExcel implements WithMapping, WithHeadings
     public function headings(): array
     {
         return [
+            'Internal ID',
+            'Unique ID',
             'Family Search ID',
             'Name',
             'Category',
+            'Document Types',
             'Number Occurrences',
             'URL',
+            'Admin URL',
             'Bio',
         ];
     }
@@ -25,14 +29,26 @@ class ExportSubjects extends DownloadExcel implements WithMapping, WithHeadings
      */
     public function map($subject): array
     {
-        $subject->load('category');
+        $subject
+            ->load([
+                'category',
+                'pages.parent.type',
+            ]);
 
         return [
+            $subject->id,
+            $subject->unique_id,
             $subject->pid,
             $subject->name,
             $subject->category->pluck('name')->join(';'),
+            $subject->pages->map(function ($page) {
+                return $page->parent?->type?->name;
+            })
+                ->unique()
+                ->join(';'),
             $subject->total_usage_count,
             config('app.url').'/subjects/'.$subject->slug,
+            config('app.url').'/admin/dashboard/people/'.$subject->slug.'/edit',
             $subject->bio,
         ];
     }
