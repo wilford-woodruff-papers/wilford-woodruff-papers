@@ -1,4 +1,5 @@
 <x-guest-layout>
+    <x-slot name="title">Wilford Woodruff Papers Giveaway</x-slot>
     <div class="my-12 mx-auto max-w-7xl">
             <div class="space-y-12">
                 <div class="grid grid-cols-1 gap-x-8 gap-y-10 pb-12 md:grid-cols-2">

@@ -1,4 +1,5 @@
 <x-guest-layout>
+    <x-slot name="title">Private Reception preceding the Development of Temple Doctrine Fireside on October 8, 2023</x-slot>
     <div class="my-12 mx-auto max-w-7xl">
             <div class="space-y-12">
                 <div class="grid grid-cols-1 gap-x-8 gap-y-10 pb-12 md:grid-cols-2">
