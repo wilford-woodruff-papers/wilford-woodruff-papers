@@ -6,14 +6,14 @@ use App\Http\Requests\StoreEventRegistrationRequest;
 use App\Models\EventRegistration;
 use App\Models\User;
 
-class EventRegistrationController extends Controller
+class GiveawayRegistrationController extends Controller
 {
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view('event-registration.private-reception.create');
+        return view('event-registration.giveaway.create');
     }
 
     /**
@@ -24,11 +24,13 @@ class EventRegistrationController extends Controller
         $validated = $request->validated();
 
         $eventRegistration = EventRegistration::make($validated);
-        $eventRegistration->event_name = 'Private Reception';
+        $eventRegistration->event_name = 'St. George Giveaway';
 
-        foreach ($request->get('fields') as $key => $value) {
-            $attribute = str($key)->replace("'", '')->toString();
-            $eventRegistration->extra_attributes->{$attribute} = clean($value);
+        if ($request->has('fields')) {
+            foreach ($request->get('fields') as $key => $value) {
+                $attribute = str($key)->replace("'", '')->toString();
+                $eventRegistration->extra_attributes->{$attribute} = clean($value);
+            }
         }
 
         $eventRegistration->save();
