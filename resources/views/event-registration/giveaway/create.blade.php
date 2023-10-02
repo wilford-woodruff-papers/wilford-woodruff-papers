@@ -11,6 +11,24 @@
                              class="p-4 w-full h-auto"
                              alt="Private Reception preceding the Development of Temple Doctrine Fireside on October 8, 2023"
                         />
+                        <div class="grid grid-cols-2 items-center">
+                            <div class="pl-8 text-center sm:pl-12">
+                                <a href="https://airauctioneer.com/wilford-woodruff-project-art-auction"
+                                   class="py-2 px-3 text-white bg-secondary"
+                                   target="_blank"
+                                >
+                                    Buy Now
+                                </a>
+                            </div>
+                            <div class="pr-8 text-center sm:pr-12">
+                                <a href="https://wilfordwoodruffpapers.org/wilford-woodruffs-witness"
+                                   class="py-2 px-3 text-white bg-secondary"
+                                   target="_blank"
+                                >
+                                    Buy Now
+                                </a>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="px-12">
