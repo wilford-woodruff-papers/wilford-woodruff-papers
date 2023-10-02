@@ -19,14 +19,6 @@
                                 <div class="pt-12 text-2xl text-center">
                                     {!! session('success') !!}
                                 </div>
-                                <div>
-                                    <a href="{{ route('event.calendar') }}"
-                                       class="py-3 px-6 text-sm font-semibold text-white shadow-sm bg-secondary hover:bg-secondary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-600"
-                                       target="_blank"
-                                    >
-                                        Add to Calendar
-                                    </a>
-                                </div>
                             </div>
                         @else
                             <form action="{{ route('event.giveaway.register') }}"

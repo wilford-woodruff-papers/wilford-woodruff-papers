@@ -40,7 +40,7 @@ class GiveawayRegistrationController extends Controller
             $user->notify(new \App\Notifications\NewEventRegistrationNotification($eventRegistration));
         }
 
-        return back()->with('success', "Thank you for registering for the Private Reception preceding the Development of Temple Doctrine Fireside on <b>October 8th</b>! We'll send you a reminder email with the link to access the event a few days before the event.");
+        return back()->with('success', 'Thank you for entering the Wilford Woodruff Papers Project Giveaway! Look for an email announcing the winners in the coming week.');
     }
 
     public function live()
