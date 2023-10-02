@@ -49,14 +49,16 @@ class ProgressMatrix extends Component
 
         $this->types = ActionType::query()
                             //->role(auth()->user()->roles)
-                            ->whereIn('name', [
-                                'Transcription',
-                                'Verification',
-                                'Publish',
-                                'Stylization',
-                            ])
-                            ->orderBY('name', 'ASC')
-                            ->get();
+            ->whereIn('name', [
+                'Transcription',
+                'Verification',
+                'Subject Tagging',
+                'Date Tagging',
+                'Publish',
+                'Stylization',
+            ])
+            ->orderBY('name', 'ASC')
+            ->get();
 
         $this->users = User::query()
             ->role(['Editor'])
