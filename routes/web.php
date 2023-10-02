@@ -25,6 +25,8 @@ Route::middleware([])->group(function () {
                 return redirect()->away(config('app.url').'/announcements/2023-building-latter-day-faith-conference-arts-contest-rules');
             } elseif ($subdomain == 'sg') {
                 return redirect()->away(config('app.url').'/development-of-temple-doctrine-reception');
+            } elseif ($subdomain == 'giveaway') {
+                return redirect()->away(config('app.url').'/2023/giveaway');
             } elseif ($subdomain == 'ama-panel-2023') {
                 return redirect()->away(config('app.url'));
             } else {
@@ -44,6 +46,11 @@ Route::middleware([])->group(function () {
     Route::get('/development-of-temple-doctrine-reception', [\App\Http\Controllers\EventRegistrationController::class, 'create'])->name('event.show');
     Route::post('/development-of-temple-doctrine-reception', [\App\Http\Controllers\EventRegistrationController::class, 'store'])->name('event.register')
         ->middleware(\Spatie\Honeypot\ProtectAgainstSpam::class);
+
+    Route::get('/2023/giveaway', [\App\Http\Controllers\GiveawayRegistrationController::class, 'create'])->name('event.giveaway.show');
+    Route::post('/2023/giveaway', [\App\Http\Controllers\GiveawayRegistrationController::class, 'store'])->name('event.giveaway.register')
+        ->middleware(\Spatie\Honeypot\ProtectAgainstSpam::class);
+
     // Route::get('/ask-me-anything-mission-president-panel-live', [\App\Http\Controllers\EventRegistrationController::class, 'live'])->name('event.live');
 
     Route::get('/development-of-temple-doctrine-reception/calendar', function () {

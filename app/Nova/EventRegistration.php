@@ -3,6 +3,7 @@
 namespace App\Nova;
 
 use App\Nova\Actions\ExportRegistrations;
+use App\Nova\Filters\EventName;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Text;
@@ -44,6 +45,7 @@ class EventRegistration extends Resource
     {
         return [
             ID::make()->sortable(),
+            Text::make('Event Name')->sortable(),
             Text::make('First Name')->sortable(),
             Text::make('Last Name')->sortable(),
             Text::make('Email')->sortable(),
@@ -82,7 +84,9 @@ class EventRegistration extends Resource
      */
     public function filters(NovaRequest $request)
     {
-        return [];
+        return [
+            new EventName,
+        ];
     }
 
     /**
