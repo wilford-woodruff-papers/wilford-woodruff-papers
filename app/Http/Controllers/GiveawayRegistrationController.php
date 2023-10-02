@@ -6,14 +6,14 @@ use App\Http\Requests\StoreEventRegistrationRequest;
 use App\Models\EventRegistration;
 use App\Models\User;
 
-class EventRegistrationController extends Controller
+class GiveawayRegistrationController extends Controller
 {
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view('event-registration.private-reception.create');
+        return view('event-registration.giveaway.create');
     }
 
     /**
@@ -24,11 +24,13 @@ class EventRegistrationController extends Controller
         $validated = $request->validated();
 
         $eventRegistration = EventRegistration::make($validated);
-        $eventRegistration->event_name = 'Private Reception';
+        $eventRegistration->event_name = 'St. George Giveaway';
 
-        foreach ($request->get('fields') as $key => $value) {
-            $attribute = str($key)->replace("'", '')->toString();
-            $eventRegistration->extra_attributes->{$attribute} = clean($value);
+        if ($request->has('fields')) {
+            foreach ($request->get('fields') as $key => $value) {
+                $attribute = str($key)->replace("'", '')->toString();
+                $eventRegistration->extra_attributes->{$attribute} = clean($value);
+            }
         }
 
         $eventRegistration->save();
@@ -38,7 +40,7 @@ class EventRegistrationController extends Controller
             $user->notify(new \App\Notifications\NewEventRegistrationNotification($eventRegistration));
         }
 
-        return back()->with('success', "Thank you for registering for the Private Reception preceding the Development of Temple Doctrine Fireside on <b>October 8th</b>! We'll send you a reminder email with the link to access the event a few days before the event.");
+        return back()->with('success', 'Thank you for entering the Wilford Woodruff Papers Project Giveaway! Look for an email announcing the winners in the coming week.');
     }
 
     public function live()
