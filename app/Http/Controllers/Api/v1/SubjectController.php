@@ -12,7 +12,7 @@ class SubjectController extends Controller
     public $typesMap = [
         'Places' => ['Places'],
         'People' => ['People'],
-        'Topics' => ['Topics'],
+        'Topics' => ['Index'],
     ];
 
     /**
@@ -25,9 +25,6 @@ class SubjectController extends Controller
         abort_unless($request->ajax() || $request->user()->tokenCan('read'), 401);
 
         $subjects = Subject::query()
-            ->with([
-                'category',
-            ])
             ->select([
                 'id',
                 'slug',
@@ -37,7 +34,11 @@ class SubjectController extends Controller
                 'total_usage_count',
                 'bio',
                 'life_years',
-            ]);
+            ])
+            ->with([
+                'category',
+            ])
+            ->whereNull('subject_id');
 
         if ($request->has('types')) {
             $types = [];
