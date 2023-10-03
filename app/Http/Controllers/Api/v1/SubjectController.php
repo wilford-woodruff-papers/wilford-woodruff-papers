@@ -34,6 +34,7 @@ class SubjectController extends Controller
                 'total_usage_count',
                 'bio',
                 'life_years',
+                'years',
             ])
             ->with([
                 'category',
