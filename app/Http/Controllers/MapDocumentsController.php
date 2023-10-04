@@ -55,10 +55,16 @@ class MapDocumentsController extends Controller
         ) {
             $items = $items
                 ->distinct('items.id')
-                ->join('dates', 'dates.dateable_id', '=', 'pages.id')
-                ->where('dates.dateable_type', 'App\Models\Page')
-                ->whereYear('dates.date', '>=', $request->get('min_year'))
-                ->whereYear('dates.date', '<=', $request->get('max_year'));
+                ->whereHas('realPages', function ($query) {
+                    $query->whereHas('dates', function ($query) {
+                        $query->whereYear('date', '>=', request()->get('min_year'))
+                            ->whereYear('date', '<=', request()->get('max_year'));
+                    });
+                });
+            //->join('dates', 'dates.dateable_id', '=', 'pages.id')
+            //->where('dates.dateable_type', Page::class)
+            //->whereYear('dates.date', '>=', $request->get('min_year'))
+            //->whereYear('dates.date', '<=', $request->get('max_year'));
         }
 
         $items = $items
