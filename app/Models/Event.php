@@ -92,9 +92,16 @@ class Event extends Model implements HasMedia
         return $this->morphedByMany(Photo::class, 'timelineable');
     }
 
-    public function places()
+    public function subjects()
     {
         return $this->belongsToMany(Subject::class, 'event_subject');
+    }
+
+    public function places()
+    {
+        return $this->belongsToMany(Subject::class, 'event_subject')->whereHas('category', function ($query) {
+            $query->where('name', 'Places');
+        });
     }
 
     public function registerMediaConversions(Media $media = null): void

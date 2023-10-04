@@ -41,6 +41,11 @@ class Type extends Resource
         'name',
     ];
 
+    public static function usesScout(): bool
+    {
+        return false;
+    }
+
     /**
      * Build an "index" query for the given resource.
      */

@@ -54,14 +54,21 @@ class Subject extends Resource
         'name',
     ];
 
+    public static function usesScout(): bool
+    {
+        return false;
+    }
+
     /**
      * Get the fields displayed by the resource.
      */
     public function fields(NovaRequest $request): array
     {
         return [
-            ID::make(__('ID'), 'id')->sortable(),
-            Text::make(__('Name'), 'name')->sortable(),
+            ID::make(__('ID'), 'id')
+                ->sortable(),
+            Text::make(__('Name'), 'name')
+                ->sortable(),
             Text::make('Category', function () {
                 return $this->category->pluck('name')->implode(', ');
             })
