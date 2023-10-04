@@ -35,6 +35,11 @@ class Author extends Resource
         'id', 'name',
     ];
 
+    public static function usesScout(): bool
+    {
+        return false;
+    }
+
     /**
      * Get the fields displayed by the resource.
      */

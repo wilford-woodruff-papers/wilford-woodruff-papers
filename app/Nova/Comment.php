@@ -39,6 +39,11 @@ class Comment extends Resource
         'id',
     ];
 
+    public static function usesScout(): bool
+    {
+        return false;
+    }
+
     /**
      * Get the fields displayed by the resource.
      */
@@ -59,7 +64,7 @@ class Comment extends Resource
                     return '';
                 }
             })
-            ->asHtml(),
+                ->asHtml(),
             Text::make('body', 'comment')->hideFromIndex(),
             Number::make('total_likes'),
         ];

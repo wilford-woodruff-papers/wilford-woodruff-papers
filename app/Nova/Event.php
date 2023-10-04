@@ -55,6 +55,11 @@ class Event extends Resource
         'text',
     ];
 
+    public static function usesScout(): bool
+    {
+        return false;
+    }
+
     /**
      * Get the fields displayed by the resource.
      */
@@ -73,6 +78,8 @@ class Event extends Resource
                 ->displayUsing(function ($value) {
                     return str($value)->limit(40, '...');
                 }),
+            BelongsToMany::make('Places', 'places', Place::class)
+                ->searchable(),
 
             /*Number::make('Start Year'),
             Number::make('Start Month'),
@@ -83,8 +90,7 @@ class Event extends Resource
 
             MorphToMany::make('Photos'),
             MorphToMany::make('Pages')->searchable(),
-            BelongsToMany::make('Places', 'places', Subject::class)
-                ->searchable(),
+
             /*->fields(function(){
                     return [
                         Item::class,

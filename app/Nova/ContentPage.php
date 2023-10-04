@@ -37,6 +37,11 @@ class ContentPage extends Resource
         'title',
     ];
 
+    public static function usesScout(): bool
+    {
+        return false;
+    }
+
     /**
      * Get the fields displayed by the resource.
      *
