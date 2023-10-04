@@ -40,6 +40,11 @@ class Contestant extends Resource
         'email',
     ];
 
+    public static function usesScout(): bool
+    {
+        return false;
+    }
+
     /**
      * Get the fields displayed by the resource.
      */
@@ -51,11 +56,11 @@ class Contestant extends Resource
             Text::make('First Name')->required(true),
             Text::make('Last Name')->required(true),
             Text::make('Email')->required(true)
-                    ->hideFromIndex(),
+                ->hideFromIndex(),
             Text::make('Phone')
-                    ->hideFromIndex(),
+                ->hideFromIndex(),
             Text::make('Address')
-                    ->hideFromIndex(),
+                ->hideFromIndex(),
             Boolean::make('Subscribe to Newsletter', 'subscribe_to_newsletter'),
             Boolean::make('Primary Contact', 'is_primary_contact'),
             Boolean::make('Original Work', 'is_original'),

@@ -35,7 +35,7 @@ class MapDocumentsController extends Controller
             ->select('items.id', 'items.name', DB::raw('COUNT(page_subject.page_id) as total_usage_count'))
             ->join('pages', 'pages.parent_item_id', '=', 'items.id')
             ->join('page_subject', 'page_subject.page_id', '=', 'pages.id')
-            ->where('enabled', true);
+            ->where('items.enabled', true);
 
         if ($request->has('types')
              && ! empty($request->get('types'))
@@ -61,10 +61,14 @@ class MapDocumentsController extends Controller
                 ->whereYear('dates.date', '<=', $request->get('max_year'));
         }
 
-        return $items
+        $items = $items
             ->where('page_subject.subject_id', $request->get('location'))
             ->groupBy('items.id', 'items.name')
-            ->orderBy('items.name')
+            ->orderBy('items.name');
+
+        logger()->info($items->toSql());
+
+        $items = $items
             ->get()
             ->map(function ($item) {
                 return [
@@ -73,6 +77,8 @@ class MapDocumentsController extends Controller
                     'count' => $item->total_usage_count,
                 ];
             });
+
+        return $items;
     }
 
     private function preventOutOfBounds($number)

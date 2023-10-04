@@ -50,6 +50,11 @@ class Item extends Resource
         'name',
     ];
 
+    public static function usesScout(): bool
+    {
+        return false;
+    }
+
     public static $indexDefaultOrder = [
         'item_id' => 'ASC',
         'order' => 'ASC',
