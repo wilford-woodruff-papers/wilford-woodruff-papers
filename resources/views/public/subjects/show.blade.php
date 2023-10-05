@@ -10,7 +10,52 @@
             <div class="blocks">
                 <div class="grid grid-cols-12 py-12">
                     <div class="col-span-12 py-6 px-8 content">
-                        <h2>{!! $subject->name !!}</h2>
+                        <div>
+                            <h2>
+                                {!! $subject->name !!}
+                            </h2>
+                            @auth()
+                                @hasanyrole('Editor|Researcher|Admin|Super Admin')
+                                    <div class="flex justify-between items-center">
+                                        <div class="font-semibold">
+                                            {{ $subject->category()->orderBy('name')->pluck('name')->implode(', ') }}
+                                        </div>
+                                        <div class="flex text-center divide-x divide-blue-200">
+                                            @if(! empty($subject->subject_uri))
+                                                <a href="{{ $subject->subject_uri }}"
+                                                   class="px-2 text-center text-secondary"
+                                                   target="_blank"
+                                                >
+                                                    FTP
+                                                </a>
+                                            @endif
+                                            <a href="/nova/resources/subjects/{{ $subject->id }}"
+                                               class="px-2 text-center text-secondary"
+                                               target="_blank"
+                                            >
+                                                Nova
+                                            </a>
+                                            @if(in_array('People', $subject->category()->pluck('name')->toArray()))
+                                                <a href="{{ route('admin.dashboard.people.edit', ['person' => $subject->slug]) }}"
+                                                   class="px-2 text-center text-secondary"
+                                                   target="_blank"
+                                                >
+                                                    Content Admin
+                                                </a>
+                                            @endif
+                                            @if(in_array('Places', $subject->category()->pluck('name')->toArray()))
+                                                <a href="{{ route('admin.dashboard.places.edit', ['place' => $subject->slug]) }}"
+                                                   class="px-2 text-center text-secondary"
+                                                   target="_blank"
+                                                >
+                                                    Content Admin
+                                                </a>
+                                            @endif
+                                        </div>
+                                    </div>
+                                @endhasanyrole
+                            @endif
+                        </div>
                         @if(! empty($subject->bio_approved_at))
                             <p>
                                 {!! $subject->bio !!}
