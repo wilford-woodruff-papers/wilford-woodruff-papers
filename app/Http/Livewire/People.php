@@ -40,7 +40,6 @@ class People extends Component
     public function render()
     {
         $people = Subject::query()
-            ->whereEnabled(1)
             ->when($this->category == 'All', fn ($query, $category) => $query->whereHas('category', function (Builder $query) {
                 $query->where('name', 'People');
             }))
@@ -56,10 +55,12 @@ class People extends Component
             });
 
         if ($this->category !== 'Eminent Men and Women') {
-            $people = $people->where(function ($query) {
-                $query->where('tagged_count', '>', 0)
-                    ->orWhere('text_count', '>', 0);
-            });
+            $people = $people
+                ->whereEnabled(1)
+                ->where(function ($query) {
+                    $query->where('tagged_count', '>', 0)
+                        ->orWhere('text_count', '>', 0);
+                });
         }
 
         //->whereHas('pages')
