@@ -1,6 +1,6 @@
 <x-guest-layout>
     <x-slot name="title">
-        Wilford Woodruff's Wives and Children | {{ config('app.name') }}
+        Family | {{ config('app.name') }}
     </x-slot>
 
     <x-banner-image :image="asset('img/banners/people.png')"
@@ -13,7 +13,7 @@
 
             <div class="page-title">Recognize Wilford's influence in the lives of the individuals he interacted with</div>
 
-            <h2 class="section-title">Wilford Woodruff's Wives and Children</h2>
+            <h2 class="section-title">Family</h2>
 
             <div class="py-4 px-6" x-data="{
                                         flyoutOpen: null

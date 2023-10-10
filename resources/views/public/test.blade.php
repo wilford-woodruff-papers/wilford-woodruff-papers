@@ -365,7 +365,7 @@
 
                                     <a href="https://wilfordwoodruffpapers.org/wives-and-children"
                                        class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
-                                        Wilford Woodruff's Wives and Children
+                                        Family
                                     </a>
                                 </div>
                             </div>
