@@ -305,7 +305,7 @@ class ImportItemFromFtp implements ShouldQueue
         $links = $transcript->matchAll('/<a.*?<\/a>/s');
 
         foreach ($links as $link) {
-            $title = str($link)->match("/(?<=title=['\"])(.*?)(?=['\"])/s");
+            $title = str($link)->match('/(?<=title=["])(.*?)(?=["])/s');
             $text = str($link)->match("/(?<=>)(.*?)(?=<\/a>)/s");
             $transcript = $transcript->replace(
                 $link,

@@ -47,6 +47,12 @@ To start Meilisearch, run the following command to start Meilisearch in a Docker
 docker run -it --rm --name=meilisearch -p 7700:7700 -v ~/code/meilisearch/meili_data:/meili_data getmeili/meilisearch:v1.3 meilisearch --master-key="6DWfC5xQuDulEUhYjGGwVAS00tpZxKlPpc71Fkpr2CQ"
 ```
 
+To start Qdrant, run the following command to start Qdrant in a Docker container
+
+``` 
+docker run -it --rm --name=qdrant -d -p 6333:6333 -v ~/code/qdrant_storage:/qdrant/storage:z qdrant/qdrant
+```
+
 ### Using Sail
 
 Sail is a fully configured Docker environment for Laravel.
