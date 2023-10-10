@@ -230,7 +230,7 @@
                                                                                 {{ data_get($hit, 'display_date') }}
                                                                             </p>
                                                                             <p class="line-clamp-1">
-                                                                                {{ str($hit['name'])->limit(40, '...') }}
+                                                                                {{ str($hit['name'])->removeSubjectTags()->limit(40, '...') }}
                                                                             </p>
                                                                         </div>
                                                                     </div>
