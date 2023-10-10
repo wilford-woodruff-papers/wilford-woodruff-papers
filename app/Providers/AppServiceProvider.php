@@ -33,6 +33,8 @@ class AppServiceProvider extends ServiceProvider
         Stringable::macro('addSubjectLinks', app(AddSubjectLinks::class)());
         Str::macro('addScriptureLinks', app(\App\Macros\Str\AddScriptureLinks::class)());
         Stringable::macro('addScriptureLinks', app(\App\Macros\Stringable\AddScriptureLinks::class)());
+        Str::macro('removeSubjectTags', app(\App\Macros\Str\RemoveSubjectTags::class)());
+        Stringable::macro('removeSubjectTags', app(\App\Macros\Stringable\RemoveSubjectTags::class)());
         Stringable::macro('removeQZCodes', app(RemoveQZCodes::class)());
         Stringable::macro('stripBracketedID', app(StripBracketedID::class)());
         Str::macro('stripLanguageTag', app(\App\Macros\Str\StripLanguageTag::class)());
