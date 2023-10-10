@@ -360,7 +360,7 @@
                                 <div>
                                     <a href="https://wilfordwoodruffpapers.org/people"
                                        class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
-                                        People Mentioned in Wilford Woodruff's Papers
+                                        People Included in Wilford Woodruff's Papers
                                     </a>
 
                                     <a href="https://wilfordwoodruffpapers.org/wives-and-children"
