@@ -4,7 +4,7 @@
     </x-slot>
 
     <x-banner-image :image="asset('img/banners/people.png')"
-                    :text="'Wilford Woodruff\'s Wives and Children'"
+                    :text="'Family'"
     />
 
     <div class="px-4 mx-auto max-w-7xl">
