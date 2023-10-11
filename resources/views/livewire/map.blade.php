@@ -36,11 +36,11 @@
                    <div class="mb-2 font-semibold border-b border-gray-200">
                        Date Range
                    </div>
-                   <div class="relative px-4 pt-3 pb-0 w-full"
+                   <div class="relative py-3 pb-0 w-full"
                         x-cloak
                    >
 
-                       <div>
+                       <div class="mx-4">
                            <input type="range"
                                   step="1"
                                   x-bind:min="min"
@@ -57,7 +57,7 @@
                                   x-on:input="maxtrigger"
                                   x-on:click.stop="updateLocations"
                                   x-model="maxyear"
-                                  class="absolute z-20 w-full h-2 opacity-0 appearance-none cursor-pointer pointer-events-none">
+                                  class="absolute z-20 pr-4 w-full h-2 opacity-0 appearance-none cursor-pointer pointer-events-none">
 
                            <div class="relative z-10 h-2">
 
@@ -78,10 +78,10 @@
 
                        <div class="flex gap-x-4 justify-between items-center pt-5 pb-2">
                            <div>
-                               <input type="text" maxlength="5" x-on:input="mintrigger" x-model="minyear" class="py-2 px-3 w-24 text-center rounded border border-gray-200">
+                               <input type="text" maxlength="4" x-on:input="mintrigger" x-model="minyear" class="py-1 px-1 w-12 text-sm text-center rounded border border-gray-200" readonly>
                            </div>
                            <div>
-                               <input type="text" maxlength="5" x-on:input="maxtrigger" x-model="maxyear" class="py-2 px-3 w-24 text-center rounded border border-gray-200">
+                               <input type="text" maxlength="4" x-on:input="maxtrigger" x-model="maxyear" class="py-1 px-1 w-12 text-sm text-center rounded border border-gray-200" readonly>
                            </div>
                        </div>
 
