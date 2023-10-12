@@ -36,6 +36,9 @@ Route::middleware([])->group(function () {
 
     });
 
+    Route::get('ftp/redirect', \App\Http\Controllers\FtpRedirectController::class)
+        ->name('ftp.redirect');
+
     Route::get('language/{locale}', function ($locale) {
         app()->setLocale($locale);
         session()->put('locale', $locale);
