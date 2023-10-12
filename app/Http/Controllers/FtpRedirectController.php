@@ -35,6 +35,9 @@ class FtpRedirectController extends Controller
                 ->before('?')
                 ->before('/');
             $subject = Subject::query()
+                ->with([
+                    'category',
+                ])
                 ->where('subject_uri', 'LIKE', '%/article/'.$subjectId)
                 ->firstOrFail();
 
@@ -53,11 +56,20 @@ class FtpRedirectController extends Controller
                     default => route('home')
                 };
             case 'subject':
-                return match ($route) {
-                    'public' => redirect()->route('subjects.show', ['subject' => $params[$type]->slug]),
-                    'research' => redirect()->route('admin.dashboard.people.edit', ['item' => $params[$type]->slug]),
-                    default => route('home')
-                };
+                if (in_array('People', $params[$type]->category->pluck('name')->values())) {
+                    return match ($route) {
+                        'public' => redirect()->route('subjects.show', ['subject' => $params[$type]->slug]),
+                        'research' => redirect()->route('admin.dashboard.people.edit', ['person' => $params[$type]->slug]),
+                        default => route('home')
+                    };
+                } elseif (in_array('Places', $params[$type]->category->pluck('name')->values())) {
+                    return match ($route) {
+                        'public' => redirect()->route('subjects.show', ['subject' => $params[$type]->slug]),
+                        'research' => redirect()->route('admin.dashboard.places.edit', ['place' => $params[$type]->slug]),
+                        default => route('home')
+                    };
+                }
+
         }
 
     }
