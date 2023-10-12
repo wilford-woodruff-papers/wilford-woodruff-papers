@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
 use App\Models\Page;
 use App\Models\Subject;
 use Illuminate\Http\Request;
@@ -16,6 +17,16 @@ class FtpRedirectController extends Controller
      */
     public function __invoke(Request $request)
     {
+        if ($request->has('item_id')) {
+            $itemId = str($request->get('item_id'))
+                ->before('/');
+            $item = Item::query()
+                ->where('ftp_slug', $itemId)
+                ->firstOrFail();
+
+            return $this->getRoute('item', $request->get('view'), ['item' => $item]);
+        }
+
         if ($request->has('page_id')) {
             $pageId = str($request->get('page_id'))
                 ->before('?')
@@ -48,6 +59,13 @@ class FtpRedirectController extends Controller
     private function getRoute($type, $route, $params = [])
     {
         switch ($type) {
+            case 'item':
+                return match ($route) {
+                    'public' => redirect()->route('short-url.item', ['hashid' => $params[$type]->hashid()]),
+                    'tasks' => redirect()->route('admin.dashboard.document', ['item' => $params[$type]->uuid]),
+                    'research' => redirect()->route('admin.dashboard.document.edit', ['item' => $params[$type]->uuid]),
+                    default => route('home')
+                };
             case 'page':
                 return match ($route) {
                     'public' => redirect()->route('short-url.page', ['hashid' => $params[$type]->hashid()]),
