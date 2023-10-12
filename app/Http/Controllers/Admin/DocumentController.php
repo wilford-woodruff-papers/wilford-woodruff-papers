@@ -109,6 +109,8 @@ class DocumentController extends Controller
      */
     public function show(Item $item)
     {
+        abort_unless(auth()->user()->hasAnyRole(['Editor', 'Researcher', 'Admin', 'Super Admin']), 403, 'You are not authorized to edit this document.');
+
         /*$item->load(['actions' => function($query){
             return $query->whereNotNull('actions.completed_at');
         }], ['actions.assignee' => function($query){
@@ -139,6 +141,8 @@ class DocumentController extends Controller
      */
     public function edit(Item $item): View
     {
+        abort_unless(auth()->user()->hasAnyRole(['Researcher', 'Admin', 'Super Admin']), 403, 'You are not authorized to edit this document.');
+
         $item->load([
             'values',
         ]);

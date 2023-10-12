@@ -224,6 +224,8 @@ class PeopleController extends Controller
      */
     public function edit(Subject $person)
     {
+        abort_unless(auth()->user()->hasAnyRole(['Researcher', 'Bio Editor', 'Bio Admin', 'Quote Tagging', 'Approve Quotes', 'Admin', 'Super Admin']), 403, 'You are not authorized to edit this person.');
+
         return view('admin.dashboard.people.edit', [
             'person' => $person,
             'researchers' => User::query()
