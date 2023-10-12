@@ -56,13 +56,13 @@ class FtpRedirectController extends Controller
                     default => route('home')
                 };
             case 'subject':
-                if (in_array('People', $params[$type]->category->pluck('name')->values())) {
+                if (in_array('People', $params[$type]->category->pluck('name')->values()->toArray())) {
                     return match ($route) {
                         'public' => redirect()->route('subjects.show', ['subject' => $params[$type]->slug]),
                         'research' => redirect()->route('admin.dashboard.people.edit', ['person' => $params[$type]->slug]),
                         default => route('home')
                     };
-                } elseif (in_array('Places', $params[$type]->category->pluck('name')->values())) {
+                } elseif (in_array('Places', $params[$type]->category->pluck('name')->values()->toArray())) {
                     return match ($route) {
                         'public' => redirect()->route('subjects.show', ['subject' => $params[$type]->slug]),
                         'research' => redirect()->route('admin.dashboard.places.edit', ['place' => $params[$type]->slug]),
