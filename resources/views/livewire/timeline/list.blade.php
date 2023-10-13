@@ -100,7 +100,7 @@
                             @if(count($monthEvents) > 0)
                                 <div>
                                     @foreach($monthEvents as $event)
-                                        <div id="{{ data_get($event, 'id') }}"
+                                        <div id="{{ str(data_get($event, 'id'))->replace('_', '-') }}"
                                              class="group">
                                             <div class="grid grid-cols-5 gap-x-8 py-4 h-24 group-hover:hidden light">
                                                 <div class="">

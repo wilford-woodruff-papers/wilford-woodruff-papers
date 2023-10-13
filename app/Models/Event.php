@@ -216,7 +216,7 @@ class Event extends Model implements HasMedia
             'is_published' => true,
             'resource_type' => 'Timeline',
             'type' => $this->group,
-            'url' => route('timeline').'#event-'.$this->id,
+            'url' => route('timeline', ['view' => 'list']).'#event-'.$this->id,
             'thumbnail' => $this->thumbnail_url,
             'name' => $this->text,
             'description' => '',
