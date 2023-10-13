@@ -212,7 +212,7 @@
                                                                     ]
                                                                 } : null"
                                                              class="relative h-10 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600"
-                                                             id="event_{{ $hit['id'] }}"
+                                                             id="{{ str($hit['id'])->replace('_', '-') }}"
                                                         >
                                                             <div @class([
                                                                     'absolute w-[22rem] text-sm font-normal bg-white hover:z-10 drop-shadow-md',
