@@ -4,20 +4,20 @@
             <div class="space-y-12">
                 <div class="grid grid-cols-1 gap-x-8 gap-y-10 pb-12 md:grid-cols-2">
                     <div class="flex flex-col gap-x-8">
-                        <img src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/giveaway-webpage-2.png"
+                        <img src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/giveaway.png"
                              class="p-4 w-full h-auto"
-                             alt="Private Reception preceding the Development of Temple Doctrine Fireside on October 8, 2023"
+                             alt="Giveaway on October 13th, 2023"
                         />
-                        <div class="grid grid-cols-2 items-center">
-                            <div class="pl-8 text-center sm:pl-12">
+                        <div class="grid grid-cols-1 items-center">
+                            {{--<div class="pl-8 text-center sm:pl-12">
                                 <a href="https://airauctioneer.com/wilford-woodruff-project-art-auction"
                                    class="py-3 px-6 text-sm font-semibold text-white shadow-sm bg-secondary hover:bg-secondary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-600"
                                    target="_blank"
                                 >
                                     Buy Now
                                 </a>
-                            </div>
-                            <div class="pr-8 text-center sm:pr-12">
+                            </div>--}}
+                            <div class="text-center">
                                 <a href="https://wilfordwoodruffpapers.org/wilford-woodruffs-witness"
                                    class="py-3 px-6 text-sm font-semibold text-white shadow-sm bg-secondary hover:bg-secondary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-600"
                                    target="_blank"
