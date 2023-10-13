@@ -185,4 +185,23 @@
             </div>
         @endforeach
     </div>
+    @push('scripts')
+        <script>
+            window.addEventListener('load', event => {
+                let hash = window.location.hash.substring(1);
+                if(hash){
+                    let element = document.getElementById(hash)
+                    if(element){
+                        window.scrollTo({
+                            top: (element.offsetTop + 200),
+                            behavior: 'smooth',
+                        });
+                        element.children[0].classList.add('hidden');
+                        element.children[1].classList.add('grid');
+                        element.children[1].classList.remove('hidden');
+                    }
+                }
+            });
+        </script>
+    @endpush
 </div>
