@@ -275,7 +275,9 @@
         <script src="https://vjs.zencdn.net/7.19.2/video.min.js"></script>
         @if($showPress)
             <script>
-                Livewire.emit( 'openModal', 'press-modal', {"press": '{{ $showPress }}' });
+                window.addEventListener('load', event => {
+                    Livewire.emit( 'openModal', 'press-modal', {'press': '{{ $showPress }}'});
+                });
             </script>
         @endif
     @endpush
