@@ -24,7 +24,7 @@ class GiveawayRegistrationController extends Controller
         $validated = $request->validated();
 
         $eventRegistration = EventRegistration::make($validated);
-        $eventRegistration->event_name = 'St. George Giveaway';
+        $eventRegistration->event_name = 'Friday 13th Giveaway';
 
         if ($request->has('fields')) {
             foreach ($request->get('fields') as $key => $value) {
