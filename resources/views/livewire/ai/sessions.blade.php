@@ -37,7 +37,7 @@
         </thead>
         <tbody class="bg-white">
             @foreach($sessions as $session)
-                <tr class="border-t border-gray-200">
+                <tr class="border-t border-gray-200" id="session-{{ $session->session_id }}">
                     <th colspan="4" scope="colgroup" class="py-2 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 bg-gray-50 sm:pl-3">
                         {{ $session->session_id }}
                     </th>
@@ -46,7 +46,7 @@
                     </th>
                 </tr>
                 @foreach($session->questions as $question)
-                    <tr class="border-t border-gray-300">
+                    <tr class="border-t border-gray-300" id="question-{{ $question->id }}">
                         <td class="py-4 pr-3 pl-4 text-sm font-medium text-gray-700 whitespace-nowrap sm:pl-3"></td>
                         <td class="py-4 pr-3 pl-4 text-lg font-medium text-gray-700 sm:pl-3">
                             {{ $question->question }}
