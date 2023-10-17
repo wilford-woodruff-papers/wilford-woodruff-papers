@@ -189,14 +189,18 @@
                                         <div href="#" class="py-4 px-6 space-x-2 text-sm leading-5">
                                             {{--<x-icon.cash class="text-cool-gray-400"/>--}}
 
-                                            <p class="flex gap-x-1 items-center w-96 text-cool-gray-600">
-                                                <x-icon.status :status="$item->enabled"/>
-                                                <a class="font-medium text-indigo-600 break-word"
-                                                   href="{{ route('admin.dashboard.document.edit', ['item' => $item]) }}"
-                                                   target="_blank">
-                                                    {{ str($item->name)->replace('_', ' ') }}
-                                                </a>
-                                            </p>
+                                            <div class="flex gap-x-1 items-center w-96 text-cool-gray-600">
+                                                <div class="">
+                                                    <x-icon.status :status="$item->enabled"/>
+                                                </div>
+                                                <div class="">
+                                                    <a class="font-medium text-indigo-600 break-word"
+                                                       href="{{ route('admin.dashboard.document.edit', ['item' => $item]) }}"
+                                                       target="_blank">
+                                                        {{ str($item->name)->replace('_', ' ') }}
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </x-admin.quotes.cell>
