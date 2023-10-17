@@ -23,28 +23,33 @@ class ProgressGraphic extends Component
                     })
                     ->count(),
                 'identified' => Item::query()
-                        ->where(function ($query) {
-                            $query->where('auto_page_count', '<=', 0)
-                                ->orWhereNull('auto_page_count');
-                        })
-                        ->sum('manual_page_count')
+                    ->whereNotNull('type_id')
+                    ->whereDoesntHave('items')
+                    ->where(function ($query) {
+                        $query->where('auto_page_count', '<=', 0)
+                            ->orWhereNull('auto_page_count');
+                    })
+                    ->sum('manual_page_count')
                     + Item::query()
                         ->where('missing_page_count', '>', 0)
                         ->sum('missing_page_count'),
                 'in_progress' => Page::query()
-                        ->whereHas('item', function ($query) {
-                            $query->where('enabled', false)
-                                ->whereNotNull('type_id')
-                                ->whereNotNull('ftp_slug');
-                        })->count(),
+                    ->whereHas('item', function ($query) {
+                        $query->where('enabled', false)
+                            ->whereNotNull('type_id')
+                            ->whereNotNull('ftp_slug');
+                    })->count(),
                 'total_found' => Item::query()
-                        ->where(function ($query) {
-                            $query->where('auto_page_count', '<=', 0)
-                                ->orWhereNull('auto_page_count');
-                        })
-                        ->sum('manual_page_count')
+                    ->whereNotNull('type_id')
+                    ->whereDoesntHave('items')
+                    ->where(function ($query) {
+                        $query->where('auto_page_count', '<=', 0)
+                            ->orWhereNull('auto_page_count');
+                    })
+                    ->sum('manual_page_count')
                     + Item::query()
                         ->whereNotNull('type_id')
+                        ->whereDoesntHave('items')
                         ->where('auto_page_count', '>', 0)
                         ->sum('auto_page_count')
                     + Item::query()
