@@ -18,6 +18,7 @@ use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
+use Wildside\Userstamps\Userstamps;
 
 class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortable
 {
@@ -26,6 +27,7 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
     use KeepsDeletedModels;
     use LogsActivity;
     use Searchable;
+    use Userstamps;
 
     protected $guarded = ['id'];
 
