@@ -108,8 +108,14 @@ class Item extends Resource
             MorphToMany::make(__('Events'))
                 ->hideFromIndex(),
             BelongsTo::make('Item')
-                ->nullable()
-                ->sortable(),
+                ->searchable()
+                ->nullable(),
+            BelongsTo::make('Created By', 'creator', User::class)
+                ->readonly(true)
+                ->nullable(),
+            BelongsTo::make('Updated By', 'editor', User::class)
+                ->readonly(true)
+                ->nullable(),
         ];
     }
 
