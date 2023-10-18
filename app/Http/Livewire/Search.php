@@ -111,6 +111,10 @@ class Search extends Component
                 'name',
                 'description',
             ],
+            'attributesToCrop' => [
+                'description',
+            ],
+            'cropLength' => 70,
             'sort' => [(array_key_first($this->sort) ?? 'name').':'.($this->sort[array_key_first($this->sort)] ?? 'asc')],
             'hitsPerPage' => $this->hitsPerPage,
             'page' => $this->page,
