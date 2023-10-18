@@ -170,6 +170,7 @@ class Search extends Component
             'next' => min($result->getTotalPages(), $result->getPage() + 1),
             'last' => $result->getTotalPages(),
             'total' => $result->getTotalHits(),
+            'totalPages' => $result->getTotalPages(),
         ])
             ->layout('layouts.guest', ['title' => 'Search']);
     }
