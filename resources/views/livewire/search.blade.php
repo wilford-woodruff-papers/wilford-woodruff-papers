@@ -329,7 +329,7 @@
                                         <div class="relative group">
                                             <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
                                                 <span class="absolute inset-0"></span>
-                                                {!! data_get($hit, '_formatted.name') !!}
+                                                {!! str(data_get($hit, '_formatted.name'))->remove('[[')->remove(']]') !!}
                                             </h3>
                                             <div class="mt-5 text-sm leading-6 text-gray-600 line-clamp-3">
                                                 {!! str(data_get($hit, '_formatted.description'))->remove('[[')->remove(']]') !!}
@@ -398,7 +398,7 @@
                                             @includeFirst(['search.'.str(data_get($hit, 'resource_type'))->snake(), 'search.generic'])
                                         @endif
                                         <span class="text-lg font-medium capitalize text-secondary">
-                                            {!! data_get($hit, '_formatted.name') !!}
+                                            {!! str(data_get($hit, '_formatted.name'))->remove('[[')->remove(']]') !!}
                                         </span>
                                     </div>
 
