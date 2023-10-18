@@ -11,9 +11,21 @@
             </button>
         @endif
 
-        <span class="inline-flex relative items-center py-2 px-4 text-sm font-medium leading-5 text-gray-500 bg-white cursor-default">
-            Page {{ $page }}
-        </span>
+        <div class="flex items-center">
+            <span class="inline-flex relative items-center py-2 px-1 text-sm font-medium leading-5 text-gray-500 bg-white cursor-default">
+                Page
+            </span>
+            <span class="inline-flex relative items-center py-2 text-sm font-medium leading-5 text-gray-500 bg-white cursor-default">
+                {{ $page }}
+            </span>
+            <span class="inline-flex relative items-center py-2 px-1 text-sm font-medium leading-5 text-gray-500 bg-white cursor-default">
+                of
+            </span>
+            <span class="inline-flex relative items-center py-2 text-sm font-medium leading-5 text-gray-500 bg-white cursor-default">
+                {{ number_format($totalPages, 0, '.', ',') }}
+            </span>
+        </div>
+
 
         {{-- Next Page Link --}}
         @if ($page < $last)
