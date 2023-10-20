@@ -99,9 +99,10 @@ class Event extends Model implements HasMedia
 
     public function places()
     {
-        return $this->belongsToMany(Subject::class, 'event_subject')->whereHas('category', function ($query) {
-            $query->where('name', 'Places');
-        });
+        return $this->belongsToMany(Subject::class, 'event_subject')
+            ->whereHas('category', function ($query) {
+                $query->where('name', 'Places');
+            });
     }
 
     public function registerMediaConversions(Media $media = null): void
@@ -210,9 +211,23 @@ class Event extends Model implements HasMedia
 
     public function toSearchableArray(): array
     {
+        $geo = null;
+        $location = null;
+        $this->loadMissing([
+            'places',
+        ]);
+        if ($place = $this->places()?->first()) {
+
+            $geo = [
+                'lat' => (float) $place->latitude,
+                'lng' => (float) $place->longitude,
+            ];
+            $location = $place->name;
+            logger()->info($geo);
+        }
 
         return [
-            'id' => 'event_'.$this->id,
+            'id' => 'event_'.$this->getKey(),
             'is_published' => true,
             'resource_type' => 'Timeline',
             'type' => $this->group,
@@ -230,6 +245,11 @@ class Event extends Model implements HasMedia
                     'url' => addslashes(route('short-url.page', ['hashid' => $page->hashid()])),
                 ];
             }),
+            '_geo' => [
+                'lat' => $geo['lat'] ?? null,
+                'lng' => $geo['lng'] ?? null,
+            ],
+            //            'place' => $location,
         ];
     }
 
@@ -244,6 +264,7 @@ class Event extends Model implements HasMedia
             'photos',
             'media',
             'pages',
+            'places',
         ]);
     }
 

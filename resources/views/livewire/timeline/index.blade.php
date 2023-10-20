@@ -33,7 +33,7 @@
                 view = 'list';
                 filtersOpen = false;
             }else{
-                console.log('Is not Mobile');
+                // console.log('Is not Mobile');
             }
             if (view == 'map') {
                 setTimeout(() => {
@@ -212,24 +212,51 @@
                     .addTo(map);
 
                 var pruneCluster = new PruneClusterForLeaflet();
+                pruneCluster.RemoveMarkers();
+                pruneCluster.ProcessView();
 
+                @foreach($years as $year => $months)
+                    @if($months->filter(function($month){
+                            return count($month) > 0;
+                        })->count() > 0)
+                        @foreach($months as $month => $monthEvents)
+                            @if(count($monthEvents) > 0)
+                                @foreach($monthEvents as $event)
+                                    @if(! empty(data_get($event, '_geo')))
+                                        var marker = new PruneCluster.Marker({{ data_get($event, '_geo.lat') }}, {{ data_get($event, '_geo.lng') }});
 
-                fetch("{{ route('map.locations') }}")
-                    .then(response => response.json())
-                    .then(data => {
-                        data.forEach(point => {
-                            /*var marker = L.marker([point.latitude, point.longitude])
-                                .bindPopup(`<a href="${point.url}" target="_blank" class="!text-secondary"><b>${point.name}</b></a><br>${point.description}`)
-                                .openPopup();*/
-                            var marker = new PruneCluster.Marker(point.latitude, point.longitude);
-                            marker.data.popup = `<button onclick="Livewire.emit('openPanel', 'Related Documents', ${point.id}, 'location')" class="!text-secondary"><b>${point.name}</b></button><br>${point.description}`;
-                            pruneCluster.RegisterMarker(marker);
-                            //markers.addLayer(marker);
-                        });
+                                        marker.data.popup = `<button
+                                                onclick="Livewire.emit('openPanel', 'Related Documents', {{ data_get($event, 'id') }}, 'location')"
+                                                class="!text-secondary"><b>{{ data_get($event, 'place') }}</b></button><br><img src="{{ str(data_get($event, 'thumbnail')) }}" alt="" class="m-auto mt-2 w-28 h-auto"/><br>{{ str(data_get($event, 'name'))->removeSubjectTags() }}`;
 
-                        map.addLayer(pruneCluster);
-                    })
-                    .catch(error => console.error('Error fetching data: ', error));
+                                        pruneCluster.RegisterMarker(marker);
+
+                                    @endif
+                                @endforeach
+                            @endif
+                        @endforeach
+                    @endif
+                @endforeach
+
+                map.addLayer(pruneCluster);
+                pruneCluster.ProcessView();
+
+                {{--fetch("{{ route('map.locations') }}")--}}
+                {{--    .then(response => response.json())--}}
+                {{--    .then(data => {--}}
+                {{--        data.forEach(point => {--}}
+                {{--            /*var marker = L.marker([point.latitude, point.longitude])--}}
+                {{--                .bindPopup(`<a href="${point.url}" target="_blank" class="!text-secondary"><b>${point.name}</b></a><br>${point.description}`)--}}
+                {{--                .openPopup();*/--}}
+                {{--            var marker = new PruneCluster.Marker(point.latitude, point.longitude);--}}
+                {{--            marker.data.popup = `<button onclick="Livewire.emit('openPanel', 'Related Documents', ${point.id}, 'location')" class="!text-secondary"><b>${point.name}</b></button><br>${point.description}`;--}}
+                {{--            pruneCluster.RegisterMarker(marker);--}}
+                {{--            //markers.addLayer(marker);--}}
+                {{--        });--}}
+
+                {{--        map.addLayer(pruneCluster);--}}
+                {{--    })--}}
+                {{--    .catch(error => console.error('Error fetching data: ', error));--}}
             }
         </script>
     @endpush
