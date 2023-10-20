@@ -132,6 +132,7 @@ class IndexContentToMeilisearchCommand extends Command
                 'media',
                 'photos',
                 'pages',
+                'places',
             ])
             ->chunkById($this->chunkSize, function (Collection $items) use (&$count) {
                 $items->searchable();

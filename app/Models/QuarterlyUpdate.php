@@ -22,6 +22,11 @@ class QuarterlyUpdate extends Update implements HasMedia
 
     public function getPrimaryImageUrlAttribute()
     {
-        return \Illuminate\Support\Facades\Storage::disk('updates')->url($this->primary_image);
+        if (! empty($this->primary_image)) {
+            return \Illuminate\Support\Facades\Storage::disk('updates')
+                ->url($this->primary_image);
+        }
+
+        return null;
     }
 }
