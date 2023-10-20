@@ -4,7 +4,6 @@
     $modelNamePlural = $modelName->plural();
 @endphp
 <div>
-    @ray($model::query()->inRandomOrder()->first())
     <p class="text-lg font-semibold">
         Example Response
     </p>
