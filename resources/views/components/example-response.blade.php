@@ -12,7 +12,7 @@
         id: {{ $id }},
         loaded: false,
         get expanded() {
-            return this.active === this.id
+            return active === this.id
         },
         set expanded(value) {
             if(! this.loaded){
@@ -20,7 +20,7 @@
                 this.loaded = true;
             }
 
-            this.active = value ? this.id : null
+            active = value ? this.id : null
         },
     }" role="region" class="bg-white rounded-lg shadow">
         <h2>
