@@ -29,6 +29,7 @@ class DocumentController extends Controller
             ->with([
                 'type',
                 'firstPage',
+                'firstPage.media',
             ]);
 
         if ($request->has('types')) {
