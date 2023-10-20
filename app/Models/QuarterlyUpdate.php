@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Cache;
 use Parental\HasParent;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -28,5 +29,17 @@ class QuarterlyUpdate extends Update implements HasMedia
         }
 
         return null;
+    }
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::created(function (Press $press) {
+            Cache::forget('quarterly-update');
+        });
+        static::updated(function (Press $press) {
+            Cache::forget('quarterly-update');
+        });
     }
 }

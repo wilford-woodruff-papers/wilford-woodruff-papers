@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
@@ -33,5 +34,19 @@ class Announcement extends Model
     public function getRouteKeyName(): string
     {
         return 'slug';
+    }
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::created(function (Announcement $announcement) {
+            Cache::forget('top-announcements');
+            Cache::forget('bottom-announcements');
+        });
+        static::updated(function (Announcement $announcement) {
+            Cache::forget('top-announcements');
+            Cache::forget('bottom-announcements');
+        });
     }
 }
