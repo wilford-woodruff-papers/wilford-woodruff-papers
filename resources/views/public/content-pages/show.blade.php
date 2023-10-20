@@ -21,14 +21,22 @@
         $contentPage->body = Spatie\Regex\Regex::replace('/(?:<h2.*>)(.*)(?:<\/h2>)/', function (Spatie\Regex\MatchResult $result) {
             return str($result->result())->replace('h2', 'h2 id="'.str($result->group(1))->slug().'"');
         }, $contentPage->body ?? '')->result();
+
+        /*
+        Use to track which heading is currently active
+         x-intersect.half="id = \''.str($result->group(1))->slug().'\'"
+        */
     @endphp
-    <div class="my-12 mx-auto max-w-7xl">
+    <div {{--x-data="{
+            id: '{{ str(collect($headings)->filter(fn($item) => ! empty($item))->first()->group(1))->slug() ?? '' }}',
+        }"--}}
+         class="my-12 mx-auto max-w-7xl">
         <div class="grid grid-cols-5 gap-x-4">
             @if(count($headings) > 0)
                 <div class="col-span-5 md:col-span-1">
-                    <div class="hidden sticky top-10 md:block">
-                        <nav class="flex flex-col flex-1 px-2" aria-label="Sidebar">
-                            <div class="py-2 mb-2 text-lg font-semibold border-b border-gray-200">
+                    <div class="hidden sticky top-10 md:block bg-accent-500">
+                        <nav class="flex flex-col flex-1 px-2 pb-2" aria-label="Sidebar">
+                            <div class="py-2 mb-2 text-lg font-semibold border-b border-gray-400">
                                 Contents
                             </div>
                             <ul role="list" class="pl-2 -mx-2 space-y-1">
@@ -36,7 +44,10 @@
                                     @if(! empty($heading->group(1)))
                                         <li>
                                             <a href="#{{ str($heading->group(1))->slug() }}"
-                                               class="flex gap-x-3 p-2 pl-3 text-sm font-semibold leading-6 hover:bg-gray-50 text-secondary group">
+                                               class="flex gap-x-3 p-2 pl-3 text-sm font-semibold leading-6 hover:bg-gray-50 group text-secondary"
+                                               x-on:click="id = '{{ str($heading->group(1))->slug() }}'"
+                                               {{--:class="id =='{{ str($heading->group(1))->slug() }}' ? 'text-secondary' : 'text-gray-700'"--}}
+                                            >
                                                 {{ $heading->group(1) }}
                                             </a>
                                         </li>
