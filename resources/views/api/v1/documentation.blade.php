@@ -8,6 +8,7 @@
 
     <div x-data="{
         id: 'introduction',
+        active: null,
         makeAPICall: function (url, id) {
         const options = {
                 headers: {
