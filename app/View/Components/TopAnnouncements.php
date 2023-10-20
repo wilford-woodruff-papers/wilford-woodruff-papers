@@ -3,6 +3,7 @@
 namespace App\View\Components;
 
 use App\Models\Announcement;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\View\Component;
 
 class TopAnnouncements extends Component
@@ -24,15 +25,17 @@ class TopAnnouncements extends Component
      */
     public function render()
     {
-        $now = now('America/Denver');
+        $announcements = Cache::remember('top-announcements', 3600, function () {
+            return Announcement::query()
+                ->where('type', 'homepage_top')
+                ->where('start_publishing_at', '<', now('America/Denver'))
+                ->where('end_publishing_at', '>', now('America/Denver'))
+                ->orderBy('end_publishing_at', 'ASC')
+                ->get();
+        });
 
         return view('components.announcements', [
-            'announcements' => Announcement::query()
-                                ->where('type', 'homepage_top')
-                                ->where('start_publishing_at', '<', $now)
-                                ->where('end_publishing_at', '>', $now)
-                                ->orderBy('end_publishing_at', 'ASC')
-                                ->get(),
+            'announcements' => $announcements,
             'position' => 'top',
         ]);
     }

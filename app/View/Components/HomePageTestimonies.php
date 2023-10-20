@@ -3,6 +3,7 @@
 namespace App\View\Components;
 
 use App\Models\Testimonial;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\View\Component;
 
 class HomePageTestimonies extends Component
@@ -25,13 +26,15 @@ class HomePageTestimonies extends Component
     public function render()
     {
         return view('components.home.testimonies', [
-            'testimonies' => Testimonial::query()
-                                            ->select('id', 'slug', 'name')
-                                            ->with('media')
-                                            ->has('media')
-                                            ->limit(8)
-                                            ->inRandomOrder()
-                                            ->get(),
+            'testimonies' => Cache::remember('testimonies', 3600, function () {
+                return Testimonial::query()
+                    ->select('id', 'slug', 'name')
+                    ->with('media')
+                    ->has('media')
+                    ->limit(8)
+                    ->inRandomOrder()
+                    ->get();
+            }),
         ]);
     }
 }
