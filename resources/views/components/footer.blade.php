@@ -20,7 +20,7 @@
                                            name="q"
                                            value="{{ request('q') }}"
                                            placeholder="Search website"
-                                           aria-label="Search website">              
+                                           aria-label="Search website">
                                 </div>
                                 <button class="inline-flex relative items-center py-2 px-4 -ml-px space-x-2 text-sm font-medium text-gray-700 bg-white hover:bg-gray-100 focus:ring-2 focus:outline-none">
                                     <svg class="w-5 h-5 text-secondary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

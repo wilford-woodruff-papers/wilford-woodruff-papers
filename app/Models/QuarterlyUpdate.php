@@ -35,10 +35,10 @@ class QuarterlyUpdate extends Update implements HasMedia
     {
         parent::boot();
 
-        static::created(function (Press $press) {
+        static::created(function (QuarterlyUpdate $update) {
             Cache::forget('quarterly-update');
         });
-        static::updated(function (Press $press) {
+        static::updated(function (QuarterlyUpdate $update) {
             Cache::forget('quarterly-update');
         });
     }
