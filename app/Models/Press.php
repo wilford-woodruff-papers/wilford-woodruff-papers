@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Scout\Searchable;
 use Parental\HasChildren;
@@ -31,12 +32,12 @@ class Press extends Model implements HasMedia
     public function comments()
     {
         return $this->morphMany(Comment::class, 'commentable')
-                        ->where(function (Builder $query) {
-                            $query->where('status', 1)
-                                    ->orWhere('user_id', Auth::id());
-                        })
-                        ->whereNull('parent_id')
-                        ->orderBy('created_at', 'DESC');
+            ->where(function (Builder $query) {
+                $query->where('status', 1)
+                    ->orWhere('user_id', Auth::id());
+            })
+            ->whereNull('parent_id')
+            ->orderBy('created_at', 'DESC');
     }
 
     public function authors()
@@ -126,5 +127,19 @@ class Press extends Model implements HasMedia
     public function searchableAs(): string
     {
         return app()->environment('production') ? 'resources' : 'dev-resources';
+    }
+
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::created(function (Press $press) {
+            Cache::forget('first-instagram');
+            Cache::forget('top-press');
+        });
+        static::updated(function (Press $press) {
+            Cache::forget('first-instagram');
+            Cache::forget('top-press');
+        });
     }
 }
