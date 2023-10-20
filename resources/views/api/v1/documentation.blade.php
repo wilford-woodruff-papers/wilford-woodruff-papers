@@ -1,4 +1,15 @@
 <x-app-layout>
+    @php
+        $item =  Cache::remember('example-item', 3600, function () {
+                    return \App\Models\Item::query()
+                            ->with([
+                                'firstPage',
+                            ])
+                            ->where('enabled', true)
+                            ->where('type_id', 4)
+                            ->first();
+                });
+    @endphp
     <x-slot name="title">Wilford Woodruff Papers API Documentation</x-slot>
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
@@ -305,7 +316,15 @@
                                                     <td class="px-4">types[]</td>
                                                     <td class="px-4 space-y-3">
                                                         <p>
-                                                            Should be an array of document types. Valid values are: {!!  \App\Models\Type::whereNull('type_id')->get()->pluck('name')->map(function($item){ return "<span class='px-0.5 bg-gray-300'>$item</span>"; })->join(', ', ', and ') !!}
+                                                            Should be an array of document types. Valid values are: {!!
+                                                            Cache::remember('types', 3600, function () {
+                                                                    return \App\Models\Type::query()
+                                                                        ->select('name')
+                                                                        ->whereNull('type_id')
+                                                                        ->orderBy('name')
+                                                                        ->get();
+                                                                })
+                                                                ->pluck('name')->map(function($item){ return "<span class='px-0.5 bg-gray-300'>$item</span>"; })->join(', ', ', and ') !!}
                                                         </p>
                                                         <p>
                                                             <code class="p-1 bg-gray-300">
@@ -398,7 +417,7 @@
                                             </table>
                                             <x-example-response :id="11"
                                                                 :model="new App\Models\Item"
-                                                                :url="route('docs.documents.show', ['item' => \App\Models\Item::where('enabled', true)->where('type_id', 4)->first()])"
+                                                                :url="route('docs.documents.show', ['item' => $item])"
                                             />
                                         </div>
                                     </div>
@@ -440,7 +459,14 @@
                                                     <td class="px-4">types[]</td>
                                                     <td class="px-4 space-y-3">
                                                         <p>
-                                                            Should be an array of document types. Valid values are: {!!  \App\Models\Type::whereNull('type_id')->get()->pluck('name')->map(function($item){ return "<span class='px-0.5 bg-gray-300'>$item</span>"; })->join(', ', ', and ') !!}
+                                                            Should be an array of document types. Valid values are: {!!  Cache::remember('types', 3600, function () {
+                                                                    return \App\Models\Type::query()
+                                                                        ->select('name')
+                                                                        ->whereNull('type_id')
+                                                                        ->orderBy('name')
+                                                                        ->get();
+                                                                })
+                                                                ->pluck('name')->map(function($item){ return "<span class='px-0.5 bg-gray-300'>$item</span>"; })->join(', ', ', and ') !!}
                                                         </p>
                                                         <p>
                                                             <code class="p-1 bg-gray-300">
@@ -527,7 +553,7 @@
                                             </table>
                                             <x-example-response :id="21"
                                                                 :model="new App\Models\Page"
-                                                                :url="route('docs.pages.show', ['page' => \App\Models\Item::where('enabled', true)->where('type_id', 4)->first()->firstPage])"
+                                                                :url="route('docs.pages.show', ['page' => $item->firstPage])"
                                             />
                                         </div>
                                     </div>
@@ -641,7 +667,14 @@
                                             </table>
                                             <x-example-response :id="31"
                                                                 :model="new App\Models\Subject"
-                                                                :url="route('docs.subjects.show', ['id' => App\Models\Subject::query()->inRandomOrder()->first()->id])"
+                                                                :url="route('docs.subjects.show', [
+                                                                    'id' => Cache::remember('example-subject', 3600, function () {
+                                                                        return App\Models\Subject::query()
+                                                                            ->inRandomOrder()
+                                                                            ->first()
+                                                                            ->id;
+                                                                    })
+                                                                  ])"
                                             />
                                         </div>
                                     </div>
@@ -790,9 +823,17 @@
                                             </table>
                                             <x-example-response :id="41"
                                                                 :model="new App\Models\Subject"
-                                                                :url="route('docs.people.show', ['id' => App\Models\Subject::query()->whereRelation('category', function ($query) {
-            $query->where('name', 'People');
-        })->inRandomOrder()->first()->id])"
+                                                                :url="route('docs.people.show', [
+                                                                'id' => Cache::remember('example-person', 3600, function () {
+                                                                    return App\Models\Subject::query()
+                                                                        ->select('id')
+                                                                        ->people()
+                                                                        ->inRandomOrder()
+                                                                        ->limit(1)
+                                                                        ->first()
+                                                                        ->id;
+                                                                    })
+                                                                ])"
                                             />
                                         </div>
                                     </div>
@@ -925,9 +966,17 @@
                                             </table>
                                             <x-example-response :id="51"
                                                                 :model="new App\Models\Subject"
-                                                                :url="route('docs.places.show', ['id' => App\Models\Subject::query()->whereRelation('category', function ($query) {
-            $query->where('name', 'Places');
-        })->inRandomOrder()->first()->id])"
+                                                                :url="route('docs.places.show', [
+                                                                'id' => Cache::remember('example-place', 3600, function () {
+                                                                        return App\Models\Subject::query()
+                                                                            ->select('id')
+                                                                            ->places()
+                                                                            ->inRandomOrder()
+                                                                            ->limit(1)
+                                                                            ->first()
+                                                                            ->id;
+                                                                        })
+                                                                    ])"
                                             />
                                         </div>
                                     </div>
@@ -1048,9 +1097,17 @@
                                             </table>
                                             <x-example-response :id="61"
                                                                 :model="new App\Models\Subject"
-                                                                :url="route('docs.topics.show', ['id' => App\Models\Subject::query()->whereRelation('category', function ($query) {
-            $query->where('name', 'Index');
-        })->inRandomOrder()->first()->id])"
+                                                                :url="route('docs.topics.show', [
+                                                                    'id' => Cache::remember('example-topic', 3600, function () {
+                                                                            return App\Models\Subject::query()
+                                                                                ->select('id')
+                                                                                ->index()
+                                                                                ->inRandomOrder()
+                                                                                ->limit(1)
+                                                                                ->first()
+                                                                                ->id;
+                                                                            })
+                                                                        ])"
                                             />
                                         </div>
                                     </div>
