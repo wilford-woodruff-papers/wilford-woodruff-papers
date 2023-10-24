@@ -175,8 +175,7 @@ class PeopleController extends Controller
             'nullable',
             Rule::requiredIf(($request->get('pid') !== 'n/a') && ! empty($request->get('pid'))),
             'max:191',
-            'required_with:pid_identified_at',
-            Rule::unique('subjects')->ignore($person->id),
+            'required_with:pid',
         ];
 
         $validated = $request->validate($this->rules);
@@ -284,8 +283,7 @@ class PeopleController extends Controller
             'nullable',
             Rule::requiredIf(($request->get('pid') !== 'n/a') && ! empty($request->get('pid'))),
             'max:191',
-            'required_with:pid_identified_at',
-            Rule::unique('subjects')->ignore($person->id),
+            'required_with:pid',
         ];
 
         $validated = $request->validate($this->rules);
