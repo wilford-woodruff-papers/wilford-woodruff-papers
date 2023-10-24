@@ -45,6 +45,15 @@ class ProgressGraphic extends Component
                 ->people()
                 ->whereNotNull('bio_completed_at')
                 ->count();
+            $known_people['pid'] = Subject::query()
+                ->people()
+                ->whereNotNull('pid')
+                ->count();
+            $known_people['incomplete_identification'] = Subject::query()
+                ->people()
+                ->where('incomplete_identification', 1)
+                ->count();
+
             $known_people['total'] = Subject::query()
                 ->people()
                 ->count();

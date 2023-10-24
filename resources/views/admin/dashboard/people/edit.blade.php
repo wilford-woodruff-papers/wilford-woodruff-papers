@@ -3,6 +3,9 @@
         x-data="{
             shadow: false,
             showSuccess: true,
+            tempPid: '',
+            pid: '{{ old('pid', $person->pid) }}',
+            pid_not_applicable: @if(empty(old('pid_not_applicable', $person->pid_not_applicable))) false @else {{ old('pid_not_applicable', $person->pid_not_applicable) }} @endif,
             incomplete_identification: @if(empty(old('incomplete_identification', $person->incomplete_identification))) false @else {{ old('incomplete_identification', $person->incomplete_identification) }} @endif,
             setResearcher: function(userid){
                 document.getElementById('researcher').value = userid;
@@ -11,7 +14,17 @@
                 document.getElementById(id).value = new Date().toISOString().slice(0, 10);
             }
         }"
-        x-init="setTimeout(() => showSuccess = false, 3000)"
+        x-init="
+            setTimeout(() => showSuccess = false, 3000);
+            $watch('pid_not_applicable', function(value){
+                if(value){
+                    tempPid = pid;
+                    pid = 'n/a';
+                } else {
+                    pid = tempPid;
+                }
+            });
+        "
     >
         <div class="px-4 pb-6 mx-auto max-w-screen-xl sm:px-6 lg:px-8 lg:pb-16">
             <div class="bg-white rounded-lg shadow">
@@ -218,18 +231,42 @@
                                         </div>
                                     @endif
                                 </div>
-                                <div class="col-span-3">
+                                <div class="col-span-2">
                                     <label for="pid"
                                            class="block text-sm font-medium text-gray-700"
                                     >
                                         <span class="font-semibold">PID</span>
                                     </label>
-                                    <input type="text"
+                                    <input x-model="pid"
+                                           type="text"
                                            name="pid"
                                            id="pid"
                                            value="{{ old('pid', $person->pid) }}"
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
+                                </div>
+                                <div class="col-span-1 h-full">
+                                    <label for="pid_not_applicable"
+                                           class="block text-sm font-medium text-gray-700"
+                                    >
+                                        <span class="font-semibold">PID N/A</span>
+                                    </label>
+                                    <div class="flex items-center h-10">
+                                        <input x-model="pid_not_applicable"
+                                               name="pid_not_applicable"
+                                               id="pid_not_applicable"
+                                               value="1"
+                                               type="checkbox"
+                                               @checked((old('pid_not_applicable', $person->pid_not_applicable)))
+                                               class="w-4 h-4 text-indigo-600 rounded border-gray-300 focus:ring-indigo-600"
+                                        />
+                                        <input id="pid_not_applicable"
+                                               name="pid_not_applicable"
+                                               type="hidden"
+                                               value="0"
+                                               :disabled="pid_not_applicable"
+                                        >
+                                    </div>
                                 </div>
                                 <div class="col-span-3">
                                     <label for="pid_identified_at"
