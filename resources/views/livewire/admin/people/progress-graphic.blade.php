@@ -41,42 +41,73 @@
                                         </dd>
                                     </div>
                                 @endforeach
-                                    <div class="flex flex-col gap-y-4 mx-auto max-w-xs">
-                                        <dt class="text-base leading-7 text-gray-600">Unknown People</dt>
-                                        <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
-                                            <a href="{{ route('admin.people.identification', ['filters[completed]' => 'true']) }}"
-                                               class="text-secondary"
-                                               target="_people"
-                                            >
-                                                {{ number_format($unknown_people['removed']) }}
-                                            </a>
-                                            /
-                                            <a href="{{ route('admin.people.identification', ['filters[completed]' => 'false']) }}"
-                                               class="text-secondary"
-                                               target="_people"
-                                            >
-                                                {{ number_format($unknown_people['total']) }}
-                                            </a>
-                                        </dd>
-                                    </div>
-                                    <div class="flex flex-col gap-y-4 mx-auto max-w-xs">
-                                        <dt class="text-base leading-7 text-gray-600">Identified People</dt>
-                                        <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
-                                            <a href="{{ route('admin.people.index', ['filters[approved]' => 'true']) }}"
-                                               class="text-secondary"
-                                               target="_people"
-                                            >
-                                                {{ number_format($known_people['bio_completed']) }}
-                                            </a>
-                                            /
-                                            <a href="{{ route('admin.people.index', ['filters[approved]' => 'false']) }}"
-                                               class="text-secondary"
-                                               target="_people"
-                                            >
-                                                {{ number_format($known_people['total']) }}
-                                            </a>
-                                        </dd>
-                                    </div>
+                                <div class="flex flex-col gap-y-4 mx-auto max-w-xs">
+                                    <dt class="text-base leading-7 text-gray-600">Unknown People</dt>
+                                    <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
+                                        <a href="{{ route('admin.people.identification', ['filters[completed]' => 'true']) }}"
+                                           class="text-secondary"
+                                           target="_people"
+                                        >
+                                            {{ number_format($unknown_people['removed']) }}
+                                        </a>
+                                        /
+                                        <a href="{{ route('admin.people.identification', ['filters[completed]' => 'false']) }}"
+                                           class="text-secondary"
+                                           target="_people"
+                                        >
+                                            {{ number_format($unknown_people['total']) }}
+                                        </a>
+                                    </dd>
+                                </div>
+                                <div class="flex flex-col gap-y-4 mx-auto max-w-xs">
+                                    <dt class="text-base leading-7 text-gray-600">Identified People</dt>
+                                    <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
+                                        <a href="{{ route('admin.people.index', ['filters[approved]' => 'true']) }}"
+                                           class="text-secondary"
+                                           target="_people"
+                                        >
+                                            {{ number_format($known_people['bio_completed']) }}
+                                        </a>
+                                        /
+                                        <a href="{{ route('admin.people.index', ['filters[approved]' => 'false']) }}"
+                                           class="text-secondary"
+                                           target="_people"
+                                        >
+                                            {{ number_format($known_people['total']) }}
+                                        </a>
+                                    </dd>
+                                </div>
+                                <div class="flex flex-col gap-y-4 mx-auto max-w-xs">
+                                    <dt class="text-base leading-7 text-gray-600">People with PID</dt>
+                                    <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
+                                        {{ number_format($known_people['pid']) }}
+                                        /
+                                        <a href="{{ route('admin.people.index') }}"
+                                           class="text-secondary"
+                                           target="_people"
+                                        >
+                                            {{ number_format($known_people['total']) }}
+                                        </a>
+                                    </dd>
+                                </div>
+                                <div class="flex flex-col gap-y-4 mx-auto max-w-xs">
+                                    <dt class="text-base leading-7 text-gray-600">Incomplete Identification</dt>
+                                    <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
+                                        <a href="{{ route('admin.people.index', ['filters[incomplete_identification]' => 'true']) }}"
+                                           class="text-secondary"
+                                           target="_people"
+                                        >
+                                            {{ number_format($known_people['incomplete_identification']) }}
+                                        </a>
+                                        /
+                                        <a href="{{ route('admin.people.index', ['filters[incomplete_identification]' => 'false']) }}"
+                                           class="text-secondary"
+                                           target="_people"
+                                        >
+                                            {{ number_format($known_people['total']) }}
+                                        </a>
+                                    </dd>
+                                </div>
                             </dl>
                         </div>
                    @endif

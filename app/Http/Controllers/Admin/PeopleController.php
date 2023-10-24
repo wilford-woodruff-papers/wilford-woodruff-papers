@@ -63,6 +63,10 @@ class PeopleController extends Controller
             'max:191',
             'required_with:pid',
         ],
+        'pid_not_applicable' => [
+            'sometimes',
+            'boolean',
+        ],
         'researcher_id' => [
             'nullable',
         ],
@@ -157,12 +161,22 @@ class PeopleController extends Controller
     {
         $person = new Subject();
 
-        $this->rules['pid'] = [
+        if ($request->get('pid') !== 'n/a') {
+            $this->rules['pid'] = [
+                'nullable',
+                'sometimes',
+                'max:191',
+                'required_with:pid_identified_at',
+                'unique:subjects,pid',
+            ];
+        }
+
+        $this->rules['pid_identified_at'] = [
             'nullable',
-            'sometimes',
+            Rule::requiredIf(($request->get('pid') !== 'n/a') && ! empty($request->get('pid'))),
             'max:191',
             'required_with:pid_identified_at',
-            'unique:subjects,pid',
+            Rule::unique('subjects')->ignore($person->id),
         ];
 
         $validated = $request->validate($this->rules);
@@ -256,9 +270,19 @@ class PeopleController extends Controller
      */
     public function update(Request $request, Subject $person)
     {
-        $this->rules['pid'] = [
+        if ($request->get('pid') !== 'n/a') {
+            $this->rules['pid'] = [
+                'nullable',
+                'sometimes',
+                'max:191',
+                'required_with:pid_identified_at',
+                Rule::unique('subjects')->ignore($person->id),
+            ];
+        }
+
+        $this->rules['pid_identified_at'] = [
             'nullable',
-            'sometimes',
+            Rule::requiredIf(($request->get('pid') !== 'n/a') && ! empty($request->get('pid'))),
             'max:191',
             'required_with:pid_identified_at',
             Rule::unique('subjects')->ignore($person->id),
