@@ -47,7 +47,7 @@
                                 Donate Online
                             </span>
                         </a>
-                        <a href="https://www.facebook.com/wilfordwoodruffpapersfoundation"
+                        {{--<a href="https://www.facebook.com/wilfordwoodruffpapersfoundation"
                            class="flex gap-x-4 justify-center items-center py-4 px-6 text-2xl border-2 hover:text-white text-secondary border-secondary hover:bg-secondary"
                            target="_blank"
                         >
@@ -56,7 +56,7 @@
                                 Facebook
                             </span>
 
-                        </a>
+                        </a>--}}
                         <a href="https://account.venmo.com/u/wilfordwoodruffpapers"
                            class="flex justify-center items-center py-0 px-6 text-2xl border-2 hover:text-white text-secondary border-secondary hover:bg-secondary"
                            target="_blank"
