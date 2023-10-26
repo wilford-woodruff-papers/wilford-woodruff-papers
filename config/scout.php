@@ -371,8 +371,8 @@ return [
             ],
             'dev-places' => [
                 'filterableAttributes' => [
-                    'types',
-                    'years',
+                    'type',
+                    'year',
                     '_geo',
                 ],
                 'sortableAttributes' => [

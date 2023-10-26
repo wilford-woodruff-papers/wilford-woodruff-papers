@@ -40,6 +40,7 @@
     "dependencies": {
         "@alpinejs/focus": "^3.10.2",
         "async": ">=2.6.4",
+        "collect.js": "^4.36.1",
         "laravel-vite-plugin": "^0.8.0",
         "puppeteer": "^17.1.3",
         "rangy": "^1.3.0",
