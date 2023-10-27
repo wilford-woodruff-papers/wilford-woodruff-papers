@@ -1,35 +1,18 @@
 <div x-data="map" class="">
     <div class="flex flex-col pb-6 md:flex-row aspect-[16/7]">
        <div class="relative w-full md:w-3/4">
-           <div x-show="loading"
-               class="flex absolute z-20 justify-center items-center w-full h-full bg-white opacity-50">
-               <div class="animate-ping">
-                   Loading...
-               </div>
-           </div>
            <div id="map"
                 class="z-10 w-full aspect-[16/9]"
                 wire:ignore
            ></div>
            <div class="flex absolute bottom-2 left-2 flex-col gap-y-2 py-1 px-2 bg-white shadow-2xl z-100">
                <div>
-                   <div class="flex gap-x-4 justify-between items-center mb-2 border-b border-gray-200">
-                       <div class="font-semibold">
-                           Document Type
-                       </div>
-                       <div x-on:click="reset()"
-                            class="flex gap-x-2 items-center cursor-pointer"
-                       >
-                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                               <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
-                           </svg>
-                           Reset
-                       </div>
+                   <div class="mb-2 font-semibold border-b border-gray-200">
+                       Document Type
                    </div>
-
                    <div class="grid grid-cols-2 px-2">
                        <template x-for="(count, type) in availableTypes" :key="'type-'+slugify(type)">
-                           <div class="flex relative items-start pr-2">
+                           <div class="flex relative items-start">
                                <div class="flex items-center h-6">
                                    <input x-model="types"
                                           x-bind:id="'type_'+slugify(type)"
@@ -62,7 +45,7 @@
                                   step="1"
                                   x-bind:min="min"
                                   x-bind:max="max"
-                                  x-on:input.throttle="mintrigger"
+                                  x-on:input="mintrigger"
                                   x-on:click.stop="updateLocations"
                                   x-model="minyear"
                                   class="absolute z-20 w-full h-2 opacity-0 appearance-none cursor-pointer pointer-events-none">
@@ -71,7 +54,7 @@
                                   step="1"
                                   x-bind:min="min"
                                   x-bind:max="max"
-                                  x-on:input.throttle="maxtrigger"
+                                  x-on:input="maxtrigger"
                                   x-on:click.stop="updateLocations"
                                   x-model="maxyear"
                                   class="absolute z-20 pr-4 w-full h-2 opacity-0 appearance-none cursor-pointer pointer-events-none">
@@ -115,9 +98,9 @@
                   <div class="sticky top-0 bg-white">
                       <div class="flex justify-between items-center pb-4">
                           <h2 class="text-xl font-semibold text-black">
-                              Locations (<span x-text="locations.count().toLocaleString('en-US')"></span>)
+                              Locations (<span x-text="locations.length.toLocaleString('en-US')"></span>)
                           </h2>
-                          <div x-on:click="reset()"
+                          <div x-on:click="map.setView([37.71859, -54.140625], 3)"
                                class="flex gap-x-2 items-center cursor-pointer"
                           >
                               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
@@ -138,10 +121,10 @@
                       />
                   </div>
                   <ul id="locations" class="divide-y divide-gray-200">
-                      <template x-for="(location, name) in locations.all()" :key="'location-'+location.first().id">
-                          <li x-show="name" x-on:click="setLocation(location.first().place)"
+                      <template x-for="location in locations" :key="'location-'+location.id">
+                          <li x-show="location.id" x-on:click="setLocation(location.id)"
                               class="py-1 cursor-pointer"
-                          ><span x-text="name" class="pr-1" ></span> (<span x-text="location.count().toLocaleString('en-US')"></span> Mentions)</li>
+                          ><span x-text="location.name" class="pr-1"></span> (<span x-text="location.usages.toLocaleString('en-US')"></span> Mentions)</li>
                       </template>
                   </ul>
               </div>
@@ -245,24 +228,17 @@
         </style>
     @endpush
     @push('scripts')
-        <script src='https://cdn.jsdelivr.net/npm/meilisearch@latest/dist/bundles/meilisearch.umd.js'></script>
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/prunecluster/2.1.0/PruneCluster.min.js" integrity="sha512-TIhw+s9KAwyAGM7n2qG2hM+lvQxja1Hieb3nS3F2y9AFEDImo6SNXoooqmajF/D5lMfriBIasQ6N+pizlF0wTA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script>
             document.addEventListener('alpine:init', () => {
                 Alpine.data('map', () => ({
-                    client: null,
-                    index: null,
-                    places: [],
                     view: 'locations',
-                    loading: true,
                     locations: [],
-                    places: [],
                     currentlocation: null,
                     documents: [],
                     currentDocument: null,
                     pages: [],
-                    filters: [],
                     reload: true,
                     q: '',
                     types: [],
@@ -273,93 +249,13 @@
                     max: '',
                     minthumb: 0,
                     maxthumb: 0,
-                    async searchJs() {
-                        this.loading = true;
-                        this.view = 'locations';
-
-                        const search = await this.index.search(this.q, {
-                            hitsPerPage: 100000,
-                            filter: this.buildFilter(),
-                        });
-
-                        this.places = collect(search.hits);
-
-                        this.populateYears();
-
-                        this.drawOnMap();
-
-                        this.populateTypes();
-
-                    },
-                    drawOnMap() {
-                        this.pruneCluster.RemoveMarkers();
-                        this.pruneCluster.ProcessView();
-                        // Add a filter fo type and years here
-                        visiblePlaces = this.places;
-
-                        if(this.types.length > 0){
-                            visiblePlaces = visiblePlaces.filter(item => this.types.includes(item.type));
-                        }
-                        visiblePlaces = visiblePlaces.filter(item => item.year >= this.minyear && item.year <= this.maxyear);
-
-                        visiblePlaces
-                            .groupBy('name')
-                            .each(place => {
-                                //this.places.push(hit);
-                                let hit = {};
-                                hit.usages = place.count();
-                                hit.name = (place.first()).name;
-                                hit.place = (place.first()).place;
-                                hit.latitude = (place.first())['_geo']['lat'];
-                                hit.longitude = (place.first())['_geo']['lng'];
-                                var marker = new PruneCluster.Marker((hit.latitude), (hit.longitude), {count: hit.usages});
-                                marker.data.popup = `<button x-on:click="setLocation(${hit.place})" class="!text-secondary"><b>${hit.name}</b> (${hit.usages.toLocaleString('en-US')})</button>`;
-                                marker.data.count = hit.usages;
-                                this.pruneCluster.RegisterMarker(marker);
-                            });
-
-                        this.locations = visiblePlaces
-                            .groupBy('name');
-
-                        this.loading = false;
-                        this.map.addLayer(this.pruneCluster);
-                        this.pruneCluster.ProcessView();
-                    },
-                    buildFilter(){
-                        this.filters = [];
-                        let geo = this.map.getBounds();
-                        this.filters.push(
-                            '_geoBoundingBox(['+this.preventOutOfBounds(geo._northEast.lat)+', '+this.preventOutOfBounds(geo._northEast.lng)+'], ['+this.preventOutOfBounds(geo._southWest.lat)+', '+this.preventOutOfBounds(geo._southWest.lng)+'])'
-                        );
-                        return this.filters;
-                    },
-                    populateTypes(){
-                        this.availableTypes = this.places
-                            .groupBy('type')
-                            .mapWithKeys(item => [item.first().type, item.count()])
-                            .all();
-                    },
-                    populateYears() {
-                        this.min = this.places
-                            .reject(value => value.year < 1700)
-                            .min('year');
-                        this.max = this.places
-                            .max('year');
-                        this.minyear = this.min;
-                        this.maxyear = this.max;
-                    },
                     init() {
-                        this.locations = collect([]);
-
-                        this.client = new MeiliSearch({
-                            host: "{{ config('scout.meilisearch.host') }}",
-                            apiKey: "{{ config('scout.meilisearch.search_key') }}"
-                        });
-
-                        this.index = this.client.index('{{ (app()->environment('production') ? 'places' : 'dev-places') }}');
+                        this.$watch('types', (value, oldValue) => this.updateLocations());
 
                         this.map = L.map('map')
                             .setView([37.71859, -54.140625], 3);
+
+                        let geo = this.map.getBounds();
 
                         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                             maxZoom: 19,
@@ -369,103 +265,6 @@
 
                         this.pruneCluster = new PruneClusterForLeaflet();
 
-                        this.configureMarkers();
-
-                        this.searchJs();
-
-                        this.$watch('types', (value, oldValue) => this.drawOnMap());
-
-                        this.map.on('moveend', (function() {
-                            if(this.reload){
-                                this.searchJs();
-                            }
-                            this.reload = true;
-                        }).bind(this));
-                    },
-                    reset() {
-                        this.map.setView([37.71859, -54.140625], 3);
-                        this.view = 'locations';
-                        this.currentlocation = null;
-                        this.filters = [];
-                        this.documents = [];
-                        this.currentDocument = null;
-                        this.pages = [];
-                        this.q = '';
-                        this.types = [];
-                        this.minyear = this.min;
-                        this.maxyear = this.max;
-                        this.minthumb = 0;
-                        this.maxthumb = 0;
-                        this.searchJs();
-                    },
-                    setLocation(id) {
-                        var l = this.places.firstWhere('place', id);
-                        this.reload = false;
-                        this.map.setZoomAround(L.latLng(l['_geo']['lat'], l['_geo']['lng']), 9, true);
-                        this.currentlocation = id;
-                        this.view = 'documents';
-                        fetch('{{ route('map.documents') }}?location=' + id + '&types='+this.types +'&min_year='+this.minyear+'&max_year='+this.maxyear)
-                            .then(response => response.json())
-                            .then(data => {
-                                this.documents = [];
-                                data.forEach(document => {
-                                    this.documents.push(document);
-                                });
-                            })
-                            .catch(error => console.error('Error fetching data: ', error));
-                    },
-                    setDocument(id) {
-                        this.currentDocument = id;
-                        this.pages = [];
-                        this.view = 'pages';
-                        fetch('{{ route('map.pages') }}?location=' + this.currentlocation + '&item=' + id)
-                            .then(response => response.json())
-                            .then(data => {
-                                this.pages = [];
-                                data.forEach( page => {
-                                    this.pages.push(page);
-                                });
-                            })
-                            .catch(error => console.error('Error fetching data: ', error));
-                    },
-                    updateLocations() {
-
-                    },
-                    search() {
-                        this.searchJs();
-                    },
-                    mintrigger() {
-                        this.minyear = Math.min(this.minyear, this.maxyear);
-                        this.minthumb = ((this.minyear - this.min) / (this.max - this.min)) * 100;
-                        this.drawOnMap();
-                    },
-                    maxtrigger() {
-                        this.maxyear = Math.max(this.maxyear, this.minyear);
-                        this.maxthumb = 100 - (((this.maxyear - this.min) / (this.max - this.min)) * 100);
-                        this.drawOnMap();
-                    },
-                    slugify(str) {
-                        return String(str)
-                            .normalize('NFKD') // split accented characters into their base characters and diacritical marks
-                            .replace(/[\u0300-\u036f]/g, '') // remove all the accents, which happen to be all in the \u03xx UNICODE block.
-                            .trim() // trim leading or trailing whitespace
-                            .toLowerCase() // convert to lowercase
-                            .replace(/[^a-z0-9 -]/g, '') // remove non-alphanumeric characters
-                            .replace(/\s+/g, '-') // replace spaces with hyphens
-                            .replace(/-+/g, '-'); // remove consecutive hyphens
-                    },
-                    preventOutOfBounds(number)
-                    {
-                        if (number <= -180) {
-                            return -180;
-                        }
-                        if (number >= 180) {
-                            return 180;
-                        }
-
-                        return number;
-                    },
-                    configureMarkers(){
                         this.pruneCluster.BuildLeafletClusterIcon = function(cluster) {
                             var c = 'prunecluster ';
                             var iconSize = 38;
@@ -538,6 +337,140 @@
                             );
                             leafletMarker.bindPopup(data.popup);
                         };
+
+                        fetch('{{ route('map.locations') }}?geo[southWest][lat]=' + geo._southWest.lat + '&geo[southWest][lng]=' + geo._southWest.lng  + '&geo[northEast][lat]=' + geo._northEast.lat + '&geo[northEast][lng]=' + geo._northEast.lng)
+                            .then(response => response.json())
+                            .then(data => {
+                                this.min = data['facetStats']['years']['min'];
+                                this.max = data['facetStats']['years']['max'];
+                                this.minyear = this.min;
+                                this.maxyear = this.max;
+                                if(data['facetDistribution'].hasOwnProperty('types')){
+                                    this.availableTypes = data['facetDistribution']['types'];
+                                }
+                                this.locations = [];
+                                data['hits'].forEach(point => {
+                                    this.locations.push(point);
+                                    // Leaflet Way
+                                    /*var marker = L.marker([point.latitude, point.longitude])
+                                        .bindPopup(`<a href="${point.url}" target="_blank" class="!text-secondary"><b>${point.name}</b></a><br>${point.description}`)
+                                        .openPopup()
+                                        .addTo(map);*/
+
+                                    // PruneCluster Way
+                                    var marker = new PruneCluster.Marker(point.latitude, point.longitude, {count: point.usages});
+                                    marker.data.popup = `<button x-on:click="setLocation(${point.id})" class="!text-secondary"><b>${point.name}</b> (${point.usages.toLocaleString('en-US')})</button>`;
+                                    marker.data.count = point.usages;
+                                    this.pruneCluster.RegisterMarker(marker);
+
+                                    //markers.addLayer(marker);
+                                });
+
+                                this.map.addLayer(this.pruneCluster);
+                            })
+                            .catch(error => console.error('Error fetching data: ', error));
+
+                        this.map.on('moveend', (function() {
+                            if(this.reload){
+                                this.updateLocations();
+                            }
+                            this.reload = true;
+                        }).bind(this));
+                    },
+                    setLocation(id) {
+                        var l = this.locations.find((location) => location.id == id);
+                        this.reload = false;
+                        this.map.setZoomAround(L.latLng(l.latitude, l.longitude), 9, true);
+                        this.currentlocation = id;
+                        this.view = 'documents';
+                        fetch('{{ route('map.documents') }}?location=' + id + '&types='+this.types +'&min_year='+this.minyear+'&max_year='+this.maxyear)
+                            .then(response => response.json())
+                            .then(data => {
+                                this.documents = [];
+                                data.forEach(document => {
+                                    this.documents.push(document);
+                                });
+                            })
+                            .catch(error => console.error('Error fetching data: ', error));
+                    },
+                    setDocument(id) {
+                        this.currentDocument = id;
+                        this.pages = [];
+                        this.view = 'pages';
+                        fetch('{{ route('map.pages') }}?location=' + this.currentlocation + '&item=' + id)
+                            .then(response => response.json())
+                            .then(data => {
+                                this.pages = [];
+                                data.forEach( page => {
+                                    this.pages.push(page);
+                                });
+                            })
+                            .catch(error => console.error('Error fetching data: ', error));
+                    },
+                    updateLocations() {
+                        this.view = 'locations';
+                        this.pruneCluster.RemoveMarkers();
+                        this.pruneCluster.ProcessView();
+                        let geo = this.map.getBounds();
+                        fetch('{{ route('map.locations') }}?q='+this.q+'&types='+this.types+'&min_year='+this.minyear+'&max_year='+this.maxyear+'&geo[southWest][lat]=' + geo._southWest.lat + '&geo[southWest][lng]=' + geo._southWest.lng  + '&geo[northEast][lat]=' + geo._northEast.lat + '&geo[northEast][lng]=' + geo._northEast.lng)
+                            .then(response => response.json())
+                            .then(data => {
+                                if(data['facetStats'].hasOwnProperty('years')){
+                                    //this.min = data['facetStats']['years']['min'];
+                                    //this.max = data['facetStats']['years']['max'];
+                                    //this.minyear = this.min;
+                                    //this.maxyear = this.max;
+                                }
+                                if(data['facetDistribution'].hasOwnProperty('types')){
+                                    this.availableTypes = data['facetDistribution']['types'];
+                                }else {
+                                    this.availableTypes = [];
+                                }
+                                // TODO: Before adding counts I need a way to remove or show 0 counts
+                                // if(data['facetDistribution'].hasOwnProperty('types')){
+                                //     for(key in data['facetDistribution']['types']){
+                                //         var facet = document.querySelector("[data-name='"+key+"']");
+                                //         facet.textContent = key + ' (' + data['facetDistribution']['types'][key] + ')';
+                                //     }
+                                // }
+                                this.locations = [];
+                                data['hits'].forEach(point => {
+                                    this.locations.push(point);
+
+                                    // PruneCluster Way
+                                    var marker = new PruneCluster.Marker(point.latitude, point.longitude, {count: point.usages});
+                                    marker.data.popup = `<button x-on:click="setLocation(${point.id})" class="!text-secondary"><b>${point.name}</b> (${point.usages.toLocaleString('en-US')})</button>`;
+                                    marker.data.count = point.usages;
+                                    this.pruneCluster.RegisterMarker(marker);
+                                });
+
+                                this.map.addLayer(this.pruneCluster);
+                                this.pruneCluster.ProcessView();
+                            })
+                            .catch(error => console.error('Error fetching data: ', error));
+                    },
+                    search() {
+                        this.updateLocations();
+                    },
+                    mintrigger() {
+                        this.minyear = Math.min(this.minyear, this.maxyear);
+                        this.minthumb = ((this.minyear - this.min) / (this.max - this.min)) * 100;
+                        //this.updateLocations();
+                    },
+                    maxtrigger() {
+                        this.maxyear = Math.max(this.maxyear, this.minyear);
+                        this.maxthumb = 100 - (((this.maxyear - this.min) / (this.max - this.min)) * 100);
+                        //this.updateLocations();
+                    },
+                    slugify(str) {
+                        return String(str)
+                            .normalize('NFKD') // split accented characters into their base characters and diacritical marks
+                            .replace(/[\u0300-\u036f]/g, '') // remove all the accents, which happen to be all in the \u03xx UNICODE block.
+                            .trim() // trim leading or trailing whitespace
+                            .toLowerCase() // convert to lowercase
+                            .replace(/[^a-z0-9 -]/g, '') // remove non-alphanumeric characters
+                            .replace(/\s+/g, '-') // replace spaces with hyphens
+                            .replace(/-+/g, '-'); // remove consecutive hyphens
                     }
                 }))
             })

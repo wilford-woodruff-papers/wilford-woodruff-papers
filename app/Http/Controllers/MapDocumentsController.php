@@ -35,7 +35,8 @@ class MapDocumentsController extends Controller
             ->select('items.id', 'items.name', DB::raw('COUNT(page_subject.page_id) as total_usage_count'))
             ->join('pages', 'pages.parent_item_id', '=', 'items.id')
             ->join('page_subject', 'page_subject.page_id', '=', 'pages.id')
-            ->where('items.enabled', true);
+            ->where('items.enabled', true)
+            ->whereNotNull('pages.first_date');
 
         if ($request->has('types')
              && ! empty($request->get('types'))

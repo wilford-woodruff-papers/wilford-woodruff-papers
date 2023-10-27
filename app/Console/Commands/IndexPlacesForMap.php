@@ -3,8 +3,9 @@
 namespace App\Console\Commands;
 
 use App\Models\Subject;
-use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Meilisearch\Client;
 
 class IndexPlacesForMap extends Command
@@ -37,70 +38,55 @@ class IndexPlacesForMap extends Command
             ->index($indexName)
             ->deleteAllDocuments();
         $this->info("All documents deleted from index: $indexName \n");
-        //$index = $client->index((app()->environment('production') ? 'places' : 'dev-places'));
-        $places = Subject::query()
+
+        $placesQuery = Subject::query()
             ->select([
-                'id',
-                'name',
-                'latitude',
-                'longitude',
-                'total_usage_count',
-                'tagged_count',
-                'text_count',
+                'subjects.id as place_id',
+                'subjects.name',
+                'subjects.latitude',
+                'subjects.longitude',
+                'subjects.total_usage_count',
+                DB::raw('YEAR(pages.first_date) as year'),
+                'items.id as doc_id',
+                'pages.id as page_id',
+                'types.name as type',
             ])
-            ->with([
-                'pages' => function ($query) {
-                    $query
-                        ->select([
-                            'id',
-                            'parent_item_id',
-                            'first_date',
-                        ])
-                        ->whereRelation('parent', 'enabled', true);
-                },
-            ])
+            ->join('page_subject', 'page_subject.subject_id', '=', 'subjects.id')
+            ->join('pages', 'page_subject.page_id', '=', 'pages.id')
+            ->join('items', 'pages.parent_item_id', '=', 'items.id')
+            ->join('types', 'items.type_id', '=', 'types.id')
+            ->where('items.enabled', true)
+            ->whereNotNull('pages.first_date')
             ->places()
             ->whereNotNull('latitude')
-            ->whereNotNull('longitude')
-            ->get();
+            ->whereNotNull('longitude');
 
-        $bar = $this->output->createProgressBar(count($places));
+        $rows = $placesQuery->count();
+        $bar = $this->output->createProgressBar(intval($rows / 500));
 
-        $client->index($indexName)
-            ->addDocuments(
-                $places->map(function ($place) use ($bar) {
-                    $bar->advance();
+        $placesQuery->chunk(500, function (Collection $places) use ($client, $indexName, $bar) {
+            $client->index($indexName)
+                ->addDocuments(
+                    $places->map(function ($place) {
+                        return [
+                            'id' => $place->place_id.'_'.$place->page_id,
+                            'place' => $place->place_id,
+                            'document' => $place->doc_id,
+                            'page' => $place->page_id,
+                            'name' => $place->name,
+                            'type' => $place->type,
+                            'year' => $place->year,
+                            '_geo' => [
+                                'lat' => $place->latitude,
+                                'lng' => $place->longitude,
+                            ],
+                        ];
+                    })
+                        ->toArray()
+                );
+            $bar->advance();
+        }, $column = 'subjects.id');
 
-                    return [
-                        'id' => $place->id,
-                        'name' => $place->name,
-                        'years' => $place
-                            ->pages
-                            ->map(function ($page) {
-                                return ! empty($page->first_date) ? Carbon::make($page->first_date)?->year : null;
-                            })
-                            ->unique()
-                            ->filter()
-                            ->values()
-                            ->all(),
-                        'types' => $place
-                            ->pages
-                            ->map(function ($page) {
-                                return $page->parent?->type?->name;
-                            })
-                            ->unique()
-                            ->filter()
-                            ->values()
-                            ->all(),
-                        '_geo' => [
-                            'lat' => $place->latitude,
-                            'lng' => $place->longitude,
-                        ],
-                        'usages' => $place->getCount(),
-                    ];
-                })
-                    ->toArray()
-            );
         $bar->finish();
         $this->info("\n");
         $this->info("Done indexing places to: $indexName");

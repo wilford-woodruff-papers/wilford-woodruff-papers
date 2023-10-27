@@ -1,4 +1,5 @@
 import "./bootstrap";
+import collect from "collect.js";
 
 import Alpine from "alpinejs";
 import intersect from "@alpinejs/intersect";
@@ -10,6 +11,8 @@ import overlap from "alpinejs-overlap";
 import rangy from "rangy/lib/rangy-core.js";
 import "rangy/lib/rangy-highlighter";
 import "rangy/lib/rangy-classapplier";
+
+window.collect = collect;
 
 window.rangy = rangy;
 window.Alpine = Alpine;

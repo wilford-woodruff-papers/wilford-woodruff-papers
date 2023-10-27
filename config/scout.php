@@ -132,6 +132,7 @@ return [
     'meilisearch' => [
         'host' => env('MEILISEARCH_HOST', 'http://localhost:7700'),
         'key' => env('MEILISEARCH_KEY'),
+        'search_key' => env('MEILISEARCH_SEARCH_KEY'),
         'index-settings' => [
             'resources' => [
                 'filterableAttributes' => [
@@ -371,8 +372,8 @@ return [
             ],
             'dev-places' => [
                 'filterableAttributes' => [
-                    'types',
-                    'years',
+                    'type',
+                    'year',
                     '_geo',
                 ],
                 'sortableAttributes' => [
