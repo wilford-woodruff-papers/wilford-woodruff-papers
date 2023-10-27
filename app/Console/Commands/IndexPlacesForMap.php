@@ -69,6 +69,7 @@ class IndexPlacesForMap extends Command
                     $places->map(function ($place) {
                         return [
                             'id' => $place->place_id.'_'.$place->page_id,
+                            'place' => $place->place_id,
                             'document' => $place->doc_id,
                             'page' => $place->page_id,
                             'name' => $place->name,
