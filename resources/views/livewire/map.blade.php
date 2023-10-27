@@ -115,7 +115,7 @@
                   <div class="sticky top-0 bg-white">
                       <div class="flex justify-between items-center pb-4">
                           <h2 class="text-xl font-semibold text-black">
-                              Locations (<span x-text="locations.length.toLocaleString('en-US')"></span>)
+                              Locations (<span x-text="locations.count().toLocaleString('en-US')"></span>)
                           </h2>
                           <div x-on:click="reset()"
                                class="flex gap-x-2 items-center cursor-pointer"
@@ -138,10 +138,10 @@
                       />
                   </div>
                   <ul id="locations" class="divide-y divide-gray-200">
-                      <template x-for="location in locations" :key="'location-'+location.id">
-                          <li x-show="location.id" x-on:click="setLocation(location.id)"
+                      <template x-for="(location, name) in locations.all()" :key="'location-'+location.first().id">
+                          <li x-show="name" x-on:click="setLocation(location.first().place)"
                               class="py-1 cursor-pointer"
-                          ><span x-text="location.name" class="pr-1"></span> (<span x-text="location.usages.toLocaleString('en-US')"></span> Mentions)</li>
+                          ><span x-text="name" class="pr-1" ></span> (<span x-text="location.count().toLocaleString('en-US')"></span> Mentions)</li>
                       </template>
                   </ul>
               </div>
@@ -308,6 +308,7 @@
                                 let hit = {};
                                 hit.usages = place.count();
                                 hit.name = (place.first()).name;
+                                hit.place = (place.first()).place;
                                 hit.latitude = (place.first())['_geo']['lat'];
                                 hit.longitude = (place.first())['_geo']['lng'];
                                 var marker = new PruneCluster.Marker((hit.latitude), (hit.longitude), {count: hit.usages});
@@ -315,6 +316,9 @@
                                 marker.data.count = hit.usages;
                                 this.pruneCluster.RegisterMarker(marker);
                             });
+                        this.locations = visiblePlaces
+                            .groupBy('name');
+                        //console.log(this.locations);
                         this.loading = false;
                         this.map.addLayer(this.pruneCluster);
                         this.pruneCluster.ProcessView();
@@ -338,6 +342,7 @@
                         this.maxyear = this.max;
                     },
                     init() {
+                        this.locations = collect([]);
                         this.map = L.map('map')
                             .setView([37.71859, -54.140625], 3);
 
@@ -388,7 +393,7 @@
                     setLocation(id) {
                         var l = this.places.firstWhere('place', id);
                         this.reload = false;
-                        this.map.setZoomAround(L.latLng(l.latitude, l.longitude), 9, true);
+                        this.map.setZoomAround(L.latLng(l['_geo']['lat'], l['_geo']['lng']), 9, true);
                         this.currentlocation = id;
                         this.view = 'documents';
                         fetch('{{ route('map.documents') }}?location=' + id + '&types='+this.types +'&min_year='+this.minyear+'&max_year='+this.maxyear)

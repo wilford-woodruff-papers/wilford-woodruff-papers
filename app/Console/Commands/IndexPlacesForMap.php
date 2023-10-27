@@ -56,6 +56,7 @@ class IndexPlacesForMap extends Command
             ->join('items', 'pages.parent_item_id', '=', 'items.id')
             ->join('types', 'items.type_id', '=', 'types.id')
             ->where('items.enabled', true)
+            ->whereNotNull('pages.first_date')
             ->places()
             ->whereNotNull('latitude')
             ->whereNotNull('longitude');
