@@ -319,7 +319,8 @@
                             });
 
                         this.locations = visiblePlaces
-                            .groupBy('name');
+                            .groupBy('name')
+                            .sortKeys();
 
                         this.loading = false;
                         this.map.addLayer(this.pruneCluster);
