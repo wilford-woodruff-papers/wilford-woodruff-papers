@@ -62,7 +62,7 @@
                                   step="1"
                                   x-bind:min="min"
                                   x-bind:max="max"
-                                  x-on:input="mintrigger"
+                                  x-on:input.throttle="mintrigger"
                                   x-on:click.stop="updateLocations"
                                   x-model="minyear"
                                   class="absolute z-20 w-full h-2 opacity-0 appearance-none cursor-pointer pointer-events-none">
@@ -71,7 +71,7 @@
                                   step="1"
                                   x-bind:min="min"
                                   x-bind:max="max"
-                                  x-on:input="maxtrigger"
+                                  x-on:input.throttle="maxtrigger"
                                   x-on:click.stop="updateLocations"
                                   x-model="maxyear"
                                   class="absolute z-20 pr-4 w-full h-2 opacity-0 appearance-none cursor-pointer pointer-events-none">
@@ -262,6 +262,7 @@
                     documents: [],
                     currentDocument: null,
                     pages: [],
+                    filters: [],
                     reload: true,
                     q: '',
                     types: [],
@@ -275,20 +276,19 @@
                     async searchJs() {
                         this.loading = true;
                         this.view = 'locations';
-                        let geo = this.map.getBounds();
-
 
                         const search = await this.index.search(this.q, {
                             hitsPerPage: 100000,
                             filter: this.buildFilter(),
-                        })
+                        });
+
                         this.places = collect(search.hits);
+
+                        this.populateYears();
 
                         this.drawOnMap();
 
                         this.populateTypes();
-
-                        this.populateYears();
 
                     },
                     drawOnMap() {
@@ -296,6 +296,7 @@
                         this.pruneCluster.ProcessView();
                         // Add a filter fo type and years here
                         visiblePlaces = this.places;
+
                         if(this.types.length > 0){
                             visiblePlaces = visiblePlaces.filter(item => this.types.includes(item.type));
                         }
@@ -316,15 +317,21 @@
                                 marker.data.count = hit.usages;
                                 this.pruneCluster.RegisterMarker(marker);
                             });
+
                         this.locations = visiblePlaces
                             .groupBy('name');
-                        //console.log(this.locations);
+
                         this.loading = false;
                         this.map.addLayer(this.pruneCluster);
                         this.pruneCluster.ProcessView();
                     },
                     buildFilter(){
-                        return '';
+                        this.filters = [];
+                        let geo = this.map.getBounds();
+                        this.filters.push(
+                            '_geoBoundingBox(['+this.preventOutOfBounds(geo._northEast.lat)+', '+this.preventOutOfBounds(geo._northEast.lng)+'], ['+this.preventOutOfBounds(geo._southWest.lat)+', '+this.preventOutOfBounds(geo._southWest.lng)+'])'
+                        );
+                        return this.filters;
                     },
                     populateTypes(){
                         this.availableTypes = this.places
@@ -343,10 +350,16 @@
                     },
                     init() {
                         this.locations = collect([]);
+
+                        this.client = new MeiliSearch({
+                            host: "{{ config('scout.meilisearch.host') }}",
+                            apiKey: "{{ config('scout.meilisearch.search_key') }}"
+                        });
+
+                        this.index = this.client.index('{{ (app()->environment('production') ? 'places' : 'dev-places') }}');
+
                         this.map = L.map('map')
                             .setView([37.71859, -54.140625], 3);
-
-                        let geo = this.map.getBounds();
 
                         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                             maxZoom: 19,
@@ -356,29 +369,24 @@
 
                         this.pruneCluster = new PruneClusterForLeaflet();
 
-                        this.client = new MeiliSearch({
-                            host: "{{ config('scout.meilisearch.host') }}",
-                            apiKey: "{{ config('scout.meilisearch.search_key') }}"
-                        });
-                        this.index = this.client.index('{{ (app()->environment('production') ? 'places' : 'dev-places') }}')
-
-
-                        this.$watch('types', (value, oldValue) => this.drawOnMap());
-
                         this.configureMarkers();
 
                         this.searchJs();
-                        /*this.map.on('moveend', (function() {
+
+                        this.$watch('types', (value, oldValue) => this.drawOnMap());
+
+                        this.map.on('moveend', (function() {
                             if(this.reload){
-                                this.updateLocations();
+                                this.searchJs();
                             }
                             this.reload = true;
-                        }).bind(this));*/
+                        }).bind(this));
                     },
                     reset() {
                         this.map.setView([37.71859, -54.140625], 3);
                         this.view = 'locations';
                         this.currentlocation = null;
+                        this.filters = [];
                         this.documents = [];
                         this.currentDocument = null;
                         this.pages = [];
@@ -445,6 +453,17 @@
                             .replace(/[^a-z0-9 -]/g, '') // remove non-alphanumeric characters
                             .replace(/\s+/g, '-') // replace spaces with hyphens
                             .replace(/-+/g, '-'); // remove consecutive hyphens
+                    },
+                    preventOutOfBounds(number)
+                    {
+                        if (number <= -180) {
+                            return -180;
+                        }
+                        if (number >= 180) {
+                            return 180;
+                        }
+
+                        return number;
                     },
                     configureMarkers(){
                         this.pruneCluster.BuildLeafletClusterIcon = function(cluster) {
