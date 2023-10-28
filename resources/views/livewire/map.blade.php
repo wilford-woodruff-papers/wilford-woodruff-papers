@@ -284,8 +284,14 @@
                         });
 
                         this.places = collect(search.hits);
-
-                        this.populateYears();
+                        {{--
+                        // This was added to prevent redrawing the map when the user clicks on a marker
+                        // We want to redo the search to only get documents for that location
+                        // But we need to keep the years selection intact
+                        --}}
+                        if(this.min === this.minyear && this.max == this.maxyear){
+                            this.populateYears();
+                        }
 
                         this.drawOnMap();
 
@@ -401,8 +407,8 @@
                         this.searchJs();
                     },
                     setLocation(id) {
-                        var l = this.places.firstWhere('place', id);
                         this.reload = false;
+                        var l = this.places.firstWhere('place', id);
                         this.map.setZoomAround(L.latLng(l['_geo']['lat'], l['_geo']['lng']), 9, true);
                         this.currentlocation = id;
                         this.view = 'documents';
