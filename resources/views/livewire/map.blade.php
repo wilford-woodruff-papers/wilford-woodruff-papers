@@ -370,7 +370,7 @@
                             .setView([37.71859, -54.140625], 3);
 
                         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                            maxZoom: 19,
+                            /*maxZoom: 19,*/
                             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
                         })
                             .addTo(this.map);
