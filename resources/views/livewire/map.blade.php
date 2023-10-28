@@ -505,10 +505,10 @@
                         };
                         this.pruneCluster.PrepareLeafletMarker = function(leafletMarker, data) {
                             var mentions = data.count;
-                            var c = 'prunecluster ';
-                            var iconSize = 38;
+                            var c = 'prunecluster text-white bg-primary';
+                            var iconSize = 24;
 
-                            if (mentions <= 2) {
+                            /*if (mentions <= 2) {
                                 c += 'bg-secondary-200';
                                 iconSize = 20;
                             } else if (mentions > 2 && mentions <= 5) {
@@ -529,7 +529,7 @@
                             } else if (mentions > 200) {
                                 c += 'text-white bg-secondary-900';
                                 iconSize = 52;
-                            }
+                            }*/
                             leafletMarker.setIcon(
                                 L.divIcon({
                                     html: "<span class='flex justify-center items-center h-full rounded-full'><span>" + mentions.toLocaleString('en-US') + "</span></span>",
