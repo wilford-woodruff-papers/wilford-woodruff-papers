@@ -62,7 +62,7 @@
                                   step="1"
                                   x-bind:min="min"
                                   x-bind:max="max"
-                                  x-on:input.throttle="mintrigger"
+                                  x-on:input="mintrigger"
                                   x-on:click.stop="updateLocations"
                                   x-model="minyear"
                                   class="absolute z-20 w-full h-2 opacity-0 appearance-none cursor-pointer pointer-events-none">
@@ -71,7 +71,7 @@
                                   step="1"
                                   x-bind:min="min"
                                   x-bind:max="max"
-                                  x-on:input.throttle="maxtrigger"
+                                  x-on:input="maxtrigger"
                                   x-on:click.stop="updateLocations"
                                   x-model="maxyear"
                                   class="absolute z-20 pr-4 w-full h-2 opacity-0 appearance-none cursor-pointer pointer-events-none">
@@ -273,6 +273,7 @@
                     max: '',
                     minthumb: 0,
                     maxthumb: 0,
+                    drawTimeout: null,
                     async searchJs() {
                         this.loading = true;
                         this.view = 'locations';
@@ -438,12 +439,18 @@
                     mintrigger() {
                         this.minyear = Math.min(this.minyear, this.maxyear);
                         this.minthumb = ((this.minyear - this.min) / (this.max - this.min)) * 100;
-                        this.drawOnMap();
+                        clearTimeout(this.drawTimeout);
+                        this.drawTimeout = setTimeout(() => {
+                            this.drawOnMap();
+                        }, 250);
                     },
                     maxtrigger() {
                         this.maxyear = Math.max(this.maxyear, this.minyear);
                         this.maxthumb = 100 - (((this.maxyear - this.min) / (this.max - this.min)) * 100);
-                        this.drawOnMap();
+                        clearTimeout(this.drawTimeout);
+                        this.drawTimeout = setTimeout(() => {
+                            this.drawOnMap();
+                        }, 250);
                     },
                     slugify(str) {
                         return String(str)
