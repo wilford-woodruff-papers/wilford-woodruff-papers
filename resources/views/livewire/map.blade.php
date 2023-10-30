@@ -366,12 +366,14 @@
 
                         this.index = this.client.index('{{ (app()->environment('production') ? 'places' : 'dev-places') }}');
 
-                        this.map = L.map('map')
+                        this.map = L.map('map', {
+                                scrollWheelZoom: false,
+                            })
                             .setView([37.71859, -54.140625], 3);
 
-                        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png', {
                             /*maxZoom: 19,*/
-                            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                            attribution: '&copy; <a href="https://carto.com/">carto.com</a> contributors'
                         })
                             .addTo(this.map);
 
@@ -415,6 +417,9 @@
                         fetch('{{ route('map.documents') }}?location=' + id + '&types='+this.types +'&min_year='+this.minyear+'&max_year='+this.maxyear)
                             .then(response => response.json())
                             .then(data => {
+                                if(data.length === 1){
+                                    this.setDocument(data[0].id);
+                                }
                                 this.documents = [];
                                 data.forEach(document => {
                                     this.documents.push(document);
@@ -429,6 +434,9 @@
                         fetch('{{ route('map.pages') }}?location=' + this.currentlocation + '&item=' + id)
                             .then(response => response.json())
                             .then(data => {
+                                if(data.length === 1){
+                                    Livewire.emit('openModal', 'page', {'pageId': data[0].id});
+                                }
                                 this.pages = [];
                                 data.forEach( page => {
                                     this.pages.push(page);
