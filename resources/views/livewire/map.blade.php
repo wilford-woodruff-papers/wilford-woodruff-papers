@@ -319,7 +319,7 @@
                                 hit.place = (place.first()).place;
                                 hit.latitude = (place.first())['_geo']['lat'];
                                 hit.longitude = (place.first())['_geo']['lng'];
-                                var marker = new PruneCluster.Marker((hit.latitude), (hit.longitude), {count: hit.usages});
+                                var marker = new PruneCluster.Marker((hit.latitude), (hit.longitude), {count: hit.usages, place: hit.place});
                                 marker.data.popup = `<button x-on:click="setLocation(${hit.place})" class="!text-secondary"><b>${hit.name}</b> (${hit.usages.toLocaleString('en-US')})</button>`;
                                 marker.data.count = hit.usages;
                                 this.pruneCluster.RegisterMarker(marker);
@@ -545,7 +545,7 @@
                             }*/
                             leafletMarker.setIcon(
                                 L.divIcon({
-                                    html: "<span class='flex justify-center items-center h-full rounded-full'><span>" + mentions.toLocaleString('en-US') + "</span></span>",
+                                    html: `<span x-on:click="setLocation(${data.place})" class="flex justify-center items-center h-full rounded-full"><span>` + mentions.toLocaleString('en-US') + `</span></span>`,
                                     className: c,
                                     iconSize: [iconSize, iconSize],
                                 })
