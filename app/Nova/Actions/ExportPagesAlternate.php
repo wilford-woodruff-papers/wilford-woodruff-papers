@@ -24,7 +24,7 @@ class ExportPagesAlternate extends DownloadExcel implements WithMapping, WithHea
             'Document Type',
             'Title of the work containing the page',
             'Title of the page',
-            'Ellie\'s Note',
+            'Notes',
             'Assigned To',
         ];
     }
