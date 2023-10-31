@@ -40,8 +40,10 @@ class MapDocumentsController extends Controller
                 'page_subject.*',
             )
             ->with([
-                'realPages' => function ($query) {
-                    $query->whereYear('first_date', '>=', request()->get('min_year'))
+                'realPages' => function ($query) use ($request) {
+                    $query
+                        ->whereRelation('places', 'id', $request->get('location'))
+                        ->whereYear('first_date', '>=', request()->get('min_year'))
                         ->whereYear('first_date', '<=', request()->get('max_year'));
                 },
             ])
