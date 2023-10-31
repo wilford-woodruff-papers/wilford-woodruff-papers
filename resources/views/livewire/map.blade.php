@@ -1,6 +1,101 @@
 <div x-data="map" class="">
-    <div class="flex flex-col pb-6 md:flex-row aspect-[16/7]">
+    <div class="flex flex-col pb-6 md:flex-row aspect-[16/8]">
        <div class="relative w-full md:w-3/4">
+           <div class="flex flex-col gap-y-2 pb-2">
+               <div class="px-2">
+                   <div class="flex items-center py-3">
+                       <div class="pr-6 font-semibold">
+                           Types:
+                       </div>
+                       <div class="grid grid-cols-3 gap-x-2 lg:grid-cols-5">
+                           <template x-for="(count, type) in availableTypes" :key="'type-'+slugify(type)">
+                               <div class="flex relative items-start pr-2">
+                                   <div class="flex items-center h-6">
+                                       <input x-model="types"
+                                              x-bind:id="'type_'+slugify(type)"
+                                              name="types"
+                                              type="checkbox"
+                                              x-bind:value="type"
+                                              class="w-4 h-4 rounded border-gray-300 text-secondary focus:ring-secondary">
+                                   </div>
+                                   <div class="ml-3 text-base leading-6 truncate">
+                                       <label x-bind:for="'type_'+slugify(type)"
+                                              class="font-medium text-gray-900"
+                                              x-bind:data-name="type"
+                                              x-html="type + ` <span class='hidden lg:inline'>(`+count.toLocaleString('en-US')+`)</span>`"
+                                       ></label>
+                                   </div>
+                               </div>
+                           </template>
+                       </div>
+                   </div>
+                   <div>
+                       <div>
+                           <div class="flex gap-x-4 items-center">
+                               <div class="pt-3 font-semibold shrink-0">
+                                   Years:
+                               </div>
+                               <div class="relative py-3 pb-0 w-full"
+                                    x-cloak
+                               >
+
+                                   <div class="flex items-center">
+                                       <div class="flex-0">
+                                           <div>
+                                               <input type="text" maxlength="4" x-on:input="mintrigger" x-model="minyear" class="py-1 px-1 w-12 text-base text-center border-0" readonly>
+                                           </div>
+                                       </div>
+                                       <div class="flex-1">
+                                           <div class="mx-4">
+                                               <input type="range"
+                                                      step="1"
+                                                      x-bind:min="min"
+                                                      x-bind:max="max"
+                                                      x-on:input="mintrigger"
+                                                      x-on:click.stop="updateLocations"
+                                                      x-model="minyear"
+                                                      class="absolute z-20 w-full h-2 opacity-0 appearance-none cursor-pointer pointer-events-none">
+
+                                               <input type="range"
+                                                      step="1"
+                                                      x-bind:min="min"
+                                                      x-bind:max="max"
+                                                      x-on:input="maxtrigger"
+                                                      x-on:click.stop="updateLocations"
+                                                      x-model="maxyear"
+                                                      class="absolute z-20 pr-4 w-full h-2 opacity-0 appearance-none cursor-pointer pointer-events-none">
+
+                                               <div class="relative z-10 h-2">
+
+                                                   <div class="absolute top-0 right-0 bottom-0 left-0 z-10 bg-gray-200 rounded-md"></div>
+
+                                                   <div class="absolute top-0 bottom-0 z-20 rounded-md bg-secondary"
+                                                        x-bind:style="'right:'+maxthumb+'%; left:'+minthumb+'%'"></div>
+
+                                                   <div class="absolute top-0 left-0 z-30 -mt-2 -ml-1 w-6 h-6 rounded-full bg-secondary"
+                                                        x-bind:style="'left: '+minthumb+'%'"></div>
+
+                                                   <div class="absolute top-0 right-0 z-30 -mt-2 -mr-3 w-6 h-6 rounded-full bg-secondary"
+                                                        x-bind:style="'right: '+maxthumb+'%'"></div>
+
+                                               </div>
+
+                                           </div>
+                                       </div>
+                                       <div class="flex-0">
+                                           <div>
+                                               <input type="text" maxlength="4" x-on:input="maxtrigger" x-model="maxyear" class="py-1 px-1 w-12 text-base text-center border-0" readonly>
+                                           </div>
+                                       </div>
+                                   </div>
+
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+
            <div x-show="loading"
                class="flex absolute z-20 justify-center items-center w-full h-full bg-white opacity-50">
                <div class="animate-ping">
@@ -11,7 +106,7 @@
                 class="z-10 w-full aspect-[16/9]"
                 wire:ignore
            ></div>
-           <div class="flex absolute bottom-2 left-2 flex-col gap-y-2 py-1 px-2 bg-white shadow-2xl z-100">
+           <div class="flex hidden absolute bottom-2 left-2 flex-col gap-y-2 py-1 px-2 bg-white shadow-2xl z-100">
                <div>
                    <div class="flex gap-x-4 justify-between items-center mb-2 border-b border-gray-200">
                        <div class="font-semibold">
