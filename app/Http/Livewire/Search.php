@@ -107,6 +107,7 @@ class Search extends Component
         $index = $client->index((app()->environment('production') ? 'resources' : 'dev-resources'));
 
         $result = $index->search($this->q, [
+            'showRankingScore' => true,
             'attributesToHighlight' => [
                 'name',
                 'description',
@@ -126,6 +127,8 @@ class Search extends Component
                 ->values()
                 ->toArray(),
         ]);
+
+        ray($result);
 
         $facetDistribution = $result->getFacetDistribution();
         //dd($facetDistribution['decade']);
