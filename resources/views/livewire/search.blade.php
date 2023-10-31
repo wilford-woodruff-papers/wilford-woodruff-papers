@@ -334,6 +334,13 @@
                                             <div class="mt-5 text-sm leading-6 text-gray-600 line-clamp-3">
                                                 {!! str(data_get($hit, '_formatted.description'))->remove('[[')->remove(']]') !!}
                                             </div>
+                                            @hasanyrole('Admin|Super Admin')
+                                                @if(! empty($q))
+                                                    <div class="mt-5 text-sm leading-6 text-gray-600 line-clamp-3">
+                                                        Ranking Score: {{ number_format(data_get($hit, '_rankingScore'), 2) }}
+                                                    </div>
+                                                @endif
+                                            @endhasanyrole
                                         </div>
                                     </div>
                                 </a>
@@ -431,6 +438,8 @@
                                             {!! str(data_get($hit, '_formatted.description'))->remove('[[')->remove(']]') !!}
                                         </div>
 
+
+
                                         {{--{!! Str::of( strip_tags( $page->text() ) )->words(50) !!}--}}
                                         {{--@if($page->dates->count() > 0)
                                             <div class="grid grid-cols-12 mt-3">
@@ -450,7 +459,13 @@
                                         @endif--}}
                                     </div>
                                 </div>
-
+                                @hasanyrole('Admin|Super Admin')
+                                    @if(! empty($q))
+                                        <div class="col-span-7 px-4 mt-5 text-sm leading-6 text-gray-600 line-clamp-3">
+                                            Ranking Score: {{ number_format(data_get($hit, '_rankingScore'), 2) }}
+                                        </div>
+                                    @endif
+                                @endhasanyrole
                             </li>
                         </a>
                     @endforeach
