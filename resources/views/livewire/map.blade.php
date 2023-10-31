@@ -175,10 +175,22 @@
                   </div>
                   <ul id="documents" class="divide-y divide-gray-200">
                       <template x-for="document in documents" :key="'document-'+document.id">
-                          <li x-show="document.id" x-on:click="setDocument(document.id)"
+                          <li x-show="document.id" {{--x-on:click="setDocument(document.id)"--}}
 
-                              class="py-1 cursor-pointer"
-                          ><span x-text="document.name" class="pr-1"></span> (<span x-text="document.count"></span> Pages)</li>
+                              class="py-1"
+                          >
+                              <span x-text="document.name" class="pr-1 font-semibold"></span> (<span x-text="document.pages.length + ((document.pages.length > 1 ? ' Pages' : ' Page'))"></span>)
+                              <ul id="pages" class="ml-4 divide-y divide-gray-200">
+                                  <template x-for="page in document.pages" :key="'page-'+page.id">
+                                      <li x-show="page.id" x-on:click="Livewire.emit('openModal', 'page', {'pageId': page.id})"
+
+                                          class="py-1 cursor-pointer"
+                                      >
+                                          <span x-text="'Page ' + page.name" class="pr-1"></span>
+                                      </li>
+                                  </template>
+                              </ul>
+                          </li>
                       </template>
                   </ul>
               </div>
@@ -417,7 +429,7 @@
                         fetch('{{ route('map.documents') }}?location=' + id + '&types='+this.types +'&min_year='+this.minyear+'&max_year='+this.maxyear)
                             .then(response => response.json())
                             .then(data => {
-                                if(data.length === 1){
+                                if(data.length === 1 && data[0].count === 1){
                                     this.setDocument(data[0].id);
                                 }
                                 this.documents = [];
