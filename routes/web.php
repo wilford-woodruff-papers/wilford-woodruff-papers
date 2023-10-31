@@ -130,16 +130,17 @@ Route::middleware([])->group(function () {
         ]);
     });
 
+    Route::get('/map', \App\Http\Livewire\Map::class)->name('map');
+    Route::get('/map/locations', \App\Http\Controllers\MapLocationsController::class)->name('map.locations');
+    Route::get('/map/documents', \App\Http\Controllers\MapDocumentsController::class)->name('map.documents');
+    Route::get('/map/pages', \App\Http\Controllers\MapPagesController::class)->name('map.pages');
+
     Route::middleware([
         'auth:sanctum',
         'verified',
         'role:Admin|Editor',
     ])->group(function () {
         //Route::get('/search', [\App\Http\Controllers\LandingAreasController::class, 'search'])->name('landing-areas.search');
-        Route::get('/map', \App\Http\Livewire\Map::class)->name('map');
-        Route::get('/map/locations', \App\Http\Controllers\MapLocationsController::class)->name('map.locations');
-        Route::get('/map/documents', \App\Http\Controllers\MapDocumentsController::class)->name('map.documents');
-        Route::get('/map/pages', \App\Http\Controllers\MapPagesController::class)->name('map.pages');
         Route::get('/new-search', \App\Http\Livewire\Search::class)->name('new-search');
         Route::get('/old-timeline', [\App\Http\Controllers\TimelineController::class, 'index'])->name('old-timeline');
 
