@@ -3,7 +3,7 @@
        <div class="relative w-full md:w-3/4">
            <div class="flex flex-col gap-y-2 pb-2">
                <div class="px-2">
-                   <div class="flex items-center py-3">
+                   <div class="flex items-center pt-4 pb-1">
                        <div class="pr-6 font-semibold">
                            Types:
                        </div>
@@ -235,10 +235,31 @@
                   <ul id="locations" class="divide-y divide-gray-200">
                       <template x-for="(location, name) in locations.all()" :key="'location-'+location.first().id">
                           <li x-show="name" x-on:click="setLocation(location.first().place)"
-                              class="py-1 cursor-pointer"
-                          ><span x-text="name" class="pr-1" ></span> (<span x-text="location.count().toLocaleString('en-US')"></span> Mentions)</li>
+                              class="py-2 cursor-pointer"
+                          >
+                              <span x-text="name" class="pr-1 font-medium text-secondary" ></span>
+                              <span x-text="' ('+location.count().toLocaleString('en-US') + ((location.count() > 1) ? ' mentions' : ' mention')+')'"></span>
+                          </li>
                       </template>
                   </ul>
+                  <div x-show="locations.count() === 0 && !loading"
+                       x-cloak
+                  >
+                      <div class="flex gap-x-2 justify-between items-center pb-4">
+                          <div>
+                              <p class="py-2 font-semibold">0 results found. </p>
+                              <p>Try resetting the filters the map and all the filters.</p>
+                          </div>
+                          <div x-on:click="reset()"
+                               class="flex gap-x-2 items-center py-1 px-2 rounded border cursor-pointer border-gray"
+                          >
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+                              </svg>
+                              Reset
+                          </div>
+                      </div>
+                  </div>
               </div>
               <div x-show="view == 'documents'"
                    x-cloak
@@ -258,7 +279,7 @@
                           <h2 class="text-xl font-semibold text-black">
                               Documents (<span x-text="documents.length.toLocaleString('en-US')"></span>)
                           </h2>
-                          <div x-on:click="map.setView([37.71859, -54.140625], 3)"
+                          <div x-on:click="reset()"
                                class="flex gap-x-2 items-center cursor-pointer"
                           >
                               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
@@ -268,20 +289,28 @@
                           </div>
                       </div>
                   </div>
-                  <ul id="documents" class="divide-y divide-gray-200">
+                  <ul id="documents" class="divide-y-2 divide-gray-200">
                       <template x-for="document in documents" :key="'document-'+document.id">
                           <li x-show="document.id" {{--x-on:click="setDocument(document.id)"--}}
 
                               class="py-1"
                           >
-                              <span x-text="document.name" class="pr-1 font-semibold"></span> (<span x-text="document.pages.length + ((document.pages.length > 1 ? ' Pages' : ' Page'))"></span>)
+                              <div class="flex justify-between items-center">
+                                  <span x-text="document.name"
+                                        x-bind:title="document.name"
+                                        class="py-1 pr-1 truncate"></span>
+                                  <span x-text="'('+document.pages.length+')'"></span>
+                              </div>
                               <ul id="pages" class="ml-4 divide-y divide-gray-200">
                                   <template x-for="page in document.pages" :key="'page-'+page.id">
                                       <li x-show="page.id" x-on:click="Livewire.emit('openModal', 'page', {'pageId': page.id})"
 
-                                          class="py-1 cursor-pointer"
+                                          class="flex gap-x-2 items-center py-1 cursor-pointer"
                                       >
-                                          <span x-text="'Page ' + page.name" class="pr-1"></span>
+                                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"></path>
+                                          </svg>
+                                          <span x-text="'Page ' + page.name" class="pr-1 font-medium text-secondary"></span>
                                       </li>
                                   </template>
                               </ul>
