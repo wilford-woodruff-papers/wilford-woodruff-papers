@@ -32,6 +32,21 @@ class MapDocumentsController extends Controller
     public function __invoke(Request $request)
     {
         $items = Item::query()
+            ->select(
+                'items.*',
+                'pages.id',
+                'pages.first_date',
+                'pages.order',
+                'page_subject.*',
+            )
+            ->with([
+                'realPages' => function ($query) {
+                    $query->whereHas('dates', function ($query) {
+                        $query->whereYear('date', '>=', request()->get('min_year'))
+                            ->whereYear('date', '<=', request()->get('max_year'));
+                    });
+                },
+            ])
             ->select('items.id', 'items.name', DB::raw('COUNT(page_subject.page_id) as total_usage_count'))
             ->join('pages', 'pages.parent_item_id', '=', 'items.id')
             ->join('page_subject', 'page_subject.page_id', '=', 'pages.id')
@@ -82,6 +97,14 @@ class MapDocumentsController extends Controller
                     'id' => $item->id,
                     'name' => str($item->name)->stripBracketedID(),
                     'count' => $item->total_usage_count,
+                    'pages' => $item->realPages
+                        ->sortBy('order')
+                        ->map(function ($page) {
+                            return [
+                                'id' => $page->id,
+                                'name' => $page->order,
+                            ];
+                        }),
                 ];
             });
 
