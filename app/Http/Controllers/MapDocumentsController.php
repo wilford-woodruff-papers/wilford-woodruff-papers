@@ -41,10 +41,8 @@ class MapDocumentsController extends Controller
             )
             ->with([
                 'realPages' => function ($query) {
-                    $query->whereHas('dates', function ($query) {
-                        $query->whereYear('date', '>=', request()->get('min_year'))
-                            ->whereYear('date', '<=', request()->get('max_year'));
-                    });
+                    $query->whereYear('first_date', '>=', request()->get('min_year'))
+                        ->whereYear('first_date', '<=', request()->get('max_year'));
                 },
             ])
             ->select('items.id', 'items.name', DB::raw('COUNT(page_subject.page_id) as total_usage_count'))
@@ -72,10 +70,8 @@ class MapDocumentsController extends Controller
             $items = $items
                 ->distinct('items.id')
                 ->whereHas('realPages', function ($query) {
-                    $query->whereHas('dates', function ($query) {
-                        $query->whereYear('date', '>=', request()->get('min_year'))
-                            ->whereYear('date', '<=', request()->get('max_year'));
-                    });
+                    $query->whereYear('first_date', '>=', request()->get('min_year'))
+                        ->whereYear('first_date', '<=', request()->get('max_year'));
                 });
             //->join('dates', 'dates.dateable_id', '=', 'pages.id')
             //->where('dates.dateable_type', Page::class)
