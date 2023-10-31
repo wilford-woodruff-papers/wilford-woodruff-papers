@@ -254,6 +254,38 @@
                 -webkit-appearance: none;
                 /* @apply w-6 h-6 appearance-none pointer-events-auto; */
             }
+            .marker-pin {
+                width: 30px;
+                height: 30px;
+                border-radius: 50% 50% 50% 0;
+                /*background: #c30b82;*/
+                position: absolute;
+                transform: rotate(-45deg);
+                left: 50%;
+                top: 50%;
+                margin: -15px 0 0 -15px;
+            }
+            /*// to draw white circle*/
+               .marker-pin::after {
+                   content: '';
+                   width: 24px;
+                   height: 24px;
+                   margin: 3px 0 0 3px;
+                   /*background: #fff;*/
+                   position: absolute;
+                   border-radius: 50%;
+               }
+
+            /*// to align icon*/
+               .custom-div-icon i {
+                   position: absolute;
+                   width: 22px;
+                   font-size: 22px;
+                   left: 0;
+                   right: 0;
+                   margin: 10px auto;
+                   text-align: center;
+               }
         </style>
     @endpush
     @push('scripts')
@@ -538,7 +570,8 @@
                         };
                         this.pruneCluster.PrepareLeafletMarker = function(leafletMarker, data) {
                             var mentions = data.count;
-                            var c = 'prunecluster text-white bg-primary';
+                            //var c = 'prunecluster text-white bg-primary';
+                            var c = 'custom-div-icon text-white bg-primary';
                             var iconSize = 24;
 
                             /*if (mentions <= 2) {
@@ -565,7 +598,7 @@
                             }*/
                             leafletMarker.setIcon(
                                 L.divIcon({
-                                    html: `<span x-on:click="setLocation(${data.place})" class="flex justify-center items-center h-full rounded-full"><span>` + mentions.toLocaleString('en-US') + `</span></span>`,
+                                    html: `<span x-on:click="setLocation(${data.place})" class="flex justify-center items-center marker-pin bg-primary"></span><span class="text-white">` + mentions.toLocaleString('en-US') + `</span>`,
                                     className: c,
                                     iconSize: [iconSize, iconSize],
                                 })
