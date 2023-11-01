@@ -26,6 +26,8 @@ class ImportGeolocation extends Action
      */
     public function handle(ActionFields $fields, Collection $models)
     {
+        set_time_limit(36000);
+
         Excel::import(new GeolocationImport(), $fields->file);
 
         return Action::message('Geolocation import queued successfully');

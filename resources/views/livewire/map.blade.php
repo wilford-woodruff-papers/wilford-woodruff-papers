@@ -113,7 +113,7 @@
                            Document Type
                        </div>
                        <div x-on:click="reset()"
-                            class="flex gap-x-2 items-center cursor-pointer"
+                            class="flex gap-x-2 items-center cursor-pointer text-secondary"
                        >
                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
@@ -209,11 +209,11 @@
               >
                   <div class="sticky top-0 bg-white">
                       <div class="flex justify-between items-center pb-4">
-                          <h2 class="text-xl font-semibold text-black">
+                          <h2 class="text-base font-semibold text-black">
                               Locations (<span x-text="locations.count().toLocaleString('en-US')"></span>)
                           </h2>
                           <div x-on:click="reset()"
-                               class="flex gap-x-2 items-center cursor-pointer"
+                               class="flex gap-x-2 items-center cursor-pointer text-secondary"
                           >
                               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                   <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
@@ -268,19 +268,28 @@
               >
                   <div class="sticky top-0 bg-white">
                    <span x-on:click="view = 'locations'"
-                         class="flex gap-x-2 items-center pb-2 cursor-pointer"
+                         class="flex gap-x-2 items-center pb-2 cursor-pointer text-secondary"
                    >
                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                           <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75" />
                         </svg>
                        Locations
                    </span>
+                      <div class="flex gap-x-2 items-center pb-4">
+                          <div>
+                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-red-700">
+                                  <path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+                              </svg>
+                          </div>
+                          <h2 x-text="places.where('place', currentlocation).first().name"
+                              class="text-base font-medium text-black"></h2>
+                      </div>
                       <div class="flex justify-between items-center pb-4">
-                          <h2 class="text-xl font-semibold text-black">
+                          <h3 class="text-base font-semibold text-black">
                               Documents (<span x-text="documents.length.toLocaleString('en-US')"></span>)
-                          </h2>
+                          </h3>
                           <div x-on:click="reset()"
-                               class="flex gap-x-2 items-center cursor-pointer"
+                               class="flex gap-x-2 items-center cursor-pointer text-secondary"
                           >
                               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
                                   <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
@@ -291,8 +300,7 @@
                   </div>
                   <ul id="documents" class="divide-y-2 divide-gray-200">
                       <template x-for="document in documents" :key="'document-'+document.id">
-                          <li x-show="document.id" {{--x-on:click="setDocument(document.id)"--}}
-
+                          <li x-show="document.id"
                               class="py-1"
                           >
                               <div class="flex justify-between items-center">
@@ -318,43 +326,7 @@
                       </template>
                   </ul>
               </div>
-              <div x-show="view == 'pages'"
-                   x-cloak
-                   id="pages-container"
-                   class="relative p-4"
-              >
-                  <div class="sticky top-0 bg-white">
-                   <span x-on:click="view = 'documents'"
-                         class="flex gap-x-2 items-center pb-2 cursor-pointer"
-                   >
-                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75" />
-                        </svg>
-                       Documents
-                   </span>
-                      <div class="flex justify-between items-center pb-4">
-                          <h2 class="text-xl font-semibold text-black">
-                              Pages (<span x-text="pages.length"></span>)
-                          </h2>
-                          <div x-on:click="map.setView([37.71859, -54.140625], 3)"
-                               class="flex gap-x-2 items-center cursor-pointer"
-                          >
-                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
-                                  <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
-                              </svg>
-                              Reset
-                          </div>
-                      </div>
-                  </div>
-                  <ul id="pages" class="divide-y divide-gray-200">
-                      <template x-for="page in pages" :key="'page-'+page.id">
-                          <li x-show="page.id" x-on:click="Livewire.emit('openModal', 'page', {'pageId': page.id})"
-                              x-text="page.name"
-                              class="flex items-center py-1 cursor-pointer"
-                          ></li>
-                      </template>
-                  </ul>
-              </div>
+
           </div>
        </div>
     </div>
@@ -586,28 +558,11 @@
                             .then(response => response.json())
                             .then(data => {
                                 if(data.length === 1 && data[0].count === 1){
-                                    this.setDocument(data[0].id);
+                                    Livewire.emit('openModal', 'page', {'pageId': data[0].pages[0].id});
                                 }
                                 this.documents = [];
                                 data.forEach(document => {
                                     this.documents.push(document);
-                                });
-                            })
-                            .catch(error => console.error('Error fetching data: ', error));
-                    },
-                    setDocument(id) {
-                        this.currentDocument = id;
-                        this.pages = [];
-                        this.view = 'pages';
-                        fetch('{{ route('map.pages') }}?location=' + this.currentlocation + '&item=' + id)
-                            .then(response => response.json())
-                            .then(data => {
-                                if(data.length === 1){
-                                    Livewire.emit('openModal', 'page', {'pageId': data[0].id});
-                                }
-                                this.pages = [];
-                                data.forEach( page => {
-                                    this.pages.push(page);
                                 });
                             })
                             .catch(error => console.error('Error fetching data: ', error));
