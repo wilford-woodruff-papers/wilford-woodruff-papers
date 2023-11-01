@@ -1,4 +1,7 @@
 <div x-data="map" class="">
+    <x-slot name="title">
+        Browse Documents by Location | {{ config('app.name') }}
+    </x-slot>
     <div class="flex flex-col pb-6 md:flex-row aspect-[16/8]">
        <div class="relative w-full md:w-3/4">
            <div class="flex flex-col gap-y-2 pb-2">
