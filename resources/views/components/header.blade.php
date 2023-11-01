@@ -68,7 +68,7 @@
                                     <nav class="grid gap-6">
                                         <a href="{{ route('documents') }}">Documents</a>
                                         <a href="{{ route('people') }}">People</a>
-                                        <a href="{{ route('places') }}">Places</a>
+                                        <a href="{{ route('map') }}">Places</a>
                                         <a href="{{ route('topics') }}">Topics</a>
                                         <a href="{{ route('timeline') }}">Timeline</a>
                                         <a href="{{ route('advanced-search') }}">Search</a>
@@ -264,7 +264,76 @@
                         </div>
                     </div>
 
-                    <a href="{{ route('places') }}">Places</a>
+                    <div class="flex justify-center">
+                        <div
+                            x-data="{
+                                open: false,
+                                toggle() {
+                                    if (this.open) {
+                                        return this.close()
+                                    }
+
+                                    this.$refs.button.focus()
+
+                                    this.open = true
+                                },
+                                show() {
+                                    this.$refs.button.focus()
+
+                                    this.open = true
+                                },
+                                close(focusAfter) {
+                                    if (! this.open) return
+
+                                    this.open = false
+
+                                    focusAfter && focusAfter.focus()
+                                }
+                            }"
+                            x-on:keydown.escape.prevent.stop="close($refs.button)"
+                            x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
+                            x-id="['dropdown-button']"
+                            class="relative"
+                        >
+                            <!-- Button -->
+                            <button
+                                x-ref="button"
+                                x-on:click="toggle()"
+                                x-on:mouseover="show()"
+                                :aria-expanded="open"
+                                :aria-controls="$id('dropdown-button')"
+                                type="button"
+                                class="text-base font-medium uppercase md:text-white text-primary md:hover:text-highlight"
+                            >
+                                <span>Places</span>
+                                {{--<span aria-hidden="true">&darr;</span>--}}
+                            </button>
+
+                            <!-- Panel -->
+                            <div
+                                x-ref="panel"
+                                x-show="open"
+                                x-transition.origin.top.left
+                                x-on:click.outside="close($refs.button)"
+                                :id="$id('dropdown-button')"
+                                style="display: none;"
+                                class="overflow-hidden absolute left-0 z-20 mt-2 w-auto bg-white shadow-md"
+                            >
+                                <div>
+                                    <a href="{{ route('map') }}"
+                                       class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
+                                        Browse Map
+                                    </a>
+
+                                    <a href="{{ route('places') }}"
+                                       class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
+                                        List of Locations
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <a href="{{ route('topics') }}">Topics</a>
                     <div class="flex justify-center">
                         <div
