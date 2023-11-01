@@ -16,6 +16,8 @@ class GeolocationImport implements ToCollection, WithHeadingRow
      */
     public function collection(Collection $rows)
     {
+        set_time_limit(36000);
+
         foreach ($rows as $row) {
             if (
                 ! empty($id = $this->getField($row['internal_id']))
