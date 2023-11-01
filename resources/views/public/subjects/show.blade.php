@@ -57,9 +57,9 @@
                             @endif
                         </div>
                         @if(! empty($subject->bio_approved_at))
-                            <p>
-                                {!! $subject->bio !!}
-                            </p>
+                            <div>
+                                {!! $linkify->process($subject->bio) !!}
+                            </div>
                         @endif
                         @if(! empty($subject->subject_id))
                             <ul class="flex flex-col gap-y-1 ml-1">
