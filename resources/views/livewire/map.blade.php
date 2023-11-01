@@ -42,14 +42,14 @@
                                     x-cloak
                                >
 
-                                   <div class="flex items-center">
+                                   <div class="flex gap-x-4 items-center">
                                        <div class="flex-0">
                                            <div>
                                                <input type="text" maxlength="4" x-on:input="mintrigger" x-model="minyear" class="py-1 px-1 w-12 text-base text-center border-0" readonly>
                                            </div>
                                        </div>
                                        <div class="flex-1">
-                                           <div class="mx-4">
+                                           <div class="relative">
                                                <input type="range"
                                                       step="1"
                                                       x-bind:min="min"
@@ -66,7 +66,7 @@
                                                       x-on:input="maxtrigger"
                                                       x-on:click.stop="updateLocations"
                                                       x-model="maxyear"
-                                                      class="absolute z-20 pr-4 w-full h-2 opacity-0 appearance-none cursor-pointer pointer-events-none">
+                                                      class="absolute z-20 -mr-4 w-full h-2 opacity-0 appearance-none cursor-pointer pointer-events-none">
 
                                                <div class="relative z-10 h-2">
 
@@ -78,7 +78,7 @@
                                                    <div class="absolute top-0 left-0 z-30 -mt-2 -ml-1 w-6 h-6 rounded-full bg-secondary"
                                                         x-bind:style="'left: '+minthumb+'%'"></div>
 
-                                                   <div class="absolute top-0 right-0 z-30 -mt-2 -mr-3 w-6 h-6 rounded-full bg-secondary"
+                                                   <div class="absolute top-0 right-0 z-30 -mt-2 w-6 h-6 rounded-full bg-secondary"
                                                         x-bind:style="'right: '+maxthumb+'%'"></div>
 
                                                </div>
