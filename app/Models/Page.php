@@ -370,4 +370,30 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
     {
         return $this->parent && $this->parent->enabled;
     }
+
+    public static function nextDay($date)
+    {
+        return Date::query()
+            ->select('date')
+            ->where('date', '>', $date)
+            ->where('dateable_type', Page::class)
+            ->whereHasMorph('dateable', Page::class, function ($query) {
+                $query->whereRelation('parent', 'type_id', 5);
+            })
+            ->orderBy('date', 'asc')
+            ->first();
+    }
+
+    public static function previousDay($date)
+    {
+        return Date::query()
+            ->select('date')
+            ->where('date', '<', $date)
+            ->where('dateable_type', Page::class)
+            ->whereHasMorph('dateable', Page::class, function ($query) {
+                $query->whereRelation('parent', 'type_id', 5);
+            })
+            ->orderBy('date', 'desc')
+            ->first();
+    }
 }

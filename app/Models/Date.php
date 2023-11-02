@@ -19,7 +19,7 @@ class Date extends Model
     }
 
     protected $casts = [
-        'date' => 'datetime',
+        'date' => 'date',
     ];
 
     public function toArray()
