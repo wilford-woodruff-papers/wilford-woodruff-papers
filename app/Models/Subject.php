@@ -397,4 +397,31 @@ class Subject extends Model implements HasMedia
             ->height(480)
             ->sharpen(10);
     }
+
+    public static function extractFromText($text)
+    {
+        $matches = str($text)->matchAll('/(?:\[\[)(.*?)(?:\]\])/s');
+        $names = [];
+        foreach ($matches as $match) {
+            $names[] = str($match)
+                ->explode('|')
+                ->first();
+        }
+
+        return Subject::query()
+            ->with([
+                'category',
+            ])
+            ->whereIn('name', $names)
+            ->get()
+            ->groupBy(function ($subject, int $key) {
+                return $subject
+                    ->category
+                    ->filter(function ($category) {
+                        return in_array($category->name, ['People', 'Places', 'Index']);
+                    })
+                    ->first()
+                    ?->name;
+            });
+    }
 }
