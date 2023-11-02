@@ -10,7 +10,7 @@ class ExtractContentOnDate
             $text = str($content)
                 ->replace('<p></p>', '')
                 ->match('/(<time datetime="'.$date->toDateString().'">.*)/ms');
-
+            // This will happen if a day is not entered for the date field.
             if ($text->isEmpty()) {
                 $text = str($content)
                     ->replace('<p></p>', '');
