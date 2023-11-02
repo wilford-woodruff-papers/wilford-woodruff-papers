@@ -130,6 +130,8 @@ Route::middleware([])->group(function () {
         ]);
     });
 
+    Route::get('/day-in-the-life/{date?}', \App\Http\Controllers\DayInTheLifeController::class)
+        ->name('day-in-the-life');
     Route::get('/map', \App\Http\Livewire\Map::class)->name('map');
     Route::get('/map/locations', \App\Http\Controllers\MapLocationsController::class)->name('map.locations');
     Route::get('/map/documents', \App\Http\Controllers\MapDocumentsController::class)->name('map.documents');
