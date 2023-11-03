@@ -1,4 +1,10 @@
 <x-guest-layout>
+    <x-slot name="title">
+        Day in the Life | {{ config('app.name') }}
+    </x-slot>
+    <x-banner-image :image="asset('img/banners/places.png')"
+                    :text="'Day in the Life'"
+    />
     <div x-data="{}"
          class="py-12 px-12 mx-auto max-w-7xl">
         <div class="flex flex-col gap-y-12">
@@ -7,6 +13,7 @@
                 <div>
                     @if(! empty($previousDay))
                         <a href="{{ route('day-in-the-life', ['date' => $previousDay]) }}"
+                           title="{{ $previousDay }}"
                            class="p-2 text-white rounded-full shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 font-semibold text-secondary">
                                 <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z" clip-rule="evenodd" />
@@ -20,6 +27,7 @@
                 <div>
                     @if(! empty($nextDay))
                         <a href="{{ route('day-in-the-life', ['date' => $nextDay]) }}"
+                           title="{{ $nextDay }}"
                            class="p-2 text-white rounded-full shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 font-semibold text-secondary">
                                 <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 01-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 011.06-1.06l7.5 7.5z" clip-rule="evenodd" />
@@ -30,7 +38,131 @@
             </div>
 
             <div class="relative bg-white">
-                <div class="flex items-center">
+                <ul role="list" class="flex gap-6 items-center">
+                    @if($pages->count() > 0)
+                        <li class="flex-1 bg-white divide-y divide-gray-200 shadow">
+                            <a href="#documents">
+                                <div class="flex justify-between items-center p-6 space-x-6 w-full">
+                                    <div class="flex-1 truncate">
+                                        <div class="flex items-center space-x-3">
+                                            <h3 class="text-2xl font-semibold text-gray-900 truncate">
+                                                {{ $pages->count() }}
+                                            </h3>
+                                        </div>
+                                        <p class="mt-1 text-lg font-semibold text-secondary truncate">
+                                            {{ str('Document')->plural($pages->count()) }}
+                                        </p>
+                                    </div>
+                                    <div class="flex flex-shrink-0 justify-center items-center w-10 h-10 bg-secondary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                                        </svg>
+
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    @endif
+
+                    @if(! empty($people))
+                        <li class="flex-1 bg-white divide-y divide-gray-200 shadow">
+                            <a href="#people">
+                                <div class="flex justify-between items-center p-6 space-x-6 w-full">
+                                    <div class="flex-1 truncate">
+                                        <div class="flex items-center space-x-3">
+                                            <h3 class="text-2xl font-semibold text-gray-900 truncate">
+                                                {{ $people->count() }}
+                                            </h3>
+                                        </div>
+                                        <p class="mt-1 text-lg font-semibold text-secondary truncate">
+                                            {{ str('Person')->plural($people->count()) }}
+                                        </p>
+                                    </div>
+                                    <div class="flex flex-shrink-0 justify-center items-center w-10 h-10 bg-secondary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    @endif
+                    @if(! empty($places))
+                        <li class="flex-1 bg-white divide-y divide-gray-200 shadow">
+                            <a href="#places">
+                                <div class="flex justify-between items-center p-6 space-x-6 w-full">
+                                    <div class="flex-1 truncate">
+                                        <div class="flex items-center space-x-3">
+                                            <h3 class="text-2xl font-semibold text-gray-900 truncate">
+                                                {{ $places->count() }}
+                                            </h3>
+                                        </div>
+                                        <p class="mt-1 text-lg font-semibold text-secondary truncate">
+                                            {{ str('Place')->plural($places->count()) }}
+                                        </p>
+                                    </div>
+                                    <div class="flex flex-shrink-0 justify-center items-center w-10 h-10 bg-secondary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    @endif
+                    @if($events->count() > 0)
+                        <li class="flex-1 bg-white divide-y divide-gray-200 shadow">
+                            <a href="#places">
+                                <div class="flex justify-between items-center p-6 space-x-6 w-full">
+                                    <div class="flex-1 truncate">
+                                        <div class="flex items-center space-x-3">
+                                            <h3 class="text-2xl font-semibold text-gray-900 truncate">
+                                                {{ $events->count() }}
+                                            </h3>
+                                        </div>
+                                        <p class="mt-1 text-lg font-semibold text-secondary truncate">
+                                            {{ str('Event')->plural($events->count()) }}
+                                        </p>
+                                    </div>
+                                    <div class="flex flex-shrink-0 justify-center items-center w-10 h-10 bg-secondary">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    @endif
+                    @if($quotes->count() > 0)
+                        <li class="flex-1 bg-white divide-y divide-gray-200 shadow">
+                            <a href="#places">
+                                <div class="flex justify-between items-center p-6 space-x-6 w-full">
+                                    <div class="flex-1 truncate">
+                                        <div class="flex items-center space-x-3">
+                                            <h3 class="text-2xl font-semibold text-gray-900 truncate">
+                                                {{ $quotes->count() }}
+                                            </h3>
+                                        </div>
+                                        <p class="mt-1 text-lg font-semibold text-secondary truncate">
+                                            {{ str('Quote')->plural($quotes->count()) }}
+                                        </p>
+                                    </div>
+                                    <div class="flex flex-shrink-0 justify-center items-center w-10 h-10 bg-secondary">
+                                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true">
+                                            <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    @endif
+                </ul>
+
+
+
+
+
+                {{--<div class="flex items-center">
                     @if($pages->count() > 0)
                         <div class="flex justify-center py-4 px-12 text-lg text-center text-secondary">
                             <a href="#documents">Documents</a>
@@ -56,20 +188,22 @@
                             <a href="#quotes">Quotes</a>
                         </div>
                     @endif
-                </div>
+                </div>--}}
             </div>
 
             <div class="grid grid-cols-3 gap-x-8">
-                <div class="col-span-3 text-3xl font-semibold">
-                    {{ $date->format('F d, Y ~ l') }}
-                </div>
-                <div class="col-span-2 text-2xl leading-relaxed">
-                    {!! $content !!}
+                <div class="col-span-2">
+                    <div class="pb-6 text-3xl font-semibold">
+                        {{ $date->format('F d, Y ~ l') }}
+                    </div>
+                    <div class="text-2xl leading-relaxed">
+                        {!! $content !!}
+                    </div>
                 </div>
                 <div>
                     <img src="{{ $day->first()->getfirstMediaUrl(conversionName: 'thumb') }}"
                          alt=""
-                         class="w-full h-auto"
+                         class="w-full h-auto cursor-pointer"
                          x-on:click="Livewire.emit('openModal', 'page', {'pageId': {{ $day->first()->id }}})"
                     />
                 </div>
@@ -172,12 +306,17 @@
                     <div class="grid grid-cols-3 gap-2">
                         @foreach($people as $person)
                             <div class="p-4 border border-gray-300 shadow-lg">
-                                <a href="{{ route('subjects.show', ['subject' => $person->slug]) }}"
-                                   class="text-xl text-secondary popup"
-                                   target="_blank"
-                                >
-                                    {{ $person->name }}
-                                </a>
+                                <div>
+                                    <a href="{{ route('subjects.show', ['subject' => $person->slug]) }}"
+                                       class="text-xl text-secondary popup"
+                                       target="_blank"
+                                    >
+                                        {{ $person->name }}
+                                    </a>
+                                </div>
+                                <div class="flex justify-between items-center pt-2">
+                                    {{ $person->tagged_count }} {{ str('mention')->plural($person->tagged_count) }}
+                                </div>
                                 <div class="flex justify-between items-center pt-2">
                                     <div class="font-medium text-black">
                                         <div>
@@ -338,6 +477,33 @@
                 </div>
             @endif
 
+            <div class="flex gap-x-12 justify-center items-center">
+                <div>
+                    @if(! empty($previousDay))
+                        <a href="{{ route('day-in-the-life', ['date' => $previousDay]) }}"
+                           title="{{ $previousDay }}"
+                           class="p-2 text-white rounded-full shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 font-semibold text-secondary">
+                                <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z" clip-rule="evenodd" />
+                            </svg>
+                        </a>
+                    @endif
+                </div>
+                <h1 class="text-4xl font-semibold text-center">
+                    {{ $date->toFormattedDateString() }}
+                </h1>
+                <div>
+                    @if(! empty($nextDay))
+                        <a href="{{ route('day-in-the-life', ['date' => $nextDay]) }}"
+                           title="{{ $nextDay }}"
+                           class="p-2 text-white rounded-full shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8 font-semibold text-secondary">
+                                <path fill-rule="evenodd" d="M16.28 11.47a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 01-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 011.06-1.06l7.5 7.5z" clip-rule="evenodd" />
+                            </svg>
+                        </a>
+                    @endif
+                </div>
+            </div>
         </div>
     </div>
 
