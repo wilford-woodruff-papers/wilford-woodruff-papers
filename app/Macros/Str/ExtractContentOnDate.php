@@ -24,8 +24,9 @@ class ExtractContentOnDate
                 ->before('<time datetime')
                 ->append('</p>')
                 ->replaceFirst('temp datetime', 'time datetime')
-                ->replaceMatches('/(<time datetime="'.$date->toDateString().'">.*<\/time>)(.*ay)?(<\/strong>)/msU', '')
-                ->replaceMatches('/(<time datetime="'.$date->toDateString().'">.*<\/time>)/msU', '')
+                ->replaceMatches('/(<time datetime="'.$date->toDateString().'">.*<\/time>)(.*ay)?(<\/strong>)/U', '')
+                ->replaceMatches('/(<time datetime="'.$date->toDateString().'">.*<\/time>)/U', '')
+                ->replaceMatches('/(<p>.*~.*<\/p>)/U', '')
                 ->replace('<strong>', '')
                 ->replace('</strong>', '');
             //                ->match('/(<p>)|(<strong>)?(<time datetime="'.$date->toDateString().'">.*)/ms')
