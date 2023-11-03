@@ -2492,7 +2492,7 @@
                 success: function(data){
                     if(data.bio === null || data.bio.length < 1){
                         // No information has been added, redirect to view related media
-                        window.location = $subject.attr('href');
+                        window.open($subject.attr('href'), "_blank");
                     }else{
                         // Show page description
                         $('#popover-id #title').html(data.name);
