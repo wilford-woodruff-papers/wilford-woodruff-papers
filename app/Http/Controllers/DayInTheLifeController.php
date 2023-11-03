@@ -20,6 +20,7 @@ class DayInTheLifeController extends Controller
             ->with([
                 'parent',
                 'quotes',
+                'media',
             ])
             ->whereRelation('parent', 'type_id', 5)
             ->whereRelation('dates', 'date', $date->toDateString())
@@ -49,13 +50,17 @@ class DayInTheLifeController extends Controller
             ?->date
             ?->toDateString();
 
-        $people = $subjects->get('People');
-        $places = $subjects->get('Places');
-        $topics = $subjects->get('Index');
+        $people = $subjects->get('People')
+            ?->sortBy('name');
+        $places = $subjects->get('Places')
+            ?->sortBy('name');
+        $topics = $subjects->get('Index')
+            ?->sortBy('name', SORT_NATURAL | SORT_FLAG_CASE);
 
         $pages = Page::query()
             ->with([
                 'parent',
+                'media',
             ])
             ->whereNotIn('id', $day->pluck('id')->all())
             ->whereHas('parent')
