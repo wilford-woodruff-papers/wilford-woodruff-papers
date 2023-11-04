@@ -42,7 +42,7 @@
                     @if($pages->count() > 0)
                         <li class="flex-1 bg-white divide-y divide-gray-200 shadow">
                             <a href="#documents">
-                                <div class="flex justify-between items-center p-6 space-x-6 w-full">
+                                <div class="flex justify-between items-center py-2 px-6 space-x-6 w-full">
                                     <div class="flex-1 truncate">
                                         <div class="flex items-center space-x-3">
                                             <h3 class="text-2xl font-semibold text-gray-900 truncate">
@@ -66,7 +66,7 @@
                     @if(! empty($people))
                         <li class="flex-1 bg-white divide-y divide-gray-200 shadow">
                             <a href="#people">
-                                <div class="flex justify-between items-center p-6 space-x-6 w-full">
+                                <div class="flex justify-between items-center py-2 px-6 space-x-6 w-full">
                                     <div class="flex-1 truncate">
                                         <div class="flex items-center space-x-3">
                                             <h3 class="text-2xl font-semibold text-gray-900 truncate">
@@ -89,7 +89,7 @@
                     @if(! empty($places))
                         <li class="flex-1 bg-white divide-y divide-gray-200 shadow">
                             <a href="#places">
-                                <div class="flex justify-between items-center p-6 space-x-6 w-full">
+                                <div class="flex justify-between items-center py-2 px-6 space-x-6 w-full">
                                     <div class="flex-1 truncate">
                                         <div class="flex items-center space-x-3">
                                             <h3 class="text-2xl font-semibold text-gray-900 truncate">
@@ -111,8 +111,8 @@
                     @endif
                     @if($events->count() > 0)
                         <li class="flex-1 bg-white divide-y divide-gray-200 shadow">
-                            <a href="#places">
-                                <div class="flex justify-between items-center p-6 space-x-6 w-full">
+                            <a href="#events">
+                                <div class="flex justify-between items-center py-2 px-6 space-x-6 w-full">
                                     <div class="flex-1 truncate">
                                         <div class="flex items-center space-x-3">
                                             <h3 class="text-2xl font-semibold text-gray-900 truncate">
@@ -134,8 +134,8 @@
                     @endif
                     @if($quotes->count() > 0)
                         <li class="flex-1 bg-white divide-y divide-gray-200 shadow">
-                            <a href="#places">
-                                <div class="flex justify-between items-center p-6 space-x-6 w-full">
+                            <a href="#quotes">
+                                <div class="flex justify-between items-center py-2 px-6 space-x-6 w-full">
                                     <div class="flex-1 truncate">
                                         <div class="flex items-center space-x-3">
                                             <h3 class="text-2xl font-semibold text-gray-900 truncate">
@@ -190,7 +190,7 @@
                 </div>--}}
             </div>
 
-            <div class="grid grid-cols-3 gap-x-8">
+            <div class="grid grid-cols-3 gap-x-12">
                 <div class="col-span-2">
                     <div class="pb-6 text-3xl font-semibold">
                         {{ $date->format('F d, Y ~ l') }}
