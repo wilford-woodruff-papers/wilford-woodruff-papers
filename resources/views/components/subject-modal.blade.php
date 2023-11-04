@@ -12,6 +12,7 @@
                 <a class="py-1 px-4 text-xs font-medium text-white border cursor-pointer border-secondary bg-secondary hover:text-highlight"
                    id="page-link"
                    href="#"
+                   target="_blank"
                 >
                     View More
                 </a>
