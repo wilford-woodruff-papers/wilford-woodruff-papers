@@ -524,9 +524,35 @@
                                                 <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z"></path>
                                             </svg>
                                         </div>
-                                        <blockquote class="text-justify">
-                                            {!! $quote->text !!}
-                                        </blockquote>
+                                        <div>
+                                            <blockquote class="text-justify">
+                                                {!! $quote->text !!}
+                                            </blockquote>
+                                            <div class="text-right">
+                                                ~ {{ (empty($quote->author) ? 'Wilford Woodruff': $quote->author) }}
+                                            </div>
+                                            <div>
+                                                @if($quote->topics->count() > 0)
+                                                    <div class="mt-4">
+                                                        <ul class="grid grid-flow-col auto-cols-max gap-3">
+                                                            @foreach($quote->topics as $topic)
+                                                                <li class="">
+                                                                    <a href="{{ route('subjects.show', ['subject' => $topic->slug]) }}"
+                                                                       class="inline-flex items-center py-1 px-3 text-base text-white bg-secondary"
+                                                                       target="_blank"
+                                                                    >
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 -ml-0.5 w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                                                                        </svg>
+                                                                        {{ $topic->name }}
+                                                                    </a>
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
                                         <div class="flex-initial">
                                             <svg class="w-8 h-8 transform rotate-180 text-primary-80" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true">
                                                 <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z"></path>
