@@ -40,8 +40,6 @@ class ImportAiSessions extends Action
             $zip->extractTo($storageDestinationPath);
             $zip->close();
 
-            ray('Zip file extracted to '.$storageDestinationPath);
-
             $files = \File::allFiles($storageDestinationPath);
 
             foreach ($files as $file) {
@@ -49,7 +47,7 @@ class ImportAiSessions extends Action
                 $contents = fgetcsv($handle);
                 fclose($handle);
                 $sessionId = str(array_shift($contents))->afterLast('/');
-                ray($file->getFilename());
+
                 Excel::import(new AiSessionImport($sessionId), $storageDestinationPath.'/'.$file->getFilename());
             }
 

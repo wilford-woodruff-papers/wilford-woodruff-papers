@@ -57,8 +57,6 @@ class AiSessionImport implements ToCollection, WithHeadingRow
                 $text = '';
             }
 
-            ray('Done processing conversation.');
-
             //            if($newSource != $oldSource){
             //
             //                $question->save();

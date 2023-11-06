@@ -20,17 +20,17 @@ class ImportNewslettersCommand extends Command
         $url = 'https://api.cc.email/v3/emails?limit=50';
 
         $oauth = Oauth::query()
-                        ->where('provider', 'Constant Contact')
-                        ->first();
+            ->where('provider', 'Constant Contact')
+            ->first();
 
         if ($oauth->expires_at < now()) {
             $oauth = $this->refreshToken($oauth);
         }
 
         $token = $oauth->access_token;
-        ray($token);
+
         $response = Http::withToken($token)
-                            ->get($url);
+            ->get($url);
 
         $newsletters = collect($response->json('campaigns'))->filter(function ($item) {
             return str($item['current_status'])->contains('Done');
@@ -101,11 +101,11 @@ class ImportNewslettersCommand extends Command
         $authorization = 'Basic '.$credentials;
 
         $response = Http::asForm()
-                            ->withHeaders([
-                                'Authorization' => $authorization,
-                            ])
-                            ->acceptJson()
-                            ->post($url);
+            ->withHeaders([
+                'Authorization' => $authorization,
+            ])
+            ->acceptJson()
+            ->post($url);
 
         $oauth->expires_at = now()->addSeconds($response->json('expires_in'));
         $oauth->access_token = $response->json('access_token');

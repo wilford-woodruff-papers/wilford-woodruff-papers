@@ -128,8 +128,6 @@ class Search extends Component
                 ->toArray(),
         ]);
 
-        ray($result);
-
         $facetDistribution = $result->getFacetDistribution();
         //dd($facetDistribution['decade']);
         $this->decades = collect([]);
