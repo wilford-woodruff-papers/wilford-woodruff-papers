@@ -457,7 +457,7 @@
                     </div>
                     <div class="">
                         @foreach($events as $event)
-                            <article class="grid grid-cols-2 py-4 gap-8 @if($loop->first)  @else -mt-32 @endif">
+                            <article class="grid grid-cols-2 py-4 gap-8 min-h-[250px] @if($loop->first)  @else -mt-32 @endif">
                                 <div class="col-span-1 @if($loop->odd) order-0 @else order-1 @endif">
                                     <div class="relative flex flex-col @if($loop->odd) text-left @else text-right @endif">
                                         <div class="flex @if($loop->odd) justify-start @else justify-end @endif">
