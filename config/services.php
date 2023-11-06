@@ -49,4 +49,8 @@ return [
         'redirect_uri' => env('CONSTANT_CONTACT_REDIRECT_URI'),
     ],
 
+    'api-ninja' => [
+        'key' => env('API_NINJA_KEY'),
+    ],
+
 ];
