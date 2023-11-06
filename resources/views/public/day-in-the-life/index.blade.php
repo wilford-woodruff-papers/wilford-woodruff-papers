@@ -470,9 +470,15 @@
                                         </div>
                                         <div class="absolute z-10 bottom-8 text-xl bg-white shadow-xl px-3 py-1 @if($loop->odd) left-8 @else right-8 @endif">
                                             <div class="text-lg font-semibold">
-                                                {{ $event->display_date }}
+                                                <a href="{{ route('day-in-the-life', ['date' => $event->start_at?->toDateString()]) }}"
+                                                    class="text-secondary"
+                                                >
+                                                    {{ $event->display_date }}
+                                                </a>
                                             </div>
-                                            {!! str($event->text)->addScriptureLinks()->addSubjectLinks() !!}
+                                            <div class="pt-2">
+                                                {!! str($event->text)->addScriptureLinks()->addSubjectLinks() !!}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
