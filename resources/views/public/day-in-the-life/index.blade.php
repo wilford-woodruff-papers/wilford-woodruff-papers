@@ -449,7 +449,7 @@
             @endif
 
             @if($events->count() > 0)
-                <div class="mb-20">
+                <div class="">
                     <div id="events">
                         <h2 class="my-8 text-2xl font-semibold">
                             Events
@@ -534,7 +534,7 @@
                 </div>
             @endif
 
-            <div class="flex gap-x-12 justify-center items-center">
+            <div class="flex gap-x-12 justify-center items-center mt-20">
                 <div>
                     @if(! empty($previousDay))
                         <a href="{{ route('day-in-the-life', ['date' => $previousDay]) }}"
