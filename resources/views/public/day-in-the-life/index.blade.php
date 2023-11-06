@@ -258,14 +258,16 @@
                                                 </h3>
                                                 <div class="mt-5 text-sm leading-6 text-gray-600 line-clamp-3">
                                                     {!!
-                                                            str($page->transcript)
-                                                                ->extractContentOnDate($date)
-                                                                ->addSubjectLinks()
-                                                                ->addScriptureLinks()
-                                                                ->removeQZCodes(false)
-                                                                ->replace('&amp;', '&')
-                                                                ->replace('<s>', '')
-                                                                ->replace('</s>', '')
+                                                            strip_tags(
+                                                                str($page->transcript)
+                                                                    ->extractContentOnDate($date)
+                                                                    ->addSubjectLinks()
+                                                                    ->addScriptureLinks()
+                                                                    ->removeQZCodes(false)
+                                                                    ->replace('&amp;', '&')
+                                                                    ->replace('<s>', '')
+                                                                    ->replace('</s>', '')
+                                                                )
                                                         !!}
                                                 </div>
                                             </div>
@@ -383,7 +385,10 @@
                     </div>
                     <div class="grid grid-cols-1 gap-y-4 lg:grid-cols-3">
                         @foreach($places as $place)
-                            <div class="">
+                            <div class="flex gap-x-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-red-700">
+                                    <path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+                                </svg>
                                 <a href="{{ route('subjects.show', ['subject' => $place->slug]) }}"
                                    class="text-xl text-secondary popup"
                                    target="_blank"
@@ -444,19 +449,52 @@
             @endif
 
             @if($events->count() > 0)
-                <div>
+                <div class="mb-20">
                     <div id="events">
                         <h2 class="my-8 text-2xl font-semibold">
                             Events
                         </h2>
                     </div>
-                    <div class="grid grid-cols-2 gap-8">
+                    <div class="">
                         @foreach($events as $event)
-                            <div>
-                                <div class="text-xl">
-                                    {!! str($event->text)->addScriptureLinks()->addSubjectLinks() !!}
+                            <article class="grid grid-cols-2 py-4 gap-8 @if($loop->first)  @else -mt-32 @endif">
+                                <div class="col-span-1 @if($loop->odd) order-0 @else order-1 @endif">
+                                    <div class="relative flex flex-col @if($loop->odd) text-left @else text-right @endif">
+                                        <div class="flex @if($loop->odd) justify-start @else justify-end @endif">
+                                            <img src="{{ $event->thumbnail_url }}"
+                                                 alt=""
+                                                 class="w-1/3 h-auto  @if($loop->odd) order-0 @else order-1 @endif" />
+                                            {{--<div class="text-lg font-semibold flex-1 @if($loop->odd) order-1 text-right @else order-0 text-left @endif">
+                                                {{ $event->start_at->toFormattedDateString() }}
+                                            </div>--}}
+                                        </div>
+                                        <div class="absolute z-10 bottom-8 text-xl bg-white shadow-xl px-3 py-1 @if($loop->odd) left-8 @else right-8 @endif">
+                                            <div class="text-lg font-semibold">
+                                                {{ $event->display_date }}
+                                            </div>
+                                            {!! str($event->text)->addScriptureLinks()->addSubjectLinks() !!}
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                                <div></div>
+                            </article>
+                            {{--<article class=" @if($loop->odd) justify-start @else justify-end -mt-48 @endif">
+                                <div class="relative h-64">
+                                    <div class="absolute w-64 @if($loop->odd) top-0 left-0 @else right-0 bottom-0 @endif">
+                                        <img src="{{ $event->thumbnail_url }}"
+                                             alt=""
+                                             class="w-full h-auto" />
+                                        <div>
+                                            {{ $date->toFormattedDateString() }}
+                                        </div>
+                                    </div>
+                                    <div class="absolute z-10 bg-white w-128 @if($loop->odd) right-0 top-4 @else bottom-4 left-0 @endif">
+                                        <div class="p-4 shadow-lg @if($loop->odd) text-left @else text-right @endif">
+                                            {!! str($event->text)->addScriptureLinks()->addSubjectLinks() !!}
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>--}}
                         @endforeach
                     </div>
                 </div>

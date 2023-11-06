@@ -28,6 +28,14 @@ class DayInTheLifeController extends Controller
             ->orderBy('order', 'asc')
             ->get();
 
+        if ($day->count() < 1) {
+            return redirect()->route('day-in-the-life', [
+                'date' => Page::nextDay($date->toDateString())
+                    ?->date
+                    ?->toDateString(),
+            ]);
+        }
+
         $content = $day
             ->map(function ($entry) use ($date) {
                 return str($entry->transcript)
@@ -66,10 +74,17 @@ class DayInTheLifeController extends Controller
             ->whereHas('parent')
             ->whereRelation('dates', 'date', $date->toDateString())
             ->get();
-
+        $eventRange = clone $date;
+        //dd($date->toDateString(), $eventRange->subMonths(2)->toDateString(), $eventRange->addMonths(4)->toDateString());
         $events = Event::query()
-            ->where('start_at', '<=', $date->toDateString())
-            ->where('end_at', '>=', $date->toDateString())
+            ->where(function ($query) use ($date) {
+                $query->where('start_at', '=', $date->toDateString());
+            })
+            ->orWhere(function ($query) use ($eventRange) {
+                $query->where('start_at', '>=', $eventRange->subMonths(2)->toDateString())
+                    ->where('start_at', '<=', $eventRange->addMonths(4)->toDateString());
+            })
+            ->orderBy('start_at')
             ->get();
 
         $quotes = $day->pluck('quotes')->flatten();
