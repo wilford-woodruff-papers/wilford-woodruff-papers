@@ -10,7 +10,7 @@
                        <div class="pr-6 font-semibold">
                            Types:
                        </div>
-                       <div class="grid grid-cols-3 gap-x-2 lg:grid-cols-5">
+                       <div class="grid grid-cols-3 gap-x-2 lg:grid-cols-6">
                            <template x-for="(count, type) in availableTypes" :key="'type-'+slugify(type)">
                                <div class="flex relative items-start pr-2">
                                    <div class="flex items-center h-6">
