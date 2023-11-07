@@ -58,16 +58,20 @@ class IndexPlacesForMap extends Command
             ->where('items.enabled', true)
             ->whereNotNull('pages.first_date')
             ->places()
-            ->whereNotNull('latitude')
-            ->whereNotNull('longitude');
+            ->whereNotNull('subjects.latitude')
+            ->whereNotNull('subjects.longitude');
 
-        $rows = $placesQuery->count();
+        $rows = (clone $placesQuery)->count();
         $bar = $this->output->createProgressBar(intval($rows / 500));
 
         $placesQuery->chunk(500, function (Collection $places) use ($client, $indexName, $bar) {
             $client->index($indexName)
                 ->addDocuments(
                     $places->map(function ($place) {
+                        if ($place->type === 'Journals') {
+                            ray($place);
+                        }
+
                         return [
                             'id' => $place->place_id.'_'.$place->page_id,
                             'place' => $place->place_id,
