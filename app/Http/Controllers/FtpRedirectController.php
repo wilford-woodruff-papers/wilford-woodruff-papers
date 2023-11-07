@@ -18,8 +18,15 @@ class FtpRedirectController extends Controller
     public function __invoke(Request $request)
     {
         if ($request->has('item_id')) {
-            $itemId = str($request->get('item_id'))
-                ->before('/');
+            $url = str($request->get('item_id'));
+            if ($url->startsWith('/woodruff/')) {
+                $itemId = $url->explode('/')
+                    ->get('3');
+            } else {
+                $itemId = $url
+                    ->before('/');
+            }
+
             $item = Item::query()
                 ->where('ftp_slug', $itemId)
                 ->firstOrFail();
