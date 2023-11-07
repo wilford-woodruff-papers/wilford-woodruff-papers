@@ -14,7 +14,7 @@ class AddFirstDateToAllItemPages extends Command
      *
      * @var string
      */
-    protected $signature = 'dates:add-first-date-to-all-pages {item?}';
+    protected $signature = 'dates:add-first-date-to-all-pages {item?} {--type=}';
 
     /**
      * The console command description.
@@ -29,11 +29,22 @@ class AddFirstDateToAllItemPages extends Command
     public function handle(): int
     {
         $items = Item::query()
-            ->whereNotNull('ftp_id')
-            ->whereNull('item_id');
+            ->where(function ($query) {
+                $query->where(function ($query) {
+                    $query->whereNotNull('ftp_id')
+                        ->whereNull('item_id');
+                })
+                    ->orWhere(function ($query) {
+                        $query->has('items');
+                    });
+            });
 
         if (! empty($itemId = $this->argument('item'))) {
             $items = $items->whereId($itemId);
+        }
+
+        if (! empty($typeId = $this->option('type'))) {
+            $items = $items->where('type_id', $typeId);
         }
 
         $items = $items->get();
