@@ -60,22 +60,37 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
 
     public function realPages()
     {
-        return $this->hasMany(Page::class)->orderBy('order', 'ASC');
+        return $this
+            ->hasMany(Page::class)
+            ->orderBy('order', 'ASC');
+    }
+
+    public function containerPages()
+    {
+        return $this
+            ->hasMany(Page::class, 'parent_item_id')
+            ->orderBy('order', 'ASC');
     }
 
     public function firstPage()
     {
-        return $this->hasOne(Page::class, 'parent_item_id')->ordered()->ofMany();
+        return $this
+            ->hasOne(Page::class, 'parent_item_id')
+            ->ordered()
+            ->ofMany();
     }
 
     public function items()
     {
-        return $this->hasMany(self::class)->orderBy('order', 'ASC');
+        return $this
+            ->hasMany(self::class)
+            ->orderBy('order', 'ASC');
     }
 
     public function item()
     {
-        return $this->belongsTo(self::class);
+        return $this
+            ->belongsTo(self::class);
     }
 
     public function parent()
@@ -153,7 +168,8 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
 
     public function buildSortQuery()
     {
-        return static::query()->where('item_id', $this->item_id);
+        return static::query()
+            ->where('item_id', $this->item_id);
     }
 
     /**
