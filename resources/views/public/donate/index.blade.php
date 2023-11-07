@@ -1,16 +1,23 @@
 <x-guest-layout>
     <x-slot name="title">Donate to the Wilford Woodruff Papers Foundation</x-slot>
 
-    <div class="bg-center bg-cover" style="background-image: url('{{ asset('img/donate/background.jpg') }}');">
-        <div class="py-24 mx-auto max-w-5xl">
-            <h1 class="text-6xl font-black text-center text-white uppercase">
-                Ways to Give
-            </h1>
-            <p class="mt-8 text-3xl font-semibold text-center text-white">
-                Your generosity makes a difference.
-            </p>
+    @if(now('America/Denver')->lt(\Carbon\Carbon::create(2023, 12, 1, 0, 0, 0, 'America/Denver')))
+        <div class="mx-auto mb-16">
+            <img src="{{ asset('img/banners/giving-tuesday.png') }}" alt="Giving Tuesday" class="w-full h-auto"/>
         </div>
-    </div>
+    @else
+        <div class="bg-center bg-cover" style="background-image: url('{{ asset('img/donate/background.jpg') }}');">
+            <div class="py-24 mx-auto max-w-5xl">
+                <h1 class="text-6xl font-black text-center text-white uppercase">
+                    Ways to Give
+                </h1>
+                <p class="mt-8 text-3xl font-semibold text-center text-white">
+                    Your generosity makes a difference.
+                </p>
+            </div>
+        </div>
+    @endif
+
 
     <div class="my-12">
         <div class="mx-auto mb-16 max-w-7xl">
