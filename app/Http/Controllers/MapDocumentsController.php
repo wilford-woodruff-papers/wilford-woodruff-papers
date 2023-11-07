@@ -40,7 +40,7 @@ class MapDocumentsController extends Controller
                 'page_subject.*',
             )
             ->with([
-                'realPages' => function ($query) use ($request) {
+                'containerPages' => function ($query) use ($request) {
                     $query
                         ->whereRelation('places', 'id', $request->get('location'))
                         ->whereYear('first_date', '>=', request()->get('min_year'))
@@ -71,7 +71,7 @@ class MapDocumentsController extends Controller
         ) {
             $items = $items
                 ->distinct('items.id')
-                ->whereHas('realPages', function ($query) {
+                ->whereHas('containerPages', function ($query) {
                     $query->whereYear('first_date', '>=', request()->get('min_year'))
                         ->whereYear('first_date', '<=', request()->get('max_year'));
                 });
@@ -95,7 +95,7 @@ class MapDocumentsController extends Controller
                     'id' => $item->id,
                     'name' => str($item->name)->stripBracketedID(),
                     'count' => $item->total_usage_count,
-                    'pages' => $item->realPages
+                    'pages' => $item->containerPages
                         ->sortBy('order')
                         ->map(function ($page) {
                             return [
