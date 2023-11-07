@@ -42,7 +42,8 @@ class CalculateFirstDateForPages implements ShouldQueue
         $firstDateCarry = null;
 
         foreach ($this->item->pages as $page) {
-            if (empty($firstDate = $page->taggedDates()->first()?->date)) {
+
+            if (empty($firstDate = $page->dates->first()?->date)) {
                 $firstDate = $firstDateCarry;
             }
             //info($page->name.': '.$firstDate);
