@@ -62,22 +62,22 @@
             @endif
 
             {{--{!! Str::of( strip_tags( $page->text() ) )->words(50) !!}--}}
-            @if($page->dates->count() > 0)
-                <div class="grid grid-cols-12 mt-3">
-                    <div class="col-span-1 font-bold">
-                        Dates:
-                    </div>
-                    <div class="col-span-11">
-                        <div class="grid grid-cols-4 gap-1">
-                            {!! $page->dates->sortBy('date')->map(function($date){
-                                return '<span class="inline-flex items-center py-0.5 px-2 text-xs font-medium text-gray-800 bg-gray-100 rounded">'
-                                            . $date->date->format('F j, Y')
-                                        . '</span>';
-                            })->join(" ") !!}
-                        </div>
-                    </div>
-                </div>
-            @endif
+{{--            @if($page->dates->count() > 0)--}}
+{{--                <div class="grid grid-cols-12 mt-3">--}}
+{{--                    <div class="col-span-1 font-bold">--}}
+{{--                        Dates:--}}
+{{--                    </div>--}}
+{{--                    <div class="col-span-11">--}}
+{{--                        <div class="grid grid-cols-4 gap-1">--}}
+{{--                            {!! $page->dates->sortBy('date')->map(function($date){--}}
+{{--                                return '<span class="inline-flex items-center py-0.5 px-2 text-xs font-medium text-gray-800 bg-gray-100 rounded">'--}}
+{{--                                            . $date->date->format('F j, Y')--}}
+{{--                                        . '</span>';--}}
+{{--                            })->join(" ") !!}--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            @endif--}}
         </div>
         @hasanyrole('Editor|Admin|Super Admin')
         <div class="ml-3">

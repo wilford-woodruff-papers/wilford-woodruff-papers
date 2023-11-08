@@ -79,7 +79,7 @@
                                         <a class="text-secondary popup"
                                            href="{{ route('subjects.show', ['subject' => $subTopic])  }}"
                                         >
-                                            {{ $subTopic->name }} ({{ $subTopic->pages_count }})
+                                            {{ $subTopic->name }} ({{ $subTopic->tagged_count }})
                                         </a>
                                     </li>
                                 @endforeach
