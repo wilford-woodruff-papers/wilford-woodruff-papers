@@ -18,7 +18,7 @@
                                 @hasanyrole('Editor|Researcher|Admin|Super Admin')
                                     <div class="flex justify-between items-center">
                                         <div class="font-semibold">
-                                            {{ $subject->category()->orderBy('name')->pluck('name')->implode(', ') }}
+                                            {{ $subject->category->sortBy('name')->pluck('name')->implode(', ') }}
                                         </div>
                                         <div class="flex text-center divide-x divide-blue-200">
                                             @if(! empty($subject->subject_uri))
@@ -35,7 +35,7 @@
                                             >
                                                 Nova
                                             </a>
-                                            @if(in_array('People', $subject->category()->pluck('name')->toArray()))
+                                            @if(in_array('People', $subject->category->pluck('name')->toArray()))
                                                 <a href="{{ route('admin.dashboard.people.edit', ['person' => $subject->slug]) }}"
                                                    class="px-2 text-center text-secondary"
                                                    target="_blank"
@@ -43,7 +43,7 @@
                                                     Content Admin
                                                 </a>
                                             @endif
-                                            @if(in_array('Places', $subject->category()->pluck('name')->toArray()))
+                                            @if(in_array('Places', $subject->category->pluck('name')->toArray()))
                                                 <a href="{{ route('admin.dashboard.places.edit', ['place' => $subject->slug]) }}"
                                                    class="px-2 text-center text-secondary"
                                                    target="_blank"

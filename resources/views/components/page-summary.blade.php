@@ -1,6 +1,6 @@
 <li class="grid grid-cols-7 py-4">
     <div class="col-span-1 px-2">
-        <a class="col-span-1 my-2 mx-auto w-20 h-auto" href="{{ route('pages.show', ['item' => $page->item, 'page' => $page]) }}">
+        <a class="col-span-1 my-2 mx-auto w-20 h-auto" href="{{ route('pages.show', ['item' => $page->parent, 'page' => $page]) }}">
             <img src="{{ $page->getFirstMedia()?->getUrl('thumb') }}"
                  alt=""
                  loading="lazy"
@@ -9,7 +9,7 @@
     </div>
     <div class="col-span-6 py-2 px-4">
         <p class="pb-1 text-lg font-medium capitalize text-secondary">
-            <a href="{{ route('pages.show', ['item' => $page->item, 'page' => $page]) }}">Page {{ $page->order }}</a>
+            <a href="{{ route('pages.show', ['item' => $page->parent, 'page' => $page]) }}">Page {{ $page->order }}</a>
         </p>
         <div class="flex gap-x-3 ml-2 text-base font-medium">
             <div>
@@ -36,8 +36,8 @@
                 @endauth
             </div>
         </div>
-        {{--@if($page->item->type)
-            <p class="ml-2 text-base text-primary">{{ $page->item->type->name }}</p>
+        {{--@if($page->parent->type)
+            <p class="ml-2 text-base text-primary">{{ $page->parent->type->name }}</p>
         @endif--}}
         <div class="py-2 px-4 font-serif text-sm text-gray-500">
             @php
@@ -82,7 +82,7 @@
         @hasanyrole('Editor|Admin|Super Admin')
         <div class="ml-3">
             <p class="text-sm text-gray-900">Real name: {{ $page->name }}</p>
-            <p class="text-sm text-gray-900">Item: {{ $page->item->name }}</p>
+            <p class="text-sm text-gray-900">Item: {{ $page->parent->name }}</p>
             @if($page->quotes_count > 0)
                 <p class="text-sm text-gray-900">Quotes: {{ $page->quotes_count }}</p>
             @endif
