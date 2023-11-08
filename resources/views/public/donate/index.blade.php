@@ -2,7 +2,7 @@
     <x-slot name="title">Donate to the Wilford Woodruff Papers Foundation</x-slot>
 
     @if(now('America/Denver')->lt(\Carbon\Carbon::create(2023, 12, 1, 0, 0, 0, 'America/Denver')))
-        <div class="mx-auto mb-16">
+        <div class="mx-auto mb-16 max-w-7xl">
             <img src="{{ asset('img/banners/giving-tuesday.png') }}" alt="Giving Tuesday" class="w-full h-auto"/>
         </div>
     @else
