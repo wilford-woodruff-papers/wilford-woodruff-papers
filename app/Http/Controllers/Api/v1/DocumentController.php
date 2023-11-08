@@ -74,7 +74,17 @@ class DocumentController extends Controller
                     'original_url' => $item->firstPage?->getFirstMedia()?->getUrl(),
                 ],
             ],
-            'pages' => $item->pages,
+            'pages' => $item->pages->map(function ($page) {
+                return [
+                    'id' => $page->id,
+                    'uuid' => $page->uuid,
+                    'type' => $page->parent?->type?->name,
+                    'full_name' => $page->full_name,
+                    'name' => $page->name,
+                    'transcript' => $page->transcript,
+                    'text' => strip_tags($page->transcript),
+                ];
+            }),
         ];
     }
 

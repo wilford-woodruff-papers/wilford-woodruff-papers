@@ -59,4 +59,4 @@ Route::middleware(['auth:sanctum', 'throttle:30', \App\Http\Middleware\LogApiUsa
             ->name('api.topics.export');
         Route::get('topics/{id}', [\App\Http\Controllers\Api\v1\TopicsController::class, 'show'])
             ->name('api.topics.show');
-});
+    });

@@ -251,6 +251,27 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
             'name' => $this->name,
             'transcript' => $this->transcript,
             'text' => strip_tags($this->transcript),
+            'links' => [
+                'frontend_url' => route('pages.show', ['item' => $this->parent->uuid, 'page' => $this->uuid]),
+                'api_url' => route('api.pages.show', ['page' => $this->uuid]),
+                'images' => [
+                    'thumbnail_url' => $this->getFirstMedia()?->getUrl('thumb'),
+                    'original_url' => $this->getFirstMedia()?->getUrl(),
+                ],
+            ],
+        ];
+    }
+
+    public function toArrayOld()
+    {
+        return [
+            'id' => $this->id,
+            'uuid' => $this->uuid,
+            'type' => $this->parent?->type?->name,
+            'full_name' => $this->full_name,
+            'name' => $this->name,
+            'transcript' => $this->transcript,
+            'text' => strip_tags($this->transcript),
             'dates' => $this->dates,
             'people' => $this->people->map(function ($item) {
                 return [
