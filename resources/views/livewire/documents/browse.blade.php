@@ -124,7 +124,7 @@
                         <div class="col-span-1 px-4 pt-6">
                             <!-- This example requires Tailwind CSS v2.0+ -->
                             <nav class="space-y-1" aria-label="Decade filter">
-                                @foreach($decades as $d)
+                                @foreach($decades->sortBy('decade') as $d)
                                     <span wire:click="$set('filters.decade', {{ $d->decade }})"
                                         class="@if(data_get($this->filters, 'decade') == $d->decade) bg-gray-200 text-gray-900 @else text-gray-600 hover:bg-gray-50 hover:text-gray-900 @endif flex items-center pl-3 py-2 text-base font-medium cursor-pointer"
                                     >
@@ -139,7 +139,7 @@
                                     </span>
                                     @if(data_get($this->filters, 'decade') == $d->decade)
                                         <div class="pl-4">
-                                            @foreach($years as $y)
+                                            @foreach($years->sortBy('year') as $y)
                                                 <span wire:click="$set('filters.year', {{ $y->year }})"
                                                    class="@if(data_get($this->filters, 'year') == $y->year) bg-gray-200 text-gray-900 @else text-gray-600 hover:bg-gray-50 hover:text-gray-900 @endif flex items-center pl-3 py-2 text-base font-medium cursor-pointer"
                                                 >
