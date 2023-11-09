@@ -171,7 +171,7 @@
             @endif
         </div>
 
-        <div class="max-w-7xl text-center">
+        <div class="pb-8 max-w-7xl text-center">
             <form wire:submit.prevent="submit">
                 <input wire:model.defer="search"
                        class="pb-2 w-full max-w-xl border-gray-300 shadow-sm sm:max-w-xl sm:text-base"
@@ -201,14 +201,59 @@
         </div>
 
         <div wire:loading.remove
-             class="grid grid-cols-1 gap-1 px-2 mb-4 sm:grid-cols-2 md:grid-cols-3">
+             class="grid grid-cols-1 gap-2 lg:grid-cols-3">
             @forelse($people as $key => $person)
-                <div class="">
+                {{--<div class="">
                     <a class="text-secondary"
                        href="{{ route('subjects.show', ['subject' => $person])  }}"
                     >
                         {{ $person->display_name }} ({{ $person->tagged_count }})
                     </a>
+                </div>--}}
+                <div class="p-4 border border-gray-300 shadow-lg">
+                    <div>
+                        <a href="{{ route('subjects.show', ['subject' => $person->slug]) }}"
+                           class="text-xl text-secondary popup"
+                           target="_blank"
+                        >
+                            {{ $person->display_name }}
+                        </a>
+                    </div>
+                    <div class="flex justify-between items-center pt-2">
+                        {{ $person->tagged_count }} {{ str('mention')->plural($person->tagged_count) }}
+                    </div>
+                    <div class="flex justify-between items-center pt-2">
+                        <div class="font-medium text-black">
+                            <div>
+                                @if(! empty($person->life_years))
+                                    {{ $person->life_years }}
+                                @endif
+                            </div>
+                            <div>
+                                {{
+                                    $person
+                                        ->category
+                                        ->filter(fn($category) => $category->name !== 'People')
+                                        ->pluck('name')
+                                        ->map(fn($name) => str($name)->singular())
+                                        ->join(', ')
+                                }}
+                            </div>
+                        </div>
+                        <div>
+                            @if(! empty($person->pid))
+                                <a href="https://www.familysearch.org/tree/person/details/{{ $person->pid }}"
+                                   class="block px-2 pt-1 pb-2 text-sm bg-white rounded-md border border-gray-200"
+                                   target="_blank"
+                                >
+                                    <img src="{{ asset('img/familytree-logo.png') }}"
+                                         alt="FamilySearch"
+                                         class="w-auto h-6"
+                                    />
+                                </a>
+                            @endif
+                        </div>
+                    </div>
                 </div>
             @empty
                 <div class="px-2 text-secondary">
