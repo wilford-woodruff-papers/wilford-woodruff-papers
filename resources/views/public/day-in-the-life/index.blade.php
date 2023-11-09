@@ -275,12 +275,21 @@
                                 {!! $content !!}
                             </div>
                         </div>
-                        <div class="overflow-hidden">
-                            <img src="{{ $day->first()->getfirstMediaUrl(conversionName: 'web') }}"
-                                 alt=""
-                                 class="w-full h-auto scale-125 cursor-pointer"
-                                 x-on:click="Livewire.emit('openModal', 'page', {'pageId': {{ $day->first()->id }}})"
-                            />
+                        <div class="flex flex-col gap-y-4">
+                            <div class="overflow-hidden">
+                                <img src="{{ $day->first()->getfirstMediaUrl(conversionName: 'web') }}"
+                                     alt=""
+                                     class="w-full h-auto scale-125 cursor-pointer"
+                                     x-on:click="Livewire.emit('openModal', 'page', {'pageId': {{ $day->first()->id }}})"
+                                />
+                            </div>
+                            <div class="flex justify-center">
+                                <button x-on:click="Livewire.emit('openModal', 'page', {'pageId': {{ $day->first()->id }}})">
+                                    <span class="text-secondary">
+                                        View Fullscreen
+                                    </span>
+                                </button>
+                            </div>
                         </div>
                         @if(! empty($topics))
                             <div class="col-span-3 mt-6">
@@ -359,9 +368,11 @@
                                         <article x-on:click="Livewire.emit('openModal', 'page', {'pageId': {{ $page->id }}})">
                                             <div class="grid grid-cols-2 gap-x-4">
                                                 <div class="col-span-1 px-8 @if($loop->odd) order-0 @else order-1 @endif">
-                                                    <img src="{{ $page->getfirstMediaUrl(conversionName: 'web') }}"
-                                                         alt=""
-                                                         class="w-full h-auto" />
+                                                    <div class="overflow-hidden">
+                                                        <img src="{{ $page->getfirstMediaUrl(conversionName: 'web') }}"
+                                                             alt=""
+                                                             class="w-full h-auto scale-125" />
+                                                    </div>
                                                 </div>
                                                 <div class="col-span-1 @if($loop->odd) order-1 text-right @else order-0 text-left @endif">
                                                     <div class="flex flex-col gap-y-4 justify-between py-12 h-full">
@@ -410,7 +421,7 @@
                                                class="text-xl text-secondary popup"
                                                target="_blank"
                                             >
-                                                {{ $person->name }}
+                                                {{ $person->display_name }}
                                             </a>
                                         </div>
                                         <div class="flex justify-between items-center pt-2">
