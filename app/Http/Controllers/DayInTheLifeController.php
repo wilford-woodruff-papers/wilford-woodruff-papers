@@ -52,6 +52,7 @@ class DayInTheLifeController extends Controller
             ->removeQZCodes(false)
             ->replace('&amp;', '&')
             ->replace('<p>. ', '<p>')
+            ->replace('<p>, ', '<p>')
             ->trim();
 
         $previousDay = Page::previousDay($date->toDateString())
