@@ -88,13 +88,13 @@
                         </div>
                     </div>
 
-                    <div class="sticky top-0 z-50 bg-white">
+                    <div class="top-0 z-50 bg-white md:sticky">
                         <div x-ref="nav">
                             <ul role="list"
-                                class="flex flex-col gap-6 transition-all duration-200 md:flex-row md:items-center"
-                                :class="{'': !scrolledFromTop, 'shadow-2xl divide-x divide-gray-200': scrolledFromTop}"
+                                class="flex flex-col transition-all duration-200 md:flex-row md:items-center"
+                                :class="{'gap-6': !scrolledFromTop, 'md:shadow-2xl md:divide-x md:divide-gray-200': scrolledFromTop}"
                             >
-                                <li class="pt-1 pl-6 mx-auto h-full bg-white flex-0"
+                                <li class="px-6 pt-1 mx-auto h-full bg-white flex-0"
                                     :class="{'hidden': !scrolledFromTop, '': scrolledFromTop}"
                                     x-cloak
                                 >
@@ -110,7 +110,7 @@
                                 </li>
                                 @if($pages->count() > 0)
                                     <li class="flex-1 bg-white divide-y divide-gray-200 hover:bg-gray-100"
-                                        :class="{'shadow': !scrolledFromTop, '': scrolledFromTop}">
+                                        :class="{'shadow border border-gray-200': !scrolledFromTop, '': scrolledFromTop}">
                                         <a href="#documents">
                                             <div class="flex justify-between items-center py-2 px-6 space-x-6 w-full">
                                                 <div class="flex-1 gap-x-2 truncate">
@@ -135,7 +135,7 @@
 
                                 @if(! empty($people))
                                     <li class="flex-1 bg-white divide-y divide-gray-200 hover:bg-gray-100"
-                                        :class="{'shadow': !scrolledFromTop, '': scrolledFromTop}">
+                                        :class="{'shadow border border-gray-200': !scrolledFromTop, '': scrolledFromTop}">
                                         <a href="#people">
                                             <div class="flex justify-between items-center py-2 px-6 space-x-6 w-full">
                                                 <div class="flex-1 truncate">
@@ -159,7 +159,7 @@
                                 @endif
                                 @if(! empty($places))
                                     <li class="flex-1 bg-white divide-y divide-gray-200 hover:bg-gray-100"
-                                        :class="{'shadow': !scrolledFromTop, '': scrolledFromTop}">
+                                        :class="{'shadow border border-gray-200': !scrolledFromTop, '': scrolledFromTop}">
                                         <a href="#places">
                                             <div class="flex justify-between items-center py-2 px-6 space-x-6 w-full">
                                                 <div class="flex-1 truncate">
@@ -183,7 +183,7 @@
                                 @endif
                                 @if($events->count() > 0)
                                     <li class="flex-1 bg-white divide-y divide-gray-200 hover:bg-gray-100"
-                                        :class="{'shadow': !scrolledFromTop, '': scrolledFromTop}">
+                                        :class="{'shadow border border-gray-200': !scrolledFromTop, '': scrolledFromTop}">
                                         <a href="#events">
                                             <div class="flex justify-between items-center py-2 px-6 space-x-6 w-full">
                                                 <div class="flex-1 truncate">
@@ -207,7 +207,7 @@
                                 @endif
                                 @if($quotes->count() > 0)
                                     <li class="flex-1 bg-white divide-y divide-gray-200 hover:bg-gray-100"
-                                        :class="{'shadow': !scrolledFromTop, '': scrolledFromTop}">
+                                        :class="{'shadow border border-gray-200': !scrolledFromTop, '': scrolledFromTop}">
                                         <a href="#quotes">
                                             <div class="flex justify-between items-center py-2 px-6 space-x-6 w-full">
                                                 <div class="flex-1 truncate">
