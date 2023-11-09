@@ -275,10 +275,10 @@
                                 {!! $content !!}
                             </div>
                         </div>
-                        <div>
-                            <img src="{{ $day->first()->getfirstMediaUrl(conversionName: 'thumb') }}"
+                        <div class="overflow-hidden">
+                            <img src="{{ $day->first()->getfirstMediaUrl(conversionName: 'web') }}"
                                  alt=""
-                                 class="w-full h-auto cursor-pointer"
+                                 class="w-full h-auto scale-125 cursor-pointer"
                                  x-on:click="Livewire.emit('openModal', 'page', {'pageId': {{ $day->first()->id }}})"
                             />
                         </div>
@@ -359,7 +359,7 @@
                                         <article x-on:click="Livewire.emit('openModal', 'page', {'pageId': {{ $page->id }}})">
                                             <div class="grid grid-cols-2 gap-x-4">
                                                 <div class="col-span-1 px-8 @if($loop->odd) order-0 @else order-1 @endif">
-                                                    <img src="{{ $page->getfirstMediaUrl(conversionName: 'thumb') }}"
+                                                    <img src="{{ $page->getfirstMediaUrl(conversionName: 'web') }}"
                                                          alt=""
                                                          class="w-full h-auto" />
                                                 </div>
