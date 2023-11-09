@@ -60,14 +60,14 @@
                             @endif
                         </div>
                         <div class="flex gap-x-4 justify-center items-center">
-                            <h1 class="text-2xl font-semibold text-center md:text-4xl">
+                            <h1 class="text-2xl font-semibold text-center text-gray-900 md:text-4xl">
                                 {{ $date->toFormattedDateString() }}
                             </h1>
                             <div class="">
                                 <div class="h-0">
                                     <input class="w-0 h-0 border-0" x-ref="picker" type="text"/>
                                 </div>
-                                <button class="mx-auto" x-on:click="picker.toggle()">
+                                <button class="mx-auto text-gray-900" x-on:click="picker.toggle()">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z" />
                                     </svg>
@@ -101,7 +101,7 @@
                                     <div class="h-0">
                                         <input class="w-0 h-0 border-0" x-ref="navPicker" type="text"/>
                                     </div>
-                                    <button class="mx-auto" x-on:click="navPicker.toggle()">
+                                    <button class="mx-auto text-gray-900" x-on:click="navPicker.toggle()">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5m-9-6h.008v.008H12v-.008zM12 15h.008v.008H12V15zm0 2.25h.008v.008H12v-.008zM9.75 15h.008v.008H9.75V15zm0 2.25h.008v.008H9.75v-.008zM7.5 15h.008v.008H7.5V15zm0 2.25h.008v.008H7.5v-.008zm6.75-4.5h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V15zm0 2.25h.008v.008h-.008v-.008zm2.25-4.5h.008v.008H16.5v-.008zm0 2.25h.008v.008H16.5V15z" />
                                         </svg>
@@ -235,10 +235,10 @@
 
                     <div class="grid grid-cols-1 gap-y-4 gap-x-12 md:grid-cols-3">
                         <div class="order-2 md:order-1 md:col-span-2">
-                            <div class="pb-6 text-xl font-semibold md:text-3xl">
+                            <div class="pb-6 text-xl font-semibold text-gray-900 md:text-3xl">
                                 {{ $date->format('F d, Y ~ l') }}
                             </div>
-                            <div class="text-lg leading-relaxed md:text-2xl">
+                            <div class="text-lg leading-relaxed text-gray-900 md:text-2xl">
                                 {!! $content !!}
                             </div>
                             @if(! empty($topics))
@@ -305,12 +305,13 @@
                                                 </div>
                                                 <div class="max-w-xl">
                                                     <div class="relative group">
-                                                        <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
+                                                        <h3 class="mt-3 text-lg font-semibold leading-6 group-hover:text-gray-600 text-secondary">
                                                             <span class="absolute inset-0"></span>
                                                             {!! str($page->parent?->name)->remove('[[')->remove(']]') !!}
                                                         </h3>
-                                                        <div class="mt-5 text-sm leading-6 text-gray-600 line-clamp-3">
+                                                        <div class="mt-5 text-sm leading-6 text-gray-900 line-clamp-3">
                                                             {!!
+                                                                str(
                                                                     strip_tags(
                                                                         str($page->transcript)
                                                                             ->extractContentOnDate($date)
@@ -321,7 +322,12 @@
                                                                             ->replace('<s>', '')
                                                                             ->replace('</s>', '')
                                                                         )
-                                                                !!}
+                                                                )
+                                                                ->trim(' ')
+                                                                ->ltrim('.')
+                                                                ->ltrim(',')
+                                                                ->trim(' ')
+                                                            !!}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -350,7 +356,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="">
-                                                            <div class="text-lg line-clamp-6">
+                                                            <div class="text-lg text-gray-900 line-clamp-6">
                                                                 {!!
                                                                     str($page->transcript)
                                                                         ->extractContentOnDate($date)
@@ -359,6 +365,10 @@
                                                                         ->removeQZCodes(false)
                                                                         ->replace('&amp;', '&')->replace('<s>', '')
                                                                         ->replace('</s>', '')
+                                                                        ->trim(' ')
+                                                                        ->ltrim('.')
+                                                                        ->ltrim(',')
+                                                                        ->trim(' ')
                                                                 !!}
                                                             </div>
                                                         </div>
@@ -391,17 +401,17 @@
                                                 {{ $person->display_name }}
                                             </a>
                                         </div>
-                                        <div class="flex justify-between items-center pt-2">
+                                        <div class="flex justify-between items-center pt-2 text-gray-900">
                                             {{ $person->tagged_count }} {{ str('mention')->plural($person->tagged_count) }}
                                         </div>
                                         <div class="flex justify-between items-center pt-2">
-                                            <div class="font-medium text-black">
+                                            <div class="font-medium text-gray-900">
                                                 <div>
                                                     @if(! empty($person->life_years))
                                                         {{ $person->life_years }}
                                                     @endif
                                                 </div>
-                                                <div>
+                                                <div class="text-gray-900">
                                                     {{
                                                         $person
                                                             ->category
@@ -534,7 +544,7 @@
                                                             {{ $event->display_date }}
                                                         </a>
                                                     </div>
-                                                    <div class="pt-2">
+                                                    <div class="pt-2 text-gray-900">
                                                         {!!
                                                             str($event->text)
                                                                 ->addScriptureLinks()
