@@ -415,7 +415,7 @@
                             </div>
                             <div class="grid grid-cols-1 gap-2 lg:grid-cols-3">
                                 @foreach($people as $person)
-                                    <div class="p-4 border border-gray-300 shadow-lg">
+                                    <div class="flex flex-col justify-between p-4 border border-gray-300 shadow-lg">
                                         <div>
                                             <a href="{{ route('subjects.show', ['subject' => $person->slug]) }}"
                                                class="text-xl text-secondary popup"

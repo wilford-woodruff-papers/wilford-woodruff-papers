@@ -210,10 +210,10 @@
                         {{ $person->display_name }} ({{ $person->tagged_count }})
                     </a>
                 </div>--}}
-                <div class="p-4 border border-gray-300 shadow-lg">
+                <div class="flex flex-col justify-between p-4 border border-gray-300 shadow-lg">
                     <div>
                         <a href="{{ route('subjects.show', ['subject' => $person->slug]) }}"
-                           class="text-xl text-secondary popup"
+                           class="text-xl text-secondary"
                            target="_blank"
                         >
                             {{ $person->display_name }}
