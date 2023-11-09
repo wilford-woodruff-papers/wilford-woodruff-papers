@@ -19,9 +19,10 @@ class People extends Component
         'Family',
         'Apostles',
         '1840 British Converts',
+        'United Brethren',
         '1835 Southern Converts',
-        'Scriptural Figures',
         'Eminent Men and Women',
+        'Scriptural Figures',
     ];
 
     protected $queryString = [
