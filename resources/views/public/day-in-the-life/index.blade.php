@@ -243,7 +243,7 @@
                             </div>
                             @if(! empty($topics))
                                 <div class="col-span-3 mt-6">
-                                    <ul class="grid grid-flow-col auto-cols-max gap-3">
+                                    <ul class="flex flex-wrap gap-3">
                                         @foreach($topics as $topic)
                                             <li class="">
                                                 <a href="{{ route('subjects.show', ['subject' => $topic->slug]) }}"
