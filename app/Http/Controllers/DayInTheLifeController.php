@@ -6,6 +6,7 @@ use App\Models\Event;
 use App\Models\Page;
 use App\Models\Subject;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Date;
 
 class DayInTheLifeController extends Controller
@@ -89,6 +90,21 @@ class DayInTheLifeController extends Controller
 
         $quotes = $day->pluck('quotes')->flatten();
 
+        $allDates = Cache::remember('all-dates', 3600, function () {
+            return \App\Models\Date::query()
+                ->select('date')
+                ->where('dateable_type', Page::class)
+                ->whereHasMorph('dateable', Page::class, function ($query) {
+                    $query->whereRelation('parent', 'type_id', 5);
+                })
+                ->distinct()
+                ->orderBy('date', 'asc')
+                ->toBase()
+                ->get();
+        });
+
+        ray($allDates);
+
         return view('public.day-in-the-life.index', [
             'date' => $date,
             'day' => $day,
@@ -101,6 +117,7 @@ class DayInTheLifeController extends Controller
             'pages' => $pages,
             'events' => $events,
             'quotes' => $quotes,
+            'allDates' => $allDates,
         ]);
     }
 }
