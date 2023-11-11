@@ -119,7 +119,7 @@
                                                             {{ $pages->count() }}
                                                         </h3>
                                                     </div>
-                                                    <p class="mt-1 text-lg font-semibold text-secondary truncate">
+                                                    <p class="mt-1 text-lg font-semibold uppercase text-secondary truncate">
                                                         {{ str('Document')->plural($pages->count()) }}
                                                     </p>
                                                 </div>
@@ -144,7 +144,7 @@
                                                             {{ $people->count() }}
                                                         </h3>
                                                     </div>
-                                                    <p class="mt-1 text-lg font-semibold text-secondary truncate">
+                                                    <p class="mt-1 text-lg font-semibold uppercase text-secondary truncate">
                                                         {{ str('Person')->plural($people->count()) }}
                                                     </p>
                                                 </div>
@@ -168,7 +168,7 @@
                                                             {{ $places->count() }}
                                                         </h3>
                                                     </div>
-                                                    <p class="mt-1 text-lg font-semibold text-secondary truncate">
+                                                    <p class="mt-1 text-lg font-semibold uppercase text-secondary truncate">
                                                         {{ str('Place')->plural($places->count()) }}
                                                     </p>
                                                 </div>
@@ -192,7 +192,7 @@
                                                             {{ $events->count() }}
                                                         </h3>
                                                     </div>
-                                                    <p class="mt-1 text-lg font-semibold text-secondary truncate">
+                                                    <p class="mt-1 text-lg font-semibold uppercase text-secondary truncate">
                                                         {{ str('Event')->plural($events->count()) }}
                                                     </p>
                                                 </div>
@@ -216,7 +216,7 @@
                                                             {{ $quotes->count() }}
                                                         </h3>
                                                     </div>
-                                                    <p class="text-lg font-semibold text-secondary truncate">
+                                                    <p class="text-lg font-semibold uppercase text-secondary truncate">
                                                         {{ str('Quote')->plural($quotes->count()) }}
                                                     </p>
                                                 </div>
@@ -284,8 +284,8 @@
                         <div>
                             <div class="relative">
                                 <div id="documents" class="absolute -top-32"></div>
-                                <h2 class="my-8 text-2xl font-semibold">
-                                    Documents
+                                <h2 class="my-8 text-2xl font-semibold uppercase">
+                                    Other Documents
                                 </h2>
                             </div>
                             @if($pages->count() > 3)
@@ -386,7 +386,7 @@
                         <div>
                             <div class="relative">
                                 <div id="people" class="absolute -top-32"></div>
-                                <h2 class="my-8 text-2xl font-semibold">
+                                <h2 class="my-8 text-2xl font-semibold uppercase">
                                     People
                                 </h2>
                             </div>
@@ -446,7 +446,7 @@
                         <div>
                             <div class="relative">
                                 <div id="places" class="absolute -top-32"></div>
-                                <h2 class="my-8 text-2xl font-semibold">
+                                <h2 class="my-8 text-2xl font-semibold uppercase">
                                     Places
                                 </h2>
                             </div>
@@ -519,7 +519,7 @@
                         <div class="">
                             <div class="relative">
                                 <div id="events" class="absolute -top-32"></div>
-                                <h2 class="my-8 text-2xl font-semibold">
+                                <h2 class="my-8 text-2xl font-semibold uppercase">
                                     Events
                                 </h2>
                             </div>
@@ -566,7 +566,7 @@
                         <div>
                             <div class="relative">
                                 <div id="quotes" class="absolute -top-32"></div>
-                                <h2 class="my-8 text-2xl font-semibold">
+                                <h2 class="my-8 text-2xl font-semibold uppercase">
                                     Quotes
                                 </h2>
                             </div>
