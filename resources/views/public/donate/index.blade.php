@@ -3,7 +3,7 @@
 
     @if(now('America/Denver')->lt(\Carbon\Carbon::create(2023, 12, 1, 0, 0, 0, 'America/Denver')))
         <div class="mx-auto mb-16 max-w-7xl">
-            <img src="{{ asset('img/banners/giving-tuesday.png') }}" alt="Giving Tuesday" class="w-full h-auto"/>
+            <img src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/donate-giving-tuesday.png" alt="Giving Tuesday" class="w-full h-auto"/>
         </div>
     @else
         <div class="bg-center bg-cover" style="background-image: url('{{ asset('img/donate/background.jpg') }}');">
