@@ -57,6 +57,7 @@ class PeopleExport implements FromQuery, ShouldQueue, WithMapping, WithHeadings
     {
         return [
             'Internal ID',
+            'Unique ID',
             'Family Search ID',
             'Name',
             'First Name',
@@ -82,6 +83,7 @@ class PeopleExport implements FromQuery, ShouldQueue, WithMapping, WithHeadings
     {
         return [
             $person->id,
+            $person->unique_id,
             $person->pid,
             $person->name,
             $person->first_name,
