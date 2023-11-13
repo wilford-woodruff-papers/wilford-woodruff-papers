@@ -106,21 +106,48 @@ class DayInTheLifeController extends Controller
                 ->get();
         });
 
-        ray($allDates);
+        $sections = [
+            'Documents' => [
+                'name' => 'Other Documents',
+                'items' => $pages,
+                'icon' => 'heroicon-o-document-text',
+                'view' => 'public.day-in-the-life.sections.documents',
+            ],
+            'People' => [
+                'name' => 'People',
+                'items' => $people,
+                'icon' => 'heroicon-o-user-group',
+                'view' => 'public.day-in-the-life.sections.people',
+            ],
+            'Places' => [
+                'name' => 'Places',
+                'items' => $places,
+                'icon' => 'heroicon-o-map',
+                'view' => 'public.day-in-the-life.sections.places',
+            ],
+            'Events' => [
+                'name' => 'Events',
+                'items' => $events,
+                'icon' => 'heroicon-o-calendar-days',
+                'view' => 'public.day-in-the-life.sections.events',
+            ],
+            'Quotes' => [
+                'name' => 'Quotes',
+                'items' => $quotes,
+                'icon' => 'ri-double-quotes-l',
+                'view' => 'public.day-in-the-life.sections.quotes',
+            ],
+        ];
 
         return view('public.day-in-the-life.index', [
             'date' => $date,
             'day' => $day,
+            'topics' => $topics,
             'content' => $content,
             'previousDay' => $previousDay,
-            'nextDay' => $nextDay,
-            'people' => $people,
-            'places' => $places,
-            'topics' => $topics,
-            'pages' => $pages,
-            'events' => $events,
-            'quotes' => $quotes,
             'allDates' => $allDates,
+            'nextDay' => $nextDay,
+            'sections' => $sections,
         ]);
     }
 }
