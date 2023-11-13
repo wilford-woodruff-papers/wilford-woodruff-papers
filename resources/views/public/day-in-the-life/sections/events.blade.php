@@ -17,7 +17,7 @@
                             <div class="flex @if($loop->odd) justify-start @else justify-end @endif">
                                 <img src="{{ $event->thumbnail_url }}"
                                      alt=""
-                                     class="w-full sm:w-1/2 lg:w-1/3 h-auto  @if($loop->odd) order-0 @else order-1 @endif" />
+                                     class="w-full sm:w-1/2 lg:w-1/3 h-auto shadow-lg @if($loop->odd) order-0 @else order-1 @endif" />
                                 {{--<div class="text-lg font-semibold flex-1 @if($loop->odd) order-1 text-right @else order-0 text-left @endif">
                                     {{ $event->start_at->toFormattedDateString() }}
                                 </div>--}}
