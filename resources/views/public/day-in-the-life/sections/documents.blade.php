@@ -10,9 +10,9 @@
         </p>
     </div>
     @if($section['items']->count() > 3)
-        <div class="grid grid-cols-1 gap-x-8 gap-y-20 mx-auto mt-16 max-w-2xl lg:grid-cols-3 lg:mx-2 lg:max-w-none">
+        <div class="grid grid-cols-1 gap-y-12 mx-auto mt-16 max-w-2xl lg:grid-cols-3 lg:mx-2 lg:max-w-none">
             @foreach ($section['items'] as $page)
-                <article class="flex flex-col justify-between items-start cursor-pointer"
+                <article class="flex flex-col justify-between items-start p-4 cursor-pointer hover:bg-gray-100"
                          x-on:click="Livewire.emit('openModal', 'page', {'pageId': {{ $page->id }}})">
                     <div
                         class="w-full"
@@ -47,6 +47,8 @@
                                                     ->replace('&amp;', '&')
                                                     ->replace('<s>', '')
                                                     ->replace('</s>', '')
+                                                    ->replace('<u>', '')
+                                                    ->replace('</u>', '')
                                                 )
                                         )
                                         ->trim(' ')
@@ -62,9 +64,11 @@
             @endforeach
         </div>
     @else
-        <div class="grid grid-cols-1 gap-16">
+        <div class="grid grid-cols-1 gap-8">
             @foreach($section['items'] as $page)
-                <article x-on:click="Livewire.emit('openModal', 'page', {'pageId': {{ $page->id }}})">
+                <article x-on:click="Livewire.emit('openModal', 'page', {'pageId': {{ $page->id }}})"
+                    class="py-4 pr-4 cursor-pointer hover:bg-gray-100"
+                >
                     <div class="grid grid-cols-2 gap-x-4">
                         <div class="col-span-1 bg-cover bg-center bg-clip-content px-8 @if($loop->odd) order-0 @else order-1 @endif"
                              style="background-image: url('{{ $page->getfirstMediaUrl(conversionName: 'web') }}')"
@@ -93,20 +97,24 @@
                                 <div class="">
                                     <div class="text-lg text-gray-900 line-clamp-6">
                                         {!!
-                                            str($page->transcript)
-                                                ->extractContentOnDate($date)
-                                                ->addSubjectLinks()
-                                                ->addScriptureLinks()
-                                                ->removeQZCodes(false)
-                                                ->replace('&amp;', '&')
-                                                ->replace('<s>', '')
-                                                ->replace('</s>', '')
-                                                ->replace('<u>', '')
-                                                ->replace('</u>', '')
-                                                ->trim(' ')
-                                                ->ltrim('.')
-                                                ->ltrim(',')
-                                                ->trim(' ')
+                                            str(
+                                                strip_tags(
+                                                str($page->transcript)
+                                                    ->extractContentOnDate($date)
+                                                    ->addSubjectLinks()
+                                                    ->addScriptureLinks()
+                                                    ->removeQZCodes(false)
+                                                    ->replace('&amp;', '&')
+                                                    ->replace('<s>', '')
+                                                    ->replace('</s>', '')
+                                                    ->replace('<u>', '')
+                                                    ->replace('</u>', '')
+                                                )
+                                            )
+                                            ->trim(' ')
+                                            ->ltrim('.')
+                                            ->ltrim(',')
+                                            ->trim(' ')
                                         !!}
                                     </div>
                                 </div>
