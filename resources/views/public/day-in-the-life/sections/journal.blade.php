@@ -1,6 +1,9 @@
+<h2 class="text-4xl font-thin uppercase border-b-4 border-highlight">
+    Journal Entry
+</h2>
 <div class="grid grid-cols-1 gap-y-4 gap-x-12 md:grid-cols-3">
     <div class="order-2 md:order-1 md:col-span-2">
-        <div class="pb-6 text-xl font-semibold text-gray-900 md:text-3xl">
+        <div class="pb-6 text-xl font-thin text-gray-900 md:text-3xl">
             {{ $date->format('F d, Y ~ l') }}
         </div>
         <div class="text-lg leading-relaxed text-gray-900 md:text-2xl">
