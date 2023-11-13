@@ -107,42 +107,42 @@ class DayInTheLifeController extends Controller
         });
 
         $sections = [
-            'Documents' => [
-                'name' => 'Other Documents',
-                'items' => $pages,
-                'icon' => 'heroicon-o-document-text',
-                'view' => 'public.day-in-the-life.sections.documents',
-            ],
-            'People' => [
+            'Person' => [
                 'name' => 'People',
-                'items' => $people,
+                'items' => $people ?? collect(),
                 'icon' => 'heroicon-o-user-group',
                 'view' => 'public.day-in-the-life.sections.people',
             ],
-            'Places' => [
+            'Place' => [
                 'name' => 'Places',
-                'items' => $places,
+                'items' => $places ?? collect(),
                 'icon' => 'heroicon-o-map',
                 'view' => 'public.day-in-the-life.sections.places',
             ],
-            'Events' => [
+            'Event' => [
                 'name' => 'Events',
                 'items' => $events,
                 'icon' => 'heroicon-o-calendar-days',
                 'view' => 'public.day-in-the-life.sections.events',
             ],
-            'Quotes' => [
+            'Quote' => [
                 'name' => 'Quotes',
                 'items' => $quotes,
                 'icon' => 'ri-double-quotes-l',
                 'view' => 'public.day-in-the-life.sections.quotes',
+            ],
+            'Document' => [
+                'name' => 'Other Documents',
+                'items' => $pages,
+                'icon' => 'heroicon-o-document-text',
+                'view' => 'public.day-in-the-life.sections.documents',
             ],
         ];
 
         return view('public.day-in-the-life.index', [
             'date' => $date,
             'day' => $day,
-            'topics' => $topics,
+            'topics' => $topics ?? collect(),
             'content' => $content,
             'previousDay' => $previousDay,
             'allDates' => $allDates,

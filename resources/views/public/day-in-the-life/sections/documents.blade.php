@@ -28,7 +28,12 @@
                             <div class="relative group">
                                 <h3 class="mt-3 text-lg font-semibold leading-6 group-hover:text-gray-600 text-secondary">
                                     <span class="absolute inset-0"></span>
-                                    {!! str($page->parent?->name)->remove('[[')->remove(']]') !!}
+                                    {!!
+                                        str($page->parent?->name)
+                                            ->stripBracketedID()
+                                            ->remove('[[')
+                                            ->remove(']]')
+                                    !!}
                                 </h3>
                                 <div class="mt-5 text-sm leading-6 text-gray-900 line-clamp-3">
                                     {!!
@@ -77,7 +82,12 @@
                                 <div>
                                     <div class="text-xl cursor-pointer text-secondary"
                                          x-on:click="Livewire.emit('openModal', 'page', {'pageId': {{ $page->id }}})">
-                                        {{ $page->parent?->name }}
+                                        {!!
+                                            str($page->parent?->name)
+                                                ->stripBracketedID()
+                                                ->remove('[[')
+                                                ->remove(']]')
+                                        !!}
                                     </div>
                                 </div>
                                 <div class="">
