@@ -2,9 +2,12 @@
     <div class="">
         <div class="relative">
             <div id="{{ str($section['name'])->slug() }}" class="absolute -top-32"></div>
-            <h2 class="my-8 text-2xl font-semibold uppercase">
+            <h2 class="text-4xl font-thin uppercase border-b-4 border-highlight">
                 {{ $section['name'] }}
             </h2>
+            <p class="mt-4 mb-8 text-xl">
+                View selected events in the two months surrounding this date in Wilford Woodruff's life.
+            </p>
         </div>
         <div class="">
             @foreach($section['items'] as $event)
