@@ -2,9 +2,12 @@
     <div>
         <div class="relative">
             <div id="{{ str($section['name'])->slug() }}" class="absolute -top-32"></div>
-            <h2 class="my-8 text-2xl font-semibold uppercase">
+            <h2 class="text-4xl font-thin uppercase border-b-4 border-highlight">
                 {{ $section['name'] }}
             </h2>
+            <p class="mt-4 mb-8 text-xl">
+                Browse places mentioned in Wilford Woodruff's journal entry on this day.
+            </p>
         </div>
         <div class="grid grid-cols-1 gap-y-4 lg:grid-cols-3">
             @foreach($section['items'] as $place)
