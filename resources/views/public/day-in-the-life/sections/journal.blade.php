@@ -7,7 +7,7 @@
             <div class="pb-6 text-xl font-thin text-gray-900 md:text-3xl">
                 {{ $date->format('F d, Y ~ l') }}
             </div>
-            <div class="text-lg leading-relaxed text-gray-900 md:text-2xl">
+            <div class="text-lg leading-relaxed text-gray-900 md:text-2xl min-h-[350px]">
                 {!! $content !!}
             </div>
             @if(! empty($topics))

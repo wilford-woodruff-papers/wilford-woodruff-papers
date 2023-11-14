@@ -6,7 +6,7 @@
                     :text="'Day in the Life'"
     />
     <div x-data="dayInTheLife"
-         @scroll.window="$refs.nav.getBoundingClientRect().top < 10 ? scrolledFromTop = true : scrolledFromTop = false">
+         @scroll.window="$refs.nav.getBoundingClientRect().top <= 10 ? scrolledFromTop = true : scrolledFromTop = false">
         <div class="py-12">
             <div class="">
                 <div class="">
@@ -72,18 +72,20 @@
                             @include('public.day-in-the-life.sections.journal')
                         </div>
 
-                        <div class="flex flex-col gap-y-12 px-12 mx-auto max-w-7xl">
-                            @include($sections['Person']['view'], ['section' => $sections['Person']])
+                        <div class="flex-1">
+                            <div class="flex flex-col gap-y-12 px-12 mx-auto max-w-7xl">
+                                @include($sections['Person']['view'], ['section' => $sections['Person']])
 
-                            @include($sections['Place']['view'], ['section' => $sections['Place']])
+                                @include($sections['Place']['view'], ['section' => $sections['Place']])
 
-                            @include($sections['Event']['view'], ['section' => $sections['Event']])
+                                @include($sections['Event']['view'], ['section' => $sections['Event']])
 
-                            @include($sections['Quote']['view'], ['section' => $sections['Quote']])
+                                @include($sections['Quote']['view'], ['section' => $sections['Quote']])
 
-                            @include($sections['Document']['view'], ['section' => $sections['Document']])
+                                @include($sections['Document']['view'], ['section' => $sections['Document']])
 
-                            @include('public.day-in-the-life.sections.date-navigation', ['location' => 'bottom'])
+                                @include('public.day-in-the-life.sections.date-navigation', ['location' => 'bottom'])
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -141,7 +143,7 @@
                             });
                         }
 
-                        this.$refs.nav.getBoundingClientRect().top < 10  ? scrolledFromTop = true : scrolledFromTop = false;
+                        this.$refs.nav.getBoundingClientRect().top <= 10  ? scrolledFromTop = true : scrolledFromTop = false;
 
                         this.$watch('value', () => {
                             for (const [key, value] of Object.entries(this.pickers)) {
