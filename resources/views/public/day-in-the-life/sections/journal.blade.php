@@ -2,8 +2,8 @@
     <h2 class="text-5xl font-thin text-white uppercase">
         Journal Entry
     </h2>
-    <div class="grid grid-cols-1 gap-y-4 bg-white md:grid-cols-3">
-        <div class="order-2 p-4 md:order-1 md:col-span-2">
+    <div class="grid overflow-hidden grid-cols-1 gap-y-4 bg-white md:grid-cols-3">
+        <div class="order-1 p-4 md:order-2 md:col-span-2 md:shadow-[rgba(0,0,15,0.3)_-10px_-4px_8px_0px] z-10">
             <div class="pb-6 text-xl font-thin text-gray-900 md:text-3xl">
                 {{ $date->format('F d, Y ~ l') }}
             </div>
@@ -30,8 +30,8 @@
                 </div>
             @endif
         </div>
-        <div class="order-1 gap-y-4 md:order-2">
-            <div class="hidden w-full h-full bg-left bg-cover cursor-pointer md:block bg-scale-125"
+        <div class="overflow-hidden order-2 gap-y-4 md:order-1">
+            <div class="hidden  w-full h-full bg-center bg-cover scale-[140%] cursor-pointer md:block"
                 style="background-image: url('{{ $day->first()->getfirstMediaUrl(conversionName: 'web') }}')"
                  x-on:click="Livewire.emit('openModal', 'page', {'pageId': {{ $day->first()->id }}})"
             >
