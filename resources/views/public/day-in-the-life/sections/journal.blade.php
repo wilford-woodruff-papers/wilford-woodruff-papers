@@ -1,15 +1,15 @@
 <div class="px-12 pt-12 pb-14 mx-auto max-w-7xl">
 
-    <div class="grid overflow-hidden grid-cols-1 gap-y-4 bg-white shadow-2xl md:grid-cols-3">
-        <div class="order-1 p-4 md:order-2 md:col-span-3 md:shadow-[rgba(0,0,15,0.3)_-10px_-4px_8px_0px] z-10">
+    <div class="overflow-hidden bg-white shadow-2xl">
+        <div class="z-10 p-4">
             <div class="pb-6 text-xl font-thin text-gray-900 md:text-3xl">
                 {{ $date->format('F d, Y ~ l') }}
             </div>
-            <div class="text-lg leading-relaxed text-gray-900 md:text-2xl min-h-[350px]">
+            <div class="overflow-y-auto text-lg leading-relaxed text-gray-900 md:text-2xl max-h-[500px]">
                 {!! $content !!}
             </div>
             @if(! empty($topics))
-                <div class="col-span-3 mt-6">
+                <div class="mt-6">
                     <ul class="flex flex-wrap gap-3">
                         @foreach($topics as $topic)
                             <li class="">
