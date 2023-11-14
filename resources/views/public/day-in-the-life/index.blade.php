@@ -68,8 +68,18 @@
                             </div>
                         </div>
 
-                        <div class="bg-primary-50">
-                            @include('public.day-in-the-life.sections.journal')
+                        <div class="flex-1">
+                            <div class="px-12 mx-auto -mb-12 max-w-7xl">
+                                <h2 class="my-8 text-4xl font-thin uppercase border-b-4 border-highlight">
+                                    Journal Entry
+                                </h2>
+                            </div>
+                        </div>
+                        <div class="overflow-hidden w-full">
+                            <div class="-mx-80 bg-center bg-cover"
+                                 style="background-image: url('{{ $day->first()->getfirstMediaUrl(conversionName: 'web') }}')">
+                                @include('public.day-in-the-life.sections.journal')
+                            </div>
                         </div>
 
                         <div class="flex-1">
