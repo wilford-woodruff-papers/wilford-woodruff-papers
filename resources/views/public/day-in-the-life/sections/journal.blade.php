@@ -1,6 +1,6 @@
 <div class="px-12 pt-12 pb-14 mx-auto max-w-7xl">
 
-    <div class="grid overflow-hidden grid-cols-1 gap-y-4 bg-white md:grid-cols-3">
+    <div class="grid overflow-hidden grid-cols-1 gap-y-4 bg-white shadow-2xl md:grid-cols-3">
         <div class="order-1 p-4 md:order-2 md:col-span-3 md:shadow-[rgba(0,0,15,0.3)_-10px_-4px_8px_0px] z-10">
             <div class="pb-6 text-xl font-thin text-gray-900 md:text-3xl">
                 {{ $date->format('F d, Y ~ l') }}
