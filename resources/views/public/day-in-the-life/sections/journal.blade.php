@@ -1,4 +1,4 @@
-<div class="px-12 pt-12 pb-14 mx-auto max-w-7xl">
+<div class="px-12 pt-12 pb-14 mx-auto max-w-7xl sm:px-28 xl:px-12">
 
     <div class="overflow-hidden bg-white shadow-2xl">
         <div class="z-10 p-4">
