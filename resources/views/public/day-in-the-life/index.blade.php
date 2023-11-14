@@ -76,8 +76,8 @@
                             </div>
                         </div>
                         <div class="overflow-hidden w-full">
-                            <div class="-mx-80 bg-center bg-cover"
-                                 style="background-image: url('{{ $day->first()->getfirstMediaUrl(conversionName: 'web') }}')">
+                            <div class="bg-center bg-cover lg:-mx-80"
+                                 style="background-image: url('{{ app()->environment('production') ? $day->first()->getfirstMediaUrl(conversionName: 'web') : 'https://wilford-woodruff-papers.nyc3.digitaloceanspaces.com/media-library/233014/conversions/default-web.jpg' }}')">
                                 @include('public.day-in-the-life.sections.journal')
                             </div>
                         </div>
