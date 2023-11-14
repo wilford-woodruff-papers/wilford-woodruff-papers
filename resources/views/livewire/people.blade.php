@@ -102,9 +102,9 @@
                     </div>
                 </div>
             @elseif($category == 'United Brethren')
-                {{--<div>
+                <div>
                     <div class="flex overflow-hidden relative flex-row items-end pt-16 bg-gray-900 isolate !m-0">
-                        <img src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/1840-british-converts.jpg" alt="" class="object-cover object-right absolute inset-0 w-full h-full md:object-center -z-10 brightness-50">
+                        <img src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/united-brethren.jpg" alt="" class="object-cover object-right absolute inset-0 w-full h-full md:object-center -z-10 brightness-50">
 
                         <div class="hidden sm:block sm:absolute sm:-top-10 sm:right-1/2 sm:mr-10 sm:transform-gpu sm:-z-10 sm:blur-3xl" aria-hidden="true">
                             <div class="aspect-[1097/845] w-[68.5625rem] bg-gradient-to-tr from-[#ff4694] to-[#776fff] opacity-20" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
@@ -113,26 +113,26 @@
                             <div class="aspect-[1097/845] w-[68.5625rem] bg-gradient-to-tr from-[#ff4694] to-[#776fff] opacity-20" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
                         </div>
                         <div class="px-6 lg:px-8">
-                            <div class="mx-auto max-w-2xl lg:mx-0">
-                                <p class="text-3xl font-bold tracking-tight text-white sm:text-5xl">1840 British Converts</p>
-                                <p class="text-2xl font-medium leading-8 text-white">Preston, Lancashire, England, United Kingdom</p>
+                            <div class="mx-auto max-w-3xl lg:mx-0">
+                                <p class="text-3xl font-bold tracking-tight text-white sm:text-5xl">United Brethren</p>
+                                <p class="text-2xl font-medium leading-8 text-white">Gadfield Elm Chapel, Pendock, Worcestershire, England, United Kingdom</p>
                             </div>
                         </div>
                     </div>
                     <div class=" !m-0 !mb-12 bg-gray-100">
                         <p class="!mt-0 py-4 px-4 text-black">
-                            The first missionaries arrived in England on July 19, 1837. Apostle Heber C. Kimball baptized the first converts on July 30, 1837 in the River Ribble, near Preston, Lancashire, England. The Preston Ward is the longest continuously functioning Latter Day Saint congregation in the world.
+                            The United Brethren were former Wesleyan Methodists who formed an independent religious group of about 600 individuals in the Tri-County area of Herefordshire, Worcestershire, and Gloucestershire. Through the efforts of Wilford Woodruff, most of the members of this group were baptized into The Church of Jesus Christ of Latter-day Saints in 1840. The Gadfield Elm Chapel, built by the United Brethren in 1836 and deeded to the Church in 1840, is the oldest LDS chapel in the world that is still in existence.
                         </p>
-                        <p class="p-4 !m-0">
-                            <a href="https://www.familysearch.org/eurona/travel/sites/98957/-british-converts?cid=fs_copy"
-                               class="py-2 px-4 text-white bg-secondary"
-                               target="_blank"
-                            >
-                                View 1840 British Converts on FamilySearch
-                            </a>
-                        </p>
+{{--                        <p class="p-4 !m-0">--}}
+{{--                            <a href="https://www.familysearch.org/eurona/travel/sites/98957/-british-converts?cid=fs_copy"--}}
+{{--                               class="py-2 px-4 text-white bg-secondary"--}}
+{{--                               target="_blank"--}}
+{{--                            >--}}
+{{--                                View 1840 British Converts on FamilySearch--}}
+{{--                            </a>--}}
+{{--                        </p>--}}
                     </div>
-                </div>--}}
+                </div>
             @elseif($category == '1835 Southern Converts')
                 <div>
                     <div class="flex overflow-hidden relative flex-row items-end pt-16 bg-gray-900 isolate !m-0">
