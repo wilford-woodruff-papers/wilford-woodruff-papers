@@ -6,7 +6,7 @@
             {{ $section['name'] }}
         </h2>
         <p class="mt-4 mb-8 text-xl">
-            Browse other documents with this same date. These could include pages from Wilford Woodruff's autobiography, daybooks, letters, or other documents.
+            Browse other documents with this same date. These could include pages from Wilford Woodruff's autobiographies, daybooks, letters, histories, and personal papers.
         </p>
     </div>
     @if($section['items']->count() > 3)
