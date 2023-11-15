@@ -8,6 +8,7 @@
 
         <form method="POST" action="{{ route('password.update') }}">
             @csrf
+            @honeypot
 
             <input type="hidden" name="token" value="{{ $request->route('token') }}">
 

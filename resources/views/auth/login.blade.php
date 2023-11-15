@@ -43,6 +43,7 @@
 
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
+                        @honeypot
 
                         <div>
                             <x-label for="email" value="{{ __('Email') }}" />
