@@ -194,11 +194,11 @@
 
                                 @include($sections['Place']['view'], ['section' => $sections['Place']])
 
-                                @include($sections['Event']['view'], ['section' => $sections['Event']])
-
                                 @include($sections['Quote']['view'], ['section' => $sections['Quote']])
 
                                 @include($sections['Document']['view'], ['section' => $sections['Document']])
+
+                                @include($sections['Event']['view'], ['section' => $sections['Event']])
 
                                 @include('public.day-in-the-life.sections.date-navigation', ['location' => 'bottom'])
                             </div>
