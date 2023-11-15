@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'api-terms' => \App\Http\Middleware\RequireApiTermsAcceptanceMiddleware::class,
         'ai-download' => \App\Http\Middleware\DownloadAIExperienceMiddleware::class,
+        'honeypot' => \Spatie\Honeypot\ProtectAgainstSpam::class,
     ];
 }

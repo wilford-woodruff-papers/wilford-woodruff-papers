@@ -17,6 +17,7 @@
 
             <form method="POST" action="{{ route('two-factor.login') }}">
                 @csrf
+                @honeypot
 
                 <div class="mt-4" x-show="! recovery">
                     <x-label for="code" value="{{ __('Code') }}" />
