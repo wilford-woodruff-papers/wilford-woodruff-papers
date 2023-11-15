@@ -68,9 +68,6 @@ class IndexPlacesForMap extends Command
             $client->index($indexName)
                 ->addDocuments(
                     $places->map(function ($place) {
-                        if ($place->type === 'Journals') {
-                            ray($place);
-                        }
 
                         return [
                             'id' => $place->place_id.'_'.$place->page_id,

@@ -77,19 +77,11 @@ class ImportItemFromFtp implements ShouldQueue
             foreach ($canvases as $key => $canvas) {
                 $transcript = null;
                 $translation = null;
-                ray([
-                    'Canvas',
-                    $canvas['@id'],
-                ]);
 
                 if (array_key_exists('otherContent', $canvas) && $transcriptionUrl = data_get(collect($canvas['otherContent'])
                     ->where('label', 'Transcription')
                     ->first(), '@id')) {
                     $transcript = Http::get($transcriptionUrl)->json('resources.0.resource.chars');
-                    ray([
-                        'Transcription (English)',
-                        $transcript,
-                    ]);
                 }
 
                 $page = Page::updateOrCreate([
@@ -111,11 +103,6 @@ class ImportItemFromFtp implements ShouldQueue
                     ->first(), '@id')) {
                     $translation = Http::get($translationUrl)->json('resources.0.resource.chars');
 
-                    ray([
-                        'Translation (Other Language)',
-                        $translation,
-                    ]);
-
                     $pageTranslation = Translation::updateOrCreate([
                         'page_id' => $page->id,
                         'language' => str($translation)
@@ -125,10 +112,6 @@ class ImportItemFromFtp implements ShouldQueue
                             ->toString(),
                     ], [
                         'transcript' => $this->convertSubjectTags(str($translation)->stripLanguageTag()),
-                    ]);
-                    ray([
-                        'New Translation',
-                        $pageTranslation,
                     ]);
                 }
 
