@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Jobs\CalculateFirstDateForPages;
 use App\Models\Item;
+use Illuminate\Bus\Batch;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Bus;
 
@@ -58,9 +59,24 @@ class AddFirstDateToAllItemPages extends Command
             ->onQueue('pages')
             ->name('Calculate First Date for Pages')
             ->allowFailures()
+            ->finally(function (Batch $batch) {
+                activity('background-logs')
+                    ->event('dates:add-first-date-to-all-pages')
+                    ->withProperties([
+                        'Batch ID: '.$batch->id.' has finished',
+                    ])
+                    ->log('Finished Adding first date to all pages');
+            })
             ->dispatch();
 
-        $this->info('Batch ID: '.$batch->id);
+        $this->info('Added '.count($jobs).' items to the queue to be processed on Batch ID: '.$batch->id);
+
+        activity('background-logs')
+            ->event('dates:add-first-date-to-all-pages')
+            ->withProperties([
+                'Queued '.count($jobs).' items for processing on Batch ID: '.$batch->id,
+            ])
+            ->log('Add first date to all pages');
 
         return Command::SUCCESS;
     }

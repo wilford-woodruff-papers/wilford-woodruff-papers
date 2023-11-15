@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Jobs\ImportItemFromFtp;
 use App\Models\Item;
+use Illuminate\Bus\Batch;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Bus;
 
@@ -39,7 +40,7 @@ class HarvestPagesFromThePage extends Command
     public function handle(): int
     {
         $items = Item::query()
-                        ->whereNotNull('ftp_id');
+            ->whereNotNull('ftp_id');
 
         if (! empty($itemId = $this->argument('item'))) {
             $items = $items->whereId($itemId);
@@ -56,9 +57,27 @@ class HarvestPagesFromThePage extends Command
             ->onQueue('pages')
             ->name('Import Pages')
             ->allowFailures()
+            ->finally(function (Batch $batch) {
+                activity('background-logs')
+                    ->event('import:pages')
+                    ->withProperties([
+                        'Batch ID: '.$batch->id.' has finished',
+                    ])
+                    ->log('Finished Importing Pages from FTP');
+            })
             ->dispatch();
 
-        $this->info('Batch ID: '.$batch->id);
+        $this->info('Added '.count($jobs).' items to the queue to be processed on Batch ID: '.$batch->id);
+
+        activity('background-logs')
+            ->event('import:pages')
+            ->withProperties([
+                'item='.$this->argument('item'),
+                '--enable='.$this->option('enable'),
+                '--download='.$this->option('download'),
+                'Queued '.count($jobs).' items for processing on Batch ID: '.$batch->id,
+            ])
+            ->log('Pages Imported from FTP');
 
         return Command::SUCCESS;
     }
