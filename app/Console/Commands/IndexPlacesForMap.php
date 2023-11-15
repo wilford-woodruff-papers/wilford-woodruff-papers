@@ -93,6 +93,13 @@ class IndexPlacesForMap extends Command
 
         $bar->finish();
         $this->info("\n");
-        $this->info("Done indexing places to: $indexName");
+        $this->info("Done Indexing $rows Places to $indexName");
+
+        activity('background-logs')
+            ->event('places:index')
+            ->withProperties([
+                "Indexed $rows Places to $indexName",
+            ])
+            ->log('Index Places for Map Searching and Filtering');
     }
 }

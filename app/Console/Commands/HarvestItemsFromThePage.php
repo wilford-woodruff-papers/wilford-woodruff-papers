@@ -41,12 +41,22 @@ class HarvestItemsFromThePage extends Command
      */
     public function handle(): int
     {
-        $response = Http::timeout(120)->get('https://fromthepage.com/iiif/collection/970');
+        $collectionUrl = 'https://fromthepage.com/iiif/collection/970';
+        $this->info("Getting items from $collectionUrl");
+
+        $response = Http::timeout(120)
+            ->get($collectionUrl);
 
         $manifests = $response->json()['manifests'];
+        $this->info(count($manifests).' manifests found');
+
         $count = 0;
         $countWithPCFID = 0;
         $countWithoutPCFID = 0;
+
+        $bar = $this->output->createProgressBar(count($manifests));
+        $bar->start();
+
         foreach ($manifests as $key => $item) {
             if (data_get($item, 'metadata.0.label') == 'dc:source') {
                 // If the item has been assigned Unique ID in FTP then use it to look up the item
@@ -138,11 +148,21 @@ class HarvestItemsFromThePage extends Command
 
             $count = $count + 1;
             unset($document);
+            $bar->advance();
         }
 
-        info("Imported $countWithPCFID documents with PCF ID");
-        info("Imported $countWithoutPCFID documents without PCF ID");
-        info("Imported $count documents");
+        $bar->finish();
+
+        $this->info(count($manifests).' manifests have been processed');
+
+        activity('background-logs')
+            ->event('import:items')
+            ->withProperties([
+                "Imported $countWithPCFID documents with PCF ID",
+                "Imported $countWithoutPCFID documents without PCF ID",
+                "Imported $count documents",
+            ])
+            ->log('Items Imported from FTP');
 
         return Command::SUCCESS;
     }
