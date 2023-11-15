@@ -132,7 +132,7 @@ class DayInTheLifeController extends Controller
                 'view' => 'public.day-in-the-life.sections.quotes',
             ],
             'Document' => [
-                'name' => 'Other Documents',
+                'name' => 'Related Documents',
                 'items' => $pages,
                 'icon' => 'heroicon-o-document-text',
                 'view' => 'public.day-in-the-life.sections.documents',
