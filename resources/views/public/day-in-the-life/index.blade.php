@@ -70,8 +70,114 @@
 
                         <div class="flex-1">
                             <div class="px-12 mx-auto -mb-12 max-w-7xl">
-                                <h2 class="my-8 text-4xl font-thin uppercase border-b-4 border-highlight">
-                                    Journal Entry
+                                <h2 class="flex justify-between my-8 border-b-4 border-highlight">
+                                    <div class="text-4xl font-thin uppercase">
+                                        Journal Entry
+                                    </div>
+                                    <div class="flex gap-x-1 items-center pb-2">
+                                        <button x-on:click="Livewire.emit('openModal', 'page', {'pageId': {{ $day->first()->id }}})"
+                                                class="flex gap-x-4 items-center py-1 px-2 bg-secondary"
+                                        >
+                                            <x-heroicon-m-arrows-pointing-out class="w-5 h-5 text-white"/>
+                                            <div class="text-lg text-white whitespace-nowrap">
+                                                View Fullscreen
+                                            </div>
+                                        </button>
+                                        <div class="flex justify-center">
+                                            <div
+                                                x-data="{
+                                                    open: false,
+                                                    copied: false,
+                                                    citation: '&quot;{{ str($day->first()->parent->name)->stripBracketedID() }},&quot; {{ $date->toFormattedDateString() }}, The Wilford Woodruff Papers, accessed {{ now()->format('F j, Y') }}, {{ url()->current() }}',
+                                                    copy() {
+                                                        navigator.clipboard.writeText(this.citation).then(() => {
+                                                            this.copied = true;
+                                                            setTimeout(() => {
+                                                                this.copied = false;
+                                                            }, 3000);
+                                                        });
+                                                    },
+                                                    toggle() {
+                                                        if (this.open) {
+                                                            return this.close()
+                                                        }
+
+                                                        this.$refs.button.focus()
+
+                                                        this.open = true
+                                                    },
+                                                    close(focusAfter) {
+                                                        if (! this.open) return
+
+                                                        this.open = false
+
+                                                        focusAfter && focusAfter.focus()
+                                                    }
+                                                }"
+                                                x-on:keydown.escape.prevent.stop="close($refs.button)"
+                                                x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
+                                                x-id="['dropdown-button']"
+                                                class="relative"
+                                            >
+                                                <!-- Button -->
+                                                <button
+                                                    x-ref="button"
+                                                    x-on:click="toggle()"
+                                                    :aria-expanded="open"
+                                                    :aria-controls="$id('dropdown-button')"
+                                                    type="button"
+                                                    class="flex gap-2 items-center py-1.5 px-2 bg-secondary"
+                                                >
+                                                    <x-ri-double-quotes-l class="w-6 h-6 text-white" />
+                                                </button>
+
+                                                <!-- Panel -->
+                                                <div
+                                                    x-ref="panel"
+                                                    x-show="open"
+                                                    x-transition.origin.top.left
+                                                    x-on:click.outside="close($refs.button)"
+                                                    :id="$id('dropdown-button')"
+                                                    style="display: none;"
+                                                    class="absolute right-0 mt-2 bg-white shadow-md w-[600px]"
+                                                >
+                                                    <div class="flex gap-x-2 items-center p-8 text-base">
+                                                        <div class="flex-1">
+                                                            <div x-html="citation"
+                                                                 x-show="! copied"
+                                                            >
+
+                                                            </div>
+                                                            <div x-show="copied"
+                                                                 x-cloak
+                                                            >
+                                                                <div class="p-4 bg-emerald-800 rounded-md">
+                                                                    <div class="flex">
+                                                                        <div class="flex-shrink-0">
+                                                                            <svg class="w-5 h-5 text-emerald-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+                                                                            </svg>
+                                                                        </div>
+                                                                        <div class="ml-3">
+                                                                            <p class="text-base font-medium text-white">Citation Copied to Clipboard</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div x-show="! copied"
+                                                            class="flex-0">
+                                                            <button x-on:click="copy()"
+                                                                    class="pointer"
+                                                            >
+                                                                <x-heroicon-o-clipboard class="w-6 h-6" />
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </h2>
                             </div>
                         </div>
