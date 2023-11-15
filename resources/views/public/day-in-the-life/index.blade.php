@@ -71,15 +71,15 @@
                         <div class="flex-1">
                             <div class="px-12 mx-auto -mb-12 max-w-7xl">
                                 <h2 class="flex justify-between my-8 border-b-4 border-highlight">
-                                    <div class="text-4xl font-thin uppercase">
+                                    <div class="text-2xl font-thin uppercase md:text-3xl lg:text-4xl">
                                         Journal Entry
                                     </div>
                                     <div class="flex gap-x-1 items-center pb-2">
                                         <button x-on:click="Livewire.emit('openModal', 'page', {'pageId': {{ $day->first()->id }}})"
-                                                class="flex gap-x-4 items-center py-1 px-2 bg-secondary"
+                                                class="flex gap-x-4 items-center py-1.5 px-2 sm:py-1 bg-secondary"
                                         >
-                                            <x-heroicon-m-arrows-pointing-out class="w-5 h-5 text-white"/>
-                                            <div class="text-lg text-white whitespace-nowrap">
+                                            <x-heroicon-m-arrows-pointing-out class="w-6 h-6 text-white"/>
+                                            <div class="hidden text-lg text-white whitespace-nowrap sm:block">
                                                 View Fullscreen
                                             </div>
                                         </button>
@@ -139,7 +139,7 @@
                                                     x-on:click.outside="close($refs.button)"
                                                     :id="$id('dropdown-button')"
                                                     style="display: none;"
-                                                    class="absolute right-0 mt-2 bg-white shadow-md w-[600px]"
+                                                    class="absolute right-0 mt-2 max-w-4xl bg-white shadow-md w-[400px] md:w-[600px]"
                                                 >
                                                     <div class="flex gap-x-2 items-center p-8 text-base">
                                                         <div class="flex-1">
