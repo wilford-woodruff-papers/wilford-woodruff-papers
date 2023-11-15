@@ -18,6 +18,7 @@
 
         <form method="POST" action="{{ route('password.email') }}">
             @csrf
+            @honeypot
 
             <div class="block">
                 <x-label for="email" value="{{ __('Email') }}" />

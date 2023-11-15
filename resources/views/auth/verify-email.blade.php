@@ -17,6 +17,7 @@
         <div class="flex justify-between items-center mt-4">
             <form method="POST" action="{{ route('verification.send') }}">
                 @csrf
+                @honeypot
 
                 <div>
                     <x-button type="submit">
