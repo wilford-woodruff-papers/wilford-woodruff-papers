@@ -137,6 +137,44 @@
                 See how your donation will help inspire people, especially the rising generation, to study and increase their faith in Jesus Christ.
             </p>
         </div>
+
+        <div class="grid grid-cols-5 gap-x-4 items-center my-24 mx-auto max-w-7xl">
+            <div class="order-1 col-span-5 px-4 pt-4 md:order-2 md:col-span-3 md:px-12 md:pt-0">
+                <h2 class="text-base font-extrabold tracking-tight text-gray-900 lg:text-xl">
+                    What Has Inspired You Most About the Project?
+                </h2>
+                <div class="pt-1 my-4 border-t border-gray-200">
+                    <div class="flex items-center mt-3 space-x-3">
+                        <div class="text-sm font-medium text-gray-900 lg:text-base">
+                            Christian Decker
+                        </div>
+                    </div>
+                </div>
+                <div class="flex gap-x-4 mt-4 text-base text-gray-800 lg:text-lg">
+                    <div class="flex-initial">
+                        <svg class="w-8 h-8 text-primary-80" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true">
+                            <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z"></path>
+                        </svg>
+                    </div>
+                    <blockquote class="text-justify">
+                        <p>
+                            I am inspired by the unshakable faith of Wilford Woodruff.
+                        </p>
+                    </blockquote>
+                    <div class="flex-initial">
+                        <svg class="w-8 h-8 transform rotate-180 text-primary-80" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true">
+                            <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            <div class="order-2 col-span-5 md:order-1 md:col-span-2">
+                <div class="mx-auto w-[260px] h-[160px] lg:w-[480px] lg:h-[310px]">
+                    <iframe class="w-[260px] h-[160px] lg:w-[480px] lg:h-[310px]" src="https://www.youtube.com/embed/DIqolILTNY4?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+                </div>
+            </div>
+        </div>
+
         <div class="grid grid-cols-5 gap-x-4 items-center my-24 mx-auto max-w-7xl">
             <div class="order-2 col-span-5 px-4 pt-4 md:order-1 md:col-span-3 md:px-12 md:pt-0">
                 <h2 class="text-base font-extrabold tracking-tight text-gray-900 lg:text-xl">
@@ -167,7 +205,7 @@
             </div>
             <div class="order-1 col-span-5 md:order-2 md:col-span-2">
                 <div class="mx-auto w-[260px] h-[160px] lg:w-[480px] lg:h-[310px]">
-                    <iframe class="w-[260px] h-[160px] lg:w-[480px] lg:h-[310px]" src="https://www.youtube.com/embed/Sf7toPmkOCQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+                    <iframe class="w-[260px] h-[160px] lg:w-[480px] lg:h-[310px]" src="https://www.youtube.com/embed/Sf7toPmkOCQ?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
                 </div>
             </div>
         </div>
@@ -202,7 +240,7 @@
             </div>
             <div class="order-1 col-span-5 md:order-1 md:col-span-2">
                 <div class="mx-auto w-[260px] h-[160px] lg:w-[480px] lg:h-[310px]">
-                    <iframe class="w-[260px] h-[160px] lg:w-[480px] lg:h-[310px]" src="https://www.youtube.com/embed/2kYwDDFOn6s" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+                    <iframe class="w-[260px] h-[160px] lg:w-[480px] lg:h-[310px]" src="https://www.youtube.com/embed/2kYwDDFOn6s?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
                 </div>
             </div>
         </div>
@@ -237,7 +275,7 @@
             </div>
             <div class="order-1 col-span-5 md:order-2 md:col-span-2">
                 <div class="mx-auto w-[260px] h-[160px] lg:w-[480px] lg:h-[310px]">
-                    <iframe class="w-[260px] h-[160px] lg:w-[480px] lg:h-[310px]" src="https://www.youtube.com/embed/x-eaK7Q1xNM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+                    <iframe class="w-[260px] h-[160px] lg:w-[480px] lg:h-[310px]" src="https://www.youtube.com/embed/x-eaK7Q1xNM?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
                 </div>
             </div>
         </div>
