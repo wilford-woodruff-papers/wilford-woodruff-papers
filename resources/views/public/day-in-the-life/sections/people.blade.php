@@ -42,7 +42,7 @@
                             </div>
                         </div>
                         <div>
-                            @if(! empty($person->pid))
+                            @if(! empty($person->pid) && $person->pid !== 'n/a')
                                 <a href="https://www.familysearch.org/tree/person/details/{{ $person->pid }}"
                                    class="block px-2 pt-1 pb-2 text-sm bg-white rounded-md border border-gray-200"
                                    target="_blank"
