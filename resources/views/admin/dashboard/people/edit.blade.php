@@ -149,16 +149,22 @@
                                 </div>
                             @endif
                         </div>
+
+                        <livewire:people-duplicate-checker :person="$person" />
+
                         <div class="py-6 px-4 sm:p-6 lg:pb-8">
                             <div>
-                                <div class="flex gap-x-4">
-                                    <h2 class="text-2xl font-bold leading-6 text-gray-900">
+                                <div class="flex gap-x-4 items-center">
+                                    <h2 class="flex items-center text-2xl font-bold leading-6 text-gray-900">
                                         @if($person->exists)
                                             <a href="{{ route('subjects.show', ['subject' => $person->slug]) }}"
                                                target="_blank"
                                                class="text-secondary"
                                             >
                                                 {{ $person->name }}
+                                                <span class="text-lg font-normal">
+                                                    (Tagged in {{ $person->pages_count }} {{ str('page')->plural($person->pages_count) }})
+                                                </span>
                                             </a>
                                         @endif
                                     </h2>
@@ -174,6 +180,17 @@
 
                                                         </a>
                                         @endif
+                                    </span>
+                                    <span>
+                                        <a class="flex gap-x-1 items-center font-semibold text-[#4d4040] break-word"
+                                           href="/nova/resources/subjects/{{ $person->id }}"
+                                           target="_blank">
+                                            Nova
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                                            </svg>
+
+                                        </a>
                                     </span>
                                 </div>
 
