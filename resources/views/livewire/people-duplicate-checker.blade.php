@@ -1,5 +1,5 @@
 <div wire:init="load">
-    @if(! empty($duplicatePeople))
+    @if(count($duplicatePeople) > 0)
         <div class="p-4 bg-red-50 rounded-md">
             <div class="flex">
                 <div class="flex-shrink-0">

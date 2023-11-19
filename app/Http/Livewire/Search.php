@@ -66,7 +66,9 @@ class Search extends Component
 
     public function mount()
     {
-        //
+        if (! is_array($this->sort)) {
+            $this->sort = ['name' => 'asc'];
+        }
     }
 
     public function render()
