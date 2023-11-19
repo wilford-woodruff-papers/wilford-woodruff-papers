@@ -284,7 +284,7 @@ class Subject extends Model implements HasMedia
             'types' => $this->category,
             'links' => [
                 'frontend_url' => $this->slug ? route('subjects.show', ['subject' => $this->slug]) : '',
-                'api_url' => $this->id ? route('api.subjects.show', ['subject' => $this->id]) : '',
+                'api_url' => $this->id ? route('api.subjects.show', ['id' => $this->id]) : '',
             ],
         ];
     }
