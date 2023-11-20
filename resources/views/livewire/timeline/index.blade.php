@@ -214,7 +214,7 @@
                         marker.data.popup = `
                             <button
                                 onclick="Livewire.emit('openPanel', 'Related Documents', '${events[i]['id']}', 'location')"
-                                class="!text-secondary"><b>${events[i]['location_name']}</b></button><br><img src="${events[i]['thumbnail']}" alt="" class="m-auto mt-2 w-28 h-auto"/><br>${events[i]['name']}
+                                class="!text-secondary"><b>${events[i]['location_name']}</b></button><br><a href="${events[i]['document_link']}" target="_blank"><img src="${events[i]['thumbnail']}" alt="" class="m-auto mt-2 w-full h-auto"/></a><br><div class="text-lg font-semibold">${events[i]['display_date']}</div><br><div class="text-base">${events[i]['name']}</div>
                         `;
 
                         window.map.pruneCluster.RegisterMarker(marker);
