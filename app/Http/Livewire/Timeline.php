@@ -13,6 +13,8 @@ class Timeline extends Component
 
     public $event = null;
 
+    public $mapEvents = [];
+
     public $q = '';
 
     public $view = 'timeline';
@@ -105,7 +107,7 @@ class Timeline extends Component
             'November' => [],
             'December' => [],
         ]);
-
+        // dd($result->getRaw()['hits']);
         $years = collect($result->getRaw()['hits'])
             ->groupBy('year')
             ->pipe(function ($events) use ($yearList) {
@@ -126,12 +128,43 @@ class Timeline extends Component
                 return $monthList->merge($events);
             });
 
+        $this->dispatchBrowserEvent('update-map', ['events' => $this->reformatEventsForTimelineMap($years)]);
+
         return view('livewire.timeline.index', [
             'years' => $years,
             'facets' => $indexes,
             'facetDistribution' => $facetDistribution,
         ])
             ->layout('layouts.guest');
+    }
+
+    public function initializeMap()
+    {
+        $this->dispatchBrowserEvent('update-map', ['events' => $this->mapEvents]);
+    }
+
+    private function reformatEventsForTimelineMap($years)
+    {
+        $events = [];
+        foreach ($years as $year => $months) {
+            if ($months->filter(function ($month) {
+                return count($month) > 0;
+            })->count() > 0) {
+                foreach ($months as $month => $monthEvents) {
+                    if (count($monthEvents) > 0) {
+                        foreach ($monthEvents as $event) {
+                            if (! empty(data_get($event, '_geo'))) {
+                                $event['name'] = str(data_get($event, 'name'))->removeSubjectTags();
+                                $events[] = $event;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        $this->mapEvents = $events;
+
+        return $events;
     }
 
     private function buildFilterSet()

@@ -216,14 +216,15 @@ class Event extends Model implements HasMedia
         $this->loadMissing([
             'places',
         ]);
-        if ($place = $this->places()?->first()) {
-
-            $geo = [
-                'lat' => (float) $place->latitude,
-                'lng' => (float) $place->longitude,
-            ];
-            $location = $place->name;
-            logger()->info($geo);
+        if ($place = $this->places?->first()) {
+            if (! empty($place->latitude) && ! empty($place->longitude)) {
+                $geo = [
+                    'lat' => (float) $place->latitude,
+                    'lng' => (float) $place->longitude,
+                ];
+                $location = $place->name;
+                logger()->info($geo);
+            }
         }
 
         return [
@@ -245,11 +246,8 @@ class Event extends Model implements HasMedia
                     'url' => addslashes(route('short-url.page', ['hashid' => $page->hashid()])),
                 ];
             }),
-            '_geo' => [
-                'lat' => $geo['lat'] ?? null,
-                'lng' => $geo['lng'] ?? null,
-            ],
-            //            'place' => $location,
+            '_geo' => $geo,
+            'location_name' => $location,
         ];
     }
 
