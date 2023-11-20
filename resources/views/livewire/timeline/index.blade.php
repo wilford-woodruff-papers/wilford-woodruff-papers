@@ -1,4 +1,4 @@
-<div>
+<div wire:init="initializeMap">
     <x-slot name="title">
         Timeline | {{ config('app.name') }}
     </x-slot>
@@ -95,7 +95,7 @@
                                 >
                                     List
                                 </button>
-                                @env(['local', 'development', 'staging'])
+                                @hasanyrole('Editor|Admin|Super Admin')
                                     <button x-on:click="view = 'map'"
                                             type="button"
                                             class="relative flex-1 items-center py-2 px-3 text-sm font-semibold ring-1 ring-inset focus:z-10"
@@ -103,7 +103,7 @@
                                     >
                                         Map
                                     </button>
-                                @endenv
+                                @endhasanyrole
                             </div>
                         </div>
                     </div>
@@ -201,45 +201,68 @@
         <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/prunecluster/2.1.0/PruneCluster.min.js" integrity="sha512-TIhw+s9KAwyAGM7n2qG2hM+lvQxja1Hieb3nS3F2y9AFEDImo6SNXoooqmajF/D5lMfriBIasQ6N+pizlF0wTA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script>
-            window.loadMap = function (){
-                const map = L.map('map')
-                    .setView([37.71859, -54.140625], 3);
+            window.map = {
+                mapInitialized: false,
+                pruneCluster: null,
+                eventMap: null,
+                displayLocationsOnMap: function(events){
+                    window.map.pruneCluster.RemoveMarkers();
+                    window.map.pruneCluster.ProcessView();
 
+                    for(i = 0; i < events.length; i++){
+                        var marker = new PruneCluster.Marker(events[i]['_geo']['lat'], events[i]['_geo']['lng']);
+                        marker.data.popup = `
+                            <button
+                                onclick="Livewire.emit('openPanel', 'Related Documents', '${events[i]['id']}', 'location')"
+                                class="!text-secondary"><b>${events[i]['location_name']}</b></button><br><img src="${events[i]['thumbnail']}" alt="" class="m-auto mt-2 w-28 h-auto"/><br>${events[i]['name']}
+                        `;
+
+                        window.map.pruneCluster.RegisterMarker(marker);
+                    }
+
+                    window.map.eventMap.addLayer(window.map.pruneCluster);
+                    window.map.pruneCluster.ProcessView();
+                }
+            };
+            window.loadMap = function (){
+
+                window.map.eventMap = L.map('map').setView([37.71859, -54.140625], 3);
                 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     maxZoom: 19,
                     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
                 })
-                    .addTo(map);
+                    .addTo(window.map.eventMap);
+                window.map.pruneCluster = new PruneClusterForLeaflet();
+                //window.map.mapInitialized = true;
 
-                var pruneCluster = new PruneClusterForLeaflet();
-                pruneCluster.RemoveMarkers();
-                pruneCluster.ProcessView();
+                // pruneCluster.RemoveMarkers();
+                // pruneCluster.ProcessView();
 
-                @foreach($years as $year => $months)
-                    @if($months->filter(function($month){
-                            return count($month) > 0;
-                        })->count() > 0)
-                        @foreach($months as $month => $monthEvents)
-                            @if(count($monthEvents) > 0)
-                                @foreach($monthEvents as $event)
-                                    @if(! empty(data_get($event, '_geo')))
-                                        var marker = new PruneCluster.Marker({{ data_get($event, '_geo.lat') }}, {{ data_get($event, '_geo.lng') }});
+{{--                @foreach($years as $year => $months)--}}
+{{--                    @if($months->filter(function($month){--}}
+{{--                            return count($month) > 0;--}}
+{{--                        })->count() > 0)--}}
+{{--                        @foreach($months as $month => $monthEvents)--}}
+{{--                            @if(count($monthEvents) > 0)--}}
+{{--                                @foreach($monthEvents as $event)--}}
+{{--                                    @if(! empty(data_get($event, '_geo')))--}}
+{{--                                        var marker = new PruneCluster.Marker({{ data_get($event, '_geo.lat') }}, {{ data_get($event, '_geo.lng') }});--}}
 
-                                        marker.data.popup = `<button
-                                                onclick="Livewire.emit('openPanel', 'Related Documents', {{ data_get($event, 'id') }}, 'location')"
-                                                class="!text-secondary"><b>{{ data_get($event, 'place') }}</b></button><br><img src="{{ str(data_get($event, 'thumbnail')) }}" alt="" class="m-auto mt-2 w-28 h-auto"/><br>{{ str(data_get($event, 'name'))->removeSubjectTags() }}`;
+{{--                                        marker.data.popup = `<button--}}
+{{--                                                onclick="Livewire.emit('openPanel', 'Related Documents', {{ data_get($event, 'id') }}, 'location')"--}}
+{{--                                                class="!text-secondary"><b>{{ data_get($event, 'place') }}</b></button><br><img src="{{ str(data_get($event, 'thumbnail')) }}" alt="" class="m-auto mt-2 w-28 h-auto"/><br>{{ str(data_get($event, 'name'))->removeSubjectTags() }}`;--}}
 
-                                        pruneCluster.RegisterMarker(marker);
+{{--                                        map.pruneCluster.RegisterMarker(marker);--}}
 
-                                    @endif
-                                @endforeach
-                            @endif
-                        @endforeach
-                    @endif
-                @endforeach
+{{--                                    @endif--}}
+{{--                                @endforeach--}}
+{{--                            @endif--}}
+{{--                        @endforeach--}}
+{{--                    @endif--}}
+{{--                @endforeach--}}
 
-                map.addLayer(pruneCluster);
-                pruneCluster.ProcessView();
+                // window.map.eventMap.addLayer(window.map.pruneCluster);
+                // window.map.pruneCluster.ProcessView();
 
                 {{--fetch("{{ route('map.locations') }}")--}}
                 {{--    .then(response => response.json())--}}
@@ -277,7 +300,15 @@
                 window.scrollTo({ top: document.getElementById('timeline').offsetTop + 80, behavior: 'smooth' });
                 //document.getElementById('timeline').scrollIntoView();
             });
-
+            window.addEventListener('update-map', event => {
+                console.log('Map Updated');
+                console.log(event.detail.events);
+                window.map.displayLocationsOnMap(event.detail.events);
+            })
+            /*Livewire.on('update-map', (events) => {
+                console.log('Map Updated');
+                window.map.displayLocationsOnMap(events);
+            });*/
 
 
 

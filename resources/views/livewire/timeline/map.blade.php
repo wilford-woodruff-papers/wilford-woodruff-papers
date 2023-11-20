@@ -1,12 +1,10 @@
 <div x-ref="container"
      class="relative"
 >
-
     <div wire:ignore
          class="w-full">
         <div id="map"
              class="z-10 w-full aspect-[16/9]"
-
         ></div>
     </div>
     <div id="event-selector"
