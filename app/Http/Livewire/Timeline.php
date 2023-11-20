@@ -155,6 +155,7 @@ class Timeline extends Component
                         foreach ($monthEvents as $event) {
                             if (! empty(data_get($event, '_geo'))) {
                                 $event['name'] = str(data_get($event, 'name'))->removeSubjectTags();
+                                $event['document_link'] = data_get($event, 'links.0.url');
                                 $events[] = $event;
                             }
                         }
