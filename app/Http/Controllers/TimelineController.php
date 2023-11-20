@@ -3,29 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
-use Illuminate\View\View;
 
 class TimelineController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index()
     {
         $events = Event::query()
-                            ->with([
-                                'photos',
-                                'media',
-                                'pages.parent',
-                                'places',
-                            ])
-                            ->orderBy('start_at', 'asc')
-                            ->get()
-                            ->map(function ($event) {
-                                $event->text = str($event->text)->addScriptureLinks()->addSubjectLinks();
+            ->with([
+                'photos',
+                'media',
+                'pages.parent',
+                'places',
+            ])
+            ->orderBy('start_at', 'asc')
+            ->get()
+            ->map(function ($event) {
+                $event->text = str($event->text)->addScriptureLinks()->addSubjectLinks();
 
-                                return $event;
-                            });
+                return $event;
+            });
 
         return view('public.timeline', [
             'events' => $events,
