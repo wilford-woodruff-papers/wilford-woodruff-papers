@@ -75,6 +75,12 @@
 
         @case('Get Involved')
             <div class="pb-4 pl-4 mt-1 space-y-1" aria-labelledby="media-library-headline">
+                <a href="{{ route('donate') }}"
+                   class="group flex items-center px-3 py-2 text-sm font-medium @if(request()->is('donate')) active @else @endif">
+                    <span class="truncate">
+                        Donate
+                    </span>
+                </a>
                 <a href="{{ route('volunteer') }}"
                    class="group flex items-center px-3 py-2 text-sm font-medium @if(request()->is('volunteer')) active @else @endif">
                     <span class="truncate">
