@@ -20,17 +20,19 @@
                      x-intersect:enter="shadow = false"
                 ></div>
                 <div class="divide-y divide-gray-200 lg:grid lg:grid-cols-12 lg:divide-y-0 lg:divide-x">
+                    <form
                     @if($place->exists)
-                    <form action="{{ route('admin.dashboard.places.update', ['place' => $place]) }}"
-                          method="POST"
-                          class="divide-y divide-gray-200 lg:col-span-12">
-                        @method('PUT')
+                            action="{{ route('admin.dashboard.places.update', ['place' => $place]) }}"
+                              method="POST"
+                              class="divide-y divide-gray-200 lg:col-span-12">
+                            @method('PUT')
                     @else
-                    <form action="{{ route('admin.dashboard.places.store') }}"
-                          method="POST"
-                          class="divide-y divide-gray-200 lg:col-span-12">
-                        @method('POST')
+                            action="{{ route('admin.dashboard.places.store') }}"
+                              method="POST"
+                              class="divide-y divide-gray-200 lg:col-span-12">
+                            @method('POST')
                     @endif
+
                         @csrf()
                         <div class="sticky top-0 z-10 bg-white"
                              :class="shadow && 'drop-shadow-md'"
@@ -363,6 +365,44 @@
                                 </div>
                             </div>
 
+                            <div class="grid grid-cols-12 gap-6 py-4 mt-6 border-y border-gray">
+                                <div class="col-span-6 items-center">
+                                    <div class="mt-4 mb-8">
+                                        <label for="latitude"
+                                               class="block text-sm font-medium text-gray-700"
+                                        >
+                                            <span class="font-semibold">Latitude</span>
+                                        </label>
+                                        <input type="text"
+                                               name="latitude"
+                                               id="latitude"
+                                               value="{{ old('latitude', $place->latitude) }}"
+                                               class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label for="longitude"
+                                               class="block text-sm font-medium text-gray-700"
+                                        >
+                                            <span class="font-semibold">Longitude</span>
+                                        </label>
+                                        <input type="text"
+                                               name="longitude"
+                                               id="longitude"
+                                               value="{{ old('longitude', $place->longitude) }}"
+                                               class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="col-span-6">
+                                    <div id="map"
+                                        class="w-full aspect-[16/9]"
+                                    >
+
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="grid grid-cols-12 gap-6 mt-6">
 
                                 <div class="grid grid-cols-12 col-span-12 gap-6 mb-6">
@@ -592,6 +632,9 @@
             </div>
         </div>
     </main>
+    @push('styles')
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    @endpush
     @push('scripts')
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -599,9 +642,34 @@
         <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
         <script src="{{ asset('js/summernote-cleaner.js') }}"></script>
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
         <script>
 
+            window.map = {
+                map: null,
+            };
+
             $(document).ready(function() {
+                window.map.map = L.map('map')
+                    .setView([
+                        {{ $place->latitude ?? 37.71859 }},
+                        {{ $place->longitude ?? -54.140625 }}
+                    ], 7);
+                L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png', {
+                        maxZoom: 19,
+                        attribution: '&copy; <a href="https://carto.com/">carto.com</a> contributors'
+                    })
+                    .addTo(window.map.map);
+
+                @if(! empty($place->latitude) && ! empty($place->longitude))
+                    L.marker([
+                        {{ $place->latitude }},
+                        {{ $place->longitude }}
+                    ])
+                    .addTo(window.map.map);
+                @endif
+
+
                 $('#country').select2({
                     tags: true,
                     placeholder: {

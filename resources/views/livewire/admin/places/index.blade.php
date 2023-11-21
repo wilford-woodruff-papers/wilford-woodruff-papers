@@ -306,6 +306,12 @@
                                                 @else
                                                     <livewire:admin.claim-subject :subject="$place" :wire:key="$place->id"/>
                                                 @endif
+                                            @elseif($column == 'geo_location_(lat,long)')
+                                                <div class="flex justify-center">
+                                                    @if(! empty($place->latitude) && ! empty($place->longitude))
+                                                        {{ $place->latitude }}, {{ $place->longitude }}
+                                                    @endif
+                                                </div>
                                             @elseif(in_array($column, ['visited', 'mentioned']))
                                                 <div class="flex justify-center">
                                                     @if($column == 'visited' && $place->visited)
