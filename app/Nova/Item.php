@@ -87,7 +87,7 @@ class Item extends Resource
             Date::make('Last Imported', 'imported_at')->sortable(),
             Text::make(__('Name'), 'name')->help('Field is overwritten on import')->sortable(),
             BelongsTo::make('Type')->sortable(),
-            Date::make('Date', 'sort_date')->sortable(),
+            Date::make('Date', 'first_date')->sortable(),
 
             Text::make('Preview', function ($item) {
                 if ($item->uuid) {
