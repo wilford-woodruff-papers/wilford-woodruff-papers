@@ -43,6 +43,24 @@ class Index extends Component
         'specific_place' => 'specific_place',
         'years' => 'years',
         'visited' => 'visited',
+        'location' => 'geo_location_(lat,long)',
+        'mentioned' => 'mentioned',
+        'place_confirmed_at' => 'confirmed_at',
+        'modern_location' => 'modern_location',
+        'added_to_ftp_at' => 'added_to_ftp',
+        'reference' => 'source',
+        'notes' => 'notes',
+        'researcher_text' => 'researcher',
+    ];
+
+    public $searchColumns = [
+        'country' => 'country',
+        'state_province' => 'state_or_province',
+        'county' => 'county',
+        'city' => 'city',
+        'specific_place' => 'specific_place',
+        'years' => 'years',
+        'visited' => 'visited',
         'mentioned' => 'mentioned',
         'place_confirmed_at' => 'confirmed_at',
         'modern_location' => 'modern_location',
@@ -133,7 +151,7 @@ class Index extends Component
             })
             ->when(array_key_exists('search', $this->filters) && $this->filters['search'], function ($query, $search) {
                 $query->where(function ($query) {
-                    foreach (['name' => 'name'] + $this->columns as $key => $column) {
+                    foreach (['name' => 'name'] + $this->searchColumns as $key => $column) {
                         $query->orWhere($key, 'like', '%'.$this->filters['search'].'%');
                     }
                 });

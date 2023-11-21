@@ -65,6 +65,46 @@ class Subject extends Model implements HasMedia
         );
     }
 
+    protected function latitude(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => $value,
+            set: function ($value) {
+                if (str()->contains($value, '°')) {
+                    $value = convertDMSToDecimal(
+                        str($value)
+                            ->replace('′', '\'')
+                            ->replace('″', '"')
+                            ->replace('°', ' ')
+                            ->toString()
+                    );
+                }
+
+                return $value;
+            },
+        );
+    }
+
+    protected function longitude(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => $value,
+            set: function ($value) {
+                if (str()->contains($value, '°')) {
+                    $value = convertDMSToDecimal(
+                        str($value)
+                            ->replace('′', '\'')
+                            ->replace('″', '"')
+                            ->replace('°', ' ')
+                            ->toString()
+                    );
+                }
+
+                return $value;
+            },
+        );
+    }
+
     public function getBioApprovedAtAttribute()
     {
         if (str($this->attributes['bio_approved_at'])->contains('-')) {

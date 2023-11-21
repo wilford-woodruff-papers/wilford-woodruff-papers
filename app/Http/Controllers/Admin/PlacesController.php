@@ -42,6 +42,12 @@ class PlacesController extends Controller
         'visited' => [
             'nullable',
         ],
+        'latitude' => [
+            'nullable',
+        ],
+        'longitude' => [
+            'nullable',
+        ],
         'mentioned' => [
             'nullable',
         ],

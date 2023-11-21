@@ -60,7 +60,7 @@
                                     </dd>
                                 </div>
                                 <div class="flex flex-col gap-y-4 mx-auto max-w-xs">
-                                    <dt class="text-base leading-7 text-gray-600">Identified People</dt>
+                                    <dt class="text-base leading-7 text-gray-600">Biographies Completed</dt>
                                     <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
                                         <a href="{{ route('admin.people.index', ['filters[approved]' => 'true']) }}"
                                            class="text-secondary"
