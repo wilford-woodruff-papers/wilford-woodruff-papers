@@ -22,7 +22,7 @@ class Browse extends Component
         'type' => null,
         'decade' => null,
         'year' => null,
-        'sort' => 'added:desc',
+        'sort' => 'created:asc',
     ];
 
     public $types;
@@ -72,14 +72,14 @@ class Browse extends Component
         }
 
         $this->types = Type::whereNull('type_id')
-                                ->withCount(['items' => function (Builder $query) use ($enabled) {
-                                    $query->when(data_get($this->filters, 'search'), function ($query, $q) {
-                                        $query->where('name', 'LIKE', '%'.$q.'%');
-                                    })
-                                            ->whereIn('enabled', $enabled);
-                                }])
-                                ->orderBy('name', 'ASC')
-                                ->get();
+            ->withCount(['items' => function (Builder $query) use ($enabled) {
+                $query->when(data_get($this->filters, 'search'), function ($query, $q) {
+                    $query->where('name', 'LIKE', '%'.$q.'%');
+                })
+                    ->whereIn('enabled', $enabled);
+            }])
+            ->orderBy('name', 'ASC')
+            ->get();
 
         if (data_get($this->filters, 'type') == Type::firstWhere('name', 'Letters')->id) {
             $this->decades = DB::table('items')
@@ -138,8 +138,8 @@ class Browse extends Component
     {
         return [
             'title' => 'name',
-            'created' => 'sort_date',
-        ][str(data_get($this->filters, 'sort', 'added:desc'))->explode(':')->first()] ?? 'added_to_collection_at';
+            'created' => 'first_date',
+        ][str(data_get($this->filters, 'sort', 'created:asc'))->explode(':')->first()] ?? 'first_date';
     }
 
     private function sortDirection()

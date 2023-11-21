@@ -103,12 +103,24 @@
                                         class="block py-2 pr-10 pl-3 mt-1 w-full text-base border border-gray-300 sm:text-sm focus:border-indigo-500 focus:ring-indigo-500"
                                         name="sort"
                                         aria-label="Sort by">
-                                    <option value="added:desc" @if(request()->get('sort') == 'added:desc') selected="" @endif>Added to Collection (Newest to Oldest)</option>
-                                    <option value="added:asc" @if(request()->get('sort') == 'added:asc') selected="" @endif>Added to Collection (Oldest to Newest)</option>
-                                    <option value="created:desc" @if(request()->get('sort') == 'created:desc') selected="" @endif>Created (Newest to Oldest)</option>
-                                    <option value="created:asc" @if(request()->get('sort') == 'created:asc') selected="" @endif>Created (Oldest to Newest)</option>
-                                    <option value="title:asc" @if(request()->get('sort') == 'title:asc') selected="" @endif>Title (A-Z)</option>
-                                    <option value="title:desc" @if(request()->get('sort') == 'title:desc') selected="" @endif>Title (Z-A)</option>
+                                   {{-- <option value="added:desc" @if(request()->get('sort') == 'added:desc') selected="" @endif>Added to Collection (Newest to Oldest)</option>
+                                    <option value="added:asc" @if(request()->get('sort') == 'added:asc') selected="" @endif>Added to Collection (Oldest to Newest)</option>--}}
+                                    <option value="created:desc"
+                                            @selected(request()->get('sort') == 'created:desc')>
+                                        Created (Newest to Oldest)
+                                    </option>
+                                    <option value="created:asc"
+                                            @selected(request()->get('sort') == 'created:asc')>
+                                        Created (Oldest to Newest)
+                                    </option>
+                                    <option value="title:asc"
+                                            @selected(request()->get('sort') == 'title:asc')>
+                                        Title (A-Z)
+                                    </option>
+                                    <option value="title:desc"
+                                            @selected(request()->get('sort') == 'title:desc')>
+                                        Title (Z-A)
+                                    </option>
                                 </select>
                             </div>
 
