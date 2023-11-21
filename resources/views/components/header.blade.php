@@ -551,6 +551,10 @@
                                 class="overflow-hidden absolute left-0 z-20 mt-2 w-auto bg-white shadow-md"
                             >
                                 <div>
+                                    <a href="{{ route('donate') }}"
+                                       class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
+                                        Donate
+                                    </a>
                                     <a href="{{ route('volunteer') }}"
                                        class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
                                         Volunteer
