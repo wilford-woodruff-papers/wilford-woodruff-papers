@@ -321,6 +321,30 @@ input[class^="numeric-"], select[class^="numeric-"]{
     content: "";
     @apply block text-2xl m-4 !important;
 }
+/*.content-page .mobile-hidden, .page-builder .mobile-hidden {*/
+/*    @apply hidden md:block !important;*/
+/*}*/
+/*.content-page .mobile-show, .page-builder .mobile-show {*/
+/*    @apply block md:hidden !important;*/
+/*}*/
+/*.content-page .mobile-show-inline, .page-builder .mobile-show-inline {*/
+/*    @apply inline md:hidden !important;*/
+/*}*/
+@media (min-width: 768px) {
+    .md\:hidden {
+        display: none !important;
+    }
+    .md\:block {
+        display: block !important;
+    }
+    .md\:inline {
+        display: inline !important;
+    }
+    .md\:text-left {
+       text-align: left !important;
+    }
+}
+
 /* End Content Builder */
 
 #sidebar-filters {
