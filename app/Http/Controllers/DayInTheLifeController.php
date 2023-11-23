@@ -15,7 +15,20 @@ class DayInTheLifeController extends Controller
     {
         $date = ! is_null($date)
             ? Date::createFromFormat('Y-m-d', $date)
-            : Date::createFromFormat('Y-m-d', '1807-03-01');
+            : Date::createFromFormat('Y-m-d',
+                \App\Models\Date::query()
+                    ->select('date')
+                    ->whereMonth('date', now('America/Denver')->month)
+                    ->whereDay('date', now('America/Denver')->day)
+                    ->where('dateable_type', Page::class)
+                    ->whereHasMorph('dateable', Page::class, function ($query) {
+                        $query->whereRelation('parent', 'type_id', 5);
+                    })
+                    ->inRandomOrder()
+                    ->toBase()
+                    ->first()
+                    ?->date ?? '1807-03-01'
+            );
 
         $day = Page::query()
             ->with([
