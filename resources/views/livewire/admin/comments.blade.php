@@ -23,10 +23,10 @@
                         <img class="w-10 h-10 rounded-full" src="{{ auth()->user()->profile_photo_url }}" alt="">
                     </div>
                     <div class="flex-1 min-w-0">
-                        <form wire:submit.prevent="save">
+                        <form wire:submit="save">
                             <div>
                                 <label for="comment" class="sr-only">About</label>
-                                <textarea wire:model.defer="comment.text"
+                                <textarea wire:model="comment.text"
                                           id="comment" name="comment" rows="3"
                                           class="block w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:border-blue-500 focus:ring-blue-500"
                                           placeholder="Add a note"></textarea>

@@ -5,7 +5,7 @@
             <div class="space-y-5">
                 <div class="flex relative items-start">
                     <div class="flex items-center h-6">
-                        <input wire:model="filterToNoRating"
+                        <input wire:model.live="filterToNoRating"
                                id="filterToNoRating"
                                value="true"
                                aria-describedby="filterToNoRating-description"

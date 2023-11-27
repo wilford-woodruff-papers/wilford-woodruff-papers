@@ -90,7 +90,7 @@
                                 <div class="py-6 px-4 sm:p-6 lg:pb-8">
                                     <div>
                                         <label for="type" class="block text-sm font-medium text-gray-700">Document Type <span class="text-red-800">*</span></label>
-                                        <select wire:model="type"
+                                        <select wire:model.live="type"
                                                 id="type"
                                                 name="type_id"
                                                 class="block py-2 pr-10 pl-3 mt-1 w-full text-base rounded-md border-gray-300 sm:text-sm focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none">
@@ -104,7 +104,7 @@
                                 <div class="py-6 px-4 sm:p-6 lg:pb-8 @if(empty($type) && ! empty(\App\Models\Type::query()->with('subType')->firstWhere('id', $type)->subType)) hidden @endif">
                                     <div>
                                         <label for="section_count" class="block text-sm font-medium text-gray-700">Create Sections</label>
-                                        <input wire:model="section_count"
+                                        <input wire:model.live="section_count"
                                                type="number"
                                                id="section_count"
                                                name="section_count"

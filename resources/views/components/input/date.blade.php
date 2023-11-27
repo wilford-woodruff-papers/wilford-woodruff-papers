@@ -9,12 +9,12 @@
 --}}
 
 <div
-    x-data="{ value: @entangle($attributes->wire('model')) }"
+    x-data="{ value: @entangle($attributes->wire('model')).live }"
     class="flex rounded-md shadow-sm"
 >
     <input
         type="date"
-        {{ $attributes->whereDoesntStartWith('wire:model') }}
+        {{ $attributes->whereDoesntStartWith('wire:model.live') }}
         x-ref="input"
         x-bind:value="value"
         class="block flex-1 w-full rounded-none rounded-r-md transition duration-150 ease-in-out sm:text-sm sm:leading-5 form-input"

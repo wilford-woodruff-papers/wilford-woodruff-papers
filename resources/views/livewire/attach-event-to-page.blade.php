@@ -53,7 +53,7 @@
         </div>
         <div class="flex gap-x-4 items-center">
             <div>
-                <select wire:model="selectedEventId"
+                <select wire:model.live="selectedEventId"
                         id="event"
                         class="block py-1.5 pr-10 pl-3 mt-2 w-full text-gray-900 rounded-md border-0 ring-1 ring-inset ring-gray-300 sm:text-sm sm:leading-6 focus:ring-2 focus:ring-indigo-600"
                 >

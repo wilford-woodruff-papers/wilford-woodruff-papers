@@ -75,7 +75,7 @@
                                         Journal Entry
                                     </div>
                                     <div class="flex gap-x-1 items-center pb-2">
-                                        <button x-on:click="Livewire.emit('openModal', 'page', {'pageId': {{ $day->first()->id }}})"
+                                        <button x-on:click="Livewire.dispatch('openModal', {component: 'page', arguments: {'pageId': {{ $day->first()->id }}} })"
                                                 class="flex gap-x-4 items-center py-1.5 px-2 sm:py-1 bg-secondary"
                                         >
                                             <x-heroicon-m-arrows-pointing-out class="w-6 h-6 text-white"/>

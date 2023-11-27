@@ -9,7 +9,7 @@
                         <div>
                             <label for="start" class="block text-sm font-medium leading-6 text-gray-900">Start Date</label>
                             <div class="mt-2">
-                                <input wire:model="dates.start"
+                                <input wire:model.live="dates.start"
                                     type="date" name="start" id="start" class="block py-1.5 w-full text-gray-900 rounded-md border-0 ring-1 ring-inset ring-gray-300 shadow-sm sm:text-sm sm:leading-6 focus:ring-2 focus:ring-inset focus:ring-indigo-600 placeholder:text-gray-400">
                             </div>
                         </div>
@@ -18,7 +18,7 @@
                         <div>
                             <label for="end" class="block text-sm font-medium leading-6 text-gray-900">End Date</label>
                             <div class="mt-2">
-                                <input wire:model="dates.end"
+                                <input wire:model.live="dates.end"
                                         type="date" name="end" id="end" class="block py-1.5 w-full text-gray-900 rounded-md border-0 ring-1 ring-inset ring-gray-300 shadow-sm sm:text-sm sm:leading-6 focus:ring-2 focus:ring-inset focus:ring-indigo-600 placeholder:text-gray-400">
                             </div>
                         </div>

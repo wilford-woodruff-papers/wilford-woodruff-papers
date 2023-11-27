@@ -1,7 +1,7 @@
 <div>
     <div x-data="{
             multiple: true,
-            selectedTopics: @entangle('selectedTopics').defer,
+            selectedTopics: @entangle('selectedTopics'),
             value: [],
             options: [
                 @foreach($topics as $key => $topic) {'value': {{ $key }}, 'label': '{{ addslashes($topic) }}'}, @endforeach
@@ -40,7 +40,7 @@
         }
     }"
          class="space-y-6 sm:px-6 lg:col-span-9 lg:px-0">
-        <form wire:submit.prevent="save"
+        <form wire:submit="save"
               action="#"
               method="POST">
             <div class="shadow sm:overflow-hidden sm:rounded-md">

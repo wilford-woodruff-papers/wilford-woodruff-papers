@@ -13,7 +13,7 @@
         <div class="grid grid-cols-1 gap-y-12 mx-auto mt-16 max-w-2xl lg:grid-cols-3 lg:mx-2 lg:max-w-none">
             @foreach ($section['items'] as $page)
                 <article class="flex flex-col justify-between items-start p-4 cursor-pointer hover:bg-gray-100"
-                         x-on:click="Livewire.emit('openModal', 'page', {'pageId': {{ $page->id }}})">
+                         x-on:click="Livewire.dispatch('openModal', {component: 'page', arguments: {'pageId': {{ $page->id }}} })">
                     <div
                         class="w-full"
                     >
@@ -66,7 +66,7 @@
     @else
         <div class="grid grid-cols-1 gap-8">
             @foreach($section['items'] as $page)
-                <article x-on:click="Livewire.emit('openModal', 'page', {'pageId': {{ $page->id }}})"
+                <article x-on:click="Livewire.dispatch('openModal', {component: 'page', arguments: {'pageId': {{ $page->id }}} })"
                     class="py-4 pr-4 cursor-pointer hover:bg-gray-100"
                 >
                     <div class="grid grid-cols-2 gap-x-4">
@@ -85,7 +85,7 @@
                             <div class="flex flex-col gap-y-4 justify-between py-12 h-full">
                                 <div>
                                     <div class="text-xl cursor-pointer text-secondary"
-                                         x-on:click="Livewire.emit('openModal', 'page', {'pageId': {{ $page->id }}})">
+                                         x-on:click="Livewire.dispatch('openModal', {component: 'page', arguments: {'pageId': {{ $page->id }}} })">
                                         {!!
                                             str($page->parent?->name)
                                                 ->stripBracketedID()

@@ -85,10 +85,10 @@ Route::middleware([])->group(function () {
     Route::get('/', \App\Http\Controllers\HomeController::class)->name('home');
 
     // Route::get('/documents', [\App\Http\Controllers\ItemController::class, 'index'])->name('documents');
-    Route::get('/documents', \App\Http\Livewire\Documents\Browse::class)->name('documents');
-    Route::get('/cktest', \App\Http\Livewire\Documents\Browse::class)->name('documents.cktest');
+    Route::get('/documents', \App\Livewire\Documents\Browse::class)->name('documents');
+    Route::get('/cktest', \App\Livewire\Documents\Browse::class)->name('documents.cktest');
     Route::get('/dates/{year?}/{month?}', [\App\Http\Controllers\ItemController::class, 'dates'])->name('documents.dates');
-    Route::get('/documents/{item}', \App\Http\Livewire\Documents\Show::class)->name('documents.show');
+    Route::get('/documents/{item}', \App\Livewire\Documents\Show::class)->name('documents.show');
     //Route::get('/documents/{item}', [\App\Http\Controllers\ItemController::class, 'show'])->name('documents.show');
     Route::get('/documents/{item}/transcript', [\App\Http\Controllers\ItemController::class, 'transcript'])->name('documents.show.transcript');
     Route::get('/documents/{item}/page/{page}', [\App\Http\Controllers\PageController::class, 'show'])->name('pages.show');
@@ -108,7 +108,7 @@ Route::middleware([])->group(function () {
     Route::get('/wives-and-children', [\App\Http\Controllers\PeopleController::class, 'family'])->name('wives-and-children');
     Route::get('/places', [\App\Http\Controllers\PlaceController::class, 'index'])->name('places');
     Route::get('/topics', [\App\Http\Controllers\TopicController::class, 'index'])->name('topics');
-    Route::get('/timeline', \App\Http\Livewire\Timeline::class)->name('timeline');
+    Route::get('/timeline', \App\Livewire\Timeline::class)->name('timeline');
     Route::get('/miraculously-preserved-life', \App\Http\Controllers\MiraculouslyPreservedLife::class)->name('miraculously-preserved-life');
     Route::get('/donate/online', [\App\Http\Controllers\DonationController::class, 'online'])->name('donate.online');
     Route::get('/donation-questions', [\App\Http\Controllers\DonationController::class, 'questions'])->name('donate.questions');
@@ -130,7 +130,7 @@ Route::middleware([])->group(function () {
         ]);
     });
 
-    Route::get('/map', \App\Http\Livewire\Map::class)->name('map');
+    Route::get('/map', \App\Livewire\Map::class)->name('map');
     Route::get('/map/locations', \App\Http\Controllers\MapLocationsController::class)->name('map.locations');
     Route::get('/map/documents', \App\Http\Controllers\MapDocumentsController::class)->name('map.documents');
     Route::get('/map/pages', \App\Http\Controllers\MapPagesController::class)->name('map.pages');
@@ -143,13 +143,13 @@ Route::middleware([])->group(function () {
         Route::get('/day-in-the-life/{date?}', \App\Http\Controllers\DayInTheLifeController::class)
             ->name('day-in-the-life');
         //Route::get('/search', [\App\Http\Controllers\LandingAreasController::class, 'search'])->name('landing-areas.search');
-        Route::get('/new-search', \App\Http\Livewire\Search::class)->name('new-search');
+        Route::get('/new-search', \App\Livewire\Search::class)->name('new-search');
         Route::get('/old-timeline', [\App\Http\Controllers\TimelineController::class, 'index'])->name('old-timeline');
 
-        Route::get('/ai/sessions', \App\Http\Livewire\AI\Sessions::class)->name('ai.sessions');
+        Route::get('/ai/sessions', \App\Livewire\AI\Sessions::class)->name('ai.sessions');
     });
 
-    Route::get('/advanced-search', \App\Http\Livewire\Search::class)->name('advanced-search');
+    Route::get('/advanced-search', \App\Livewire\Search::class)->name('advanced-search');
     Route::get('/search', function () {
         return redirect()->route('advanced-search');
     })->name('search');
@@ -158,7 +158,7 @@ Route::middleware([])->group(function () {
     Route::get('/ponder/{press?}', [\App\Http\Controllers\LandingAreasController::class, 'ponder'])->name('landing-areas.ponder.press');
     Route::get('/serve', [\App\Http\Controllers\LandingAreasController::class, 'serve'])->name('landing-areas.serve');
     Route::get('/testify', [\App\Http\Controllers\LandingAreasController::class, 'testify'])->name('landing-areas.testify');
-    Route::get('/testimonies', \App\Http\Livewire\Testimonials::class)->name('testimonies.index');
+    Route::get('/testimonies', \App\Livewire\Testimonials::class)->name('testimonies.index');
 
     Route::get('/media/articles', [\App\Http\Controllers\MediaController::class, 'articles'])->name('media.articles');
     Route::get('/media/articles/{article}', [\App\Http\Controllers\MediaController::class, 'article'])->name('media.article');
@@ -232,8 +232,8 @@ Route::middleware([])->group(function () {
     /* Conference Routes */
 
     Route::get('/conference/2023-building-latter-day-faith', \App\Http\Controllers\ConferenceController::class)->name('conference.landing-page');
-    Route::get('/conference/art-contest-entry-form', \App\Http\Livewire\Forms\ContestSubmissionForm::class)->name('conference.art-contest-entry-form');
-    Route::get('/conference/art-contest-entry-form-collaborator/{submission}', \App\Http\Livewire\Forms\ContestantContactInformationForm::class)->name('conference.art-contest-entry-form-collaborator');
+    Route::get('/conference/art-contest-entry-form', \App\Livewire\Forms\ContestSubmissionForm::class)->name('conference.art-contest-entry-form');
+    Route::get('/conference/art-contest-entry-form-collaborator/{submission}', \App\Livewire\Forms\ContestantContactInformationForm::class)->name('conference.art-contest-entry-form-collaborator');
 
     /*Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
         \UniSharp\LaravelFilemanager\Lfm::routes();
@@ -314,7 +314,7 @@ Route::middleware(['role:Super Admin|Editor|Bio Editor'])->group(function () {
         ->name('admin.dashboard.quotes.index');
 
     Route::middleware(['auth:sanctum', 'verified'])
-        ->get('/admin/search/quotes', App\Http\Livewire\Admin\Quotes\Search::class)
+        ->get('/admin/search/quotes', App\Livewire\Admin\Quotes\Search::class)
         ->name('admin.quotes.search');
 
     Route::middleware(['auth:sanctum', 'verified'])
@@ -322,11 +322,11 @@ Route::middleware(['role:Super Admin|Editor|Bio Editor'])->group(function () {
         ->name('admin.quotes.report');
 
     Route::middleware(['auth:sanctum', 'verified'])
-        ->get('/admin/search/people', \App\Http\Livewire\Admin\Subjects\People\Search::class)
+        ->get('/admin/search/people', \App\Livewire\Admin\Subjects\People\Search::class)
         ->name('admin.people.search');
 
     Route::middleware(['auth:sanctum', 'verified'])
-        ->get('/admin/people', \App\Http\Livewire\Admin\Subjects\People\Index::class)
+        ->get('/admin/people', \App\Livewire\Admin\Subjects\People\Index::class)
         ->name('admin.people.index');
 
     Route::middleware(['auth:sanctum', 'verified'])
@@ -351,7 +351,7 @@ Route::middleware(['role:Super Admin|Editor|Bio Editor'])->group(function () {
 
     /* People Identification */
     Route::middleware(['auth:sanctum', 'verified'])
-        ->get('/admin/identification/people', \App\Http\Livewire\Admin\Subjects\People\Identification::class)
+        ->get('/admin/identification/people', \App\Livewire\Admin\Subjects\People\Identification::class)
         ->name('admin.people.identification');
 
     Route::middleware(['auth:sanctum', 'verified'])
@@ -381,7 +381,7 @@ Route::middleware(['role:Super Admin|Editor|Bio Editor'])->group(function () {
 
     /* Places Identification */
     Route::middleware(['auth:sanctum', 'verified'])
-        ->get('/admin/identification/places', \App\Http\Livewire\Admin\Subjects\Places\Identification::class)
+        ->get('/admin/identification/places', \App\Livewire\Admin\Subjects\Places\Identification::class)
         ->name('admin.places.identification');
 
     Route::middleware(['auth:sanctum', 'verified'])
@@ -406,7 +406,7 @@ Route::middleware(['role:Super Admin|Editor|Bio Editor'])->group(function () {
     /* End Places Identification */
 
     Route::middleware(['auth:sanctum', 'verified'])
-        ->get('/admin/places', \App\Http\Livewire\Admin\Subjects\Places\Index::class)
+        ->get('/admin/places', \App\Livewire\Admin\Subjects\Places\Index::class)
         ->name('admin.places.index');
 
     Route::middleware(['auth:sanctum', 'verified'])
@@ -434,7 +434,7 @@ Route::middleware(['role:Super Admin|Editor|Bio Editor'])->group(function () {
         ->name('admin.dashboard.quotes.show');
 
     Route::middleware(['auth:sanctum', 'verified'])
-        ->get('/admin/dashboard/document/create', App\Http\Livewire\Admin\Documents\NewDocument::class)
+        ->get('/admin/dashboard/document/create', App\Livewire\Admin\Documents\NewDocument::class)
         ->name('admin.dashboard.document.create');
 
     Route::middleware(['auth:sanctum', 'verified'])
@@ -470,23 +470,23 @@ Route::middleware(['role:Super Admin|Editor|Bio Editor'])->group(function () {
         ->name('admin.supervisor.dashboard');
 
     Route::middleware(['auth:sanctum', 'verified'])
-        ->get('/admin/supervisor/individual-activity', \App\Http\Livewire\Admin\Supervisor\IndividualActivity::class)
+        ->get('/admin/supervisor/individual-activity', \App\Livewire\Admin\Supervisor\IndividualActivity::class)
         ->name('admin.supervisor.individual-activity');
 
     Route::middleware(['auth:sanctum', 'verified'])
-        ->get('/admin/dashboard/goals', \App\Http\Livewire\Admin\Goals::class)
+        ->get('/admin/dashboard/goals', \App\Livewire\Admin\Goals::class)
         ->name('admin.dashboard.goals.index');
 
     Route::middleware(['auth:sanctum', 'verified'])
-        ->get('/admin/reports', \App\Http\Livewire\Admin\Reports::class)
+        ->get('/admin/reports', \App\Livewire\Admin\Reports::class)
         ->name('admin.reports.index');
 
     Route::middleware(['auth:sanctum', 'verified'])
-        ->get('/admin/progress-matrix', \App\Http\Livewire\Admin\ProgressMatrix::class)
+        ->get('/admin/progress-matrix', \App\Livewire\Admin\ProgressMatrix::class)
         ->name('admin.reports.progress-matrix');
 
     Route::middleware(['auth:sanctum', 'verified'])
-        ->get('/admin/progress-graphic', \App\Http\Livewire\Admin\ProgressGraphic::class)
+        ->get('/admin/progress-graphic', \App\Livewire\Admin\ProgressGraphic::class)
         ->name('admin.reports.progress-graphic');
 
     Route::middleware(['auth:sanctum', 'verified'])
@@ -494,23 +494,23 @@ Route::middleware(['role:Super Admin|Editor|Bio Editor'])->group(function () {
         ->name('admin.page-activity');
 
     Route::middleware(['auth:sanctum', 'verified'])
-        ->get('/admin/objectives', \App\Http\Livewire\Admin\Stage::class)
+        ->get('/admin/objectives', \App\Livewire\Admin\Stage::class)
         ->name('admin.reports.objectives');
 
     Route::middleware(['auth:sanctum', 'verified'])
-        ->get('/admin/subjects/objectives', \App\Http\Livewire\Admin\Subjects\Objectives::class)
+        ->get('/admin/subjects/objectives', \App\Livewire\Admin\Subjects\Objectives::class)
         ->name('admin.subjects.objectives');
 
     Route::middleware(['auth:sanctum', 'verified'])
-        ->get('/admin/people/progress-graphic', \App\Http\Livewire\Admin\Subjects\People\ProgressGraphic::class)
+        ->get('/admin/people/progress-graphic', \App\Livewire\Admin\Subjects\People\ProgressGraphic::class)
         ->name('admin.people.progress-graphic');
 
     Route::middleware(['auth:sanctum', 'verified'])
-        ->get('/admin/subjects/activity-report', \App\Http\Livewire\Admin\Subjects\ActivityReport::class)
+        ->get('/admin/subjects/activity-report', \App\Livewire\Admin\Subjects\ActivityReport::class)
         ->name('admin.subjects.activity-report');
 
     Route::middleware(['auth:sanctum', 'verified'])
-        ->get('/admin/subjects/supervisor-dashboard', \App\Http\Livewire\Admin\Subjects\SupervisorDashboard::class)
+        ->get('/admin/subjects/supervisor-dashboard', \App\Livewire\Admin\Subjects\SupervisorDashboard::class)
         ->name('admin.subjects.supervisor-dashboard');
 
     Route::middleware(['auth:sanctum', 'verified'])
@@ -518,11 +518,11 @@ Route::middleware(['role:Super Admin|Editor|Bio Editor'])->group(function () {
         ->name('admin.items.export-transcripts');
 
     Route::middleware(['auth:sanctum', 'verified'])
-        ->get('/admin/search/documents', \App\Http\Livewire\Admin\Documents\Search::class)
+        ->get('/admin/search/documents', \App\Livewire\Admin\Documents\Search::class)
         ->name('admin.documents.search');
 
     Route::middleware(['auth:sanctum', 'verified'])
-        ->get('/admin/exports', \App\Http\Livewire\Admin\Exports::class)
+        ->get('/admin/exports', \App\Livewire\Admin\Exports::class)
         ->name('admin.exports');
 
     Route::middleware(['auth:sanctum', 'verified'])

@@ -18,7 +18,7 @@
 
         <div class="block pb-8 max-w-7xl sm:hidden">
             <label for="category-select" class="block text-sm font-medium text-gray-700"> Category </label>
-            <select wire:model="category"
+            <select wire:model.live="category"
                     id="category-select"
                     class="block relative w-full bg-transparent border-gray-300 sm:text-base focus:z-10 focus:ring-secondary focus:border-secondary"
             >
@@ -172,8 +172,8 @@
         </div>
 
         <div class="pb-8 max-w-7xl text-center">
-            <form wire:submit.prevent="submit">
-                <input wire:model.defer="search"
+            <form wire:submit="submit">
+                <input wire:model="search"
                        class="pb-2 w-full max-w-xl border-gray-300 shadow-sm sm:max-w-xl sm:text-base"
                        type="search"
                        name="q"

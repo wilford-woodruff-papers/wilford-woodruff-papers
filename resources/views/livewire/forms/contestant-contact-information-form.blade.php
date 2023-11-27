@@ -15,8 +15,8 @@
             </div>
             <div class="mt-12">
                 @if($success === false)
-                    <form wire:submit.prevent="save" class="grid grid-cols-1 gap-y-6 sm:gap-x-8">
-                        <input wire:model.defer="role"
+                    <form wire:submit="save" class="grid grid-cols-1 gap-y-6 sm:gap-x-8">
+                        <input wire:model="role"
                                type="hidden"
                                name="role"
                                id="role"
@@ -30,7 +30,7 @@
                                 <div>
                                     <label for="first-name" class="block text-sm font-medium text-gray-700">First name <span class="text-base text-red-700">*</span></label>
                                     <div class="mt-1">
-                                        <input wire:model.defer="firstName"
+                                        <input wire:model="firstName"
                                                type="text"
                                                id="first-name"
                                                autocomplete="given-name"
@@ -43,7 +43,7 @@
                                 <div>
                                     <label for="last-name" class="block text-sm font-medium text-gray-700">Last name <span class="text-base text-red-700">*</span></label>
                                     <div class="mt-1">
-                                        <input wire:model.defer="lastName"
+                                        <input wire:model="lastName"
                                                type="text"
                                                id="last-name"
                                                autocomplete="family-name"
@@ -60,7 +60,7 @@
                                 <div>
                                     <label for="email" class="block text-sm font-medium text-gray-700">Email <span class="text-base text-red-700">*</span></label>
                                     <div class="mt-1">
-                                        <input wire:model.defer="email"
+                                        <input wire:model="email"
                                                id="email"
                                                type="email"
                                                autocomplete="email"
@@ -73,7 +73,7 @@
                                 <div>
                                     <label for="phone" class="block text-sm font-medium text-gray-700">Phone <span class="text-base text-red-700">*</span></label>
                                     <div class="mt-1">
-                                        <input wire:model.defer="phone"
+                                        <input wire:model="phone"
                                                id="phone"
                                                type="text"
                                                autocomplete="phone"
@@ -90,7 +90,7 @@
                             <div class="mb-4 space-y-4">
                                 <div class="flex relative items-start">
                                     <div class="flex items-center h-5">
-                                        <input wire:model.defer="subscribeToNewsletter"
+                                        <input wire:model="subscribeToNewsletter"
                                                id="subscribe_to_newsletter"
                                                name="subscribe_to_newsletter"
                                                type="checkbox"
@@ -110,7 +110,7 @@
                                 <div>
                                     <label for="address" class="block text-sm font-medium text-gray-700">Address <span class="text-base text-red-700">*</span></label>
                                     <div class="mt-1">
-                                        <input wire:model.defer="address"
+                                        <input wire:model="address"
                                                id="address"
                                                type="text"
                                                autocomplete="address"
@@ -135,7 +135,7 @@
                                 </p>
                                 <div class="flex relative items-start">
                                     <div class="flex items-center h-5">
-                                        <input wire:model.defer="original"
+                                        <input wire:model="original"
                                                id="original"
                                                name="original"
                                                type="checkbox"
@@ -161,7 +161,7 @@
                                 </p>
                                 <div class="flex relative items-start">
                                     <div class="flex items-center h-5">
-                                        <input wire:model.defer="appropriate"
+                                        <input wire:model="appropriate"
                                                id="appropriate"
                                                name="appropriate"
                                                type="checkbox"

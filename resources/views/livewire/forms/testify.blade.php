@@ -2,7 +2,7 @@
 
     <div class="overflow-hidden py-4 px-4 bg-white">
         <div class="absolute top-2 right-4 z-20">
-            <button wire:click="$emit('closeModal')"
+            <button wire:click="$dispatch('closeModal')"
                     type="button"
                     class="text-2xl font-semibold close"
                     aria-label="Close">
@@ -17,8 +17,8 @@
             </div>
             <div class="mt-12">
                 @if($success === false)
-                    <form wire:submit.prevent="save" class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
-                        <input wire:model.defer="role"
+                    <form wire:submit="save" class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
+                        <input wire:model="role"
                                type="hidden"
                                name="role"
                                id="role"
@@ -27,7 +27,7 @@
                             <div>
                                 <label for="first-name" class="block text-sm font-medium text-gray-700">Name</label>
                                 <div class="mt-1">
-                                    <input wire:model.defer="firstName"
+                                    <input wire:model="firstName"
                                            type="text"
                                            id="first-name"
                                            autocomplete="given-name"
@@ -41,7 +41,7 @@
                         <div>
                             <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
                             <div class="mt-1">
-                                <input wire:model.defer="email"
+                                <input wire:model="email"
                                        id="email"
                                        type="email"
                                        autocomplete="email"
@@ -54,7 +54,7 @@
                         <div>
                             <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
                             <div class="mt-1">
-                                <input wire:model.defer="phone"
+                                <input wire:model="phone"
                                        type="text"
                                        id="phone"
                                        autocomplete="phone"
@@ -66,7 +66,7 @@
                         <div class="hidden">
                             <label for="location" class="block text-sm font-medium text-gray-700">Location</label>
                             <div class="mt-1">
-                                <input wire:model.defer="location"
+                                <input wire:model="location"
                                        type="text"
                                        id="location"
                                        autocomplete="location"
@@ -78,7 +78,7 @@
                         <div class="hidden">
                             <label for="age" class="block text-sm font-medium text-gray-700">Age</label>
                             <div class="mt-1">
-                                <input wire:model.defer="age"
+                                <input wire:model="age"
                                        id="age"
                                        type="text"
                                        autocomplete="age"
@@ -90,7 +90,7 @@
                         <div class="hidden sm:col-span-2">
                             <label for="source" class="block text-sm font-medium text-gray-700">Source</label>
                             <div class="mt-1">
-                                <input wire:model.defer="source"
+                                <input wire:model="source"
                                        id="source"
                                        type="text"
                                        autocomplete="source"
@@ -102,7 +102,7 @@
                         <div class="hidden sm:col-span-2">
                             <label for="topic" class="block text-sm font-medium text-gray-700">Topic</label>
                             <div class="mt-1">
-                                <input wire:model.defer="topic"
+                                <input wire:model="topic"
                                        id="topic"
                                        type="text"
                                        autocomplete="topic"
@@ -114,7 +114,7 @@
                         <div class="sm:col-span-2">
                             <label for="message" class="block text-sm font-medium text-gray-700">Your Testimony</label>
                             <div class="mt-1">
-                                <textarea wire:model.defer="message"
+                                <textarea wire:model="message"
                                           id="message"
                                           rows="4"
                                           required

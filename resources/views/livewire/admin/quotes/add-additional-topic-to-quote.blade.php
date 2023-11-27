@@ -1,7 +1,7 @@
 <div>
     <div x-data="{
             multiple: true,
-            selectedAdditionalTopics: @entangle('selectedAdditionalTopics').defer,
+            selectedAdditionalTopics: @entangle('selectedAdditionalTopics'),
             additional_value: [],
             additional_options: [
                 @foreach($additional_topics as $additional_topic) {'value': '{{ addslashes($additional_topic->name) }}', 'label': '{{ addslashes($additional_topic->name) }}'}, @endforeach
@@ -44,7 +44,7 @@
             }
         }"
          class="space-y-6 sm:px-6 lg:col-span-9 lg:px-0">
-        <form wire:submit.prevent="save"
+        <form wire:submit="save"
               action="#"
               method="POST">
             <div class="shadow sm:overflow-hidden sm:rounded-md">

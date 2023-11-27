@@ -1,6 +1,6 @@
 <div x-data="{
             shadow: false,
-            perPage: @entangle('perPage'),
+            perPage: @entangle('perPage').live,
             selectedColumns: $persist({{ json_encode(array_values($columns)) }}).as('places-columns'),
         }">
     <div class="grid grid-cols-12 gap-x-4">
@@ -17,7 +17,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                                     </svg>
                                 </div>
-                                <input wire:model.debounce.400="filters.search"
+                                <input wire:model.live.debounce.400="filters.search"
                                        type="search"
                                        name="search"
                                        id="search"
@@ -28,7 +28,7 @@
                             <div class="flex gap-x-4 gap-y-4 items-center">
                                 <div class="flex gap-x-1 items-center pr-2">
                                     <x-input.group borderless for="filter-type" label="Researcher">
-                                        <x-input.select wire:model="filters.researcher" id="filter-type">
+                                        <x-input.select wire:model.live="filters.researcher" id="filter-type">
                                             <option value=""> -- All -- </option>
                                             @foreach($researchers as $researcher)
                                                 <option value="{{ $researcher->id }}" @if(data_get('', $filters) == $researcher->id) selected @endif>{{ $researcher->name }}</option>
@@ -54,7 +54,7 @@
                                 </div>
                                 <div class="pr-2 space-y-4">
                                     <x-input.group borderless for="filter-type" label="Confirmed Status">
-                                        <x-input.select wire:model="filters.completed" id="filter-type">
+                                        <x-input.select wire:model.live="filters.completed" id="filter-type">
                                             <option value=""> -- All -- </option>
                                             <option value="false"> Not Confirmed </option>
                                             <option value="true"> Confirmed </option>
@@ -63,7 +63,7 @@
                                 </div>
                                 <div class="pr-2 space-y-4">
                                     <x-input.group borderless for="filter-type" label="Status">
-                                        <x-input.select wire:model="filters.tagged" id="filter-type">
+                                        <x-input.select wire:model.live="filters.tagged" id="filter-type">
                                             <option value=""> -- All -- </option>
                                             <option value="false"> Not tagged </option>
                                             <option value="true"> Tagged </option>
@@ -74,7 +74,7 @@
                             <div class="grid grid-cols-3 gap-x-4 gap-y-4 items-center">
                                 <div class="">
                                     <x-input.group borderless for="filter-type" label="Country">
-                                        <x-input.select wire:model="filters.country" id="filter-type">
+                                        <x-input.select wire:model.live="filters.country" id="filter-type">
                                             <option value=""> -- Any -- </option>
                                             @foreach($countries as $country)
                                                 <option value="{{ $country }}">{{ $country }}</option>
@@ -84,7 +84,7 @@
                                 </div>
                                 <div class="whitespace-nowrap">
                                     <x-input.group borderless for="filter-type" label="State or Province">
-                                        <x-input.select wire:model="filters.state" id="filter-type">
+                                        <x-input.select wire:model.live="filters.state" id="filter-type">
                                             <option value=""> -- Any -- </option>
                                             @foreach($states as $state)
                                                 <option value="{{ $state }}">{{ $state }}</option>
@@ -103,7 +103,7 @@
                                                for="perPage"
                                                label="Per Page"
                                 >
-                                    <x-input.select wire:model="perPage" id="perPage">
+                                    <x-input.select wire:model.live="perPage" id="perPage">
                                         <option value="10">10</option>
                                         <option value="25">25</option>
                                         <option value="50">50</option>
@@ -201,7 +201,7 @@
                 <x-admin.quotes.table>
                     <x-slot name="head">
                         <x-admin.quotes.heading class="pr-0 w-8">
-                            <x-input.checkbox wire:model="selectPage" />
+                            <x-input.checkbox wire:model.live="selectPage" />
                         </x-admin.quotes.heading>
                         <x-admin.quotes.heading sortable multi-column wire:click="sortBy('unique_id')"
                                                 :direction="$sorts['unique_id'] ?? null"
@@ -252,7 +252,7 @@
                                                 class="h-6"
                             >
                                 <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">
-                                    <x-input.checkbox wire:model="selected" value="{{ $place->id }}" />
+                                    <x-input.checkbox wire:model.live="selected" value="{{ $place->id }}" />
                                 </x-admin.quotes.cell>
 
                                 <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">

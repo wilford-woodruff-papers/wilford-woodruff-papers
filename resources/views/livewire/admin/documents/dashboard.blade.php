@@ -10,7 +10,7 @@
                     </div>
                     <div class="pr-2 space-y-4">
                         <x-input.group inline for="filter-type" label="Type">
-                            <x-input.select wire:model="filters.type" id="filter-type">
+                            <x-input.select wire:model.live="filters.type" id="filter-type">
                                 <option value=""> -- Any Type -- </option>
                                 @foreach ($types as $type)
                                     <option value="{{ $type->id }}">{{ $type->name }}</option>
@@ -20,7 +20,7 @@
                     </div>
                     <div class="pr-2 space-y-4">
                         <x-input.group inline for="filter-status" label="Status">
-                            <x-input.select wire:model="filters.status" id="filter-status">
+                            <x-input.select wire:model.live="filters.status" id="filter-status">
                                 <option value=""> -- Any Status -- </option>
                                 <option value="on">Published</option>
                                 <option value="off">Not Published</option>
@@ -33,7 +33,7 @@
 
                             <div class="relative mt-1 rounded-md shadow-sm">
                                 <div class="flex rounded-md shadow-sm">
-                                    <input wire:model="filters.date-min"
+                                    <input wire:model.live="filters.date-min"
                                             type="date"
                                            id="filter-date-min"
                                            class="block flex-1 w-full rounded-none rounded-r-md transition duration-150 ease-in-out sm:text-sm sm:leading-5 form-input" min="1807-02-28" max="1898-09-03">
@@ -47,7 +47,7 @@
 
                             <div class="relative mt-1 rounded-md shadow-sm">
                                 <div class="flex rounded-md shadow-sm">
-                                    <input wire:model="filters.date-max"
+                                    <input wire:model.live="filters.date-max"
                                            type="date"
                                            id="filter-date-max"
                                            class="block flex-1 w-full rounded-none rounded-r-md transition duration-150 ease-in-out sm:text-sm sm:leading-5 form-input" min="1807-02-28" max="1898-09-03">
@@ -58,7 +58,7 @@
                     @if(auth()->user()->hasAnyRole(['Super Admin']))
                         <div class="pr-2 space-y-4">
                             <x-input.group inline for="filter-needs" label="Needs Task">
-                                <x-input.select wire:model="filters.needs" id="filter-needs">
+                                <x-input.select wire:model.live="filters.needs" id="filter-needs">
                                     <option value=""> -- Task -- </option>
                                     @foreach($taskTypes as $taskType)
                                         <option value="{{ $taskType->id }}">{{ $taskType->name }}</option>
@@ -74,7 +74,7 @@
             <div class="pt-2 pr-4">
                 <div class="flex justify-end space-x-2">
                     <x-input.group borderless paddingless for="perPage" label="Per Page">
-                        <x-input.select wire:model="perPage" id="perPage">
+                        <x-input.select wire:model.live="perPage" id="perPage">
                             <option value="10">10</option>
                             <option value="25">25</option>
                             <option value="50">50</option>
@@ -111,7 +111,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                             </svg>
                         </div>
-                        <input wire:model.debounce.400="filters.search"
+                        <input wire:model.live.debounce.400="filters.search"
                                type="search"
                                name="search"
                                id="search"
@@ -137,7 +137,7 @@
                 <x-admin.quotes.table>
                     <x-slot name="head">
                         <x-admin.quotes.heading class="pr-0 w-8">
-                            <x-input.checkbox wire:model="selectPage" />
+                            <x-input.checkbox wire:model.live="selectPage" />
                         </x-admin.quotes.heading>
                         <x-admin.quotes.heading sortable multi-column wire:click="sortBy('pcf_unique_id')" :direction="$sorts['name'] ?? null" class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">ID</x-admin.quotes.heading>
                         <x-admin.quotes.heading class="pr-0 w-8">
@@ -171,7 +171,7 @@
                         @forelse ($items as $item)
                             <x-admin.quotes.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $item->id }}">
                                 <x-admin.quotes.cell class="pr-0 bg-gray-50">
-                                    <x-input.checkbox wire:model="selected" value="{{ $item->id }}" />
+                                    <x-input.checkbox wire:model.live="selected" value="{{ $item->id }}" />
                                 </x-admin.quotes.cell>
 
                                 <x-admin.quotes.cell class="bg-gray-50">
@@ -279,7 +279,7 @@
                                     </x-admin.quotes.cell>
 
                                     <x-admin.quotes.cell class="pr-0">
-                                        <x-input.checkbox wire:model="selected" value="{{ $section->id }}" />
+                                        <x-input.checkbox wire:model.live="selected" value="{{ $section->id }}" />
                                     </x-admin.quotes.cell>
 
                                     <x-admin.quotes.cell>

@@ -57,8 +57,8 @@
             };
         </script>
 
-        @livewireScripts
-        @livewire('livewire-ui-modal')
+        @livewireScriptConfig
+        @livewire('wire-elements-modal')
         @stack('scripts')
     </body>
 </html>

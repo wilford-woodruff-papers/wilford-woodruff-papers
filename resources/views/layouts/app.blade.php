@@ -47,7 +47,7 @@
         <x-footer />
         @stack('modals')
 
-        @livewireScripts
+        @livewireScriptConfig
 
         <x-constant-contact />
         @stack('scripts')

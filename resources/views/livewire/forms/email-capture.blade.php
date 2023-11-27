@@ -58,12 +58,12 @@
                                     {!! $component['description'] !!}
                                 </p>
                             </div>
-                            <form wire:submit.prevent="save()"
+                            <form wire:submit="save()"
                                   action="#"
                                   class="mt-12 sm:flex sm:mx-auto sm:max-w-lg">
                                 <div class="flex-1 min-w-0">
                                     <label for="cta-email" class="sr-only">Email address</label>
-                                    <input wire:model.defer="contact.email"
+                                    <input wire:model="contact.email"
                                            id="cta-email"
                                            type="email"
                                            class="block py-3 px-5 w-full text-base placeholder-gray-700 text-gray-900 border border-transparent shadow-sm focus:border-transparent focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-indigo-600 focus:outline-none"

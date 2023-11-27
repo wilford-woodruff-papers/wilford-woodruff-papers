@@ -7,11 +7,11 @@
                 Progress Matrix
             </h1>
 
-            <form wire:submit.prevent="update" class="flex gap-x-4">
+            <form wire:submit="update" class="flex gap-x-4">
                 <div>
                     <label for="user" class="block text-sm font-medium text-gray-700">Completed By</label>
                     <div class="mt-1">
-                        <select wire:model="currentUserId"
+                        <select wire:model.live="currentUserId"
                                 id="currentUserId"
                                 class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-500 focus:ring-indigo-500"
                         >
@@ -25,7 +25,7 @@
                 <div class="pr-8 mr-8">
                     <label for="user" class="block text-sm font-medium text-gray-700">Stage</label>
                     <div class="mt-1">
-                        <select wire:model="stage"
+                        <select wire:model.live="stage"
                                 id="stage"
                                 class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-500 focus:ring-indigo-500"
                         >

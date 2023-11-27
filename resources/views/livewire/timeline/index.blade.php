@@ -11,11 +11,13 @@
             event: {image: '', date: '', text: '', links: []},
             filtersOpen: true,
             isMobile: false,
-            view: @entangle('view'),
-            currentIndex: @entangle('currentIndex'),
-            @foreach($groups as $group)
-                {{ str($group)->snake() }}: true,
-            @endforeach
+            view: @entangle('view').live,
+            currentIndex: @entangle('currentIndex').live,
+            individual: true,
+            family: true,
+            personal_religious: true,
+            l_d_s_church_context: true,
+            historical_context: true,
             isOverlap: $overlap('#event-selector'),
             mobileCheck: function() {
                 let check = false;
@@ -69,7 +71,7 @@
                                         <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd"></path>
                                     </svg>
                                 </div>
-                                <input wire:model.debounce.400="q"
+                                <input wire:model.live.debounce.400="q"
                                        type="search"
                                        name="search"
                                        id="search"
@@ -149,7 +151,7 @@
 
             <div class="sticky top-0 py-10 px-6 h-screen bg-primary">
                 <div>
-                    <img x-on:click="Livewire.emit('openModal', 'photo-viewer', { url: event.image })"
+                    <img x-on:click="Livewire.dispatch('openModal', {component: 'photo-viewer', arguments: { url: event.image } })"
                          x-bind:src="event.image"
                          alt=""
                          class="w-full h-auto cursor-pointer">
@@ -206,6 +208,15 @@
                 pruneCluster: null,
                 eventMap: null,
                 displayLocationsOnMap: function(events){
+                    if(window.map.eventMap === null){
+                        window.map.eventMap = L.map('map').setView([37.71859, -54.140625], 3);
+                        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                            maxZoom: 19,
+                            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                        })
+                            .addTo(window.map.eventMap);
+                        window.map.pruneCluster = new PruneClusterForLeaflet();
+                    }
                     window.map.pruneCluster.RemoveMarkers();
                     window.map.pruneCluster.ProcessView();
 
@@ -226,13 +237,7 @@
             };
             window.loadMap = function (){
 
-                window.map.eventMap = L.map('map').setView([37.71859, -54.140625], 3);
-                L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    maxZoom: 19,
-                    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                })
-                    .addTo(window.map.eventMap);
-                window.map.pruneCluster = new PruneClusterForLeaflet();
+
                 //window.map.mapInitialized = true;
 
                 // pruneCluster.RemoveMarkers();
@@ -286,8 +291,10 @@
 
     @push('scripts')
         <script>
-            Livewire.on('scroll-to-top', () => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+            document.addEventListener('livewire:initialized', () => {
+                Livewire.on('scroll-to-top', () => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
             });
         </script>
     @endpush
@@ -296,13 +303,15 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.js" integrity="sha512-UOJe4paV6hYWBnS0c9GnIRH8PLm2nFK22uhfAvsTIqd3uwnWsVri1OPn5fJYdLtGY3wB11LGHJ4yPU1WFJeBYQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/wnumb/1.2.0/wNumb.min.js" integrity="sha512-igVQ7hyQVijOUlfg3OmcTZLwYJIBXU63xL9RC12xBHNpmGJAktDnzl9Iw0J4yrSaQtDxTTVlwhY730vphoVqJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script>
-            Livewire.on('scroll-to-timeline', () => {
-                window.scrollTo({ top: document.getElementById('timeline').offsetTop + 80, behavior: 'smooth' });
-                //document.getElementById('timeline').scrollIntoView();
-            });
+            document.addEventListener('livewire:initialized', () => {
+                Livewire.on('scroll-to-timeline', () => {
+                    window.scrollTo({ top: document.getElementById('timeline').offsetTop + 80, behavior: 'smooth' });
+                    //document.getElementById('timeline').scrollIntoView();
+                });
+            })
             window.addEventListener('update-map', event => {
-                console.log('Map Updated');
-                console.log(event.detail.events);
+                //console.log('Map Updated');
+                //console.log(event.detail.events);
                 window.map.displayLocationsOnMap(event.detail.events);
             })
             /*Livewire.on('update-map', (events) => {

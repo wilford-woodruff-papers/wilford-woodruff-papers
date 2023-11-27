@@ -314,7 +314,7 @@
                               </div>
                               <ul id="pages" class="ml-4 divide-y divide-gray-200">
                                   <template x-for="page in document.pages" :key="'page-'+page.id">
-                                      <li x-show="page.id" x-on:click="Livewire.emit('openModal', 'page', {'pageId': page.id})"
+                                      <li x-show="page.id" x-on:click="Livewire.dispatch('openModal', {component: 'page', arguments: {'pageId': page.id} })"
 
                                           class="flex gap-x-2 items-center py-1 cursor-pointer"
                                       >
@@ -566,7 +566,7 @@
                             .then(response => response.json())
                             .then(data => {
                                 if(data.length === 1 && data[0].count === 1){
-                                    Livewire.emit('openModal', 'page', {'pageId': data[0].pages[0].id});
+                                    Livewire.dispatch('openModal', {component: 'page', arguments: {'pageId': data[0].pages[0].id} });
                                 }
                                 this.documents = [];
                                 data.forEach(document => {

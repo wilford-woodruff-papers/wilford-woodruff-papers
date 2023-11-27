@@ -53,7 +53,7 @@
             </div>
             <div class="col-span-12 md:col-span-9">
                 <div>
-                    <form wire:submit.prevent="submit">
+                    <form wire:submit="submit">
                         <div class="pl-3">
                             <label for="search" class="sr-only">Search term</label>
                             <div class="relative mt-0 rounded-md shadow-sm">
@@ -63,7 +63,7 @@
                                     </svg>
                                 </div>
                                 <div>
-                                    <input wire:model.defer="filters.search"
+                                    <input wire:model="filters.search"
                                            type="search"
                                            id="search"
                                            class="block pl-9 w-full border-gray-300 sm:text-sm focus:ring-secondary focus:border-secondary"
@@ -99,7 +99,7 @@
                                 <input type="hidden" name="type" value="{{ $filters['type'] }}">
                             @endif
                             <div class="inline-block">
-                                <select wire:model="filters.sort"
+                                <select wire:model.live="filters.sort"
                                         class="block py-2 pr-10 pl-3 mt-1 w-full text-base border border-gray-300 sm:text-sm focus:border-indigo-500 focus:ring-indigo-500"
                                         name="sort"
                                         aria-label="Sort by">

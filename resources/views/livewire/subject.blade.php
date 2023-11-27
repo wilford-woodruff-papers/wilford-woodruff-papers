@@ -31,14 +31,14 @@
                             </svg>
                         </button>
                         <div>
-                            <x-modal.dialog wire:model="showModal">
+                            <x-modal.dialog wire:model.live="showModal">
                                 <x-slot name="title">Editing: <span class="font-semibold">{{ $subject->name }}</span></x-slot>
 
                                 <x-slot name="content">
                                     <div class="py-4">
                                         <label for="query" class="text-sm font-medium text-gray-700 sr-only">Name</label>
                                         <div class="relative mt-1 rounded-md shadow-sm">
-                                            <input wire:model.debounce="subject.name"
+                                            <input wire:model.live.debounce="subject.name"
                                                    type="text"
                                                    name="name"
                                                    id="name"
@@ -50,7 +50,7 @@
                                     <div class="flex gap-x-2 items-center py-4">
                                         <label for="query" class="text-sm font-medium font-semibold text-gray-700">Add new children</label>
                                         <div class="relative flex-1 mt-1 rounded-md shadow-sm">
-                                            <input wire:model.debounce="new"
+                                            <input wire:model.live.debounce="new"
                                                    type="text"
                                                    name="new"
                                                    id="new"
@@ -74,7 +74,7 @@
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                                                 </svg>
                                             </div>
-                                            <input wire:model.debounce="query"
+                                            <input wire:model.live.debounce="query"
                                                    type="text"
                                                    name="query"
                                                    id="query"

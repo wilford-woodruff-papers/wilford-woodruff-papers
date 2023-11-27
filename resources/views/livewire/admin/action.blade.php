@@ -27,7 +27,7 @@
             </div>
 
         @else
-            <select wire:model="assignee">
+            <select wire:model.live="assignee">
                 <option>-- Choose --</option>
                 @foreach($users as $key => $user) <option value="{{ $user->id }}">{{ $user->name }}</option> @endforeach
             </select>
@@ -58,7 +58,7 @@
             </div>
 
         @else
-            <select wire:model="finisher">
+            <select wire:model.live="finisher">
                 <option>-- Choose --</option>
                 @foreach($users as $key => $user) <option value="{{ $user->id }}">{{ $user->name }}</option> @endforeach
             </select>
