@@ -65,6 +65,40 @@ class Subject extends Model implements HasMedia
         );
     }
 
+    protected function displayLifeYears(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                $lifeYears = $this->life_years;
+                if (! empty($this->bio_approved_at)) {
+                    $dates = [];
+                    if (! empty($this->birth_date) && ! empty($birthDate = $this->parseDateToCarbon($this->birth_date))) {
+                        $dates[] = $birthDate->format('j M Y');
+                    } elseif (! empty($this->birth_date)) {
+                        $dates[] = $this->birth_date;
+                    }
+                    if (! empty($this->death_date) && ! empty($deathDate = $this->parseDateToCarbon($this->death_date))) {
+                        $dates[] = $deathDate->format('j M Y');
+                    } elseif (! empty($this->death_date)) {
+                        $dates[] = $this->death_date;
+                    }
+                    $lifeYears = implode(' - ', $dates);
+                }
+
+                return $lifeYears;
+            },
+        );
+    }
+
+    private function parseDateToCarbon($date)
+    {
+        try {
+            return Carbon::createFromFormat('Y-m-d', $date);
+        } catch (\Exception $exception) {
+            return null;
+        }
+    }
+
     protected function latitude(): Attribute
     {
         return Attribute::make(
