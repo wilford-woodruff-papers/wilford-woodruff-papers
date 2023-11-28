@@ -62,7 +62,7 @@
 
 
         @livewireScriptConfig
-        @livewire('wire-elements-modal')
+
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js" charset="utf-8"></script>
 
@@ -86,7 +86,7 @@
                 });
             });
         </script>
-
+        @livewire('wire-elements-modal')
         <x-constant-contact />
     </body>
 </html>

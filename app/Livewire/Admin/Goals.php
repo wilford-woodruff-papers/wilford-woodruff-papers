@@ -20,6 +20,10 @@ class Goals extends Component
 
     public $action_type;
 
+    public $actionTypes;
+
+    public $doc_action_types;
+
     public $saved = false;
 
     protected $queryString = [
@@ -96,6 +100,7 @@ class Goals extends Component
     public function editGoal($id)
     {
         $this->goal = Goal::firstOrNew(['id' => $id]);
+        $this->dispatch('scroll');
     }
 
     public function saveGoal()

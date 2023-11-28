@@ -13,7 +13,7 @@ trait WithCachedRows
 
     public function cache($callback)
     {
-        $cacheKey = $this->id;
+        $cacheKey = $this->id();
 
         if ($this->useCache && cache()->has($cacheKey)) {
             return cache()->get($cacheKey);
