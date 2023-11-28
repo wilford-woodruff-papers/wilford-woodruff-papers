@@ -218,16 +218,16 @@
                         >
                             {{ $person->display_name }}
                         </a>
-                    </div>
-                    <div class="flex justify-between items-center pt-2">
-                        {{ $person->tagged_count }} {{ str('mention')->plural($person->tagged_count) }}
+                        @if(! empty($display_life_years = $person->display_life_years))
+                            <div>
+                                {{ $display_life_years }}
+                            </div>
+                        @endif
                     </div>
                     <div class="flex justify-between items-center pt-2">
                         <div class="font-medium text-black">
-                            <div>
-                                @if(! empty($person->life_years))
-                                    {{ $person->life_years }}
-                                @endif
+                            <div class="mb-0.5">
+                                {{ $person->tagged_count }} {{ str('mention')->plural($person->tagged_count) }}
                             </div>
                             <div>
                                 {{
