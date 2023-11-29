@@ -276,7 +276,7 @@
         @if($showPress)
             <script>
                 window.addEventListener('load', event => {
-                    Livewire.emit( 'openModal', 'press-modal', {'press': '{{ $showPress }}'});
+                    Livewire.dispatch('openModal', { component: 'press-modal', arguments: { press: '{{ $showPress }}' }});
                 });
             </script>
         @endif

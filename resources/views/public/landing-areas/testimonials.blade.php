@@ -35,7 +35,9 @@
     @push('scripts')
         @if($showTestimony)
             <script>
-                Livewire.emit("openModal", "testimonial", @json(["testimonial" => $showTestimony->id]) );
+                window.addEventListener('load', event => {
+                    Livewire.dispatch('openModal', { component: 'testimonial', arguments: { testimonial: {{ $showTestimony->id }} }});
+                });
             </script>
         @endif
     @endpush

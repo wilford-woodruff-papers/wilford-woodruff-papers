@@ -17,7 +17,7 @@
                         </div>
 
 
-                        <div class="top-0 z-50 bg-white md:sticky"
+                        <div class="top-0 z-10 bg-white md:sticky"
                              :class="{'': !scrolledFromTop, 'md:shadow-2xl': scrolledFromTop}">
                             <div x-ref="nav"
                                  class="px-12 mx-auto max-w-7xl">

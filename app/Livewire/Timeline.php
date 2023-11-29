@@ -13,6 +13,8 @@ class Timeline extends Component
 
     public $event = null;
 
+    public $ready = false;
+
     public $mapEvents = [];
 
     public $q = '';
@@ -128,7 +130,9 @@ class Timeline extends Component
                 return $monthList->merge($events);
             });
 
-        $this->dispatch('update-map', events: $this->reformatEventsForTimelineMap($years));
+        if ($this->ready) {
+            $this->dispatch('update-map', events: $this->reformatEventsForTimelineMap($years));
+        }
 
         return view('livewire.timeline.index', [
             'years' => $years,
@@ -141,6 +145,7 @@ class Timeline extends Component
     public function initializeMap()
     {
         $this->dispatch('update-map', events: $this->mapEvents);
+        $this->ready = true;
     }
 
     private function reformatEventsForTimelineMap($years)

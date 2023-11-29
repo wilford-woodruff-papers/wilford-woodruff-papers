@@ -133,7 +133,7 @@
                             Thank you for sharing your testimony!
                         </p>
                         <div>
-                            <button onclick="Livewire.emit('closeModal', 'forms.testify')"
+                            <button onclick="Livewire.dispatch('closeModal', 'forms.testify')"
                                     type="dismiss"
                                     class="inline-flex justify-center items-center py-3 px-6 w-full text-base font-medium text-white uppercase bg-gray-500 border border-transparent shadow-sm focus:ring-2 focus:ring-offset-2 focus:outline-none focus:ring-secondary">Close</button>
                         </div>

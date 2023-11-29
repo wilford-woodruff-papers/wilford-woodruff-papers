@@ -224,7 +224,6 @@
                         var marker = new PruneCluster.Marker(events[i]['_geo']['lat'], events[i]['_geo']['lng']);
                         marker.data.popup = `
                             <button
-                                onclick="Livewire.emit('openPanel', 'Related Documents', '${events[i]['id']}', 'location')"
                                 class="!text-secondary"><b>${events[i]['location_name']}</b></button><br><a href="${events[i]['document_link']}" target="_blank"><img src="${events[i]['thumbnail']}" alt="" class="m-auto mt-2 w-full h-auto"/></a><br><div class="text-lg font-semibold">${events[i]['display_date']}</div><br><div class="text-base">${events[i]['name']}</div>
                         `;
 
@@ -237,54 +236,6 @@
             };
             window.loadMap = function (){
 
-
-                //window.map.mapInitialized = true;
-
-                // pruneCluster.RemoveMarkers();
-                // pruneCluster.ProcessView();
-
-{{--                @foreach($years as $year => $months)--}}
-{{--                    @if($months->filter(function($month){--}}
-{{--                            return count($month) > 0;--}}
-{{--                        })->count() > 0)--}}
-{{--                        @foreach($months as $month => $monthEvents)--}}
-{{--                            @if(count($monthEvents) > 0)--}}
-{{--                                @foreach($monthEvents as $event)--}}
-{{--                                    @if(! empty(data_get($event, '_geo')))--}}
-{{--                                        var marker = new PruneCluster.Marker({{ data_get($event, '_geo.lat') }}, {{ data_get($event, '_geo.lng') }});--}}
-
-{{--                                        marker.data.popup = `<button--}}
-{{--                                                onclick="Livewire.emit('openPanel', 'Related Documents', {{ data_get($event, 'id') }}, 'location')"--}}
-{{--                                                class="!text-secondary"><b>{{ data_get($event, 'place') }}</b></button><br><img src="{{ str(data_get($event, 'thumbnail')) }}" alt="" class="m-auto mt-2 w-28 h-auto"/><br>{{ str(data_get($event, 'name'))->removeSubjectTags() }}`;--}}
-
-{{--                                        map.pruneCluster.RegisterMarker(marker);--}}
-
-{{--                                    @endif--}}
-{{--                                @endforeach--}}
-{{--                            @endif--}}
-{{--                        @endforeach--}}
-{{--                    @endif--}}
-{{--                @endforeach--}}
-
-                // window.map.eventMap.addLayer(window.map.pruneCluster);
-                // window.map.pruneCluster.ProcessView();
-
-                {{--fetch("{{ route('map.locations') }}")--}}
-                {{--    .then(response => response.json())--}}
-                {{--    .then(data => {--}}
-                {{--        data.forEach(point => {--}}
-                {{--            /*var marker = L.marker([point.latitude, point.longitude])--}}
-                {{--                .bindPopup(`<a href="${point.url}" target="_blank" class="!text-secondary"><b>${point.name}</b></a><br>${point.description}`)--}}
-                {{--                .openPopup();*/--}}
-                {{--            var marker = new PruneCluster.Marker(point.latitude, point.longitude);--}}
-                {{--            marker.data.popup = `<button onclick="Livewire.emit('openPanel', 'Related Documents', ${point.id}, 'location')" class="!text-secondary"><b>${point.name}</b></button><br>${point.description}`;--}}
-                {{--            pruneCluster.RegisterMarker(marker);--}}
-                {{--            //markers.addLayer(marker);--}}
-                {{--        });--}}
-
-                {{--        map.addLayer(pruneCluster);--}}
-                {{--    })--}}
-                {{--    .catch(error => console.error('Error fetching data: ', error));--}}
             }
         </script>
     @endpush
@@ -303,14 +254,14 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.1/nouislider.min.js" integrity="sha512-UOJe4paV6hYWBnS0c9GnIRH8PLm2nFK22uhfAvsTIqd3uwnWsVri1OPn5fJYdLtGY3wB11LGHJ4yPU1WFJeBYQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/wnumb/1.2.0/wNumb.min.js" integrity="sha512-igVQ7hyQVijOUlfg3OmcTZLwYJIBXU63xL9RC12xBHNpmGJAktDnzl9Iw0J4yrSaQtDxTTVlwhY730vphoVqJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script>
-            document.addEventListener('livewire:initialized', () => {
+            window.addEventListener('load', event => {
                 Livewire.on('scroll-to-timeline', () => {
                     window.scrollTo({ top: document.getElementById('timeline').offsetTop + 80, behavior: 'smooth' });
                     //document.getElementById('timeline').scrollIntoView();
                 });
             })
             window.addEventListener('update-map', event => {
-                //console.log('Map Updated');
+                console.log('Map Updated');
                 //console.log(event.detail.events);
                 window.map.displayLocationsOnMap(event.detail.events);
             })

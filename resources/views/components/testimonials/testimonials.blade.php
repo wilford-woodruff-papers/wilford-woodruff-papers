@@ -21,7 +21,7 @@
                 <div class="overflow-hidden relative pt-16 pb-16">
                     @foreach($testimonials as $testimonial)
                         <div @if($testimonial->type != 'Video')
-                                 onclick='Livewire.emit("openModal", "testimonial", {{ json_encode(["testimonial" => $testimonial->id]) }})'
+                                 onclick="Livewire.dispatch('openModal', { component: 'testimonial', arguments: { testimonial: {{ $testimonial->id }} }})"
                              @endif
                              class="grid grid-cols-5 gap-x-4 items-center my-24 mx-auto max-w-7xl">
                             <div class="col-span-5 md:col-span-3 @if($loop->odd) order-2 md:order-1 @else order-2 md:order-2 @endif pt-4 md:pt-0 px-4 md:px-12">
@@ -52,7 +52,7 @@
                                 </div>
                                 @if($testimonial->type != 'Video')
                                     <div class="mt-6">
-                                        <span onclick='Livewire.emit("openModal", "testimonial", {{ json_encode(["testimonial" =>     $testimonial->id]) }})'
+                                        <span onclick="Livewire.dispatch('openModal', { component: 'testimonial', arguments: { testimonial: {{ $testimonial->id }} }})"
                                               class="block py-2 px-4 text-base font-medium text-center text-white uppercase border border-transparent shadow-sm cursor-pointer md:inline-flex bg-secondary">
                                             {{ $testimonial->call_to_action }}
                                         </span>
@@ -65,7 +65,7 @@
                                         <iframe class="w-[260px] h-[160px] lg:w-[480px] lg:h-[310px]" src="{{ $testimonial->embed_link }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                                     </div>
                                 @else
-                                    <div onclick='Livewire.emit("openModal", "testimonial", {{ json_encode(["testimonial" => $testimonial->id]) }})'
+                                    <div onclick="Livewire.dispatch('openModal', { component: 'testimonial', arguments: { testimonial: {{ $testimonial->id }} }})"
                                          class="px-12 cursor-pointer sm:px-24 md:px-16">
                                         <img class="mx-auto w-full h-auto ring-1 ring-black ring-opacity-5 shadow-xl" src="{{ $testimonial->getFirstMediaUrl('images', 'square') }}" alt="{{ $testimonial->name }}">
                                     </div>

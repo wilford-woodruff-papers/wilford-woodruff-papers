@@ -62,7 +62,7 @@
                 })
             },
             close: function(){
-                Livewire.emit('closeModal');
+                Livewire.dispatch('closeModal');
                 rangy.getSelection().removeAllRanges();
                 $('.highlight').removeClass('highlight');
                 $dispatch('close-options');
