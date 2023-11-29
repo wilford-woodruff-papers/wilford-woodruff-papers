@@ -78,7 +78,7 @@ class MediaRequest extends Component
         ]);
 
         Mail::to(User::whereIn('email', explode('|', config('wwp.form_emails.media_request')))->get())
-                ->send(new MediaRequested($submission));
+            ->send(new MediaRequested($submission));
 
         $this->success = true;
     }

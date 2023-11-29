@@ -73,18 +73,18 @@ class Show extends Component
                 $query->whereIn('categories.name', ['People', 'Places']);
             });
         }, 'topics', 'parent', 'item'])
-                        ->withCount('quotes')
-                        ->where('parent_item_id', $this->item->id)
-                        ->when(data_get($this->filters, 'search'), function ($query, $q) {
-                            $query->where(function ($query) use ($q) {
-                                $query->where('name', 'LIKE', '%'.$q.'%')
-                                      ->orWhere('transcript', 'LIKE', '%'.$q.'%');
-                            });
-                        })
-                        ->when(data_get($this->filters, 'section'), function ($query, $q) {
-                            $query->where('item_id', $this->filters['section']);
-                        })
-                        ->ordered();
+            ->withCount('quotes')
+            ->where('parent_item_id', $this->item->id)
+            ->when(data_get($this->filters, 'search'), function ($query, $q) {
+                $query->where(function ($query) use ($q) {
+                    $query->where('name', 'LIKE', '%'.$q.'%')
+                        ->orWhere('transcript', 'LIKE', '%'.$q.'%');
+                });
+            })
+            ->when(data_get($this->filters, 'section'), function ($query, $q) {
+                $query->where('item_id', $this->filters['section']);
+            })
+            ->ordered();
 
         //$this->item->setRelation('item', $this->item);
         $this->item->setRelation('pages', $pages);

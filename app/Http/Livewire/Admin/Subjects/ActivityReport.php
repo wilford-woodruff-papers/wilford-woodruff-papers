@@ -92,7 +92,7 @@ class ActivityReport extends Component
             'overallStats' => $overallStats ?? [],
             'individualStats' => $individualStats ?? [],
         ])
-        ->layout('layouts.admin');
+            ->layout('layouts.admin');
     }
 
     public function update()

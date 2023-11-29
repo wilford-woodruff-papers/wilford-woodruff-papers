@@ -39,7 +39,7 @@ class SingleAction extends Component
                 ->where('actionable_type', 'App\\Models\\'.$this->class)
                 ->where('actionable_id', $this->modelId)
                 ->latest()
-            ->first(),
+                ->first(),
         ]);
     }
 

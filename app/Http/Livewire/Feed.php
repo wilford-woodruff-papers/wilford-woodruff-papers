@@ -34,20 +34,20 @@ class Feed extends Component
     public function render()
     {
         $articles = Press::query()
-                            ->select('id', 'type', 'title', 'cover_image', 'slug', 'date', 'subtitle', 'external_link_only', 'link', 'excerpt', 'publisher')
-                            ->whereDate('date', '<=', DB::raw('NOW()'))
-                            ->hasCoverImage()
-                            ->orderBy('date', 'DESC')
-                            ->when(data_get($this->filters, 'search'), function ($query, $q) {
-                                $query->where('title', 'LIKE', '%'.$q.'%');
-                            })
-                            ->when(data_get($this->filters, 'type'), function ($query, $type) {
-                                if (! is_array($type)) {
-                                    $type = [$type];
-                                }
-                                $query->whereIn('type', $type);
-                            })
-                            ->paginate($this->perPage);
+            ->select('id', 'type', 'title', 'cover_image', 'slug', 'date', 'subtitle', 'external_link_only', 'link', 'excerpt', 'publisher')
+            ->whereDate('date', '<=', DB::raw('NOW()'))
+            ->hasCoverImage()
+            ->orderBy('date', 'DESC')
+            ->when(data_get($this->filters, 'search'), function ($query, $q) {
+                $query->where('title', 'LIKE', '%'.$q.'%');
+            })
+            ->when(data_get($this->filters, 'type'), function ($query, $type) {
+                if (! is_array($type)) {
+                    $type = [$type];
+                }
+                $query->whereIn('type', $type);
+            })
+            ->paginate($this->perPage);
 
         $popular = //Press::query()
                         Video::query()
