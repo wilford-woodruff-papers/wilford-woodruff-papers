@@ -244,7 +244,7 @@ return [
             'url' => env('DO_SPACES_URL'),
             'endpoint' => env('DO_SPACES_ENDPOINT'),
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
-            'visibility' => 'private',
+            'visibility' => 'public',
         ],
 
         'partners' => [
