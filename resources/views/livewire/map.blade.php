@@ -698,11 +698,5 @@
                 }))
             })
         </script>
-        <script>
-
-
-
-
-        </script>
     @endpush
 </div>

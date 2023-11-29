@@ -313,6 +313,7 @@
                         @forelse ($people as $person)
                             <x-admin.quotes.row wire:loading.class.delay="opacity-50"
                                                 wire:key="row-{{ $person->id }}"
+                                                id="row-{{ $person->id }}"
                                                 class="h-6"
                             >
                                 <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">

@@ -52,7 +52,7 @@
                         @if(! empty($additionalTopics))
                             @foreach($additionalTopics as $additionalTopic)
                                 <div>
-                                <span wire:click="$set('selectedAdditionalTopic', '{{ $additionalTopic->name }}')"
+                                <span wire:click="$set('selectedAdditionalTopic', '{{ addcslashes($additionalTopic->name, "'") }}')"
                                       wire:key="additional_topic_{{ str($additionalTopic->name)->slug() }}"
                                       class="flex items-center py-2 px-2 text-sm font-medium group cursor-pointer @if($selectedAdditionalTopic == $additionalTopic->name) bg-secondary text-white @endif">
                                         <span class="flex-1">
@@ -181,7 +181,7 @@
                                 <div class="pt-2">
                                     <div class="grid grid-cols-6 gap-1 font-medium text-cool-gray-900">
                                         @foreach($quote->tags as $tag)
-                                            <div wire:click="$set('selectedAdditionalTopic', '{{ $tag->name }}')"
+                                            <div wire:click="$set('selectedAdditionalTopic', '{{ addcslashes($tag->name, "'") }}')"
                                                  class="inline-flex items-center py-0.5 px-3 text-base text-white cursor-pointer bg-primary">
                                                 <div>
                                                     {{ $tag->name }}
@@ -211,8 +211,10 @@
     </div>
     @push('scripts')
         <script>
-            Livewire.on('scroll-to-top', postId => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+            document.addEventListener('livewire:initialized', () => {
+                Livewire.on('scroll-to-top', postId => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
             });
         </script>
     @endpush

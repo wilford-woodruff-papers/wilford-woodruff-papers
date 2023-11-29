@@ -1,6 +1,6 @@
 <div wire:init="loadStats"
     x-data="{
-
+        tab: 'documents'
     }"
 >
 

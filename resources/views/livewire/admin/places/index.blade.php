@@ -247,9 +247,9 @@
                         @endif
 
                         @forelse ($places as $place)
-                            <x-admin.quotes.row wire:loading.class.delay="opacity-50"
-                                                wire:key="row-{{ $place->id }}"
-                                                class="h-6"
+                            <tr wire:loading.class.delay="opacity-50"
+                                id="row-{{ $place->id }}"
+                                class="h-6 bg-white"
                             >
                                 <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">
                                     <x-input.checkbox wire:model.live="selected" value="{{ $place->id }}" />
@@ -296,6 +296,7 @@
 
                                 @foreach($columns as $key => $column)
                                     <x-admin.quotes.cell class="bg-gray-50 border border-gray-400"
+                                                         id="{{$column}}_{{$place->id}}"
                                                          x-show="selectedColumns.includes('{{$column}}')">
                                         <div class="whitespace-nowrap">
                                             @if($column == 'researcher')
@@ -304,7 +305,9 @@
                                                 @elseif(! empty($place->researcher_text))
                                                     {{ $place->researcher_text }}
                                                 @else
-                                                    <livewire:admin.claim-subject :subject="$place" :wire:key="$place->id"/>
+                                                    <livewire:admin.claim-subject :subject="$place"
+                                                                                  :key="$place->id"
+                                                    />
                                                 @endif
                                             @elseif($column == 'geo_location_(lat,long)')
                                                 <div class="flex justify-center">
@@ -321,6 +324,8 @@
                                                         <x-icon.status :status="$place->mentioned"/>
                                                     @endif
                                                 </div>
+                                            @elseif(in_array($column, ['notes']))
+                                                {!! str(strip_tags($place->{$key}))->limit(150, '...') !!}
                                             @else
                                                 {!! str($place->{$key})->limit(150, '...') !!}
                                             @endif
@@ -338,16 +343,18 @@
                                     </div>
                                 </x-admin.quotes.cell>
 
-                            </x-admin.quotes.row>
+                            </tr>
                         @empty
-                            <x-admin.quotes.row>
+                            <tr class="bg-white"
+                                :key="none"
+                            >
                                 <x-admin.quotes.cell colspan="6">
                                     <div class="flex justify-center items-center space-x-2">
                                         {{--<x-icon.inbox class="w-8 h-8 text-cool-gray-400" />--}}
                                         <span class="py-8 text-xl font-medium text-cool-gray-400">No places found...</span>
                                     </div>
                                 </x-admin.quotes.cell>
-                            </x-admin.quotes.row>
+                            </tr>
                         @endforelse
                     </x-slot>
                 </x-admin.quotes.table>

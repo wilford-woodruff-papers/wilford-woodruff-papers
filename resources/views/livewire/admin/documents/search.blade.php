@@ -1,6 +1,6 @@
 <div x-data="{
-            shadow: false
-            perPage: @entagle('perPage'),
+            shadow: false,
+            perPage: @entangle('perPage').live,
         }">
     <div class="grid grid-cols-12 gap-x-4">
         <div class="col-span-12 pr-8">

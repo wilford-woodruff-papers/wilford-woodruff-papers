@@ -10,6 +10,8 @@ class Quote extends Component
 {
     public \App\Models\Quote $quote;
 
+    public $selected;
+
     protected $listeners = [
 
     ];

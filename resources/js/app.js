@@ -9,11 +9,11 @@ import rangy from "rangy/lib/rangy-core.js";
 import "rangy/lib/rangy-highlighter";
 import "rangy/lib/rangy-classapplier";
 
-Alpine.plugin(overlap);
-Livewire.start()
-
 window.collect = collect;
 window.rangy = rangy;
+
+Alpine.plugin(overlap);
+Livewire.start()
 
 // A function is used for dragging and moving
 function dragElement(element, direction)
