@@ -105,7 +105,7 @@ class Goals extends Component
             'integer',
             Rule::unique('goals', 'type_id')->where(function ($query) {
                 return $query->where('goals.action_type_id', $this->goal->action_type_id)
-                        ->where('goals.finish_at', $this->goal->finish_at);
+                    ->where('goals.finish_at', $this->goal->finish_at);
             })->ignore($this->goal->id),
         ];
 

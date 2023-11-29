@@ -132,17 +132,17 @@ class Search extends Component
             ->when(array_key_exists('needs', $this->filters) && $this->filters['needs'], function ($query, $status) {
                 $action = ActionType::query()->firstWhere('id', $this->filters['needs']);
                 $query = $query->whereNotNull('ftp_slug')
-                                ->whereNotNull('pcf_unique_id');
+                    ->whereNotNull('pcf_unique_id');
                 if (! empty($action->action_type_id)) {
                     $query->where(function (Builder $query) use ($action) {
                         $query->whereHas('actions.type', function (Builder $query) use ($action) {
                             $query->where('action_types.id', $action->action_type_id)
                                 ->whereNotNull('completed_at');
                         })
-                        ->whereDoesntHave('actions.type', function (Builder $query) {
-                            $query->where('action_types.id', $this->filters['needs']);
-                        })
-                        ->whereDoesntHave('items');
+                            ->whereDoesntHave('actions.type', function (Builder $query) {
+                                $query->where('action_types.id', $this->filters['needs']);
+                            })
+                            ->whereDoesntHave('items');
                     });
                 } else {
                     $query->whereDoesntHave('actions.type', function (Builder $query) {

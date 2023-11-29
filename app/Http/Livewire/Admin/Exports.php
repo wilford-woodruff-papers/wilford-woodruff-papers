@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Exports\OverdueTaskExport;
 use App\Exports\PageExport;
 use App\Exports\PcfExport;
 use App\Jobs\NotifyUserOfCompletedExport;
@@ -18,6 +19,7 @@ class Exports extends Component
     public $reports = [
         PcfExport::class => 'PCF Export',
         PageExport::class => 'Page Export',
+        OverdueTaskExport::class => 'Overdue Tasks Export',
     ];
 
     public $exports = [];
@@ -45,6 +47,8 @@ class Exports extends Component
                 ]);
 
             $this->message = 'Export queued.';
+        } else {
+            $this->message = 'Error queuing Export.';
         }
     }
 

@@ -32,9 +32,9 @@ class Reports extends Component
 
         $this->types = ActionType::query()
                             //->role(auth()->user()->roles)
-                            ->where('type', 'Documents')
-                            ->orderBY('name', 'ASC')
-                            ->get();
+            ->where('type', 'Documents')
+            ->orderBY('name', 'ASC')
+            ->get();
     }
 
     public function render()

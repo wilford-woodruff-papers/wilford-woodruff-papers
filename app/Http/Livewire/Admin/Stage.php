@@ -211,9 +211,9 @@ class Stage extends Component
                         ];
                         if ($actionType == 'Transcription') {
                             $stats[$doctype][$month['name']][$actionType]['completed_crowd'] = $completed_crowd = $crowdStats->whereIn('document_type', $this->typesMap[$doctype])
-                                    ->where('action_name', $actionType)
-                                    ->where('month', $this->monthMap[$month['name']])
-                                    ->first()?->total;
+                                ->where('action_name', $actionType)
+                                ->where('month', $this->monthMap[$month['name']])
+                                ->first()?->total;
                         }
                         $summary['goal'][$actionType] += $goal;
                         $summary['completed'][$actionType] += $completed;
