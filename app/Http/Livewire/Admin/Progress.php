@@ -23,15 +23,15 @@ class Progress extends Component
         ]);
 
         $this->types = Type::query()
-                                ->role(auth()->user()->roles)
-                                ->orderBY('name', 'ASC')
-                                ->get();
+            ->role(auth()->user()->roles)
+            ->orderBY('name', 'ASC')
+            ->get();
 
         $this->actionTypes = ActionType::query()
-                                            ->for('Documents')
-                                            ->role(auth()->user()->roles)
-                                            ->ordered()
-                                            ->get();
+            ->for('Documents')
+            ->role(auth()->user()->roles)
+            ->ordered()
+            ->get();
 
         return view('livewire.admin.progress');
     }

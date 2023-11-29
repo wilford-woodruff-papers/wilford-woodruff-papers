@@ -26,27 +26,27 @@ class Testimonials extends Component
     {
         if ($slug = request()->get('testimony')) {
             $this->showTestimony = Testimonial::query()
-                                                ->where('slug', $slug)
-                                                ->first();
+                ->where('slug', $slug)
+                ->first();
         }
     }
 
     public function render()
     {
         $featured = Testimonial::query()
-                                    ->whereFeatured(1)
-                                    ->latest()
-                                    ->limit(10)
-                                    ->get();
+            ->whereFeatured(1)
+            ->latest()
+            ->limit(10)
+            ->get();
 
         if ($featured->count() > 0) {
             $featured->prepend($featured->pop());
         }
 
         $testimonials = Testimonial::query()
-                                        ->whereNotIn('id', $featured->pluck('id')->all())
-                                        ->latest()
-                                        ->paginate($this->perPage);
+            ->whereNotIn('id', $featured->pluck('id')->all())
+            ->latest()
+            ->paginate($this->perPage);
 
         return view('public.landing-areas.testimonials', [
             'featured' => $featured,

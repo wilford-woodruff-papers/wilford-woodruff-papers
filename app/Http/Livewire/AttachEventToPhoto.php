@@ -10,7 +10,7 @@ class AttachEventToPhoto extends Component
 {
     public Photo $photo;
 
-    public int|null $selectedEventId;
+    public ?int $selectedEventId;
 
     public function render()
     {

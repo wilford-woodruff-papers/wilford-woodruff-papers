@@ -52,7 +52,7 @@ class ContestantContactInformationForm extends Component
     public function render()
     {
         return view('livewire.forms.contestant-contact-information-form')
-                ->layout('layouts.guest');
+            ->layout('layouts.guest');
     }
 
     public function save()

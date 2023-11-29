@@ -75,7 +75,7 @@ class ContestSubmissionForm extends Component
     public function render()
     {
         return view('livewire.forms.contest-submission-form')
-                ->layout('layouts.guest');
+            ->layout('layouts.guest');
     }
 
     public function save()
@@ -140,16 +140,16 @@ class ContestSubmissionForm extends Component
     {
         // TODO: Store and send email to collaborators
         $emails = str($this->collaborators)
-                    ->explode(';')
-                    ->transform(function ($item, $key) {
-                        return str($item)->trim();
-                    })
-                    ->map(function ($item, $key) {
-                        return Contestant::make([
-                            'email' => $item,
-                        ]);
-                    })
-                    ->all();
+            ->explode(';')
+            ->transform(function ($item, $key) {
+                return str($item)->trim();
+            })
+            ->map(function ($item, $key) {
+                return Contestant::make([
+                    'email' => $item,
+                ]);
+            })
+            ->all();
 
         $contestants = $submission->contestants()->saveMany($emails);
 

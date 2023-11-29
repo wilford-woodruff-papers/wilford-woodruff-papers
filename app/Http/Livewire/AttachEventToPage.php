@@ -10,7 +10,7 @@ class AttachEventToPage extends Component
 {
     public Page $page;
 
-    public int|null $selectedEventId;
+    public ?int $selectedEventId;
 
     public function render()
     {

@@ -92,27 +92,27 @@ class Dashboard extends Component
     public function getRowsQueryProperty()
     {
         $query = Quote::query()
-                    ->with(
-                        [
-                            'page',
-                            'page.item',
-                            'page.parent',
-                            'page.parent.type',
-                            'page.dates',
-                            'page.people',
-                            'page.places',
-                            'creator',
-                            'topics',
-                            'actions',
-                        ]
-                    )
-                    ->whereDoesntHave('actions')
-                    ->when(array_key_exists('search', $this->filters) && $this->filters['search'], fn ($query, $search) => $query->where('text', 'like', '%'.$this->filters['search'].'%'))
-                    ->when(array_key_exists('topic', $this->filters) && $this->filters['topic'], fn ($query, $topic) => $query->whereRelation(
-                        'topics', 'name', '=', $topic
-                    ))
-                    ->when(array_key_exists('user', $this->filters) && $this->filters['user'], fn ($query, $topic) => $query->where('created_by', '=', $this->filters['user'])
-                    );
+            ->with(
+                [
+                    'page',
+                    'page.item',
+                    'page.parent',
+                    'page.parent.type',
+                    'page.dates',
+                    'page.people',
+                    'page.places',
+                    'creator',
+                    'topics',
+                    'actions',
+                ]
+            )
+            ->whereDoesntHave('actions')
+            ->when(array_key_exists('search', $this->filters) && $this->filters['search'], fn ($query, $search) => $query->where('text', 'like', '%'.$this->filters['search'].'%'))
+            ->when(array_key_exists('topic', $this->filters) && $this->filters['topic'], fn ($query, $topic) => $query->whereRelation(
+                'topics', 'name', '=', $topic
+            ))
+            ->when(array_key_exists('user', $this->filters) && $this->filters['user'], fn ($query, $topic) => $query->where('created_by', '=', $this->filters['user'])
+            );
 
         return $this->applySorting($query);
     }

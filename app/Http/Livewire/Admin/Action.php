@@ -160,11 +160,11 @@ class Action extends Component
             $item = $this->action->actionable;
             AutoPublishDocument::dispatch($item);
         }
-//
-//        activity('activity')
-//            ->on(Page::find($this->action->actionable_id))
-//            ->event('completed')
-//            ->log($this->action->type->name.' unnassigned by <span class="user">'.auth()->user()->name.'</span>');
+        //
+        //        activity('activity')
+        //            ->on(Page::find($this->action->actionable_id))
+        //            ->event('completed')
+        //            ->log($this->action->type->name.' unnassigned by <span class="user">'.auth()->user()->name.'</span>');
     }
 
     public function uncompleteAction($actionId)
@@ -189,10 +189,10 @@ class Action extends Component
             $item = $this->action->actionable;
             AutoPublishDocument::dispatch($item);
         }
-//
-//        activity('activity')
-//            ->on(Page::find($this->action->actionable_id))
-//            ->event('completed')
-//            ->log($this->action->type->name.' unnassigned by <span class="user">'.auth()->user()->name.'</span>');
+        //
+        //        activity('activity')
+        //            ->on(Page::find($this->action->actionable_id))
+        //            ->event('completed')
+        //            ->log($this->action->type->name.' unnassigned by <span class="user">'.auth()->user()->name.'</span>');
     }
 }
