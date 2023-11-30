@@ -1,35 +1,11 @@
 <div>
-    <!--
-  This example requires Tailwind CSS v2.0+
-
-  This example requires some changes to your config:
-
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
--->
     <div class="bg-white">
         <div class="relative sm:py-8">
             <div aria-hidden="true" class="hidden sm:block">
                 <div class="absolute inset-y-0 left-0 w-1/2 rounded-r-3xl"></div>
-                {{--<svg class="absolute top-8 left-1/2 -ml-3" width="404" height="392" fill="none" viewBox="0 0 404 392">
-                    <defs>
-                        <pattern id="8228f071-bcee-4ec8-905a-2a059a2cc4fb" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-                            <rect x="0" y="0" width="4" height="4" class="text-gray-200" fill="currentColor" />
-                        </pattern>
-                    </defs>
-                    <rect width="404" height="392" fill="url(#8228f071-bcee-4ec8-905a-2a059a2cc4fb)" />
-                </svg>--}}
             </div>
             <div class="px-0 mx-auto sm:px-0 sm:max-w-5xl lg:px-8 lg:max-w-7xl">
-                <div class="overflow-hidden relative py-10 px-6 shadow-xl sm:py-20 sm:px-24 lg:px-48 bg-secondary">
+                <div class="overflow-hidden relative py-4 px-6 shadow-xl sm:py-8 sm:px-24 lg:px-48 bg-secondary">
                     <div aria-hidden="true" class="absolute inset-0 -mt-72 sm:-mt-32 md:mt-0">
                         <svg class="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 1463 360">
                             <path class="text-opacity-40 text-secondary-500" fill="currentColor" d="M-82.673 72l1761.849 472.086-134.327 501.315-1761.85-472.086z" />
@@ -51,10 +27,10 @@
                     @else
                         <div class="relative">
                             <div class="text-center">
-                                <h2 class="text-xl font-bold tracking-tight text-white sm:text-4xl md:text-3xl">
+                                <h2 class="text-xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
                                     {!! $component['title'] !!}
                                 </h2>
-                                <p class="mx-auto mt-6 max-w-2xl text-lg text-indigo-200">
+                                <p class="mx-auto mt-6 max-w-xl text-xl text-white">
                                     {!! $component['description'] !!}
                                 </p>
                             </div>
