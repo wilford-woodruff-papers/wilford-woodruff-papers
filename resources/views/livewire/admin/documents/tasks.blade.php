@@ -174,8 +174,10 @@
 
     @push('scripts')
         <script>
-            Livewire.on('scroll-to-top', postId => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.addEventListener('load', event => {
+                Livewire.on('scroll-to-top', postId => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
             });
         </script>
     @endpush

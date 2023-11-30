@@ -5,7 +5,7 @@
                 saved: @entangle('saved').live
             }"
              x-init="
-                    window.livewire.on('notify-saved', () => {
+                    $wire.on('notify-saved', () => {
                         setTimeout(() => { saved = false }, 2000)
                     });
               "

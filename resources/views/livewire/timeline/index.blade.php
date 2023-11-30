@@ -30,7 +30,7 @@
         }"
          x-init="
             if(isMobile = mobileCheck()){
-                console.log('Is Mobile');
+                // console.log('Is Mobile');
                 $wire.set('view', 'list');
                 view = 'list';
                 filtersOpen = false;
@@ -39,16 +39,19 @@
             }
             if (view == 'map') {
                 setTimeout(() => {
-                    window.loadMap();
-                }, 500);
+                    window.map.displayLocationsOnMap(window.map.events);
+                }, 1000);
             }
             $watch('view', (value, oldValue) => {
                 setTimeout(() => {
                     event = {image: '', date: '', text: '', links: []};
                 }, 1000);
                 if (value == 'map') {
+                    window.map.eventMap.off();
+                    window.map.eventMap.remove();
+                    window.map.eventMap = null;
                     $nextTick(() => {
-                        window.loadMap();
+                        window.map.displayLocationsOnMap(window.map.events);
                     });
                 }
             });
@@ -207,6 +210,7 @@
                 mapInitialized: false,
                 pruneCluster: null,
                 eventMap: null,
+                events: [],
                 displayLocationsOnMap: function(events){
                     if(window.map.eventMap === null){
                         window.map.eventMap = L.map('map').setView([37.71859, -54.140625], 3);
@@ -259,12 +263,13 @@
                     window.scrollTo({ top: document.getElementById('timeline').offsetTop + 80, behavior: 'smooth' });
                     //document.getElementById('timeline').scrollIntoView();
                 });
-            })
+            });
             window.addEventListener('update-map', event => {
-                console.log('Map Updated');
+                //console.log('Map Updated');
                 //console.log(event.detail.events);
-                window.map.displayLocationsOnMap(event.detail.events);
-            })
+                window.map.events = event.detail.events;
+                window.map.displayLocationsOnMap(window.map.events);
+            });
             /*Livewire.on('update-map', (events) => {
                 console.log('Map Updated');
                 window.map.displayLocationsOnMap(events);
