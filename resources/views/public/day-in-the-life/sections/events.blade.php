@@ -22,7 +22,7 @@
                                     {{ $event->start_at->toFormattedDateString() }}
                                 </div>--}}
                             </div>
-                            <div class="absolute z-10 bottom-4 text-xl bg-white shadow-xl px-3 py-1 @if($loop->odd) left-16 md:left-32 @else right-16 md:right-32 @endif">
+                            <div class="absolute z-9 bottom-4 text-xl bg-white shadow-xl px-3 py-1 @if($loop->odd) left-16 md:left-32 @else right-16 md:right-32 @endif">
                                 <div class="text-lg font-semibold">
                                     <a href="{{ route('day-in-the-life', ['date' => $event->start_at?->toDateString()]) }}"
                                        class="text-secondary"

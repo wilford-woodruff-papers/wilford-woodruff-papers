@@ -15,8 +15,8 @@
             </div>
             <div class="mt-12">
                 @if($success === false)
-                    <form wire:submit.prevent="save" class="grid grid-cols-1 gap-y-6 sm:gap-x-8">
-                        <input wire:model.defer="role"
+                    <form wire:submit="save" class="grid grid-cols-1 gap-y-6 sm:gap-x-8">
+                        <input wire:model="role"
                                type="hidden"
                                name="role"
                                id="role"
@@ -30,7 +30,7 @@
                                 <div>
                                     <label for="first-name" class="block text-sm font-medium text-gray-700">First name <span class="text-base text-red-700">*</span></label>
                                     <div class="mt-1">
-                                        <input wire:model.defer="firstName"
+                                        <input wire:model="firstName"
                                                type="text"
                                                id="first-name"
                                                autocomplete="given-name"
@@ -43,7 +43,7 @@
                                 <div>
                                     <label for="last-name" class="block text-sm font-medium text-gray-700">Last name <span class="text-base text-red-700">*</span></label>
                                     <div class="mt-1">
-                                        <input wire:model.defer="lastName"
+                                        <input wire:model="lastName"
                                                type="text"
                                                id="last-name"
                                                autocomplete="family-name"
@@ -60,7 +60,7 @@
                                 <div>
                                     <label for="email" class="block text-sm font-medium text-gray-700">Email <span class="text-base text-red-700">*</span></label>
                                     <div class="mt-1">
-                                        <input wire:model.defer="email"
+                                        <input wire:model="email"
                                                id="email"
                                                type="email"
                                                autocomplete="email"
@@ -73,7 +73,7 @@
                                 <div>
                                     <label for="phone" class="block text-sm font-medium text-gray-700">Phone <span class="text-base text-red-700">*</span></label>
                                     <div class="mt-1">
-                                        <input wire:model.defer="phone"
+                                        <input wire:model="phone"
                                                id="phone"
                                                type="text"
                                                autocomplete="phone"
@@ -90,7 +90,7 @@
                             <div class="mb-4 space-y-4">
                                 <div class="flex relative items-start">
                                     <div class="flex items-center h-5">
-                                        <input wire:model.defer="subscribeToNewsletter"
+                                        <input wire:model="subscribeToNewsletter"
                                                id="subscribe_to_newsletter"
                                                name="subscribe_to_newsletter"
                                                type="checkbox"
@@ -110,7 +110,7 @@
                                 <div>
                                     <label for="address" class="block text-sm font-medium text-gray-700">Address <span class="text-base text-red-700">*</span></label>
                                     <div class="mt-1">
-                                        <input wire:model.defer="address"
+                                        <input wire:model="address"
                                                id="address"
                                                type="text"
                                                autocomplete="address"
@@ -133,7 +133,7 @@
                                 <div>
                                     <label for="title" class="block text-sm font-medium text-gray-700">Title <span class="text-base text-red-700">*</span></label>
                                     <div class="mt-1">
-                                        <input wire:model.defer="title"
+                                        <input wire:model="title"
                                                id="title"
                                                type="text"
                                                autocomplete="title"
@@ -152,7 +152,7 @@
                                 Please include a quote, story, or citation of how your entry relates to Wilford Woodruff.
                             </p>
                             <div class="mt-1">
-                                <textarea wire:model.defer="connection"
+                                <textarea wire:model="connection"
                                           id="connection"
                                           rows="4"
                                           class="py-3 px-4 block w-full shadow-sm focus:ring-secondary focus:border-secondary border  @error('connection') border-red-500 @else border-gray-300 @enderror"></textarea>
@@ -163,7 +163,7 @@
                         <div class="">
                             <label for="division" class="block text-sm font-medium text-gray-700">Division <span class="text-base text-red-700">*</span></label>
                             <div class="mt-1">
-                                <select wire:model.defer="division"
+                                <select wire:model="division"
                                         id="division"
                                         name="division"
                                         autocomplete="division"
@@ -181,7 +181,7 @@
                             <div class="">
                                 <label for="category" class="block text-sm font-medium text-gray-700">Category <span class="text-base text-red-700">*</span></label>
                                 <div class="mt-1">
-                                    <select wire:model="category"
+                                    <select wire:model.live="category"
                                             id="category"
                                             name="category"
                                             autocomplete="category"
@@ -198,7 +198,7 @@
                             <div class="">
                                 <label for="medium" class="block text-sm font-medium text-gray-700">Medium <span class="text-base text-red-700">*</span></label>
                                 <div class="mt-1">
-                                    <select wire:model.defer="medium"
+                                    <select wire:model="medium"
                                             id="medium"
                                             name="medium"
                                             autocomplete="medium"
@@ -218,7 +218,7 @@
                                 <div>
                                     <label for="link" class="block text-sm font-medium text-gray-700">Link to original artwork</label>
                                     <div class="mt-1">
-                                        <input wire:model.defer="link"
+                                        <input wire:model="link"
                                                id="title"
                                                type="text"
                                                value=""
@@ -250,7 +250,7 @@
                                 File (20MB Max)
                             </label>
                             <div class="flex items-center mt-1">
-                                <input wire:model="fileUpload"
+                                <input wire:model.live="fileUpload"
                                        type="file"
                                        class="py-2 px-3 ml-5 text-sm font-medium leading-4 text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none" />
                             </div>
@@ -267,7 +267,7 @@
                                 </p>
                                 <div class="flex relative items-start">
                                     <div class="flex items-center h-5">
-                                        <input wire:model.defer="original"
+                                        <input wire:model="original"
                                                id="original"
                                                name="original"
                                                type="checkbox"
@@ -293,7 +293,7 @@
                                 </p>
                                 <div class="flex relative items-start">
                                     <div class="flex items-center h-5">
-                                        <input wire:model.defer="appropriate"
+                                        <input wire:model="appropriate"
                                                id="appropriate"
                                                name="appropriate"
                                                type="checkbox"
@@ -315,7 +315,7 @@
                                 If this submission is a collaboration, please enter the email addresses of each collaborator separated by a semicolon (;). They will receive an email prompting them to enter their contact information and certify that the work is original and appropriate.
                             </p>
                             <div class="mt-1">
-                                <textarea wire:model.defer="collaborators"
+                                <textarea wire:model="collaborators"
                                           id="collaborators"
                                           rows="4"
                                           placeholder="john@example.com;jane@example.com"

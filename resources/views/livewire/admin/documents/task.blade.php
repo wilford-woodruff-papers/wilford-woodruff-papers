@@ -1,5 +1,5 @@
 <div x-data="{
-    show: @entangle('show')
+    show: @entangle('show').live
 }">
 
     <div

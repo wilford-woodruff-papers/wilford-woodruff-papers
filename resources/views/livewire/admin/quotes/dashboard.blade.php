@@ -4,13 +4,13 @@
         <!-- Top Bar -->
         <div class="flex justify-between">
             <div class="flex space-x-4">
-                <x-input.text wire:model="filters.search" class="w-128" placeholder="Search quotes..." />
+                <x-input.text wire:model.live="filters.search" class="w-128" placeholder="Search quotes..." />
             </div>
         </div>
         <div>
             <label for="user" class="block text-sm font-medium text-gray-700 sr-only">Tagged By</label>
             <div class="mt-1">
-                <select wire:model="filters.user"
+                <select wire:model.live="filters.user"
                         id="user"
                         class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-500 focus:ring-indigo-500"
                 >
@@ -25,7 +25,7 @@
     <x-admin.quotes.table>
         <x-slot name="head">
             <x-admin.quotes.heading class="pr-0 w-8">
-                <x-input.checkbox wire:model="selectPage" />
+                <x-input.checkbox wire:model.live="selectPage" />
             </x-admin.quotes.heading>
             <x-admin.quotes.heading sortable multi-column class="max-w-3xl">Document</x-admin.quotes.heading>
             <x-admin.quotes.heading sortable multi-column>Topics</x-admin.quotes.heading>

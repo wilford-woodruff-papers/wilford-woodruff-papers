@@ -1,7 +1,7 @@
 
     <x-admin.quotes.row wire:loading.class.delay="opacity-50">
         <x-admin.quotes.cell class="pr-0">
-            <x-input.checkbox wire:model="selected" value="{{ $quote->id }}" />
+            <x-input.checkbox wire:model.live="selected" value="{{ $quote->id }}" />
         </x-admin.quotes.cell>
 
         <x-admin.quotes.cell class="max-w-3xl">
@@ -43,7 +43,7 @@
                                 </div>
                             @endforeach
                         </span>
-            <button wire:click="$emit('openModal', 'admin.quotes.add-topic-to-quote', [{{ $quote->id }}])"
+            <button wire:click="$dispatch('openModal', { component: 'admin.quotes.add-topic-to-quote', arguments: [{{ $quote->id }}] })"
                     type="button" class="inline-flex gap-x-2 items-center py-1 px-2 my-2 text-xs font-semibold leading-4 text-white rounded-full border border-transparent shadow-sm focus:ring-2 focus:ring-offset-2 focus:outline-none bg-secondary hover:bg-secondary focus:ring-secondary">
                 <!-- Heroicon name: solid/mail -->
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -57,7 +57,7 @@
 
             <div class="flex relative items-start py-2">
                 <div class="flex items-center h-5">
-                    <input wire:model="quote.continued_from_previous_page"
+                    <input wire:model.live="quote.continued_from_previous_page"
                            id="continuedFromPreviousPage"
                            name="continuedFromPreviousPage"
                            type="checkbox"
@@ -98,7 +98,7 @@
                          class="py-2">
                         <label for="author" class="block text-sm font-medium text-gray-700">Author</label>
                         <div class="mt-1">
-                            <input wire:model.debounce="quote.author"
+                            <input wire:model.live.debounce="quote.author"
                                    type="text"
                                    name="author"
                                    id="author"
@@ -111,7 +111,7 @@
 
             <div class="flex relative items-start py-2">
                 <div class="flex items-center h-5">
-                    <input wire:model="quote.continued_on_next_page"
+                    <input wire:model.live="quote.continued_on_next_page"
                            id="continuedOnNextPage"
                            name="continuedOnNextPage"
                            type="checkbox"

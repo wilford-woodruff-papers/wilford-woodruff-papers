@@ -1,5 +1,5 @@
 @if(! empty($section['items']) && $section['items']->count() > 0)
-    <div>
+    <div class="">
         <div class="relative">
             <div id="{{ str($section['name'])->slug() }}" class="absolute -top-32"></div>
             <h2 class="text-2xl font-thin uppercase border-b-4 md:text-3xl lg:text-4xl border-highlight">
@@ -28,7 +28,7 @@
     <div>
         <div x-data="map"
              id="map"
-             class="z-10 w-full aspect-[16/9]"
+             class="w-full z-[5] aspect-[16/9]"
         ></div>
         @push('styles')
             <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />

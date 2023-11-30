@@ -1,6 +1,6 @@
 <div class="pb-4 person-modal" style="height: auto; background-color: {{ $backgroundColor }};">
     <div class="absolute top-2 right-4">
-        <button wire:click="$emit('closeModal')"
+        <button wire:click="$dispatch('closeModal')"
                 type="button"
                 class="text-2xl font-semibold close"
                 aria-label="Close"

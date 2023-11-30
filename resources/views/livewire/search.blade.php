@@ -3,11 +3,11 @@
 </x-slot>
 
 <div x-data="{
-        q: @entangle('q'),
+        q: @entangle('q').live,
         'filtersOpen': false,
-        currentIndex: @entangle('currentIndex'),
+        currentIndex: @entangle('currentIndex').live,
         layout: $persist('list'),
-        exact: @entangle('exact'),
+        exact: @entangle('exact').live,
         toggleExactMatch(value) {
             this.q = value ? window.addQuotes(this.q) : window.removeQuotes(this.q);
         }
@@ -26,7 +26,7 @@
                             <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd"></path>
                         </svg>
                     </div>
-                    <input wire:model.debounce.400="q"
+                    <input wire:model.live.debounce.400="q"
                            type="search"
                            name="search"
                            id="search"
@@ -99,7 +99,7 @@
                 <div class="flex-1">
                     <label for="tabs" class="sr-only">Select a tab</label>
                     <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
-                    <select wire:model="currentIndex"
+                    <select wire:model.live="currentIndex"
                             id="tabs"
                             name="tabs"
                             class="block py-2 pr-10 pl-3 w-full text-base border-gray-300 sm:text-sm focus:border-indigo-500 focus:ring-indigo-500 focus:outline-none"

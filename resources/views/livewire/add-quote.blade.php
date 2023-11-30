@@ -1,8 +1,8 @@
 <div>
     <div x-data="{
             multiple: true,
-            selectedTopics: @entangle('selectedTopics').defer,
-            selectedAdditionalTopics: @entangle('selectedAdditionalTopics').defer,
+            selectedTopics: @entangle('selectedTopics'),
+            selectedAdditionalTopics: @entangle('selectedAdditionalTopics'),
             value: [],
             additional_value: [],
             options: [
@@ -62,14 +62,14 @@
                 })
             },
             close: function(){
-                Livewire.emit('closeModal');
+                Livewire.dispatch('closeModal');
                 rangy.getSelection().removeAllRanges();
                 $('.highlight').removeClass('highlight');
                 $dispatch('close-options');
             }
         }"
          class="space-y-6 sm:px-6 lg:col-span-9 lg:px-0">
-        <form wire:submit.prevent="save"
+        <form wire:submit="save"
               action="#"
               method="POST">
             <div class="shadow sm:overflow-hidden sm:rounded-md">
@@ -95,7 +95,7 @@
                     <div>
                         <label for="author" class="block text-sm font-medium text-gray-700">Author</label>
                         <div class="mt-1">
-                            <input wire:model.defer="author"
+                            <input wire:model="author"
                                    type="text"
                                    name="author"
                                    id="author"
@@ -107,7 +107,7 @@
 
                     <div class="flex relative items-start">
                         <div class="flex items-center h-5">
-                            <input wire:model.defer="continuedOnNextPage"
+                            <input wire:model="continuedOnNextPage"
                                    id="continuedOnNextPage"
                                    name="continuedOnNextPage"
                                    type="checkbox"
@@ -125,7 +125,7 @@
 
                     <div class="flex relative items-start">
                         <div class="flex items-center h-5">
-                            <input wire:model.defer="continuedFromPreviousPage"
+                            <input wire:model="continuedFromPreviousPage"
                                    id="continuedFromPreviousPage"
                                    name="continuedFromPreviousPage"
                                    type="checkbox"

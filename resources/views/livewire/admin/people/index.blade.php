@@ -1,6 +1,6 @@
 <div x-data="{
             shadow: false,
-            perPage: @entangle('perPage'),
+            perPage: @entangle('perPage').live,
             selectedColumns: $persist({{ json_encode(array_values($columns)) }}).as('people-columns'),
         }"
 >
@@ -18,7 +18,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                                     </svg>
                                 </div>
-                                <input wire:model.debounce.400="filters.search"
+                                <input wire:model.live.debounce.400="filters.search"
                                        type="search"
                                        name="search"
                                        id="search"
@@ -29,7 +29,7 @@
                             <div class="flex gap-x-4 gap-y-4 items-center py-4">
                                 <div class="flex gap-x-1 items-center pr-2">
                                     <x-input.group borderless for="filter-type" label="Researcher" inline="true">
-                                        <x-input.select wire:model="filters.researcher" id="filter-type">
+                                        <x-input.select wire:model.live="filters.researcher" id="filter-type">
                                             <option value=""> -- All -- </option>
                                             <option value="unassigned"> -- Unassigned -- </option>
                                             @foreach($researchers as $researcher)
@@ -56,7 +56,7 @@
                                 </div>
                                 <div class="pr-2 space-y-4">
                                     <x-input.group borderless for="filter-type" label="Category" inline="true">
-                                        <x-input.select wire:model="filters.category" id="filter-type">
+                                        <x-input.select wire:model.live="filters.category" id="filter-type">
                                             <option value=""> -- All -- </option>
                                             @foreach($categories as $category)
                                                 <option value="{{ $category }}" @if(data_get('category', $filters) == $category) selected @endif>{{ $category }}</option>
@@ -66,7 +66,7 @@
                                 </div>
                                 <div class="pr-2 space-y-4">
                                     <x-input.group borderless for="filter-type" label="Subcategory" inline="true">
-                                        <x-input.select wire:model="filters.subcategory" id="filter-type">
+                                        <x-input.select wire:model.live="filters.subcategory" id="filter-type">
                                             <option value=""> -- All -- </option>
                                             @foreach($subcategories as $subcategory)
                                                 <option value="{{ $subcategory }}" @if(data_get('subcategory', $filters) == $subcategory) selected @endif>{{ $subcategory }}</option>
@@ -76,7 +76,7 @@
                                 </div>
                                 <div class="pr-2 space-y-4">
                                     <x-input.group borderless for="filter-type" label="Bio Completed" inline="true">
-                                        <x-input.select wire:model="filters.completed" id="filter-type">
+                                        <x-input.select wire:model.live="filters.completed" id="filter-type">
                                             <option value=""> -- All -- </option>
                                             <option value="false"> Bio Not Completed </option>
                                             <option value="true"> Bio Completed </option>
@@ -85,7 +85,7 @@
                                 </div>
                                 <div class="pr-2 space-y-4">
                                     <x-input.group borderless for="filter-type" label="Bio Approved" inline="true">
-                                        <x-input.select wire:model="filters.approved" id="filter-type">
+                                        <x-input.select wire:model.live="filters.approved" id="filter-type">
                                             <option value=""> -- All -- </option>
                                             <option value="false"> Bio Not Approved </option>
                                             <option value="true"> Bio Approved </option>
@@ -94,7 +94,7 @@
                                 </div>
                                 <div class="pr-2 space-y-4">
                                     <x-input.group borderless for="filter-type" label="Status" inline="true">
-                                        <x-input.select wire:model="filters.tagged" id="filter-type">
+                                        <x-input.select wire:model.live="filters.tagged" id="filter-type">
                                             <option value=""> -- All -- </option>
                                             <option value="false"> Not tagged </option>
                                             <option value="true"> Tagged </option>
@@ -103,7 +103,7 @@
                                 </div>
                                 <div class="pr-2 space-y-4">
                                     <x-input.group borderless for="filter-type" label="II" inline="true">
-                                        <x-input.select wire:model="filters.incomplete_identification" id="filter-type">
+                                        <x-input.select wire:model.live="filters.incomplete_identification" id="filter-type">
                                             <option value=""> -- All -- </option>
                                             <option value="true"> Incomplete Identification </option>
                                         </x-input.select>
@@ -115,7 +115,7 @@
                                     <div class="pr-2">
                                         <div class="block xl:hidden">
                                             <x-input.group borderless for="filter-type" label="Last Name Starts With">
-                                                <x-input.select wire:model="filters.starts_with" id="filter-type">
+                                                <x-input.select wire:model.live="filters.starts_with" id="filter-type">
                                                     <option value=""> -- Any -- </option>
                                                     @foreach(range('A', 'Z') as $letter)
                                                         <option value="{{ $letter }}">{{ $letter }}</option>
@@ -158,7 +158,7 @@
                                                for="perPage"
                                                label="Per Page"
                                 >
-                                    <x-input.select wire:model="perPage" id="perPage">
+                                    <x-input.select wire:model.live="perPage" id="perPage">
                                         <option value="10">10</option>
                                         <option value="25">25</option>
                                         <option value="50">50</option>
@@ -259,7 +259,7 @@
                 <x-admin.quotes.table>
                     <x-slot name="head">
                         <x-admin.quotes.heading class="pr-0 w-8">
-                            <x-input.checkbox wire:model="selectPage" />
+                            <x-input.checkbox wire:model.live="selectPage" />
                         </x-admin.quotes.heading>
                         <x-admin.quotes.heading sortable
                                                 multi-column
@@ -313,10 +313,11 @@
                         @forelse ($people as $person)
                             <x-admin.quotes.row wire:loading.class.delay="opacity-50"
                                                 wire:key="row-{{ $person->id }}"
+                                                id="row-{{ $person->id }}"
                                                 class="h-6"
                             >
                                 <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">
-                                    <x-input.checkbox wire:model="selected" value="{{ $person->id }}" />
+                                    <x-input.checkbox wire:model.live="selected" value="{{ $person->id }}" />
                                 </x-admin.quotes.cell>
 
                                 <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">

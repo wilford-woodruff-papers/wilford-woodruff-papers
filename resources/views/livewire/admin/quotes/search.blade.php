@@ -52,7 +52,7 @@
                         @if(! empty($additionalTopics))
                             @foreach($additionalTopics as $additionalTopic)
                                 <div>
-                                <span wire:click="$set('selectedAdditionalTopic', '{{ $additionalTopic->name }}')"
+                                <span wire:click="$set('selectedAdditionalTopic', '{{ addcslashes($additionalTopic->name, "'") }}')"
                                       wire:key="additional_topic_{{ str($additionalTopic->name)->slug() }}"
                                       class="flex items-center py-2 px-2 text-sm font-medium group cursor-pointer @if($selectedAdditionalTopic == $additionalTopic->name) bg-secondary text-white @endif">
                                         <span class="flex-1">
@@ -77,7 +77,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                             </svg>
                         </div>
-                        <input wire:model.debounce.400="search"
+                        <input wire:model.live.debounce.400="search"
                                type="search"
                                name="search"
                                id="search"
@@ -150,7 +150,7 @@
                                         </div>
                                     </div>
                                     <div class="shrink">
-                                        <button wire:click="$emit('openModal', 'admin.quotes.add-additional-topic-to-quote', [{{ $quote->id }}])"
+                                        <button wire:click="$dispatch('openModal', { component: 'admin.quotes.add-additional-topic-to-quote', arguments: [{{ $quote->id }}] })"
                                                 type="button" class="inline-flex gap-x-2 items-center py-1 px-2 my-2 text-xs font-semibold leading-4 text-white rounded-full border border-transparent shadow-sm focus:ring-2 focus:ring-offset-2 focus:outline-none bg-secondary hover:bg-secondary focus:ring-secondary">
                                             <!-- Heroicon name: solid/mail -->
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -181,7 +181,7 @@
                                 <div class="pt-2">
                                     <div class="grid grid-cols-6 gap-1 font-medium text-cool-gray-900">
                                         @foreach($quote->tags as $tag)
-                                            <div wire:click="$set('selectedAdditionalTopic', '{{ $tag->name }}')"
+                                            <div wire:click="$set('selectedAdditionalTopic', '{{ addcslashes($tag->name, "'") }}')"
                                                  class="inline-flex items-center py-0.5 px-3 text-base text-white cursor-pointer bg-primary">
                                                 <div>
                                                     {{ $tag->name }}
@@ -211,8 +211,10 @@
     </div>
     @push('scripts')
         <script>
-            Livewire.on('scroll-to-top', postId => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+            document.addEventListener('livewire:initialized', () => {
+                Livewire.on('scroll-to-top', postId => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
             });
         </script>
     @endpush

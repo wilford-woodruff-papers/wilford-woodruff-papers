@@ -18,7 +18,7 @@
                  class="py-2 mx-12 md:py-8"
             >
                 @foreach($featured as $feature)
-                    <div onclick='Livewire.emit("openModal", "testimonial", {{ json_encode(["testimonial" => $feature->id]) }})'
+                    <div onclick="Livewire.dispatch('openModal', { component: 'testimonial', arguments: { testimonial: {{ $feature->id }} }})"
                          class="overflow-hidden relative mx-14 cursor-pointer w-[240px] h-[240px] group">
                         <img class="" src="{{ $feature->getFirstMediaUrl('images', 'square') }}" alt="{{ $feature->name }}">
                         <div class="absolute right-0 left-0 py-2 w-full h-auto text-lg font-medium transition-all duration-300 ease-in-out group-hover:bottom-0 title bottom-[-200px] text-secondary bg-white-80">

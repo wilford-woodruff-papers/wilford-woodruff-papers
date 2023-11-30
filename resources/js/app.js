@@ -1,27 +1,19 @@
 import "./bootstrap";
 import collect from "collect.js";
-
-import Alpine from "alpinejs";
-import intersect from "@alpinejs/intersect";
-import focus from "@alpinejs/focus";
-import collapse from "@alpinejs/collapse";
-import persist from "@alpinejs/persist";
+import {
+    Alpine,
+    Livewire,
+} from "../../vendor/livewire/livewire/dist/livewire.esm";
 import overlap from "alpinejs-overlap";
-
 import rangy from "rangy/lib/rangy-core.js";
 import "rangy/lib/rangy-highlighter";
 import "rangy/lib/rangy-classapplier";
 
 window.collect = collect;
-
 window.rangy = rangy;
-window.Alpine = Alpine;
-Alpine.plugin(intersect)
-Alpine.plugin(focus)
-Alpine.plugin(collapse)
-Alpine.plugin(persist)
-Alpine.plugin(overlap)
-Alpine.start()
+
+Alpine.plugin(overlap);
+Livewire.start()
 
 // A function is used for dragging and moving
 function dragElement(element, direction)

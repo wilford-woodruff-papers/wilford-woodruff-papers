@@ -16,7 +16,7 @@
      x-init="observe">
     <div class="grid grid-cols-3 gap-x-3">
         <div class="col-span-3 sm:col-span-2">
-            <form wire:submit.prevent="submit">
+            <form wire:submit="submit">
                 <div class="mb-6">
                 <label for="email" class="sr-only">Search candidates</label>
                 <div class="flex mt-1 rounded-md shadow-sm">
@@ -28,7 +28,7 @@
                             </svg>
                         </div>
                         <label for="search" class="sr-only">Search Articles, Videos, and Pocasts</label>
-                        <input wire:model.defer="filters.search"
+                        <input wire:model="filters.search"
                                type="search"
                                name="search"
                                id="search"
@@ -91,7 +91,7 @@
                                     @foreach(['Article', 'News', 'Podcast', 'Instagram', 'Video'] as $type)
                                         <div class="flex relative items-start">
                                             <div class="flex items-center h-5">
-                                                <input wire:model="filters.type"
+                                                <input wire:model.live="filters.type"
                                                        id="{{ $type }}"
                                                        aria-describedby="{{ $type }}-description"
                                                        name="type[]"
@@ -128,7 +128,7 @@
                                target="_blank"
                             >
                         @else
-                            <div wire:click="$emit('openModal', 'press-modal', {{ json_encode(["press" => $media->id]) }})"
+                            <div wire:click="$dispatch('openModal', { component: 'press-modal', arguments: {{ json_encode(["press" => $media->id]) }} })"
                                  class="flex-shrink-0 cursor-pointer">
                         @endif
 
@@ -163,7 +163,7 @@
                                    target="_blank"
                                 >
                             @else
-                                <div wire:click="$emit('openModal', 'press-modal', {{ json_encode(["press" => $media->id]) }})"
+                                <div wire:click="$dispatch('openModal', { component: 'press-modal', arguments: {{ json_encode(["press" => $media->id]) }} })"
                                      class="flex-1 cursor-pointer">
                             @endif
                                 <div class="flex justify-between">
@@ -193,7 +193,7 @@
                                 </div>
                             @endif
                             <div class="flex justify-between items-center mt-3">
-                                <div wire:click="$emit('openModal', 'press-modal', {{ json_encode(["press" => $media->id]) }})"
+                                <div wire:click="$dispatch('openModal', { component: 'press-modal', arguments: {{ json_encode(["press" => $media->id]) }} })"
                                      class="ml-3 cursor-pointer">
                                     <p class="text-sm font-medium text-gray-900">
                                         {{ $media->subtitle }}
@@ -231,7 +231,7 @@
                                    target="_blank"
                                 >
                             @else
-                                <div wire:click="$emit('openModal', 'press-modal', {{ json_encode(["press" => $article->id]) }})"
+                                <div wire:click="$dispatch('openModal', { component: 'press-modal', arguments: {{ json_encode(["press" => $article->id]) }} })"
                                      class="cursor-pointer">
                             @endif
                                 {{--<a href="{{ route('landing-areas.ponder.press', $article->slug) }}">--}}
@@ -276,7 +276,7 @@
         @if($showPress)
             <script>
                 window.addEventListener('load', event => {
-                    Livewire.emit( 'openModal', 'press-modal', {'press': '{{ $showPress }}'});
+                    Livewire.dispatch('openModal', { component: 'press-modal', arguments: { press: '{{ $showPress }}' }});
                 });
             </script>
         @endif

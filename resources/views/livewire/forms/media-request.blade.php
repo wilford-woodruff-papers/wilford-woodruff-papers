@@ -6,8 +6,8 @@
         <div class="relative mx-auto">
             <div class="mt-12">
                 @if($success === false)
-                    <form wire:submit.prevent="save" class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
-                        <input wire:model.defer="role"
+                    <form wire:submit="save" class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
+                        <input wire:model="role"
                                type="hidden"
                                name="role"
                                id="role"
@@ -15,7 +15,7 @@
                         <div class="sm:col-span-2">
                             <label for="salutation" class="block text-sm font-medium text-gray-700">Title</label>
                             <div class="mt-1">
-                                <select wire:model.defer="salutation"
+                                <select wire:model="salutation"
                                         id="salutation"
                                         name="salutation"
                                         autocomplete="salutation"
@@ -31,7 +31,7 @@
                         <div>
                             <label for="first-name" class="block text-sm font-medium text-gray-700">First name</label>
                             <div class="mt-1">
-                                <input wire:model.defer="firstName"
+                                <input wire:model="firstName"
                                        type="text"
                                        id="first-name"
                                        autocomplete="given-name"
@@ -44,7 +44,7 @@
                         <div>
                             <label for="last-name" class="block text-sm font-medium text-gray-700">Last name</label>
                             <div class="mt-1">
-                                <input wire:model.defer="lastName"
+                                <input wire:model="lastName"
                                        type="text"
                                        id="last-name"
                                        autocomplete="family-name"
@@ -57,7 +57,7 @@
                         <div>
                             <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
                             <div class="mt-1">
-                                <input wire:model.defer="email"
+                                <input wire:model="email"
                                        id="email"
                                        type="email"
                                        autocomplete="email"
@@ -70,7 +70,7 @@
                         <div>
                             <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
                             <div class="mt-1">
-                                <input wire:model.defer="phone"
+                                <input wire:model="phone"
                                        id="phone"
                                        type="text"
                                        autocomplete="phone"
@@ -83,7 +83,7 @@
                         <div>
                             <label for="org-name" class="block text-sm font-medium text-gray-700">Organization Name</label>
                             <div class="mt-1">
-                                <input wire:model.defer="orgName"
+                                <input wire:model="orgName"
                                        type="text"
                                        id="org-name"
                                        autocomplete="org-name"
@@ -96,7 +96,7 @@
                         <div>
                             <label for="org-position" class="block text-sm font-medium text-gray-700">Your Position</label>
                             <div class="mt-1">
-                                <input wire:model.defer="orgPosition"
+                                <input wire:model="orgPosition"
                                        type="text"
                                        id="org-position"
                                        autocomplete="org-position"
@@ -109,7 +109,7 @@
                         <div class="sm:col-span-2">
                             <label for="speaker" class="block text-sm font-medium text-gray-700">Would you like to book a speaker?</label>
                             <div class="mt-1">
-                                <select wire:model.defer="speaker"
+                                <select wire:model="speaker"
                                         id="speaker"
                                         name="speaker"
                                         autocomplete="document-speaker"
@@ -126,7 +126,7 @@
                         <div class="sm:col-span-2">
                             <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
                             <div class="mt-1">
-                                <textarea wire:model.defer="message"
+                                <textarea wire:model="message"
                                           id="message"
                                           rows="4"
                                           required
@@ -137,7 +137,7 @@
                         <div>
                             <label for="deadline" class="block text-sm font-medium text-gray-700">Deadline</label>
                             <div class="mt-1">
-                                <input wire:model.defer="deadline"
+                                <input wire:model="deadline"
                                        id="deadline"
                                        type="date"
                                        autocomplete="deadline"

@@ -2,7 +2,8 @@
 <div {{ $attributes->merge(['class' => 'min-w-full align-middle shadow sm:rounded-lg']) }}>
     <table
         x-data="{
-                open: $persist(null)
+                open: $persist(null),
+                shadow: false,
             }"
         class="min-w-full divide-y divide-cool-gray-200">
         <thead class="sticky top-0 z-50"

@@ -64,7 +64,7 @@
                                                     <li x-data="{
                                                             show: false,
                                                         }"
-                                                        onclick="Livewire.emit('openModal', 'team-member-modal', {{ json_encode(["person" => $person->id, 'backgroundColor' => $team->background_color, 'textColor' => $team->text_color]) }})"
+                                                        onclick="Livewire.dispatch('openModal', {component: 'team-member-modal', arguments: {{ json_encode(["person" => $person->id, 'backgroundColor' => $team->background_color, 'textColor' => $team->text_color]) }} })"
                                                         class="relative rounded-xl group"
                                                         style="background-color: {{ $team->background_color }}; color: {{ $team->text_color }};"
                                                         id="{{ str($person->name)->slug() }}"
