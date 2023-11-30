@@ -130,6 +130,9 @@ Route::middleware([])->group(function () {
         ]);
     });
 
+    Route::get('/day-in-the-life/{date?}', \App\Http\Controllers\DayInTheLifeController::class)
+        ->name('day-in-the-life');
+
     Route::get('/map', \App\Http\Livewire\Map::class)->name('map');
     Route::get('/map/locations', \App\Http\Controllers\MapLocationsController::class)->name('map.locations');
     Route::get('/map/documents', \App\Http\Controllers\MapDocumentsController::class)->name('map.documents');
@@ -140,8 +143,6 @@ Route::middleware([])->group(function () {
         'verified',
         'role:Admin|Editor',
     ])->group(function () {
-        Route::get('/day-in-the-life/{date?}', \App\Http\Controllers\DayInTheLifeController::class)
-            ->name('day-in-the-life');
         //Route::get('/search', [\App\Http\Controllers\LandingAreasController::class, 'search'])->name('landing-areas.search');
         Route::get('/new-search', \App\Http\Livewire\Search::class)->name('new-search');
         Route::get('/old-timeline', [\App\Http\Controllers\TimelineController::class, 'index'])->name('old-timeline');
