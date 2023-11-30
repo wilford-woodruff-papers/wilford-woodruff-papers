@@ -5,7 +5,6 @@ namespace App\Livewire\Admin;
 use App\Jobs\AutoPublishDocument;
 use App\Jobs\ReleaseDependantActions;
 use App\Models\Item;
-use App\Models\Page;
 use App\Models\User;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
@@ -64,10 +63,11 @@ class Action extends Component
 
         $this->action = $this->action->fresh(['assignee', 'finisher'])
             ->loadMissing(['type']);
-        activity('activity')
-            ->on(Page::find($this->action->actionable_id))
-            ->event('assigned')
-            ->log($this->action->type->name.' assigned to <span class="user">'.$this->action->assignee->name.'</span>');
+        //  This may not always apply to a Page sometime return null and throws an error
+        //        activity('activity')
+        //            ->on(Page::find($this->action->actionable_id))
+        //            ->event('assigned')
+        //            ->log($this->action->type->name.' assigned to <span class="user">'.$this->action->assignee->name.'</span>');
     }
 
     public function deleteAction()
