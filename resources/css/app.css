@@ -344,6 +344,24 @@ input[class^="numeric-"], select[class^="numeric-"]{
        text-align: left !important;
     }
 }
+.content-page text-lg {
+    @apply text-lg !important;
+}
+.content-page text-xl {
+    @apply text-xl !important;
+}
+.content-page .sm\:text-2xl {
+    @apply text-2xl !important;
+}
+.content-page .sm\:text-3xl {
+    @apply text-3xl !important;
+}
+.content-page .sm\:text-4xl {
+    @apply text-4xl !important;
+}
+.content-page .sm\:text-5xl {
+    @apply text-5xl !important;
+}
 
 /* End Content Builder */
 
