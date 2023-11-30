@@ -1,10 +1,10 @@
 <div class="px-12 pb-14 mx-auto max-w-7xl sm:px-28 xl:px-12">
     <div class="flex">
-        <div class="flex-shrink py-8 px-12 bg-white">
+        <div class="flex-shrink py-8 px-12 bg-white shadow-2xl">
             <div class="mb-8 text-xl font-thin text-gray-900 md:text-4xl">
                 {{ $date->format('F d, Y ~ l') }}
             </div>
-            <div class="overflow-y-auto text-lg leading-relaxed text-gray-700 md:text-xl max-h-[500px]">
+            <div class="overflow-y-auto text-lg leading-relaxed !text-justify text-gray-700 md:text-xl max-h-[500px]">
                 {!! $content !!}
             </div>
             @if(! empty($topics))
