@@ -195,7 +195,7 @@
                   </div>
                   <ul id="pages" class="divide-y divide-gray-200">
                       <template x-for="page in pages" :key="'page-'+page.id">
-                          <li x-show="page.id" x-on:click="Livewire.emit('openModal', 'page', {'pageId': page.id})"
+                          <li x-show="page.id" x-on:click="Livewire.dispatch('openModal', {component: 'page', arguments: {'pageId': page.id} })"
                               x-text="page.name"
                               class="flex items-center py-1 cursor-pointer"
                           ></li>

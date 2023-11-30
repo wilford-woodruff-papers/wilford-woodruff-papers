@@ -1,8 +1,8 @@
 <div>
     <div class="-12">
         <div class="max-w-7xl text-center">
-            <form wire:submit.prevent="submit">
-                <input wire:model.defer="search"
+            <form wire:submit="submit">
+                <input wire:model="search"
                        class="w-full max-w-xl border-gray-300 shadow-sm sm:max-w-xl sm:text-sm"
                        type="search"
                        name="q"

@@ -30,7 +30,7 @@
     <div {{--x-data="{
             id: '{{ str(collect($headings)->filter(fn($item) => ! empty($item))->first()->group(1))->slug() ?? '' }}',
         }"--}}
-         class="my-12 mx-auto max-w-7xl">
+         class="mx-auto mb-12 max-w-7xl">
         <div class="grid grid-cols-5 gap-x-4">
             @if(count($headings) > 0)
                 <div class="col-span-5 md:col-span-1">

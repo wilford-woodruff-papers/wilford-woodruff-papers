@@ -1,5 +1,5 @@
 <div x-data="{
-    'comment': @entangle('comment')
+    'comment': @entangle('comment').live
 }"
      class="flex flex-col h-full">
     <div class="flex-none p-4 border-b border-gray-200 fixed-top">
@@ -29,10 +29,10 @@
         </div>
         <div>
             @if(\Illuminate\Support\Facades\Auth::check())
-                <form wire:submit.prevent="save()">
+                <form wire:submit="save()">
                     <div class="flex gap-x-2 mt-1">
                         <div class="flex-1">
-                            <textarea wire:model.debounce.300ms="comment"
+                            <textarea wire:model.live.debounce.300ms="comment"
                                       rows="4"
                                       name="comment"
                                       id="comment"

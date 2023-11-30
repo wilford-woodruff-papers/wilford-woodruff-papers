@@ -1,6 +1,6 @@
 <div x-data="{
             shadow: false,
-            perPage: @entangle('perPage'),
+            perPage: @entangle('perPage').live,
             selectedColumns: $persist({{ json_encode(array_values($columns)) }}).as('places-identification-columns'),
         }">
     <div class="grid grid-cols-12 gap-x-4">
@@ -17,7 +17,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                                     </svg>
                                 </div>
-                                <input wire:model.debounce.400="filters.search"
+                                <input wire:model.live.debounce.400="filters.search"
                                        type="search"
                                        name="search"
                                        id="search"
@@ -28,7 +28,7 @@
                             <div class="flex gap-x-4 gap-y-4 items-center">
                                 <div class="pr-2 space-y-4">
                                     <x-input.group borderless for="filter-type" label="Status">
-                                        <x-input.select wire:model="filters.completed" id="filter-type">
+                                        <x-input.select wire:model.live="filters.completed" id="filter-type">
                                             <option value=""> -- Any -- </option>
                                             <option value="false"> Not Completed </option>
                                             <option value="true"> Completed </option>
@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="pr-2 space-y-4">
                                     <x-input.group borderless for="filter-type" label="Corrections">
-                                        <x-input.select wire:model="filters.corrections" id="filter-type">
+                                        <x-input.select wire:model.live="filters.corrections" id="filter-type">
                                             <option value=""> -- Any -- </option>
                                             <option value="true"> Needs Correction </option>
                                         </x-input.select>
@@ -49,7 +49,7 @@
                             <div class="flex gap-x-4 gap-y-4 items-center">
                                 <div class="pr-2 space-y-4">
                                     <x-input.group borderless for="filter-type" label="Status">
-                                        <x-input.select wire:model="filters.tagged" id="filter-type">
+                                        <x-input.select wire:model.live="filters.tagged" id="filter-type">
                                             <option value=""> -- Any -- </option>
                                             <option value="false"> Not tagged </option>
                                             <option value="true"> Tagged </option>
@@ -67,7 +67,7 @@
                                                for="perPage"
                                                label="Per Page"
                                 >
-                                    <x-input.select wire:model="perPage" id="perPage">
+                                    <x-input.select wire:model.live="perPage" id="perPage">
                                         <option value="10">10</option>
                                         <option value="25">25</option>
                                         <option value="50">50</option>
@@ -164,7 +164,7 @@
                 <x-admin.quotes.table>
                     <x-slot name="head">
                         <x-admin.quotes.heading class="pr-0 w-8">
-                            <x-input.checkbox wire:model="selectPage" />
+                            <x-input.checkbox wire:model.live="selectPage" />
                         </x-admin.quotes.heading>
                         <x-admin.quotes.heading sortable multi-column wire:click="sortBy('id')"
                                                 :direction="$sorts['id'] ?? null"
@@ -219,7 +219,7 @@
                                                 class="h-6"
                             >
                                 <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">
-                                    <x-input.checkbox wire:model="selected" value="{{ $place->id }}" />
+                                    <x-input.checkbox wire:model.live="selected" value="{{ $place->id }}" />
                                 </x-admin.quotes.cell>
 
                                 <x-admin.quotes.cell class="bg-gray-50 border border-gray-400">

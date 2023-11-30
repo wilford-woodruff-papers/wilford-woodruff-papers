@@ -31,7 +31,6 @@
         <x-favicon />
 
         <link href="https://fonts.googleapis.com/css2?family=Italianno&display=swap" rel="stylesheet">
-        {{--<script defer src="https://unpkg.com/@alpinejs/ui@3.13.0-beta.0/dist/cdn.min.js"></script>--}}
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
@@ -62,8 +61,8 @@
         @endif
 
 
-        @livewireScripts
-        @livewire('livewire-ui-modal')
+        @livewireScriptConfig
+
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js" charset="utf-8"></script>
 
@@ -81,11 +80,13 @@
         </script>
 
         <script>
-            Livewire.on('scroll', function() {
-                scrollTo({top: 0, behavior: 'smooth'});
+            document.addEventListener('livewire:initialized', () => {
+                Livewire.on('scroll', function() {
+                    scrollTo({top: 0, behavior: 'smooth'});
+                });
             });
         </script>
-
+        @livewire('wire-elements-modal')
         <x-constant-contact />
     </body>
 </html>

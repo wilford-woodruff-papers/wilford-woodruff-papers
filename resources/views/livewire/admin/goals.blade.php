@@ -2,16 +2,16 @@
     <div class="mx-auto mt-4 max-w-7xl">
 
         <div x-data="{
-                saved: @entangle('saved')
+                saved: @entangle('saved').live
             }"
              x-init="
-                    window.livewire.on('notify-saved', () => {
+                    $wire.on('notify-saved', () => {
                         setTimeout(() => { saved = false }, 2000)
                     });
               "
              class=""
         >
-            <form wire:submit.prevent="saveGoal">
+            <form wire:submit="saveGoal">
                 <div class="px-4 sm:px-6 lg:px-8">
                     <div class="flex flex-col mt-8 bg-white">
                         <div class="overflow-x-auto -my-2 -mx-4 sm:-mx-6 lg:-mx-8">
@@ -23,7 +23,7 @@
                                             Goal End Date
                                         </label>
                                         <div class="mt-1 sm:col-span-3 sm:mt-0">
-                                            <input wire:model="goal.finish_at"
+                                            <input wire:model.live="goal.finish_at"
                                                 type="date"
                                                 name="finish_at"
                                                 id="finish_at"
@@ -36,7 +36,7 @@
                                             Document Type
                                         </label>
                                         <div class="mt-1 sm:col-span-3 sm:mt-0">
-                                            <select wire:model="goal.type_id"
+                                            <select wire:model.live="goal.type_id"
                                                     name="type"
                                                     id="type"
                                                     class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-500 focus:ring-indigo-500">
@@ -54,7 +54,7 @@
                                             Step
                                         </label>
                                         <div class="mt-1 sm:col-span-3 sm:mt-0">
-                                            <select wire:model="goal.action_type_id"
+                                            <select wire:model.live="goal.action_type_id"
                                                     name="action_type"
                                                     id="action_type"
                                                     class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-500 focus:ring-indigo-500">
@@ -71,7 +71,7 @@
                                             Goal Target
                                         </label>
                                         <div class="mt-1 sm:col-span-3 sm:mt-0">
-                                            <input wire:model="goal.target"
+                                            <input wire:model.live="goal.target"
                                                    type="number"
                                                    name="target"
                                                    id="target"
@@ -81,7 +81,7 @@
                                     <div class="sm:grid sm:grid-cols-6 sm:gap-4 sm:items-start sm:py-5 sm:border-t sm:border-gray-200">
                                         <div class="flex relative items-start">
                                             <div class="flex items-center h-5">
-                                                <input wire:model="clear"
+                                                <input wire:model.live="clear"
                                                        id="clear"
                                                        aria-describedby="clear-description"
                                                        name="clear"
@@ -172,7 +172,7 @@
                                         <thead class="bg-gray-50">
                                         <tr>
                                             <th scope="col" class="py-3.5 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">
-                                                <select wire:model="doc_type" class="text-sm">
+                                                <select wire:model.live="doc_type" class="text-sm">
                                                     @foreach(\App\Models\Type::query()->orderBy('name')->get() as $type)
                                                         <option value="{{ $type->id }}">{{ $type->name }}</option>
                                                     @endforeach
@@ -240,7 +240,7 @@
                                     <thead class="bg-gray-50">
                                     <tr>
                                         <th scope="col" class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">
-                                            <select wire:model="doc_type" class="text-sm">
+                                            <select wire:model.live="doc_type" class="text-sm">
                                                 <option value="">-- Select Document Type --</option>
                                                 @foreach(\App\Models\Type::query()->orderBy('name')->get() as $type)
                                                     <option value="{{ $type->id }}">{{ $type->name }}</option>
@@ -248,7 +248,7 @@
                                             </select>
                                         </th>
                                         <th scope="col" class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">
-                                            <select wire:model="action_type" class="text-sm">
+                                            <select wire:model.live="action_type" class="text-sm">
                                                 <option value="">-- Select Task Type --</option>
                                                 @foreach($actionTypes as $actionType)
                                                     <option value="{{ $actionType->id }}">{{ $actionType->name }}</option>

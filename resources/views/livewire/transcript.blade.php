@@ -83,12 +83,12 @@
         <div x-show="options"
              id="pop">
             <span class="inline-flex relative z-0 rounded-md shadow-sm">
-                <button x-on:click="Livewire.emit('openModal', 'add-quote', [{{ $page->id }}, selection.toString()]);"
+                <button x-on:click="Livewire.dispatch('openModal', {component: 'add-quote', arguments: [{{ $page->id }}, selection.toString()] });"
                         type="button"
                         class="inline-flex relative items-center py-2 px-4 text-sm font-medium text-gray-700 bg-white border border-gray-300 hover:text-white focus:z-10 focus:outline-none hover:bg-secondary">
                     Add Quote
                 </button>
-                <button x-on:click="Livewire.emit('openModal', 'add-theme', [{{ $page->id }}, selection.toString()]);"
+                <button x-on:click="Livewire.dispatch('openModal', {component: 'add-theme', arguments: [{{ $page->id }}, selection.toString()] });"
                         type="button"
                         class="inline-flex hidden relative items-center py-2 px-4 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 hover:text-white focus:z-10 focus:outline-none hover:bg-secondary">
                     Tag Theme

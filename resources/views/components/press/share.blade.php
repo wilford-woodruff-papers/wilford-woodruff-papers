@@ -88,7 +88,7 @@
 
         </div>
         @if($showCommentIcon)
-            <div wire:click="$emit('openModal', 'press-modal', {{ json_encode(["press" => $media->id]) }})"
+            <div wire:click="$dispatch('openModal', { component: 'press-modal', arguments: {{ json_encode(["press" => $media->id]) }} })"
                  class="cursor-pointer">
                 <span class="sr-only">Show comments</span>
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

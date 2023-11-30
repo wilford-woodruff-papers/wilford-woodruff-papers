@@ -7,11 +7,11 @@
                 Individual Activity
             </h1>
 
-            <form wire:submit.prevent="update" class="flex gap-x-4">
+            <form wire:submit="update" class="flex gap-x-4">
                 <div>
                     <label for="user" class="block text-sm font-medium text-gray-700">User Name</label>
                     <div class="mt-1">
-                        <select wire:model="currentUserId"
+                        <select wire:model.live="currentUserId"
                                id="currentUserId"
                                class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-500 focus:ring-indigo-500"
                         >
@@ -24,7 +24,7 @@
                 <div>
                     <label for="start" class="block text-sm font-medium text-gray-700">Starting Date</label>
                     <div class="mt-1">
-                        <input wire:model.defer="dates.start"
+                        <input wire:model="dates.start"
                                id="start"
                                type="date"
                                class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-500 focus:ring-indigo-500"
@@ -34,7 +34,7 @@
                 <div>
                     <label for="end" class="block text-sm font-medium text-gray-700">Ending Date</label>
                     <div class="mt-1">
-                        <input wire:model.defer="dates.end"
+                        <input wire:model="dates.end"
                                id="end"
                                type="date"
                                class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-500 focus:ring-indigo-500"

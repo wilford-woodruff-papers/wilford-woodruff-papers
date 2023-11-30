@@ -126,7 +126,7 @@
                                         >
                                             <div class="flex relative gap-x-1 items-center">
                                                 <div class="flex items-center h-6 flex-0">
-                                                    <input wire:model="filters.{{ str($facet->key)->before('_facet') }}"
+                                                    <input wire:model.live="filters.{{ str($facet->key)->before('_facet') }}"
                                                            id="{{ $location }}_{{ str($facet->key) }}_{{ str($key)->snake() }}"
                                                            name="{{ str($facet->key) }}"
                                                            type="checkbox"
@@ -197,7 +197,7 @@
                             <div wire:ignore
                                  class="px-8 mt-2"
                             >
-                                <div id="{{ $location }}_range" wire:model="year_range.min,year_range.max"></div>
+                                <div id="{{ $location }}_range" wire:model.live="year_range.min,year_range.max"></div>
                             </div>
                         </ul>
                     </div>
@@ -207,7 +207,7 @@
 
         @if(isset($use_date_range))
             <li x-data="{
-                expanded: $persist(@entangle('use_date_range')).as('date_range_expanded')
+                expanded: $persist(@entangle('use_date_range').live).as('date_range_expanded')
             }">
                 <ul x-show="currentIndex == 'Documents'"
                     role="list"

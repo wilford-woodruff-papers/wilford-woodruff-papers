@@ -1,6 +1,6 @@
 <div>
     <section
-        x-data="{ open: @entangle('open') }"
+        x-data="{ open: @entangle('open').live }"
         @keydown.window.escape="open = false"
         x-show="open"
         x-cloak

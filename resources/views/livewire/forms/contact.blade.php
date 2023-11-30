@@ -4,8 +4,8 @@
         <div class="relative mx-auto">
             <div class="mt-12">
                 @if($success === false)
-                    <form wire:submit.prevent="save" class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
-                        <input wire:model.defer="role"
+                    <form wire:submit="save" class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
+                        <input wire:model="role"
                                type="hidden"
                                name="role"
                                id="role"
@@ -13,7 +13,7 @@
                         <div>
                             <label for="first-name" class="block text-sm font-medium text-gray-700">First name</label>
                             <div class="mt-1">
-                                <input wire:model.defer="firstName"
+                                <input wire:model="firstName"
                                        type="text"
                                        id="first-name"
                                        autocomplete="given-name"
@@ -26,7 +26,7 @@
                         <div>
                             <label for="last-name" class="block text-sm font-medium text-gray-700">Last name</label>
                             <div class="mt-1">
-                                <input wire:model.defer="lastName"
+                                <input wire:model="lastName"
                                        type="text"
                                        id="last-name"
                                        autocomplete="family-name"
@@ -39,7 +39,7 @@
                         <div class="sm:col-span-2">
                             <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
                             <div class="mt-1">
-                                <input wire:model.defer="email"
+                                <input wire:model="email"
                                        id="email"
                                        type="email"
                                        autocomplete="email"
@@ -52,7 +52,7 @@
                         <div class="sm:col-span-2">
                             <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
                             <div class="mt-1">
-                                <textarea wire:model.defer="message"
+                                <textarea wire:model="message"
                                           id="message"
                                           rows="4"
                                           required

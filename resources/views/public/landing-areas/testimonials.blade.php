@@ -7,7 +7,7 @@
     </div>
     <div>
         <div class="pt-16 pb-4 mx-auto max-w-7xl">
-            <div onclick="Livewire.emit('openModal', 'forms.testify')"
+            <div onclick="Livewire.dispatch('openModal', { component: 'forms.testify' })"
                  class="py-2 px-4 mx-auto max-w-xl text-center text-white uppercase bg-secondary"
                  role="button">
                 Share your testimony
@@ -35,7 +35,9 @@
     @push('scripts')
         @if($showTestimony)
             <script>
-                Livewire.emit("openModal", "testimonial", @json(["testimonial" => $showTestimony->id]) );
+                window.addEventListener('load', event => {
+                    Livewire.dispatch('openModal', { component: 'testimonial', arguments: { testimonial: {{ $showTestimony->id }} }});
+                });
             </script>
         @endif
     @endpush

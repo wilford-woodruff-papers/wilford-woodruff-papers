@@ -55,10 +55,15 @@
                     document.execCommand("MultipleSelection", true, true);
                 } catch (ex) {}
             };
+            document.addEventListener('livewire:initialized', () => {
+                Livewire.on('scroll', function() {
+                    scrollTo({top: 0, behavior: 'smooth'});
+                });
+            });
         </script>
 
-        @livewireScripts
-        @livewire('livewire-ui-modal')
+        @livewireScriptConfig
+        @livewire('wire-elements-modal')
         @stack('scripts')
     </body>
 </html>

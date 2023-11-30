@@ -6,8 +6,8 @@
         <div class="relative mx-auto">
             <div class="mt-12">
                 @if($success === false)
-                    <form wire:submit.prevent="save" class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
-                        <input wire:model.defer="role"
+                    <form wire:submit="save" class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
+                        <input wire:model="role"
                                type="hidden"
                                name="role"
                                id="role"
@@ -15,7 +15,7 @@
                         <div>
                             <label for="first-name" class="block text-sm font-medium text-gray-700">First name</label>
                             <div class="mt-1">
-                                <input wire:model.defer="firstName"
+                                <input wire:model="firstName"
                                        type="text"
                                        id="first-name"
                                        autocomplete="given-name"
@@ -28,7 +28,7 @@
                         <div>
                             <label for="last-name" class="block text-sm font-medium text-gray-700">Last name</label>
                             <div class="mt-1">
-                                <input wire:model.defer="lastName"
+                                <input wire:model="lastName"
                                        type="text"
                                        id="last-name"
                                        autocomplete="family-name"
@@ -41,7 +41,7 @@
                         <div>
                             <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
                             <div class="mt-1">
-                                <input wire:model.defer="email"
+                                <input wire:model="email"
                                        id="email"
                                        type="email"
                                        autocomplete="email"
@@ -54,7 +54,7 @@
                         <div>
                             <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
                             <div class="mt-1">
-                                <input wire:model.defer="phone"
+                                <input wire:model="phone"
                                        id="phone"
                                        type="text"
                                        autocomplete="phone"
@@ -68,7 +68,7 @@
                         <div class="sm:col-span-2">
                             <label for="type" class="block text-sm font-medium text-gray-700">Document Type</label>
                             <div class="mt-1">
-                                <select wire:model.defer="type"
+                                <select wire:model="type"
                                         id="type"
                                         name="type"
                                         autocomplete="document-type"
@@ -104,7 +104,7 @@
                                 File
                             </label>
                             <div class="flex items-center mt-1">
-                                <input wire:model="file"
+                                <input wire:model.live="file"
                                        type="file"
                                        class="py-2 px-3 ml-5 text-sm font-medium leading-4 text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none" />
                             </div>
@@ -113,7 +113,7 @@
                         <div class="sm:col-span-2">
                             <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
                             <div class="mt-1">
-                                <textarea wire:model.defer="message"
+                                <textarea wire:model="message"
                                           id="message"
                                           rows="4"
                                           required

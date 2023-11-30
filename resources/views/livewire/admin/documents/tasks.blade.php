@@ -1,6 +1,6 @@
 <div x-data="{
-    actionType: @entangle('actionType'),
-    type: @entangle('type')
+    actionType: @entangle('actionType').live,
+    type: @entangle('type').live
 }">
     @if($assignedItems->count())
         <div class="px-4 sm:px-6 lg:px-8">
@@ -60,7 +60,7 @@
             <div class="">
                 <div class="pt-4 sm:flex sm:items-center">
                     <div class="sm:flex-auto">
-                        <input wire:model="search"
+                        <input wire:model.live="search"
                                placeholder="Search..."
                                type="search"
                                class="block flex-1 w-80 w-full border-cool-gray-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5 form-input"
@@ -78,7 +78,7 @@
                                     <th scope="col" class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6"></th>
                                     <x-admin.quotes.heading sortable multi-column wire:click="applySort('pcf_unique_id', '{{ $sortDirection }}')" :direction="$sortBy == 'pcf_unique_id' ? $sortDirection : null" class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">ID</x-admin.quotes.heading>
                                     <th scope="col" class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">
-                                        <select wire:model="type" class="text-sm">
+                                        <select wire:model.live="type" class="text-sm">
                                             <option value="">-- Select Document Type --</option>
                                             @foreach($types as $type)
                                                 <option value="{{ $type->name }}">{{ $type->name }}</option>
@@ -88,7 +88,7 @@
                                     <th scope="col" class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">Document</th>
                                     <th scope="col" class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6"></th>
                                     <th scope="col" class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-6">
-                                        <select wire:model="actionType" class="text-sm">
+                                        <select wire:model.live="actionType" class="text-sm">
                                             <option value="">-- Select Task Type --</option>
                                             @foreach($actionTypes as $actionType)
                                                 <option value="{{ $actionType->id }}">{{ $actionType->name }}</option>
@@ -174,8 +174,10 @@
 
     @push('scripts')
         <script>
-            Livewire.on('scroll-to-top', postId => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.addEventListener('load', event => {
+                Livewire.on('scroll-to-top', postId => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
             });
         </script>
     @endpush
