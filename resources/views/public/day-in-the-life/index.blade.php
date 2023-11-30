@@ -182,7 +182,7 @@
                             </div>
                         </div>
                         <div class="overflow-hidden w-full">
-                            <div class="bg-center bg-cover lg:-mx-80"
+                            <div class="bg-center bg-cover lg:-mx-80 bg-[grey] bg-blend-multiply"
                                  style="background-image: url('{{ app()->environment('production') ? $day->first()->getfirstMediaUrl(conversionName: 'web') : 'https://wilford-woodruff-papers.nyc3.digitaloceanspaces.com/media-library/233014/conversions/default-web.jpg' }}')">
                                 @include('public.day-in-the-life.sections.journal')
                             </div>

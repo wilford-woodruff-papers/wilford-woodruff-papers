@@ -95,15 +95,13 @@
                                 >
                                     List
                                 </button>
-                                @hasanyrole('Editor|Admin|Super Admin')
-                                    <button x-on:click="view = 'map'"
-                                            type="button"
-                                            class="relative flex-1 items-center py-2 px-3 text-sm font-semibold ring-1 ring-inset focus:z-10"
-                                            :class="view =='map' ? 'bg-secondary text-white hover:bg-secondary-600 ring-secondary' : 'text-gray-900 bg-white hover:bg-gray-50 ring-gray-300'"
-                                    >
-                                        Map
-                                    </button>
-                                @endhasanyrole
+                                <button x-on:click="view = 'map'"
+                                        type="button"
+                                        class="relative flex-1 items-center py-2 px-3 text-sm font-semibold ring-1 ring-inset focus:z-10"
+                                        :class="view =='map' ? 'bg-secondary text-white hover:bg-secondary-600 ring-secondary' : 'text-gray-900 bg-white hover:bg-gray-50 ring-gray-300'"
+                                >
+                                    Map
+                                </button>
                             </div>
                         </div>
                     </div>
