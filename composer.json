@@ -22,6 +22,7 @@
         "dyrynda/laravel-efficient-uuid": "^5.0",
         "dyrynda/laravel-model-uuid": "^7.0",
         "emilianotisato/nova-tinymce": "dev-master",
+        "filament/filament": "^3.1",
         "genealabs/laravel-caffeine": "^10.0",
         "guzzlehttp/guzzle": "^7.7",
         "http-interop/http-factory-guzzle": "^1.0",
