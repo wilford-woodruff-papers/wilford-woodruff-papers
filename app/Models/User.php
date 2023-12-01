@@ -76,11 +76,11 @@ class User extends Authenticatable
     public function pending_actions()
     {
         return $this->hasMany(Action::class, 'assigned_to')
-                    ->where(
-                        'actionable_type',
-                        \App\Models\Item::class
-                    )
-                    ->whereNull('completed_at');
+            ->where(
+                'actionable_type',
+                \App\Models\Item::class
+            )
+            ->whereNull('completed_at');
     }
 
     public function impersonatable(ImpersonateAuthorization $authorization): void
