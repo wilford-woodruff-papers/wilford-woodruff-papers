@@ -14,6 +14,8 @@ class NewDocument extends Component
 
     public $type;
 
+    public $types;
+
     public $template;
 
     public $templates;
