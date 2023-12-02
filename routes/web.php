@@ -573,7 +573,7 @@ Route::middleware(['auth', \App\Http\Middleware\LogApiUsageMiddleware::class])
     });
 
 Route::get('/{contentPage}', [\App\Http\Controllers\ContentPageController::class, 'show'])
-    //->where('contentPage', '^(?!nova).*$')
+    ->where('contentPage', '^(?!pulse).*$')
     ->name('content-page.show');
 Route::get('/{contentPage}/edit', [\App\Http\Controllers\ContentPageController::class, 'edit'])
     //->where('contentPage', '^(?!nova).*$')
