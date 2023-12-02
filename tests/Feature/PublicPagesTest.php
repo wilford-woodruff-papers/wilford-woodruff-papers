@@ -10,6 +10,12 @@ it('can access the home page', function () {
         ->assertSee(str()->limit($announcements[0]->title, 25, ''));
 });
 
+it('cannot see the admin bar', function () {
+    $this->get('/')
+        ->assertStatus(200)
+        ->assertDontSee('Google Search Console');
+});
+
 it('can access the donate page', function () {
     $this->get(route('donate'))
         ->assertStatus(200)
