@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('image');
             $table->mediumText('bio');
+            $table->unsignedInteger('order')->nullable();
             $table->timestamps();
 
             $table->foreign('team_id')

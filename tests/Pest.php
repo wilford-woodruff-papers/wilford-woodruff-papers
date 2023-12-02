@@ -16,7 +16,8 @@ use Tests\CreatesApplication;
 
 uses(Tests\TestCase::class,
     CreatesApplication::class,
-    RefreshDatabase::class)->in('Feature', 'Unit');
+    RefreshDatabase::class)
+    ->in('Feature', 'Unit');
 
 /*
 |--------------------------------------------------------------------------

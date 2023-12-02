@@ -21,6 +21,8 @@ class Team extends Model implements Sortable
 
     public function boardmembers()
     {
-        return $this->hasMany(BoardMember::class)->ordered();
+        return $this
+            ->hasMany(BoardMember::class)
+            ->ordered();
     }
 }

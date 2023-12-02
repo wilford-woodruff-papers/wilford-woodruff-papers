@@ -2,18 +2,18 @@
 
 namespace Database\Factories;
 
+use App\Models\Photo;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PhotoFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     */
+    protected $model = Photo::class;
+
     public function definition(): array
     {
         return [
-            'title' => $this->faker->name(),
-            'description' => $this->faker->sentences(2, true),
+            'title' => $this->faker->word(),
+            'description' => $this->faker->text(),
         ];
     }
 }
