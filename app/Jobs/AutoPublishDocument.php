@@ -35,6 +35,7 @@ class AutoPublishDocument implements ShouldQueue
             $this->addPublishedTask($this->item);
             info($this->item->id.' was published.');
         } elseif ($this->item->enabled == true && $this->item->canBePublished()) {
+            $this->addPublishedTask($this->item);
             info($this->item->id.' is already published.');
         } else {
             $this->removePublishedTask($this->item);
@@ -71,9 +72,9 @@ class AutoPublishDocument implements ShouldQueue
                     'action_type_id' => $actionType->id,
                 ], [
                     'assigned_to' => $user->id,
-                    'assigned_at' => $item->actions->firstWhere('action_type_id', 2)->completed_at,
+                    'assigned_at' => now(),
                     'completed_by' => $user->id,
-                    'completed_at' => $item->actions->firstWhere('action_type_id', 2)->completed_at,
+                    'completed_at' => now(),
                 ]);
                 foreach ($item->pages as $page) {
                     \App\Models\Action::updateOrCreate([
@@ -82,9 +83,9 @@ class AutoPublishDocument implements ShouldQueue
                         'action_type_id' => $actionType->id,
                     ], [
                         'assigned_to' => $user->id,
-                        'assigned_at' => $item->actions->firstWhere('action_type_id', 2)->completed_at,
+                        'assigned_at' => now(),
                         'completed_by' => $user->id,
-                        'completed_at' => $item->actions->firstWhere('action_type_id', 2)->completed_at,
+                        'completed_at' => now(),
                     ]);
                 }
             });
