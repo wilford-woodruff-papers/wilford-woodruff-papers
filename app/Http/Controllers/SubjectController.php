@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Page;
-use App\Models\Quote;
 use App\Models\Subject;
-use Illuminate\Database\Eloquent\Builder;
 
 class SubjectController extends Controller
 {
@@ -35,46 +32,6 @@ class SubjectController extends Controller
 
         return view('public.subjects.show', [
             'subject' => $subject,
-            'pages' => Page::query()
-                ->with([
-                    'parent',
-                    'parent.type',
-                    'media',
-                ])
-                ->where(function ($query) use ($subject) {
-                    $query->whereHas('item', function (Builder $query) {
-                        $query->where('items.enabled', true);
-                    })
-                        ->whereHas('subjects', function (Builder $query) use ($subject) {
-                            $query->whereIn('id', array_merge([$subject->id], $subject->children->pluck('id')->all()));
-                        })
-                    /*->orWhereHas('quotes.topics', function (Builder $query) use ($subject) {
-                        $query->where('subjects.id', $subject->id)
-                                ->whereHas('quotes.actions');
-                    })*/;
-                })
-                ->paginate(10),
-            'quotes' => Quote::query()
-                ->with([
-                    'page',
-                    'page.parent.type',
-                    'page.media',
-                ])
-                ->whereNotNull('text')
-                ->whereNull('continued_from_previous_page')
-                ->whereHas('actions')
-                ->where(function ($query) use ($subject) {
-                    $query->whereHas('page.parent', function (Builder $query) {
-                        $query->where('items.enabled', true);
-                    })
-                        ->whereHas('topics', function (Builder $query) use ($subject) {
-                            $query->whereIn('subjects.id', array_merge([$subject->id], $subject->children->pluck('id')->all()));
-                        })/*
-                    ->orWhereHas('topics', function (Builder $query) use ($subject) {
-//                        $query->where('subjects.id', $subject->id);
-                    })*/;
-                })
-                ->paginate(10, ['*'], 'quotes_page'),
             'linkify' => new \Misd\Linkify\Linkify(['callback' => function ($url, $caption, $bool) {
                 return '<a href="'.$url.'" class="text-secondary" target="_blank">'.$caption.'</a>';
             }]),
