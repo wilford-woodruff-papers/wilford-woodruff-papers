@@ -69,4 +69,9 @@
         <link rel="stylesheet" href="{{ asset('css/content-builder-styles.css') }}" />
         <link rel="stylesheet" href="/assets/minimalist-blocks/content-tailwind.min.css" />
     @endpush
+    @push('scripts')
+        @production
+            <x-hotjar />
+        @endproduction
+    @endpush
 </x-guest-layout>
