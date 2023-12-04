@@ -25,6 +25,15 @@ class ItemFactory extends Factory
         });
     }
 
+    public function journal(): Factory
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'type_id' => 5,
+            ];
+        });
+    }
+
     public function notPublished(): Factory
     {
         return $this->state(function (array $attributes) {
