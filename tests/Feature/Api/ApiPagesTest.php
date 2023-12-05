@@ -57,6 +57,7 @@ class ApiPagesTest extends TestCase
             'Authorization' => 'Bearer '.$token,
             'Accept' => 'application/json',
         ])
+            ->withoutMiddleware(ThrottleRequestsWithRedis::class)
             ->get(route('api.pages.index'));
 
         // Assert that the response is successful
