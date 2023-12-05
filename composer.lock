@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1c0790a34605bb7a39a7def9d3812833",
+    "content-hash": "16f06fb217d46060c5e62d14e947cc15",
     "packages": [
         {
             "name": "alexpechkarev/geometry-library",
@@ -15232,6 +15232,52 @@
             "time": "2023-02-15T09:35:24+00:00"
         },
         {
+            "name": "wilford-woodruff-papers/laravel-socialite-familysearch",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "../packages/laravel-socialite-familysearch",
+                "reference": "a7088ef35f8d7080632b388bf4b87f0dd4e94fcb"
+            },
+            "require": {
+                "ext-json": "*",
+                "php": "^8.0",
+                "socialiteproviders/manager": "^4.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "SocialiteProviders\\FamilySearch\\": ""
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jon Fackrell",
+                    "email": "jon.fackrell@wilfordwoodruffpapers.org"
+                }
+            ],
+            "description": "FamilySearch OAuth2 Provider for Laravel Socialite",
+            "keywords": [
+                "familysearch",
+                "laravel",
+                "oauth",
+                "provider",
+                "socialite"
+            ],
+            "support": {
+                "issues": "https://github.com/wilford-woodruff-papers/laravel-socialite-familysearch/issues",
+                "source": "https://github.com/wilford-woodruff-papers/laravel-socialite-familysearch",
+                "docs": "https://github.com/wilford-woodruff-papers/laravel-socialite-familysearch"
+            },
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
+        },
+        {
             "name": "wire-elements/modal",
             "version": "2.0.8",
             "source": {
@@ -19605,11 +19651,12 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "beta",
+    "minimum-stability": "dev",
     "stability-flags": {
         "emilianotisato/nova-tinymce": 20,
         "jeffersonsimaogoncalves/nova-permission": 20,
-        "laravel/pulse": 10
+        "laravel/pulse": 10,
+        "wilford-woodruff-papers/laravel-socialite-familysearch": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

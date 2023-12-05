@@ -78,6 +78,7 @@
         "vinkla/hashids": "^11.0",
         "vormkracht10/laravel-open-graph-image": "^v0.3.1",
         "wildside/userstamps": "^2.3",
+        "wilford-woodruff-papers/laravel-socialite-familysearch": "dev-main",
         "wire-elements/modal": "^2.0"
     },
     "require-dev": {
@@ -131,7 +132,7 @@
             "Tests\\": "tests/"
         }
     },
-    "minimum-stability": "beta",
+    "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
         "post-autoload-dump": [
@@ -167,6 +168,13 @@
         {
             "type": "vcs",
             "url": "https://github.com/jonfackrell/nova-permission.git"
+        },
+        {
+            "type": "path",
+            "url": "../packages/laravel-socialite-familysearch",
+            "options": {
+                "symlink": true
+            }
         }
     ]
 }
