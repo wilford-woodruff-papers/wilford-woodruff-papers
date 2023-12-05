@@ -82,6 +82,8 @@ jobs:
         SESSION_DRIVER: array
         QUEUE_DRIVER: sync
         SCOUT_DRIVER: database
+        MEDIA_DISK: public
+        DO_SPACES_REGION: nyc3
       run: ./vendor/bin/pest
     - name: Stop Laravel Server
       run: php artisan stop &
