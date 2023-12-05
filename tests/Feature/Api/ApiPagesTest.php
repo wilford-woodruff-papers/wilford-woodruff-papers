@@ -4,6 +4,7 @@ namespace Tests\Feature\Api;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Routing\Middleware\ThrottleRequestsWithRedis;
 use Tests\TestCase;
 
 class ApiPagesTest extends TestCase
@@ -16,6 +17,7 @@ class ApiPagesTest extends TestCase
         $response = $this->withHeaders([
             'Accept' => 'application/json',
         ])
+            ->withoutMiddleware(ThrottleRequestsWithRedis::class)
             ->get(route('api.pages.index'));
 
         // Assert that the response is successful
@@ -35,6 +37,7 @@ class ApiPagesTest extends TestCase
             'Authorization' => 'Bearer '.$token,
             'Accept' => 'application/json',
         ])
+            ->withoutMiddleware(ThrottleRequestsWithRedis::class)
             ->get(route('api.documents.index'));
 
         // Assert that the response is successful
