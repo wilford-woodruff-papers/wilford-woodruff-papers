@@ -70,6 +70,7 @@
                                         <a href="{{ route('people') }}">People</a>
                                         <a href="{{ route('map') }}">Places</a>
                                         <a href="{{ route('topics') }}">Topics</a>
+                                        <a href="{{ route('day-in-the-life') }}">Day in the Life</a>
                                         <a href="{{ route('timeline') }}">Timeline</a>
                                         <a href="{{ route('advanced-search') }}">Search</a>
                                         <a href="{{ route('donate') }}">Donate</a>
@@ -114,6 +115,9 @@
                                     </div>
 
                                     <div class="grid grid-cols-1 gap-y-6">
+                                        <a href="{{ route('conference.landing-page') }}" class="text-base font-medium text-gray-900 hover:text-gray-700">
+                                            2023 Conference
+                                        </a>
                                         <a href="{{ route('media.articles') }}" class="text-base font-medium text-gray-900 hover:text-gray-700">
                                             Articles
                                         </a>
@@ -391,6 +395,11 @@
                                 class="overflow-hidden absolute left-0 z-20 mt-2 w-auto bg-white shadow-md"
                             >
                                 <div>
+                                    <a href="{{ route('day-in-the-life') }}"
+                                       class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
+                                        Day in the Life
+                                    </a>
+
                                     <a href="{{ route('timeline') }}"
                                        class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
                                         Timeline of Events
@@ -635,6 +644,12 @@
                                     <h3 class="text-xs font-semibold tracking-wider uppercase whitespace-nowrap text-primary" id="media-library-headline">
                                         Media Library
                                     </h3>
+                                    <a href="{{ route('conference.landing-page') }}"
+                                       class="flex items-center py-2 px-3 text-sm font-medium whitespace-nowrap group text-secondary">
+                                        <span class="truncate">
+                                            2023 Conference
+                                        </span>
+                                    </a>
                                     <a href="{{ route('media.articles') }}"
                                        class="group flex items-center px-3 py-2 text-sm font-medium text-secondary whitespace-nowrap @if(request()->is('media/articles*')) active @endif">
                                         <span class="truncate">
