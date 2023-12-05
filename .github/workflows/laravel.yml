@@ -81,7 +81,7 @@ jobs:
         CACHE_DRIVER: array
         SESSION_DRIVER: array
         QUEUE_DRIVER: sync
-      run: vendor/bin/phpunit
+      run: ./vendor/bin/pest
     - name: Stop Laravel Server
       run: php artisan stop &
     - name: Upgrade Chrome Driver
