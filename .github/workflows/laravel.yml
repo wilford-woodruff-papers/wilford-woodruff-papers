@@ -17,7 +17,7 @@ jobs:
       run: cp .env.example .env
     - name: Get npm cache directory
       id: npm-cache
-      run: echo "::set-output name=dir::$(npm config get cache)"
+      run: echo "{name}={value}" >> $GITHUB_OUTPUT
 
     - name: Cache npm dependencies
       uses: actions/cache@v3
@@ -31,7 +31,7 @@ jobs:
     - name: NPM install and run prod
       run: |
         npm install
-        npm run prod
+        npm run build
     - name: Archive NPM artifacts
       uses: actions/upload-artifact@v2
       with:
