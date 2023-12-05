@@ -14,20 +14,23 @@ class SitemapController extends Controller
     {
         return response()->view('sitemap', [
             'documents' => Item::query()
-                            ->select('id', 'item_id', 'uuid', 'updated_at')
-                            ->where('enabled', 1)
-                            ->whereNull('item_id')
-                            ->whereNotNull('type_id')
-                            ->get(),
+                ->with([
+                    'realPages:id,item_id,uuid,updated_at',
+                ])
+                ->select('id', 'item_id', 'uuid', 'updated_at')
+                ->where('enabled', 1)
+                ->whereNull('item_id')
+                ->whereNotNull('type_id')
+                ->get(),
             'presses' => Press::query()
-                                ->select('title', 'slug', 'updated_at')
-                                ->orderBy('date', 'DESC')
-                                ->get(),
+                ->select('title', 'slug', 'updated_at')
+                ->orderBy('date', 'DESC')
+                ->get(),
             'subjects' => Subject::query()
-                                ->select('id', 'name', 'slug', 'updated_at')
-                                ->whereEnabled(1)
-                                ->whereHas('pages')
-                                ->get(),
+                ->select('id', 'name', 'slug', 'updated_at')
+                ->whereEnabled(1)
+                ->where('total_usage_count', '>', 0)
+                ->get(),
         ])->withHeaders([
             'Content-Type' => 'application/xml',
         ]);
