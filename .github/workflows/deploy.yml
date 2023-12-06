@@ -59,7 +59,7 @@ jobs:
       - name: Composer install
         run: |
               composer config "http-basic.nova.laravel.com" "${{ secrets.NOVA_USERNAME }}" "${{ secrets.NOVA_PASSWORD }}"
-              composer install --no-progress --prefer-dist --optimize-autoloader
+              composer install --no-progress --prefer-dist --optimize-autoloader --no-script
 
       - name: Prepare the application
         run: |
