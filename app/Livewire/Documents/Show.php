@@ -91,12 +91,12 @@ class Show extends Component
 
         $subjects = collect([]);
         $topics = collect([]);
-        $this->item->pages->each(function ($page) use (&$subjects, &$topics) {
-            $subjects = $subjects->merge($page->subjects->all());
-            $topics = $topics->merge($page->topics->all());
-        });
-        $subjects = $subjects->unique('id');
-        $topics = $topics->unique('id');
+        //        $this->item->pages->each(function ($page) use (&$subjects, &$topics) {
+        //            $subjects = $subjects->merge($page->subjects->all());
+        //            $topics = $topics->merge($page->topics->all());
+        //        });
+        //        $subjects = $subjects->unique('id');
+        //        $topics = $topics->unique('id');
 
         return view('livewire.documents.show', [
             'pages' => $pages->paginate(20),
