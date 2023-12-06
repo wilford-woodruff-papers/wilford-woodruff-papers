@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
@@ -68,6 +69,8 @@ class Announcement extends Resource
                 ->sortable(),
             DateTime::make(__('Stop Showing'), 'end_publishing_at')
                 ->sortable(),
+            Number::make('Order', 'order_column')
+                ->help('The order is usually determined by the "Stop Showing" date. You can use this field to override that order.'),
             Text::make('Preview', function ($model) {
                 return '<a href="'.route('announcements.show', ['announcement' => $model->slug]).'" target="_blank">Preview</a>';
             })

@@ -33,6 +33,7 @@ class BottomAnnouncements extends Component
                     ->where('type', 'homepage_bottom')
                     ->where('start_publishing_at', '<', $now)
                     ->where('end_publishing_at', '>', $now)
+                    ->orderBy('order_column', 'ASC')
                     ->orderBy('end_publishing_at', 'ASC')
                     ->get();
             }),
