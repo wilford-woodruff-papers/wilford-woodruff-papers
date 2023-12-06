@@ -12,6 +12,10 @@
                     <div class="col-span-12 md:col-span-9 content">
                         <h2>Get Involved</h2>
 
+                        <div class="pb-8">
+                            <iframe class="mx-auto max-w-full w-[640px] aspect-[16/9]" src="https://www.youtube.com/embed/DIqolILTNY4?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+                        </div>
+
                         <div class="grid gap-2 mt-4 lg:grid-cols-1 lg:gap-y-2">
                             There are several ways you can get involved to help us complete the mission and purpose of the Wilford Woodruff Papers Foundation.
 
