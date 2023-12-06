@@ -38,7 +38,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-versions }}
-          extensions: mbstring, dom, fileinfo
+          extensions: mbstring, dom, fileinfo, :php-psr
           # optional
           coverage: xdebug
 
