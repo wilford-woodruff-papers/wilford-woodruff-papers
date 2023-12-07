@@ -1,10 +1,11 @@
 <div>
     <div
         x-data="{
-            selectedId: $persist( '{{ ($quotes->total() > 0 ? 'tab-1-2' : 'tab-1-1') }}').using(sessionStorage).as('subject-tab'),
+            selectedId: '{{ ($quotes->total() > 0 ? 'tab-1-2' : 'tab-1-1') }}',
             init() {
                 // Set the first available tab on the page on page load.
-                this.$nextTick(() => this.determineDefaultTab())
+                // this.$nextTick(() => this.determineDefaultTab())
+                this.$nextTick(() => this.select(this.$id('tab', 1)))
             },
             determineDefaultTab() {
                 if(Array.from(document.getElementById('subject-tablist').children).length == 1){
@@ -25,7 +26,7 @@
         class="mx-auto max-w-7xl"
     >
         <!-- Tab List -->
-        <ul wire:ignore
+        <ul
             id="subject-tablist"
             x-ref="tablist"
             @keydown.right.prevent.stop="$focus.wrap().next()"
@@ -72,15 +73,15 @@
         </ul>
 
 
-            <div wire:loading.flex
-                class="flex z-20 justify-center items-center w-full bg-white opacity-50 h-128">
-                <div class="animate-ping">
-                    Loading...
-                </div>
-            </div>
-        
+{{--            <div wire:loading.flex--}}
+{{--                class="flex z-20 justify-center items-center w-full bg-white opacity-50 h-128">--}}
+{{--                <div class="animate-ping">--}}
+{{--                    Loading...--}}
+{{--                </div>--}}
+{{--            </div>--}}
+
         <!-- Panels -->
-        <div wire:loading.remove
+        <div
              role="tabpanels" class="bg-white rounded-b-md border border-gray-200">
             <!-- Panel -->
             @if($quotes->total() > 0)
@@ -89,9 +90,10 @@
                     :aria-labelledby="$id('tab', whichChild($el, $el.parentElement))"
                     role="tabpanel"
                     class="p-8"
-                    id="quotes"
                 >
-                    <ul class="divide-y divide-gray-200">
+                    <ul  wire:loading.remove
+                         class="divide-y divide-gray-200"
+                         id="quotes">
                         @foreach($quotes as $quote)
 
                             <x-quote-summary :quote="$quote" />
@@ -109,9 +111,10 @@
                 :aria-labelledby="$id('tab', whichChild($el, $el.parentElement))"
                 role="tabpanel"
                 class="p-8"
-                id="pages"
             >
-                <ul class="divide-y divide-gray-200">
+                <ul  wire:loading.remove
+                     class="divide-y divide-gray-200"
+                     id="pages">
                     @foreach($pages as $page)
 
                         <x-page-summary :page="$page" />
