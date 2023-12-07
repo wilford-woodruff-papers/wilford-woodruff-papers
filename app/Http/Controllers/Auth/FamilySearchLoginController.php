@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Http;
 use Laravel\Socialite\Facades\Socialite;
 
 class FamilySearchLoginController extends Controller
@@ -28,6 +29,9 @@ class FamilySearchLoginController extends Controller
         $user = auth()->user();
         $user->pid = $familysearchUser->getId();
         $user->save();
+
+        $response = Http::withToken()
+            ->get(config('services.familysearch.base_uri').'/platform/tree/persons/CURRENT/relationships/{opid}');
         dd($familysearchUser);
     }
 }
