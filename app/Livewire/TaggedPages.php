@@ -7,10 +7,13 @@ use App\Models\Quote;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Attributes\Lazy;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 #[Lazy]
 class TaggedPages extends Component
 {
+    use WithPagination;
+
     public \App\Models\Subject $subject;
 
     public function render()
@@ -65,5 +68,16 @@ class TaggedPages extends Component
             'pages' => $pages ?? collect(),
             'quotes' => $quotes ?? collect(),
         ]);
+    }
+
+    public function placeholder()
+    {
+        return <<<'HTML'
+        <div class="flex z-20 justify-center items-center w-full h-128 bg-white opacity-50">
+               <div class="animate-ping">
+                   Loading...
+               </div>
+           </div>
+        HTML;
     }
 }
