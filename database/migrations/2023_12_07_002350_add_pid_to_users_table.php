@@ -15,6 +15,10 @@ return new class extends Migration
             $table->string('pid')
                 ->nullable()
                 ->after('id');
+            $table->string('familysearch_token')
+                ->nullable();
+            $table->string('familysearch_refresh_token')
+                ->nullable();
         });
     }
 

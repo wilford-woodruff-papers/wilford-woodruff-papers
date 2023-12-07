@@ -28,10 +28,15 @@ class FamilySearchLoginController extends Controller
         $familysearchUser = Socialite::driver('familysearch')->user();
         $user = auth()->user();
         $user->pid = $familysearchUser->getId();
+        $user->familysearch_token = $familysearchUser->token;
+        $user->familysearch_refresh_token = $familysearchUser->refreshToken;
         $user->save();
 
-        $response = Http::withToken()
-            ->get(config('services.familysearch.base_uri').'/platform/tree/persons/CURRENT/relationships/{opid}');
-        dd($familysearchUser);
+        $response = Http::withToken($user->familysearch_token)
+            ->acceptJson()
+            ->get(config('services.familysearch.base_uri').'/platform/tree/persons/CURRENT/relationships/KWJ6-4JT');
+        \Storage::disk('local')
+            ->put('example-relationship.json', $response->body());
+
     }
 }
