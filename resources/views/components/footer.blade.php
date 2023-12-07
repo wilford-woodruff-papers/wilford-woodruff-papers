@@ -116,6 +116,12 @@
                         </li>
 
                         <li>
+                            <a href="{{ route('day-in-the-life') }}" class="text-base text-white hover:text-highlight">
+                                Day in the Life
+                            </a>
+                        </li>
+
+                        <li>
                             <a href="{{ route('timeline') }}" class="text-base text-white hover:text-highlight">
                                 Timeline
                             </a>
@@ -183,6 +189,18 @@
                         Media
                     </h3>
                     <ul class="mt-4 space-y-4">
+
+                        <li>
+                            <a href="{{ route('conference.landing-page') }}" class="text-base text-white hover:text-highlight">
+                                2023 Conference
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{{ route('media.articles') }}" class="text-base text-white hover:text-highlight">
+                                Articles
+                            </a>
+                        </li>
 
                         <li>
                             <a href="{{ route('media.photos') }}" class="text-base text-white hover:text-highlight">

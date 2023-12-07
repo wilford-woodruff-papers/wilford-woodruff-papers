@@ -25,6 +25,9 @@ class FamilySearchLoginController extends Controller
     {
         // $familysearchUser = Socialite::driver('familysearch')->user();
         $familysearchUser = Socialite::driver('familysearch')->user();
+        $user = auth()->user();
+        $user->pid = $familysearchUser->getId();
+        $user->save();
         dd($familysearchUser);
     }
 }

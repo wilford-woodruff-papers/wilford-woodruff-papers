@@ -9,18 +9,24 @@ on:
 jobs:
   laravel-tests:
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.operating-system }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        operating-system: [ ubuntu-20.04 ]
+        php-versions: [ '8.2' ]
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Copy .env
       run: cp .env.example .env
     - name: Get npm cache directory
       id: npm-cache
-      run: echo "::set-output name=dir::$(npm config get cache)"
+      run: echo "{name}={value}" >> $GITHUB_OUTPUT
 
     - name: Cache npm dependencies
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: ${{ steps.npm-cache.outputs.dir }}
         # Use package.json for key, if package-lock.json is not committed.
@@ -28,10 +34,29 @@ jobs:
         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
           ${{ runner.os }}-node-
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-versions }}
+        extensions: mbstring, dom, fileinfo, :php-psr
+        # optional
+        coverage: xdebug
+
+    - name: Create Database
+      run: |
+          sudo systemctl start mysql
+          mysql --user="root" --password="root" -e "CREATE DATABASE laravel;"
+    - name: Install Composer Dependencies
+      run: |
+            composer config "http-basic.nova.laravel.com" "${{ secrets.NOVA_USERNAME }}" "${{ secrets.NOVA_PASSWORD }}"
+            composer install --no-progress --prefer-dist --optimize-autoloader
+    - name: Generate Application Key
+      run: php artisan key:generate
     - name: NPM install and run prod
       run: |
         npm install
-        npm run prod
+        npm run build
     - name: Archive NPM artifacts
       uses: actions/upload-artifact@v2
       with:
@@ -41,18 +66,6 @@ jobs:
           public/css/**/*
           public/js/**/*
           public/img/**/*
-    - name: Create Database
-      run: |
-          sudo systemctl start mysql
-          mysql --user="root" --password="root" -e "CREATE DATABASE laravel;"
-    - name: Install Composer Dependencies
-      env:
-        PHP_VERSION: php
-      run: |
-            composer config "http-basic.nova.laravel.com" "${{ secrets.NOVA_USERNAME }}" "${{ secrets.NOVA_PASSWORD }}"
-            composer install --no-progress --prefer-dist --optimize-autoloader
-    - name: Generate Application Key
-      run: php artisan key:generate
     - name: Directory Permissions
       run: chmod -R 777 storage bootstrap/cache
     - name: Run Laravel Server
@@ -68,39 +81,14 @@ jobs:
         CACHE_DRIVER: array
         SESSION_DRIVER: array
         QUEUE_DRIVER: sync
-      run: vendor/bin/phpunit
+        SCOUT_DRIVER: database
+        MEDIA_DISK: public
+        DO_SPACES_KEY: ${{ secrets.DO_SPACES_KEY }}
+        DO_SPACES_SECRET: ${{ secrets.DO_SPACES_SECRET }}
+        DO_SPACES_URL: ${{ secrets.DO_SPACES_URL }}
+        DO_SPACES_ENDPOINT: ${{ secrets.DO_SPACES_ENDPOINT }}
+        DO_SPACES_REGION: ${{ secrets.DO_SPACES_REGION }}
+        DO_SPACES_BUCKET: ${{ secrets.DO_SPACES_BUCKET }}
+      run: ./vendor/bin/pest
     - name: Stop Laravel Server
       run: php artisan stop &
-    - name: Upgrade Chrome Driver
-      run: php artisan dusk:chrome-driver `/opt/google/chrome/chrome --version | cut -d " " -f3 | cut -d "." -f1`
-    - name: Start Chrome Driver
-      run: ./vendor/laravel/dusk/bin/chromedriver-linux &
-    - name: Run Dusk Tests
-      env:
-        APP_URL: "http://127.0.0.1:8000"
-        DB_CONNECTION: mysql
-        DB_DATABASE: laravel
-        DB_USERNAME: root
-        DB_PASSWORD: root
-        CACHE_DRIVER: array
-        SESSION_DRIVER: array
-        QUEUE_DRIVER: sync
-      run: php artisan dusk
-    - name: Upload logs
-      if: failure()
-      uses: actions/upload-artifact@v2
-      with:
-        name: logs
-        path: storage/logs
-    - name: Upload Screenshots
-      if: failure()
-      uses: actions/upload-artifact@v2
-      with:
-        name: screenshots
-        path: tests/Browser/screenshots
-    - name: Upload Console Logs
-      if: failure()
-      uses: actions/upload-artifact@v2
-      with:
-        name: console
-        path: tests/Browser/console

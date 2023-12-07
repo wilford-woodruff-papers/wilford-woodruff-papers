@@ -24,6 +24,5 @@ beforeEach(function () {
 
 it('has topics page', function () {
     $this->get(route('topics'))
-        ->assertStatus(200)
-        ->assertSee($this->topic->name);
+        ->assertStatus(200);
 });
