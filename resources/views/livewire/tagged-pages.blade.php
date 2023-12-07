@@ -26,7 +26,7 @@
         class="mx-auto max-w-7xl"
     >
         <!-- Tab List -->
-        <ul
+        <ul wire:ignore
             id="subject-tablist"
             x-ref="tablist"
             @keydown.right.prevent.stop="$focus.wrap().next()"
@@ -73,12 +73,12 @@
         </ul>
 
 
-{{--            <div wire:loading.flex--}}
-{{--                class="flex z-20 justify-center items-center w-full bg-white opacity-50 h-128">--}}
-{{--                <div class="animate-ping">--}}
-{{--                    Loading...--}}
-{{--                </div>--}}
-{{--            </div>--}}
+            <div wire:loading.flex
+                class="flex z-20 justify-center items-center w-full bg-white opacity-50 h-128">
+                <div class="animate-ping">
+                    Loading...
+                </div>
+            </div>
 
         <!-- Panels -->
         <div
