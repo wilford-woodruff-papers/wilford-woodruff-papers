@@ -25,7 +25,7 @@
         class="mx-auto max-w-7xl"
     >
         <!-- Tab List -->
-        <ul
+        <ul wire:ignore
             id="subject-tablist"
             x-ref="tablist"
             @keydown.right.prevent.stop="$focus.wrap().next()"
@@ -71,8 +71,17 @@
             </li>
         </ul>
 
+
+            <div wire:loading.flex
+                class="flex z-20 justify-center items-center w-full bg-white opacity-50 h-128">
+                <div class="animate-ping">
+                    Loading...
+                </div>
+            </div>
+        
         <!-- Panels -->
-        <div role="tabpanels" class="bg-white rounded-b-md border border-gray-200">
+        <div wire:loading.remove
+             role="tabpanels" class="bg-white rounded-b-md border border-gray-200">
             <!-- Panel -->
             @if($quotes->total() > 0)
                 <section
@@ -80,6 +89,7 @@
                     :aria-labelledby="$id('tab', whichChild($el, $el.parentElement))"
                     role="tabpanel"
                     class="p-8"
+                    id="quotes"
                 >
                     <ul class="divide-y divide-gray-200">
                         @foreach($quotes as $quote)
@@ -88,7 +98,7 @@
 
                         @endforeach
                     </ul>
-                    <div>
+                    <div id="quote-pagination">
                         {!! $quotes->withQueryString()->links() !!}
                     </div>
                 </section>
@@ -99,6 +109,7 @@
                 :aria-labelledby="$id('tab', whichChild($el, $el.parentElement))"
                 role="tabpanel"
                 class="p-8"
+                id="pages"
             >
                 <ul class="divide-y divide-gray-200">
                     @foreach($pages as $page)
@@ -107,7 +118,7 @@
 
                     @endforeach
                 </ul>
-                <div>
+                <div id="page-pagination">
                     {!! $pages->withQueryString()->links() !!}
                 </div>
             </section>
