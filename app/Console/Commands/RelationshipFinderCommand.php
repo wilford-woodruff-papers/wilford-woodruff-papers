@@ -37,11 +37,14 @@ class RelationshipFinderCommand extends Command
 
         $people = Subject::query()
             ->select('id', 'name', 'pid')
-            ->people()
             ->whereNotNull('pid')
+            ->whereHas('category', function ($query) {
+                $query->whereIn('name', ['People'])
+                    ->whereNotIn('name', ['Scriptural Figures', 'Historical Figures', 'Eminent Men and Women']);
+            })
             ->where('pid', '!=', 'n/a')
             ->inRandomOrder()
-            ->limit(200)
+            ->limit(500)
             ->toBase()
             ->get();
 

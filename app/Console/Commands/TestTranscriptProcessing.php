@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
-use PHPHtmlParser\Dom;
+use voku\helper\HtmlDomParser;
 
 class TestTranscriptProcessing extends Command
 {
@@ -41,10 +41,9 @@ class TestTranscriptProcessing extends Command
 
     private function convertSubjectTags($transcript)
     {
-        $dom = new Dom;
-        $dom->loadStr($transcript);
+        $dom = HtmlDomParser::str_get_html($transcript);
         $transcript = Str::of($transcript);
-        $links = $dom->find('a');
+        $links = $dom->findMulti('a');
         foreach ($links as $link) {
             //dd($link->outerHtml(), $link->getAttribute('title'), $link->innerHtml());
             if (str($link->outerHtml())->contains('Phebe')) {

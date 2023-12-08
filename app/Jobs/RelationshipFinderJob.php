@@ -2,6 +2,8 @@
 
 namespace App\Jobs;
 
+use App\Http\Integrations\FamilySearch\RelationshipFinder;
+use App\Http\Integrations\FamilySearch\Requests\Relationship as RelationshipRequest;
 use App\Models\Relationship;
 use App\Models\User;
 use Illuminate\Bus\Batchable;
@@ -10,7 +12,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Http;
+use Saloon\RateLimitPlugin\Helpers\ApiRateLimited;
 
 class RelationshipFinderJob implements ShouldQueue
 {
@@ -29,12 +31,12 @@ class RelationshipFinderJob implements ShouldQueue
         $this->person = $person;
     }
 
-    /*public function middleware(): array
+    public function middleware(): array
     {
         return [
-            new RateLimited('relationships'),
+            new ApiRateLimited(),
         ];
-    }*/
+    }
 
     /**
      * Execute the job.
@@ -46,12 +48,18 @@ class RelationshipFinderJob implements ShouldQueue
             return;
         }
 
-        $response = Http::withToken($this->user->familysearch_token)
-            ->acceptJson()
-            ->get(config('services.familysearch.base_uri').'/platform/tree/persons/CURRENT/relationships/'.$this->person->pid);
+        $familysearch = new RelationshipFinder();
+        $request = new RelationshipRequest($this->user->familysearch_token, $this->person->pid);
+
+        $response = $familysearch->send($request);
+
+        // TODO: Check for 401 which means we need to reauthenticate with refresh token
+        //        $response = Http::withToken($this->user->familysearch_token)
+        //            ->acceptJson()
+        //            ->get(config('services.familysearch.base_uri').'/platform/tree/persons/CURRENT/relationships/'.$this->person->pid);
 
         if ($response->ok()) {
-            $persons = collect($response->json('persons'));
+            $persons = collect(data_get($response->json(), 'persons'));
             $length = $persons->count();
             $relative = $persons->pop();
             $relation = data_get($relative, 'display.relationshipDescription');
@@ -63,6 +71,16 @@ class RelationshipFinderJob implements ShouldQueue
                     'distance' => $length,
                     'description' => str($relation)->after('My '),
                 ]);
+        } elseif ($response->status() === 204) {
+            $relationship = Relationship::updateOrCreate([
+                'subject_id' => $this->person->id,
+                'user_id' => $this->user->id,
+            ],
+                [
+                    'distance' => 0,
+                ]);
+        } else {
+            info('HTTP Status: '.$response->status().' for '.$this->person->pid);
         }
     }
 }

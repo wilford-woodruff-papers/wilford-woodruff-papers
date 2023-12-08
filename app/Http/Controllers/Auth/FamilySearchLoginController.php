@@ -32,6 +32,8 @@ class FamilySearchLoginController extends Controller
         $user->familysearch_refresh_token = $familysearchUser->refreshToken;
         $user->save();
 
+        dd($familysearchUser);
+
         $response = Http::withToken($user->familysearch_token)
             ->acceptJson()
             ->get(config('services.familysearch.base_uri').'/platform/tree/persons/CURRENT/relationships/KWJ6-4JT');
