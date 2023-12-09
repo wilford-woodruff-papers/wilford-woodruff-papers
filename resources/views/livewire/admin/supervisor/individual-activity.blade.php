@@ -80,6 +80,7 @@
                                                 <th class="py-3.5 pr-3 pl-4 text-sm font-semibold text-center text-white sm:pl-6">Journals<br/>(pages)</th>
                                                 <th class="py-3.5 pr-3 pl-4 text-sm font-semibold text-center text-white sm:pl-6">Additional<br/>(pages)</th>
                                                 <th class="py-3.5 pr-3 pl-4 text-sm font-semibold text-center text-white sm:pl-6">Autobiographies<br/>(pages)</th>
+                                                <th class="py-3.5 pr-3 pl-4 text-sm font-semibold text-center text-white sm:pl-6">Daybooks<br/>(pages)</th>
                                             </tr>
                                             </thead>
                                             <tbody class="bg-white">
