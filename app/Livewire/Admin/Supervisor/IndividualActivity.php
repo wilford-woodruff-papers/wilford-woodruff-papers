@@ -75,6 +75,7 @@ class IndividualActivity extends Component
             'Journal Sections',
             'Additional',
             'Autobiographies',
+            'Daybooks',
         ];
     }
 
