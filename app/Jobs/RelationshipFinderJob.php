@@ -6,12 +6,15 @@ use App\Http\Integrations\FamilySearch\RelationshipFinder;
 use App\Http\Integrations\FamilySearch\Requests\Relationship as RelationshipRequest;
 use App\Models\Relationship;
 use App\Models\User;
+use GuzzleHttp\Exception\ConnectException;
 use Illuminate\Bus\Batchable;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Saloon\Exceptions\Request\FatalRequestException;
+use Saloon\RateLimitPlugin\Exceptions\RateLimitReachedException;
 use Saloon\RateLimitPlugin\Helpers\ApiRateLimited;
 
 class RelationshipFinderJob implements ShouldQueue
@@ -21,6 +24,8 @@ class RelationshipFinderJob implements ShouldQueue
     public User $user;
 
     public \stdClass $person;
+
+    public $tries = 20;
 
     /**
      * Create a new job instance.
@@ -49,9 +54,35 @@ class RelationshipFinderJob implements ShouldQueue
         }
 
         $familysearch = new RelationshipFinder();
-        $request = new RelationshipRequest($this->user->familysearch_token, $this->person->pid);
 
-        $response = $familysearch->send($request);
+        try {
+            $request = new RelationshipRequest($this->user->familysearch_token, $this->person->pid);
+            $response = $familysearch->send($request);
+        } catch (RateLimitReachedException $exception) {
+            $seconds = $exception->getLimit()->getRemainingSeconds();
+            sleep(20);
+            $this->dispatch(30);
+
+            return;
+        } catch (FatalRequestException $exception) {
+            info($exception->getMessage());
+            sleep(20);
+            $this->dispatch(30);
+
+            return;
+        } catch (ConnectException $exception) {
+            info($exception->getMessage());
+            sleep(20);
+            $this->dispatch(30);
+
+            return;
+        } catch (\Exception $exception) {
+            info($exception->getMessage());
+            //sleep(20);
+            //$this->dispatch(30);
+
+            return;
+        }
 
         // TODO: Check for 401 which means we need to reauthenticate with refresh token
         //        $response = Http::withToken($this->user->familysearch_token)

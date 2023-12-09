@@ -2,8 +2,11 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Relationship;
+use App\Models\RelationshipFinderQueue;
 use App\Models\Subject;
 use App\Models\User;
+use App\Notifications\RelationshipFinderCompletedNotification;
 use Illuminate\Bus\Batch;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Bus;
@@ -15,24 +18,24 @@ class RelationshipFinderCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'relationships {pid}';
+    protected $signature = 'relationships:check {id}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Check relationships for a given user id.';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        $pid = $this->argument('pid');
+        $id = $this->argument('id');
 
         $user = User::query()
-            ->where('pid', $pid)
+            ->where('id', $id)
             ->firstOrFail();
 
         $people = Subject::query()
@@ -43,8 +46,14 @@ class RelationshipFinderCommand extends Command
                     ->whereNotIn('name', ['Scriptural Figures', 'Historical Figures', 'Eminent Men and Women']);
             })
             ->where('pid', '!=', 'n/a')
-            ->inRandomOrder()
-            ->limit(500)
+            ->whereNotIn('id',
+                Relationship::query()
+                    ->where('user_id', $user->id)
+                    ->pluck('subject_id')
+                    ->all()
+            )
+            //->inRandomOrder()
+            //->limit(500)
             ->toBase()
             ->get();
 
@@ -58,8 +67,14 @@ class RelationshipFinderCommand extends Command
             ->onQueue('relationships')
             ->name('Relation Ship Finder')
             ->allowFailures()
-            ->finally(function (Batch $batch) {
-                // TODO:
+            ->finally(function (Batch $batch) use ($user) {
+                RelationshipFinderQueue::query()
+                    ->where('user_id', $user->id)
+                    ->update([
+                        'in_progress' => false,
+                        'finished_at' => now(),
+                    ]);
+                $user->notify(new RelationshipFinderCompletedNotification());
             })
             ->dispatch();
 

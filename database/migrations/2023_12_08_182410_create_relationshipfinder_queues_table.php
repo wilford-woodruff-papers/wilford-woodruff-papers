@@ -11,20 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('relationships', function (Blueprint $table) {
+        Schema::create('relationship_finder_queue', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('subject_id')
-                ->contrained()
-                ->onDelete('cascade');
             $table->foreignId('user_id')
-                ->contrained()
-                ->onDelete('cascade');
-            $table->unsignedInteger('distance')
+                ->constrained()
+                ->cascadeOnDelete();
+            $table->boolean('in_progress')
+                ->default(false);
+            $table->dateTime('started_at')
                 ->nullable();
-            $table->string('description')
+            $table->dateTime('finished_at')
                 ->nullable();
             $table->timestamps();
-            $table->index('user_id');
         });
     }
 
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('relationships');
+        Schema::dropIfExists('relationship_finder_queue');
     }
 };

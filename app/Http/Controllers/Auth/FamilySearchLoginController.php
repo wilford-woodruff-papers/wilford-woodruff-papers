@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\RelationshipFinderQueue;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Http;
 use Laravel\Socialite\Facades\Socialite;
 
 class FamilySearchLoginController extends Controller
@@ -24,7 +24,7 @@ class FamilySearchLoginController extends Controller
      */
     public function handleProviderCallback(): RedirectResponse
     {
-        // $familysearchUser = Socialite::driver('familysearch')->user();
+
         $familysearchUser = Socialite::driver('familysearch')->user();
         $user = auth()->user();
         $user->pid = $familysearchUser->getId();
@@ -32,13 +32,13 @@ class FamilySearchLoginController extends Controller
         $user->familysearch_refresh_token = $familysearchUser->refreshToken;
         $user->save();
 
-        dd($familysearchUser);
+        RelationshipFinderQueue::query()
+            ->create([
+                'user_id' => $user->id,
+            ]);
 
-        $response = Http::withToken($user->familysearch_token)
-            ->acceptJson()
-            ->get(config('services.familysearch.base_uri').'/platform/tree/persons/CURRENT/relationships/KWJ6-4JT');
-        \Storage::disk('local')
-            ->put('example-relationship.json', $response->body());
-
+        return redirect()
+            ->route('people')
+            ->with('status', 'You have successfully connected your FamilySearch account and we will begin checking for your relatives in Wilford Woodruff\'s Papers.');
     }
 }

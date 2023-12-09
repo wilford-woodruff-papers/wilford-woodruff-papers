@@ -46,8 +46,8 @@ class RelationshipFinder extends Connector
     protected function resolveLimits(): array
     {
         return [
-            Limit::allow(requests: 2)
-                ->everySeconds(seconds: 1)
+            Limit::allow(requests: 10)
+                ->everySeconds(seconds: 5)
                 ->sleep(),
         ];
     }
@@ -56,4 +56,15 @@ class RelationshipFinder extends Connector
     {
         return new LaravelCacheStore(Cache::store(config('cache.default')));
     }
+
+    //    protected function handleTooManyAttempts(Response $response, Limit $limit): void
+    //    {
+    //        if ($response->status() !== 429) {
+    //            return;
+    //        }
+    //        info($response->status());
+    //        $limit->exceeded(
+    //            releaseInSeconds: RetryAfterHelper::parse($response->header('Retry-After')),
+    //        );
+    //    }
 }
