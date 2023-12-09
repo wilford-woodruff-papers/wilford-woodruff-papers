@@ -480,7 +480,7 @@
                                     style="display: none;"
                                     class="overflow-hidden absolute -right-4 z-20 mt-2 w-auto bg-white shadow-md md:w-screen lg:w-[700px]"
                                 >
-                                    <div class="grid grid-cols-3 gap-x-16 p-4">
+                                    <div class="grid grid-cols-3 gap-x-16 p-8">
                                         <div>
                                             <span class="text-base font-semibold tracking-wider uppercase whitespace-nowrap text-primary">
                                                 About
