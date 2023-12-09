@@ -194,7 +194,7 @@
     <div x-data="{
                 dropdown: null
              }"
-         class="hidden py-2 md:block bg-secondary">
+         class="hidden py-0.5 md:block xl:py-2 bg-secondary">
         <div class="relative mx-auto max-w-7xl">
             <nav class="px-4 md:flex md:justify-between md:items-center md:ml-4">
                 <div class="flex flex-1 space-x-4 min-w-0 md:space-x-10">
@@ -423,7 +423,7 @@
                        class="py-1 px-2 text-base font-medium uppercase rounded-md border-2 border-white md:text-white text-primary md:hover:text-highlight md:hover:border-highlight"
                     >Donate</a>
                     <div>
-                        <div class="flex justify-center">
+                        <div class="flex justify-center items-center">
                             <div
                                 x-data="{
                                 open: false,
@@ -462,7 +462,7 @@
                                     :aria-expanded="open"
                                     :aria-controls="$id('dropdown-button')"
                                     type="button"
-                                    class="text-base font-medium uppercase md:text-white text-primary md:hover:text-highlight"
+                                    class="mt-1.5 text-base font-medium uppercase md:text-white text-primary md:hover:text-highlight"
                                 >
                                     <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -478,7 +478,7 @@
                                     x-on:click.outside="close($refs.button)"
                                     :id="$id('dropdown-button')"
                                     style="display: none;"
-                                    class="overflow-hidden absolute -right-4 z-20 mt-2 w-auto bg-white shadow-md md:w-screen lg:w-[700px]"
+                                    class="overflow-hidden absolute -right-4 top-10 z-20 w-auto bg-white shadow-md md:w-screen lg:w-[700px]"
                                 >
                                     <div class="grid grid-cols-3 gap-x-16 p-8">
                                         <div>
