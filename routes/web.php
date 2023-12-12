@@ -220,6 +220,10 @@ Route::middleware([])->group(function () {
 
     Route::get('login/google', [\App\Http\Controllers\Auth\GoogleLoginController::class, 'redirectToProvider'])->name('login.google');
     Route::get('login/google/callback', [\App\Http\Controllers\Auth\GoogleLoginController::class, 'handleProviderCallback']);
+
+    Route::get('login/familysearch', [\App\Http\Controllers\Auth\FamilySearchLoginController::class, 'redirectToProvider'])->name('login.familysearch');
+    Route::get('login/familysearch/auth', [\App\Http\Controllers\Auth\FamilySearchLoginController::class, 'handleProviderCallback']);
+
     Route::get('login/facebook', [\App\Http\Controllers\Auth\FacebookLoginController::class, 'redirectToProvider'])->name('login.facebook');
     Route::get('login/facebook/callback', [\App\Http\Controllers\Auth\FacebookLoginController::class, 'handleProviderCallback']);
     Route::get('login/instagram/auth', \App\Http\Controllers\Auth\InstagramAuthController::class)->name('login.instagram.auth');

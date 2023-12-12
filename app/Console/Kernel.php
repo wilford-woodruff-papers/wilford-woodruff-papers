@@ -163,6 +163,13 @@ class Kernel extends ConsoleKernel
             ->withoutOverlapping()
             ->timezone('America/Denver')
             ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org');
+
+        $schedule
+            ->command('relationships:process')
+            ->everyFiveMinutes()
+            ->withoutOverlapping()
+            ->timezone('America/Denver')
+            ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org');
     }
 
     /**

@@ -17,7 +17,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
-use PHPHtmlParser\Dom;
+use voku\helper\HtmlDomParser;
 
 class ImportItemFromFtp implements ShouldQueue
 {
@@ -302,9 +302,8 @@ class ImportItemFromFtp implements ShouldQueue
     private function extractDates($transcript)
     {
         $dates = [];
-        $dom = new Dom;
-        $dom->loadStr($transcript);
-        $dateNodes = $dom->find('time');
+        $dom = HtmlDomParser::str_get_html($transcript->toString());
+        $dateNodes = $dom->findMulti('time');
         foreach ($dateNodes as $node) {
             $dates[] = $node->getAttribute('datetime');
         }
