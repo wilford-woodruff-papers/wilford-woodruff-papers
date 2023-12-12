@@ -84,7 +84,7 @@
         "voku/simple_html_dom": "^4.8",
         "vormkracht10/laravel-open-graph-image": "^v0.3.1",
         "wildside/userstamps": "^2.3",
-        "wilford-woodruff-papers/laravel-socialite-familysearch": "dev-main",
+        "wilford-woodruff-papers/laravel-socialite-familysearch": "^1.0",
         "wire-elements/modal": "^2.0"
     },
     "require-dev": {
@@ -174,13 +174,6 @@
         {
             "type": "vcs",
             "url": "https://github.com/jonfackrell/nova-permission.git"
-        },
-        {
-            "type": "path",
-            "url": "../packages/laravel-socialite-familysearch",
-            "options": {
-                "symlink": true
-            }
         }
     ]
 }
