@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "11b9eaeb926f5a5df10620b37f0cdc90",
+    "content-hash": "11cb47625af04b2b7e9ace0a01f46f8a",
     "packages": [
         {
             "name": "alexpechkarev/geometry-library",
@@ -15581,11 +15581,17 @@
         },
         {
             "name": "wilford-woodruff-papers/laravel-socialite-familysearch",
-            "version": "dev-main",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wilford-woodruff-papers/laravel-socialite-familysearch.git",
+                "reference": "ab5493ee612d82f30d0ac0c51b8a006896ade717"
+            },
             "dist": {
-                "type": "path",
-                "url": "../packages/laravel-socialite-familysearch",
-                "reference": "a7088ef35f8d7080632b388bf4b87f0dd4e94fcb"
+                "type": "zip",
+                "url": "https://api.github.com/repos/wilford-woodruff-papers/laravel-socialite-familysearch/zipball/ab5493ee612d82f30d0ac0c51b8a006896ade717",
+                "reference": "ab5493ee612d82f30d0ac0c51b8a006896ade717",
+                "shasum": ""
             },
             "require": {
                 "ext-json": "*",
@@ -15598,6 +15604,7 @@
                     "SocialiteProviders\\FamilySearch\\": ""
                 }
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -15616,14 +15623,11 @@
                 "socialite"
             ],
             "support": {
+                "docs": "https://github.com/wilford-woodruff-papers/laravel-socialite-familysearch",
                 "issues": "https://github.com/wilford-woodruff-papers/laravel-socialite-familysearch/issues",
-                "source": "https://github.com/wilford-woodruff-papers/laravel-socialite-familysearch",
-                "docs": "https://github.com/wilford-woodruff-papers/laravel-socialite-familysearch"
+                "source": "https://github.com/wilford-woodruff-papers/laravel-socialite-familysearch"
             },
-            "transport-options": {
-                "symlink": true,
-                "relative": true
-            }
+            "time": "2023-12-12T16:50:25+00:00"
         },
         {
             "name": "wire-elements/modal",
@@ -20010,8 +20014,7 @@
     "stability-flags": {
         "emilianotisato/nova-tinymce": 20,
         "jeffersonsimaogoncalves/nova-permission": 20,
-        "laravel/pulse": 10,
-        "wilford-woodruff-papers/laravel-socialite-familysearch": 20
+        "laravel/pulse": 10
     },
     "prefer-stable": true,
     "prefer-lowest": false,
