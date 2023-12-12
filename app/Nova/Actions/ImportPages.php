@@ -10,7 +10,7 @@ use Laravel\Nova\Actions\Action;
 use Laravel\Nova\Fields\ActionFields;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use PHPHtmlParser\Dom;
+use voku\helper\HtmlDomParser;
 
 class ImportPages extends Action
 {
@@ -67,9 +67,8 @@ class ImportPages extends Action
     private function extractDates($transcript)
     {
         $dates = [];
-        $dom = new Dom;
-        $dom->loadStr($transcript);
-        $dateNodes = $dom->find('time');
+        $dom = HtmlDomParser::str_get_html($transcript);
+        $dateNodes = $dom->findMulti('time');
         foreach ($dateNodes as $node) {
             $dates[] = $node->getAttribute('datetime');
         }

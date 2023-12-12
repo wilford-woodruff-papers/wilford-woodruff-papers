@@ -6,7 +6,9 @@ use App\Http\Middleware\DownloadAIExperienceMiddleware;
 use App\Macros\AddSubjectLinks;
 use App\Macros\RemoveQZCodes;
 use App\Macros\StripBracketedID;
+use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
@@ -48,6 +50,10 @@ class AppServiceProvider extends ServiceProvider
 
         Validator::extend('exclude_one', function ($attribute, $value, $parameters, $validator) {
             return $value != 1;
+        });
+
+        RateLimiter::for('relationships', function ($job) {
+            return Limit::perMinute(150);
         });
 
         //Model::preventLazyLoading(! $this->app->isProduction());
