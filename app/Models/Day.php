@@ -43,6 +43,7 @@ class Day extends Model
     {
         return str($this->content)
             ->addSubjectLinks()
+            ->replaceInlineLanguageTags()
             ->addScriptureLinks()
             ->removeQZCodes(false)
             ->replace('&amp;', '&');

@@ -302,7 +302,7 @@ class ImportItemFromFtp implements ShouldQueue
     private function extractDates($transcript)
     {
         $dates = [];
-        $dom = HtmlDomParser::str_get_html($transcript);
+        $dom = HtmlDomParser::str_get_html($transcript->toString());
         $dateNodes = $dom->findMulti('time');
         foreach ($dateNodes as $node) {
             $dates[] = $node->getAttribute('datetime');
