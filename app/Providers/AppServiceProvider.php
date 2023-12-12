@@ -43,6 +43,8 @@ class AppServiceProvider extends ServiceProvider
         Stringable::macro('stripBracketedID', app(StripBracketedID::class)());
         Str::macro('stripLanguageTag', app(\App\Macros\Str\StripLanguageTag::class)());
         Stringable::macro('stripLanguageTag', app(\App\Macros\Stringable\StripLanguageTag::class)());
+        Str::macro('replaceInlineLanguageTags', app(\App\Macros\Str\ReplaceInlineLanguageTags::class)());
+        Stringable::macro('replaceInlineLanguageTags', app(\App\Macros\Stringable\ReplaceInlineLanguageTags::class)());
 
         if (! app()->environment('production')) {
             Mail::alwaysTo('test@wilfordwoodruffpapers.org');
