@@ -63,7 +63,7 @@ class PeopleResource extends Resource
                         TextInput::make('name')
                             ->label('Full Name (As used in FTP)')
                             ->required()
-                            ->autofocus()
+                            ->autofocus(fn () => empty($form->getRecord()))
                             ->columnSpan(2),
                         TextInput::make('pid')
                             ->label('PID')
@@ -300,6 +300,9 @@ class PeopleResource extends Resource
                         'category',
                         'researcher',
                     ]);
+            })
+            ->filtersTriggerAction(function ($action) {
+                return $action->button()->label('Filters');
             })
             ->paginationPageOptions([25, 50, 100, 200])
             ->persistFiltersInSession()
