@@ -6,11 +6,14 @@ use App\Http\Middleware\DownloadAIExperienceMiddleware;
 use App\Macros\AddSubjectLinks;
 use App\Macros\RemoveQZCodes;
 use App\Macros\StripBracketedID;
+use Filament\Support\Assets\Css;
+use Filament\Support\Facades\FilamentAsset;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
@@ -57,6 +60,11 @@ class AppServiceProvider extends ServiceProvider
         RateLimiter::for('relationships', function ($job) {
             return Limit::perMinute(150);
         });
+
+        FilamentAsset::register([
+            Css::make('admin-css', Vite::useHotFile('admin.hot')
+                ->asset('resources/css/app.css', 'build')),
+        ]);
 
         //Model::preventLazyLoading(! $this->app->isProduction());
         //Model::preventAccessingMissingAttributes(! $this->app->isProduction());

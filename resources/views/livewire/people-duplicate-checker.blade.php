@@ -25,7 +25,7 @@
                 </div>
             </div>
         </div>
-    @elseif(str($person->slug)->endsWith('-1'))
+    @elseif(str($person?->slug)?->endsWith('-1'))
         <div class="p-4 bg-red-50 rounded-md">
             <div class="flex">
                 <div class="flex-shrink-0">

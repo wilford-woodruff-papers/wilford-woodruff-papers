@@ -17,7 +17,7 @@ use Spatie\Regex\Regex;
 
 class Search extends Component
 {
-    use WithPerPagePagination, WithSorting, WithBulkActions, WithCachedRows;
+    use WithBulkActions, WithCachedRows, WithPerPagePagination, WithSorting;
 
     public $showDeleteModal = false;
 
