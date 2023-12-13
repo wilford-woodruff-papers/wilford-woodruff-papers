@@ -129,6 +129,8 @@ Route::middleware([])->group(function () {
             'title' => null,
         ]);
     });
+    Route::get('/preview/day-in-the-life-banner/{month?}/{day?}', \App\Http\Controllers\DayInTheLifeBannerController::class)
+        ->name('day-in-the-life-banner');
 
     Route::get('/day-in-the-life/{date?}', \App\Http\Controllers\DayInTheLifeController::class)
         ->name('day-in-the-life');

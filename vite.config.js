@@ -9,7 +9,7 @@ export default defineConfig({
                 "resources/css/transcript.css",
                 "resources/js/app.js",
             ],
-            refresh: true,
+            refresh: [...refreshPaths, "app/Livewire/**"],
         }),
     ],
 });
