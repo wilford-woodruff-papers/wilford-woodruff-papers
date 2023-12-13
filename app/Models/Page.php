@@ -21,7 +21,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditable, Sortable
+class Page extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMedia, Sortable
 {
     use Auditable;
     use GeneratesUuid;
@@ -151,6 +151,7 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
             ->addSubjectLinks()
             ->addScriptureLinks()
             ->removeQZCodes($isQuoteTagger)
+            ->replaceInlineLanguageTags()
             ->replace('&amp;', '&');
     }
 
@@ -160,6 +161,7 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
             ->addSubjectLinks()
             ->addScriptureLinks()
             ->removeQZCodes($isQuoteTagger)
+            ->replaceInlineLanguageTags()
             ->replace('&amp;', '&');
     }
 
@@ -168,7 +170,7 @@ class Page extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditab
         return 'uuid';
     }
 
-    public function registerMediaConversions(Media $media = null): void
+    public function registerMediaConversions(?Media $media = null): void
     {
         $this->addMediaConversion('web')
             ->width(1472)

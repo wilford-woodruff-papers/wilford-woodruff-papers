@@ -387,3 +387,36 @@ input[class^="numeric-"], select[class^="numeric-"]{
         background: #555;
     }
 }
+
+/*.fi-page.fi-resource-list-records-page.fi-resource-people table{*/
+/*    @apply overflow-y-auto;*/
+/*    max-height: calc(100vh - 300px) !important;*/
+/*}*/
+
+/*table.fi-ta-table {*/
+/*    @apply relative;*/
+/*}*/
+
+.fi-resource-list-records-page .fi-ta-content {
+    height: calc(100vh - 400px) !important;
+}
+
+.fi-resource-list-records-page .fi-ta-content table.fi-ta-table thead{
+    @apply sticky top-0 z-[1];
+}
+
+table.fi-ta-table th.fi-table-header-cell-name, table.fi-ta-table td.fi-table-cell-name {
+    @apply sticky left-0;
+}
+
+table.fi-ta-table thead tr{
+    @apply bg-gray-50;
+}
+
+tr:nth-child(odd) td.fi-table-cell-name {
+    @apply bg-white;
+}
+
+tr:nth-child(even) td.fi-table-cell-name, th.fi-table-header-cell-name {
+    @apply bg-gray-50;
+}

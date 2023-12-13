@@ -17,6 +17,11 @@ class Category extends Model
         return $this->belongsToMany(Subject::class);
     }
 
+    public function parent()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
+
     public function scopePeopleCategories(Builder $query): void
     {
         $people = Category::query()->where('name', 'People')->first();

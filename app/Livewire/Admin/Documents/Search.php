@@ -17,7 +17,7 @@ use Spatie\Regex\Regex;
 
 class Search extends Component
 {
-    use WithPerPagePagination, WithSorting, WithBulkActions, WithCachedRows;
+    use WithBulkActions, WithCachedRows, WithPerPagePagination, WithSorting;
 
     public $showDeleteModal = false;
 
@@ -152,11 +152,13 @@ class Search extends Component
             })
             ->when(array_key_exists('type', $this->filters) && $this->filters['type'], function ($query) {
                 $type = Type::query()->where('id', $this->filters['type'])->first();
-                $types = [$type->id];
-                if ($subType = Type::query()->where('type_id', $type->id)->first()) {
-                    $types[] = $subType->id;
+                if (! empty($type->id)) {
+                    $types = [$type->id];
+                    if ($subType = Type::query()->where('type_id', $type->id)->first()) {
+                        $types[] = $subType->id;
+                    }
+                    $query->whereIn('type_id', $types);
                 }
-                $query->whereIn('type_id', $types);
             });
 
         return $this->applySorting($query);
@@ -173,7 +175,7 @@ class Search extends Component
     {
         $columns = collect([]);
         if (array_key_exists('type', $this->filters) && ! empty($this->filters['type'])) {
-            $columns = Template::query()->firstWhere('type_id', $this->filters['type'])?->properties ?? [];
+            $columns = Template::query()->firstWhere('type_id', $this->filters['type'])?->properties ?? collect([]);
         }
 
         return view('livewire.admin.documents.search', [

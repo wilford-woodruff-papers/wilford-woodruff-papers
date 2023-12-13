@@ -15,7 +15,7 @@ use Livewire\Component;
 
 class Index extends Component
 {
-    use WithPerPagePagination, WithSorting, WithBulkActions, WithCachedRows;
+    use WithBulkActions, WithCachedRows, WithPerPagePagination, WithSorting;
 
     public $researchers = false;
 
@@ -163,8 +163,10 @@ class Index extends Component
             } else {
                 $researcher = User::find($this->filters['researcher']);
                 $query = $query->where(function ($query) use ($researcher) {
-                    $query->where('researcher_id', $this->filters['researcher'])
-                        ->orWhere('researcher_text', $researcher->name);
+                    $query = $query->where('researcher_id', $this->filters['researcher']);
+                    if (! empty($researcher?->name)) {
+                        $query = $query->orWhere('researcher_text', $researcher->name);
+                    }
                 });
             }
         }

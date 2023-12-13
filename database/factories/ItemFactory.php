@@ -15,4 +15,31 @@ class ItemFactory extends Factory
             'name' => $this->faker->city(),
         ];
     }
+
+    public function published(): Factory
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'enabled' => true,
+            ];
+        });
+    }
+
+    public function journal(): Factory
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'type_id' => 5,
+            ];
+        });
+    }
+
+    public function notPublished(): Factory
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'enabled' => false,
+            ];
+        });
+    }
 }

@@ -1,5 +1,6 @@
 <header x-data="{
                 mobileMenuOpen: false,
+                overflowMenuOpen: true,
             }"
         class="bg-primary nav"
 >
@@ -70,6 +71,7 @@
                                         <a href="{{ route('people') }}">People</a>
                                         <a href="{{ route('map') }}">Places</a>
                                         <a href="{{ route('topics') }}">Topics</a>
+                                        <a href="{{ route('day-in-the-life') }}">Day in the Life</a>
                                         <a href="{{ route('timeline') }}">Timeline</a>
                                         <a href="{{ route('advanced-search') }}">Search</a>
                                         <a href="{{ route('donate') }}">Donate</a>
@@ -114,6 +116,9 @@
                                     </div>
 
                                     <div class="grid grid-cols-1 gap-y-6">
+                                        <a href="{{ route('conference.landing-page') }}" class="text-base font-medium text-gray-900 hover:text-gray-700">
+                                            2023 Conference
+                                        </a>
                                         <a href="{{ route('media.articles') }}" class="text-base font-medium text-gray-900 hover:text-gray-700">
                                             Articles
                                         </a>
@@ -189,7 +194,7 @@
     <div x-data="{
                 dropdown: null
              }"
-         class="hidden py-2 md:block bg-secondary">
+         class="hidden py-0.5 md:block xl:py-2 bg-secondary">
         <div class="relative mx-auto max-w-7xl">
             <nav class="px-4 md:flex md:justify-between md:items-center md:ml-4">
                 <div class="flex flex-1 space-x-4 min-w-0 md:space-x-10">
@@ -391,6 +396,11 @@
                                 class="overflow-hidden absolute left-0 z-20 mt-2 w-auto bg-white shadow-md"
                             >
                                 <div>
+                                    <a href="{{ route('day-in-the-life') }}"
+                                       class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
+                                        Day in the Life
+                                    </a>
+
                                     <a href="{{ route('timeline') }}"
                                        class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
                                         Timeline of Events
@@ -408,7 +418,213 @@
                        class="hidden lg:block"
                     >Search</a>
                 </div>
-                <div class="flex mt-4 space-x-4 md:mt-0 md:ml-4 md:space-x-10">
+                <div class="flex gap-x-8 items-center mt-4 md:mt-0 md:ml-4 xl:hidden">
+                    <a href="{{ route('donate') }}"
+                       class="py-1 px-2 text-base font-medium uppercase rounded-md border-2 border-white md:text-white text-primary md:hover:text-highlight md:hover:border-highlight"
+                    >Donate</a>
+                    <div>
+                        <div class="flex justify-center items-center">
+                            <div
+                                x-data="{
+                                open: false,
+                                toggle() {
+                                    if (this.open) {
+                                        return this.close()
+                                    }
+
+                                    this.$refs.button.focus()
+
+                                    this.open = true
+                                },
+                                show() {
+                                    this.$refs.button.focus()
+
+                                    this.open = true
+                                },
+                                close(focusAfter) {
+                                    if (! this.open) return
+
+                                    this.open = false
+
+                                    focusAfter && focusAfter.focus()
+                                }
+                            }"
+                                x-on:keydown.escape.prevent.stop="close($refs.button)"
+                                x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
+                                x-id="['dropdown-button']"
+                                class="relative"
+                            >
+                                <!-- Button -->
+                                <button
+                                    x-ref="button"
+                                    x-on:click="toggle()"
+                                    x-on:mouseover="show()"
+                                    :aria-expanded="open"
+                                    :aria-controls="$id('dropdown-button')"
+                                    type="button"
+                                    class="mt-1.5 text-base font-medium uppercase md:text-white text-primary md:hover:text-highlight"
+                                >
+                                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                                    </svg>
+                                    {{--<span aria-hidden="true">&darr;</span>--}}
+                                </button>
+
+                                <!-- Panel -->
+                                <div
+                                    x-ref="panel"
+                                    x-show="open"
+                                    x-transition.origin.top.left
+                                    x-on:click.outside="close($refs.button)"
+                                    :id="$id('dropdown-button')"
+                                    style="display: none;"
+                                    class="overflow-hidden absolute -right-4 top-10 z-20 w-auto bg-white shadow-md md:w-screen lg:w-[700px]"
+                                >
+                                    <div class="grid grid-cols-3 gap-x-16 p-8">
+                                        <div>
+                                            <span class="text-base font-semibold tracking-wider uppercase whitespace-nowrap text-primary">
+                                                About
+                                            </span>
+                                            <div>
+                                                <a href="{{ route('about') }}"
+                                                   class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
+                                                    Mission
+                                                </a>
+                                                <a href="{{ route('about.meet-the-team') }}"
+                                                   class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
+                                                    Meet the Team
+                                                </a>
+                                                <a href="{{ route('about.partners') }}"
+                                                   class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
+                                                    Partners
+                                                </a>
+                                                <a href="{{ route('about.editorial-method') }}"
+                                                   class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
+                                                    Editorial Method
+                                                </a>
+                                                <a href="{{ route('about.frequently-asked-questions') }}"
+                                                   class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
+                                                    Frequently Asked Questions
+                                                </a>
+                                                <a href="{{ route('contact-us') }}"
+                                                   class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
+                                                    Contact Us
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <span class="text-base font-semibold tracking-wider uppercase whitespace-nowrap text-primary">
+                                                Get Involved
+                                            </span>
+                                            <div>
+                                                <a href="{{ route('donate') }}"
+                                                   class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
+                                                    Donate
+                                                </a>
+                                                <a href="{{ route('volunteer') }}"
+                                                   class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
+                                                    Volunteer
+                                                </a>
+                                                <a href="/work-with-us/internship-opportunities"
+                                                   class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
+                                                    Internships
+                                                </a>
+                                                <a href="{{ route('work-with-us') }}"
+                                                   class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
+                                                    Career
+                                                </a>
+                                                <a href="{{ route('contribute-documents') }}"
+                                                   class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
+                                                    Contribute Documents
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <span class="text-base font-semibold tracking-wider uppercase whitespace-nowrap text-primary">
+                                                Media
+                                            </span>
+                                            <div class="pb-4 pl-4 mt-1 space-y-1" aria-labelledby="media-library-headline">
+                                                <h3 class="text-xs font-semibold tracking-wider uppercase whitespace-nowrap text-primary" id="media-library-headline">
+                                                    Media Library
+                                                </h3>
+                                                <a href="{{ route('conference.landing-page') }}"
+                                                   class="flex items-center py-2 px-3 text-sm font-medium whitespace-nowrap group text-secondary">
+                                                    <span class="truncate">
+                                                        2023 Conference
+                                                    </span>
+                                                </a>
+                                                <a href="{{ route('media.articles') }}"
+                                                   class="group flex items-center px-3 py-2 text-sm font-medium text-secondary whitespace-nowrap @if(request()->is('media/articles*')) active @endif">
+                                                    <span class="truncate">
+                                                        Articles
+                                                    </span>
+                                                </a>
+                                                <a href="{{ route('media.photos') }}"
+                                                   class="group flex items-center px-3 py-2 text-sm font-medium text-secondary whitespace-nowrap @if(request()->is('media/photos*')) active @endif">
+                                                    <span class="truncate">
+                                                        Photos
+                                                    </span>
+                                                </a>
+                                                <a href="{{ route('media.podcasts') }}"
+                                                   class="group flex items-center px-3 py-2 text-sm font-medium text-secondary whitespace-nowrap @if(request()->is('media/podcasts')) active @endif">
+                                                    <span class="truncate">
+                                                        Podcasts
+                                                    </span>
+                                                </a>
+                                                <a href="{{ route('updates.index') }}"
+                                                   class="flex items-center py-2 px-3 text-sm font-medium whitespace-nowrap group text-secondary"
+                                                >
+                                                    <span class="truncate">
+                                                        Updates
+                                                    </span>
+                                                </a>
+                                                <a href="{{ route('media.videos') }}"
+                                                   class="group flex items-center px-3 py-2 text-sm font-medium text-secondary whitespace-nowrap @if(request()->is('media/videos')) active @endif">
+                                                    <span class="truncate">
+                                                        Videos
+                                                    </span>
+                                                </a>
+                                                <h3 class="pt-4 text-xs font-semibold tracking-wider uppercase whitespace-nowrap text-primary" id="media-library-headline">
+                                                    Media Center
+                                                </h3>
+                                                <a href="{{ route('media.kit') }}"
+                                                   class="group flex items-center px-3 py-2 text-sm font-medium text-secondary whitespace-nowrap @if(request()->is('media/media-kit')) active @endif">
+                                                    <span class="truncate">
+                                                        Media Kit
+                                                    </span>
+                                                </a>
+                                                <a href="{{ route('media.requests') }}"
+                                                   class="group flex items-center px-3 py-2 text-sm font-medium text-secondary whitespace-nowrap @if(request()->is('media/requests')) active @endif">
+                                                    <span class="truncate">
+                                                        Media Requests
+                                                    </span>
+                                                </a>
+                                                <a href="{{ route('media.news') }}"
+                                                   class="group flex items-center px-3 py-2 text-sm font-medium text-secondary whitespace-nowrap @if(request()->is('media/news')) active @endif">
+                                                    <span class="truncate">
+                                                        Newsroom
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{--<div class="absolute top-2 right-4 z-10 -mr-2 md:hidden">
+                            <button x-on:click="overflowMenuOpen = ! overflowMenuOpen;"
+                                    type="button"
+                                    class="inline-flex justify-center items-center p-2 text-white focus:outline-none bg-secondary hover:text-highlight">
+                                <span class="sr-only">Open menu</span>
+                                <!-- Heroicon name: menu -->
+                                <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                                </svg>
+                            </button>
+                        </div>--}}
+                    </div>
+                </div>
+                <div class="hidden mt-4 space-x-4 sm:space-x-10 md:mt-0 md:ml-4 xl:flex">
                     {{--<a href="/s/wilford-woodruff-papers/page/about">About</a>--}}
                     <div class="flex justify-center">
                         <div
@@ -635,6 +851,12 @@
                                     <h3 class="text-xs font-semibold tracking-wider uppercase whitespace-nowrap text-primary" id="media-library-headline">
                                         Media Library
                                     </h3>
+                                    <a href="{{ route('conference.landing-page') }}"
+                                       class="flex items-center py-2 px-3 text-sm font-medium whitespace-nowrap group text-secondary">
+                                        <span class="truncate">
+                                            2023 Conference
+                                        </span>
+                                    </a>
                                     <a href="{{ route('media.articles') }}"
                                        class="group flex items-center px-3 py-2 text-sm font-medium text-secondary whitespace-nowrap @if(request()->is('media/articles*')) active @endif">
                                         <span class="truncate">

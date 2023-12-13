@@ -7,7 +7,7 @@ use App\Models\Oauth;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
-use PHPHtmlParser\Dom;
+use voku\helper\HtmlDomParser;
 
 class ImportNewslettersCommand extends Command
 {
@@ -69,10 +69,9 @@ class ImportNewslettersCommand extends Command
     {
         $newsletter->clearMediaCollection();
 
-        $dom = new Dom;
-        $dom->loadStr($content);
+        $dom = HtmlDomParser::str_get_html($content);
         $content = Str::of($content);
-        $images = $dom->find('img');
+        $images = $dom->findMulti('img');
         foreach ($images as $image) {
             $this->info($image->getAttribute('src'));
             if (str($image->getAttribute('src'))->contains('constantcontact')) {

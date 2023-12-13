@@ -49,6 +49,14 @@ return [
         'redirect_uri' => env('CONSTANT_CONTACT_REDIRECT_URI'),
     ],
 
+    'familysearch' => [
+        'base_uri' => env('FAMILYSEARCH_BASE_URI'),
+        'base_auth_uri' => env('FAMILYSEARCH_AUTH_BASE_URI'),
+        'client_id' => env('FAMILYSEARCH_CLIENT_ID'),
+        'client_secret' => env('FAMILYSEARCH_CLIENT_SECRET'),
+        'redirect' => env('FAMILYSEARCH_REDIRECT_URI'),
+    ],
+
     'api-ninja' => [
         'key' => env('API_NINJA_KEY'),
     ],

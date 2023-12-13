@@ -61,6 +61,7 @@ class DayInTheLifeController extends Controller
 
         $content = str($content)
             ->addSubjectLinks()
+            ->replaceInlineLanguageTags()
             ->addScriptureLinks()
             ->removeQZCodes(false)
             ->replace('&amp;', '&')
