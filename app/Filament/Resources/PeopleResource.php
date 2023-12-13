@@ -4,13 +4,16 @@ namespace App\Filament\Resources;
 
 use App\Filament\Actions\Tables\Subjects\ClaimSubject;
 use App\Filament\Resources\PeopleResource\Pages;
+use App\Livewire\PeopleDuplicateChecker;
 use App\Models\Subject;
 use App\Models\User;
+use Filament\Forms\Components\Actions;
 use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Livewire;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -55,6 +58,8 @@ class PeopleResource extends Resource
                     ])
                     ->columns(3)
                     ->schema([
+                        Livewire::make(PeopleDuplicateChecker::class, ['person' => $form->getRecord()])
+                            ->columnSpan(3),
                         TextInput::make('name')
                             ->label('Full Name (As used in FTP)')
                             ->required()
@@ -78,7 +83,36 @@ class PeopleResource extends Resource
                         TextInput::make('subject_uri')
                             ->label('Full FTP URL')
                             ->required()
-                            ->columnSpan(3),
+                            ->columnSpan(2)
+                            ->suffixAction(
+                                Action::make('open-url')
+                                    ->icon('heroicon-o-arrow-top-right-on-square')
+                                    ->visible(function ($state) {
+                                        return ! empty($state);
+                                    })
+                                    ->url(function ($state) {
+                                        return ! empty($state)
+                                            ? $state
+                                            : null;
+                                    }, true)
+                            ),
+                        DatePicker::make('added_to_ftp_at')
+                            ->label('Added to FTP')
+                            ->required()
+                            ->columnSpan(1)
+                            ->hintAction(
+                                Action::make('now')
+                                    ->label(function ($state) {
+                                        return empty($state) ? 'Now' : 'Clear';
+                                    })
+                                    ->action(function (Set $set, $state) {
+                                        if (empty($state)) {
+                                            $set('added_to_ftp_at', now()->toDateString());
+                                        } else {
+                                            $set('added_to_ftp_at', null);
+                                        }
+                                    })
+                            ),
                         TextInput::make('reference')
                             ->label('Reference')
                             ->columnSpan(3),
@@ -177,22 +211,6 @@ class PeopleResource extends Resource
                                         })
                                     )
                                     ->searchable(),
-                                DatePicker::make('added_to_ftp_at')
-                                    ->label('Added to FTP')
-                                    ->required()
-                                    ->hintAction(
-                                        Action::make('now')
-                                            ->label(function ($state) {
-                                                return empty($state) ? 'Now' : 'Clear';
-                                            })
-                                            ->action(function (Set $set, $state) {
-                                                if (empty($state)) {
-                                                    $set('added_to_ftp_at', now()->toDateString());
-                                                } else {
-                                                    $set('added_to_ftp_at', null);
-                                                }
-                                            })
-                                    ),
                                 Toggle::make('incomplete_identification')
                                     ->onColor('warning')
                                     ->inline(),
@@ -230,6 +248,31 @@ class PeopleResource extends Resource
                         Section::make('Additional (Read Only)')
                             ->visible(fn ($record) => ! empty($record))
                             ->schema([
+                                Actions::make([
+                                    Action::make('open-nova-link')
+                                        ->label('Nova')
+                                        ->icon('heroicon-o-arrow-top-right-on-square')
+                                        ->visible(function (Model $record) {
+                                            return ! empty($record);
+                                        })
+                                        ->url(function (Model $record) {
+                                            return ! empty($record?->id)
+                                                ? '/nova/resources/subjects/'.$record->id
+                                                : null;
+                                        }, true),
+                                    Action::make('open-website-link')
+                                        ->label('Website')
+                                        ->icon('heroicon-o-arrow-top-right-on-square')
+                                        ->visible(function (Model $record) {
+                                            return ! empty($record);
+                                        })
+                                        ->url(function (Model $record) {
+                                            return ! empty($record?->slug)
+                                                ? route('subjects.show', ['subject' => $record->slug])
+                                                : null;
+                                        }, true),
+                                ])
+                                    ->columns(2),
                                 TextInput::make('unique_id')
                                     ->label('Unique ID')
                                     ->readOnly(),
@@ -265,6 +308,13 @@ class PeopleResource extends Resource
                     ->label('ID')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('name')
+                    ->formatStateUsing(function (Model $record, string $state): string {
+                        return match (trim($record->subcategory)) {
+                            'New England' => '<span class="bg-orange-100">'.$state.'</span>',
+                            default => $state
+                        };
+                    })
+                    ->html()
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\IconColumn::make('subject_uri')
@@ -357,9 +407,6 @@ class PeopleResource extends Resource
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('relationship')
                     ->toggleable(),
-                Tables\Columns\TextColumn::make('notes')
-                    ->limit(50)
-                    ->toggleable(),
                 Tables\Columns\TextColumn::make('researcher.name')
                     ->state(function (Model $record) {
                         return $record->researcher_id !== null
@@ -382,6 +429,12 @@ class PeopleResource extends Resource
                 Tables\Columns\TextColumn::make('footnotes')
                     ->state(function (Model $record) {
                         return trim(strip_tags($record->footnotes));
+                    })
+                    ->limit(50)
+                    ->toggleable(),
+                Tables\Columns\TextColumn::make('notes')
+                    ->state(function (Model $record) {
+                        return trim(strip_tags($record->notes));
                     })
                     ->limit(50)
                     ->toggleable(),
@@ -469,7 +522,7 @@ class PeopleResource extends Resource
             ], layout: Tables\Enums\FiltersLayout::AboveContentCollapsible)
             ->actions([
                 ClaimSubject::make()
-                    ->visible(fn (Model $record) => ($record->researcher_id !== null || ! empty($record->researcher_text))),
+                    ->visible(fn (Model $record) => ($record->researcher_id === null && empty($record->researcher_text))),
                 // Tables\Actions\EditAction::make(),
             ], position: Tables\Enums\ActionsPosition::BeforeCells)
             ->bulkActions([

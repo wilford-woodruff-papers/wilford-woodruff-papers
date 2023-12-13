@@ -410,13 +410,37 @@ table.fi-ta-table th.fi-table-header-cell-name, table.fi-ta-table td.fi-table-ce
 }
 
 table.fi-ta-table thead tr{
-    @apply bg-gray-50;
+    @apply bg-gray-50 dark:bg-header;
 }
 
-tr:nth-child(odd) td.fi-table-cell-name {
+:not(.dark) tr:nth-child(odd) td.fi-table-cell-name {
     @apply bg-white;
+}
+@layer utilities {
+    .bg-dark {
+        background-color: rgb(24, 24, 27);
+    }
+    .bg-header {
+        background-color: #2f2f31;
+    }
+}
+.dark tr:nth-child(odd) td.fi-table-cell-name {
+    @apply bg-dark;
 }
 
 tr:nth-child(even) td.fi-table-cell-name, th.fi-table-header-cell-name {
-    @apply bg-gray-50;
+    @apply bg-gray-50 dark:bg-white/5;
 }
+
+
+/*:is(.dark) table.fi-ta-table thead tr{*/
+/*    @apply bg-white/5 !important;*/
+/*}*/
+
+/*:is(.dark) tr:nth-child(odd) td.fi-table-cell-name {*/
+/*    @apply bg-none !important;*/
+/*}*/
+
+/*:is(.dark) tr:nth-child(even) td.fi-table-cell-name, :is(.dark)  th.fi-table-header-cell-name {*/
+/*    @apply bg-white/5 !important;*/
+/*}*/

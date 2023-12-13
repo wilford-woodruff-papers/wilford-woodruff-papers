@@ -29,7 +29,7 @@ class ClaimSubject extends Action
                     $record->save();
                     $this->success();
                 } else {
-                    $this->danger();
+                    $this->failure();
                 }
             });
 

@@ -8,18 +8,20 @@ class PeopleDuplicateChecker extends Component
 {
     public $readyToLoad = false;
 
-    public \App\Models\Subject $person;
+    public ?\App\Models\Subject $person;
 
     public $duplicatePeople = [];
 
     public function load()
     {
-        $this->readyToLoad = true;
+        if (! empty($this->person)) {
+            $this->readyToLoad = true;
+        }
     }
 
     public function render()
     {
-        if ($this->readyToLoad && ! empty($this->person->slug)) {
+        if ($this->readyToLoad && ! empty($this->person?->slug)) {
             if (str($this->person->slug)->endsWith('-1')) {
                 $this->duplicatePeople = \App\Models\Subject::query()
                     ->where('slug', str($this->person->slug)->replaceLast('-1', ''))
