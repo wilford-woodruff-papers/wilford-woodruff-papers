@@ -311,13 +311,13 @@ class PeopleResource extends Resource
                     ->label('ID')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('name')
-                    ->formatStateUsing(function (Model $record, string $state): string {
-                        return match (trim($record->subcategory)) {
-                            'New England' => '<span class="bg-orange-100">'.$state.'</span>',
-                            default => $state
-                        };
-                    })
-                    ->html()
+//                    ->formatStateUsing(function (Model $record, string $state): string {
+//                        return match (trim($record->subcategory)) {
+//                            'New England' => '<span class="bg-orange-100">'.$state.'</span>',
+//                            default => $state
+//                        };
+//                    })
+//                    ->html()
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\IconColumn::make('subject_uri')
