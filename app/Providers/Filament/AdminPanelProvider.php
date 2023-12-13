@@ -22,7 +22,9 @@ class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
-        \Debugbar::disable();
+        if (class_exists(\Debugbar::class)) {
+            \Debugbar::disable();
+        }
 
         return $panel
             ->default()
