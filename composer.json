@@ -60,6 +60,7 @@
         "sentry/sentry-laravel": "^3.4",
         "socialiteproviders/facebook": "^4.1",
         "socialiteproviders/google": "^4.1",
+        "spatie/browsershot": "^3.60",
         "spatie/eloquent-sortable": "^4.0",
         "spatie/icalendar-generator": "^2.5",
         "spatie/laravel-activitylog": "^4.7",

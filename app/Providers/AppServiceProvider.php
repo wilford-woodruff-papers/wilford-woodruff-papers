@@ -61,10 +61,12 @@ class AppServiceProvider extends ServiceProvider
             return Limit::perMinute(150);
         });
 
-        FilamentAsset::register([
-            Css::make('admin-css', Vite::useHotFile('admin.hot')
-                ->asset('resources/css/app.css', 'build')),
-        ]);
+        if (app()->environment('production')) {
+            FilamentAsset::register([
+                Css::make('admin-css', Vite::useHotFile('vite.hot')
+                    ->asset('resources/css/app.css', 'build')),
+            ]);
+        }
 
         //Model::preventLazyLoading(! $this->app->isProduction());
         //Model::preventAccessingMissingAttributes(! $this->app->isProduction());
