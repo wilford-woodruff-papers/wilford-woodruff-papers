@@ -41,7 +41,7 @@ class GenerateBannerForDayInTheLifeCommand extends Command
         ]))
             ->newHeadless()
             //->setChromePath('/usr/bin/google-chrome')
-            ->setChromePath('/opt/homebrew/bin/chromium')
+            ->setChromePath((app()->environment('local') ? '/opt/homebrew/bin/chromium' : '/usr/bin/google-chrome'))
             //->setOption('addStyleTag', json_encode([
             //    'content' => '#tips, #controls, #deck-progress { display: none; }',
             //]))
