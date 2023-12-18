@@ -1,8 +1,31 @@
 <div>
     <div class="pb-4 mx-auto max-w-7xl md:pb-8">
         <div class="{{ $position }}-announcements">
+            @if(auth()->check() && auth()->user()->hasAnyRole(['Admin', 'Super Admin']))
+                @if(! empty($dayInTheLife) && ! empty($dayInTheLife->getFirstMediaUrl('banner')))
+                    <div class="mb-2">
+                        <div class="px-6 pt-8 md:px-6 md:pt-8 xl:pt-8">
+                            <div class="bg-white">
+                                <div class="flex overflow-hidden flex-col shadow-lg">
+                                    <div class="flex-shrink-0">
+                                        <div class="mx-auto max-w-full h-auto md:max-w-7xl">
+                                            <a href="{{ route('day-in-the-life', ['year' => $dayInTheLife->date->year, 'month' => $dayInTheLife->date->month, 'day' => $dayInTheLife->date->day]) }}"
+                                               target="_blank">
+                                                <img class="w-full h-auto"
+                                                     src="{{ $dayInTheLife->getFirstMediaUrl('banner') }}"
+                                                     alt="{{ $dayInTheLife->date->toDateString() }}"/>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            @endif
+
             @foreach($announcements as $announcement)
-                <div class="mb-2 @if(! $loop->first) hidden @endif">
+                <div class="hidden mb-2">
                     <div class="px-6 pt-8 md:px-6 md:pt-8 xl:pt-8">
                         @include('announcements.single', ['announcement' => $announcement])
                     </div>

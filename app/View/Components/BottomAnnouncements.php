@@ -38,6 +38,7 @@ class BottomAnnouncements extends Component
                     ->get();
             }),
             'position' => 'bottom',
+            'dayInTheLife' => null,
         ]);
     }
 }

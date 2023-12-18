@@ -170,6 +170,12 @@ class Kernel extends ConsoleKernel
             ->withoutOverlapping()
             ->timezone('America/Denver')
             ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org');
+
+        $schedule
+            ->command('banner:generate-count 7')
+            ->weeklyOn(6, '03:00')
+            ->withoutOverlapping()
+            ->timezone('America/Denver');
     }
 
     /**
