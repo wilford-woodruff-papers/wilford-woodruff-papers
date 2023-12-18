@@ -580,6 +580,8 @@ Route::middleware(['auth', \App\Http\Middleware\LogApiUsageMiddleware::class])
 
 Route::get('/{contentPage}', [\App\Http\Controllers\ContentPageController::class, 'show'])
     ->where('contentPage', '^(?!pulse).*$')
+    ->where('contentPage', '^(?!nova-vendor).*$')
+    ->where('contentPage', '^(?!nova).*$')
     ->name('content-page.show');
 Route::get('/{contentPage}/edit', [\App\Http\Controllers\ContentPageController::class, 'edit'])
     //->where('contentPage', '^(?!nova).*$')

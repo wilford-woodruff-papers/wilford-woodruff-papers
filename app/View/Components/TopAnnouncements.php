@@ -3,6 +3,7 @@
 namespace App\View\Components;
 
 use App\Models\Announcement;
+use App\Models\DayInTheLife;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\View\Component;
 
@@ -35,9 +36,21 @@ class TopAnnouncements extends Component
                 ->get();
         });
 
+        $dayInTheLife = Cache::remember('day-in-the-life', 3600, function () {
+            return DayInTheLife::query()
+                ->with([
+                    'media',
+                ])
+                ->whereMonth('date', now()->month)
+                ->whereDay('date', now()->day)
+                ->inRandomOrder()
+                ->first();
+        });
+
         return view('components.announcements', [
             'announcements' => $announcements,
             'position' => 'top',
+            'dayInTheLife' => $dayInTheLife,
         ]);
     }
 }

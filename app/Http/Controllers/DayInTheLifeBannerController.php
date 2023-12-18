@@ -12,12 +12,16 @@ class DayInTheLifeBannerController extends Controller
 {
     public function __invoke(Request $request)
     {
+        $year = $request->get('year');
         $month = $request->get('month', now('America/Denver')->month);
         $day = $request->get('day', now('America/Denver')->day);
 
         $date = Date::createFromFormat('Y-m-d',
             \App\Models\Date::query()
                 ->select('date')
+                ->when($year, function ($query, $year) {
+                    $query->whereYear('date', $year);
+                })
                 ->whereMonth('date', $month)
                 ->whereDay('date', $day)
                 ->where('dateable_type', Page::class)
