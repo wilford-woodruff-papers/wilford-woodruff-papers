@@ -50,6 +50,7 @@ class GenerateBannerForDayInTheLifeCommand extends Command
             ->windowSize(1232, 371)
             //->fit(Manipulations::FIT_CONTAIN, 400, 400)
             ->setScreenshotType('jpeg', 100)
+            ->waitUntilNetworkIdle()
             ->base64Screenshot();
 
         //dd($base64Data);
