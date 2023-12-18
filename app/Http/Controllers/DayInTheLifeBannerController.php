@@ -4,22 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Models\Page;
 use App\Models\Subject;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\View;
 
 class DayInTheLifeBannerController extends Controller
 {
-    public function __invoke(Request $request)
+    public function __invoke(Request $request, int $month, int $day, ?int $year = null)
     {
-        $year = $request->get('year');
-        $month = $request->get('month', now('America/Denver')->month);
-        $day = $request->get('day', now('America/Denver')->day);
-
+        $month = $month ?? now('America/Denver')->month;
+        $day = $day ?? now('America/Denver')->day;
+        // dd($year, $month, $day);
         $date = Date::createFromFormat('Y-m-d',
             \App\Models\Date::query()
                 ->select('date')
-                ->when($year, function ($query, $year) {
+                ->when($year, function (Builder $query, int $year) {
                     $query->whereYear('date', $year);
                 })
                 ->whereMonth('date', $month)
