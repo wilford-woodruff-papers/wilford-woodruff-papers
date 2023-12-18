@@ -16,10 +16,11 @@ class GenerateBannerForDayInTheLifeCommand extends Command
 
     public function handle(): int
     {
-        $month = $this->argument('month') ?? now()->month;
-        $day = $this->argument('day') ?? now()->day;
-
-        $date = Date::createFromFormat('Y-m-d',
+        $month = $this->argument('month') ?? now('America/Denver')->month;
+        $day = $this->argument('day') ?? now('America/Denver')->day;
+        //dd($month, $day);
+        $date = Date::createFromFormat(
+            'Y-m-d',
             \App\Models\Date::query()
                 ->select('date')
                 ->whereMonth('date', $month)
@@ -31,7 +32,8 @@ class GenerateBannerForDayInTheLifeCommand extends Command
                 ->inRandomOrder()
                 ->toBase()
                 ->first()
-                ?->date
+                ?->date,
+            'America/Denver'
         );
 
         $base64Data = Browsershot::url(route('day-in-the-life-banner', [
@@ -54,9 +56,9 @@ class GenerateBannerForDayInTheLifeCommand extends Command
         //Storage::disk('day_in_the_life')
         //        Storage::disk('local')
         //            ->put($month.'/'.$day.'.jpg', base64_decode($base64Data));
-
+        // dd($date);
         $dayInTheLife = DayInTheLife::firstOrCreate([
-            'date' => $date,
+            'date' => $date->toDateString(),
         ]);
 
         $dayInTheLife->addMediaFromBase64($base64Data)
