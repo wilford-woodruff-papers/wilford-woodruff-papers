@@ -46,6 +46,9 @@ class DayInTheLifeBanner extends Resource
         return [
             ID::make()->sortable(),
             Date::make('Date')
+                ->displayUsing(function ($date) {
+                    return $date->tz('UTC')->format('M j, Y');
+                })
                 ->sortable(),
             Medialibrary::make('Banner', 'banner')
                 ->withMeta([
