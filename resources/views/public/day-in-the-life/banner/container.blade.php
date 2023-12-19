@@ -38,8 +38,8 @@
 
             </div>
             <div class="max-w-[600px] flex-0">
-                <div class="flex relative z-10 flex-col gap-y-8 py-8 pr-20 pl-16">
-                    <h2 class="text-5xl font-light text-white uppercase border-b border-white leading-[1.4em]">
+                <div class="flex relative z-10 flex-col gap-y-6 pt-12 pr-20 pb-8 pl-16">
+                    <h2 class="pb-6 text-5xl font-light text-white uppercase border-b border-white leading-[1em]">
                         Discover <span class="font-bold">Today</span> in the Life
                     </h2>
                     <p class="text-xl text-white">
