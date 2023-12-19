@@ -33,6 +33,8 @@ class PeopleResource extends Resource
 {
     protected static ?string $model = Subject::class;
 
+    protected static ?string $navigationGroup = 'Subjects';
+
     protected static ?string $modelLabel = 'Person';
 
     protected static ?string $navigationLabel = 'People';
