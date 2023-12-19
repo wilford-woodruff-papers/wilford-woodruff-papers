@@ -202,6 +202,7 @@ class UnknownPeopleResource extends Resource
             ->persistFiltersInSession()
             ->columns([
                 Tables\Columns\IconColumn::make('correction_needed')
+                    ->label('Correction?')
                     ->boolean()
                     ->trueIcon('heroicon-o-exclamation-triangle')
                     ->falseIcon('')
@@ -229,6 +230,7 @@ class UnknownPeopleResource extends Resource
                 Tables\Columns\TextColumn::make('link_to_ftp')
                     ->formatStateUsing(fn (string $state): string => ! empty($state) ? 'fromthepage.com' : '')
                     ->url(fn (PeopleIdentification $record) => $record->link_to_ftp, true)
+                    ->color('primary')
                     ->sortable()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('guesses')
