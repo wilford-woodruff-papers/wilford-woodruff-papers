@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\View;
 
 class DayInTheLifeBannerController extends Controller
 {
-    public function __invoke(Request $request, int $month, int $day, ?int $year = null)
+    public function __invoke(Request $request, ?int $month = null, ?int $day = null, ?int $year = null)
     {
         $month = $month ?? now('America/Denver')->month;
         $day = $day ?? now('America/Denver')->day;
@@ -63,7 +63,10 @@ class DayInTheLifeBannerController extends Controller
         $topics = $subjects->get('Index')
             ?->sortBy('name', SORT_NATURAL | SORT_FLAG_CASE);
 
-        if (! empty($people) && $people->count() > 4) {
+        if (! empty($people) && $people->count() >= 4) {
+            $types->push('people');
+            $types->push('people');
+            $types->push('people');
             $types->push('people');
         }
         if (! empty($day) && $day->count() > 0) {
@@ -71,6 +74,9 @@ class DayInTheLifeBannerController extends Controller
         }
         if (! empty($places) && $places->whereNotNull('latitude')->count() > 0) {
             $place = $places->whereNotNull('latitude')->random();
+            $types->push('place');
+            $types->push('place');
+            $types->push('place');
             $types->push('place');
         } else {
             $place = null;
