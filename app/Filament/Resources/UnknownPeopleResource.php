@@ -27,6 +27,8 @@ class UnknownPeopleResource extends Resource
 {
     protected static ?string $model = PeopleIdentification::class;
 
+    protected static ?string $slug = 'unknown-people';
+
     protected static ?string $navigationGroup = 'Subjects';
 
     protected static ?string $navigationIcon = 'heroicon-o-question-mark-circle';
