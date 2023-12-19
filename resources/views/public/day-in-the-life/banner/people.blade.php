@@ -2,6 +2,7 @@
     <div class="grid grid-cols-1 gap-2 scale-150 lg:grid-cols-3"
         {{--style="transform: perspective(1000px) rotateX(-4deg) rotateY(16deg) rotateZ(-4deg);"--}}
     >
+        <div class="absolute inset-0 bg-[#F2F2F2] opacity-20 mix-blend-screen"></div>
         @foreach($people as $person)
             <div class="flex flex-col justify-between p-4 border border-gray-300 shadow-lg">
                 <div>
