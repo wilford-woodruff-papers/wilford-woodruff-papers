@@ -578,11 +578,6 @@ Route::middleware(['auth', \App\Http\Middleware\LogApiUsageMiddleware::class])
             ->name('docs.topics.show');
     });
 
-Route::get('/{contentPage}', [\App\Http\Controllers\ContentPageController::class, 'show'])
-    ->where('contentPage', '^(?!pulse).*$')
-    ->where('contentPage', '^(?!nova-vendor).*$')
-    ->where('contentPage', '^(?!nova).*$')
-    ->name('content-page.show');
 Route::get('/{contentPage}/edit', [\App\Http\Controllers\ContentPageController::class, 'edit'])
     //->where('contentPage', '^(?!nova).*$')
     ->name('content-page.edit');
@@ -590,3 +585,8 @@ Route::put('/content-page/{contentPage}', [\App\Http\Controllers\ContentPageCont
     ->name('content-page.update');
 Route::post('/content-page/{contentPage}/upload', [\App\Http\Controllers\ContentPageController::class, 'upload'])
     ->name('content-page.upload');
+Route::get('/{contentPage}', [\App\Http\Controllers\ContentPageController::class, 'show'])
+    ->where('contentPage', '^(?!pulse).*$')
+    ->where('contentPage', '^(?!nova-vendor).*$')
+    ->where('contentPage', '^(?!nova).*$')
+    ->name('content-page.show');
