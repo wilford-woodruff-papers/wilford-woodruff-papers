@@ -7,7 +7,7 @@ use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Fields\Textarea;
+use Laravel\Nova\Fields\Trix;
 use Laravel\Nova\Http\Requests\NovaRequest;
 use PixelCreation\NovaFieldSortable\Concerns\SortsIndexEntries;
 use PixelCreation\NovaFieldSortable\Sortable;
@@ -62,7 +62,7 @@ class TeamMember extends Resource
             BelongsTo::make('Team', 'team', Team::class)->nullable(),
             Text::make(__('Name'), 'name')->sortable(),
             Text::make(__('Title'), 'title')->sortable(),
-            Textarea::make(__('Bio'), 'bio')->alwaysShow(),
+            Trix::make(__('Bio'), 'bio')->alwaysShow(),
             Image::make(__('Picture'), 'image')->disk('board_members'),
             Text::make('Youtube Link', 'video_link')
                 ->required(false)
