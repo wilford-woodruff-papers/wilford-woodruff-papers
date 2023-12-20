@@ -21,6 +21,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Forms\Set;
+use Filament\Resources\Pages\Page;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -550,6 +551,14 @@ class PeopleResource extends Resource
             'index' => Pages\ListPeople::route('/'),
             'create' => Pages\CreatePeople::route('/create'),
             'edit' => Pages\EditPeople::route('/{record}/edit'),
+            'related' => Pages\RelatedPeople::route('/{record}/related'),
         ];
+    }
+
+    public static function getRecordSubNavigation(Page $page): array
+    {
+        return $page->generateNavigationItems([
+            Pages\RelatedPeople::class,
+        ]);
     }
 }
