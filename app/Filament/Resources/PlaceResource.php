@@ -102,7 +102,7 @@ class PlaceResource extends Resource
                                             ->columns(1)
                                             ->columnSpan(1)
                                             ->schema([
-                                                ViewField::make('rating')
+                                                ViewField::make('map')
                                                     ->view('filament.forms.components.map'),
                                             ]),
                                     ]),

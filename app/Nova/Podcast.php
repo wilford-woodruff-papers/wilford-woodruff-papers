@@ -38,6 +38,10 @@ class Podcast extends Resource
      */
     public static $search = [
         'id',
+        'title',
+        'subtitle',
+        'description',
+        'transcript',
     ];
 
     public static function usesScout(): bool
