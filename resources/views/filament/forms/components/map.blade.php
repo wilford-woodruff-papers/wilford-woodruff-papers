@@ -34,7 +34,7 @@
                         {{ $getRecord()->longitude }}
                     ])
                     .addTo(window.map.map);
-                    
+
                 @endif
             });
         </script>

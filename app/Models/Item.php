@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Dyrynda\Database\Casts\EfficientUuid;
+use Dyrynda\Database\Support\BindsOnUuid;
 use Dyrynda\Database\Support\GeneratesUuid;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -22,11 +23,15 @@ use Wildside\Userstamps\Userstamps;
 
 class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortable
 {
-    use Auditable, GeneratesUuid, HasFactory, SortableTrait;
+    use Auditable;
+    use BindsOnUuid;
+    use GeneratesUuid;
+    use HasFactory;
     use HasHashid;
     use KeepsDeletedModels;
     use LogsActivity;
     use Searchable;
+    use SortableTrait;
     use Userstamps;
 
     protected $guarded = ['id'];
@@ -155,6 +160,11 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
     public function getRouteKeyName()
     {
         return 'uuid';
+    }
+
+    public function resolveRouteBindingQuery($query, $value, $field = null)
+    {
+        return $query->whereUuid($value);
     }
 
     protected $attributeModifiers = [
