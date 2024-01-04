@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Fico7489\Laravel\Pivot\Traits\PivotEventTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -23,7 +22,6 @@ class Press extends Model implements HasMedia
     use HasFactory;
     use HasSlug;
     use InteractsWithMedia;
-    use PivotEventTrait;
     use Searchable;
 
     protected $guarded = ['id'];
