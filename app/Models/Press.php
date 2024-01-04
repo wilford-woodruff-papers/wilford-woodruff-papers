@@ -46,6 +46,11 @@ class Press extends Model implements HasMedia
         return $this->belongsToMany(Author::class);
     }
 
+    public function subjects(): BelongsToMany
+    {
+        return $this->belongsToMany(Subject::class, 'press_subject', 'press_id', 'subject_id');
+    }
+
     public function topLevelIndexTopics(): BelongsToMany
     {
         return $this->belongsToMany(Subject::class, 'press_subject', 'press_id', 'subject_id')

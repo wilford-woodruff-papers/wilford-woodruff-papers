@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\ImportPressTopics;
 use App\Nova\Actions\IndexPress;
 use App\Nova\Metrics\CreatedPerMonth;
 use Emilianotisato\NovaTinyMCE\NovaTinyMCE;
@@ -151,7 +152,8 @@ class Article extends Resource
     public function actions(Request $request): array
     {
         return [
-            new IndexPress('Articles'),
+            new IndexPress(),
+            new ImportPressTopics(),
         ];
     }
 }

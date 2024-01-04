@@ -97,6 +97,7 @@ class Search extends Component
             ],
             'Media' => [
                 new TypeFacet(),
+                new TopicFacet(),
             ],
         ];
 

@@ -2,22 +2,22 @@
 
 namespace App\Nova\Actions;
 
+use App\Imports\PressTopicsImport;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Artisan;
 use Laravel\Nova\Actions\Action;
 use Laravel\Nova\Fields\ActionFields;
+use Laravel\Nova\Fields\File;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Maatwebsite\Excel\Facades\Excel;
 
-class IndexPress extends Action
+class ImportPressTopics extends Action
 {
     use InteractsWithQueue, Queueable, SerializesModels;
 
     public $standalone = true;
-
-    public $name = 'Index All Press (Media) Items';
 
     /**
      * Perform the action on the given models.
@@ -26,11 +26,9 @@ class IndexPress extends Action
      */
     public function handle(ActionFields $fields, Collection $models)
     {
-        Artisan::call('content:index', [
-            'models' => 'Press',
-        ]);
+        Excel::import(new PressTopicsImport(), $fields->file);
 
-        return Action::message('Press indexed successfully');
+        return Action::message('Media Topics imported successfully');
     }
 
     /**
@@ -39,7 +37,8 @@ class IndexPress extends Action
     public function fields(NovaRequest $request): array
     {
         return [
-
+            File::make('File')
+                ->rules('required'),
         ];
     }
 }
