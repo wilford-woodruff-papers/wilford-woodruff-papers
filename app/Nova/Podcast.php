@@ -2,6 +2,8 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\ImportPressTopics;
+use App\Nova\Actions\IndexPress;
 use Emilianotisato\NovaTinyMCE\NovaTinyMCE;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -130,6 +132,9 @@ class Podcast extends Resource
      */
     public function actions(Request $request): array
     {
-        return [];
+        return [
+            new IndexPress(),
+            new ImportPressTopics(),
+        ];
     }
 }

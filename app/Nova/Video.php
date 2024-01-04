@@ -2,6 +2,8 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\ImportPressTopics;
+use App\Nova\Actions\IndexPress;
 use App\Nova\Metrics\CreatedPerMonth;
 use Emilianotisato\NovaTinyMCE\NovaTinyMCE;
 use Illuminate\Http\Request;
@@ -129,6 +131,9 @@ class Video extends Resource
      */
     public function actions(Request $request): array
     {
-        return [];
+        return [
+            new IndexPress(),
+            new ImportPressTopics(),
+        ];
     }
 }
