@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\IndexPress;
 use App\Nova\Metrics\CreatedPerMonth;
 use Emilianotisato\NovaTinyMCE\NovaTinyMCE;
 use Illuminate\Http\Request;
@@ -113,7 +114,7 @@ class Article extends Resource
                 ->type('articles')
                 ->withMeta(['placeholder' => 'Add categories...'])
                 ->help('Type a category and hit \'Enter\' to add it. Existing tags will appear below the box as you type and can be clicked to add.'),
-            BelongsToMany::make('Topics', 'topLevelIndexTopics', 'App\Nova\Topic')
+            BelongsToMany::make('Topics', 'topLevelIndexTopics', 'App\Nova\TopLevelTopic')
                 ->searchable(),
         ];
     }
@@ -149,6 +150,8 @@ class Article extends Resource
      */
     public function actions(Request $request): array
     {
-        return [];
+        return [
+            new IndexPress('Articles'),
+        ];
     }
 }
