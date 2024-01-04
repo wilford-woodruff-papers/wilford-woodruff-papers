@@ -12,7 +12,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Tags\HasTags;
 
-class Article extends Press implements HasMedia, \OwenIt\Auditing\Contracts\Auditable
+class Article extends Press implements \OwenIt\Auditing\Contracts\Auditable, HasMedia
 {
     use Auditable;
     use HasFactory;

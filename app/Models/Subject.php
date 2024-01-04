@@ -187,6 +187,11 @@ class Subject extends Model implements HasMedia
         return $this->belongsToMany(Event::class, 'event_subject');
     }
 
+    public function press()
+    {
+        return $this->belongsToMany(Press::class, 'press_subject');
+    }
+
     public function scopePeople(Builder $query): void
     {
         $query->whereHas('category', function ($query) {
@@ -464,7 +469,7 @@ class Subject extends Model implements HasMedia
         return $country;
     }
 
-    public function registerMediaConversions(Media $media = null): void
+    public function registerMediaConversions(?Media $media = null): void
     {
         $this->addMediaConversion('thumb')
             ->width(368)
