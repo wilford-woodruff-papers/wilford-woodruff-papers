@@ -13,7 +13,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\SchemalessAttributes\Casts\SchemalessAttributes;
 use Spatie\Sluggable\HasSlug;
 
-class SocialMedia extends Press implements HasMedia, \OwenIt\Auditing\Contracts\Auditable
+class SocialMedia extends Press implements \OwenIt\Auditing\Contracts\Auditable, HasMedia
 {
     use Auditable;
     use HasFactory;
@@ -38,9 +38,7 @@ class SocialMedia extends Press implements HasMedia, \OwenIt\Auditing\Contracts\
 
     public function url()
     {
-        return ! empty($this->attributes['link'])
-                ? $this->attributes['link']
-                : route('media.article', ['article' => $this->slug]);
+        return route('media.instagram', ['instagram' => $this->slug]);
     }
 
     public function getCallToActionAttribute()

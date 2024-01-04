@@ -11,7 +11,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Sluggable\HasSlug;
 
-class Podcast extends Press implements HasMedia, \OwenIt\Auditing\Contracts\Auditable
+class Podcast extends Press implements \OwenIt\Auditing\Contracts\Auditable, HasMedia
 {
     use Auditable;
     use HasFactory;
@@ -23,6 +23,13 @@ class Podcast extends Press implements HasMedia, \OwenIt\Auditing\Contracts\Audi
     protected static $marks = [
         Like::class,
     ];
+
+    public function url()
+    {
+        return ! empty($this->attributes['link'])
+            ? $this->attributes['link']
+            : route('media.podcast', ['podcast' => $this->slug]);
+    }
 
     public function getCallToActionAttribute()
     {

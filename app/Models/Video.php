@@ -12,7 +12,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Tags\HasTags;
 
-class Video extends Press implements HasMedia, \OwenIt\Auditing\Contracts\Auditable
+class Video extends Press implements \OwenIt\Auditing\Contracts\Auditable, HasMedia
 {
     use Auditable;
     use HasFactory;
@@ -25,6 +25,13 @@ class Video extends Press implements HasMedia, \OwenIt\Auditing\Contracts\Audita
     protected static $marks = [
         Like::class,
     ];
+
+    public function url()
+    {
+        return ! empty($this->attributes['link'])
+            ? $this->attributes['link']
+            : route('media.video', ['video' => $this->slug]);
+    }
 
     public function getEmbedLinkAttribute()
     {

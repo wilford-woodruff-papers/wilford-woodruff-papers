@@ -104,7 +104,7 @@ class Press extends Model implements HasMedia
             'is_published' => ($this->date < now('America/Denver')),
             'resource_type' => 'Media',
             'type' => $this->type,
-            'url' => route('landing-areas.ponder.press', ['press' => $this->slug]),
+            'url' => $this->url(),
             'thumbnail' => $image_url ?? null,
             'name' => $title,
             'description' => strip_tags($this->description ?? ''),
