@@ -113,6 +113,8 @@ class Article extends Resource
                 ->type('articles')
                 ->withMeta(['placeholder' => 'Add categories...'])
                 ->help('Type a category and hit \'Enter\' to add it. Existing tags will appear below the box as you type and can be clicked to add.'),
+            BelongsToMany::make('Topics', 'topLevelIndexTopics', 'App\Nova\Topic')
+                ->searchable(),
         ];
     }
 

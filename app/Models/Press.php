@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
@@ -43,6 +44,13 @@ class Press extends Model implements HasMedia
     public function authors()
     {
         return $this->belongsToMany(Author::class);
+    }
+
+    public function topLevelIndexTopics(): BelongsToMany
+    {
+        return $this->belongsToMany(Subject::class, 'press_subject', 'press_id', 'subject_id')
+            ->index()
+            ->whereNull('subjects.subject_id');
     }
 
     public function scopeHasCoverImage($query)
@@ -109,6 +117,9 @@ class Press extends Model implements HasMedia
             'name' => $title,
             'description' => strip_tags($this->description ?? ''),
             'date' => $this->date ? $this->date?->timestamp : null,
+            'topics' => $this->topLevelIndexTopics->pluck('name')->map(function ($topic) {
+                return str($topic)->title();
+            })->toArray(),
         ];
     }
 
@@ -121,6 +132,7 @@ class Press extends Model implements HasMedia
     {
         return $query->with([
             'media',
+            'topLevelIndexTopics',
         ]);
     }
 
