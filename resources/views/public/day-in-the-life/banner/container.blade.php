@@ -38,12 +38,12 @@
 
             </div>
             <div class="max-w-[600px] flex-0">
-                <div class="flex relative z-10 flex-col gap-y-6 pt-12 pr-20 pb-8 pl-16">
+                <div class="flex relative z-10 flex-col gap-y-6 pt-12 pb-8 pl-16 pr-18">
                     <h2 class="pb-6 text-5xl font-light text-white uppercase border-b border-white leading-[1em]">
                         Discover <span class="font-bold">Today</span> in the Life
                     </h2>
                     <p class="text-xl text-white">
-                        Explore Wilford Woodruff's journals and other documents from each day of his life.
+                        Explore any day in Wilford Woodruff's journals through links<br/>to the people, events, and documents referenced.
                     </p>
                     <p class="text-2xl font-semibold text-white">
                         {{ $date->format('F d, Y ~ l') }}
