@@ -41,8 +41,8 @@ class TopAnnouncements extends Component
                 ->with([
                     'media',
                 ])
-                ->whereMonth('date', now()->month)
-                ->whereDay('date', now()->day)
+                ->whereMonth('date', now('America/Denver')->month)
+                ->whereDay('date', now('America/Denver')->day)
                 ->inRandomOrder()
                 ->first();
         });
