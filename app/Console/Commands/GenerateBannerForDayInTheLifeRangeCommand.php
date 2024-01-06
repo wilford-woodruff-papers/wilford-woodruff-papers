@@ -35,7 +35,7 @@ class GenerateBannerForDayInTheLifeRangeCommand extends Command
             ->orderBy('day', 'DESC')
             ->first()
             ?->date
-            ?? now();
+            ?? now('America/Denver');
 
         foreach (range(1, $count) as $i) {
             $this->call('banner:generate', [
