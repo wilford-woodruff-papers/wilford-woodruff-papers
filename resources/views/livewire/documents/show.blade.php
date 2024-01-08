@@ -100,7 +100,55 @@
                             </div>
                         @endif
                     @endhasanyrole
-                    @if($subjects->count() > 0)
+                    <div
+                        x-data="{
+                            tabSelected: 1,
+                            tabId: $id('tabs'),
+                            tabButtonClicked(tabButton){
+                                this.tabSelected = tabButton.id.replace(this.tabId + '-', '');
+                                this.tabRepositionMarker(tabButton);
+                            },
+                            tabRepositionMarker(tabButton){
+                                this.$refs.tabMarker.style.width=tabButton.offsetWidth + 'px';
+                                this.$refs.tabMarker.style.height=tabButton.offsetHeight + 'px';
+                                this.$refs.tabMarker.style.left=tabButton.offsetLeft + 'px';
+                            },
+                            tabContentActive(tabContent){
+                                return this.tabSelected == tabContent.id.replace(this.tabId + '-content-', '');
+                            },
+                            tabButtonActive(tabContent){
+                                const tabId = tabContent.id.split('-').slice(-1);
+                                return this.tabSelected == tabId;
+                            }
+                        }"
+
+                        x-init="tabRepositionMarker($refs.tabButtons.firstElementChild);" class="relative w-full max-w-sm">
+
+                        <div x-ref="tabButtons" class="inline-grid relative grid-cols-3 justify-center items-center p-1 w-full h-10 text-gray-500 bg-white border border-gray-100 select-none">
+                            <button :id="$id(tabId)" @click="tabButtonClicked($el);" type="button" :class="{ 'bg-secondary text-white' : tabButtonActive($el) }" class="inline-flex relative z-20 justify-center items-center px-3 w-full h-8 text-sm font-medium whitespace-nowrap transition-all cursor-pointer">People</button>
+                            <button :id="$id(tabId)" @click="tabButtonClicked($el);" type="button" :class="{ 'bg-secondary text-white' : tabButtonActive($el) }" class="inline-flex relative z-20 justify-center items-center px-3 w-full h-8 text-sm font-medium whitespace-nowrap transition-all cursor-pointer">Places</button>
+                            <button :id="$id(tabId)" @click="tabButtonClicked($el);" type="button" :class="{ 'bg-secondary text-white' : tabButtonActive($el) }" class="inline-flex relative z-20 justify-center items-center px-3 w-full h-8 text-sm font-medium whitespace-nowrap transition-all cursor-pointer">Topics</button>
+                            <div x-ref="tabMarker" class="absolute left-0 z-10 w-1/2 h-full duration-300 ease-out" x-cloak><div class="w-full h-full bg-gray-100 rounded-md shadow-sm"></div></div>
+                        </div>
+                        <div class="flex relative justify-center items-center pl-3 mt-0 w-full text-gray-400 border content border-gray-200/70">
+
+                            <div :id="$id(tabId + '-content')" x-show="tabContentActive($el)" class="overflow-auto relative max-h-[450px]">
+                                <livewire:documents.subjects.people :itemId="$item->id" lazy />
+                            </div>
+
+                            <div :id="$id(tabId + '-content')" x-show="tabContentActive($el)" class="overflow-auto relative max-h-[450px]" x-cloak>
+                                <livewire:documents.subjects.places :itemId="$item->id" lazy />
+                            </div>
+
+                            <div :id="$id(tabId + '-content')" x-show="tabContentActive($el)" class="overflow-auto relative max-h-[450px]" x-cloak>
+                                <livewire:documents.subjects.topics :itemId="$item->id" lazy />
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    {{--@if($subjects->count() > 0)
                         <div class="property">
                             <h4>
                                 People & Places
@@ -133,7 +181,7 @@
                                 @endforeach
                             </div>
                         </div>
-                    @endif
+                    @endif--}}
 
                 </div>
                 <div class="col-span-1 md:col-span-8">
