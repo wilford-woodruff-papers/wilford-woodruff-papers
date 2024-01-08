@@ -79,6 +79,9 @@ class Article extends Resource
             Date::make(__('Publish At'), 'date')
                 ->required(true)
                 ->sortable(),
+            Date::make(__('Day in the Life Date'), 'day_in_the_life_date')
+                ->required(false)
+                ->sortable(),
             Text::make(__('Author Name(s)'), 'subtitle')
                 ->displayUsing(function ($subtitle) {
                     return Str::of($subtitle)->limit('50', ' ...');
