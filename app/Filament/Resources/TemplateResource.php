@@ -53,6 +53,9 @@ class TemplateResource extends Resource
                     ->label('Document Type')
                     ->searchable()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('template_properties_count')
+                    ->label('Property Count')
+                    ->counts('template_properties'),
             ])
             ->filters([
                 //
