@@ -13,7 +13,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\SchemalessAttributes\Casts\SchemalessAttributes;
 use Spatie\Sluggable\HasSlug;
 
-class SocialMedia extends Press implements HasMedia, \OwenIt\Auditing\Contracts\Auditable
+class SocialMedia extends Press implements \OwenIt\Auditing\Contracts\Auditable, HasMedia
 {
     use Auditable;
     use HasFactory;
