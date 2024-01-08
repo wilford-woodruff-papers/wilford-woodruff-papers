@@ -13,7 +13,8 @@ class EditTemplate extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            Actions\DeleteAction::make()
+                ->visible(auth()->user()->hasAnyRole(['Super Admin'])),
         ];
     }
 }

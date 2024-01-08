@@ -17,8 +17,7 @@ class PropertiesRelationManager extends RelationManager
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
-                    ->required()
-                    ->maxLength(255),
+                    ->required(),
             ]);
     }
 
@@ -30,6 +29,7 @@ class PropertiesRelationManager extends RelationManager
             ->defaultPaginationPageOption(50)
             ->reorderable('order_column')
             ->recordTitleAttribute('name')
+            ->defaultSort('property_template.order_column')
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable()
@@ -40,7 +40,8 @@ class PropertiesRelationManager extends RelationManager
             ])
             ->headerActions([
                 //Tables\Actions\CreateAction::make(),
-                Tables\Actions\AttachAction::make(),
+                Tables\Actions\AttachAction::make()
+                    ->preloadRecordSelect(),
             ])
             ->actions([
                 //Tables\Actions\EditAction::make(),

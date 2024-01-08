@@ -22,8 +22,7 @@ class Template extends Model
             ->withPivot([
                 'order_column',
                 'is_required',
-            ])
-            ->orderBy('property_template.order_column', 'ASC');
+            ]);
     }
 
     public function properties()
