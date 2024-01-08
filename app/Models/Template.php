@@ -16,6 +16,16 @@ class Template extends Model
         return $this->belongsTo(Type::class);
     }
 
+    public function template_properties()
+    {
+        return $this->belongsToMany(Property::class)
+            ->withPivot([
+                'order_column',
+                'is_required',
+            ])
+            ->orderBy('property_template.order_column', 'ASC');
+    }
+
     public function properties()
     {
         return $this->belongsToMany(Property::class, 'property_template')

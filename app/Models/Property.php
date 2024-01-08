@@ -14,6 +14,16 @@ class Property extends Model
 
     protected $guarded = ['id'];
 
+    public function templates()
+    {
+        return $this->belongsToMany(Template::class)
+            ->withPivot([
+                'order_column',
+                'is_required',
+            ])
+            ->orderBy('name', 'ASC');
+    }
+
     /**
      * Get the options for generating the slug.
      */
