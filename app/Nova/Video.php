@@ -74,6 +74,9 @@ class Video extends Resource
             Date::make(__('Publish At'), 'date')
                 ->required(true)
                 ->sortable(),
+            Date::make(__('Day in the Life Date'), 'day_in_the_life_date')
+                ->required(false)
+                ->sortable(),
             Text::make('Youtube Link', 'link')
                 ->required(true)
                 ->hideFromIndex()
