@@ -112,6 +112,15 @@ class Press extends Model implements HasMedia
                 ->toString();
         }
 
+        $authors = [];
+        if ($this->authors->count() > 0) {
+            $authors = $this->authors->pluck('name')->map(function ($author) {
+                return str($author)->title();
+            })->toArray();
+        } elseif (! empty($this->subtitle)) {
+            $authors = [str($this->subtitle)->title()];
+        }
+
         return [
             'id' => 'media_'.$this->id,
             'is_published' => ($this->date < now('America/Denver')),
@@ -121,6 +130,7 @@ class Press extends Model implements HasMedia
             'thumbnail' => $image_url ?? null,
             'name' => $title,
             'description' => strip_tags($this->description ?? ''),
+            'authors' => $authors ?? null,
             'date' => $this->date ? $this->date?->timestamp : null,
             'topics' => $this->topLevelIndexTopics->pluck('name')->map(function ($topic) {
                 return str($topic)->title();
@@ -138,6 +148,7 @@ class Press extends Model implements HasMedia
         return $query->with([
             'media',
             'topLevelIndexTopics',
+            'authors',
         ]);
     }
 
