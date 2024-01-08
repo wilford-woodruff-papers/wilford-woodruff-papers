@@ -124,23 +124,23 @@
 
                         x-init="tabRepositionMarker($refs.tabButtons.firstElementChild);" class="relative w-full max-w-sm">
 
-                        <div x-ref="tabButtons" class="inline-grid relative grid-cols-3 justify-center items-center p-1 w-full h-10 text-gray-500 bg-white border border-gray-100 select-none">
+                        <div x-ref="tabButtons" class="inline-grid relative grid-cols-3 justify-center items-center p-1 mt-2 w-full h-10 text-gray-500 bg-white border border-gray-100 select-none">
                             <button :id="$id(tabId)" @click="tabButtonClicked($el);" type="button" :class="{ 'bg-secondary text-white' : tabButtonActive($el) }" class="inline-flex relative z-20 justify-center items-center px-3 w-full h-8 text-sm font-medium whitespace-nowrap transition-all cursor-pointer">People</button>
                             <button :id="$id(tabId)" @click="tabButtonClicked($el);" type="button" :class="{ 'bg-secondary text-white' : tabButtonActive($el) }" class="inline-flex relative z-20 justify-center items-center px-3 w-full h-8 text-sm font-medium whitespace-nowrap transition-all cursor-pointer">Places</button>
                             <button :id="$id(tabId)" @click="tabButtonClicked($el);" type="button" :class="{ 'bg-secondary text-white' : tabButtonActive($el) }" class="inline-flex relative z-20 justify-center items-center px-3 w-full h-8 text-sm font-medium whitespace-nowrap transition-all cursor-pointer">Topics</button>
                             <div x-ref="tabMarker" class="absolute left-0 z-10 w-1/2 h-full duration-300 ease-out" x-cloak><div class="w-full h-full bg-gray-100 rounded-md shadow-sm"></div></div>
                         </div>
-                        <div class="flex relative justify-center items-center pl-3 mt-0 w-full text-gray-400 border content border-gray-200/70">
+                        <div class="flex relative justify-start items-center pl-3 mt-0 w-full text-gray-400 border content border-gray-200/70">
 
-                            <div :id="$id(tabId + '-content')" x-show="tabContentActive($el)" class="overflow-auto relative max-h-[450px]">
+                            <div :id="$id(tabId + '-content')" x-show="tabContentActive($el)" class="overflow-auto relative w-full max-h-[450px]">
                                 <livewire:documents.subjects.people :itemId="$item->id" lazy />
                             </div>
 
-                            <div :id="$id(tabId + '-content')" x-show="tabContentActive($el)" class="overflow-auto relative max-h-[450px]" x-cloak>
+                            <div :id="$id(tabId + '-content')" x-show="tabContentActive($el)" class="overflow-auto relative w-full max-h-[450px]" x-cloak>
                                 <livewire:documents.subjects.places :itemId="$item->id" lazy />
                             </div>
 
-                            <div :id="$id(tabId + '-content')" x-show="tabContentActive($el)" class="overflow-auto relative max-h-[450px]" x-cloak>
+                            <div :id="$id(tabId + '-content')" x-show="tabContentActive($el)" class="overflow-auto relative w-full max-h-[450px]" x-cloak>
                                 <livewire:documents.subjects.topics :itemId="$item->id" lazy />
                             </div>
 
