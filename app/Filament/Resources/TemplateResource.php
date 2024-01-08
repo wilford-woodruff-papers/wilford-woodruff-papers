@@ -44,6 +44,7 @@ class TemplateResource extends Resource
             ->striped()
             ->paginated([10, 25, 50, 100, 'all'])
             ->defaultPaginationPageOption(50)
+            ->defaultSort('name')
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->label('Template Name')
