@@ -206,14 +206,14 @@ class Stage extends Component
                             'completed' => $completed = $pageStats->whereIn('document_type', $this->typesMap[$doctype])
                                 ->where('action_name', $actionType)
                                 ->where('month', $this->monthMap[$month['name']])
-                                ->first()?->total,
+                                ->sum('total'),
                             'percentage' => ($goal > 0) ? (intval(($completed / $goal) * 100)) : 0,
                         ];
                         if ($actionType == 'Transcription') {
                             $stats[$doctype][$month['name']][$actionType]['completed_crowd'] = $completed_crowd = $crowdStats->whereIn('document_type', $this->typesMap[$doctype])
                                 ->where('action_name', $actionType)
                                 ->where('month', $this->monthMap[$month['name']])
-                                ->first()?->total;
+                                ->sum('total');
                         }
                         $summary['goal'][$actionType] += $goal;
                         $summary['completed'][$actionType] += $completed;
@@ -280,6 +280,9 @@ class Stage extends Component
                 }
             }
         }
+
+        // ray($stats ?? []);
+        // ray($months ?? []);
 
         return view('livewire.admin.stage', [
             'months' => $months ?? [],
