@@ -70,6 +70,7 @@ class Announcement extends Resource
             DateTime::make(__('Stop Showing'), 'end_publishing_at')
                 ->sortable(),
             Number::make('Order', 'order_column')
+                ->default(10)
                 ->help('The order is usually determined by the "Stop Showing" date. You can use this field to override that order.'),
             Text::make('Preview', function ($model) {
                 return '<a href="'.route('announcements.show', ['announcement' => $model->slug]).'" target="_blank">Preview</a>';
