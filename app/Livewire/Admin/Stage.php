@@ -43,8 +43,8 @@ class Stage extends Component
         'Discourses' => ['Discourses'],
         'Journals' => ['Journals', 'Journal Sections'],
         'Additional' => ['Additional', 'Additional Sections'],
-        'Autobiographies' => ['Autobiography Sections', 'Autobiographies'],
         'Daybooks' => ['Daybooks', 'Daybook Sections'],
+        'Autobiographies' => ['Autobiography Sections', 'Autobiographies'],
     ];
 
     public $actionTypes;
@@ -61,6 +61,7 @@ class Stage extends Component
                 'Verification',
                 'Stylization',
                 'Subject Tagging',
+                'Date Tagging',
                 'Topic Tagging',
                 'Publish',
             ])
@@ -76,8 +77,8 @@ class Stage extends Component
                 'Discourses',
                 'Journals',
                 'Additional',
-                'Autobiographies',
                 'Daybooks',
+                'Autobiographies',
             ];
 
             $month = [];
@@ -155,6 +156,7 @@ class Stage extends Component
                         'Verification' => 0,
                         'Stylization' => 0,
                         'Subject Tagging' => 0,
+                        'Date Tagging' => 0,
                         'Topic Tagging' => 0,
                         'Publish' => 0,
 
@@ -164,6 +166,7 @@ class Stage extends Component
                         'Verification' => 0,
                         'Stylization' => 0,
                         'Subject Tagging' => 0,
+                        'Date Tagging' => 0,
                         'Topic Tagging' => 0,
                         'Publish' => 0,
 
@@ -173,6 +176,7 @@ class Stage extends Component
                         'Verification' => 0,
                         'Stylization' => 0,
                         'Subject Tagging' => 0,
+                        'Date Tagging' => 0,
                         'Topic Tagging' => 0,
                         'Publish' => 0,
 
@@ -182,6 +186,7 @@ class Stage extends Component
                         'Verification' => 0,
                         'Stylization' => 0,
                         'Subject Tagging' => 0,
+                        'Date Tagging' => 0,
                         'Topic Tagging' => 0,
                         'Publish' => 0,
 
@@ -192,9 +197,10 @@ class Stage extends Component
                         'Transcription',
                         'Verification',
                         'Subject Tagging',
+                        'Date Tagging',
                         'Topic Tagging',
-                        'Stylization',
                         'Publish',
+                        'Stylization',
                     ] as $actionType) {
                         $stats[$doctype][$month['name']][$actionType] = [
                             'goal' => $goal = Goal::query()
@@ -226,9 +232,10 @@ class Stage extends Component
                             'Transcription',
                             'Verification',
                             'Subject Tagging',
+                            'Date Tagging',
                             'Topic Tagging',
-                            'Stylization',
                             'Publish',
+                            'Stylization',
                         ] as $actionType) {
                             $stats[$doctype][$month['name']][$actionType]['summary'] = [
                                 'goal' => $summary['goal'][$actionType],
@@ -243,6 +250,7 @@ class Stage extends Component
                                 'Verification' => 0,
                                 'Stylization' => 0,
                                 'Subject Tagging' => 0,
+                                'Date Tagging' => 0,
                                 'Topic Tagging' => 0,
                                 'Publish' => 0,
 
@@ -252,6 +260,7 @@ class Stage extends Component
                                 'Verification' => 0,
                                 'Stylization' => 0,
                                 'Subject Tagging' => 0,
+                                'Date Tagging' => 0,
                                 'Topic Tagging' => 0,
                                 'Publish' => 0,
 
@@ -261,6 +270,7 @@ class Stage extends Component
                                 'Verification' => 0,
                                 'Stylization' => 0,
                                 'Subject Tagging' => 0,
+                                'Date Tagging' => 0,
                                 'Topic Tagging' => 0,
                                 'Publish' => 0,
 
@@ -270,6 +280,7 @@ class Stage extends Component
                                 'Verification' => 0,
                                 'Stylization' => 0,
                                 'Subject Tagging' => 0,
+                                'Date Tagging' => 0,
                                 'Topic Tagging' => 0,
                                 'Publish' => 0,
 
