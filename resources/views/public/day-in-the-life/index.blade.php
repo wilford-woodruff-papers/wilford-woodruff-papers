@@ -75,6 +75,16 @@
                                         Journal Entry
                                     </div>
                                     <div class="flex gap-x-1 items-center pb-2">
+                                        @if($video)
+                                            <button x-on:click="Livewire.dispatch('openModal', {component: 'press-modal', arguments: {'press': {{ $video->id }}} })"
+                                                    class="flex gap-x-2 items-center py-1.5 px-2 sm:py-1 bg-secondary"
+                                            >
+                                                <x-heroicon-m-play-circle class="w-6 h-6 text-white"/>
+                                                <div class="hidden text-lg text-white whitespace-nowrap sm:block">
+                                                    Watch
+                                                </div>
+                                            </button>
+                                        @endif
                                         <button x-on:click="Livewire.dispatch('openModal', {component: 'page', arguments: {'pageId': {{ $day->first()->id }}} })"
                                                 class="flex gap-x-4 items-center py-1.5 px-2 sm:py-1 bg-secondary"
                                         >
