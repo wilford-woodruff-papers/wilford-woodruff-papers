@@ -80,6 +80,9 @@ class Article extends Resource
                 ->required(true)
                 ->sortable(),
             Date::make(__('Day in the Life Date'), 'day_in_the_life_date')
+                ->displayUsing(function ($date) {
+                    return $date ? $date->format('m/d/Y') : null;
+                })
                 ->required(false)
                 ->sortable(),
             Text::make(__('Author Name(s)'), 'subtitle')
