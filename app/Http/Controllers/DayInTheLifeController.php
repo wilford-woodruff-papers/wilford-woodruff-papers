@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\Page;
 use App\Models\Subject;
+use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Date;
@@ -120,6 +121,9 @@ class DayInTheLifeController extends Controller
                 ->get();
         });
 
+        $video = Video::query()
+            ->firstWhere('day_in_the_life_date', $date->toDateString());
+
         $sections = [
             'Person' => [
                 'name' => 'People',
@@ -162,6 +166,7 @@ class DayInTheLifeController extends Controller
             'allDates' => $allDates,
             'nextDay' => $nextDay,
             'sections' => $sections,
+            'video' => $video,
         ]);
     }
 }
