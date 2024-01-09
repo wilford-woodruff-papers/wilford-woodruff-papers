@@ -28,6 +28,7 @@ class Press extends Model implements HasMedia
 
     protected $casts = [
         'date' => 'datetime',
+        'day_in_the_life_date' => 'date',
     ];
 
     public function comments()
