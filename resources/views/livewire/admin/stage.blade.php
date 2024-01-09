@@ -77,9 +77,10 @@
                             <th colspan="4" class="bg-[#93c47d]">Transcription</th>
                             <th colspan="3" class="bg-[#f6b26b]">2LV</th>
                             <th colspan="3" class="bg-[#6d9eeb]">Subject Tag</th>
+                            <th colspan="3" class="bg-[#ca8a04]">Date Tag</th>
                             <th colspan="3" class="bg-[#8e7cc3]">Topic Tag</th>
-                            <th colspan="3" class="bg-[#c27ba0]">Stylize</th>
                             <th colspan="3" class="bg-[#e06666]">Publish</th>
+                            <th colspan="3" class="bg-[#c27ba0]">Stylize</th>
                         </tr>
                         <tr>
                             <th class="py-3.5 text-base font-semibold text-center text-black bg-white">
@@ -99,24 +100,28 @@
                             <th class="px-3 w-14 bg-[#a4c2f4] text-white">Completed</th>
                             <th class="px-3 w-14 bg-[#a4c2f4] text-white">% of Goal</th>
 
+                            <th class="px-3 w-14 bg-[#eab308] text-white">Goal</th>
+                            <th class="px-3 w-14 bg-[#eab308] text-white">Completed</th>
+                            <th class="px-3 w-14 bg-[#eab308] text-white">% of Goal</th>
+
                             <th class="px-3 w-14 bg-[#b4a7d6] text-white">Goal</th>
                             <th class="px-3 w-14 bg-[#b4a7d6] text-white">Completed</th>
                             <th class="px-3 w-14 bg-[#b4a7d6] text-white">% of Goal</th>
 
-                            <th class="px-3 w-14 bg-[#d5a6bd] text-white">Goal</th>
-                            <th class="px-3 w-14 bg-[#d5a6bd] text-white">Completed</th>
-                            <th class="px-3 w-14 bg-[#d5a6bd] text-white">% of Goal</th>
-
                             <th class="px-3 w-14 bg-[#ea9999] text-black">Goal</th>
                             <th class="px-3 w-14 bg-[#ea9999] text-black">Completed</th>
                             <th class="px-3 w-14 bg-[#ea9999] text-black">% of Goal</th>
+
+                            <th class="px-3 w-14 bg-[#d5a6bd] text-white">Goal</th>
+                            <th class="px-3 w-14 bg-[#d5a6bd] text-white">Completed</th>
+                            <th class="px-3 w-14 bg-[#d5a6bd] text-white">% of Goal</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white">
                         @foreach($stats as $docTypeName => $docType)
                             <tr class="text-white bg-black">
                                 <td class="px-2 text-center uppercase">{{ str($docTypeName)->before(' Sections') }}</td>
-                                <td colspan="19" class="pl-2 text-left">Pages</td>
+                                <td colspan="22" class="pl-2 text-left">Pages</td>
                             </tr>
                             @foreach($docType as $monthName => $monthData)
                                 <tr class="text-center">
@@ -128,6 +133,7 @@
                                               'bg-[#b6d7a8]' =>  ($actionName == 'Transcription'),
                                               'bg-[#f9cb9c]' =>  ($actionName == 'Verification'),
                                               'bg-[#a4c2f4]' =>  ($actionName == 'Subject Tagging'),
+                                              'bg-[#eab308]' =>  ($actionName == 'Date Tagging'), // TODO: udpate these colors
                                               'bg-[#b4a7d6]' =>  ($actionName == 'Topic Tagging'),
                                               'bg-[#d5a6bd]' =>  ($actionName == 'Stylization'),
                                               'bg-[#ea9999]' =>  ($actionName == 'Publish'),
@@ -139,6 +145,7 @@
                                               'bg-[#b6d7a8]' =>  ($actionName == 'Transcription'),
                                               'bg-[#f9cb9c]' =>  ($actionName == 'Verification'),
                                               'bg-[#a4c2f4]' =>  ($actionName == 'Subject Tagging'),
+                                              'bg-[#eab308]' =>  ($actionName == 'Date Tagging'),
                                               'bg-[#b4a7d6]' =>  ($actionName == 'Topic Tagging'),
                                               'bg-[#d5a6bd]' =>  ($actionName == 'Stylization'),
                                               'bg-[#ea9999]' =>  ($actionName == 'Publish'),
@@ -150,6 +157,7 @@
                                               'bg-[#b6d7a8]' =>  ($actionName == 'Transcription'),
                                               'bg-[#f9cb9c]' =>  ($actionName == 'Verification'),
                                               'bg-[#a4c2f4]' =>  ($actionName == 'Subject Tagging'),
+                                              'bg-[#eab308]' =>  ($actionName == 'Date Tagging'),
                                               'bg-[#b4a7d6]' =>  ($actionName == 'Topic Tagging'),
                                               'bg-[#d5a6bd]' =>  ($actionName == 'Stylization'),
                                               'bg-[#ea9999]' =>  ($actionName == 'Publish'),
@@ -161,6 +169,7 @@
                                               'bg-[#b6d7a8]' =>  ($actionName == 'Transcription'),
                                               'bg-[#f9cb9c]' =>  ($actionName == 'Verification'),
                                               'bg-[#a4c2f4]' =>  ($actionName == 'Subject Tagging'),
+                                              'bg-[#eab308]' =>  ($actionName == 'Date Tagging'),
                                               'bg-[#b4a7d6]' =>  ($actionName == 'Topic Tagging'),
                                               'bg-[#d5a6bd]' =>  ($actionName == 'Stylization'),
                                               'bg-[#ea9999]' =>  ($actionName == 'Publish'),
