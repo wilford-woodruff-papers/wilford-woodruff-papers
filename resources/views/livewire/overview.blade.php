@@ -22,7 +22,7 @@
                                     <th colspan="5"
                                         scope="colgroup"
                                         class="py-2 pr-3 pl-4 text-base font-semibold text-left text-gray-900 bg-gray-50 sm:pl-3">
-                                        {{ $docKey }}
+                                        {{ $docKey }} <span class="text-sm font-normal">({{ Number::format($this->totalPages[$docKey]) }})</span>
                                     </th>
                                 </tr>
                                 @foreach($types as $type)
