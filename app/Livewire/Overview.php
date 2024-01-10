@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Action;
 use App\Models\ActionType;
 use App\Models\Page;
+use App\Models\Type;
 use Livewire\Component;
 
 class Overview extends Component
@@ -17,6 +18,15 @@ class Overview extends Component
         'Needed',
         'Overdue',
     ];
+
+    public $statusMap = [
+        'Completed' => 'completed',
+        'In Progress' => 'in_progress',
+        'Needed' => 'needed',
+        'Overdue' => 'overdue',
+    ];
+
+    public $docTypes;
 
     public $types = [];
 
@@ -34,6 +44,7 @@ class Overview extends Component
         $this->types = ActionType::query()
             ->where('type', 'Documents')
             ->get();
+        $this->docTypes = Type::all();
 
         foreach ($this->typesMap as $key => $types) {
             foreach ($this->types as $type) {
