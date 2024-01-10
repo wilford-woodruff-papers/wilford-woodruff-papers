@@ -20,6 +20,7 @@
         "dyrynda/laravel-model-uuid": "^7.0",
         "emilianotisato/nova-tinymce": "dev-master",
         "filament/filament": "^3.1",
+        "flowframe/laravel-trend": "^0.1.5",
         "genealabs/laravel-caffeine": "^10.0",
         "guzzlehttp/guzzle": "^7.7",
         "http-interop/http-factory-guzzle": "^1.0",
