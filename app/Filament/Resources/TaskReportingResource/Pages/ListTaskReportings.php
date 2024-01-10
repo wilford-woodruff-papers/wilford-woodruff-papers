@@ -34,7 +34,7 @@ class ListTaskReportings extends ListRecords
     public function getTabs(): array
     {
         return [
-            'incomplete' => Tab::make()
+            'in_progress' => Tab::make()
                 ->modifyQueryUsing(fn (Builder $query) => $query->where('actionable_type', Page::class)->whereNotNull('assigned_at')->whereNull('completed_at')),
             'overdue' => Tab::make()
                 ->modifyQueryUsing(fn (Builder $query) => $query->where('actionable_type', Page::class)->whereNotNull('assigned_at')->whereNull('completed_at')->where('assigned_at', '<', now()->subDays(14))),

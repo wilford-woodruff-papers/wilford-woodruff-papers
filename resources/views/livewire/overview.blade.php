@@ -17,12 +17,12 @@
                             @endforeach
                         </thead>
                         <tbody class="bg-white">
-                            @foreach($typesMap as $key => $type)
+                            @foreach($typesMap as $docKey => $docType)
                                 <tr class="border-t border-gray-200">
                                     <th colspan="5"
                                         scope="colgroup"
                                         class="py-2 pr-3 pl-4 text-base font-semibold text-left text-gray-900 bg-gray-50 sm:pl-3">
-                                        {{ $key }}
+                                        {{ $docKey }}
                                     </th>
                                 </tr>
                                 @foreach($types as $type)
@@ -32,7 +32,18 @@
                                         </td>
                                         @foreach($statuses as $status)
                                             <td class="py-4 px-3 text-sm text-gray-500 whitespace-nowrap">
-                                                {{ Number::format($stats[$key][$type->name][$status]) }}
+                                                <a href="{{ \App\Filament\Resources\TaskReportingResource::getUrl() }}?{{ collect([
+                                                        '&activeTab='.$statusMap[$status],
+                                                        'tableFilters[task_type][value]='.$type->id,
+                                                        collect($docTypes->whereIn('name', $typesMap[$docKey])->all())->map(function($item, $key){
+                                                            return 'tableFilters[document_type][values]['.$key.']='.$item->id;
+                                                        })->join('&'),
+                                                    ])->join('&') }}"
+                                                    target="_blank"
+                                                   class="text-primary-600 hover:text-primary-900"
+                                                >
+                                                    {{ Number::format($stats[$docKey][$type->name][$status]) }}
+                                                </a>
                                             </td>
                                         @endforeach
                                     </tr>
