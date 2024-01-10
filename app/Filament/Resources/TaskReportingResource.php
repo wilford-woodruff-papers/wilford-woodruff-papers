@@ -64,8 +64,12 @@ class TaskReportingResource extends Resource
                 Tables\Filters\SelectFilter::make('assignee')
                     ->relationship('assignee', 'name', fn (Builder $query) => $query->has('roles'))
                     ->preload(),
-                Tables\Filters\SelectFilter::make('type')
+                Tables\Filters\SelectFilter::make('task_type')
                     ->relationship('type', 'name', fn (Builder $query) => $query->where('type', 'Documents'))
+                    ->preload(),
+                Tables\Filters\SelectFilter::make('document_type')
+                    ->relationship('item.type', 'name')
+                    ->multiple()
                     ->preload(),
             ])
             ->actions([
