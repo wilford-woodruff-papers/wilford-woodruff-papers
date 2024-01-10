@@ -12,6 +12,8 @@ class Overview extends Component
 {
     public $stats = [];
 
+    public $totalPages = [];
+
     public $statuses = [
         'Completed',
         'In Progress',
@@ -47,6 +49,13 @@ class Overview extends Component
         $this->docTypes = Type::all();
 
         foreach ($this->typesMap as $key => $types) {
+            $this->totalPages[$key] = Page::query()
+                ->whereHas('item', function ($query) use ($types) {
+                    $query->whereHas('type', function ($query) use ($types) {
+                        $query->whereIn('name', $types);
+                    });
+                })
+                ->count();
             foreach ($this->types as $type) {
                 $this->stats[$key][$type->name]['Completed'] = Action::query()
                     ->whereHasMorph('actionable', [Page::class],
@@ -80,23 +89,26 @@ class Overview extends Component
                     ->whereNull('completed_by')
                     ->count();
 
-                $this->stats[$key][$type->name]['Needed'] = Page::query()
-                    ->whereHas('parent', function ($query) use ($types) {
-                        $query->whereHas('type', function ($query) use ($types) {
-                            $query->whereIn('name', $types);
+                $this->stats[$key][$type->name]['Needed'] = $this->totalPages[$key] -
+                    ($this->stats[$key][$type->name]['Completed'] + $this->stats[$key][$type->name]['In Progress']);
+
+                /*Page::query()
+                ->whereHas('item', function ($query) use ($types) {
+                    $query->whereHas('type', function ($query) use ($types) {
+                        $query->whereIn('name', $types);
+                    });
+                })
+                ->where(function ($query) use ($type) {
+                    $query->whereDoesntHave('actions', function ($query) use ($type) {
+                        $query->where('action_type_id', $type->id);
+                    })
+                        ->orWhereHas('actions', function ($query) use ($type) {
+                            $query->where('action_type_id', $type->id)
+                                ->whereNull('assigned_at')
+                                ->whereNull('assigned_to');
                         });
-                    })
-                    ->where(function ($query) use ($type) {
-                        $query->whereDoesntHave('actions', function ($query) use ($type) {
-                            $query->where('action_type_id', $type->id);
-                        })
-                            ->orWhereHas('actions', function ($query) use ($type) {
-                                $query->where('action_type_id', $type->id)
-                                    ->whereNull('assigned_at')
-                                    ->whereNull('assigned_to');
-                            });
-                    })
-                    ->count();
+                })
+                ->count();*/
 
                 $this->stats[$key][$type->name]['Overdue'] = Action::query()
                     ->whereHasMorph('actionable', [Page::class],
