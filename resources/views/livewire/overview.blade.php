@@ -15,11 +15,13 @@
                                     {{ $status }}
                                 </th>
                             @endforeach
+                            <th  scope="col"
+                                 class="py-3.5 px-3 text-sm font-semibold text-left text-gray-900"></th>
                         </thead>
                         <tbody class="bg-white">
                             @foreach($typesMap as $docKey => $docType)
                                 <tr class="border-t border-gray-200">
-                                    <th colspan="5"
+                                    <th colspan="6"
                                         scope="colgroup"
                                         class="py-2 pr-3 pl-4 text-base font-semibold text-left text-gray-900 bg-gray-50 sm:pl-3">
                                         {{ $docKey }} <span class="text-sm font-normal">({{ Number::format($this->totalPages[$docKey]) }})</span>
@@ -46,6 +48,16 @@
                                                 </a>
                                             </td>
                                         @endforeach
+
+                                        @if($type->name == 'Transcription')
+                                            <td rowspan="4" class="px-4 text-sm text-gray-500 whitespace-nowrap" style="max-width: 250px;">
+                                                @livewire(\App\Filament\Widgets\PageOverviewChart::class, ['statuses' => $publishingStatus[$docKey]])
+                                            </td>
+                                            {{--<td class="py-4 px-3 text-sm text-gray-500 whitespace-nowrap"></td>--}}
+                                        @elseif(in_array($type->name, ['Verification','Subject Tagging','Date Tagging']))
+                                        @else
+                                            <td class="py-4 px-3 text-sm text-gray-500 whitespace-nowrap"></td>
+                                        @endif
                                     </tr>
                                 @endforeach
                             @endforeach

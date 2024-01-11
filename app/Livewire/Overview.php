@@ -14,6 +14,8 @@ class Overview extends Component
 
     public $totalPages = [];
 
+    public $publishingStatus = [];
+
     public $statuses = [
         'Completed',
         'In Progress',
@@ -45,10 +47,31 @@ class Overview extends Component
     {
         $this->types = ActionType::query()
             ->where('type', 'Documents')
+            ->ordered()
             ->get();
         $this->docTypes = Type::all();
 
         foreach ($this->typesMap as $key => $types) {
+            $this->publishingStatus[$key] = Page::query()
+                ->select('id')
+                ->withCount(['publishing_tasks'])
+                ->whereHas('item', function ($query) use ($types) {
+                    $query->whereHas('type', function ($query) use ($types) {
+                        $query->whereIn('name', $types);
+                    });
+                })
+                ->toBase()
+                ->get()
+                ->groupBy(function ($item, int $key) {
+                    return $item->publishing_tasks_count;
+                })
+                //->groupBy('publishing_tasks_count')
+                ->map(function ($item, $key) {
+                    return ['task_count' => (4 - $key).' '.str('Task')->plural((4 - $key)), 'page_count' => $item?->count()];
+                })
+                ->filter(function ($item) {
+                    return $item['task_count'] !== '0 Tasks';
+                });
             $this->totalPages[$key] = Page::query()
                 ->whereHas('item', function ($query) use ($types) {
                     $query->whereHas('type', function ($query) use ($types) {
