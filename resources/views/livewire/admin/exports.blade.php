@@ -31,7 +31,7 @@
                 <div>
                     <label for="export" class="block text-sm font-medium leading-6 text-gray-900 sr-only">Export</label>
                     <select
-                        wire:model.live="export"
+                        wire:model="export"
                         id="export"
                         name="export"
                         class="block py-1.5 pr-10 pl-3 mt-2 w-full text-gray-900 rounded-md border-0 ring-1 ring-inset ring-gray-300 sm:text-sm sm:leading-6 focus:ring-2 focus:ring-indigo-600">
@@ -44,7 +44,7 @@
             </div>
             <div class="pt-2">
                 <button
-                    wire:click="export"
+                    wire:click="runExport"
                     type="button"
                     class="py-1.5 px-2.5 text-sm font-semibold text-white bg-indigo-600 rounded-md shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                     Run
@@ -83,6 +83,7 @@
                             <td class="justify-end py-4 px-3 text-sm whitespace-nowrap">
                                 <button
                                     wire:click="delete({{ $export->id }})"
+                                    wire:confirm="Are you sure you want to delete this export?"
                                     type="button"
                                     class="inline-flex gap-x-1.5 items-center py-2 px-3 text-sm font-semibold text-white bg-red-600 rounded-md shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="-ml-0.5 w-5 h-5">
