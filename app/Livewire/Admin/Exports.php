@@ -36,7 +36,7 @@ class Exports extends Component
             ->layout('layouts.admin');
     }
 
-    public function export()
+    public function runExport()
     {
         if (! empty($this->export)) {
             (new $this->export(auth()->user()))
