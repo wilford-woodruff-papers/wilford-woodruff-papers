@@ -56,6 +56,18 @@
                                 @endhasanyrole
                             @endif
                         </div>
+                        @if(! empty($subject->pid) && $subject->pid !== 'n/a')
+                            <a href="https://www.familysearch.org/tree/person/details/{{ $subject->pid }}"
+                               class="inline-block px-2 pt-1 pb-2 text-sm bg-white rounded-md border border-gray-200"
+                               target="_blank"
+                            >
+                                <img src="{{ asset('img/familytree-logo.png') }}"
+                                     alt="FamilySearch"
+                                     class="w-auto h-6"
+                                />
+                            </a>
+                        @endif
+
                         @if(! empty($subject->bio_approved_at))
                             <div>
                                 {!! $linkify->process($subject->bio) !!}
