@@ -122,6 +122,21 @@ class Page extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
             ->orderBy('language', 'ASC');
     }
 
+    public function publishing_tasks()
+    {
+        return $this->morphMany(Action::class, 'actionable')
+            ->whereNotNull('completed_at')
+            ->whereNotNull('completed_by')
+            ->whereHas('type', function ($query) {
+                $query->whereIn('name', [
+                    'Transcription',
+                    'Verification',
+                    'Subject Tagging',
+                    'Date Tagging',
+                ]);
+            });
+    }
+
     public function getPageDateRangeAttribute()
     {
         // Is not a Journal so return page #
