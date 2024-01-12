@@ -51,6 +51,7 @@
         "mtvs/eloquent-hashids": "^3.4",
         "owen-it/laravel-auditing": "^13.1",
         "pixelcreation/nova-field-sortable": "^3.2",
+        "psr/simple-cache": "^3.0",
         "pusher/pusher-php-server": "^7.2",
         "ramsey/uuid": "^4.2",
         "saloonphp/laravel-http-sender": "^2.0",
