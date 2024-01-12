@@ -7,7 +7,7 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 
-class ExportPages extends DownloadExcel implements WithMapping, WithHeadings
+class ExportPages extends DownloadExcel implements WithHeadings, WithMapping
 {
     public function headings(): array
     {
@@ -22,6 +22,7 @@ class ExportPages extends DownloadExcel implements WithMapping, WithHeadings
             'Website URL',
             'Short URL',
             'Image URL',
+            'FTP URL',
             'Original Transcript',
             'Text Only Transcript',
             'People',
@@ -50,6 +51,7 @@ class ExportPages extends DownloadExcel implements WithMapping, WithHeadings
             ((! empty($page->item)) ? route('pages.show', ['item' => $page->item?->uuid, 'page' => $page->uuid]) : ''),
             ((! empty($page->id)) ? route('short-url.page', ['hashid' => $page->hashid()]) : ''),
             $page->getFirstMedia()?->getUrl(),
+            $page->ftp_link,
             $page->transcript,
             strip_tags($page->transcript),
             $page->subjects()->whereHas('category', function (Builder $query) {
