@@ -10,7 +10,7 @@ class ReplaceInlineLanguageTags
     {
         return function ($subject) {
             return Str::of($subject)
-                ->replaceMatches('/(?:{)(.*?)(?:})/m', function (array $match) {
+                ->replaceMatches('/(?<!-)(?:{)(.*?)(?:})/m', function (array $match) {
                     $parts = str($match[1])->explode('|');
                     switch ($parts->count()) {
                         case 1:
