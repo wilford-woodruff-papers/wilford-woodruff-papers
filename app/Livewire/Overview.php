@@ -26,8 +26,8 @@ class Overview extends Component
     public $statusMap = [
         'Completed' => 'completed',
         'In Progress' => 'in_progress',
-        'Needed' => 'needed',
         'Overdue' => 'overdue',
+        'Needed' => 'needed',
     ];
 
     public $docTypes;
