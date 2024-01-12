@@ -110,6 +110,10 @@
                                             Partners
                                         </a>
 
+                                        <a href="/impact" class="text-base font-medium text-gray-900 hover:text-gray-700">
+                                            Impact
+                                        </a>
+
                                         <a href="{{ route('about.editorial-method') }}" class="text-base font-medium text-gray-900 hover:text-gray-700">
                                             Editorial Method
                                         </a>
@@ -498,6 +502,10 @@
                                                    class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
                                                     Partners
                                                 </a>
+                                                <a href="/impact"
+                                                   class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
+                                                    Impact
+                                                </a>
                                                 <a href="{{ route('about.editorial-method') }}"
                                                    class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
                                                     Editorial Method
@@ -693,6 +701,10 @@
                                     <a href="{{ route('about.partners') }}"
                                        class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
                                         Partners
+                                    </a>
+                                    <a href="/impact"
+                                       class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
+                                        Impact
                                     </a>
                                     <a href="{{ route('about.editorial-method') }}"
                                        class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >

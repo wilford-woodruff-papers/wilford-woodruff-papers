@@ -27,7 +27,7 @@ class Overview extends Component
         'Completed' => 'completed',
         'In Progress' => 'in_progress',
         'Overdue' => 'overdue',
-        'Needed' => 'needed',
+        'Not Started' => 'not_started',
     ];
 
     public $docTypes;
@@ -68,9 +68,6 @@ class Overview extends Component
                 //->groupBy('publishing_tasks_count')
                 ->map(function ($item, $key) {
                     return ['task_count' => (4 - $key).' '.str('Task')->plural((4 - $key)), 'page_count' => $item?->count()];
-                })
-                ->filter(function ($item) {
-                    return $item['task_count'] !== '0 Tasks';
                 });
             $this->totalPages[$key] = Page::query()
                 ->whereHas('item', function ($query) use ($types) {

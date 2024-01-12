@@ -25,6 +25,13 @@
                                 Partners
                             </span>
                 </a>
+                <a href="/impact"
+                   class="flex items-center py-2 px-3 text-sm font-medium group"
+                >
+                    <span class="truncate">
+                        Impact
+                    </span>
+                </a>
                 <a href="{{ route('about.editorial-method') }}"
                    class="group flex items-center px-3 py-2 text-sm font-medium @if(request()->is('about/editorial-method')) active @else @endif">
                             <span class="truncate">
