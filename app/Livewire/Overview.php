@@ -19,8 +19,8 @@ class Overview extends Component
     public $statuses = [
         'Completed',
         'In Progress',
-        'Needed',
         'Overdue',
+        'Not Started',
     ];
 
     public $statusMap = [
@@ -109,7 +109,7 @@ class Overview extends Component
                     ->whereNull('completed_by')
                     ->count();
 
-                $this->stats[$key][$type->name]['Needed'] = $this->totalPages[$key] -
+                $this->stats[$key][$type->name]['Not Started'] = $this->totalPages[$key] -
                     ($this->stats[$key][$type->name]['Completed'] + $this->stats[$key][$type->name]['In Progress']);
 
                 /*Page::query()
