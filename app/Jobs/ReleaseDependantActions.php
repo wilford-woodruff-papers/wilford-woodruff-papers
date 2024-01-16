@@ -31,6 +31,10 @@ class ReleaseDependantActions implements ShouldQueue
     public function handle(): void
     {
         foreach ($this->action->type->dependentActionTypes as $actionType) {
+            // Currently only needed for Journals and already assigned.
+            if ($actionType->name == '4LV') {
+                continue;
+            }
             if (class_basename($this->action->actionable) == 'Item') {
                 $parent = $this->action->actionable->parent();
             } else {
