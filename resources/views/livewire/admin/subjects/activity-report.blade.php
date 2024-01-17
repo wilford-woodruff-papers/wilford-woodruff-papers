@@ -89,6 +89,14 @@
                                     {{ $overallStats['unknown_people']['removed'] }}
                                 </td>
                             </tr>
+                            <tr class="odd:bg-white even:bg-gray-50">
+                                <td class="p-4 text-left">
+                                    Unknown Places Resolved
+                                </td>
+                                <td class="p-4 text-right">
+                                    {{ $overallStats['unknown_places']['removed'] }}
+                                </td>
+                            </tr>
                         </tbody>
                         <tfoot></tfoot>
                     </table>
