@@ -64,6 +64,12 @@ class ActivityReport extends Component
                 ->where('type', 'people')
                 ->count();
 
+            $overallStats['unknown_places']['removed'] = DB::table('identifications')
+                ->whereDate('completed_at', '>=', $this->dates['start'])
+                ->whereDate('completed_at', '<=', $this->dates['end'])
+                ->where('type', 'place')
+                ->count();
+
             $individualStats['biographies']['completed'] = DB::table('subjects')
                 ->select('users.name', DB::raw('count(*) as completed'))
                 ->join('users', 'subjects.researcher_id', '=', 'users.id')
