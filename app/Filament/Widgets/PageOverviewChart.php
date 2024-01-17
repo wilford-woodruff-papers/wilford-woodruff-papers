@@ -18,7 +18,7 @@ class PageOverviewChart extends ChartWidget
             'datasets' => [
                 [
                     'label' => 'Tasks Needed',
-                    'data' => collect($this->statuses)->sortBy('page_count')->pluck('page_count')->toArray(),
+                    'data' => collect($this->statuses)->sortBy('task_count')->pluck('page_count')->toArray(),
                     'backgroundColor' => [
                         '#15803D',
                         '#FDE047',
