@@ -44,7 +44,6 @@ class ActivityReport extends Component
                 ->join('categories', 'categories.id', '=', 'category_subject.category_id')
                 ->whereDate('place_confirmed_at', '>=', $this->dates['start'])
                 ->whereDate('place_confirmed_at', '<=', $this->dates['end'])
-                ->whereNotNull('researcher_id')
                 ->where('categories.name', 'Places')
                 ->count();
 
