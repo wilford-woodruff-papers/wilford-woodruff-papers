@@ -69,6 +69,7 @@ class Overview extends Component
                 ->map(function ($item, $key) {
                     return ['task_count' => (4 - $key).' '.str('Task')->plural((4 - $key)), 'page_count' => $item?->count()];
                 });
+            ray($this->publishingStatus[$key]);
             $this->totalPages[$key] = Page::query()
                 ->whereHas('item', function ($query) use ($types) {
                     $query->whereHas('type', function ($query) use ($types) {
