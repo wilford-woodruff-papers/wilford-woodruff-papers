@@ -6,7 +6,7 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 
-class ExportSubjects extends DownloadExcel implements WithMapping, WithHeadings
+class ExportSubjects extends DownloadExcel implements WithHeadings, WithMapping
 {
     public function headings(): array
     {
@@ -46,7 +46,7 @@ class ExportSubjects extends DownloadExcel implements WithMapping, WithHeadings
             })
                 ->unique()
                 ->join(';'),
-            $subject->total_usage_count,
+            (($subject->total_usage_count > 0) ? $subject->total_usage_count : $subject->tagged_count),
             config('app.url').'/subjects/'.$subject->slug,
             config('app.url').'/admin/dashboard/people/'.$subject->slug.'/edit',
             $subject->bio,

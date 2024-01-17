@@ -11,6 +11,7 @@ use App\Nova\Actions\ImportPeople;
 use App\Nova\Actions\ImportSubjects;
 use App\Nova\Actions\ParseNames;
 use App\Nova\Filters\ParentSubjects;
+use App\Nova\Filters\SubjectIsTagged;
 use App\Nova\Filters\SubjectType;
 use Emilianotisato\NovaTinyMCE\NovaTinyMCE;
 use Illuminate\Http\Request;
@@ -18,6 +19,7 @@ use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
+use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
@@ -69,6 +71,12 @@ class Subject extends Resource
                 ->sortable(),
             Text::make(__('Name'), 'name')
                 ->sortable(),
+            Number::make(__('Total'), 'total_usage_count')
+                ->readonly()
+                ->sortable(),
+            Number::make(__('Tagged'), 'tagged_count')
+                ->readonly()
+                ->sortable(),
             Text::make('Category', function () {
                 return $this->category->pluck('name')->implode(', ');
             })
@@ -107,6 +115,7 @@ class Subject extends Resource
     {
         return [
             new SubjectType,
+            new SubjectIsTagged,
             new ParentSubjects,
         ];
     }
