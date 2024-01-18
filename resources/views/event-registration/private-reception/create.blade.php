@@ -1,12 +1,12 @@
 <x-guest-layout>
-    <x-slot name="title">Private Reception preceding the Development of Temple Doctrine Fireside on October 8, 2023</x-slot>
+    <x-slot name="title">Evening of Appreciation with Elder Matthew Holland on March 1, 2024</x-slot>
     <div class="my-12 mx-auto max-w-7xl">
             <div class="space-y-12">
                 <div class="grid grid-cols-1 gap-x-8 gap-y-10 pb-12 md:grid-cols-2">
                     <div>
-                        <img src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/development-of-temple-doctrine.png"
+                        <img src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/elder-matthew-holland-invitation.jpg"
                              class="p-4 w-full h-auto"
-                             alt="Private Reception preceding the Development of Temple Doctrine Fireside on October 8, 2023"
+                             alt="Evening of Appreciation for friends of the Wilford Woodruff Papers Foundation on March 1st, 2024"
                         />
                     </div>
 
@@ -106,6 +106,7 @@
                                             <input type="number"
                                                    name="fields['How many will be attending?']"
                                                    id="fields['How many will be attending?']"
+                                                   value="2"
                                                    class="block py-1.5 w-full text-gray-900 rounded-md border-0 ring-1 ring-inset ring-gray-300 shadow-sm sm:text-sm sm:leading-6 focus:ring-2 focus:ring-inset placeholder:text-gray-400 focus:ring-secondary-600"
                                             >
                                         </div>

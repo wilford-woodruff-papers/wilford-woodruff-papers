@@ -24,7 +24,7 @@ class EventRegistrationController extends Controller
         $validated = $request->validated();
 
         $eventRegistration = EventRegistration::make($validated);
-        $eventRegistration->event_name = 'Private Reception';
+        $eventRegistration->event_name = 'Evening of Appreciation';
 
         foreach ($request->get('fields') as $key => $value) {
             $attribute = str($key)->replace("'", '')->toString();
@@ -38,7 +38,7 @@ class EventRegistrationController extends Controller
             $user->notify(new \App\Notifications\NewEventRegistrationNotification($eventRegistration));
         }
 
-        return back()->with('success', "Thank you for registering for the Private Reception preceding the Development of Temple Doctrine Fireside on <b>October 8th</b>! We'll send you a reminder email with the link to access the event a few days before the event.");
+        return back()->with('success', "Thank you for registering For Wilford Woodruff Papers Evening of Appreciation with Elder Matthew Holland on <b>March 1st</b>! We'll send you a reminder email a few days before the event.");
     }
 
     public function live()
