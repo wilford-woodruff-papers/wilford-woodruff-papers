@@ -85,7 +85,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="sm:col-span-4">
+                                    <div class="sm:col-span-3">
                                         <label for="email" class="block text-base font-medium leading-6 text-gray-900">Email address <span class="text-red-700">*</span></label>
                                         <div class="mt-2">
                                             <input id="email"
@@ -94,6 +94,20 @@
                                                    autocomplete="email"
                                                    class="block py-1.5 w-full text-gray-900 rounded-md border-0 ring-1 ring-inset ring-gray-300 shadow-sm sm:text-sm sm:leading-6 focus:ring-2 focus:ring-inset placeholder:text-gray-400 focus:ring-secondary-600"
                                                    maxlength="191"
+                                            >
+                                        </div>
+                                    </div>
+
+                                    <div class="sm:col-span-3">
+                                        <label for="fields['Phone Number']" class="block text-base font-medium leading-6 text-gray-900">
+                                            Phone Number
+                                        </label>
+                                        <div class="mt-2">
+                                            <input type="text"
+                                                   name="fields['Phone Number']"
+                                                   id="fields['Phone Number']"
+                                                   placeholder="(123) 456-7890"
+                                                   class="block py-1.5 w-full text-gray-900 rounded-md border-0 ring-1 ring-inset ring-gray-300 shadow-sm sm:text-sm sm:leading-6 focus:ring-2 focus:ring-inset placeholder:text-gray-400 focus:ring-secondary-600"
                                             >
                                         </div>
                                     </div>
