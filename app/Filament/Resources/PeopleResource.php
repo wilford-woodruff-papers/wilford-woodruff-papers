@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Actions\Tables\Subjects\ClaimSubject;
+use App\Filament\Actions\Tables\UpdateSubjectValue;
 use App\Filament\Resources\PeopleResource\Pages;
 use App\Livewire\PeopleDuplicateChecker;
 use App\Models\Subject;
@@ -309,6 +310,8 @@ class PeopleResource extends Resource
             })
             ->paginationPageOptions([25, 50, 100, 200])
             ->persistFiltersInSession()
+            ->persistSearchInSession()
+            ->persistColumnSearchesInSession()
             ->columns([
                 Tables\Columns\TextColumn::make('unique_id')
                     ->label('ID')
@@ -321,7 +324,7 @@ class PeopleResource extends Resource
 //                        };
 //                    })
 //                    ->html()
-                    ->searchable()
+                    ->searchable(isIndividual: true)
                     ->sortable(),
                 Tables\Columns\IconColumn::make('subject_uri')
                     ->label('FTP')
@@ -361,7 +364,7 @@ class PeopleResource extends Resource
                             ? 'primary'
                             : null;
                     })
-                    ->searchable()
+                    ->searchable(isIndividual: true)
                     ->toggleable(),
                 Tables\Columns\IconColumn::make('incomplete_identification')
                     ->label('II')
@@ -519,8 +522,13 @@ class PeopleResource extends Resource
                 Tables\Filters\QueryBuilder::make()
                     ->constraints([
                         Tables\Filters\QueryBuilder\Constraints\TextConstraint::make('name'),
+                        Tables\Filters\QueryBuilder\Constraints\TextConstraint::make('first_name'),
                         Tables\Filters\QueryBuilder\Constraints\TextConstraint::make('last_name'),
+                        Tables\Filters\QueryBuilder\Constraints\TextConstraint::make('maiden_name'),
+                        Tables\Filters\QueryBuilder\Constraints\TextConstraint::make('alternate_names'),
                         Tables\Filters\QueryBuilder\Constraints\TextConstraint::make('bio'),
+                        Tables\Filters\QueryBuilder\Constraints\TextConstraint::make('footnotes'),
+                        Tables\Filters\QueryBuilder\Constraints\TextConstraint::make('pid'),
                         Tables\Filters\QueryBuilder\Constraints\DateConstraint::make('birth_date'),
                         Tables\Filters\QueryBuilder\Constraints\DateConstraint::make('death_date'),
                         Tables\Filters\QueryBuilder\Constraints\DateConstraint::make('updated_at'),
@@ -533,7 +541,9 @@ class PeopleResource extends Resource
             ], position: Tables\Enums\ActionsPosition::BeforeCells)
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    //Tables\Actions\DeleteBulkAction::make(),
+                    UpdateSubjectValue::make()
+                        ->setModel(Subject::class)
+                        ->visible(auth()->user()->hasAnyRole(['Super Admin'])),
                 ]),
             ]);
     }
