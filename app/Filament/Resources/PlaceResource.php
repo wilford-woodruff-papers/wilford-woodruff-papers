@@ -246,6 +246,8 @@ class PlaceResource extends Resource
             })
             ->paginationPageOptions([25, 50, 100, 200])
             ->persistFiltersInSession()
+            ->persistSearchInSession()
+            ->persistColumnSearchesInSession()
             ->columns([
                 Tables\Columns\TextColumn::make('id')
                     ->label('ID')

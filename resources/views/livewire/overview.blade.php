@@ -51,7 +51,7 @@
 
                                         @if($type->name == 'Transcription')
                                             <td rowspan="4" class="px-4 text-sm text-gray-500 whitespace-nowrap" style="max-width: 250px;">
-                                                @livewire(\App\Filament\Widgets\PageOverviewChart::class, ['statuses' => $publishingStatus[$docKey]])
+                                                @livewire(\App\Filament\Pages\Widgets\PageOverviewChart::class, ['statuses' => $publishingStatus[$docKey]])
                                             </td>
                                             {{--<td class="py-4 px-3 text-sm text-gray-500 whitespace-nowrap"></td>--}}
                                         @elseif(in_array($type->name, ['Verification','Subject Tagging','Date Tagging']))
