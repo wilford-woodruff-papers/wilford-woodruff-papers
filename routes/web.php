@@ -23,6 +23,8 @@ Route::middleware([])->group(function () {
                 return redirect()->away(config('app.url').'/wilford-woodruffs-witness');
             } elseif ($subdomain == 'arts') {
                 return redirect()->away(config('app.url').'/announcements/2023-building-latter-day-faith-conference-arts-contest-rules');
+            } elseif ($subdomain == 'rsvp') {
+                return redirect()->away(config('app.url').'/event-registration');
             } elseif ($subdomain == 'sg') {
                 return redirect()->away(config('app.url').'/development-of-temple-doctrine-reception');
             } elseif ($subdomain == 'giveaway') {
@@ -46,8 +48,8 @@ Route::middleware([])->group(function () {
         return redirect()->back();
     })->name('language.locale');
 
-    Route::get('/development-of-temple-doctrine-reception', [\App\Http\Controllers\EventRegistrationController::class, 'create'])->name('event.show');
-    Route::post('/development-of-temple-doctrine-reception', [\App\Http\Controllers\EventRegistrationController::class, 'store'])->name('event.register')
+    Route::get('/event-registration', [\App\Http\Controllers\EventRegistrationController::class, 'create'])->name('event.show');
+    Route::post('/event-registration', [\App\Http\Controllers\EventRegistrationController::class, 'store'])->name('event.register')
         ->middleware(\Spatie\Honeypot\ProtectAgainstSpam::class);
 
     Route::get('/2023/giveaway', [\App\Http\Controllers\GiveawayRegistrationController::class, 'create'])->name('event.giveaway.show');
@@ -56,21 +58,21 @@ Route::middleware([])->group(function () {
 
     // Route::get('/ask-me-anything-mission-president-panel-live', [\App\Http\Controllers\EventRegistrationController::class, 'live'])->name('event.live');
 
-    Route::get('/development-of-temple-doctrine-reception/calendar', function () {
+    Route::get('/event-registration/calendar', function () {
         $calendar = \Spatie\IcalendarGenerator\Components\Calendar::create('Wilford Woodruff Papers Foundation')
             ->event([
-                \Spatie\IcalendarGenerator\Components\Event::create('Development of Temple Doctrine Reception')
+                \Spatie\IcalendarGenerator\Components\Event::create('Evening of Appreciation with Elder Matthew Holland')
                     ->attendee('lexie.bailey@wilfordwoodruffpapers.org', 'Lexie Bailey')
-                    ->address('St. George Tabernacle, 18 S. Main Street, St. George, Utah')
-                    ->addressName('St. George Tabernacle')
-                    ->startsAt(new DateTime('8 October 2023 18:00', new DateTimeZone('America/Denver')))
-                    ->endsAt(new DateTime('8 October 2023 19:00', new DateTimeZone('America/Denver')))
-                    ->alertMinutesBefore(60, 'The Development of Temple Doctrine Private Reception is starting 1 hour'),
+                    ->address('The Orangerie at Red Butte Garden, 300 Wakara Way, Salt Lake City, UT 84108')
+                    ->addressName('The Orangerie at Red Butte Garden')
+                    ->startsAt(new DateTime('1 March 2024 17:30', new DateTimeZone('America/Denver')))
+                    ->endsAt(new DateTime('1 March 2024 20:00', new DateTimeZone('America/Denver')))
+                    ->alertMinutesBefore(60, 'An Evening of Appreciation with Elder Matthew Holland is starting 1 hour'),
             ]);
 
         return response($calendar->get(), 200, [
             'Content-Type' => 'text/calendar; charset=utf-8',
-            'Content-Disposition' => 'attachment; filename="development-of-temple-doctrine-reception.ics"',
+            'Content-Disposition' => 'attachment; filename="evening-of-appreciation-with-elder-matthew-holland.ics"',
         ]);
     })->name('event.calendar');
 
