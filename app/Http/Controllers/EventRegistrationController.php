@@ -38,7 +38,7 @@ class EventRegistrationController extends Controller
             $user->notify(new \App\Notifications\NewEventRegistrationNotification($eventRegistration));
         }
 
-        return back()->with('success', "Thank you for registering For Wilford Woodruff Papers Evening of Appreciation with Elder Matthew Holland on <b>March 1st</b>! We'll send you a reminder email a few days before the event.");
+        return back()->with('success', "Thank you for registering for the Wilford Woodruff Papers Evening of Appreciation with Elder Matthew Holland on <b>March 1st</b>! We'll send you a reminder email a few days before the event.");
     }
 
     public function live()
