@@ -62,6 +62,8 @@ class DocumentResource extends Resource
             })
             ->paginationPageOptions([25, 50, 100, 200])
             ->persistFiltersInSession()
+            ->persistSearchInSession()
+            ->persistColumnSearchesInSession()
             ->columns([
                 Tables\Columns\TextColumn::make('id')
                     ->label('ID')
@@ -82,7 +84,7 @@ class DocumentResource extends Resource
                         default => 'gray',
                     }),
                 Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
+                    ->searchable(isIndividual: true),
                 Tables\Columns\TextColumn::make('type.name'),
                 Tables\Columns\TextColumn::make('auto_page_count')
                     ->label('Actual # Pages'),
@@ -91,7 +93,7 @@ class DocumentResource extends Resource
             ])
             ->filters([
                 Tables\Filters\TernaryFilter::make('enabled')
-                    ->label('Publish Status')
+                    ->label('Published Status')
                     ->placeholder('All')
                     ->trueLabel('Published')
                     ->falseLabel('Not Published')
@@ -102,7 +104,12 @@ class DocumentResource extends Resource
                     ),
                 Tables\Filters\SelectFilter::make('type')
                     ->relationship('type', 'name'),
-            ])
+                Tables\Filters\QueryBuilder::make()
+                    ->constraints([
+                        Tables\Filters\QueryBuilder\Constraints\TextConstraint::make('name'),
+                        Tables\Filters\QueryBuilder\Constraints\TextConstraint::make('values.value'),
+                    ]),
+            ], layout: Tables\Enums\FiltersLayout::AboveContentCollapsible)
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
