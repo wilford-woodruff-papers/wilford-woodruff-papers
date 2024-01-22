@@ -41,7 +41,7 @@
                                         @foreach($topic->children->sortBy('name', SORT_NATURAL|SORT_FLAG_CASE) as $subTopic)
                                             <li>
                                                 <livewire:subject :subject="$subTopic" :key="$subTopic->id"></livewire:subject>
-                                                @auth()
+                                                @auth
                                                     @if(auth()->user()->hasAnyRole(['Super Admin']))
                                                         <div>
                                                             @if($subTopic->children->count() > 0)
@@ -55,7 +55,7 @@
                                                             @endif
                                                         </div>
                                                     @endif
-                                                @endauth()
+                                                @endauth
                                             </li>
                                         @endforeach
                                     </ul>
