@@ -54,6 +54,7 @@ class ProgressMatrix extends Component
                 'Verification',
                 'Subject Tagging',
                 'Date Tagging',
+                'Topic Tagging',
                 'Publish',
                 'Stylization',
             ])
