@@ -60,7 +60,9 @@ class AutoPublishDocument implements ShouldQueue
     {
         $actionType = \App\Models\ActionType::firstWhere('name', 'Publish');
         $user = \App\Models\User::firstWhere('email', 'auto@wilfordwoodruffpapers.org');
-
+        $item->loadMissing([
+            'realPages',
+        ]);
         if (empty($item->completed_actions->firstWhere('action_type_id', $actionType->id)?->completed_by)) {
             DB::transaction(function () use ($item, $actionType, $user) {
                 $this->item->enabled = true;
@@ -76,7 +78,7 @@ class AutoPublishDocument implements ShouldQueue
                     'completed_by' => $user->id,
                     'completed_at' => now(),
                 ]);
-                foreach ($item->pages as $page) {
+                foreach ($item->realPages as $page) {
                     \App\Models\Action::updateOrCreate([
                         'actionable_type' => get_class($page),
                         'actionable_id' => $page->id,
