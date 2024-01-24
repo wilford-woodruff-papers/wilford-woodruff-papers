@@ -20,7 +20,7 @@
             </div>
             <div>
                 @auth()
-                    @hasanyrole('CFM Researcher')
+                    @hasanyrole('Editor|Researcher|Bio Admin|Bio Editor|Admin|Super Admin')
                     <div>
                         @if($page->parent?->enabled)
                             <span class="inline-flex items-center py-0.5 px-2.5 text-xs font-medium text-green-800 bg-green-100 rounded-full">
