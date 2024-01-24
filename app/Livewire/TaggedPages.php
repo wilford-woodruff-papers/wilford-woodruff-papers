@@ -18,6 +18,12 @@ class TaggedPages extends Component
 
     public function render()
     {
+        if (auth()->check() && auth()->user()->hasAnyRole(['Editor', 'Researcher', 'Bio Admin', 'Bio Editor', 'Admin', 'Super Admin'])) {
+            $enabled = [0, 1];
+        } else {
+            $enabled = [1];
+        }
+
         $this
             ->subject
             ->loadMissing([
@@ -31,9 +37,9 @@ class TaggedPages extends Component
                 'parent.type',
                 'media',
             ])
-            ->where(function ($query) {
-                $query->whereHas('item', function (Builder $query) {
-                    $query->where('items.enabled', true);
+            ->where(function ($query) use ($enabled) {
+                $query->whereHas('item', function (Builder $query) use ($enabled) {
+                    $query->whereIn('items.enabled', $enabled);
                 })
                     ->whereHas('subjects', function (Builder $query) {
                         $query->whereIn('id', array_merge([$this->subject->id], $this->subject->children->pluck('id')->all()));
