@@ -31,6 +31,8 @@ class DocumentExporter extends Exporter
         return [
             ExportColumn::make('id')
                 ->label('ID'),
+            ExportColumn::make('type.name')
+                ->label('Type'),
             ExportColumn::make('name')
                 ->label('Name'),
             ExportColumn::make('admin_url')
