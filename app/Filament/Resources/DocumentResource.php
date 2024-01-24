@@ -2,10 +2,8 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Exports\DocumentExporter;
 use App\Filament\Resources\DocumentResource\Pages;
 use App\Models\Item;
-use Filament\Actions\Exports\Models\Export;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -118,10 +116,7 @@ class DocumentResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\ExportBulkAction::make()
-                    ->exporter(DocumentExporter::class)
-                    ->fileName(fn (Export $export): string => "document-metadata-{$export->getKey()}")
-                    ->chunkSize(500),
+
             ]);
     }
 

@@ -8,6 +8,7 @@ use Filament\Actions\Exports\ExportColumn;
 use Filament\Actions\Exports\Exporter;
 use Filament\Actions\Exports\Models\Export;
 use Illuminate\Queue\Middleware\WithoutOverlapping;
+use Illuminate\Support\Facades\Cache;
 
 class DocumentExporter extends Exporter
 {
@@ -16,9 +17,12 @@ class DocumentExporter extends Exporter
     public static function getColumns(): array
     {
 
-        $properties = Property::query()
-            ->orderBy('name')
-            ->get();
+        $properties = Cache::remember('properties', 3600, function () {
+            return Property::query()
+                ->orderBy('name')
+                ->get();
+        });
+
         $columns = $properties->map(function ($property) {
             return ExportColumn::make('values-'.$property->slug)
                 ->label($property->name)
