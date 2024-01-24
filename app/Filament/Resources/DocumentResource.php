@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Exports\DocumentExporter;
 use App\Filament\Resources\DocumentResource\Pages;
 use App\Models\Item;
+use Filament\Actions\Exports\Models\Export;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -104,7 +105,9 @@ class DocumentResource extends Resource
                         blank: fn (Builder $query) => $query,
                     ),
                 Tables\Filters\SelectFilter::make('type')
-                    ->relationship('type', 'name'),
+                    ->relationship('type', 'name')
+                    ->multiple()
+                    ->preload(),
                 Tables\Filters\QueryBuilder::make()
                     ->constraints([
                         Tables\Filters\QueryBuilder\Constraints\TextConstraint::make('name'),
@@ -117,6 +120,7 @@ class DocumentResource extends Resource
             ->bulkActions([
                 Tables\Actions\ExportBulkAction::make()
                     ->exporter(DocumentExporter::class)
+                    ->fileName(fn (Export $export): string => "document-metadata-{$export->getKey()}")
                     ->chunkSize(500),
             ]);
     }
