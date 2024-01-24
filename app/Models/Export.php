@@ -9,6 +9,8 @@ class Export extends Model
 {
     use HasFactory;
 
+    protected $table = 'wwp_exports';
+
     protected $guarded = [];
 
     protected $casts = [
