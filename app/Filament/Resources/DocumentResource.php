@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Exports\DocumentExporter;
 use App\Filament\Resources\DocumentResource\Pages;
 use App\Models\Item;
 use Filament\Forms\Components\Section;
@@ -54,9 +55,9 @@ class DocumentResource extends Resource
         return $table
             ->deferLoading()
             ->striped()
-//            ->modifyQueryUsing(function (Builder $query) {
-//                $query->with(['type']);
-//            })
+            ->modifyQueryUsing(function (Builder $query) {
+                $query->with(['values']);
+            })
             ->filtersTriggerAction(function ($action) {
                 return $action->button()->label('Filters');
             })
@@ -114,7 +115,9 @@ class DocumentResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-
+                Tables\Actions\ExportBulkAction::make()
+                    ->exporter(DocumentExporter::class)
+                    ->chunkSize(500),
             ]);
     }
 
