@@ -115,6 +115,7 @@ class PeopleController extends Controller
         'Bishops in Letters',
         'United Brethren',
         'Eminent Men and Women',
+        'Missionaries',
     ];
 
     /**
