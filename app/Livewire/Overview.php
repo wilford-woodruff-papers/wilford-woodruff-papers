@@ -47,7 +47,7 @@ class Overview extends Component
     public function render()
     {
         $this->types = ActionType::query()
-            ->where('type', 'Documents')
+            ->whereIn('type', ['Documents', 'Publish'])
             ->ordered()
             ->get();
         $this->docTypes = Type::all();
