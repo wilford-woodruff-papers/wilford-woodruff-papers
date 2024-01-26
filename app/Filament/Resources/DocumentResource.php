@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\DocumentResource\Pages;
 use App\Models\Item;
+use App\Models\Type;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -55,7 +56,9 @@ class DocumentResource extends Resource
             ->deferLoading()
             ->striped()
             ->modifyQueryUsing(function (Builder $query) {
-                $query->with(['values']);
+                $query
+                    ->with(['values'])
+                    ->withCount(['publishing_tasks']);
             })
             ->filtersTriggerAction(function ($action) {
                 return $action->button()->label('Filters');
@@ -88,8 +91,9 @@ class DocumentResource extends Resource
                 Tables\Columns\TextColumn::make('type.name'),
                 Tables\Columns\TextColumn::make('auto_page_count')
                     ->label('Actual # Pages'),
-                Tables\Columns\TextColumn::make('manual_page_count')
-                    ->label('Estimated # Pages'),
+                Tables\Columns\TextColumn::make('publishing_tasks_count')
+                    ->label('Publishing Tasks Completed')
+                    ->sortable(),
             ])
             ->filters([
                 Tables\Filters\TernaryFilter::make('enabled')
@@ -102,10 +106,37 @@ class DocumentResource extends Resource
                         false: fn (Builder $query) => $query->where('enabled', 0),
                         blank: fn (Builder $query) => $query,
                     ),
-                Tables\Filters\SelectFilter::make('type')
-                    ->relationship('type', 'name')
-                    ->multiple()
-                    ->preload(),
+                Tables\Filters\TernaryFilter::make('imported')
+                    ->label('Imported Status')
+                    ->placeholder('All')
+                    ->trueLabel('Imported')
+                    ->falseLabel('Not Imported')
+                    ->queries(
+                        true: fn (Builder $query) => $query->where('auto_page_count', '>', 0),
+                        false: fn (Builder $query) => $query->where('auto_page_count', '=', 0),
+                        blank: fn (Builder $query) => $query,
+                    ),
+                Tables\Filters\Filter::make('types')
+                    ->form([
+                        Select::make('type')
+                            ->options(Type::query()->whereNull('type_id')->pluck('name', 'id')->all()),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['type'],
+                                function (Builder $query, $type): Builder {
+                                    return $query->whereHas('type', function (Builder $query) use ($type) {
+                                        $query->whereIn(
+                                            'id',
+                                            collect([
+                                                intval($type),
+                                                Type::query()->where('type_id', $type)->first()?->id,
+                                            ])->filter()->toArray());
+                                    });
+                                }
+                            );
+                    }),
                 Tables\Filters\QueryBuilder::make()
                     ->constraints([
                         Tables\Filters\QueryBuilder\Constraints\TextConstraint::make('name'),
