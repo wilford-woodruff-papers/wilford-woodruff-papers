@@ -59,4 +59,9 @@ Route::middleware(['auth:sanctum', 'throttle:30', \App\Http\Middleware\LogApiUsa
             ->name('api.topics.export');
         Route::get('topics/{id}', [\App\Http\Controllers\Api\v1\TopicsController::class, 'show'])
             ->name('api.topics.show');
+
+        Route::get('unknown-people', [\App\Http\Controllers\Api\v1\UnknownPeopleController::class, 'index'])
+            ->name('api.unknown-people.index');
+        Route::post('unknown-people/{id}', [\App\Http\Controllers\Api\v1\UnknownPeopleController::class, 'update'])
+            ->name('api.unknown-people.update');
     });
