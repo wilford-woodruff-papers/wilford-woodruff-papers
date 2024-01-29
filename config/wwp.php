@@ -28,4 +28,11 @@ return [
 
     'ai_download_path' => env('AI_DOWNLOAD_PATH'),
 
+    'api_token' => env('WWP_API_TOKEN'),
+
+    'ftp' => [
+        'username' => env('FTP_USERNAME'),
+        'password' => env('FTP_PASSWORD'),
+    ],
+
 ];
