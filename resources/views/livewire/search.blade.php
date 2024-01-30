@@ -52,7 +52,7 @@
                 <div class="flex flex-col gap-4 items-center sm:flex-row">
                     @if(! empty($q))
                         <button wire:click="$set('q', '')"
-                                type="button" class="inline-flex gap-x-1.5 items-center py-1.5 px-2.5 text-sm font-semibold text-white rounded-md shadow-sm bg-secondary-600 hover:bg-secondary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-600">
+                                type="button" class="inline-flex gap-x-1.5 items-center py-1.5 px-2.5 text-sm font-semibold text-white shadow-sm bg-secondary-600 hover:bg-secondary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-600">
                             Search term: {{ $q }}
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="-mr-0.5 w-5 h-5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -62,7 +62,7 @@
                     @foreach($filters as $key => $filter)
                         @if(! empty($filters[$key]))
                             <button wire:click="$set('filters.{{$key}}', [])"
-                                    type="button" class="inline-flex gap-x-1.5 items-center py-1.5 px-2.5 text-sm font-semibold text-white rounded-md shadow-sm bg-secondary-600 hover:bg-secondary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-600">
+                                    type="button" class="inline-flex gap-x-1.5 items-center py-1.5 px-2.5 text-sm font-semibold text-white shadow-sm bg-secondary-600 hover:bg-secondary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-600">
                                 {{ str($key)->title()->replace('_', ' ') }}: {{ collect($filters[$key])->join(', ') }}
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="-mr-0.5 w-5 h-5">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />

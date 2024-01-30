@@ -26,7 +26,7 @@
                             <div>
                                 <button
                                         type="button"
-                                        class="flex gap-x-3 items-center py-2 w-full text-base font-semibold leading-6 text-left text-gray-700 rounded-md hover:bg-gray-50"
+                                        class="flex gap-x-3 items-center py-2 w-full text-base font-semibold leading-6 text-left text-gray-700 hover:bg-gray-50"
                                         aria-controls="sub-menu-{{ $facet->key }}"
                                         aria-expanded="false"
                                         x-bind:aria-expanded="expanded.toString()">
@@ -76,11 +76,11 @@
                                                             <div
                                                                 x-dialog:panel
                                                                 x-transition
-                                                                class="overflow-y-auto relative w-full max-w-xl bg-white rounded-xl shadow-lg"
+                                                                class="overflow-y-auto relative w-full max-w-xl bg-white shadow-lg"
                                                             >
                                                                 <!-- Close Button -->
                                                                 <div class="absolute top-0 right-0 pt-4 pr-4">
-                                                                    <div role="button" @click="$dialog.close()" class="p-2 text-gray-600 bg-gray-50 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+                                                                    <div role="button" @click="$dialog.close()" class="p-2 text-gray-600 bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
                                                                         <span class="sr-only">Close modal</span>
                                                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
                                                                             <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -100,7 +100,7 @@
 
                                                                 <!-- Footer -->
                                                                 <div class="flex justify-end p-4 space-x-2 bg-gray-50">
-                                                                    <div role="button" x-on:click="$dialog.close()" class="py-2.5 px-5 text-gray-600 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">
+                                                                    <div role="button" x-on:click="$dialog.close()" class="py-2.5 px-5 text-gray-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">
                                                                         Close
                                                                     </div>
                                                                 </div>
@@ -131,12 +131,12 @@
                                                            name="{{ str($facet->key) }}"
                                                            type="checkbox"
                                                            value="{{ $key }}"
-                                                           class="w-4 h-4 rounded border-gray-300 text-secondary focus:ring-secondary" />
+                                                           class="w-4 h-4 border-gray-300 text-secondary focus:ring-secondary" />
                                                 </div>
                                                 <div class="overflow-hidden flex-1 text-sm leading-6">
                                                     <label for="{{ $location }}_{{ str($facet->key) }}_{{ str($key)->snake() }}"
                                                            class="flex-1 font-medium text-gray-900 cursor-pointer">
-                                                        <div class="flex gap-x-2 justify-between py-1 pr-2 pl-2 text-sm leading-6 text-gray-700 rounded-md hover:bg-gray-50"
+                                                        <div class="flex gap-x-2 justify-between py-1 pr-2 pl-2 text-sm leading-6 text-gray-700 hover:bg-gray-50"
                                                         >
                                                             <div class="flex gap-2 items-center truncate">
                                                                 @if($facet->key == 'resource_type')
@@ -173,7 +173,7 @@
                     <div>
                         <button x-on:click="expanded = ! expanded"
                                 type="button"
-                                class="flex gap-x-3 items-center py-2 w-full text-base font-semibold leading-6 text-left text-gray-700 rounded-md hover:bg-gray-50"
+                                class="flex gap-x-3 items-center py-2 w-full text-base font-semibold leading-6 text-left text-gray-700 hover:bg-gray-50"
                                 aria-controls="sub-menu-year_range"
                                 aria-expanded="false"
                                 x-bind:aria-expanded="expanded.toString()">
@@ -217,7 +217,7 @@
                         <div>
                             <button x-on:click="expanded = ! expanded"
                                     type="button"
-                                    class="flex gap-x-3 items-center py-2 w-full text-base font-semibold leading-6 text-left text-gray-700 rounded-md hover:bg-gray-50"
+                                    class="flex gap-x-3 items-center py-2 w-full text-base font-semibold leading-6 text-left text-gray-700 hover:bg-gray-50"
                                     aria-controls="sub-menu-year_range"
                                     aria-expanded="false"
                                     x-bind:aria-expanded="expanded.toString()">

@@ -42,6 +42,11 @@ class Page extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
 
     protected $appends = ['hashid'];
 
+    public function resolveRouteBindingQuery($query, $value, $field = null)
+    {
+        return $query->whereUuid($value);
+    }
+
     public function item()
     {
         return $this->belongsTo(Item::class);

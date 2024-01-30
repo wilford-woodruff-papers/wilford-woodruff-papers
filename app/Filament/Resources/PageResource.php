@@ -11,6 +11,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class PageResource extends Resource
 {
@@ -35,17 +36,27 @@ class PageResource extends Resource
     {
         return $table
             ->striped()
+            ->deferLoading()
             ->filtersTriggerAction(function ($action) {
                 return $action->button()->label('Filters');
             })
+            ->modifyQueryUsing(function (Builder $query) {
+                $query
+                    ->with(['item']);
+            })
             ->paginationPageOptions([25, 50, 100, 200])
             ->persistFiltersInSession()
+            ->recordUrl(
+                fn (Model $record): string => route('admin.dashboard.page', ['item' => $record->item, 'page' => $record]),
+            )
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->formatStateUsing(function ($record) {
                         return 'Page '.$record->order;
                     }),
-                Tables\Columns\TextColumn::make('item.name'),
+                Tables\Columns\TextColumn::make('item.name')
+                    ->url(fn (Model $record): string => route('admin.dashboard.document', ['item' => $record->item]))
+                    ->color('primary'),
                 Tables\Columns\TextColumn::make('actions.type.name')
                     ->formatStateUsing(function ($record) {
                         return $record->actions->sortBy('order_column')->pluck('type.name')->join('|');
