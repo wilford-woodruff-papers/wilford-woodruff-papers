@@ -32,20 +32,34 @@
                                         <td class="py-4 pr-3 pl-4 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-3">
                                             {{ $type->name }}
                                         </td>
-                                        @foreach($statuses as $status)
+                                        @foreach($statuses as $statusKey => $status)
                                             <td class="py-4 px-3 text-sm text-gray-500 whitespace-nowrap">
-                                                <a href="{{ \App\Filament\Resources\TaskReportingResource::getUrl() }}?{{ collect([
+                                                @if($status == 'Not Started')
+                                                    <a href="{{ \App\Filament\Resources\PageResource::getUrl() }}?{{ collect([
+                                                        'tableFilters[not_started][tasks_not_started][0]='.$type->id,
+                                                        collect($docTypes->whereIn('name', $typesMap[$docKey])->all())->map(function($item, $key){
+                                                            return 'tableFilters[document_type][values]['.$key.']='.$item->id;
+                                                        })->join('&'),
+                                                    ])->join('&') }}"
+                                                       target="_blank"
+                                                       class="text-primary-600 hover:text-primary-900"
+                                                    >
+                                                        {{ Number::format($stats[$docKey][$type->name][$status]) }}
+                                                    </a>
+                                                @else
+                                                    <a href="{{ \App\Filament\Resources\TaskReportingResource::getUrl() }}?{{ collect([
                                                         '&activeTab='.$statusMap[$status],
                                                         'tableFilters[task_type][value]='.$type->id,
                                                         collect($docTypes->whereIn('name', $typesMap[$docKey])->all())->map(function($item, $key){
                                                             return 'tableFilters[document_type][values]['.$key.']='.$item->id;
                                                         })->join('&'),
                                                     ])->join('&') }}"
-                                                    target="_blank"
-                                                   class="text-primary-600 hover:text-primary-900"
-                                                >
-                                                    {{ Number::format($stats[$docKey][$type->name][$status]) }}
-                                                </a>
+                                                       target="_blank"
+                                                       class="text-primary-600 hover:text-primary-900"
+                                                    >
+                                                        {{ Number::format($stats[$docKey][$type->name][$status]) }}
+                                                    </a>
+                                                @endif
                                             </td>
                                         @endforeach
 
