@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Item;
+use App\Models\Page;
 use Illuminate\Console\Command;
 
 class CaculatePageCounts extends Command
@@ -29,7 +30,9 @@ class CaculatePageCounts extends Command
         Item::query()
             ->chunkById(100, function ($items) {
                 foreach ($items as $item) {
-                    $item->auto_page_count = Page::query()->where('item_id', $item->id)->count();
+                    $item->auto_page_count = Page::query()
+                        ->where('item_id', $item->id)
+                        ->count();
                     $item->save();
                 }
             });
