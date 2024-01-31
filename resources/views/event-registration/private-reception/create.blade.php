@@ -4,7 +4,7 @@
             <div class="space-y-12">
                 <div class="grid grid-cols-1 gap-x-8 gap-y-10 pb-12 md:grid-cols-2">
                     <div>
-                        <img src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/elder-matthew-holland-invitation.jpg"
+                        <img src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/elder-matthew-holland-invitation.png"
                              class="p-4 w-full h-auto"
                              alt="Evening of Appreciation for friends of the Wilford Woodruff Papers Foundation on March 1st, 2024"
                         />
