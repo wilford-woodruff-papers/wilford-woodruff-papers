@@ -41,6 +41,7 @@ class RelationshipFinderCommand extends Command
         $people = Subject::query()
             ->select('id', 'name', 'pid')
             ->whereNotNull('pid')
+            ->where('pid', '!=', 'n/a')
             ->whereHas('category', function ($query) {
                 $query->whereIn('name', ['People'])
                     ->whereNotIn('name', ['Scriptural Figures', 'Historical Figures', 'Eminent Men and Women']);
@@ -60,7 +61,9 @@ class RelationshipFinderCommand extends Command
         $jobs = [];
 
         foreach ($people as $person) {
-            $jobs[] = new \App\Jobs\RelationshipFinderJob($user, $person);
+            if (! empty($person->pid)) {
+                $jobs[] = new \App\Jobs\RelationshipFinderJob($user, $person);
+            }
         }
 
         $batch = Bus::batch($jobs)

@@ -4,7 +4,9 @@ namespace App\Http\Integrations\FamilySearch;
 
 use Illuminate\Support\Facades\Cache;
 use Saloon\Http\Connector;
+use Saloon\Http\Response;
 use Saloon\RateLimitPlugin\Contracts\RateLimitStore;
+use Saloon\RateLimitPlugin\Helpers\RetryAfterHelper;
 use Saloon\RateLimitPlugin\Limit;
 use Saloon\RateLimitPlugin\Stores\LaravelCacheStore;
 use Saloon\RateLimitPlugin\Traits\HasRateLimits;
@@ -14,6 +16,13 @@ class RelationshipFinder extends Connector
 {
     use AcceptsJson;
     use HasRateLimits;
+
+    protected int $userId;
+
+    public function __construct(int $userId)
+    {
+        $this->userId = $userId;
+    }
 
     /**
      * The Base URL of the API
@@ -46,10 +55,15 @@ class RelationshipFinder extends Connector
     protected function resolveLimits(): array
     {
         return [
-            Limit::allow(requests: 10)
-                ->everySeconds(seconds: 5)
+            Limit::allow(requests: 500)
+                ->everySeconds(seconds: 60)
                 ->sleep(),
         ];
+    }
+
+    protected function getLimiterPrefix(): ?string
+    {
+        return 'familysearch-user-'.$this->userId;
     }
 
     protected function resolveRateLimitStore(): RateLimitStore
@@ -57,14 +71,16 @@ class RelationshipFinder extends Connector
         return new LaravelCacheStore(Cache::store(config('cache.default')));
     }
 
-    //    protected function handleTooManyAttempts(Response $response, Limit $limit): void
-    //    {
-    //        if ($response->status() !== 429) {
-    //            return;
-    //        }
-    //        info($response->status());
-    //        $limit->exceeded(
-    //            releaseInSeconds: RetryAfterHelper::parse($response->header('Retry-After')),
-    //        );
-    //    }
+    protected function handleTooManyAttempts(Response $response, Limit $limit): void
+    {
+        if ($response->status() !== 429) {
+            return;
+        }
+
+        info('handleTooManyAttempts: '.RetryAfterHelper::parse($response->header('Retry-After')));
+
+        $limit->exceeded(
+            releaseInSeconds: RetryAfterHelper::parse($response->header('Retry-After')),
+        );
+    }
 }
