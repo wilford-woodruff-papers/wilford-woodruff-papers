@@ -202,6 +202,12 @@ class UnknownPeopleResource extends Resource
             })
             ->paginationPageOptions([25, 50, 100, 200])
             ->persistFiltersInSession()
+            ->groups([
+                Tables\Grouping\Group::make('ftp_item_id')
+                    ->label('Document'),
+                Tables\Grouping\Group::make('ftp_page_id')
+                    ->label('Page'),
+            ])
             ->columns([
                 Tables\Columns\IconColumn::make('correction_needed')
                     ->label('Correction?')
