@@ -21,7 +21,7 @@
                 Explore the biographical information on thousands of people who interacted with Wilford Woodruff. Discover their stories through Wilford Woodruff's daily journal entries and their correspondence with him. This list reflects only those people identified in published documents. The information in this list is updated quarterly as new documents are published on this site.
             </p>
 
-            @env(['local', 'staging'])
+            @hasanyrole('Super Admin')
                 <p class="py-4 text-lg text-black">
                     Login to FamilySearch to view your family connections in the Wilford Woodruff Papers.
                 </p>
@@ -30,7 +30,7 @@
                         <img src="https://wilfordwoodruffpapers.org/img/familytree-logo.png" alt="FamilySearch" class="mx-auto w-auto h-6">
                     </a>
                 </div>
-            @endenv
+            @endhasanyrole
 
         </div>
 
