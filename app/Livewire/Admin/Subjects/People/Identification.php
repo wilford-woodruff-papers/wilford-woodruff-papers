@@ -12,7 +12,7 @@ use Livewire\Component;
 
 class Identification extends Component
 {
-    use WithPerPagePagination, WithSorting, WithBulkActions, WithCachedRows;
+    use WithBulkActions, WithCachedRows, WithPerPagePagination, WithSorting;
 
     public $researchers = false;
 
@@ -105,6 +105,10 @@ class Identification extends Component
             ->with([
                 'researcher',
             ])
+            ->where(function ($query) {
+                $query->whereNull('ftp_status')
+                    ->orWhere('ftp_status', 200);
+            })
             ->when(array_key_exists('search', $this->filters) && $this->filters['search'], function ($query, $search) {
                 $query->where(function ($query) {
                     foreach (['id' => 'id'] + $this->columns as $key => $column) {
