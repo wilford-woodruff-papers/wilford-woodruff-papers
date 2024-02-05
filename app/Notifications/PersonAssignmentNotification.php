@@ -37,10 +37,10 @@ class PersonAssignmentNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->subject('New Person Assigned')
-                    ->line('As a member of the research team, a new person has been assigned to you from Wilford Woodruff\'s Papers.')
-                    ->action('View Person', route('admin.dashboard.people.edit', ['person' => $this->person]))
-                    ->line('Thank you for your help!');
+            ->subject($this->person->name.' assigned to you')
+            ->line('As a member of the research team, '.$this->person->name.' has been assigned to you from Wilford Woodruff\'s Papers.')
+            ->action('View Person', route('admin.dashboard.people.edit', ['person' => $this->person]))
+            ->line('Thank you for your help!');
     }
 
     /**
