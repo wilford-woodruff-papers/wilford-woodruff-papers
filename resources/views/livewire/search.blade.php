@@ -331,6 +331,11 @@
                                                 <span class="absolute inset-0"></span>
                                                 {!! str(data_get($hit, '_formatted.name'))->remove('[[')->remove(']]') !!}
                                             </h3>
+                                            @if(! empty($author = data_get($hit, 'author')))
+                                                <div class="mt-5 text-sm font-semibold leading-6 text-gray-600">
+                                                    Quote by {!! $author !!}:
+                                                </div>
+                                            @endif
                                             <div class="mt-5 text-sm leading-6 text-gray-600 line-clamp-3">
                                                 {!! str(data_get($hit, '_formatted.description'))->remove('[[')->remove(']]') !!}
                                             </div>

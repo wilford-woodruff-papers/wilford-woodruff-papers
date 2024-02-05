@@ -56,12 +56,13 @@ class Quote extends Model
             'thumbnail' => $this->page->getFirstMedia()?->getUrl('thumb'),
             'name' => 'Page '.$this->page->order.' of '.str($this->page->parent?->name)->stripBracketedID()->toString(),
             'description' => strip_tags($this->text),
+            'author' => $this->author,
             'decade' => null,
             'year' => null,
             'date' => null,
             'topics' => $this->topics->pluck('name')->map(function ($topic) {
-                    return str($topic)->title();
-                })->toArray(),
+                return str($topic)->title();
+            })->toArray(),
         ];
     }
 
