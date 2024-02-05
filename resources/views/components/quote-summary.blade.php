@@ -40,6 +40,11 @@
             <p class="ml-2 text-base text-primary">{{ $page->parent->type->name }}</p>
         @endif--}}
         <div class="py-2 px-4 font-serif text-sm text-gray-500">
+            @if(! empty($quote->author))
+                <div class="flex gap-x-4 mt-4 text-base font-semibold text-gray-800 lg:text-lg">
+                    Quote by {!! $quote->author !!}:
+                </div>
+            @endif
             @if(! empty($quote->text))
                 <div class="flex gap-x-4 mt-4 text-base text-gray-800 lg:text-lg">
                     <div class="flex-initial">
