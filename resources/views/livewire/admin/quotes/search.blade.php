@@ -162,6 +162,11 @@
                                 </div>
                             </td>
                             <td class="py-3.5 pr-3 pl-4 text-lg text-left text-gray-900 font-base">
+                                @if(! empty($quote->author))
+                                    <div class="p-1 text-lg font-semibold text-gray-900 bg-yellow-100">
+                                        Quote is by {{ $quote->author }}:
+                                    </div>
+                                @endif
                                 <div>
                                     {!! $quote->text !!}
                                     {!! $quote->continuation?->text !!}
