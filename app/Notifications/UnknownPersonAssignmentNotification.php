@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Models\PeopleIdentification;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
@@ -41,6 +42,19 @@ class UnknownPersonAssignmentNotification extends Notification
             ->line('As a member of the research team, a new unknown person has been assigned to you from Wilford Woodruff\'s Papers.')
             ->action('View Unknown Person', route('admin.dashboard.identification.people.edit', ['identification' => $this->person]))
             ->line('Thank you for your help!');
+    }
+
+    public function toDatabase(User $notifiable): array
+    {
+        return \Filament\Notifications\Notification::make()
+            ->subject('New Unknown Person Assigned')
+            ->body('As a member of the research team, a new unknown person has been assigned to you from Wilford Woodruff\'s Papers.')
+            ->actions([
+                \Filament\Notifications\Actions\Action::make('view_person')
+                    ->button()
+                    ->url(route('admin.dashboard.identification.people.edit', ['identification' => $this->person])),
+            ])
+            ->getDatabaseMessage();
     }
 
     /**
