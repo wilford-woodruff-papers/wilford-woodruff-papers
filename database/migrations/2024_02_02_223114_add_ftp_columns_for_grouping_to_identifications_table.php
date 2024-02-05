@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::table('identifications', function (Blueprint $table) {
             $table->string('ftp_item_id')
                 ->nullable()
+                ->index()
                 ->after('guesses');
             $table->string('ftp_page_id')
                 ->nullable()
+                ->index()
                 ->after('ftp_item_id');
         });
     }
