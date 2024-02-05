@@ -332,7 +332,7 @@
                                                 {!! str(data_get($hit, '_formatted.name'))->remove('[[')->remove(']]') !!}
                                             </h3>
                                             @if(! empty($author = data_get($hit, 'author')))
-                                                <div class="mt-5 text-sm font-semibold leading-6 text-gray-600">
+                                                <div class="mt-1 -mb-3 text-sm font-semibold leading-6 text-gray-600">
                                                     Quote by {!! $author !!}:
                                                 </div>
                                             @endif
@@ -417,6 +417,11 @@
                                     {{--@if($page->item->type)
                                         <p class="ml-2 text-base text-primary">{{ $page->item->type->name }}</p>
                                     @endif--}}
+                                    @if(! empty($author = data_get($hit, 'author')))
+                                        <div class="mt-1 -mb-3 text-sm font-semibold leading-6 text-gray-600">
+                                            Quote by {!! $author !!}:
+                                        </div>
+                                    @endif
                                     <div class="py-2 px-4 font-serif text-sm text-gray-500">
                                         {{--@php
                                             $description = '';
