@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use App\Models\Subject;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
@@ -28,7 +29,7 @@ class PersonAssignmentNotification extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['mail'];
+        return ['mail', 'database'];
     }
 
     /**
@@ -41,6 +42,19 @@ class PersonAssignmentNotification extends Notification
             ->line('As a member of the research team, '.$this->person->name.' has been assigned to you from Wilford Woodruff\'s Papers.')
             ->action('View Person', route('admin.dashboard.people.edit', ['person' => $this->person]))
             ->line('Thank you for your help!');
+    }
+
+    public function toDatabase(User $notifiable): array
+    {
+        return \Filament\Notifications\Notification::make()
+            ->title($this->person->name.' assigned to you')
+            ->body('As a member of the research team, '.$this->person->name.' has been assigned to you from Wilford Woodruff\'s Papers.')
+            ->actions([
+                \Filament\Notifications\Actions\Action::make('view_person')
+                    ->button()
+                    ->url(route('admin.dashboard.people.edit', ['person' => $this->person])),
+            ])
+            ->getDatabaseMessage();
     }
 
     /**
