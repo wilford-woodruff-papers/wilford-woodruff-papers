@@ -11,6 +11,7 @@ use App\Models\Type;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -19,6 +20,8 @@ class Tasks extends Component
     use WithPagination;
 
     public $actionType;
+
+    public $assignedItems;
 
     public $search;
 
@@ -62,9 +65,9 @@ class Tasks extends Component
             ->get();
     }
 
-    public function render()
+    public function getAssignedItems()
     {
-        $assignedItems = Item::query()
+        return Item::query()
             ->whereNotNull('pcf_unique_id')
             ->with([
                 'type',
@@ -80,6 +83,11 @@ class Tasks extends Component
                     ->whereNull('completed_at');
             })
             ->get();
+    }
+
+    public function render()
+    {
+        $this->assignedItems = $this->getAssignedItems();
 
         $userRoles = auth()->user()->roles;
 
@@ -120,7 +128,6 @@ class Tasks extends Component
             ->paginate(25);
 
         return view('livewire.admin.documents.tasks', [
-            'assignedItems' => $assignedItems,
             'unassignedItems' => $unassignedItems,
             'userRoles' => $userRoles,
         ]);
@@ -172,6 +179,7 @@ class Tasks extends Component
             });
 
             AutoPublishDocument::dispatch($item);
+            $this->assignedItems = $this->getAssignedItems();
         }
 
         $this->reload();
@@ -185,6 +193,12 @@ class Tasks extends Component
         $action->completed_at = null;
         $action->completed_by = null;
         $action->save();
+    }
+
+    #[On('reloadTasks')]
+    public function reloadTasks()
+    {
+        $this->render();
     }
 
     public function applySort($name, $direction)
