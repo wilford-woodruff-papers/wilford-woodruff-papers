@@ -193,6 +193,15 @@ Route::middleware([])->group(function () {
     /*Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
         return redirect()->route('home');
     })->name('dashboard');*/
+
+    Route::middleware([
+        'auth:sanctum',
+        'verified',
+    ])->group(function () {
+        Route::get('my-relatives', \App\Livewire\RelativeFinder::class)
+            ->name('my-relatives');
+    });
+
     Route::middleware([
         'auth:sanctum',
         'api-terms',

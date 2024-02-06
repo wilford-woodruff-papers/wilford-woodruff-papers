@@ -8,6 +8,8 @@ module.exports = {
         './vendor/wire-elements/modal/resources/views/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
+        './app/Filament/**/*.php',
+        './vendor/filament/**/*.blade.php',
     ],
     safelist: [
         {
