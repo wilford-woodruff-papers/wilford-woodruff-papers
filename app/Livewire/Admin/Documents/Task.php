@@ -64,6 +64,7 @@ class Task extends Component
             });
 
             AutoPublishDocument::dispatch($item);
+            $this->dispatch('reloadTasks');
         }
 
         $this->item->refresh();

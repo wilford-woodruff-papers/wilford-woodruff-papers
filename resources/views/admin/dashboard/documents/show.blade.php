@@ -117,7 +117,26 @@
                                                         </a>
                                                     </td>
                                                     <td class="py-4 pr-3 pl-4 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-6">
-                                                        {{ $page->actions->pluck('type.name')->join(' | ') }}
+                                                        <table class="min-w-full divide-y divide-gray-300">
+                                                            <thead>
+                                                                <tr class="divide-x divide-gray-200">
+                                                                    @foreach($page->actions as $action)
+                                                                        <th scope="col" class="py-2 px-2 text-sm font-semibold text-left text-gray-900">
+                                                                            {{ $action->type->name }}
+                                                                        </th>
+                                                                    @endforeach
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="bg-white divide-y divide-gray-200">
+                                                                <tr class="divide-x divide-gray-200">
+                                                                    @foreach($page->actions as $action)
+                                                                        <td class="p-2 text-sm font-medium text-gray-900 whitespace-nowrap">
+                                                                            {{ $action->completed_at?->format('F j, Y') }}
+                                                                        </td>
+                                                                    @endforeach
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
                                                     </td>
                                                 </tr>
                                             @endforeach
