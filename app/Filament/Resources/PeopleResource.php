@@ -83,6 +83,18 @@ class PeopleResource extends Resource
                                             $set('pid', '');
                                         }
                                     })
+                            )
+                            ->suffixAction(
+                                Action::make('open-familysearch-url')
+                                    ->icon('heroicon-o-arrow-top-right-on-square')
+                                    ->visible(function ($state) {
+                                        return ! empty($state);
+                                    })
+                                    ->url(function (Model $record) {
+                                        return $record->pid !== 'n/a'
+                                            ? 'https://www.familysearch.org/tree/person/details/'.$record->pid
+                                            : null;
+                                    }, true)
                             ),
                         TextInput::make('subject_uri')
                             ->label('Full FTP URL')
@@ -305,6 +317,10 @@ class PeopleResource extends Resource
                         'researcher',
                     ]);
             })
+            ->groups([
+                Tables\Grouping\Group::make('researcher.name')
+                    ->label('Researcher'),
+            ])
             ->filtersTriggerAction(function ($action) {
                 return $action->button()->label('Filters');
             })
@@ -532,6 +548,8 @@ class PeopleResource extends Resource
                         Tables\Filters\QueryBuilder\Constraints\DateConstraint::make('birth_date'),
                         Tables\Filters\QueryBuilder\Constraints\DateConstraint::make('death_date'),
                         Tables\Filters\QueryBuilder\Constraints\DateConstraint::make('updated_at'),
+                        Tables\Filters\QueryBuilder\Constraints\DateConstraint::make('bio_completed_at'),
+                        Tables\Filters\QueryBuilder\Constraints\DateConstraint::make('bio_approved_at'),
                     ]),
             ], layout: Tables\Enums\FiltersLayout::AboveContentCollapsible)
             ->actions([
@@ -561,14 +579,14 @@ class PeopleResource extends Resource
             'index' => Pages\ListPeople::route('/'),
             'create' => Pages\CreatePeople::route('/create'),
             'edit' => Pages\EditPeople::route('/{record}/edit'),
-            'related' => Pages\RelatedPeople::route('/{record}/related'),
+            //'related' => Pages\RelatedPeople::route('/{record}/related'),
         ];
     }
 
     public static function getRecordSubNavigation(Page $page): array
     {
         return $page->generateNavigationItems([
-            Pages\RelatedPeople::class,
+            //Pages\RelatedPeople::class,
         ]);
     }
 }
