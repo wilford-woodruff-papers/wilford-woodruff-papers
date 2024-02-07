@@ -296,7 +296,7 @@ input[class^="numeric-"], select[class^="numeric-"]{
 /* End Admin */
 
 /* Begin Content Builder */
-.content-page a, .page-builder a{
+.content-page a:not([role="button"]), .page-builder a:not([role="button"]){
     @apply text-secondary underline !important;
 }
 .content-page .primary-button a, .page-builder .primary-button a{
