@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::table('subjects', function (Blueprint $table) {
             $table->string('portrait')
                 ->nullable();
-            $table->string('gender')
+            $table->json('familysearch_person')
                 ->nullable();
         });
     }
@@ -25,7 +25,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('subjects', function (Blueprint $table) {
-            $table->dropColumn('gender');
+            $table->dropColumn('familysearch_person');
             $table->dropColumn('portrait');
         });
     }

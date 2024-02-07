@@ -25,7 +25,7 @@ class Category extends Model
     public function scopePeopleCategories(Builder $query): void
     {
         $people = Category::query()->where('name', 'People')->first();
-        $query->where('category_id', $people->id);
+        $query->where('categories.category_id', $people->id);
     }
 
     public function toArray()
