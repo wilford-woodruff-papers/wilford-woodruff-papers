@@ -2,11 +2,11 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\NotifyUserOfRelationShipFinderCompletion;
 use App\Models\Relationship;
 use App\Models\RelationshipFinderQueue;
 use App\Models\Subject;
 use App\Models\User;
-use App\Notifications\RelationshipFinderCompletedNotification;
 use Illuminate\Bus\Batch;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Bus;
@@ -77,7 +77,7 @@ class RelationshipFinderCommand extends Command
                         'in_progress' => false,
                         'finished_at' => now(),
                     ]);
-                $user->notify(new RelationshipFinderCompletedNotification());
+                NotifyUserOfRelationShipFinderCompletion::dispatch($user);
             })
             ->dispatch();
 

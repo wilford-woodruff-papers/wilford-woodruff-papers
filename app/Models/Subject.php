@@ -167,6 +167,19 @@ class Subject extends Model implements HasMedia
         return $this->belongsToMany(Category::class);
     }
 
+    public function public_categories()
+    {
+        return $this->category()
+            ->peopleCategories()
+            ->where('name', '!=', 'People');
+    }
+
+    public function getGenderAttribute()
+    {
+        return str(data_get($this->familysearch_person, 'persons.0.gender.type'))
+            ->afterLast('/');
+    }
+
     public function pages()
     {
         return $this->belongsToMany(Page::class);
