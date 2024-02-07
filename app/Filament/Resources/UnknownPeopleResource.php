@@ -205,6 +205,8 @@ class UnknownPeopleResource extends Resource
             ->groups([
                 Tables\Grouping\Group::make('ftp_item_id')
                     ->label('Document'),
+                Tables\Grouping\Group::make('location')
+                    ->label('Location'),
                 Tables\Grouping\Group::make('ftp_page_id')
                     ->label('Page'),
                 Tables\Grouping\Group::make('last_name')
@@ -251,6 +253,7 @@ class UnknownPeopleResource extends Resource
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('location')
                     ->sortable()
+                    ->searchable(isIndividual: true)
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('completed_at')
                     ->label('Date Completed')
