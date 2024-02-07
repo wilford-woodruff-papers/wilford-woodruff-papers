@@ -444,3 +444,9 @@ tr:nth-child(even) td.fi-table-cell-name, th.fi-table-header-cell-name {
 /*:is(.dark) tr:nth-child(even) td.fi-table-cell-name, :is(.dark)  th.fi-table-header-cell-name {*/
 /*    @apply bg-white/5 !important;*/
 /*}*/
+
+/* Start Filament */
+.fi-ta-ctn{
+    @apply rounded-none !important;
+}
+/* End Filament */
