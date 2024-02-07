@@ -57,7 +57,7 @@ class ImportFamilySearchPerson extends Command
                     ->orWhereNull('familysearch_person');
             })
             ->limit(10)
-            ->chunk(100, function ($people) use (&$bar, $user) {
+            ->chunkById(100, function ($people) use (&$bar, $user) {
                 foreach ($people as $person) {
                     if (empty($person->familysearch_person)) {
                         $response = Http::withToken($user->familysearch_token)

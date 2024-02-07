@@ -38,6 +38,7 @@ class RelativeFinder extends Component implements HasForms, HasTable
             ->recordUrl(
                 fn (Model $record): string => route('subjects.show', ['subject' => $record->person->slug]),
             )
+            //->heading('Relationships')
             ->striped()
             ->filtersTriggerAction(function ($action) {
                 return $action->button()->label('Filters');
@@ -49,9 +50,9 @@ class RelativeFinder extends Component implements HasForms, HasTable
             ->emptyStateHeading('No relationships found yet')
             ->emptyStateDescription('Once the process has started, this page will refresh automatically. We will also send an email when it is done.')
             ->columns([
-                ImageColumn::make('avatar')
-                    ->label('Image')
-                    ->defaultImageUrl(fn (Model $record): string => url(config('services.familysearch.base_uri').'/platform/tree/persons/'.$record->person->pid.'/portrait?default=/images/placeholder.png&access_token='.auth()->user()->familysearch_token))
+                ImageColumn::make('person.portrait')
+                    ->label('')
+                    ->size(28)
                     ->circular(),
                 TextColumn::make('person.name')
                     ->label('Name')
