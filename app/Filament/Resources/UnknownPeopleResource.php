@@ -207,6 +207,8 @@ class UnknownPeopleResource extends Resource
                     ->label('Document'),
                 Tables\Grouping\Group::make('ftp_page_id')
                     ->label('Page'),
+                Tables\Grouping\Group::make('last_name')
+                    ->label('Surname'),
             ])
             ->columns([
                 Tables\Columns\IconColumn::make('correction_needed')
@@ -218,7 +220,6 @@ class UnknownPeopleResource extends Resource
                     ->sortable()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('researcher.name')
-                    ->searchable()
                     ->sortable()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('title')
@@ -227,12 +228,12 @@ class UnknownPeopleResource extends Resource
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('first_middle_name')
                     ->label('First & Middle Name or Initials')
-                    ->searchable()
+                    ->searchable(isIndividual: true)
                     ->sortable()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('last_name')
                     ->label('Surname or Initial')
-                    ->searchable()
+                    ->searchable(isIndividual: true)
                     ->sortable()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('link_to_ftp')
