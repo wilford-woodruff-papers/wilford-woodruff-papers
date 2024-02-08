@@ -29,16 +29,23 @@ class FamilySearchLoginController extends Controller
         $user = auth()->user();
         $user->pid = $familysearchUser->getId();
         $user->familysearch_token = $familysearchUser->token;
+        $user->familysearch_token_expiration = now()->addHours(22);
         $user->familysearch_refresh_token = $familysearchUser->refreshToken;
         $user->save();
 
-        RelationshipFinderQueue::query()
-            ->create([
-                'user_id' => $user->id,
-            ]);
+        if (RelationshipFinderQueue::query()
+            ->where('user_id', $user->id)
+            ->whereNull('finished_at')
+            ->count() < 1
+        ) {
+            RelationshipFinderQueue::query()
+                ->create([
+                    'user_id' => $user->id,
+                ]);
+        }
 
         return redirect()
-            ->route('people')
+            ->route('my-relatives')
             ->with('status', 'You have successfully connected your FamilySearch account and we will begin checking for your relatives in Wilford Woodruff\'s Papers.');
     }
 }

@@ -35,6 +35,16 @@ class RelationshipFinderJob implements ShouldQueue
         $this->person = $person;
     }
 
+    /**
+     * Get the tags that should be assigned to the job.
+     *
+     * @return array<int, string>
+     */
+    public function tags(): array
+    {
+        return ['user_id:'.$this->user->id];
+    }
+
     public function middleware(): array
     {
         return [

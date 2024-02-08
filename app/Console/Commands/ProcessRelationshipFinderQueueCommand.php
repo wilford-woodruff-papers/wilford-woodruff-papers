@@ -32,6 +32,7 @@ class ProcessRelationshipFinderQueueCommand extends Command
                 DB::transaction(function () use ($entry) {
                     $exitCode = Artisan::call('relationships:check', [
                         'id' => $entry->user_id,
+                        'entry' => $entry->id,
                     ]);
 
                     if ($exitCode === Command::SUCCESS) {
