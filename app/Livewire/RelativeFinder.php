@@ -53,6 +53,10 @@ class RelativeFinder extends Component implements HasForms, HasTable
                 ImageColumn::make('person.portrait')
                     ->label('')
                     ->size(28)
+                    ->extraImgAttributes(function (Model $record) {
+                        return ['data-gender' => $record->person->gender];
+                    })
+                    ->defaultImageUrl(fn (Model $record): string => url(config('services.familysearch.base_uri').'/platform/tree/persons/'.$record->person->pid.'/portrait?default=/images/placeholder.png&access_token='.auth()->user()->familysearch_token))
                     ->circular(),
                 TextColumn::make('person.name')
                     ->label('Name')
@@ -78,6 +82,16 @@ class RelativeFinder extends Component implements HasForms, HasTable
                     ->relationship('person.public_categories', 'name')
                     ->preload(),
             ]);
+    }
+
+    public function mount()
+    {
+        $user = auth()->user();
+        if (empty($user->familysearch_token)
+            || empty($user->familysearch_token_expiration)
+            || $user->familysearch_token_expiration < now()) {
+            $this->redirect(route('login.familysearch'));
+        }
     }
 
     public function render(): View

@@ -18,7 +18,7 @@ class RelationshipFinderCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'relationships:check {id}';
+    protected $signature = 'relationships:check {id} {entry?}';
 
     /**
      * The console command description.
@@ -33,6 +33,7 @@ class RelationshipFinderCommand extends Command
     public function handle()
     {
         $id = $this->argument('id');
+        $entry = RelationshipFinderQueue::find($this->argument('entry'));
 
         $user = User::query()
             ->where('id', $id)
@@ -68,7 +69,7 @@ class RelationshipFinderCommand extends Command
 
         $batch = Bus::batch($jobs)
             ->onQueue('relationships')
-            ->name('Relation Ship Finder')
+            ->name('Relationship Finder')
             ->allowFailures()
             ->finally(function (Batch $batch) use ($user) {
                 RelationshipFinderQueue::query()
@@ -80,6 +81,12 @@ class RelationshipFinderCommand extends Command
                 NotifyUserOfRelationShipFinderCompletion::dispatch($user);
             })
             ->dispatch();
+
+        if ($entry) {
+            $entry->update([
+                'batch_id' => $batch->id,
+            ]);
+        }
 
         return Command::SUCCESS;
     }

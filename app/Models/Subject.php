@@ -36,6 +36,10 @@ class Subject extends Model implements HasMedia
         'visited' => 'boolean',
     ];
 
+    protected $appends = [
+        'gender',
+    ];
+
     protected function displayName(): Attribute
     {
         return Attribute::make(
