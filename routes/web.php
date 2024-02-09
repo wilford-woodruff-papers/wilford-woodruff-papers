@@ -200,6 +200,8 @@ Route::middleware([])->group(function () {
     ])->group(function () {
         Route::get('my-relatives', \App\Livewire\RelativeFinder::class)
             ->name('my-relatives');
+        Route::get('my-relatives-frontend', \App\Livewire\RelativeFinderFrontend::class)
+            ->name('my-relatives-frontend');
     });
 
     Route::middleware([

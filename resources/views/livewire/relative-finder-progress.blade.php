@@ -1,4 +1,4 @@
-<div wire:poll>
+<div wire:poll.5s>
     @if($checked < $total)
         <div class="flex items-center">
             <div class="flex-1 py-1 px-4 whitespace-nowrap">

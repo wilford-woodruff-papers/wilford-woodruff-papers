@@ -1,5 +1,6 @@
 import _ from "lodash";
 import axios from "axios";
+import { RateLimiter } from "limiter";
 
 window._ = _;
 /**
@@ -14,6 +15,39 @@ window.axios = axios;
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 axios.defaults.withCredentials = true;
+
+function sleep (milliseconds) {
+    return new Promise((resolve) => setTimeout(resolve, milliseconds))
+}
+
+function nextTick () {
+    return sleep(3000)
+}
+
+class LimiterLibraryRateLimiter {
+    constructor ({ maxRequests, maxRequestWindowMS }) {
+        this.maxRequests = maxRequests
+        this.maxRequestWindowMS = maxRequestWindowMS
+        this.limiter = new RateLimiter({ tokensPerInterval: this.maxRequests, interval: this.maxRequestWindowMS, fireImmediately: false })
+    }
+
+    async acquireToken (fn) {
+        if (this.limiter.tryRemoveTokens(1)) {
+            await new Promise((resolve) => setTimeout(resolve, 1000));
+            await nextTick();
+            return fn()
+        } else {
+            await new Promise((resolve) => setTimeout(resolve, 2000));
+            await sleep(this.maxRequestWindowMS)
+            return this.acquireToken(fn)
+        }
+    }
+}
+
+window.rateLimiter = new LimiterLibraryRateLimiter({
+    maxRequests: 1,
+    maxRequestWindowMS: 200
+});
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
