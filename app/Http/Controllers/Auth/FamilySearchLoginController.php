@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\RelationshipFinderQueue;
 use Illuminate\Http\RedirectResponse;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -33,16 +32,21 @@ class FamilySearchLoginController extends Controller
         $user->familysearch_refresh_token = $familysearchUser->refreshToken;
         $user->save();
 
-        if (RelationshipFinderQueue::query()
-            ->where('user_id', $user->id)
-            ->whereNull('finished_at')
-            ->count() < 1
-        ) {
-            RelationshipFinderQueue::query()
-                ->create([
-                    'user_id' => $user->id,
-                ]);
-        }
+        //        if (RelationshipFinderQueue::query()
+        //            ->where('user_id', $user->id)
+        //            ->whereNull('finished_at')
+        //            ->count() < 1
+        //        ) {
+        //            RelationshipFinderQueue::query()
+        //                ->create([
+        //                    'user_id' => $user->id,
+        //                ]);
+        //        }
+
+        //        Artisan::call('relationships:check', [
+        //            'id' => $user->id,
+        //            'isBatch' => false,
+        //        ]);
 
         return redirect()
             ->route('my-relatives')

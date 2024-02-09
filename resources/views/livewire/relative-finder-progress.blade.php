@@ -1,5 +1,5 @@
 <div wire:poll>
-    @if($progress)
+    @if($checked < $total)
         <div class="flex items-center">
             <div class="flex-1 py-1 px-4 whitespace-nowrap">
                 {{ $checked }} / {{ $total }}
