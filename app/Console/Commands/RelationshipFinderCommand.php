@@ -4,11 +4,11 @@ namespace App\Console\Commands;
 
 use App\Jobs\NotifyUserOfRelationShipFinderCompletion;
 use App\Models\Relationship;
-use App\Models\RelationshipFinderQueue;
 use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Bus\Batch;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Bus;
 
 class RelationshipFinderCommand extends Command
@@ -18,7 +18,7 @@ class RelationshipFinderCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'relationships:check {id} {entry?}';
+    protected $signature = 'relationships:check {id} {isBatch?}';
 
     /**
      * The console command description.
@@ -33,7 +33,7 @@ class RelationshipFinderCommand extends Command
     public function handle()
     {
         $id = $this->argument('id');
-        $entry = RelationshipFinderQueue::find($this->argument('entry'));
+        $isBatch = $this->argument('isBatch', false);
 
         $user = User::query()
             ->where('id', $id)
@@ -54,38 +54,34 @@ class RelationshipFinderCommand extends Command
                     ->pluck('subject_id')
                     ->all()
             )
-            //->inRandomOrder()
-            //->limit(500)
+            ->limit(50)
             ->toBase()
             ->get();
 
         $jobs = [];
 
-        foreach ($people as $person) {
-            if (! empty($person->pid)) {
-                $jobs[] = new \App\Jobs\RelationshipFinderJob($user, $person);
+        if ($people->count() > 0) {
+            foreach ($people as $person) {
+                if (! empty($person->pid)) {
+                    $jobs[] = new \App\Jobs\RelationshipFinderJob($user, $person);
+                }
             }
-        }
 
-        $batch = Bus::batch($jobs)
-            ->onQueue('relationships')
-            ->name('Relationship Finder')
-            ->allowFailures()
-            ->finally(function (Batch $batch) use ($user) {
-                RelationshipFinderQueue::query()
-                    ->where('user_id', $user->id)
-                    ->update([
-                        'in_progress' => false,
-                        'finished_at' => now(),
+            $batch = Bus::batch($jobs)
+                ->onQueue('relationships')
+                ->name('Relationship Finder')
+                ->allowFailures()
+                ->finally(function (Batch $batch) use ($user) {
+                    Artisan::call('relationships:check', [
+                        'id' => $user->id,
+                        'isBatch' => true,
                     ]);
+                })
+                ->dispatch();
+        } else {
+            if ($isBatch) {
                 NotifyUserOfRelationShipFinderCompletion::dispatch($user);
-            })
-            ->dispatch();
-
-        if ($entry) {
-            $entry->update([
-                'batch_id' => $batch->id,
-            ]);
+            }
         }
 
         return Command::SUCCESS;
