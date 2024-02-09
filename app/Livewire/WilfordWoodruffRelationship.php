@@ -7,9 +7,9 @@ use Livewire\Component;
 
 class WilfordWoodruffRelationship extends Component
 {
-    public string $description;
+    public ?string $description;
 
-    public int $distance;
+    public ?int $distance;
 
     public function render()
     {

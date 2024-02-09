@@ -24,6 +24,7 @@ class RelativeFinder extends Component implements HasForms, HasTable
     public function table(Table $table): Table
     {
         return $table
+            ->header(view('components.relative-finder-progress'))
             ->query(
                 Relationship::query()
                     ->with([
