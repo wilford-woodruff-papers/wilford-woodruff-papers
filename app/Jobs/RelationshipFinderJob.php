@@ -65,16 +65,16 @@ class RelationshipFinderJob implements ShouldQueue
         $familysearch = new RelationshipFinder(userId: $this->user->id);
 
         try {
-            $request = new RelationshipRequest($this->user->familysearch_token, $this->person->pid);
+            $request = new RelationshipRequest($this->user, $this->person->pid);
             $response = $familysearch->send($request);
         } catch (FatalRequestException $exception) {
             info('FatalRequestException: '.$exception->getMessage());
-            $this->dispatch($this->user, $this->person);
+            $this->batch()->add(new \App\Jobs\RelationshipFinderJob($this->user, $this->person));
 
             return;
         } catch (ConnectException $exception) {
             info('ConnectException: '.$exception->getMessage());
-            $this->dispatch($this->user, $this->person);
+            $this->batch()->add(new \App\Jobs\RelationshipFinderJob($this->user, $this->person));
 
             return;
         }

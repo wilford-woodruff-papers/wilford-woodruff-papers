@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('relationship_finder_queue', function (Blueprint $table) {
-            $table->unsignedBigInteger('batch_id')
+            $table->string('batch_id')
                 ->nullable();
         });
     }

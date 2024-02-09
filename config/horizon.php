@@ -169,7 +169,7 @@ return [
             'connection' => 'redis',
             'queue' => ['default', 'pages', 'import', 'exports', 'relationships'],
             'balance' => 'auto',
-            'maxProcesses' => 1,
+            'maxProcesses' => 3,
             'maxTime' => 0,
             'maxJobs' => 0,
             'memory' => 1024,
@@ -182,7 +182,7 @@ return [
     'environments' => [
         'production' => [
             'supervisor-1' => [
-                'maxProcesses' => 5,
+                'maxProcesses' => 10,
                 'balanceMaxShift' => 1,
                 'balanceCooldown' => 3,
             ],
@@ -191,13 +191,14 @@ return [
         'local' => [
             'supervisor-1' => [
                 'maxProcesses' => 10,
+                'queue' => ['default', 'pages', 'import', 'exports', 'relationships'],
             ],
         ],
 
         'development' => [
             'supervisor-1' => [
                 'maxProcesses' => 10,
-                'queue' => ['development'],
+                'queue' => ['default', 'pages', 'import', 'exports', 'relationships'],
             ],
         ],
     ],

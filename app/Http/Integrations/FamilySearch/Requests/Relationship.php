@@ -2,6 +2,7 @@
 
 namespace App\Http\Integrations\FamilySearch\Requests;
 
+use App\Models\User;
 use Saloon\Enums\Method;
 use Saloon\Http\Auth\TokenAuthenticator;
 use Saloon\Http\Request;
@@ -13,7 +14,7 @@ class Relationship extends Request
      */
     protected Method $method = Method::GET;
 
-    public function __construct(protected readonly string $token, protected readonly string $pid)
+    public function __construct(protected User $user, protected readonly string $pid)
     {
         //
     }
@@ -27,7 +28,7 @@ class Relationship extends Request
 
     protected function defaultAuth(): TokenAuthenticator
     {
-        return new TokenAuthenticator($this->token);
+        return new TokenAuthenticator($this->user->familysearch_token);
     }
 
     /**

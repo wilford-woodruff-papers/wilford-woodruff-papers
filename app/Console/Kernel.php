@@ -164,12 +164,12 @@ class Kernel extends ConsoleKernel
             ->timezone('America/Denver')
             ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org');
 
-        $schedule
-            ->command('relationships:process')
-            ->everyFiveMinutes()
-            ->withoutOverlapping()
-            ->timezone('America/Denver')
-            ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org');
+        //        $schedule
+        //            ->command('relationships:process')
+        //            ->everyFiveMinutes()
+        //            ->withoutOverlapping()
+        //            ->timezone('America/Denver')
+        //            ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org');
 
         $schedule
             ->command('banner:generate-count 7')

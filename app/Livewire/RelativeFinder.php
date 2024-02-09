@@ -14,6 +14,7 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Artisan;
 use Livewire\Component;
 
 class RelativeFinder extends Component implements HasForms, HasTable
@@ -24,6 +25,7 @@ class RelativeFinder extends Component implements HasForms, HasTable
     public function table(Table $table): Table
     {
         return $table
+            ->header(view('components.relative-finder-progress'))
             ->query(
                 Relationship::query()
                     ->with([
@@ -56,7 +58,7 @@ class RelativeFinder extends Component implements HasForms, HasTable
                     ->extraImgAttributes(function (Model $record) {
                         return ['data-gender' => $record->person->gender];
                     })
-                    ->defaultImageUrl(fn (Model $record): string => url(config('services.familysearch.base_uri').'/platform/tree/persons/'.$record->person->pid.'/portrait?default=/images/placeholder.png&access_token='.auth()->user()->familysearch_token))
+                    ->defaultImageUrl(fn (Model $record): string => url(config('services.familysearch.base_uri').'/platform/tree/persons/'.$record->person->pid.'/portrait?default=https://wilfordwoodruffpapers.org/img/familysearch/'.$record->person->gender.'.png&access_token='.auth()->user()->familysearch_token))
                     ->circular(),
                 TextColumn::make('person.name')
                     ->label('Name')
@@ -92,6 +94,10 @@ class RelativeFinder extends Component implements HasForms, HasTable
             || $user->familysearch_token_expiration < now()) {
             $this->redirect(route('login.familysearch'));
         }
+        Artisan::call('relationships:check', [
+            'id' => $user->id,
+            'isBatch' => false,
+        ]);
     }
 
     public function render(): View
