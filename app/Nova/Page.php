@@ -59,7 +59,8 @@ class Page extends Resource
     {
         return [
             ID::make(__('ID'), 'id')->sortable(),
-            BelongsTo::make('Item'),
+            BelongsTo::make('Item')
+                ->hideWhenUpdating(),
             Text::make(__('Name'), 'name')->help('Field is overwritten on import')->sortable(),
             (! empty($this->item) ?
                 Text::make('Preview', function () {
@@ -75,7 +76,10 @@ class Page extends Resource
             Text::make('FTP', function () {
                 return '<a href="'.$this->ftp_link.'" class="no-underline dim text-primary font-bold" target="_preview">FTP</a>';
             })->asHtml(),
-            Trix::make(__('Transcript'), 'transcript')->help('Field is overwritten on import')->alwaysShow(),
+            Trix::make(__('Transcript'), 'transcript')
+                ->help('Field is overwritten on import')
+                ->alwaysShow()
+                ->readonly(true),
             HasMany::make('Media'),
             MorphToMany::make(__('Events')),
         ];
