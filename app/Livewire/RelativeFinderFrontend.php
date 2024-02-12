@@ -98,24 +98,7 @@ class RelativeFinderFrontend extends Component implements HasForms, HasTable
             || $user->familysearch_token_expiration < now()) {
             $this->redirect(route('login.familysearch'));
         }
-        $this->people = Subject::query()
-            ->select('id', 'pid')
-            ->whereNotNull('pid')
-            ->where('pid', '!=', 'n/a')
-            ->whereHas('category', function ($query) {
-                $query->whereIn('name', ['People'])
-                    ->whereNotIn('name', ['Scriptural Figures', 'Historical Figures', 'Eminent Men and Women']);
-            })
-            ->where('pid', '!=', 'n/a')
-            ->whereNotIn('id',
-                Relationship::query()
-                    ->where('user_id', $user->id)
-                    ->pluck('subject_id')
-                    ->all()
-            )
-            //->limit(100)
-            ->toBase()
-            ->get();
+        $this->getPeople();
         //        Artisan::call('relationships:check', [
         //            'id' => $user->id,
         //            'isBatch' => false,
@@ -126,6 +109,12 @@ class RelativeFinderFrontend extends Component implements HasForms, HasTable
     {
         return view('livewire.relative-finder-frontend')
             ->layout('layouts.guest');
+    }
+
+    #[On('update-queue')]
+    public function updateQueue()
+    {
+        $this->getPeople();
     }
 
     #[On('new-relationship')]
@@ -160,5 +149,27 @@ class RelativeFinderFrontend extends Component implements HasForms, HasTable
                     'distance' => 0,
                 ]);
         }
+    }
+
+    private function getPeople()
+    {
+        $this->people = Subject::query()
+            ->select('id', 'pid')
+            ->whereNotNull('pid')
+            ->where('pid', '!=', 'n/a')
+            ->whereHas('category', function ($query) {
+                $query->whereIn('name', ['People'])
+                    ->whereNotIn('name', ['Scriptural Figures', 'Historical Figures', 'Eminent Men and Women']);
+            })
+            ->where('pid', '!=', 'n/a')
+            ->whereNotIn('id',
+                Relationship::query()
+                    ->where('user_id', auth()->id())
+                    ->pluck('subject_id')
+                    ->all()
+            )
+            ->limit(50)
+            ->toBase()
+            ->get();
     }
 }

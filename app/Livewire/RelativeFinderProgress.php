@@ -25,7 +25,7 @@ class RelativeFinderProgress extends Component
             ->where('user_id', auth()->id())
             ->count();
 
-        $progress = intval(($checked / $total) * 100);
+        $progress = max([1, intval(($checked / $total) * 100)]);
 
         return view('livewire.relative-finder-progress', [
             'total' => $total,
