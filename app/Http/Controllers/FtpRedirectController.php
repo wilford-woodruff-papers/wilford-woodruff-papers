@@ -61,6 +61,12 @@ class FtpRedirectController extends Controller
 
             return $this->getRoute('subject', $request->get('view'), ['subject' => $subject]);
         }
+
+        if ($request->has('ftp_redirect') && $request->get('ftp_redirect') == 'page' && $request->has('id')) {
+            $page = Page::findOrFail($request->get('id'));
+
+            return $this->getRoute('page', null, ['page' => $page]);
+        }
     }
 
     private function getRoute($type, $route, $params = [])
@@ -94,7 +100,8 @@ class FtpRedirectController extends Controller
                         default => route('home')
                     };
                 }
-
+            case 'ftp':
+                return redirect()->away($params['page']->ftp_link);
         }
 
     }
