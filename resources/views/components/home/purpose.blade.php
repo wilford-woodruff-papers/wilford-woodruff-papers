@@ -7,7 +7,7 @@
                 </div>
             </div>
             <p class="py-4 px-4 pt-8 text-xl font-semibold text-center uppercase md:text-2xl">
-                Our purpose in making Wilford Woodruff’s records universally accessible is to inspire all people, especially the rising generation, to study and increase their faith in Jesus Christ, understand and honor sacred temple covenants, and thereby receive the blessings of exaltation with their families.
+                Our purpose in making Wilford Woodruff’s records universally accessible is to inspire all people, especially the rising generation, to study and increase their faith in Jesus Christ.
             </p>
         </div>
     </div>
