@@ -25,31 +25,32 @@
                         this.processRelationships();
                     },
                     async processRelationships() {
-                        const promises = this.people.map((person) => (
-                            this.fetchAndRetryIfNecessary(() => (
-                                window.rateLimiter.acquireToken(() => this.check(person))
-                            ))
-                        ));
-                        //const responses = await Promise.all(promises);
-                        // responses.forEach((response, index) => {
-                        //     if (response.status === 200) {
-                        //         let url = response.url;
-                        //         console.log(url);
-                        //         response.json().then((data) => {
-                        //             Livewire.dispatch('new-relationship', { data: data, url: url });
-                        //         });
-                        //     }
-                        // });
+
+                        for(i = 0; i < this.people.length; i++){
+                            await new Promise((resolve) => setTimeout(resolve, 250));
+                            await this.check(this.people[i]);
+                        }
                     },
                     async check(person){
-                        const response = await fetch('{{ config('services.familysearch.base_uri') }}/platform/tree/persons/CURRENT/relationships/'+person.pid, {
+                        let alpine = this;
+                        await fetch('{{ config('services.familysearch.base_uri') }}/platform/tree/persons/CURRENT/relationships/'+person.pid, {
                             headers: {
                                 'Accept': 'application/json',
                                 'Authorization': 'Bearer {{ auth()->user()->familysearch_token }}'
                             }
-                        });
-
-                        return response;
+                        })
+                            .then(async function(response){
+                                if (response.status == 429) {
+                                    await new Promise((resolve) => setTimeout(resolve, response.headers.get('Retry-After')*1000));
+                                    alpine.check(person);
+                                } else if(response.status == 204){
+                                    let json = { persons: [] };
+                                    Livewire.dispatch('new-relationship', { data: json, url: person.pid });
+                                } else {
+                                    let json = await response.json();
+                                    Livewire.dispatch('new-relationship', { data: json, url: person.pid });
+                                }
+                            });
                     },
                     async fetchAndRetryIfNecessary (callAPIFn) {
                         const response = await callAPIFn();

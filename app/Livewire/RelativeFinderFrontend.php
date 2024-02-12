@@ -113,7 +113,7 @@ class RelativeFinderFrontend extends Component implements HasForms, HasTable
                     ->pluck('subject_id')
                     ->all()
             )
-            //->limit(50)
+            //->limit(100)
             ->toBase()
             ->get();
         //        Artisan::call('relationships:check', [
