@@ -1,0 +1,85 @@
+<div x-data="relationshipChecker">
+    <div class="">
+        <div class="py-8 mx-auto max-w-7xl">
+            @if(session()->has('status'))
+                <div class="py-6 px-8">
+                    <div class="relative py-3 px-4 text-green-700 bg-green-100 rounded border border-green-400" role="alert">
+                        <span class="">{{ session()->get('status') }}</span>
+                    </div>
+                </div>
+
+            @endif
+        </div>
+        <livewire:wilford-woodruff-relationship lazy />
+        <div class="py-8 mx-auto max-w-7xl relative-finder">
+            {{ $this->table }}
+        </div>
+    </div>
+    @push('scripts')
+        <script>
+
+            document.addEventListener('alpine:init', () => {
+                Alpine.data('relationshipChecker', () => ({
+                    people: @json($people),
+                    init () {
+                        this.processRelationships();
+                    },
+                    async processRelationships() {
+
+                        for(i = 0; i < this.people.length; i++){
+                            await new Promise((resolve) => setTimeout(resolve, 250));
+                            await this.check(this.people[i]);
+                        }
+                    },
+                    async check(person){
+                        let alpine = this;
+                        await fetch('{{ config('services.familysearch.base_uri') }}/platform/tree/persons/CURRENT/relationships/'+person.pid, {
+                            headers: {
+                                'Accept': 'application/json',
+                                'Authorization': 'Bearer {{ auth()->user()->familysearch_token }}'
+                            }
+                        })
+                            .then(async function(response){
+                                if (response.status == 429) {
+                                    await new Promise((resolve) => setTimeout(resolve, response.headers.get('Retry-After')*1000));
+                                    alpine.check(person);
+                                } else if(response.status == 204){
+                                    let json = { persons: [] };
+                                    Livewire.dispatch('new-relationship', { data: json, url: person.pid });
+                                } else {
+                                    let json = await response.json();
+                                    Livewire.dispatch('new-relationship', { data: json, url: person.pid });
+                                }
+                            });
+                    },
+                    async fetchAndRetryIfNecessary (callAPIFn) {
+                        const response = await callAPIFn();
+
+                        if (response.status == 429) {
+                            const retryAfter = response.headers.get('Retry-After')
+                            await new Promise((resolve) => setTimeout(resolve, retryAfter*3000))
+                            return this.fetchAndRetryIfNecessary(callAPIFn)
+                        } else {
+                            let url = response.url;
+
+                            let json = { persons: [] };
+
+                            if(response.status == 204){
+                                json = { persons: [] };
+                            } else {
+                                json = await response.json();
+                            }
+
+                            Livewire.dispatch('new-relationship', { data: json, url: url });
+
+                            return json;
+
+                        }
+
+                        //return response;
+                    }
+                }))
+            })
+        </script>
+    @endpush
+</div>
