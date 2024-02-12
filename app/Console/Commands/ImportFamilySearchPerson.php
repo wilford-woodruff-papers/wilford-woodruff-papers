@@ -36,8 +36,9 @@ class ImportFamilySearchPerson extends Command
                 $query->whereNotNull('pid')
                     ->orWhere('pid', '!=', 'n/a');
             })
-            ->orWhere(function ($query) {
-                $query->whereNull('portrait');
+            ->where(function ($query) {
+                $query->whereNull('portrait')
+                    ->orWhereNull('familysearch_person');
             })
             ->count();
 
@@ -46,7 +47,7 @@ class ImportFamilySearchPerson extends Command
         $bar->start();
 
         Subject::query()
-            ->select('id', 'pid', 'portrait', 'familysearch_person')
+            ->select('id', 'name', 'pid', 'portrait', 'familysearch_person')
             ->people()
             ->where(function ($query) {
                 $query->whereNotNull('pid')
@@ -57,7 +58,7 @@ class ImportFamilySearchPerson extends Command
                     ->orWhereNull('familysearch_person');
             })
             //->limit(10)
-            ->chunkById(100, function ($people) use (&$bar, $user) {
+            ->chunkById(20, function ($people) use (&$bar, $user) {
                 foreach ($people as $person) {
                     if (empty($person->familysearch_person)) {
                         $response = Http::withToken($user->familysearch_token)
@@ -72,9 +73,9 @@ class ImportFamilySearchPerson extends Command
                                 'familysearch_person' => $response->json(),
                             ]);
                         }
+                        unset($response);
                     }
                     if (empty($person->portrait)) {
-                        info(config('services.familysearch.base_uri').'/platform/tree/persons/'.$person->pid.'/portrait?default='.asset('img/familysearch/'.$person->gender.'.png').'&access_token='.$user->familysearch_token);
                         $response = Http::withOptions([
                             'allow_redirects' => ['track_redirects' => true],
                         ])->get(
@@ -91,6 +92,7 @@ class ImportFamilySearchPerson extends Command
                         } elseif ($response->tooManyRequests()) {
                             sleep($response->header('Retry-After'));
                         }
+                        unset($response);
                     }
                     $bar->advance();
                     //usleep(300000);
