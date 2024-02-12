@@ -42,6 +42,7 @@
         "async": ">=2.6.4",
         "collect.js": "^4.36.1",
         "laravel-vite-plugin": "^0.8.0",
+        "limiter": "^2.1.0",
         "puppeteer": "^17.1.3",
         "rangy": "^1.3.0",
         "slickscrolljs": "^2.0.2",

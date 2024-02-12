@@ -13,7 +13,8 @@ window.collect = collect;
 window.rangy = rangy;
 
 Alpine.plugin(overlap);
-Livewire.start()
+Livewire.start();
+
 
 // A function is used for dragging and moving
 function dragElement(element, direction)
