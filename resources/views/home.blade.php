@@ -41,6 +41,8 @@
         </div>
     @endif
 
+    <x-home.purpose />
+
     @if(app()->environment(['production','local','development', 'testing']))
         <x-article-preview-carousel />
     @endif
@@ -140,7 +142,7 @@
 
     <x-home.book />
 
-    <x-home.purpose />
+
 
     <x-bottom-announcements />
 
