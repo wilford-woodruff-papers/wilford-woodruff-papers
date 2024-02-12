@@ -63,9 +63,10 @@ class FtpRedirectController extends Controller
         }
 
         if ($request->has('ftp_redirect') && $request->get('ftp_redirect') == 'page' && $request->has('id')) {
+
             $page = Page::findOrFail($request->get('id'));
 
-            return $this->getRoute('page', null, ['page' => $page]);
+            return $this->getRoute('ftp', null, ['page' => $page]);
         }
     }
 
@@ -101,7 +102,7 @@ class FtpRedirectController extends Controller
                     };
                 }
             case 'ftp':
-                return redirect()->away($params['page']->ftp_link);
+                return redirect()->away('https://fromthepage.com/woodruff/wilford-woodruff-papers-project/'.$params['page']->item->ftp_slug.'/transcribe/'.str($params['page']->ftp_link)->after('page_id='));
         }
 
     }
