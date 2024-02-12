@@ -20,9 +20,10 @@
 
             document.addEventListener('alpine:init', () => {
                 Alpine.data('relationshipChecker', () => ({
-                    people: @json($people),
+                    people: @entangle('people'),
                     init () {
                         this.processRelationships();
+                        this.$watch('people', value => this.processRelationships());
                     },
                     async processRelationships() {
 
@@ -30,9 +31,11 @@
                             await new Promise((resolve) => setTimeout(resolve, 250));
                             await this.check(this.people[i]);
                         }
+                        Livewire.dispatch('update-queue');
                     },
                     async check(person){
                         let alpine = this;
+                        console.log(person);
                         await fetch('{{ config('services.familysearch.base_uri') }}/platform/tree/persons/CURRENT/relationships/'+person.pid, {
                             headers: {
                                 'Accept': 'application/json',
