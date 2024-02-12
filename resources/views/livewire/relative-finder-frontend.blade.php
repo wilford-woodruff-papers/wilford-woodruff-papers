@@ -26,7 +26,6 @@
                         this.$watch('people', value => this.processRelationships());
                     },
                     async processRelationships() {
-
                         for(i = 0; i < this.people.length; i++){
                             await new Promise((resolve) => setTimeout(resolve, 250));
                             await this.check(this.people[i]);
@@ -35,7 +34,7 @@
                     },
                     async check(person){
                         let alpine = this;
-                        console.log(person);
+                        //console.log(person);
                         await fetch('{{ config('services.familysearch.base_uri') }}/platform/tree/persons/CURRENT/relationships/'+person.pid, {
                             headers: {
                                 'Accept': 'application/json',
