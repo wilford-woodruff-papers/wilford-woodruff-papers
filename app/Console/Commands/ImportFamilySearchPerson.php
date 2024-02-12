@@ -56,7 +56,7 @@ class ImportFamilySearchPerson extends Command
                 $query->whereNull('portrait')
                     ->orWhereNull('familysearch_person');
             })
-            ->limit(10)
+            //->limit(10)
             ->chunkById(100, function ($people) use (&$bar, $user) {
                 foreach ($people as $person) {
                     if (empty($person->familysearch_person)) {
@@ -88,10 +88,12 @@ class ImportFamilySearchPerson extends Command
                             $person->update([
                                 'portrait' => $response->header(\GuzzleHttp\RedirectMiddleware::HISTORY_HEADER),
                             ]);
+                        } elseif ($response->tooManyRequests()) {
+                            sleep($response->header('Retry-After'));
                         }
                     }
                     $bar->advance();
-                    usleep(300000);
+                    //usleep(300000);
                 }
             });
         $bar->finish();
