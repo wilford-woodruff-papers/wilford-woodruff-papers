@@ -153,7 +153,7 @@ class RelativeFinderFrontend extends Component implements HasForms, HasTable
 
     private function getPeople()
     {
-        $this->people = Subject::query()
+        $people = Subject::query()
             ->select('id', 'pid')
             ->whereNotNull('pid')
             ->where('pid', '!=', 'n/a')
@@ -161,7 +161,6 @@ class RelativeFinderFrontend extends Component implements HasForms, HasTable
                 $query->whereIn('name', ['People'])
                     ->whereNotIn('name', ['Scriptural Figures', 'Historical Figures', 'Eminent Men and Women']);
             })
-            ->where('pid', '!=', 'n/a')
             ->whereNotIn('id',
                 Relationship::query()
                     ->where('user_id', auth()->id())
@@ -171,5 +170,9 @@ class RelativeFinderFrontend extends Component implements HasForms, HasTable
             ->limit(50)
             ->toBase()
             ->get();
+
+        if ($people->count() > 0) {
+            $this->people = $people;
+        }
     }
 }
