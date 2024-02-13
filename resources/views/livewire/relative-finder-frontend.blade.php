@@ -45,7 +45,9 @@
                                 if (response.status == 429) {
                                     await new Promise((resolve) => setTimeout(resolve, response.headers.get('Retry-After')*1000));
                                     alpine.check(person);
-                                } else if(response.status == 204){
+                                } else if(response.status == 401 || response.status == 403){
+                                    window.location.href = '{{ route('login.familysearch') }}';
+                                }else if(response.status == 204){
                                     let json = { persons: [] };
                                     Livewire.dispatch('new-relationship', { data: json, url: person.pid });
                                 } else {
