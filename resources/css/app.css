@@ -449,6 +449,10 @@ tr:nth-child(even) td.fi-table-cell-name, th.fi-table-header-cell-name {
 .fi-ta-ctn{
     @apply rounded-none !important;
 }
+
+.fi-ta-text-item-icon{
+    @apply text-secondary h-5 w-5 mb-1 !important;
+}
 /*.relative-finder [data-gender="Male"], .relative-finder [data-gender]{*/
 /*    background-image: url("https://wilfordwoodruffpapers.org/img/familysearch/Male.png");*/
 /*}*/
