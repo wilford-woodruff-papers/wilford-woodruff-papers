@@ -39,6 +39,8 @@ class User extends Authenticatable implements FilamentUser
         'provider_id',
         'organization_name',
         'proposed_use',
+        'ww_relationship_distance',
+        'ww_relationship_description',
     ];
 
     /**
