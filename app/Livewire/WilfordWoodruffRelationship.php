@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
+#[Lazy]
 class WilfordWoodruffRelationship extends Component
 {
     public ?string $description;
@@ -35,8 +36,6 @@ class WilfordWoodruffRelationship extends Component
                 ]);
                 $this->distance = $user->ww_relationship_distance;
                 $this->description = $user->ww_relationship_description;
-            } else {
-                info($response->json());
             }
         } else {
             $this->distance = $user->ww_relationship_distance;
