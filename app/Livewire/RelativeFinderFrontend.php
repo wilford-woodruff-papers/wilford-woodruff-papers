@@ -6,6 +6,7 @@ use App\Models\Relationship;
 use App\Models\Subject;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
+use Filament\Support\Enums\IconPosition;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ViewColumn;
@@ -34,6 +35,7 @@ class RelativeFinderFrontend extends Component implements HasForms, HasTable
                 Relationship::query()
                     ->with([
                         'person',
+                        //'person.pages.media',
                     ])
                     ->where(
                         'user_id',
@@ -41,10 +43,9 @@ class RelativeFinderFrontend extends Component implements HasForms, HasTable
                     )
                     ->where('distance', '!=', 0)
             )
-            ->recordUrl(
-                fn (Model $record): string => route('subjects.show', ['subject' => $record->person->slug]),
-            )
-            //->heading('Relationships')
+//            ->recordUrl(
+//                fn (Model $record): string => route('subjects.show', ['subject' => $record->person->slug])
+//            )
             ->striped()
             ->filtersTriggerAction(function ($action) {
                 return $action->button()->label('Filters');
@@ -58,27 +59,47 @@ class RelativeFinderFrontend extends Component implements HasForms, HasTable
             ->columns([
                 ImageColumn::make('person.portrait')
                     ->label('')
-                    ->size(28)
+                    ->size(32)
                     ->extraImgAttributes(function (Model $record) {
                         return ['data-gender' => $record->person->gender];
                     })
                     ->defaultImageUrl(fn (Model $record): string => url(config('services.familysearch.base_uri').'/platform/tree/persons/'.$record->person->pid.'/portrait?default=https://wilfordwoodruffpapers.org/img/familysearch/'.$record->person->gender.'.png&access_token='.auth()->user()->familysearch_token))
-                    ->circular(),
+                    ->circular()
+                    ->url(fn (Model $record): string => route('subjects.show', ['subject' => $record->person->slug]))
+                    ->openUrlInNewTab(),
                 TextColumn::make('person.name')
-                    ->label('Name')
+                    ->label('Name (Click to view documents)')
+                    ->size(TextColumn\TextColumnSize::Large)
                     ->formatStateUsing(fn (string $state): string => '<span class="text-secondary font-semibold">'.$state.'</span>')
+                    ->icon('heroicon-o-arrow-top-right-on-square')
+                    ->iconPosition(IconPosition::After)
                     ->html()
                     ->description(fn (Model $record): string => 'Mentioned in '.$record->person->tagged_count.' pages', position: 'below')
+                    ->url(fn (Model $record): string => route('subjects.show', ['subject' => $record->person->slug]))
+                    ->openUrlInNewTab()
                     ->sortable()
                     ->searchable(),
+                //                ImageColumn::class::make('person.pages.media')
+                //                    ->circular()
+                //                    ->stacked()
+                //                    ->limit(3),
                 TextColumn::make('description')
-                    ->label('Relationship'),
+                    ->label('Relationship')
+                    ->size(TextColumn\TextColumnSize::Large)
+                    ->url(fn (Model $record): string => route('subjects.show', ['subject' => $record->person->slug]))
+                    ->openUrlInNewTab(),
                 TextColumn::make('distance')
                     ->label('Distance')
+                    ->size(TextColumn\TextColumnSize::Large)
+                    ->url(fn (Model $record): string => route('subjects.show', ['subject' => $record->person->slug]))
+                    ->openUrlInNewTab()
                     ->sortable(),
                 TextColumn::make('person.public_categories.name')
                     ->label('Category')
-                    ->separator(','),
+                    ->size(TextColumn\TextColumnSize::Large)
+                    ->separator(',')
+                    ->url(fn (Model $record): string => route('subjects.show', ['subject' => $record->person->slug]))
+                    ->openUrlInNewTab(),
                 ViewColumn::make('person.pid')
                     ->label('FamilySearch')
                     ->view('components.familysearch-button'),
