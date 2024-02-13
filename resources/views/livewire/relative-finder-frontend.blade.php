@@ -10,7 +10,7 @@
 
             @endif
         </div>
-        <livewire:wilford-woodruff-relationship lazy />
+        <livewire:wilford-woodruff-relationship />
         <div class="py-8 mx-auto max-w-7xl relative-finder">
             {{ $this->table }}
         </div>
