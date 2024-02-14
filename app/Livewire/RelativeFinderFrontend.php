@@ -53,7 +53,7 @@ class RelativeFinderFrontend extends Component implements HasForms, HasTable
             })
             ->paginationPageOptions([25, 50, 100, 200])
             ->persistFiltersInSession()
-            //->poll('10s')
+            ->poll('40s')
             ->defaultSort('distance', 'asc')
             ->emptyStateHeading('No relationships found yet')
             ->emptyStateDescription('Once the process has started, this page will refresh automatically. We will also send an email when it is done.')
@@ -139,8 +139,33 @@ class RelativeFinderFrontend extends Component implements HasForms, HasTable
         $this->getPeople();
     }
 
-    #[On('new-relationship')]
+    private function getPeople()
+    {
+        $people = Subject::query()
+            ->select('id', 'pid')
+            ->whereNotNull('pid')
+            ->where('pid', '!=', 'n/a')
+            ->whereHas('category', function ($query) {
+                $query->whereIn('name', ['People'])
+                    ->whereNotIn('name', ['Scriptural Figures', 'Historical Figures', 'Eminent Men and Women']);
+            })
+            ->whereNotIn('id',
+                Relationship::query()
+                    ->where('user_id', auth()->id())
+                    ->pluck('subject_id')
+                    ->all()
+            )
+            ->limit(50)
+            ->toBase()
+            ->get();
+
+        if ($people->count() > 0) {
+            $this->people = $people;
+        }
+    }
+
     #[Renderless]
+    #[On('new-relationship')]
     public function processRelationship($data, $url)
     {
         $person = Subject::query()->where('pid', str($url)->afterLast('/'))->first();
@@ -171,31 +196,6 @@ class RelativeFinderFrontend extends Component implements HasForms, HasTable
                 [
                     'distance' => 0,
                 ]);
-        }
-    }
-
-    private function getPeople()
-    {
-        $people = Subject::query()
-            ->select('id', 'pid')
-            ->whereNotNull('pid')
-            ->where('pid', '!=', 'n/a')
-            ->whereHas('category', function ($query) {
-                $query->whereIn('name', ['People'])
-                    ->whereNotIn('name', ['Scriptural Figures', 'Historical Figures', 'Eminent Men and Women']);
-            })
-            ->whereNotIn('id',
-                Relationship::query()
-                    ->where('user_id', auth()->id())
-                    ->pluck('subject_id')
-                    ->all()
-            )
-            ->limit(50)
-            ->toBase()
-            ->get();
-
-        if ($people->count() > 0) {
-            $this->people = $people;
         }
     }
 }
