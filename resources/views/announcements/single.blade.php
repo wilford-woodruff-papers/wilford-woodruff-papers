@@ -2,7 +2,7 @@
     <div class="flex overflow-hidden flex-col shadow-lg">
         <div class="flex-shrink-0">
             @if(! empty($announcement->image))
-                <div class="mx-auto max-w-full h-auto md:max-w-7xl">
+                <div class="mx-auto max-w-full h-auto md:max-w-7xl min-h-[200px] md:min-h-[371px]">
                     @if(! empty($announcement->link))
                         <a href="{{ $announcement->link }}"
                            target="_blank">
