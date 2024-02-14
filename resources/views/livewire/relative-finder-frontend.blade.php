@@ -30,7 +30,7 @@
                     },
                     async processRelationships() {
                         for(i = 0; i < this.people.length; i++){
-                            await new Promise((resolve) => setTimeout(resolve, 250));
+                            await new Promise((resolve) => setTimeout(resolve, 100));
                             await this.check(this.people[i]);
                         }
                         Livewire.dispatch('update-queue');
@@ -47,7 +47,7 @@
                             .then(async function(response){
                                 if (response.status == 429) {
                                     await new Promise((resolve) => setTimeout(resolve, response.headers.get('Retry-After')*1000));
-                                    alpine.check(person);
+                                    await alpine.check(person);
                                 } else if(response.status == 401 || response.status == 403){
                                     window.location.href = '{{ route('login.familysearch') }}';
                                 }else if(response.status == 204){
