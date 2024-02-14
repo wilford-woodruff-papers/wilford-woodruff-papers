@@ -74,7 +74,7 @@ class RelativeFinderFrontend extends Component implements HasForms, HasTable
                     ->icon('heroicon-o-arrow-top-right-on-square')
                     ->iconPosition(IconPosition::After)
                     ->html()
-                    ->description(fn (Model $record): string => 'Mentioned in '.$record->person->tagged_count.' pages', position: 'below')
+                    ->description(fn (Model $record): string => 'Mentioned in '.$record->person->tagged_count.' '.str('page')->plural($record->person->tagged_count), position: 'below')
                     ->url(fn (Model $record): string => route('subjects.show', ['subject' => $record->person->slug]))
                     ->openUrlInNewTab()
                     ->sortable()
