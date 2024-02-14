@@ -7,7 +7,7 @@
                         <div class="bg-white">
                             <div class="flex overflow-hidden flex-col shadow-lg">
                                 <div class="flex-shrink-0">
-                                    <div class="mx-auto max-w-full h-auto md:max-w-7xl">
+                                    <div class="mx-auto max-w-full h-auto md:max-w-7xl min-h-[200px] md:min-h-[371px]">
                                         <a href="{{ route('day-in-the-life', ['date' => $dayInTheLife->date->toDateString()]) }}">
                                             <img class="w-full h-auto"
                                                  src="{{ $dayInTheLife->getFirstMediaUrl('banner') }}"
