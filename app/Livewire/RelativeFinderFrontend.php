@@ -18,6 +18,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Renderless;
 use Livewire\Component;
 
 class RelativeFinderFrontend extends Component implements HasForms, HasTable
@@ -139,6 +140,7 @@ class RelativeFinderFrontend extends Component implements HasForms, HasTable
     }
 
     #[On('new-relationship')]
+    #[Renderless]
     public function processRelationship($data, $url)
     {
         $person = Subject::query()->where('pid', str($url)->afterLast('/'))->first();
