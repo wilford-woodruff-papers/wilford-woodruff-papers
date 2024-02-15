@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <div class="bg-gradient-to-b from-primary via-primary-40 to-[#ffffff] min-h-screen">
+    <div class="bg-gradient-to-b from-primary via-[#ffffff] to-[#ffffff] min-h-screen">
         <div class="py-8 px-12 mx-auto max-w-7xl lg:py-16">
             <div class="grid order-last gap-8 lg:order-first lg:grid-cols-5">
                 <div class="flex flex-col gap-y-8 justify-between px-4 lg:col-span-3">
