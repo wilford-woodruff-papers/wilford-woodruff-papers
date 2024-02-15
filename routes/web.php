@@ -203,6 +203,8 @@ Route::middleware([])->group(function () {
         Route::get('my-relatives', \App\Livewire\RelativeFinderFrontend::class)
             ->name('my-relatives');
     });
+    Route::get('relative-finder', \App\Http\Controllers\FindMyRelativesController::class)
+        ->name('relative-finder');
 
     Route::middleware([
         'auth:sanctum',
