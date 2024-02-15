@@ -1,4 +1,5 @@
 <x-guest-layout>
+    <x-slot name="title">Find My Relatives | Wilford Woodruff Papers</x-slot>
     <div class="bg-gradient-to-b from-primary via-[#ffffff] to-[#ffffff] min-h-screen">
         <div class="py-8 px-12 mx-auto max-w-7xl lg:py-16">
             <div class="grid order-last gap-8 lg:order-first lg:grid-cols-5">
