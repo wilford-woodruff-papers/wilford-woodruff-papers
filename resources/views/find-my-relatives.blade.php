@@ -6,7 +6,7 @@
                     <div class="flex z-50 flex-col gap-y-2 text-center lg:text-left">
                         <h1 class="text-4xl text-white lg:text-6xl">
                             <div class="mx-auto max-w-xl lg:mx-0">
-                                Discover your Relatives in Wilford Woodruff's Papers
+                                Discover Your Relatives in Wilford Woodruff's Papers
                             </div>
                         </h1>
                         <div class="text-xl text-white lg:pl-2">
