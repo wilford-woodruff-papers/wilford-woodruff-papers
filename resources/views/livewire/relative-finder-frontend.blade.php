@@ -50,6 +50,8 @@
                                     await alpine.check(person);
                                 } else if(response.status == 401 || response.status == 403){
                                     window.location.href = '{{ route('login.familysearch') }}';
+                                }else if(response.status == 502){
+                                    let json = { persons: [] };
                                 }else if(response.status == 204){
                                     let json = { persons: [] };
                                     Livewire.dispatch('new-relationship', { data: json, url: person.pid });
