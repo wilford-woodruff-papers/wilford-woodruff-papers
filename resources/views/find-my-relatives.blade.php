@@ -10,8 +10,17 @@
                                 Discover Your Relatives in Wilford Woodruff's Papers
                             </div>
                         </h1>
-                        <div class="text-xl text-white lg:pl-2">
-                            with the help of FamilySearch
+                        <div class="flex gap-x-3 items-end text-xl text-white lg:pl-2">
+                            <span>with the help of </span>
+                            <span>
+                                <a href="https://www.familysearch.org/"
+                                   target="_blank"
+                                >
+                                    <img src="{{ asset('img/familytree-logo.png') }}" alt=""
+                                        class="mb-1 w-28 h-auto"
+                                    />
+                                </a>
+                            </span>
                         </div>
                     </div>
                     <div class="text-center lg:text-left">
