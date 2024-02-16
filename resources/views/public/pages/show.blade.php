@@ -328,8 +328,7 @@
                     <div class="values">
                         @foreach($page->dates as $date)
                             <div class="value" lang="">
-                                <a href="{{ route('advanced-search', [
-                                        'currentIndex' => 'Documents',
+                                <a href="{{ route('day-in-the-life', [
                                         'date' => $date->date->toDateString(),
                                     ]) }}"
                                    class="text-secondary"
