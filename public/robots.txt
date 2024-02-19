@@ -1,6 +1,9 @@
 User-agent: SemrushBot
 Disallow: /
 
+User-agent: VelenPublicWebCrawler
+Disallow: /
+
 User-agent: *
 Crawl-delay: 20
 Disallow:
