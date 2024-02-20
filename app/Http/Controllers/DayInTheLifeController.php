@@ -96,6 +96,10 @@ class DayInTheLifeController extends Controller
         $eventRange = clone $date;
         //dd($date->toDateString(), $eventRange->subMonths(2)->toDateString(), $eventRange->addMonths(4)->toDateString());
         $events = Event::query()
+            ->with([
+                'photos',
+                'media',
+            ])
             ->where(function ($query) use ($date) {
                 $query->where('start_at', '=', $date->toDateString());
             })
