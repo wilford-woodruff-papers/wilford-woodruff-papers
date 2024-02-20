@@ -73,6 +73,7 @@
                                     window.location.href = '{{ route('login.familysearch') }}';
                                 }else if(response.status == 502){
                                     let json = { persons: [] };
+                                    alpine.$dispatch('api', { data: json, url: person.id });
                                 }else if(response.status == 204){
                                     let json = { persons: [] };
                                     alpine.$dispatch('api', { data: json, url: person.id });
