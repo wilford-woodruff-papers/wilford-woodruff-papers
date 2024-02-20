@@ -33,6 +33,8 @@ class Task extends Component
         if ($this->show) {
             $this->item->loadMissing(
                 'page_actions',
+                'page_actions.actionable.completed_actions.type',
+                'page_actions.actionable.completed_actions.finisher',
                 'page_actions.finisher',
                 'page_actions.type',
                 'pending_page_actions.actionable.completed_actions.type',
