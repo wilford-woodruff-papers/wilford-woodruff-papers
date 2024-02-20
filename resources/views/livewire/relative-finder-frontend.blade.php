@@ -1,4 +1,8 @@
-<div x-data="relationshipChecker">
+<div x-data="relationshipChecker"
+     @api.window="function(data){
+        poolCalls(data);
+     }"
+>
     <x-banner-image :image="asset('img/banners/people.png')"
                     :text="'My Relatives'"
     />
@@ -24,13 +28,30 @@
             document.addEventListener('alpine:init', () => {
                 Alpine.data('relationshipChecker', () => ({
                     people: @entangle('people'),
+                    results: [],
                     init () {
                         this.processRelationships();
                         this.$watch('people', value => this.processRelationships());
+                        this.$watch('results', (value) => {
+                            let clone = [...value];
+                            //console.log(value.length);
+                            if(clone.length >= this.people.length){
+                                this.results = [];
+                                //console.log(clone);
+                                Livewire.dispatch('new-relationships', {data: clone});
+
+                            }
+                        });
+                    },
+                    poolCalls(data){
+                        this.results.push({
+                            id: data.detail.url,
+                            data: data.detail.data
+                        });
                     },
                     async processRelationships() {
                         for(i = 0; i < this.people.length; i++){
-                            await new Promise((resolve) => setTimeout(resolve, 100));
+                            await new Promise((resolve) => setTimeout(resolve, 50));
                             await this.check(this.people[i]);
                         }
                         Livewire.dispatch('update-queue');
@@ -54,10 +75,12 @@
                                     let json = { persons: [] };
                                 }else if(response.status == 204){
                                     let json = { persons: [] };
-                                    Livewire.dispatch('new-relationship', { data: json, url: person.pid });
+                                    alpine.$dispatch('api', { data: json, url: person.id });
+                                    //Livewire.dispatch('new-relationship', { data: json, url: person.pid });
                                 } else {
                                     let json = await response.json();
-                                    Livewire.dispatch('new-relationship', { data: json, url: person.pid });
+                                    alpine.$dispatch('api', { data: json, url: person.id });
+                                    //Livewire.dispatch('new-relationship', { data: json, url: person.pid });
                                 }
                             });
                     },

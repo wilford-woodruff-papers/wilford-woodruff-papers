@@ -151,6 +151,7 @@ class RelativeFinderFrontend extends Component implements HasForms, HasTable
             })
             ->whereNotIn('id',
                 Relationship::query()
+                    ->select('subject_id')
                     ->where('user_id', auth()->id())
                     ->pluck('subject_id')
                     ->all()
@@ -197,5 +198,40 @@ class RelativeFinderFrontend extends Component implements HasForms, HasTable
                     'distance' => 0,
                 ]);
         }
+    }
+
+    #[Renderless]
+    #[On('new-relationships')]
+    public function processRelationships($data)
+    {
+        $data = collect($data);
+
+        //        $people = Subject::query()
+        //            ->whereIn('id', $data->pluck('pid')->all())
+        //            ->get();
+        $updates = [];
+        foreach ($data as $person) {
+            if (! empty($person['data'])) {
+                //$person = Subject::find($personId);
+                $persons = collect(data_get($person['data'], 'persons'));
+                $length = $persons->count();
+                $relative = $persons->pop();
+                $relation = data_get($relative, 'display.relationshipDescription');
+                $updates[] = [
+                    'subject_id' => $person['id'],
+                    'user_id' => auth()->id(),
+                    'distance' => $length,
+                    'description' => str($relation)->after('My '),
+                ];
+            } else {
+                $updates[] = [
+                    'subject_id' => $person['id'],
+                    'user_id' => auth()->id(),
+                    'distance' => 0,
+                    'description' => null,
+                ];
+            }
+        }
+        Relationship::upsert($updates, ['subject_id', 'user_id'], ['distance', 'description']);
     }
 }

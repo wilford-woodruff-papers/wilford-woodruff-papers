@@ -1,15 +1,17 @@
 <div {{ (($checked < $total) ? 'wire:poll.5s' : '' ) }}
      class="bg-gray-50 border-l-4 border-gray-400">
     <div>
-        <div class="py-2">
-            <div class="flex">
-                <div class="ml-4">
-                    <p class="text-base text-black">
-                        Please wait while we cross check the people mentioned in the Wilford Woodruff Papers with your family tree.
-                    </p>
+        @if($checked < $total)
+            <div class="py-2">
+                <div class="flex">
+                    <div class="ml-4">
+                        <p class="text-base text-black">
+                            Please wait while we cross check the people mentioned in the Wilford Woodruff Papers with your family tree.
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
+        @endif
     </div>
     <div class="flex items-center">
         @if($checked < $total)
