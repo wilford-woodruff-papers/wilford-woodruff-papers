@@ -71,7 +71,10 @@ class Tasks extends Component
             ->whereNotNull('pcf_unique_id')
             ->with([
                 'type',
-                'pending_actions',
+                'pending_actions' => function ($query) {
+                    $query->where('assigned_to', auth()->id())
+                        ->whereNull('completed_at');
+                },
                 'pending_actions.type',
             ])
             ->whereHas('pending_actions', function (Builder $query) {
