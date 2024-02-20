@@ -80,6 +80,7 @@ class FtpRedirectController extends Controller
                     'research' => redirect()->route('admin.dashboard.document.edit', ['item' => $params[$type]->uuid]),
                     default => route('home')
                 };
+                break;
             case 'page':
                 return match ($route) {
                     'public' => redirect()->route('short-url.page', ['hashid' => $params[$type]->hashid()]),
@@ -87,6 +88,7 @@ class FtpRedirectController extends Controller
                     'research' => redirect()->route('admin.dashboard.document.edit', ['item' => $params[$type]->item?->uuid]),
                     default => route('home')
                 };
+                break;
             case 'subject':
                 if (in_array('People', $params[$type]->category->pluck('name')->values()->toArray())) {
                     return match ($route) {
@@ -101,8 +103,14 @@ class FtpRedirectController extends Controller
                         default => route('home')
                     };
                 }
+                break;
             case 'ftp':
+                if (! array_key_exists('page', $params)) {
+                    abort(404, 'Page not found');
+                }
+
                 return redirect()->away('https://fromthepage.com/woodruff/wilford-woodruff-papers-project/'.$params['page']->item->ftp_slug.'/transcribe/'.str($params['page']->ftp_link)->after('page_id='));
+                break;
         }
 
     }
