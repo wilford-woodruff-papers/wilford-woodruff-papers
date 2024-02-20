@@ -97,6 +97,8 @@ class DayInTheLifeController extends Controller
         //dd($date->toDateString(), $eventRange->subMonths(2)->toDateString(), $eventRange->addMonths(4)->toDateString());
         $events = Event::query()
             ->with([
+                'pages',
+                'pages.media',
                 'photos',
                 'media',
             ])
