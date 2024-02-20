@@ -51,7 +51,7 @@
                     },
                     async processRelationships() {
                         for(i = 0; i < this.people.length; i++){
-                            await new Promise((resolve) => setTimeout(resolve, 50));
+                            await new Promise((resolve) => setTimeout(resolve, 20));
                             await this.check(this.people[i]);
                         }
                         Livewire.dispatch('update-queue');
