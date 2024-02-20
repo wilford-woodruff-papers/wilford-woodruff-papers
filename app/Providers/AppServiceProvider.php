@@ -9,6 +9,7 @@ use App\Macros\StripBracketedID;
 use Filament\Support\Assets\Css;
 use Filament\Support\Facades\FilamentAsset;
 use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Schema;
@@ -68,7 +69,7 @@ class AppServiceProvider extends ServiceProvider
             ]);
         }
 
-        //Model::preventLazyLoading(! $this->app->isProduction());
+        Model::preventLazyLoading(! $this->app->isProduction());
         //Model::preventAccessingMissingAttributes(! $this->app->isProduction());
     }
 }
