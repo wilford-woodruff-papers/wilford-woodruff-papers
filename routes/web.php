@@ -202,6 +202,8 @@ Route::middleware([])->group(function () {
         //            ->name('my-relatives');
         Route::get('my-relatives', \App\Livewire\RelativeFinderFrontend::class)
             ->name('my-relatives');
+        Route::get('my-relatives/download', \App\Http\Controllers\RelationshipDownloadController::class)
+            ->name('my-relatives.download');
     });
     Route::get('relative-finder', \App\Http\Controllers\FindMyRelativesController::class)
         ->name('relative-finder');
