@@ -2,9 +2,9 @@
     <div class="px-4 sm:px-6 lg:px-8">
         <div class="mt-8">
             <div class="overflow-x-auto -my-2 -mx-4 sm:-mx-6 lg:-mx-8">
-                <div class="block py-2 w-full align-middle sm:px-6 lg:px-8 filament-tables-table-container">
-                    <table class="w-full">
-                        <thead class="bg-white">
+                <div class="block py-2 w-full align-middle sm:px-6 lg:px-8">
+                    <table class="relative w-full">
+                        <thead class="sticky top-32 bg-white">
                             <th scope="col"
                                 class="py-3.5 pr-3 pl-4 text-sm font-semibold text-left text-gray-900 sm:pl-3">
                                 Task
