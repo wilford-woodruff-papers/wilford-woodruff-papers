@@ -10,6 +10,7 @@ class AddSubjectLinks
             return new static(str($this->value)->replaceMatches('/(?:\[\[)(.*?)(?:\]\])/s', function ($match) {
                 if (str($match[1])->lower()->contains("can't be identified")
                     || str(str($match[1])->explode('|')->first())->lower()->contains('cbi')
+                    || str(str($match[1])->explode('|')->first())->lower()->contains('grp')
                 ) {
                     return str($match[1])->explode('|')->last();
                 } else {

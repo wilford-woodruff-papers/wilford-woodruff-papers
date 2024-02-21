@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Subject;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 
 class CalculateTaggedSubjectPageCounts extends Command
@@ -27,47 +28,54 @@ class CalculateTaggedSubjectPageCounts extends Command
      */
     public function handle(): int
     {
-        Subject::query()
-                 ->where(function ($query) {
-                     $query->whereNull('subject_id')
-                            ->orWhere('subject_id', 0);
-                 })
-                 ->chunkById(100, function ($subjects) {
-                     $subjects->load('children', 'children.children');
-                     foreach ($subjects as $subject) {
-                         $subjectPages = DB::table('page_subject')
-                             ->join('pages', 'pages.id', '=', 'page_subject.page_id')
-                             ->join('items', 'items.id', '=', 'pages.item_id')
-                             ->where('subject_id', $subject->id)
-                             ->where('items.enabled', true)
-                             ->count();
 
-                         foreach ($subject->children as $child) {
-                             $childPages = DB::table('page_subject')
-                                 ->join('pages', 'pages.id', '=', 'page_subject.page_id')
-                                 ->join('items', 'items.id', '=', 'pages.item_id')
-                                 ->where('subject_id', $child->id)
-                                 ->where('items.enabled', true)
-                                 ->count();
+        Subject::withoutSyncingToSearch(function () {
+            Subject::query()
+                ->where(function ($query) {
+                    $query->whereNull('subject_id')
+                        ->orWhere('subject_id', 0);
+                })
+                ->chunkById(100, function ($subjects) {
+                    $subjects->load('children', 'children.children');
+                    foreach ($subjects as $subject) {
+                        $subjectPages = DB::table('page_subject')
+                            ->join('pages', 'pages.id', '=', 'page_subject.page_id')
+                            ->join('items', 'items.id', '=', 'pages.item_id')
+                            ->where('subject_id', $subject->id)
+                            ->where('items.enabled', true)
+                            ->count();
 
-                             foreach ($child->children as $grandchild) {
-                                 $grandchild->tagged_count = DB::table('page_subject')
-                                     ->join('pages', 'pages.id', '=', 'page_subject.page_id')
-                                     ->join('items', 'items.id', '=', 'pages.item_id')
-                                     ->where('subject_id', $grandchild->id)
-                                     ->where('items.enabled', true)
-                                     ->count();
-                                 $grandchild->save();
-                             }
+                        foreach ($subject->children as $child) {
+                            $childPages = DB::table('page_subject')
+                                ->join('pages', 'pages.id', '=', 'page_subject.page_id')
+                                ->join('items', 'items.id', '=', 'pages.item_id')
+                                ->where('subject_id', $child->id)
+                                ->where('items.enabled', true)
+                                ->count();
 
-                             $child->tagged_count = $childPages + $child->children->sum('tagged_count');
-                             $child->save();
-                         }
+                            foreach ($child->children as $grandchild) {
+                                $grandchild->tagged_count = DB::table('page_subject')
+                                    ->join('pages', 'pages.id', '=', 'page_subject.page_id')
+                                    ->join('items', 'items.id', '=', 'pages.item_id')
+                                    ->where('subject_id', $grandchild->id)
+                                    ->where('items.enabled', true)
+                                    ->count();
+                                $grandchild->save();
+                            }
 
-                         $subject->tagged_count = $subjectPages + $subject->children->sum('tagged_count');
-                         $subject->save();
-                     }
-                 });
+                            $child->tagged_count = $childPages + $child->children->sum('tagged_count');
+                            $child->save();
+                        }
+
+                        $subject->tagged_count = $subjectPages + $subject->children->sum('tagged_count');
+                        $subject->save();
+                    }
+                });
+        });
+
+        Artisan::call('content:index', [
+            'models' => 'Subject',
+        ]);
 
         return Command::SUCCESS;
     }
