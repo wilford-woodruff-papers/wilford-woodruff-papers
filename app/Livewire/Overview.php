@@ -20,7 +20,7 @@ class Overview extends Component
     public $statuses = [
         'Completed',
         'In Progress',
-        'Overdue',
+        //'Overdue',
         'Not Started',
     ];
 
