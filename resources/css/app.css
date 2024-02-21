@@ -456,6 +456,26 @@ tr:nth-child(even) td.fi-table-cell-name, th.fi-table-header-cell-name {
 .fi-ta-text p {
     @apply text-gray-700 dark:text-gray-400 !important;
 }
+
+@layer base {
+    thead {
+        @apply sticky top-0 z-10 shadow-md dark:bg-gray-800 bg-white;
+    }
+}
+
+@layer components {
+    .filament-tables-table-container {
+        @apply relative max-h-[calc(100vh-20rem)];
+    }
+
+    thead {
+        @apply sticky bottom-0 top-full dark:bg-gray-800 bg-white rounded-b-xl z-50;
+    }
+
+    /*div .filament-dropdown-panel {*/
+    /*    @apply z-20;*/
+    /*}*/
+}
 /*.relative-finder [data-gender="Male"], .relative-finder [data-gender]{*/
 /*    background-image: url("https://wilfordwoodruffpapers.org/img/familysearch/Male.png");*/
 /*}*/
