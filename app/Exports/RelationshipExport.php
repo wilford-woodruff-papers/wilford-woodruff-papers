@@ -19,7 +19,9 @@ class RelationshipExport implements FromQuery, WithHeadings, WithMapping
                 'person',
                 'person.public_categories',
             ])
-            ->where('user_id', auth()->id());
+            ->where('user_id', auth()->id())
+            ->where('distance', '>', 0)
+            ->orderBy('distance');
     }
 
     public function map($relationship): array
