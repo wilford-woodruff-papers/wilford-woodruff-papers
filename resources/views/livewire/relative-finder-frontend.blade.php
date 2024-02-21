@@ -6,16 +6,17 @@
     <x-banner-image :image="asset('img/banners/people.png')"
                     :text="'My Relatives'"
     />
-    <template x-teleport=".fi-ta-header-toolbar > div">
-        <a href="{{ route('my-relatives.download') }}"
-           download
-            class="flex gap-x-2 items-center py-2 px-4 font-semibold text-white bg-secondary"
-           wire:ignore
-        >
-            <x-heroicon-o-arrow-down-tray class="w-4 h-4" />
-            Export
-        </a>
-    </template>
+{{--    @teleport('.fi-ta-header-toolbar > div')--}}
+{{--        <div wire:ignore>--}}
+{{--            <a href="{{ route('my-relatives.download') }}"--}}
+{{--               download--}}
+{{--               class="flex gap-x-2 items-center py-2 px-4 font-semibold text-white bg-secondary"--}}
+{{--            >--}}
+{{--                <x-heroicon-o-arrow-down-tray class="w-4 h-4" />--}}
+{{--                Export--}}
+{{--            </a>--}}
+{{--        </div>--}}
+{{--    @endteleport--}}
     <div class="">
         <div class="py-4 mx-auto max-w-7xl">
             @if(session()->has('status'))
@@ -29,6 +30,7 @@
         </div>
         <livewire:wilford-woodruff-relationship />
         <div class="py-8 mx-auto max-w-7xl relative-finder">
+            <livewire:relative-finder-progress />
             {{ $this->table }}
         </div>
     </div>

@@ -2,11 +2,14 @@
 
 namespace App\Livewire;
 
+use App\Exports\RelationshipExport;
 use App\Models\Relationship;
 use App\Models\Subject;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Support\Enums\IconPosition;
+use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\HeaderActionsPosition;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ViewColumn;
@@ -20,6 +23,7 @@ use Illuminate\Support\Collection;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Renderless;
 use Livewire\Component;
+use Maatwebsite\Excel\Facades\Excel;
 
 class RelativeFinderFrontend extends Component implements HasForms, HasTable
 {
@@ -31,7 +35,7 @@ class RelativeFinderFrontend extends Component implements HasForms, HasTable
     public function table(Table $table): Table
     {
         return $table
-            ->header(view('components.relative-finder-progress'))
+            //->header(view('components.relative-finder-progress'))
             ->query(
                 Relationship::query()
                     ->with([
@@ -109,7 +113,23 @@ class RelativeFinderFrontend extends Component implements HasForms, HasTable
                 SelectFilter::make('category')
                     ->relationship('person.public_categories', 'name')
                     ->preload(),
-            ]);
+            ])
+            ->headerActions([
+                Action::make('download-export')
+                    ->label('Export')
+                    ->icon('heroicon-o-arrow-down-tray')
+                    ->button()
+                    ->extraAttributes([
+                        'class' => 'bg-secondary text-white hover:bg-secondary-600 rounded-none',
+                    ])
+                    ->action(function () {
+                        return Excel::download(
+                            new RelationshipExport(),
+                            'my-wilford-woodruff-papers-relationships.xlsx',
+                            \Maatwebsite\Excel\Excel::XLSX
+                        );
+                    }),
+            ], position: HeaderActionsPosition::Bottom);
     }
 
     public function mount()
