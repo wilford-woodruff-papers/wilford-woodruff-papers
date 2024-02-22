@@ -63,7 +63,7 @@
                     },
                     async processRelationships() {
                         for(i = 0; i < this.people.length; i++){
-                            await new Promise((resolve) => setTimeout(resolve, 20));
+                            await new Promise((resolve) => setTimeout(resolve, {{ config('services.familysearch.delay') }}));
                             await this.check(this.people[i]);
                         }
                         Livewire.dispatch('update-queue');

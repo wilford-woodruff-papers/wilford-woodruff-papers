@@ -1,5 +1,4 @@
-<div {{ (($checked < $total) ? 'wire:poll.5s' : '' ) }}
-     class="bg-gray-50 border-l-4 border-gray-400">
+<div class="bg-gray-50 border-l-4 border-gray-400">
     <div>
         @if($checked < $total)
             <div class="py-2">

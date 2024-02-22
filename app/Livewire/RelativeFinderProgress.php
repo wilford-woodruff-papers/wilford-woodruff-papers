@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Relationship;
 use App\Models\Subject;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class RelativeFinderProgress extends Component
@@ -32,5 +33,11 @@ class RelativeFinderProgress extends Component
             'checked' => $checked,
             'progress' => $progress,
         ]);
+    }
+
+    #[On('update-progress')]
+    public function updateProgress()
+    {
+        $this->render();
     }
 }

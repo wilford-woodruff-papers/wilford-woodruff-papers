@@ -84,10 +84,6 @@ class RelativeFinderFrontend extends Component implements HasForms, HasTable
                     ->openUrlInNewTab()
                     ->sortable()
                     ->searchable(),
-                //                ImageColumn::class::make('person.pages.media')
-                //                    ->circular()
-                //                    ->stacked()
-                //                    ->limit(3),
                 TextColumn::make('description')
                     ->label('Relationship')
                     ->size(TextColumn\TextColumnSize::Large)
@@ -157,6 +153,7 @@ class RelativeFinderFrontend extends Component implements HasForms, HasTable
     public function updateQueue()
     {
         $this->getPeople();
+        $this->dispatch('update-progress');
     }
 
     private function getPeople()
