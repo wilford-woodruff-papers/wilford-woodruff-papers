@@ -1,4 +1,4 @@
-<div>
+<div class="px-2 md:px-0">
     @if(! empty($description))
         <div class="mx-auto max-w-xl border border-gray-300 shadow-lg">
             <a href="https://www.familysearch.org/tree/person/details/KWNT-8NB"
