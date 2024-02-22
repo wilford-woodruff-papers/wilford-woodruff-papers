@@ -1,16 +1,16 @@
 <x-guest-layout>
     <x-slot name="title">Find My Relatives | Wilford Woodruff Papers</x-slot>
-    <div class="bg-gradient-to-b from-primary via-[#ffffff] to-[#ffffff] min-h-screen">
-        <div class="py-8 px-12 mx-auto max-w-7xl lg:py-16">
-            <div class="grid order-last gap-8 lg:order-first lg:grid-cols-5">
+    <div class="bg-gradient-to-b from-primary via-primary-50 md:via-[#ffffff] to-[#ffffff] min-h-screen">
+        <div class="px-12 mx-auto max-w-7xl sm:py-8 lg:py-16">
+            <div class="grid order-last sm:gap-8 lg:order-first lg:grid-cols-5">
                 <div class="flex flex-col gap-y-8 justify-between px-4 lg:col-span-3">
                     <div class="flex z-50 flex-col gap-y-2 text-center lg:text-left">
-                        <h1 class="text-4xl text-white lg:text-6xl">
+                        <h1 class="text-4xl text-white lg:text-5xl xl:text-6xl">
                             <div class="mx-auto max-w-xl lg:mx-0">
                                 Discover Your Relatives in Wilford Woodruff's Papers
                             </div>
                         </h1>
-                        <div class="flex gap-x-3 items-end text-xl text-white lg:pl-2">
+                        <div class="flex gap-x-3 justify-center items-end text-xl text-white lg:justify-start lg:pl-2">
                             <span>with the help of </span>
                             <span>
                                 <a href="https://www.familysearch.org/"
@@ -43,7 +43,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="order-first mt-4 lg:order-last lg:col-span-2 lg:mt-20 min-h-[300px]">
+                <div class="overflow-x-hidden order-first sm:mt-4 lg:order-last lg:col-span-2 lg:mt-20 min-h-[300px]">
                     <div class="flex justify-center">
                         <div class="absolute w-48 h-auto xl:w-64 z-[3]">
                             <img src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/relative-finder/example-image-1.jpg"
@@ -63,7 +63,7 @@
                     </div>
                 </div>
             </div>
-            <div class="my-24 mx-16">
+            <div class="my-24 md:mx-16">
                 <img src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/relative-finder/my-relatives.png"
                      alt=""
                     class="w-full h-auto shadow-2xl"
