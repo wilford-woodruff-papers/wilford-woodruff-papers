@@ -55,6 +55,7 @@ return [
         'client_id' => env('FAMILYSEARCH_CLIENT_ID'),
         'client_secret' => env('FAMILYSEARCH_CLIENT_SECRET'),
         'redirect' => env('FAMILYSEARCH_REDIRECT_URI'),
+        'delay' => env('FAMILYSEARCH_DELAY', 20),
     ],
 
     'api-ninja' => [
