@@ -25,3 +25,5 @@ auth.json
 .lasso
 meili_data
 tests/Browser/CheckUnknownPeopleInFromThePageTest.php
+rr
+.rr.yaml
