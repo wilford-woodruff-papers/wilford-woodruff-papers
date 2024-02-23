@@ -29,8 +29,14 @@ class SubjectController extends Controller
             },
         ]);
         //->loadCount(['pages']);
+        $view = 'show';
+        if ($subject->category->contains('name', 'People')) {
+            $view = 'person';
+        } elseif ($subject->category->contains('name', 'Places')) {
+            $view = 'show';
+        }
 
-        return view('public.subjects.show', [
+        return view('public.subjects.'.$view, [
             'subject' => $subject,
             'linkify' => new \Misd\Linkify\Linkify(['callback' => function ($url, $caption, $bool) {
                 return '<a href="'.$url.'" class="text-secondary" target="_blank">'.$caption.'</a>';
