@@ -10,9 +10,11 @@
                         <div class="flex flex-col gap-x-8 md:flex-row">
                             <div class="flex-shrink-0">
                                 <div class="flex flex-col gap-y-8">
-                                    <img src="{{ $subject->portrait }}"
-                                         alt="{{ $subject->name }}"
-                                         class="mx-auto w-48 h-auto border-8 border-white shadow-xl" />
+                                    @if(! empty($subject->portrait))
+                                        <img src="{{ $subject->portrait }}"
+                                             alt="{{ $subject->name }}"
+                                             class="mx-auto w-48 h-auto border-8 border-white shadow-xl" />
+                                    @endif
                                     @if(! empty($subject->pid) && $subject->pid !== 'n/a')
                                         <div class="px-1">
                                             <a href="https://www.familysearch.org/tree/person/details/{{ $subject->pid }}"
