@@ -32,13 +32,29 @@ class TaggedPages extends Component
             ]);
 
         $pages = Page::query()
+            ->select([
+                'id',
+                'item_id',
+                'type_id',
+                'uuid',
+                'name',
+                'full_name',
+                'ftp_id',
+                'ftp_link',
+                'first_date',
+                'transcript',
+                'order',
+                'parent_item_id',
+                'created_at',
+                'updated_at',
+            ])
             ->with([
                 'parent',
                 'parent.type',
                 'media',
             ])
             ->where(function ($query) use ($enabled) {
-                $query->whereHas('item', function (Builder $query) use ($enabled) {
+                $query->whereHas('parent', function (Builder $query) use ($enabled) {
                     $query->whereIn('items.enabled', $enabled);
                 })
                     ->whereHas('subjects', function (Builder $query) {
@@ -50,7 +66,7 @@ class TaggedPages extends Component
         //if ($this->subject->category('name', 'Index')) {
         $quotes = Quote::query()
             ->with([
-                'page',
+                'page:id,item_id,type_id,uuid,name,full_name,ftp_id,ftp_link,first_date,order,parent_item_id,created_at,updated_at',
                 'page.parent.type',
                 'page.media',
             ])
