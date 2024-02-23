@@ -1,6 +1,6 @@
 <div>
     <div class="px-2 pb-1 mx-8 text-lg border-b border-gray-200">
-        {{ $subject->tagged_count }} pages tagged with {{ $subject->name }}
+        {{ $subject->tagged_count }} {{ str('page')->plural($subject->tagged_count) }} tagged with {{ $subject->name }}
     </div>
     <section class="px-12">
         <ul  wire:loading.remove
