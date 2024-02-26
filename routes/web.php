@@ -90,7 +90,9 @@ Route::middleware([])->group(function () {
     Route::get('/documents', \App\Livewire\Documents\Browse::class)->name('documents');
     Route::get('/cktest', \App\Livewire\Documents\Browse::class)->name('documents.cktest');
     Route::get('/dates/{year?}/{month?}', [\App\Http\Controllers\ItemController::class, 'dates'])->name('documents.dates');
-    Route::get('/documents/{item}', \App\Livewire\Documents\Show::class)->name('documents.show');
+    //Route::get('/documents/{item}', \App\Livewire\Documents\Show::class)->name('documents.show');
+    Route::get('/documents/{item}', \App\Livewire\DocumentDashboard::class)
+        ->name('documents.show');
     //Route::get('/documents/{item}', [\App\Http\Controllers\ItemController::class, 'show'])->name('documents.show');
     Route::get('/documents/{item}/transcript', [\App\Http\Controllers\ItemController::class, 'transcript'])->name('documents.show.transcript');
     Route::get('/documents/{item}/page/{page}', [\App\Http\Controllers\PageController::class, 'show'])->name('pages.show');
