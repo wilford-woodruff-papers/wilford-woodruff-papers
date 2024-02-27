@@ -284,13 +284,35 @@
                 </div>
             </div>
 
-            @if($page->subjects->count() > 0)
+            @if($page->people->count() > 0)
                 <div class="property">
                     <h4>
-                        People & Places
+                        People
                     </h4>
                     <div class="values">
-                        @foreach($page->subjects->sortBy('name') as $subject)
+                        @foreach($page->people->sortBy('name', SORT_NATURAL | SORT_FLAG_CASE) as $subject)
+                            <div class="value" lang="">
+                                <a class="flex gap-x-2 items-center text-secondary"
+                                   href="{{ route('subjects.show', ['subject' => $subject]) }}">
+                                    <span>{{ $subject->name }}</span>
+                                    @if(in_array($subject->id, array_keys($relationships)))
+                                        <x-icon.relationship class="w-4 h-4" :title="$relationships[$subject->id]" :name="$subject->name"/>
+                                    @endif
+                                </a>
+
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
+
+            @if($page->places->count() > 0)
+                <div class="property">
+                    <h4>
+                        Places
+                    </h4>
+                    <div class="values">
+                        @foreach($page->places->sortBy('name', SORT_NATURAL | SORT_FLAG_CASE) as $subject)
                             <div class="value" lang="">
                                 <a class="text-secondary"
                                    href="{{ route('subjects.show', ['subject' => $subject]) }}">

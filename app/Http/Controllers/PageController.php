@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use App\Models\Page;
 use App\Models\Property;
+use App\Models\Relationship;
 use App\Models\Value;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\View\View;
@@ -19,12 +20,19 @@ class PageController extends Controller
             'translations',
             'dates',
             'topics',
-            'subjects' => function ($query) {
-                $query->whereHas('category', function (Builder $query) {
-                    $query->whereIn('categories.name', ['People', 'Places']);
-                });
-            },
+            'people',
+            'places',
         ]);
+
+        $relationships = [];
+        if (auth()->check()) {
+            $relationships = Relationship::query()
+                ->where('distance', '>', 0)
+                ->where('user_id', auth()->id())
+                ->whereIn('subject_id', $page->people->pluck('id')->all())
+                ->pluck('description', 'subject_id')
+                ->all();
+        }
 
         $sourceNotes = null;
         $sourceNotesProperty = Property::query()
@@ -59,6 +67,7 @@ class PageController extends Controller
             'pages' => collect([]),
             'sourceNotes' => $sourceNotes,
             'sourceLink' => $sourceLink,
+            'relationships' => $relationships,
         ]);
     }
 
