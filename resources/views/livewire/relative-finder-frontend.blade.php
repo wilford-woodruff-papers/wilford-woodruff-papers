@@ -1,6 +1,7 @@
 <div x-data="relationshipChecker"
      @api.window="function(data){
         poolCalls(data);
+        $dispatch('update-checked');
      }"
 >
     <x-banner-image :image="asset('img/banners/people.png')"
