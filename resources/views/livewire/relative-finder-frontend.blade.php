@@ -39,6 +39,13 @@
     </div>
     @push('scripts')
         <script>
+
+            function showNavigatingAwayMessage(e) {
+                var confirmationMessage = 'You must leave this page open to finish processing your family tree. Are you sure you want to leave?';
+
+                (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+                return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+            }
             document.addEventListener('alpine:init', () => {
                 Alpine.data('relationshipChecker', () => ({
                     people: @entangle('people'),
@@ -67,12 +74,9 @@
 
                     async processRelationships() {
                         if(this.people.length > 0){
-                            window.addEventListener("beforeunload", function (e) {
-                                var confirmationMessage = 'You must leave this page open to finish processing your family tree. Are you sure you want to leave?';
-
-                                (e || window.event).returnValue = confirmationMessage; //Gecko + IE
-                                return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
-                            });
+                            window.addEventListener("beforeunload", showNavigatingAwayMessage);
+                        } else {
+                            window.removeEventListener("beforeunload", showNavigatingAwayMessage);
                         }
                         for(i = 0; i < this.people.length; i++){
                             await new Promise((resolve) => setTimeout(resolve, {{ config('services.familysearch.delay') }}));
