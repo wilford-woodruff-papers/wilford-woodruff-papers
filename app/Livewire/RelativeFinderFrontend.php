@@ -33,6 +33,8 @@ class RelativeFinderFrontend extends Component implements HasForms, HasTable
 
     public ?Collection $people;
 
+    public bool $process = true;
+
     public function table(Table $table): Table
     {
         return $table
@@ -61,7 +63,7 @@ class RelativeFinderFrontend extends Component implements HasForms, HasTable
             ->poll('40s')
             ->defaultSort('distance', 'asc')
             ->emptyStateHeading('No relationships found yet')
-            ->emptyStateDescription('Once the process has started, this page will refresh automatically. We will also send an email when it is done.')
+            ->emptyStateDescription('Once the process has started, this page will refresh automatically.')
             ->columns([
                 ImageColumn::make('person.portrait')
                     ->label('')
@@ -128,6 +130,21 @@ class RelativeFinderFrontend extends Component implements HasForms, HasTable
                             \Maatwebsite\Excel\Excel::XLSX
                         );
                     }),
+                Action::make('delete')
+                    ->label('Delete Relationships')
+                    ->icon('heroicon-o-trash')
+                    ->button()
+                    ->color('danger')
+                    ->extraAttributes([
+                        'class' => 'bg-red-500 text-white hover:bg-red-600 rounded-none',
+                    ])
+                    ->requiresConfirmation()
+                    ->action(function () {
+                        Relationship::query()
+                            ->where('user_id', auth()->id())
+                            ->delete();
+                        $this->dispatch('stop-processing');
+                    }),
             ], position: HeaderActionsPosition::Bottom);
     }
 
@@ -159,8 +176,18 @@ class RelativeFinderFrontend extends Component implements HasForms, HasTable
         $this->dispatch('update-progress');
     }
 
+    #[On('stop-processing')]
+    public function stopQueue()
+    {
+        $this->process = false;
+        $this->dispatch('update-progress');
+    }
+
     private function getPeople()
     {
+        if (! $this->process) {
+            return;
+        }
         $people = Subject::query()
             ->select('id', 'pid')
             ->whereNotNull('pid')
@@ -224,6 +251,9 @@ class RelativeFinderFrontend extends Component implements HasForms, HasTable
     #[On('new-relationships')]
     public function processRelationships($data)
     {
+        if (! $this->process) {
+            return;
+        }
         $data = collect($data);
 
         //        $people = Subject::query()

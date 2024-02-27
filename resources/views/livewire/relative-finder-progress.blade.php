@@ -9,11 +9,15 @@
     <div>
         @if($checked < $total)
             <div class="py-2">
-                <div class="flex">
-                    <div class="ml-4">
-                        <p class="text-base text-black">
-                            Please wait while we cross-check the people mentioned in the Wilford Woodruff Papers with your family tree. <span x-show="timeRemaining.minutes > 0 && showEstimate">(Estimated time remaining: <span x-text="timeRemaining.minutes"></span> minutes)</span>
-                        </p>
+                <div class="flex gap-x-2 justify-between items-center text-base text-black">
+                    <div class="pl-4">
+                        Thank you for your patience while we cross-check your family tree with Wilford Woodruff's papers. Feel free to browse the people below while you wait.
+                    </div>
+                    <div class="pr-4">
+                        <span x-show="timeRemaining.minutes > 0 && showEstimate" x-cloak>(Estimated time: <span x-text="timeRemaining.minutes"></span> min)</span>
+                        <span x-show="! showEstimate">
+                            <x-heroicon-o-arrow-path class="w-4 h-4 animate-spin" />
+                        </span>
                     </div>
                 </div>
             </div>
