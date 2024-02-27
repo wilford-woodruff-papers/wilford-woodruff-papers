@@ -30,7 +30,10 @@ class TopAnnouncements extends Component
             return Announcement::query()
                 ->where('type', 'homepage_top')
                 ->where('start_publishing_at', '<', now('America/Denver'))
-                ->where('end_publishing_at', '>', now('America/Denver'))
+                ->where(function ($query) {
+                    $query->whereNull('end_publishing_at')
+                        ->orWhere('end_publishing_at', '>', now('America/Denver'));
+                })
                 ->orderBy('order_column', 'ASC')
                 ->orderBy('end_publishing_at', 'ASC')
                 ->get();
