@@ -29,7 +29,7 @@
             @endforeach
         </div>
     </div>
-    @if($announcements->count() > 1)
+    @if($announcements->count() >= 1)
         @push('styles')
             <link rel="stylesheet" type="text/css" href="/css/slick.css"/>
             <link rel="stylesheet" type="text/css" href="/css/slick-theme.css"/>
