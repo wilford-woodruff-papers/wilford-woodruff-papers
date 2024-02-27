@@ -21,18 +21,28 @@
                 Explore the biographical information on thousands of people who interacted with Wilford Woodruff. Discover their stories through Wilford Woodruff's daily journal entries and their correspondence with him. This list reflects only those people identified in published documents. The information in this list is updated quarterly as new documents are published on this site.
             </p>
 
-            @hasanyrole('Super Admin')
-                <p class="py-4 text-lg text-black">
-                    Login to FamilySearch to view your family connections in the Wilford Woodruff Papers.
-                </p>
-                <div class="mx-auto w-48">
-                    <a href="{{ route('login.familysearch') }}" class="block px-2 pt-2 pb-4 mx-auto text-sm bg-white rounded-md border border-gray-200">
-                        <img src="https://wilfordwoodruffpapers.org/img/familytree-logo.png" alt="FamilySearch" class="mx-auto w-auto h-6">
-                    </a>
-                </div>
-            @endhasanyrole
+
+                <a href="{{ route('relative-finder') }}">
+                    <div class="flex flex-col gap-4 justify-center items-center py-2 pr-2 pl-2 mt-8 mb-4 border border-gray-200 shadow-xl sm:flex-row sm:gap-8 bg-primary">
+                        <div class="flex gap-x-4 items-center text-xl font-semibold text-white">
+                            <img src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/relative-finder/example-image-1.jpg"
+                                 class="flex-shrink w-auto h-12 border-2 border-white shadow-xl"
+                            />
+                            <span class="flex gap-x-3 items-center">
+                                Discover your family connections in Wilford Woodruff's papers with the help of <img src="https://wilfordwoodruffpapers.org/img/familytree-logo.png" alt="FamilySearch" class="-mt-2 w-auto h-8">
+                            </span>
+                        </div>
+                    </div>
+                </a>
+
 
         </div>
+
+            <div class="relative px-8">
+                <h2 class="text-xl font-thin uppercase border-b-4 md:text-3xl lg:text-2xl border-highlight">
+                    Categories
+                </h2>
+            </div>
 
     </div>
 
