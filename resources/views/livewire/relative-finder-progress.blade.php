@@ -26,13 +26,13 @@
     <div class="flex items-center">
         @if($checked < $total)
             <div class="flex-1 py-1 px-4 whitespace-nowrap">
-                <span x-text="totalChecked.toLocaleString()">{{ $checked }}</span> checked / {{ \Illuminate\Support\Number::format($total) }} total
+                <span x-text="Math.min(totalChecked, {{ $total }}).toLocaleString()">{{ $checked }}</span> checked / {{ \Illuminate\Support\Number::format($total) }} total
             </div>
             <div class="overflow-hidden relative mr-4 w-full h-2 bg-gray-100">
                 <span :style="'width:{{ $progress }}%'" class="absolute w-24 h-full bg-green-500 duration-300 animate-pulse ease"></span>
             </div>
             <div class="flex-1 py-1 px-4 whitespace-nowrap">
-                <span x-text="remaining.toLocaleString()">{{ $total - $checked }}</span> remaining
+                <span x-text="Math.max(remaining, 0).toLocaleString()">{{ $total - $checked }}</span> remaining
             </div>
         @endif
     </div>
