@@ -49,6 +49,7 @@ class DocumentDashboard extends Component
                             ->toArray()
                     );
                 })
+                ->orderBy('name', 'ASC')
                 ->get())
 
             ->setRelation('topics', Subject::query()
