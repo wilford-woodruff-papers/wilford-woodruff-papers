@@ -33,6 +33,8 @@ class DocumentDashboard extends Component
                             ->toArray()
                     );
                 })
+                ->orderBy('last_name', 'ASC')
+                ->orderBy('name', 'ASC')
                 ->get())
 
             ->setRelation('places', Subject::query()
