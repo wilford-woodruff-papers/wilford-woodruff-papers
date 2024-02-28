@@ -1,6 +1,7 @@
 <div x-data="relationshipChecker"
      @api.window="function(data){
         poolCalls(data);
+        $dispatch('update-checked');
      }"
 >
     <x-banner-image :image="asset('img/banners/people.png')"
@@ -30,13 +31,21 @@
         </div>
         <livewire:wilford-woodruff-relationship />
         <div class="py-8 mx-auto max-w-7xl relative-finder">
-            <livewire:relative-finder-progress />
+            @if($process)
+                <livewire:relative-finder-progress />
+            @endif
             {{ $this->table }}
         </div>
     </div>
     @push('scripts')
         <script>
 
+            function showNavigatingAwayMessage(e) {
+                var confirmationMessage = 'You must leave this page open to finish processing your family tree. Are you sure you want to leave?';
+
+                (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+                return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+            }
             document.addEventListener('alpine:init', () => {
                 Alpine.data('relationshipChecker', () => ({
                     people: @entangle('people'),
@@ -54,6 +63,7 @@
 
                             }
                         });
+
                     },
                     poolCalls(data){
                         this.results.push({
@@ -61,7 +71,13 @@
                             data: data.detail.data
                         });
                     },
+
                     async processRelationships() {
+                        if(this.people.length > 0){
+                            window.addEventListener("beforeunload", showNavigatingAwayMessage);
+                        } else {
+                            window.removeEventListener("beforeunload", showNavigatingAwayMessage);
+                        }
                         for(i = 0; i < this.people.length; i++){
                             await new Promise((resolve) => setTimeout(resolve, {{ config('services.familysearch.delay') }}));
                             await this.check(this.people[i]);

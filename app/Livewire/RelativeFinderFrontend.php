@@ -20,6 +20,7 @@ use Filament\Tables\Table;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Illuminate\Support\HtmlString;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Renderless;
 use Livewire\Component;
@@ -31,6 +32,8 @@ class RelativeFinderFrontend extends Component implements HasForms, HasTable
     use InteractsWithTable;
 
     public ?Collection $people;
+
+    public bool $process = true;
 
     public function table(Table $table): Table
     {
@@ -60,7 +63,7 @@ class RelativeFinderFrontend extends Component implements HasForms, HasTable
             ->poll('40s')
             ->defaultSort('distance', 'asc')
             ->emptyStateHeading('No relationships found yet')
-            ->emptyStateDescription('Once the process has started, this page will refresh automatically. We will also send an email when it is done.')
+            ->emptyStateDescription('Once the process has started, this page will refresh automatically.')
             ->columns([
                 ImageColumn::make('person.portrait')
                     ->label('')
@@ -73,7 +76,8 @@ class RelativeFinderFrontend extends Component implements HasForms, HasTable
                     ->url(fn (Model $record): string => route('subjects.show', ['subject' => $record->person->slug]))
                     ->openUrlInNewTab(),
                 TextColumn::make('person.name')
-                    ->label('Name (Click to view documents)')
+                    ->label(new HtmlString('Name <span class="font-normal">(Click to view documents)</span>'))
+                    ->description('')
                     ->size(TextColumn\TextColumnSize::Large)
                     ->formatStateUsing(fn (string $state): string => '<span class="text-secondary font-semibold">'.$state.'</span>')
                     ->icon('heroicon-o-arrow-top-right-on-square')
@@ -84,14 +88,15 @@ class RelativeFinderFrontend extends Component implements HasForms, HasTable
                     ->openUrlInNewTab()
                     ->sortable()
                     ->searchable(),
-                TextColumn::make('description')
-                    ->label('Relationship')
-                    ->size(TextColumn\TextColumnSize::Large)
-                    ->url(fn (Model $record): string => route('subjects.show', ['subject' => $record->person->slug]))
-                    ->openUrlInNewTab(),
+                //                TextColumn::make('description')
+                //                    ->label('Relationship')
+                //                    ->size(TextColumn\TextColumnSize::Large)
+                //                    ->url(fn (Model $record): string => route('subjects.show', ['subject' => $record->person->slug]))
+                //                    ->openUrlInNewTab(),
                 TextColumn::make('distance')
-                    ->label('Distance')
+                    ->label(new HtmlString('Relationship <span class="font-normal">(distance)</span>'))
                     ->size(TextColumn\TextColumnSize::Large)
+                    ->formatStateUsing(fn ($record): string => $record->description.' ('.($record->distance - 1).')')
                     ->url(fn (Model $record): string => route('subjects.show', ['subject' => $record->person->slug]))
                     ->openUrlInNewTab()
                     ->sortable(),
@@ -125,6 +130,21 @@ class RelativeFinderFrontend extends Component implements HasForms, HasTable
                             \Maatwebsite\Excel\Excel::XLSX
                         );
                     }),
+                Action::make('delete')
+                    ->label('Delete Relationships')
+                    ->icon('heroicon-o-trash')
+                    ->button()
+                    ->color('danger')
+                    ->extraAttributes([
+                        'class' => 'bg-red-500 text-white hover:bg-red-600 rounded-none',
+                    ])
+                    ->requiresConfirmation()
+                    ->action(function () {
+                        Relationship::query()
+                            ->where('user_id', auth()->id())
+                            ->delete();
+                        $this->dispatch('stop-processing');
+                    }),
             ], position: HeaderActionsPosition::Bottom);
     }
 
@@ -156,8 +176,18 @@ class RelativeFinderFrontend extends Component implements HasForms, HasTable
         $this->dispatch('update-progress');
     }
 
+    #[On('stop-processing')]
+    public function stopQueue()
+    {
+        $this->process = false;
+        $this->dispatch('update-progress');
+    }
+
     private function getPeople()
     {
+        if (! $this->process) {
+            return;
+        }
         $people = Subject::query()
             ->select('id', 'pid')
             ->whereNotNull('pid')
@@ -221,6 +251,9 @@ class RelativeFinderFrontend extends Component implements HasForms, HasTable
     #[On('new-relationships')]
     public function processRelationships($data)
     {
+        if (! $this->process) {
+            return;
+        }
         $data = collect($data);
 
         //        $people = Subject::query()

@@ -171,10 +171,10 @@
             @endif
         </div>
 
-        <div class="pb-8 max-w-7xl text-center">
+        <div class="pb-8 w-full text-center">
             <form wire:submit="submit">
                 <input wire:model="search"
-                       class="pb-2 w-full max-w-xl border-gray-300 shadow-sm sm:max-w-xl sm:text-base"
+                       class="pb-2 w-full border-gray-300 shadow-sm sm:text-lg"
                        type="search"
                        name="q"
                        value=""
