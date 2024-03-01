@@ -251,6 +251,18 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
         return $this->morphMany(Activity::class, 'subject');
     }
 
+    public function quotes()
+    {
+        return $this->hasManyThrough(
+            Quote::class,
+            Page::class,
+            'parent_item_id',
+            'page_id',
+        )
+            ->whereNull('continued_from_previous_page')
+            ->orderBy('pages.order', 'ASC');
+    }
+
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()

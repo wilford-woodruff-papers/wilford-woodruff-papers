@@ -10,24 +10,24 @@
             </p>
         </div>
         <div class="flex gap-x-4 justify-end py-2">
-            <div class="flex gap-x-2 items-center">
-                <span x-on:click="setColumn('name')">Name</span>
+            <div x-on:click="sort('name')" class="flex gap-x-1 items-center cursor-pointer">
+                <span>Name</span>
                 <div x-show="column == 'name'" x-cloak>
-                    <span x-on:click="setDirection('desc')" x-show="direction == 'asc'">
+                    <span x-show="direction == 'asc'">
                         <x-heroicon-c-arrow-up class="w-4 h-4 text-cool-gray-500" />
                     </span>
-                    <span x-on:click="setDirection('asc')" x-show="direction == 'desc'" x-cloak>
+                    <span x-show="direction == 'desc'" x-cloak>
                         <x-heroicon-c-arrow-down class="w-4 h-4 text-cool-gray-500" />
                     </span>
                 </div>
             </div>
-            <div class="flex gap-x-2 items-center">
-                <span x-on:click="setColumn('count')">Count</span>
+            <div x-on:click="sort('count')" class="flex gap-x-1 items-center cursor-pointer">
+                <span>Count</span>
                 <div x-show="column == 'count'" x-cloak>
-                    <span x-on:click="setDirection('desc')" x-show="direction == 'asc'">
+                    <span  x-show="direction == 'asc'">
                         <x-heroicon-c-arrow-up class="w-4 h-4 text-cool-gray-500" />
                     </span>
-                    <span x-on:click="setDirection('asc')" x-show="direction == 'desc'" x-cloak>
+                    <span x-show="direction == 'desc'" x-cloak>
                         <x-heroicon-c-arrow-down class="w-4 h-4 text-cool-gray-500" />
                     </span>
                 </div>
@@ -48,11 +48,10 @@
                                 <path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
                             </svg>
                             <a x-bind:href="'{{ route('places') }}/subjects/'+place.slug"
-                               class="flex gap-x-2 justify-between w-full text-xl text-secondary popup"
                                target="_blank"
                             >
-                                <span x-text="place.name"></span>
-                                <span x-text="'('+place.tagged_count+')'"></span>
+                                <span x-text="place.name" class="text-xl text-secondary"></span>
+                                <span x-text="'('+place.count.toLocaleString()+')'" class="text-base text-black"></span>
                             </a>
                         </div>
                     </template>
@@ -74,11 +73,20 @@
                         column: 'name',
                         direction: 'asc',
                         places: @json($item->places),
-                        setColumn(column){
-                            this.column = column;
-                        },
-                        setDirection(direction){
-                            this.direction = direction;
+                        sort(column){
+                            if(this.column !== column){
+                                this.direction = 'asc';
+                                this.column = column;
+                            } else {
+                                this.direction = (this.direction === 'asc') ? 'desc' : 'asc';
+                            }
+                            this.places = this.places.sort((a, b) => {
+                                if(this.direction === 'asc'){
+                                    return a[this.column] > b[this.column] ? 1 : -1;
+                                } else {
+                                    return a[this.column] < b[this.column] ? 1 : -1;
+                                }
+                            });
                         }
                     }));
                 });
