@@ -7,6 +7,7 @@ use App\Models\Goal;
 use App\Models\Page;
 use App\Models\Type;
 use App\Models\User;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
@@ -21,7 +22,7 @@ class Stage extends Component
         'stage',
     ];
 
-    public $stage = 4;
+    public $stage = 5;
 
     public $monthMap = [
         'January' => 1,
@@ -339,8 +340,26 @@ class Stage extends Component
                 break;
             case 4:
                 $this->dates = [
-                    'start' => '2023-03-01',
-                    'end' => '2024-02-29',
+                    'start' => Carbon::createFromDate(2023, 3, 1, 'America/Denver')
+                        ->startOfDay()
+                        ->tz('UTC')
+                        ->toDateTimeString(),
+                    'end' => Carbon::createFromDate(2024, 2, 29, 'America/Denver')
+                        ->endOfDay()
+                        ->tz('UTC')
+                        ->toDateTimeString(),
+                ];
+                break;
+            case 5:
+                $this->dates = [
+                    'start' => Carbon::createFromDate(2024, 3, 1, 'America/Denver')
+                        ->startOfDay()
+                        ->tz('UTC')
+                        ->toDateTimeString(),
+                    'end' => Carbon::createFromDate(2025, 2, 28, 'America/Denver')
+                        ->endOfDay()
+                        ->tz('UTC')
+                        ->toDateTimeString(),
                 ];
                 break;
         }
