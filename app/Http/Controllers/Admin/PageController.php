@@ -45,7 +45,14 @@ class PageController extends Controller
      */
     public function show(Item $item, Page $page): View
     {
-        $page->load('actions', 'actions.assignee', 'actions.finisher', 'activities');
+        $page->load([
+            'actions',
+            'actions.type',
+            'actions.type.roles',
+            'actions.assignee',
+            'actions.finisher',
+            'activities',
+        ]);
 
         return view('admin.dashboard.page', [
             'item' => $item,
