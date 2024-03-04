@@ -9,12 +9,8 @@
         </p>
     </div>
     <div class="grid grid-cols-1 gap-2 lg:grid-cols-3">
-        <div id="chart"
-            class="row-span-2">
-            <livewire:livewire-pie-chart
-                key="{{ $peopleCategoryChart->reactiveKey() }}"
-                :pie-chart-model="$peopleCategoryChart"
-            />
+        <div class="row-span-2">
+            <canvas id="people-chart"></canvas>
         </div>
         @foreach($item->people->shift(9) as $person)
             <div class="flex flex-col justify-between p-4 border border-gray-300 shadow-lg">
@@ -145,9 +141,31 @@
         @push('styles')
             <!-- https://www.chartjs.org/ -->
 {{--            <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.min.js"></script>--}}
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         @endpush
         @push('scripts')
-            @livewireChartsScripts
+            <script>
+                const ctx = document.getElementById('people-chart');
+
+                new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                        datasets: [{
+                            label: '# of Votes',
+                            data: [12, 19, 3, 5, 2, 3],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            </script>
         @endpush
     @endif
 </div>
