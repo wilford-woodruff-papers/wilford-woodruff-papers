@@ -22,13 +22,13 @@ Route::middleware([])->group(function () {
             } elseif ($subdomain == 'book') {
                 return redirect()->away(config('app.url').'/wilford-woodruffs-witness');
             } elseif ($subdomain == 'arts') {
-                return redirect()->away(config('app.url').'/announcements/2023-building-latter-day-faith-conference-arts-contest-rules');
+                return redirect()->to(config('app.url'));
             } elseif ($subdomain == 'rsvp') {
-                return redirect()->away(config('app.url').'/event-registration');
+                return redirect()->to(config('app.url'));
             } elseif ($subdomain == 'sg') {
-                return redirect()->away(config('app.url').'/development-of-temple-doctrine-reception');
+                return redirect()->to(config('app.url'));
             } elseif ($subdomain == 'giveaway') {
-                return redirect()->away(config('app.url').'/2023/giveaway');
+                return redirect()->to(config('app.url'));
             } elseif ($subdomain == 'ama-panel-2023') {
                 return redirect()->away(config('app.url'));
             } else {
