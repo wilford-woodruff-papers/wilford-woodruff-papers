@@ -21,7 +21,10 @@ class Photo extends Resource
      */
     public static $model = \App\Models\Photo::class;
 
-    public static $with = ['tags'];
+    public static $with = [
+        'media',
+        'tags',
+    ];
 
     /**
      * The single value that should be used to represent the resource when being displayed.

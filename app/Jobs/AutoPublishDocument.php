@@ -62,6 +62,7 @@ class AutoPublishDocument implements ShouldQueue
         $user = \App\Models\User::firstWhere('email', 'auto@wilfordwoodruffpapers.org');
         $item->loadMissing([
             'realPages',
+            'completed_actions',
         ]);
         if (empty($item->completed_actions->firstWhere('action_type_id', $actionType->id)?->completed_by)) {
             DB::transaction(function () use ($item, $actionType, $user) {
@@ -96,6 +97,10 @@ class AutoPublishDocument implements ShouldQueue
 
     private function removePublishedTask($item)
     {
+        $item->loadMissing([
+            'realPages',
+            'completed_actions',
+        ]);
         $actionType = \App\Models\ActionType::firstWhere('name', 'Publish');
         $verificationActionType = \App\Models\ActionType::firstWhere('name', 'Verification');
         $user = \App\Models\User::firstWhere('email', 'auto@wilfordwoodruffpapers.org');
@@ -115,7 +120,7 @@ class AutoPublishDocument implements ShouldQueue
                     'completed_by' => null,
                     'completed_at' => null,
                 ]);
-                foreach ($item->pages as $page) {
+                foreach ($item->realPages as $page) {
                     \App\Models\Action::updateOrCreate([
                         'actionable_type' => get_class($page),
                         'actionable_id' => $page->id,
