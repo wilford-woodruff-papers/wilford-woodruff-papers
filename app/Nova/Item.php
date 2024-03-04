@@ -74,7 +74,12 @@ class Item extends Resource
         return $query;
     }
 
-    public static $with = ['item', 'type'];
+    public static $with = [
+        'item',
+        'type',
+        'creator',
+        'editor',
+    ];
 
     /**
      * Get the fields displayed by the resource.
