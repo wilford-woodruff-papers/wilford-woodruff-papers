@@ -322,20 +322,38 @@ class Stage extends Component
         switch ($this->stage) {
             case 1:
                 $this->dates = [
-                    'start' => '2020-03-01',
-                    'end' => '2021-02-28',
+                    'start' => Carbon::createFromDate(2020, 3, 1, 'America/Denver')
+                        ->startOfDay()
+                        ->tz('UTC')
+                        ->toDateTimeString(),
+                    'end' => Carbon::createFromDate(2021, 2, 28, 'America/Denver')
+                        ->endOfDay()
+                        ->tz('UTC')
+                        ->toDateTimeString(),
                 ];
                 break;
             case 2:
                 $this->dates = [
-                    'start' => '2021-03-01',
-                    'end' => '2022-02-28',
+                    'start' => Carbon::createFromDate(2021, 3, 1, 'America/Denver')
+                        ->startOfDay()
+                        ->tz('UTC')
+                        ->toDateTimeString(),
+                    'end' => Carbon::createFromDate(2022, 2, 28, 'America/Denver')
+                        ->endOfDay()
+                        ->tz('UTC')
+                        ->toDateTimeString(),
                 ];
                 break;
             case 3:
                 $this->dates = [
-                    'start' => '2022-03-01',
-                    'end' => '2023-02-28',
+                    'start' => Carbon::createFromDate(2022, 3, 1, 'America/Denver')
+                        ->startOfDay()
+                        ->tz('UTC')
+                        ->toDateTimeString(),
+                    'end' => Carbon::createFromDate(2023, 2, 28, 'America/Denver')
+                        ->endOfDay()
+                        ->tz('UTC')
+                        ->toDateTimeString(),
                 ];
                 break;
             case 4:
