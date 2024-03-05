@@ -17,6 +17,7 @@
                id="{{ $property->slug }}"
                value="{{ $value?->value }}"
                class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-sky-500 focus:ring-sky-500"
+               @readonly($property->readonly)
        >
     </div>
     @if(! empty($value?->value))
