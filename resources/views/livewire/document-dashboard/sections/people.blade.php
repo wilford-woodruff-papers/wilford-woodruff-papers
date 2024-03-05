@@ -9,11 +9,20 @@
         </p>
     </div>
     <div class="grid grid-cols-1 gap-2 lg:grid-cols-3">
-        <div class="row-span-2">
-            <canvas id="people-chart"></canvas>
+        <div class="col-span-3 mb-16 mx-auto w-full h-[350px] w-[70%]"
+            wire:ignore
+        >
+            <div>
+                <canvas id="people-chart" class="max-h-[400px]"></canvas>
+            </div>
+        </div>
+        <div wire:loading x-cloak class="col-span-3">
+            <div class="flex justify-center items-center w-full aspect-[16/6]">
+                <x-heroicon-o-arrow-path class="w-16 h-16 text-gray-400 animate-spin" />
+            </div>
         </div>
         @foreach($item->people->shift(9) as $person)
-            <div class="flex flex-col justify-between p-4 border border-gray-300 shadow-lg">
+            <div class="flex flex-col justify-between p-4 border border-gray-300 shadow-lg" wire:loading.remove>
                 <div>
                     <a href="{{ route('subjects.show', ['subject' => $person->slug]) }}"
                        class="text-xl text-secondary popup"
@@ -142,29 +151,112 @@
             <!-- https://www.chartjs.org/ -->
 {{--            <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.min.js"></script>--}}
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script src="https://unpkg.com/chart.js-plugin-labels-dv/dist/chartjs-plugin-labels.min.js"></script>
         @endpush
         @push('scripts')
             <script>
+                const pieDoughnutLegendClickHandler = Chart.controllers.doughnut.overrides.plugins.legend.onClick;
                 const ctx = document.getElementById('people-chart');
+                let currentCategory = null;
 
-                new Chart(ctx, {
+                const chart = new Chart(ctx, {
                     type: 'pie',
                     data: {
-                        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                        labels: @json(array_keys($this->categories)),
                         datasets: [{
-                            label: '# of Votes',
-                            data: [12, 19, 3, 5, 2, 3],
+                            label: '# of People',
+                            data:  @json(array_values($this->categories)),
+                            backgroundColor: [
+                                'rgba(11, 40, 54, .1)',
+                                'rgba(11, 40, 54, .2)',
+                                'rgba(11, 40, 54, .3)',
+                                'rgba(11, 40, 54, .4)',
+                                'rgba(11, 40, 54, .5)',
+                                'rgba(11, 40, 54, .6)',
+                                'rgba(11, 40, 54, .7)',
+                                'rgba(11, 40, 54, .8)',
+                                '#0B2836'
+                            ],
                             borderWidth: 1
                         }]
                     },
                     options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true
-                            }
-                        }
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'left',
+                                labels: {
+                                    font: {
+                                        size: 18
+                                    }
+                                },
+                                onClick: function (e, legendItem, legend) {
+                                    currentCategory = legendItem.index;
+                                    legend.legendItems.forEach((e) => {
+                                        if (currentCategory !== legendItem.index && legend.chart.getDataVisibility(e.index) === false) legend.chart.toggleDataVisibility(e.index);
+                                        if(e.index !== legendItem.index){
+                                            legend.chart.toggleDataVisibility(e.index);
+                                        }
+                                    });
+                                    legend.chart.update();
+                                    updateCategories(legendItem.text);
+                                }
+                            },
+                            // labels: {
+                            //     fontSize: 16,
+                            //     fontFamily: "sans-serif",
+                            //     render: 'label',
+                            //     fontColor: '#000',
+                            //     position: 'default',
+                            //     textShadow: true,
+                            //     overlap: true,
+                            //     render: function (args) {
+                            //         // args will be something like:
+                            //         // { label: 'Label', value: 123, percentage: 50, index: 0, dataset: {...} }
+                            //         return args.label + ' ('+ args.value + ')';
+                            //         // return object if it is image
+                            //         // return { src: 'image.png', width: 16, height: 16 };
+                            //     }
+                            // }
+                        },
+                        // onClick: (e) => {
+                        //     console.log(e);
+                        //     // const canvasPosition = Chart.helpers.getRelativePosition(e, chart);
+                        //     //
+                        //     // // Substitute the appropriate scale IDs
+                        //     // const dataX = chart.scales.x.getValueForPixel(canvasPosition.x);
+                        //     // const dataY = chart.scales.y.getValueForPixel(canvasPosition.y);
+                        // }
                     }
                 });
+                const canvas = document.getElementById('people-chart');
+                canvas.onclick = (evt) => {
+                    const res = chart.getElementsAtEventForMode(
+                        evt,
+                        'nearest',
+                        { intersect: true },
+                        true
+                    );
+                    // If didn't click on a bar, `res` will be an empty array
+                    if (res.length === 0) {
+                        return;
+                    }
+                    // Alerts "You clicked on A" if you click the "A" chart
+                    //alert('You clicked on ' + chart.data.labels[res[0].index]);
+                    currentCategory = res[0].index;
+                    chart.legend.legendItems.forEach((e) => {
+                        if (currentCategory !== res[0].index && chart.legend.chart.getDataVisibility(e.index) === false) chart.legend.chart.toggleDataVisibility(e.index);
+                        if(e.index !== res[0].index){
+                            chart.legend.chart.toggleDataVisibility(e.index);
+                        }
+                    });
+                    chart.legend.chart.update();
+                    updateCategories(chart.data.labels[res[0].index]);
+                };
+
+                function updateCategories(category){
+                    Livewire.dispatch('filterPeopleByCategory', {title: category});
+                }
             </script>
         @endpush
     @endif

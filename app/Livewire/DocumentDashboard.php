@@ -128,9 +128,13 @@ class DocumentDashboard extends Component
     }
 
     #[On('filterPeopleByCategory')]
-    public function filterPeopleByCategory($event)
+    public function filterPeopleByCategory($title)
     {
-        $this->category = $event['title'];
+        if ($this->category === $title) {
+            $this->category = '';
+        } else {
+            $this->category = $title;
+        }
 
         $this->item
             ->loadMissing([
@@ -196,5 +200,14 @@ class DocumentDashboard extends Component
                 })
                 ->orderBy('name', 'asc', SORT_NATURAL | SORT_FLAG_CASE)
                 ->get());
+    }
+
+    public function placeholder()
+    {
+        return <<<'HTML'
+        <div class="flex w-full aspect-[16/9] items-center justify-center">
+            <x-heroicon-o-arrow-path class="w-16 h-16 text-gray-400 animate-spin" />
+        </div>
+        HTML;
     }
 }
