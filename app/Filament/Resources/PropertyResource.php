@@ -44,6 +44,8 @@ class PropertyResource extends Resource
                             ->required(),
                         Toggle::make('multivalue')
                             ->default(false),
+                        Toggle::make('readonly')
+                            ->default(false),
                         RichEditor::make('comment'),
                     ]),
                 Section::make('Templates')
