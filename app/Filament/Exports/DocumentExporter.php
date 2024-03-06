@@ -28,7 +28,7 @@ class DocumentExporter extends Exporter
                 ->label($property->name)
                 ->formatStateUsing(function (Item $record) use ($property) {
                     return match ($property->type) {
-                        'relationship' => $record->values->where('property_id', $property->id)->first()->value?->{str($value?->property->relationship)->lower()}?->name ?? '',
+                        'relationship' => $value?->{str($record->values->where('property_id', $property->id)->first()->value?->property->relationship)->lower()}?->name ?? '',
                         default => $record->values->where('property_id', $property->id)->first()->value ?? '',
                     };
                 });
