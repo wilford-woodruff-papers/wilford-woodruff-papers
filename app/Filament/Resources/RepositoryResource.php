@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\RepositoryResource\Pages;
 use App\Models\Repository;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -26,6 +27,10 @@ class RepositoryResource extends Resource
                     ->required()
                     ->autofocus()
                     ->unique(ignoreRecord: true),
+                Select::make('source_id')
+                    ->label('Source')
+                    ->relationship('source', 'name')
+                    ->required(),
             ]);
     }
 
@@ -42,6 +47,10 @@ class RepositoryResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->label('Name')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('source.name')
+                    ->label('Source')
                     ->searchable()
                     ->sortable(),
             ])
