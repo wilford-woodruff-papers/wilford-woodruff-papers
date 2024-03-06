@@ -27,7 +27,10 @@ class DocumentExporter extends Exporter
             return ExportColumn::make('values-'.$property->slug)
                 ->label($property->name)
                 ->formatStateUsing(function (Item $record) use ($property) {
-                    return $record->values->where('property_id', $property->id)->first()->value ?? '';
+                    return match ($property->type) {
+                        'relationship' => $record->values->where('property_id', $property->id)->first()->value?->{str($value?->property->relationship)->lower()}?->name ?? '',
+                        default => $record->values->where('property_id', $property->id)->first()->value ?? '',
+                    };
                 });
         })
             ->toArray();
