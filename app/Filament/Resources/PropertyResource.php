@@ -11,6 +11,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -40,7 +41,17 @@ class PropertyResource extends Resource
                                 'html' => 'Html',
                                 'link' => 'Link',
                                 'text' => 'Text',
+                                'relationship' => 'Relationship',
                             ])
+                            ->live()
+                            ->required(),
+                        Select::make('relationship')
+                            ->label('Relationship')
+                            ->options([
+                                'Source' => 'Source',
+                                'Repository' => 'Repository',
+                            ])
+                            ->visible(fn (Get $get): bool => $get('type') === 'relationship')
                             ->required(),
                         Toggle::make('multivalue')
                             ->default(false),

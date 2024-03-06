@@ -242,6 +242,12 @@
                                                                                   :model="$item"
                                                     />
                                                     @break
+                                                @case('relationship')
+                                                    <x-admin.document.values.relationship :property="$column"
+                                                                                  :value="$item->values->firstWhere('property_id', $column->id)"
+                                                                                  :model="$item"
+                                                    />
+                                                    @break
                                                 @default
                                                     <x-admin.document.values.text :property="$column"
                                                                                   :value="$item->values->firstWhere('property_id', $column->id)"

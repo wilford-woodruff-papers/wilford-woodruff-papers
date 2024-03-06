@@ -110,7 +110,16 @@ class Search extends Component
     public function getRowsQueryProperty()
     {
         $query = Item::query()
-            ->with('type', 'target_publish_dates', 'active_target_publish_date', 'actions')
+            ->with([
+                'type',
+                'target_publish_dates',
+                'active_target_publish_date',
+                'actions',
+                'values',
+                'values.property',
+                'values.source',
+                'values.repository',
+            ])
             ->whereNotNull('type_id')
             ->when(array_key_exists('search', $this->filters) && $this->filters['search'], function ($query, $search) {
                 if (Regex::match('/([a-z]{1,2})-([0-9]+)([a-z]{0,2})/i', $this->filters['search'])->hasMatch()) {
