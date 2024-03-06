@@ -22,4 +22,14 @@ class Value extends Model
     {
         return $this->belongsTo(Item::class);
     }
+
+    public function source()
+    {
+        return $this->belongsTo(Source::class, 'value');
+    }
+
+    public function repository()
+    {
+        return $this->belongsTo(Repository::class, 'value');
+    }
 }
