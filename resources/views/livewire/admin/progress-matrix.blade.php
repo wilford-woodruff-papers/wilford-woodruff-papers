@@ -115,7 +115,7 @@
                             @foreach($pageStats as $key => $stat)
                                 <tr>
                                     @if($loop->first)
-                                        <td rowspan="7" class="py-3.5 pr-3 pl-1 text-sm font-semibold text-left text-gray-900 border border-black">
+                                        <td rowspan="8" class="py-3.5 pr-3 pl-1 text-sm font-semibold text-left text-gray-900 border border-black">
                                             Processing
                                         </td>
                                     @endif
