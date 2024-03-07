@@ -48,6 +48,10 @@ class XmlDocumentExport extends Command
                 'type',
                 'containerPages',
                 'containerPages.dates',
+                'values',
+                'values.property',
+                'values.source',
+                'values.repository',
             ])
             ->where('name', 'Journal (January 1, 1838 – December 31, 1839)')
             ->first();
@@ -69,21 +73,47 @@ class XmlDocumentExport extends Command
         $fullTranscript = str(
             $document
                 ->containerPages
+                ->map(function ($page) {
+                    $page->transcript = str($page->transcript)->replaceMatches(
+                        '/(<time datetime=")/',
+                        function ($matches) use ($page) {
+                            return '@Page '.$page->uuid.'@ '.$matches[0];
+                        });
+
+                    return $page;
+                })
                 ->pluck('transcript')
                 ->join("\n")
         );
 
+        $properties = [];
+
+        foreach ($document->values as $value) {
+            $properties[$value->property->slug] = match ($value->property->type) {
+                'relationship' => $value->value->pluck('name')->toArray(),
+                default => $value?->{str($value?->property->relationship)->lower()}?->name,
+            };
+        }
+
         $xml = $writer->write('document', [
             'type' => $document->type->name,
             'name' => $document->name,
-
+            'uuid' => $document->uuid,
+            'properties' => [
+                'property' => $properties,
+            ],
             'entries' => [
                 'entry' => $dates
                     ->map(function ($date) use ($fullTranscript) {
                         $transcript = $fullTranscript->extractContentOnDate($date->date);
+                        $pageUuid = $transcript->match('/(@Page .*@)/U')->trim('@')->after('Page ');
+                        $transcript = $transcript->replaceMatches('/(<span class="hidden">.*<\/span>\s)/U', '');
                         $subjects = Subject::extractFromText($transcript);
 
                         $element = [
+                            'page' => [
+                                'uuid' => $pageUuid->toString(),
+                            ],
                             'transcript' => CDATA::make($transcript),
                         ];
 
@@ -108,7 +138,7 @@ class XmlDocumentExport extends Command
             ],
         ]);
 
-        Storage::put('document.xml', $xml);
+        Storage::put('xml/'.str($document->name)->slug().'.xml', $xml);
 
         info($document->name.' exported to XML successfully!');
 
