@@ -59,6 +59,7 @@
         "saloonphp/laravel-plugin": "^3.0",
         "saloonphp/rate-limit-plugin": "^2.0",
         "saloonphp/saloon": "^3.0",
+        "saloonphp/xml-wrangler": "^1.2",
         "sammyjo20/lasso": "^3.1",
         "sentry/sentry-laravel": "^3.4",
         "socialiteproviders/facebook": "^4.1",
