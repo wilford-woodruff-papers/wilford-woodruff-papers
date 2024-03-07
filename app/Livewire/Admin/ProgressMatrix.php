@@ -58,6 +58,7 @@ class ProgressMatrix extends Component
                 'Topic Tagging',
                 'Publish',
                 'Stylization',
+                '4LV',
             ])
             ->orderBY('name', 'ASC')
             ->get();
