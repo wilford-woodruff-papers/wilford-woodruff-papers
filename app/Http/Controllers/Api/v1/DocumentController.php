@@ -50,10 +50,29 @@ class DocumentController extends Controller
             $items = $items->where('name', 'like', '%'.$request->get('q').'%');
         }
 
+        $items = $items->paginate(
+            min($request->get('per_page', 100), 500)
+        );
+
+        $items->setCollection(collect($items->items())->map(function ($item) {
+            return [
+                'id' => $item->id,
+                'uuid' => $item->uuid,
+                'type' => $item->type?->name,
+                'name' => $item->name,
+                'links' => [
+                    'frontend_url' => route('documents.show', ['item' => $item->uuid]),
+                    'api_url' => route('api.documents.show', ['item' => $item->uuid]),
+                    'images' => [
+                        'thumbnail_url' => $item->firstPage?->getFirstMedia()?->getUrl('thumb'),
+                        'original_url' => $item->firstPage?->getFirstMedia()?->getUrl(),
+                    ],
+                ],
+            ];
+        }));
+
         return response()->json(
-            $items->paginate(
-                min($request->get('per_page', 100), 500)
-            )
+            $items
         );
     }
 
