@@ -374,21 +374,21 @@ class Subject extends Model implements HasMedia
         });
     }
 
-    public function toArray()
-    {
-        if (auth()->check() && auth()->user()->hasAnyRole(['Super Admin'])) {
-            return array_merge($this->attributesToArray(), $this->relationsToArray());
-        }
-
-        return [
-            'name' => $this->name,
-            'types' => $this->category,
-            'links' => [
-                'frontend_url' => $this->slug ? route('subjects.show', ['subject' => $this->slug]) : '',
-                'api_url' => $this->id ? route('api.subjects.show', ['id' => $this->id]) : '',
-            ],
-        ];
-    }
+    //    public function toArray()
+    //    {
+    //        if (auth()->check() && auth()->user()->hasAnyRole(['Super Admin'])) {
+    //            return array_merge($this->attributesToArray(), $this->relationsToArray());
+    //        }
+    //
+    //        return [
+    //            'name' => $this->name,
+    //            'types' => $this->category,
+    //            'links' => [
+    //                'frontend_url' => $this->slug ? route('subjects.show', ['subject' => $this->slug]) : '',
+    //                'api_url' => $this->id ? route('api.subjects.show', ['id' => $this->id]) : '',
+    //            ],
+    //        ];
+    //    }
 
     public function toSearchableArray(): array
     {
