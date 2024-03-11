@@ -1,5 +1,18 @@
 <x-guest-layout>
     <x-slot name="title">Find My Relatives | Wilford Woodruff Papers</x-slot>
+
+    <x-slot name="openGraph">
+        <meta property="og:title" content="Relative Finder | Wilford Woodruff Papers">
+        <meta property="og:locale" content="en_US" />
+        <link rel="image_src" href="https://wilford-woodruff-papers-dev.nyc3.digitaloceanspaces.com/announcements/QuxviXiItYhkXwaGKBSBeQ9GDHvBjOkJ76rtRPVA.png" />
+        <meta property="og:image" content="https://wilford-woodruff-papers-dev.nyc3.digitaloceanspaces.com/announcements/QuxviXiItYhkXwaGKBSBeQ9GDHvBjOkJ76rtRPVA.png">
+        <meta property="og:image:url" content="https://wilford-woodruff-papers-dev.nyc3.digitaloceanspaces.com/announcements/QuxviXiItYhkXwaGKBSBeQ9GDHvBjOkJ76rtRPVA.png">
+        <meta property="og:image:secure_url" content="https://wilford-woodruff-papers-dev.nyc3.digitaloceanspaces.com/announcements/QuxviXiItYhkXwaGKBSBeQ9GDHvBjOkJ76rtRPVA.png" />
+        <meta property="og:image:type" content="image/png">
+        <meta property="og:image:width" content="1232">
+        <meta property="og:image:height" content="371">
+    </x-slot>
+
     <div class="bg-gradient-to-b from-primary via-primary-50 md:via-[#ffffff] to-[#ffffff] min-h-screen">
         <div class="px-12 mx-auto max-w-7xl sm:py-8 lg:py-16">
             <div class="grid order-last sm:gap-8 lg:order-first lg:grid-cols-5">
