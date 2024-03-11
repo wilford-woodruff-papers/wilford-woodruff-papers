@@ -8,7 +8,7 @@
         <div class="py-4">
 
             <h1 class="mb-2 text-2xl font-semibold">
-                WWPF Objectives & Key Results: {{ \Carbon\Carbon::createFromFormat('Y-m-d H:m:s', $dates['start'])->format('F Y') }} - {{ \Carbon\Carbon::createFromFormat('Y-m-d H:m:s', $dates['end'])->format('F Y') }}
+                WWPF Objectives & Key Results: {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $dates['start'])->tz('America/Denver')->format('F Y') }} - {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $dates['end'])->tz('America/Denver')->format('F Y') }}
             </h1>
 
             <div class="flex gap-x-12">
