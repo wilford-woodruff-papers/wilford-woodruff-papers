@@ -23,7 +23,7 @@ class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
-        if (class_exists(\Debugbar::class)) {
+        if (class_exists(\Debugbar::class) && request()->is('filament/*')) {
             \Debugbar::disable();
         }
 
