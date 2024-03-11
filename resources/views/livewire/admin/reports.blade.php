@@ -32,8 +32,25 @@
                     <button type="submit"
                             class="inline-flex justify-center items-center py-2 px-8 mt-6 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm sm:ml-3 xl:ml-0 xl:w-full hover:bg-gray-50 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none"
                     >
-                        Update
+                        Update Dates
                     </button>
+                </div>
+                <div>
+                    <label for="end" class="block text-sm font-medium text-gray-700">Action</label>
+                    <div class="mt-1">
+                        <select wire:model.live="selectedType"
+                                id="type"
+                                class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            @foreach($types->prepend(\App\Models\ActionType::make([
+                                    'id' => null,
+                                    'name' => '-- Select Action Type --',
+                                    'order' => 0
+                                ]))
+                                    ->sortBy('order_column') as $type)
+                                <option value="{{ $type->id }}">{{ $type->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
             </form>
 
