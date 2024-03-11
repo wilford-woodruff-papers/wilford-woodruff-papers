@@ -5,6 +5,7 @@ namespace App\Livewire\Admin\Subjects;
 use App\Models\ActionType;
 use App\Models\Goal;
 use App\Models\Subject;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
@@ -19,7 +20,7 @@ class Objectives extends Component
         'stage',
     ];
 
-    public $stage = 4;
+    public $stage = 5;
 
     public $monthMap = [
         'January' => 1,
@@ -159,27 +160,64 @@ class Objectives extends Component
         switch ($this->stage) {
             case 1:
                 $this->dates = [
-                    'start' => '2020-03-01',
-                    'end' => '2021-02-28',
+                    'start' => Carbon::createFromDate(2020, 3, 1, 'America/Denver')
+                        ->startOfDay()
+                        ->tz('UTC')
+                        ->toDateTimeString(),
+                    'end' => Carbon::createFromDate(2021, 2, 28, 'America/Denver')
+                        ->endOfDay()
+                        ->tz('UTC')
+                        ->toDateTimeString(),
                 ];
                 break;
             case 2:
                 $this->dates = [
-                    'start' => '2021-03-01',
-                    'end' => '2022-02-28',
+                    'start' => Carbon::createFromDate(2021, 3, 1, 'America/Denver')
+                        ->startOfDay()
+                        ->tz('UTC')
+                        ->toDateTimeString(),
+                    'end' => Carbon::createFromDate(2022, 2, 28, 'America/Denver')
+                        ->endOfDay()
+                        ->tz('UTC')
+                        ->toDateTimeString(),
                 ];
                 break;
             case 3:
                 $this->dates = [
-                    'start' => '2022-03-01',
-                    'end' => '2023-02-28',
+                    'start' => Carbon::createFromDate(2022, 3, 1, 'America/Denver')
+                        ->startOfDay()
+                        ->tz('UTC')
+                        ->toDateTimeString(),
+                    'end' => Carbon::createFromDate(2023, 2, 28, 'America/Denver')
+                        ->endOfDay()
+                        ->tz('UTC')
+                        ->toDateTimeString(),
                 ];
                 break;
             case 4:
                 $this->dates = [
-                    'start' => '2023-03-01',
-                    'end' => '2024-02-29',
+                    'start' => Carbon::createFromDate(2023, 3, 1, 'America/Denver')
+                        ->startOfDay()
+                        ->tz('UTC')
+                        ->toDateTimeString(),
+                    'end' => Carbon::createFromDate(2024, 2, 29, 'America/Denver')
+                        ->endOfDay()
+                        ->tz('UTC')
+                        ->toDateTimeString(),
                 ];
+                break;
+            case 5:
+                $this->dates = [
+                    'start' => Carbon::createFromDate(2024, 3, 1, 'America/Denver')
+                        ->startOfDay()
+                        ->tz('UTC')
+                        ->toDateTimeString(),
+                    'end' => Carbon::createFromDate(2025, 2, 28, 'America/Denver')
+                        ->endOfDay()
+                        ->tz('UTC')
+                        ->toDateTimeString(),
+                ];
+                break;
         }
     }
 }
