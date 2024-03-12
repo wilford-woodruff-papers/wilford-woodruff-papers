@@ -13,6 +13,7 @@
 
         @if (empty($openGraph))
             <x-open-graph-image::metatags title="{{ str($title ?? null)->before('|')->replaceMatches('/\[.*?\]/', '')->replace(' ', '_')->trim() }}" />
+            <meta name="description" property="og:description" content="Explore Wilford Woodruff's powerful eyewitness account of the Restoration"/>
         @else
             {!! $openGraph !!}
         @endif
@@ -21,9 +22,8 @@
         <meta property="og:description" content="Explore Wilford Woodruff's powerful eyewitness account of the Restoration">
         <meta property="og:type" content="website" />
         {{--<meta property="og:image" content="https://wilfordwoodruffpapers.org/img/wilford-woodruff.png">--}}
-        <meta property="og:url" content="{{ request()->url() }}">
+        <meta name="url" property="og:url" content="{{ request()->url() }}">
         <meta name="twitter:card" content="summary_large_image">
-        <meta name="description" content="Explore Wilford Woodruff's powerful eyewitness account of the Restoration"/>
         <meta name="keywords" content="Wilford Woodruff, Restoration, Prophet, The Church of Jesus Christ of Latter-day Saints"/>
 
         <title>{{ $title ?? config('app.name') }}</title>
