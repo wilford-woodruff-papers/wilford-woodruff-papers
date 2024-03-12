@@ -4,13 +4,13 @@
     <x-slot name="openGraph">
         <meta property="og:title" content="Relative Finder | Wilford Woodruff Papers">
         <meta property="og:locale" content="en_US" />
-        <link rel="image_src" href="https://wilford-woodruff-papers-dev.nyc3.digitaloceanspaces.com/announcements/QuxviXiItYhkXwaGKBSBeQ9GDHvBjOkJ76rtRPVA.png" />
-        <meta property="og:image" content="https://wilford-woodruff-papers-dev.nyc3.digitaloceanspaces.com/announcements/QuxviXiItYhkXwaGKBSBeQ9GDHvBjOkJ76rtRPVA.png">
-        <meta property="og:image:url" content="https://wilford-woodruff-papers-dev.nyc3.digitaloceanspaces.com/announcements/QuxviXiItYhkXwaGKBSBeQ9GDHvBjOkJ76rtRPVA.png">
-        <meta property="og:image:secure_url" content="https://wilford-woodruff-papers-dev.nyc3.digitaloceanspaces.com/announcements/QuxviXiItYhkXwaGKBSBeQ9GDHvBjOkJ76rtRPVA.png" />
+        <link rel="image_src" href="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/relative-finder/relative-finder-wilford-woodruff.png" />
+        <meta property="og:image" content="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/relative-finder/relative-finder-wilford-woodruff.png">
+        <meta property="og:image:url" content="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/relative-finder/relative-finder-wilford-woodruff.png">
+        <meta property="og:image:secure_url" content="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/relative-finder/relative-finder-wilford-woodruff.png" />
         <meta property="og:image:type" content="image/png">
-        <meta property="og:image:width" content="1232">
-        <meta property="og:image:height" content="371">
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="630">
     </x-slot>
 
     <div class="bg-gradient-to-b from-primary via-primary-50 md:via-[#ffffff] to-[#ffffff] min-h-screen">
