@@ -13,14 +13,19 @@ class ExtractContentOnDate
             $partialText = '';
             foreach ($lines as $line) {
                 $line = str($line);
+                $page = $line->match('/(@Page .*@\s)/U');
                 if ($line->contains('<time datetime="')) {
                     if ($line->contains('<time datetime="'.$date->toDateString().'">')) {
                         $start = true;
+                        if (! empty($page->toString())) {
+                            $partialText = '<span class="hidden">'.$page->trim()->toString().'</span> '.$partialText;
+                        }
                     } else {
                         $start = false;
                     }
                 }
                 if ($start === true) {
+
                     if (
                         (
                             $line->contains('<time datetime="')
@@ -35,11 +40,13 @@ class ExtractContentOnDate
                             ->replaceMatches('/(<time datetime=".*">.*<\/time>)/U', '')
                             ->replaceMatches('/(<strong>.*)(\d{4}.*day)?(<\/strong>)/U', '')
                             ->trim();
+
                         if (! $line->isEmpty()) {
                             $partialText .= $line
                                 ->append("\n");
                         }
                     }
+
                 }
             }
 
