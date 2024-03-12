@@ -89,10 +89,14 @@ class XmlDocumentExport extends Command
         $properties = [];
 
         foreach ($document->values as $value) {
-            $properties[$value->property->slug] = match ($value->property->type) {
-                'relationship' => $value->value->pluck('name')->toArray(),
-                default => $value?->{str($value?->property->relationship)->lower()}?->name,
+            $text = match ($value->property->type) {
+                'relationship' => $value?->{str($value?->property->relationship)->lower()}?->name,
+                default => $value->value,
             };
+            $properties[] = Element::make($text)
+                ->setAttributes([
+                    'name' => $value->property->name,
+                ]);
         }
 
         $xml = $writer->write('document', [
