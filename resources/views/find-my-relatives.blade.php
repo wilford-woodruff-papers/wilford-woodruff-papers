@@ -1,11 +1,12 @@
 <x-guest-layout>
-    <x-slot name="title">Find My Relatives | Wilford Woodruff Papers</x-slot>
+    <x-slot name="title">Relative Finder | Wilford Woodruff Papers</x-slot>
 
     <x-slot name="openGraph">
-        <meta property="og:title" content="Relative Finder | Wilford Woodruff Papers">
+        <meta name="title" property="og:title" content="Relative Finder | Wilford Woodruff Papers">
+        <meta name="description" property="og:description" content="Discover Your Relatives in Wilford Woodruff's Papers"/>
         <meta property="og:locale" content="en_US" />
         <link rel="image_src" href="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/relative-finder/relative-finder-wilford-woodruff.png" />
-        <meta property="og:image" content="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/relative-finder/relative-finder-wilford-woodruff.png">
+        <meta name="image" property="og:image" content="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/relative-finder/relative-finder-wilford-woodruff.png">
         <meta property="og:image:url" content="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/relative-finder/relative-finder-wilford-woodruff.png">
         <meta property="og:image:secure_url" content="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/relative-finder/relative-finder-wilford-woodruff.png" />
         <meta property="og:image:type" content="image/png">
