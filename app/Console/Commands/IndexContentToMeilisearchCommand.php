@@ -63,6 +63,8 @@ class IndexContentToMeilisearchCommand extends Command
                 'parent.type',
                 'media',
                 'topics',
+                'people',
+                'places',
             ])
             ->whereHas('parent', function ($query) {
                 $query->where('enabled', true);

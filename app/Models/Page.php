@@ -386,6 +386,14 @@ class Page extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
             'topics' => $this->topics->pluck('name')->map(function ($topic) {
                 return str($topic)->title();
             })->toArray(),
+            'people' => $this->people->pluck('name')->map(function ($topic) {
+                return str($topic)->title();
+            })->toArray(),
+            'places' => $this->places->pluck('name')->map(function ($topic) {
+                return str($topic)->title();
+            })->toArray(),
+            'parent_id' => $this->parent->id,
+            'order' => $this->order,
         ];
     }
 
@@ -401,6 +409,8 @@ class Page extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
             'parent.type',
             'media',
             'topics',
+            'people',
+            'places',
         ]);
     }
 

@@ -9,10 +9,10 @@
         </p>
     </div>
     <div class="grid grid-cols-1 gap-2 lg:grid-cols-3">
-        <div class="col-span-3 mb-16 mx-auto w-full h-[350px] w-[70%]"
+        <div class="col-span-3 mb-20 mx-auto  h-[350px] w-[70%]"
             wire:ignore
         >
-            <div>
+            <div class="inline mx-auto">
                 <canvas id="people-chart" class="max-h-[400px]"></canvas>
             </div>
         </div>
@@ -191,15 +191,17 @@
                                     }
                                 },
                                 onClick: function (e, legendItem, legend) {
-                                    currentCategory = legendItem.index;
                                     legend.legendItems.forEach((e) => {
-                                        if (currentCategory !== legendItem.index && legend.chart.getDataVisibility(e.index) === false) legend.chart.toggleDataVisibility(e.index);
+                                        if (currentCategory !== legendItem.index && legend.chart.getDataVisibility(e.index) === false){
+                                            legend.chart.toggleDataVisibility(e.index);
+                                        }
                                         if(e.index !== legendItem.index){
                                             legend.chart.toggleDataVisibility(e.index);
                                         }
                                     });
                                     legend.chart.update();
                                     updateCategories(legendItem.text);
+                                    currentCategory = legendItem.index;
                                 }
                             },
                             // labels: {
@@ -243,15 +245,18 @@
                     }
                     // Alerts "You clicked on A" if you click the "A" chart
                     //alert('You clicked on ' + chart.data.labels[res[0].index]);
-                    currentCategory = res[0].index;
+
                     chart.legend.legendItems.forEach((e) => {
-                        if (currentCategory !== res[0].index && chart.legend.chart.getDataVisibility(e.index) === false) chart.legend.chart.toggleDataVisibility(e.index);
+                        if (currentCategory !== res[0].index && chart.legend.chart.getDataVisibility(e.index) === false){
+                            chart.legend.chart.toggleDataVisibility(e.index);
+                        }
                         if(e.index !== res[0].index){
                             chart.legend.chart.toggleDataVisibility(e.index);
                         }
                     });
                     chart.legend.chart.update();
                     updateCategories(chart.data.labels[res[0].index]);
+                    currentCategory = res[0].index;
                 };
 
                 function updateCategories(category){
