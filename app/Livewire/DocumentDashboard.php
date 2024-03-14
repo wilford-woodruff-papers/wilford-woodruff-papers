@@ -107,6 +107,8 @@ class DocumentDashboard extends Component
             ->loadMissing([
                 'quotes.topics',
                 'firstPage',
+                'values',
+                'values.property',
             ])
             ->setRelation('people', Subject::query()
                 ->with([

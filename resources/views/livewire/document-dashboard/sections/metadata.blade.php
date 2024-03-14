@@ -6,14 +6,31 @@
         </h2>
     </div>
     <div class="grid grid-cols-3">
-        <div>
-
-        </div>
-        <div>
-
-        </div>
-        <div>
-
-        </div>
+        @foreach(\App\Models\Property::query()->whereIn('name', [
+                '*Source',
+                '*Repository',
+                '*Collection Name',
+                '*Collection Description',
+                '*Collection Number',
+                '*Collection Box',
+                '*Collection Folder',
+                '*Collection Page',
+            ])
+            as $property)
+            @if(! empty($value = $item->values->where('property_id', $property->id)->first()))
+                <div>
+                    <div>
+                        <p class="text-lg font-semibold text-secondary">
+                            {{ $property->name }}
+                        </p>
+                    </div>
+                    <div>
+                        <p class="text-lg font-semibold text-secondary">
+                            {{ $value->value }}
+                        </p>
+                    </div>
+                </div>
+            @endif
+        @endforeach
     </div>
 </div>
