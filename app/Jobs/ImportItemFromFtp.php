@@ -195,8 +195,6 @@ class ImportItemFromFtp implements ShouldQueue
 
         $this->orderPages();
         $this->cacheDates();
-
-        sleep(30);
     }
 
     private function orderPages()
