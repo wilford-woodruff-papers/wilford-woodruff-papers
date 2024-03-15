@@ -58,7 +58,8 @@ class DocumentResource extends Resource
             ->modifyQueryUsing(function (Builder $query) {
                 $query
                     ->with(['values'])
-                    ->withCount(['publishing_tasks']);
+                    ->withCount(['publishing_tasks'])
+                    ->whereNotNull('type_id');
             })
             ->filtersTriggerAction(function ($action) {
                 return $action->button()->label('Filters');

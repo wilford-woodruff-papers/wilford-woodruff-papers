@@ -23,6 +23,8 @@ class Reports extends Component
 
     public $types;
 
+    public $selectedType = null;
+
     public function mount()
     {
         $this->dates = [
@@ -49,6 +51,9 @@ class Reports extends Component
                 ->groupBy(['actions.actionable_type', 'actions.action_type_id'])
                 ->whereDate('completed_at', '>=', $this->dates['start'])
                 ->whereDate('completed_at', '<=', $this->dates['end'])
+                ->when($this->selectedType, function ($query, $type) {
+                    return $query->where('actions.action_type_id', $type);
+                })
                 ->orderBy('action_types.order_column')
                 ->get();
 
@@ -63,6 +68,9 @@ class Reports extends Component
                 ->groupBy(['actions.actionable_type', 'actions.action_type_id'])
                 ->whereDate('completed_at', '>=', $this->dates['start'])
                 ->whereDate('completed_at', '<=', $this->dates['end'])
+                ->when($this->selectedType, function ($query, $type) {
+                    return $query->where('actions.action_type_id', $type);
+                })
                 ->orderBy('action_types.order_column')
                 ->get();
 
@@ -78,6 +86,9 @@ class Reports extends Component
                 ->groupBy(['actions.actionable_type', 'actions.action_type_id', 'users.name', 'users.id'])
                 ->whereDate('completed_at', '>=', $this->dates['start'])
                 ->whereDate('completed_at', '<=', $this->dates['end'])
+                ->when($this->selectedType, function ($query, $type) {
+                    return $query->where('actions.action_type_id', $type);
+                })
                 ->orderBy('order_column');
 
             $individualStats = DB::table('actions')
@@ -91,6 +102,9 @@ class Reports extends Component
                 ->groupBy(['actions.actionable_type', 'actions.action_type_id', 'users.name', 'users.id'])
                 ->whereDate('completed_at', '>=', $this->dates['start'])
                 ->whereDate('completed_at', '<=', $this->dates['end'])
+                ->when($this->selectedType, function ($query, $type) {
+                    return $query->where('actions.action_type_id', $type);
+                })
                 ->orderBy('order_column')
                 ->union($individualPageStats)
                 ->get();

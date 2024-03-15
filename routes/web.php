@@ -22,13 +22,13 @@ Route::middleware([])->group(function () {
             } elseif ($subdomain == 'book') {
                 return redirect()->away(config('app.url').'/wilford-woodruffs-witness');
             } elseif ($subdomain == 'arts') {
-                return redirect()->away(config('app.url').'/announcements/2023-building-latter-day-faith-conference-arts-contest-rules');
+                return redirect()->to(config('app.url'));
             } elseif ($subdomain == 'rsvp') {
-                return redirect()->away(config('app.url').'/event-registration');
+                return redirect()->to(config('app.url'));
             } elseif ($subdomain == 'sg') {
-                return redirect()->away(config('app.url').'/development-of-temple-doctrine-reception');
+                return redirect()->to(config('app.url'));
             } elseif ($subdomain == 'giveaway') {
-                return redirect()->away(config('app.url').'/2023/giveaway');
+                return redirect()->to(config('app.url'));
             } elseif ($subdomain == 'ama-panel-2023') {
                 return redirect()->away(config('app.url'));
             } else {
@@ -157,7 +157,7 @@ Route::middleware([])->group(function () {
 
         Route::get('/ai/sessions', \App\Livewire\AI\Sessions::class)->name('ai.sessions');
 
-        Route::get('/document-dashboard/{item}', \App\Livewire\DocumentDashboard::class)
+        Route::get('/document-dashboard/{item}', \App\Livewire\DocumentDashboard\Index::class)
             ->name('document-dashboard.show');
     });
 
@@ -250,8 +250,6 @@ Route::middleware([])->group(function () {
     Route::get('login/familysearch', [\App\Http\Controllers\Auth\FamilySearchLoginController::class, 'redirectToProvider'])->name('login.familysearch');
     Route::get('login/familysearch/auth', [\App\Http\Controllers\Auth\FamilySearchLoginController::class, 'handleProviderCallback']);
 
-    Route::get('login/facebook', [\App\Http\Controllers\Auth\FacebookLoginController::class, 'redirectToProvider'])->name('login.facebook');
-    Route::get('login/facebook/callback', [\App\Http\Controllers\Auth\FacebookLoginController::class, 'handleProviderCallback']);
     Route::get('login/instagram/auth', \App\Http\Controllers\Auth\InstagramAuthController::class)->name('login.instagram.auth');
 
     Route::get('login/constantcontact', [\App\Http\Controllers\Auth\ConstantContactController::class, 'redirectToProvider'])->name('login.constantcontact');

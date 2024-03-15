@@ -184,4 +184,11 @@
             </div>
         </div>
     </div>
+    @push('styles')
+        <style>
+            em {
+                background-color: #fff59d;
+            }
+        </style>
+    @endpush
 </div>

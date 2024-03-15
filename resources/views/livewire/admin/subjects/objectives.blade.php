@@ -8,10 +8,16 @@
         <div class="py-4">
 
             <h1 class="mb-2 text-2xl font-semibold">
-                WWPF Subject Objectives & Key Results: {{ \Carbon\Carbon::createFromFormat('Y-m-d', $dates['start'])->format('F Y') }} - {{ \Carbon\Carbon::createFromFormat('Y-m-d', $dates['end'])->format('F Y') }}
+                WWPF Subject Objectives & Key Results: {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $dates['start'])->tz('America/Denver')->format('F Y') }} - {{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $dates['end'])->tz('America/Denver')->format('F Y') }}
             </h1>
 
             <div class="flex gap-x-12">
+
+                <button wire:click="$set('stage', 5)"
+                        class="inline-flex justify-center items-center py-2 px-8 mt-6 text-sm font-medium rounded-md border shadow-sm sm:ml-3 xl:ml-0 xl:w-full hover:bg-gray-50 focus:ring-2 focus:ring-[#792310] focus:ring-offset-2 focus:outline-none @if($stage === 5) bg-[#792310] border-[#792310] text-white hover:text-gray-700 @else bg-white border-gray-300 text-gray-700 @endif"
+                >
+                    Stage 5
+                </button>
 
                 <button wire:click="$set('stage', 4)"
                         class="inline-flex justify-center items-center py-2 px-8 mt-6 text-sm font-medium rounded-md border shadow-sm sm:ml-3 xl:ml-0 xl:w-full hover:bg-gray-50 focus:ring-2 focus:ring-[#792310] focus:ring-offset-2 focus:outline-none @if($stage === 4) bg-[#792310] border-[#792310] text-white hover:text-gray-700 @else bg-white border-gray-300 text-gray-700 @endif"

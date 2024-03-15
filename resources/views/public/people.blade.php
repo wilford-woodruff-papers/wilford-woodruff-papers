@@ -24,13 +24,14 @@
 
                 <a href="{{ route('relative-finder') }}">
                     <div class="flex flex-col gap-4 justify-center items-center py-2 pr-2 pl-2 mt-8 mb-4 border border-gray-200 shadow-xl sm:flex-row sm:gap-8 bg-primary">
-                        <div class="flex gap-x-4 items-center text-xl font-semibold text-white">
+                        <div class="flex gap-x-4 items-center text-lg font-semibold text-white md:text-xl">
                             <img src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/relative-finder/example-image-1.jpg"
-                                 class="flex-shrink w-auto h-12 border-2 border-white shadow-xl"
+                                 class="w-auto h-20 border-2 border-white shadow-xl md:flex-shrink md:h-12"
                             />
-                            <span class="flex gap-x-3 items-center">
-                                Discover your family connections in Wilford Woodruff's papers with the help of <img src="https://wilfordwoodruffpapers.org/img/familytree-logo.png" alt="FamilySearch" class="-mt-2 w-auto h-8">
-                            </span>
+                            <div class="gap-3 items-center">
+                                Discover your family connections in Wilford Woodruff's papers with the help of
+                                <img src="https://wilfordwoodruffpapers.org/img/familytree-logo.png" alt="FamilySearch" class="inline ml-2 -mt-2 w-auto h-8">
+                            </div>
                         </div>
                     </div>
                 </a>

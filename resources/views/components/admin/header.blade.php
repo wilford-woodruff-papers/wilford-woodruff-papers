@@ -1,3 +1,12 @@
+@php
+    $supervisorRoles = \App\Models\Type::query()
+        ->whereNull('type_id')
+        ->pluck('name')
+        ->transform(function($type){ return $type . ' Supervisor'; })
+        ->push('Admin')
+        ->push('Super Admin')
+        ->all();
+@endphp
 <header class="bg-white shadow">
     <div class="px-2 mx-auto max-w-7xl sm:px-4 lg:px-8">
         <div class="flex justify-between h-16">
@@ -9,10 +18,10 @@
                 </div>
                 <nav aria-label="Global" class="hidden lg:flex lg:items-center lg:ml-6 lg:space-x-4">
                     <a href="{{ route('admin.dashboard') }}" class="px-3 py-2 @if(Route::currentRouteName() == 'admin.dashboard') text-indigo-600 @else text-gray-900 @endif text-sm font-medium"> Dashboard </a>
-                    @if(auth()->user()->hasRole(\App\Models\Type::query()->whereNull('type_id')->pluck('name')->transform(function($type){ return $type . ' Supervisor'; })->all()))
+                    @if(auth()->user()->hasRole($supervisorRoles))
                         <a href="{{ route('admin.supervisor.individual-activity') }}" class="px-3 py-2 @if(Route::currentRouteName() == 'admin.supervisor.individual-activity') text-indigo-600 @else text-gray-900 @endif text-sm font-medium"> Supervisor Dashboard </a>
                     @endif
-                    @if(auth()->user()->hasRole(\App\Models\Type::query()->whereNull('type_id')->pluck('name')->transform(function($type){ return $type . ' Supervisor'; })->all()))
+                    @if(auth()->user()->hasRole($supervisorRoles))
                         <a href="{{ route('admin.dashboard.document.index') }}" class="px-3 py-2  @if(Route::currentRouteName() == 'admin.dashboard.document.index') text-indigo-600 @else text-gray-900 @endif text-sm font-medium"> Documents </a>
                     @endif
                     @if(auth()->user()->hasAnyRole(['Researcher', 'Super Admin']))
@@ -40,12 +49,12 @@
                     @endif
                     <x-admin.menu.dropdown :text="'ADMIN'"
                                            :links="[
-                                           'Goals' => ['url' => route('admin.dashboard.goals.index'), 'auth' => auth()->user()->hasAnyRole(\App\Models\Type::query()->whereNull('type_id')->pluck('name')->transform(function($type){ return $type . ' Supervisor'; })->push('Admin')->push('Super Admin')->all())],
-                                           'Exports' => ['url' => route('admin.exports'), 'auth' => auth()->user()->hasAnyRole(\App\Models\Type::query()->whereNull('type_id')->pluck('name')->transform(function($type){ return $type . ' Supervisor'; })->push('Admin')->push('Super Admin')->all())],
-                                           'Reporting' => ['url' => route('admin.reports.index'), 'auth' => auth()->user()->hasAnyRole(\App\Models\Type::query()->whereNull('type_id')->pluck('name')->transform(function($type){ return $type . ' Supervisor'; })->push('Admin')->push('Super Admin')->all())],
+                                           'Goals' => ['url' => route('admin.dashboard.goals.index'), 'auth' => auth()->user()->hasAnyRole($supervisorRoles)],
+                                           'Exports' => ['url' => route('admin.exports'), 'auth' => auth()->user()->hasAnyRole($supervisorRoles)],
+                                           'Reporting' => ['url' => route('admin.reports.index'), 'auth' => auth()->user()->hasAnyRole($supervisorRoles)],
                                            'Progress Graphic' => ['url' => route('admin.reports.progress-graphic'), 'auth' => auth()->user()->hasAnyRole(['Editor', 'Admin'])],
-                                           'Progress Matrix' => ['url' => route('admin.reports.progress-matrix'), 'auth' => auth()->user()->hasAnyRole(\App\Models\Type::query()->whereNull('type_id')->pluck('name')->transform(function($type){ return $type . ' Supervisor'; })->push('Admin')->push('Super Admin')->all())],
-                                           'Objectives' => ['url' => route('admin.reports.objectives'), 'auth' => auth()->user()->hasAnyRole(\App\Models\Type::query()->whereNull('type_id')->pluck('name')->transform(function($type){ return $type . ' Supervisor'; })->push('Admin')->push('Super Admin')->all())]]"/>
+                                           'Progress Matrix' => ['url' => route('admin.reports.progress-matrix'), 'auth' => auth()->user()->hasAnyRole($supervisorRoles)],
+                                           'Objectives' => ['url' => route('admin.reports.objectives'), 'auth' => auth()->user()->hasAnyRole($supervisorRoles)]]"/>
                 </nav>
             </div>
             {{--<div class="flex flex-1 justify-center items-center px-2 lg:justify-end lg:ml-6">

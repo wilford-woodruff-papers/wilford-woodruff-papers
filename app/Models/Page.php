@@ -263,7 +263,7 @@ class Page extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
             ->dontLogIfAttributesChangedOnly(['transcript']);
     }
 
-    public function toArray()
+    /*public function toArray()
     {
         return [
             'id' => $this->id,
@@ -282,7 +282,7 @@ class Page extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
                 ],
             ],
         ];
-    }
+    }*/
 
     public function toArrayOld()
     {

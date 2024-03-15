@@ -400,28 +400,28 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
         return $this->suffixes[$index];
     }
 
-    public function toArray()
-    {
-        if ($this->exists) {
-            return [
-                'id' => $this->id,
-                'uuid' => $this->uuid,
-                'type' => $this->type?->name,
-                'name' => $this->name,
-                'links' => [
-                    'frontend_url' => route('documents.show', ['item' => $this->uuid]),
-                    'api_url' => route('api.documents.show', ['item' => $this->uuid]),
-                    'images' => [
-                        'thumbnail_url' => $this->firstPage?->getFirstMedia()?->getUrl('thumb'),
-                        'original_url' => $this->firstPage?->getFirstMedia()?->getUrl(),
-                    ],
-                ],
-
-            ];
-        } else {
-            return array_merge($this->attributesToArray(), $this->relationsToArray());
-        }
-    }
+    //    public function toArray()
+    //    {
+    //        if ($this->exists) {
+    //            return [
+    //                'id' => $this->id,
+    //                'uuid' => $this->uuid,
+    //                'type' => $this->type?->name,
+    //                'name' => $this->name,
+    //                'links' => [
+    //                    'frontend_url' => route('documents.show', ['item' => $this->uuid]),
+    //                    'api_url' => route('api.documents.show', ['item' => $this->uuid]),
+    //                    'images' => [
+    //                        'thumbnail_url' => $this->firstPage?->getFirstMedia()?->getUrl('thumb'),
+    //                        'original_url' => $this->firstPage?->getFirstMedia()?->getUrl(),
+    //                    ],
+    //                ],
+    //
+    //            ];
+    //        } else {
+    //            return array_merge($this->attributesToArray(), $this->relationsToArray());
+    //        }
+    //    }
 
     public function toSearchableArray(): array
     {

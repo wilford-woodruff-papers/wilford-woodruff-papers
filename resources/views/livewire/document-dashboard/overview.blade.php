@@ -4,6 +4,8 @@
 
         @include('livewire.document-dashboard.sections.banner')
 
+
+
         <!-- Tabs -->
         <div  x-data="{
                 scrolledFromTop: false,
@@ -26,12 +28,15 @@
               x-id="['tab']"
               @scroll.window="$refs.nav.getBoundingClientRect().top <= 10 ? scrolledFromTop = true : scrolledFromTop = false"
         >
+
+            @include('livewire.document-dashboard.sections.nav')
+
             @include('livewire.document-dashboard.sections.toggle')
             <!-- Tab List -->
 
 
             <!-- Panels -->
-            <div role="tabpanels" class="-mt-8 bg-white">
+            <div role="tabpanels" class="bg-white">
                 <!-- Panel -->
                 <section
                     x-show="isSelected($id('tab', whichChild($el, $el.parentElement)))"
@@ -40,15 +45,15 @@
                     class="grid gap-y-8 px-2"
 
                 >
-                    @include('livewire.document-dashboard.sections.nav')
+
 
                     @include('livewire.document-dashboard.sections.metadata')
 
-                    @include('livewire.document-dashboard.sections.people')
+                    <livewire:document-dashboard.people :itemId="$item->id"/>
 
-                    @include('livewire.document-dashboard.sections.places')
+                    <livewire:document-dashboard.places :itemId="$item->id"/>
 
-                    @include('livewire.document-dashboard.sections.topics')
+                    <livewire:document-dashboard.topics :itemId="$item->id"/>
 
                     @include('livewire.document-dashboard.sections.quotes')
 
@@ -61,7 +66,7 @@
                     role="tabpanel"
                     class="grid w-full"
                 >
-                    @include('livewire.document-dashboard.sections.browse')
+                    <livewire:document-dashboard.browse :itemId="$item->id"/>
                 </section>
             </div>
         </div>

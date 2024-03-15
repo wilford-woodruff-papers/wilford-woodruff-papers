@@ -1,4 +1,4 @@
-<div class="flex justify-end w-full">
+<div class="flex z-10 justify-end w-full">
     <ul
         x-ref="tablist"
         @keydown.right.prevent.stop="$focus.wrap().next()"

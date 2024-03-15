@@ -1,26 +1,39 @@
 <x-guest-layout>
-    <x-slot name="title">Find My Relatives | Wilford Woodruff Papers</x-slot>
+    <x-slot name="title">Relative Finder | Wilford Woodruff Papers</x-slot>
+
+    <x-slot name="openGraph">
+        <meta name="title" property="og:title" content="Relative Finder | Wilford Woodruff Papers">
+        <meta name="description" property="og:description" content="Discover Your Relatives in Wilford Woodruff's Papers"/>
+        <meta property="og:locale" content="en_US" />
+        <link rel="image_src" href="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/relative-finder/relative-finder-wilford-woodruff.png" />
+        <meta name="image" property="og:image" content="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/relative-finder/relative-finder-wilford-woodruff.png">
+        <meta property="og:image:url" content="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/relative-finder/relative-finder-wilford-woodruff.png">
+        <meta property="og:image:secure_url" content="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/relative-finder/relative-finder-wilford-woodruff.png" />
+        <meta property="og:image:type" content="image/png">
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="630">
+    </x-slot>
+
     <div class="bg-gradient-to-b from-primary via-primary-50 md:via-[#ffffff] to-[#ffffff] min-h-screen">
         <div class="px-12 mx-auto max-w-7xl sm:py-8 lg:py-16">
             <div class="grid order-last sm:gap-8 lg:order-first lg:grid-cols-5">
                 <div class="flex flex-col gap-y-8 justify-between px-4 lg:col-span-3">
                     <div class="flex z-50 flex-col gap-y-2 text-center lg:text-left">
-                        <h1 class="text-4xl text-white lg:text-5xl xl:text-6xl">
+                        <h1 class="text-xl text-white md:text-4xl lg:text-5xl xl:text-6xl">
                             <div class="mx-auto max-w-xl lg:mx-0">
                                 Discover Your Relatives in Wilford Woodruff's Papers
                             </div>
                         </h1>
-                        <div class="flex gap-x-3 justify-center items-end text-xl text-white lg:justify-start lg:pl-2">
-                            <span>with the help of </span>
-                            <span>
-                                <a href="https://www.familysearch.org/"
-                                   target="_blank"
-                                >
-                                    <img src="{{ asset('img/familytree-logo.png') }}" alt=""
-                                        class="mb-1 w-28 h-auto"
-                                    />
-                                </a>
-                            </span>
+                        <div class="gap-x-3 justify-center items-end text-xl text-white lg:justify-start lg:pl-2">
+                            <span>with the help of</span> <a href="https://www.familysearch.org/"
+                                                target="_blank"
+                                                class="inline ml-1 sm:ml-4"
+                            >
+                                <img src="{{ asset('img/familytree-logo.png') }}" alt=""
+                                     class="inline mb-1 w-28 h-auto"
+                                />
+                            </a>
+
                         </div>
                     </div>
                     <div class="text-center lg:text-left">
@@ -43,19 +56,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="overflow-x-hidden order-first sm:mt-4 lg:order-last lg:col-span-2 lg:mt-20 min-h-[300px]">
-                    <div class="flex justify-center">
-                        <div class="absolute w-48 h-auto xl:w-64 z-[3]">
+                <div class="order-first sm:mt-4 lg:order-last lg:col-span-2 lg:mt-20 min-h-[200px] sm:min-h-[300px]">
+                    <div class="flex relative justify-center">
+                        <div class="absolute w-28 h-auto sm:w-48 xl:w-64 z-[3]">
                             <img src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/relative-finder/example-image-1.jpg"
                                 class="w-full h-auto border-8 border-white shadow-xl"
                             />
                         </div>
-                        <div class="absolute mt-12 ml-72 w-52 h-auto rotate-12 xl:w-72 z-[2]">
+                        <div class="absolute mt-12 ml-36 w-28 h-auto rotate-12 sm:w-52 xl:w-72 n z-[2]">
                             <img src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/relative-finder/example-image-3.jpg"
                                  class="w-full h-auto border-8 border-white shadow-xl"
                             />
                         </div>
-                        <div class="absolute mt-8 -ml-72 w-48 h-auto -rotate-12 xl:w-64 z-[1]">
+                        <div class="absolute mt-8 -ml-36 w-28 h-auto -rotate-12 sm:w-48 xl:w-64 z-[1]">
                             <img src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/relative-finder/example-image-2.jpg"
                                  class="w-full h-auto border-8 border-white shadow-xl"
                             />

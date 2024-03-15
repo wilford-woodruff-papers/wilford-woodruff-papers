@@ -27,7 +27,12 @@ class DocumentExporter extends Exporter
             return ExportColumn::make('values-'.$property->slug)
                 ->label($property->name)
                 ->formatStateUsing(function (Item $record) use ($property) {
-                    return $record->values->where('property_id', $property->id)->first()->value ?? '';
+                    $value = $record->values->where('property_id', $property->id)->first();
+
+                    return match ($property->type) {
+                        'relationship' => $value?->{str($property->relationship)->lower()}?->name ?? '',
+                        default => $value->value ?? '',
+                    };
                 });
         })
             ->toArray();
@@ -35,13 +40,20 @@ class DocumentExporter extends Exporter
         return [
             ExportColumn::make('id')
                 ->label('ID'),
+            ExportColumn::make('pcf_unique_id_full')
+                ->label('Unique ID'),
             ExportColumn::make('type.name')
                 ->label('Type'),
             ExportColumn::make('name')
                 ->label('Name'),
+            ExportColumn::make('auto_page_count')
+                ->label('# of Pages'),
             ExportColumn::make('admin_url')
                 ->label('Admin URL')
                 ->formatStateUsing(fn (Item $record): string => route('admin.dashboard.document.edit', ['item' => $record->uuid])),
+            ExportColumn::make('ftp_slug')
+                ->label('FTP URL')
+                ->formatStateUsing(fn (Item $record): string => 'https://fromthepage.com/woodruff/wilford-woodruff-papers-project/'.$record->ftp_slug),
             ...$columns,
         ];
     }

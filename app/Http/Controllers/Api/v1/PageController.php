@@ -95,10 +95,32 @@ class PageController extends Controller
             });
         }
 
+        $pages = $pages->paginate(
+            min($request->get('per_page', 100), 500)
+        );
+
+        $pages->setCollection(collect($pages->items())->map(function ($page) {
+            return [
+                'id' => $page->id,
+                'uuid' => $page->uuid,
+                'type' => $page->parent?->type?->name,
+                'full_name' => $page->full_name,
+                'name' => $page->name,
+                'transcript' => $page->transcript,
+                'text' => strip_tags($page->transcript),
+                'links' => [
+                    'frontend_url' => route('pages.show', ['item' => $page->parent->uuid, 'page' => $page->uuid]),
+                    'api_url' => route('api.pages.show', ['page' => $page->uuid]),
+                    'images' => [
+                        'thumbnail_url' => $page->getFirstMedia()?->getUrl('thumb'),
+                        'original_url' => $page->getFirstMedia()?->getUrl(),
+                    ],
+                ],
+            ];
+        }));
+
         return response()->json(
-            $pages->paginate(
-                min($request->get('per_page', 100), 500)
-            )
+            $pages
         );
     }
 

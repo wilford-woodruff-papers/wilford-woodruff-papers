@@ -37,10 +37,27 @@ class TopicsController extends Controller
             $query->whereIn('name', $categories);
         });
 
+        $subjects = $subjects->paginate(
+            min($request->get('per_page', 100), 500)
+        );
+
+        $subjects = $subjects->setCollection(collect($subjects->items())->map(function ($subject) {
+            if (auth()->check() && auth()->user()->hasAnyRole(['Super Admin'])) {
+                return array_merge($subject->attributesToArray(), $subject->relationsToArray());
+            } else {
+                return [
+                    'name' => $subject->name,
+                    'types' => $subject->category,
+                    'links' => [
+                        'frontend_url' => $subject->slug ? route('subjects.show', ['subject' => $subject->slug]) : '',
+                        'api_url' => $subject->id ? route('api.subjects.show', ['id' => $subject->id]) : '',
+                    ],
+                ];
+            }
+        }));
+
         return response()->json(
-            $subjects->paginate(
-                min($request->get('per_page', 100), 500)
-            )
+            $subjects
         );
     }
 
@@ -63,6 +80,8 @@ class TopicsController extends Controller
                 'total_usage_count',
             ])
             ->firstOrFail();
+
+        $subject->setAppends([]);
 
         return response()->json($subject);
     }

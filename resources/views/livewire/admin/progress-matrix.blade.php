@@ -30,6 +30,7 @@
                                 class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-indigo-500 focus:ring-indigo-500"
                         >
                             <option value="">-- Select Stage --</option>
+                            <option value="5">Stage 5</option>
                             <option value="4">Stage 4</option>
                             <option value="3">Stage 3</option>
                             <option value="2">Stage 2</option>
@@ -114,7 +115,7 @@
                             @foreach($pageStats as $key => $stat)
                                 <tr>
                                     @if($loop->first)
-                                        <td rowspan="7" class="py-3.5 pr-3 pl-1 text-sm font-semibold text-left text-gray-900 border border-black">
+                                        <td rowspan="8" class="py-3.5 pr-3 pl-1 text-sm font-semibold text-left text-gray-900 border border-black">
                                             Processing
                                         </td>
                                     @endif

@@ -98,6 +98,7 @@
                                     await new Promise((resolve) => setTimeout(resolve, response.headers.get('Retry-After')*1000));
                                     await alpine.check(person);
                                 } else if(response.status == 401 || response.status == 403){
+                                    window.removeEventListener("beforeunload", showNavigatingAwayMessage);
                                     window.location.href = '{{ route('login.familysearch') }}';
                                 }else if(response.status == 502){
                                     let json = { persons: [] };
