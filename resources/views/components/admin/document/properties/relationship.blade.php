@@ -11,7 +11,11 @@
         <option value="">
             -- Select a {{ str($property->name)->title() }} --
         </option>
-        @foreach("App\\Models\\$property->relationship"::query()->orderBy('name')->get() as $option)
+        @php
+            $model = "App\\Models\\$property->relationship";
+            $options = $model::query()->orderBy('name')->get();
+        @endphp
+        @foreach($options as $option)
             <option value="{{ $option->id }}"
                    @selected($option->id == old('country', $value?->value))
             >
