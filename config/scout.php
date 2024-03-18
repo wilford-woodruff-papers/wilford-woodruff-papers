@@ -144,7 +144,10 @@ return [
                     'decade',
                     'year',
                     'topics',
+                    'people',
+                    'places',
                     '_geo',
+                    'parent_id',
                 ],
                 'faceting' => [
                     'maxValuesPerFacet' => 1500,
@@ -152,6 +155,7 @@ return [
                 'sortableAttributes' => [
                     'name',
                     'date',
+                    'order',
                 ],
                 'typoTolerance' => [
                     'minWordSizeForTypos' => [
@@ -254,7 +258,10 @@ return [
                     'decade',
                     'year',
                     'topics',
+                    'people',
+                    'places',
                     '_geo',
+                    'parent_id',
                 ],
                 'faceting' => [
                     'maxValuesPerFacet' => 1500,
@@ -262,6 +269,7 @@ return [
                 'sortableAttributes' => [
                     'name',
                     'date',
+                    'order',
                 ],
                 'typoTolerance' => [
                     'minWordSizeForTypos' => [
