@@ -91,6 +91,7 @@ Route::middleware([])->group(function () {
     Route::get('/cktest', \App\Livewire\Documents\Browse::class)->name('documents.cktest');
     Route::get('/dates/{year?}/{month?}', [\App\Http\Controllers\ItemController::class, 'dates'])->name('documents.dates');
     Route::get('/documents/{item}', \App\Livewire\Documents\Show::class)->name('documents.show');
+
     //Route::get('/documents/{item}', [\App\Http\Controllers\ItemController::class, 'show'])->name('documents.show');
     Route::get('/documents/{item}/transcript', [\App\Http\Controllers\ItemController::class, 'transcript'])->name('documents.show.transcript');
     Route::get('/documents/{item}/page/{page}', [\App\Http\Controllers\PageController::class, 'show'])->name('pages.show');
@@ -131,6 +132,9 @@ Route::middleware([])->group(function () {
             'title' => null,
         ]);
     });
+    Route::get('/preview/document-banner/{item}',
+        \App\Http\Controllers\DocumentBannerController::class)
+        ->name('document-banner');
     Route::get('/preview/day-in-the-life-banner/{month?}/{day?}/{year?}', \App\Http\Controllers\DayInTheLifeBannerController::class)
         ->name('day-in-the-life-banner');
 
@@ -152,6 +156,9 @@ Route::middleware([])->group(function () {
         Route::get('/old-timeline', [\App\Http\Controllers\TimelineController::class, 'index'])->name('old-timeline');
 
         Route::get('/ai/sessions', \App\Livewire\AI\Sessions::class)->name('ai.sessions');
+
+        Route::get('/document-dashboard/{item}', \App\Livewire\DocumentDashboard\Index::class)
+            ->name('document-dashboard.show');
     });
 
     Route::get('/advanced-search', \App\Livewire\Search::class)->name('advanced-search');

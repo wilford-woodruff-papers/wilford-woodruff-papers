@@ -12,7 +12,7 @@
         <a href="{{ route('documents.show', ['item' => $item]) }}">
             <div class="ml-3">
                 @auth()
-                    @hasanyrole('CFM Researcher')
+                    @hasanyrole('CFM Researcher|Super Admin')
                         <div>
                             @if($item->enabled)
                                 <span class="inline-flex items-center py-0.5 px-2.5 text-xs font-medium text-green-800 bg-green-100 rounded-full">
@@ -32,5 +32,16 @@
                 <p>{{ str($item->type?->name)->singular() }}</p>
             </div>
         </a>
+        @auth()
+            @hasanyrole('CFM Researcher|Super Admin')
+                <div class="mt-12 ml-4">
+                    <a href="{{ route('document-dashboard.show', ['item' => $item]) }}"
+                       class="font-semibold text-secondary"
+                    >
+                        {{ __('Dashboard') }}
+                    </a>
+                </div>
+            @endhasanyrole
+        @endauth
     </div>
 </li>

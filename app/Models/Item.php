@@ -19,15 +19,18 @@ use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Wildside\Userstamps\Userstamps;
 
-class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortable
+class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMedia, Sortable
 {
     use Auditable;
     use BindsOnUuid;
     use GeneratesUuid;
     use HasFactory;
     use HasHashid;
+    use InteractsWithMedia;
     use KeepsDeletedModels;
     use LogsActivity;
     use Searchable;
@@ -82,6 +85,15 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
         return $this
             ->hasOne(Page::class, 'parent_item_id')
             ->ordered()
+            ->ofMany();
+    }
+
+    public function firstPageWithText()
+    {
+        return $this
+            ->hasOne(Page::class, 'parent_item_id')
+            ->where('is_blank', 0)
+            ->orderByRaw('CHAR_LENGTH(transcript) DESC')
             ->ofMany();
     }
 
@@ -249,6 +261,18 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, Sortab
     public function activities()
     {
         return $this->morphMany(Activity::class, 'subject');
+    }
+
+    public function quotes()
+    {
+        return $this->hasManyThrough(
+            Quote::class,
+            Page::class,
+            'parent_item_id',
+            'page_id',
+        )
+            ->whereNull('continued_from_previous_page')
+            ->orderBy('pages.order', 'ASC');
     }
 
     public function getActivitylogOptions(): LogOptions
