@@ -202,6 +202,11 @@
                                                                                               :value="$item->values->where('property_id', $property->id)->first()"
                                                             />
                                                             @break
+                                                        @case('relationship')
+                                                            <x-admin.document.properties.relationship :property="$property"
+                                                                                                      :value="$item->values->where('property_id', $property->id)->first()"
+                                                            />
+                                                            @break
                                                         @default
                                                             <x-admin.document.properties.text :property="$property"
                                                                                               :value="$item->values->where('property_id', $property->id)->first()"
