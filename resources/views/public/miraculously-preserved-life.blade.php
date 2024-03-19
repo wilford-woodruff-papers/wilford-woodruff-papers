@@ -144,7 +144,7 @@
                                     </div>
                                     <div class="mt-7 text-lg text-gray-700">
                                         <p>
-                                            Broke his leg in a sawmill accident. Leg got caught between headlock and fender post.
+                                            Broke his leg in a saw mill accident. Leg got caught between headlock and fender post.
                                         </p>
                                     </div>
                                 </div>
@@ -376,7 +376,7 @@
                                     </div>
                                     <div class="mt-7 text-lg text-gray-700">
                                         <p>
-                                            Almost crushed by saw mill when helping to de-ice the wheels.
+                                            Almost crushed by flour mill when helping to de-ice the wheels.
                                         </p>
                                     </div>
                                 </div>
@@ -405,7 +405,7 @@
                                     </div>
                                     <div class="ml-5 text-lg text-gray-700">
                                         <p>
-                                            Almost crushed when helping to de-ice the wheel of sawmill.
+                                            Almost crushed when helping to de-ice the wheel of a flour mill.
                                         </p>
                                     </div>
                                 </div>
