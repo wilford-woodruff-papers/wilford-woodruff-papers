@@ -59,6 +59,22 @@
                         <tbody class="divide-y-2">
                             <tr class="odd:bg-white even:bg-gray-50">
                                 <td class="p-4 text-left">
+                                    People Identified
+                                </td>
+                                <td class="p-4 text-right">
+                                    {{ $overallStats['people']['identified'] }}
+                                </td>
+                            </tr>
+                            <tr class="odd:bg-white even:bg-gray-50">
+                                <td class="p-4 text-left">
+                                    People with PIDs
+                                </td>
+                                <td class="p-4 text-right">
+                                    {{ $overallStats['people']['pid_identified'] }}
+                                </td>
+                            </tr>
+                            <tr class="odd:bg-white even:bg-gray-50">
+                                <td class="p-4 text-left">
                                     Biographies Completed
                                 </td>
                                 <td class="p-4 text-right">
