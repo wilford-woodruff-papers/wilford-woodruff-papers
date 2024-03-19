@@ -15,6 +15,7 @@ use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class PropertyResource extends Resource
 {
@@ -94,6 +95,13 @@ class PropertyResource extends Resource
                     ->sortable(),
             ])
             ->filters([
+                Tables\Filters\TernaryFilter::make('enabled')
+                    ->nullable()
+                    ->queries(
+                        true: fn (Builder $query) => $query->where('enabled', true),
+                        false: fn (Builder $query) => $query->where('enabled', false),
+                        blank: fn (Builder $query) => $query, // In this example, we do not want to filter the query when it is blank.
+                    ),
                 Tables\Filters\SelectFilter::make('template_id')
                     ->label('Template')
                     ->relationship('templates', 'name'),
@@ -103,6 +111,7 @@ class PropertyResource extends Resource
                         'html' => 'Html',
                         'link' => 'Link',
                         'text' => 'Text',
+                        'relationship' => 'Relationship',
                     ]),
             ])
             ->actions([
