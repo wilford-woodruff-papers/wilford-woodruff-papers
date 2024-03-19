@@ -21,14 +21,36 @@ class ActivityReport extends Component
     public function mount()
     {
         $this->dates = [
-            'start' => now('America/Denver')->startOfWeek()->toDateString(),
-            'end' => now('America/Denver')->endOfWeek()->toDateString(),
+            'start' => now('America/Denver')
+                ->startOfWeek()
+                ->tz('UTC')
+                ->toDateString(),
+            'end' => now('America/Denver')
+                ->endOfWeek()
+                ->tz('UTC')
+                ->toDateString(),
         ];
     }
 
     public function render()
     {
         if ($this->readyToLoad) {
+
+            $overallStats['people']['identified'] = DB::table('subjects')
+                ->join('category_subject', 'subjects.id', '=', 'category_subject.subject_id')
+                ->join('categories', 'categories.id', '=', 'category_subject.category_id')
+                ->whereDate('subjects.created_at', '>=', $this->dates['start'])
+                ->whereDate('subjects.created_at', '<=', $this->dates['end'])
+                ->where('categories.name', 'People')
+                ->count();
+
+            $overallStats['people']['pid_identified'] = DB::table('subjects')
+                ->join('category_subject', 'subjects.id', '=', 'category_subject.subject_id')
+                ->join('categories', 'categories.id', '=', 'category_subject.category_id')
+                ->whereDate('pid_identified_at', '>=', $this->dates['start'])
+                ->whereDate('pid_identified_at', '<=', $this->dates['end'])
+                ->where('categories.name', 'People')
+                ->count();
 
             $overallStats['biographies']['completed'] = DB::table('subjects')
                 ->join('category_subject', 'subjects.id', '=', 'category_subject.subject_id')
