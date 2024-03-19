@@ -30,6 +30,9 @@ class PropertyResource extends Resource
             ->schema([
                 Section::make('Property Details')
                     ->schema([
+                        Toggle::make('enabled')
+                            ->label('Enabled')
+                            ->default(false),
                         TextInput::make('name')
                             ->required()
                             ->autofocus()
@@ -79,6 +82,9 @@ class PropertyResource extends Resource
             })
             ->defaultSort('name')
             ->columns([
+                Tables\Columns\ToggleColumn::make('enabled')
+                    ->label('Enabled')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('name')
                     ->label('Template Name')
                     ->searchable()

@@ -22,7 +22,8 @@ class Template extends Model
             ->withPivot([
                 'order_column',
                 'is_required',
-            ]);
+            ])
+            ->where('enabled', true);
     }
 
     public function properties()
@@ -32,6 +33,7 @@ class Template extends Model
                 'order_column',
                 'is_required',
             ])
+            ->where('enabled', true)
             ->orderBy('property_template.order_column', 'ASC');
     }
 }
