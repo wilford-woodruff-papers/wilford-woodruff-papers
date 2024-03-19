@@ -68,6 +68,7 @@
                                 <div class="mt-6">
                                     <nav class="grid gap-6">
                                         <a href="{{ route('documents') }}">Documents</a>
+                                        <a href="{{ route('relative-finder') }}">Relative Finder</a>
                                         <a href="{{ route('people') }}">People</a>
                                         <a href="{{ route('map') }}">Places</a>
                                         <a href="{{ route('topics') }}">Topics</a>
@@ -76,6 +77,7 @@
                                         <a href="{{ route('advanced-search') }}">Search</a>
                                         <a href="{{ route('donate') }}">Donate</a>
                                         <a href="{{ route('get-involved.index') }}">Get Involved</a>
+                                        <a href="{{ route('media.copyright') }}">Copyright</a>
                                         @auth()
                                             <form method="POST" action="{{ route('logout') }}">
                                                 @csrf
@@ -259,16 +261,14 @@
                                 class="overflow-hidden absolute left-0 mt-2 w-auto bg-white shadow-md z-[1000]"
                             >
                                 <div>
-                                    <a href="{{ route('people') }}"
-                                       class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
-                                        People Included in Wilford Woodruff's Papers
-                                    </a>
-
                                     <a href="{{ route('relative-finder') }}"
                                        class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
                                         Relative Finder
                                     </a>
-
+                                    <a href="{{ route('people') }}"
+                                       class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
+                                        People Included in Wilford Woodruff's Papers
+                                    </a>
                                     <a href="{{ route('wives-and-children') }}"
                                        class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
                                         Family
@@ -597,6 +597,12 @@
                                                         Videos
                                                     </span>
                                                 </a>
+                                                <a href="{{ route('media.copyright') }}"
+                                                   class="group flex items-center px-3 py-2 text-sm font-medium text-secondary whitespace-nowrap @if(request()->is('media/copyright')) active @endif">
+                                                    <span class="truncate">
+                                                        Copyright
+                                                    </span>
+                                                </a>
                                                 <h3 class="pt-4 text-xs font-semibold tracking-wider uppercase whitespace-nowrap text-primary" id="media-library-headline">
                                                     Media Center
                                                 </h3>
@@ -903,6 +909,12 @@
                                        class="group flex items-center px-3 py-2 text-sm font-medium text-secondary whitespace-nowrap @if(request()->is('media/videos')) active @endif">
                                         <span class="truncate">
                                             Videos
+                                        </span>
+                                    </a>
+                                    <a href="{{ route('media.copyright') }}"
+                                       class="group flex items-center px-3 py-2 text-sm font-medium text-secondary whitespace-nowrap @if(request()->is('media/videos')) active @endif">
+                                        <span class="truncate">
+                                            Copyright
                                         </span>
                                     </a>
                                     <h3 class="pt-4 text-xs font-semibold tracking-wider uppercase whitespace-nowrap text-primary" id="media-library-headline">
