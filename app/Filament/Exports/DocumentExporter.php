@@ -19,6 +19,7 @@ class DocumentExporter extends Exporter
 
         $properties = Cache::remember('properties', 3600, function () {
             return Property::query()
+                ->where('enabled', true)
                 ->orderBy('name')
                 ->get();
         });
