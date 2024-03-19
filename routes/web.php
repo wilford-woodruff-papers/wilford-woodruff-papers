@@ -184,6 +184,7 @@ Route::middleware([])->group(function () {
     Route::get('/media/media-kit', [\App\Http\Controllers\MediaController::class, 'kit'])->name('media.kit');
     Route::get('/media/requests', [\App\Http\Controllers\MediaController::class, 'requests'])->name('media.requests');
     Route::get('/media/newsroom', [\App\Http\Controllers\MediaController::class, 'newsroom'])->name('media.news');
+    Route::get('/media/copyright', [\App\Http\Controllers\MediaController::class, 'copyright'])->name('media.copyright');
 
     Route::get('/updates', [\App\Http\Controllers\UpdateController::class, 'index'])->name('updates.index');
     Route::get('/updates/{update}', [\App\Http\Controllers\UpdateController::class, 'show'])->name('updates.show');

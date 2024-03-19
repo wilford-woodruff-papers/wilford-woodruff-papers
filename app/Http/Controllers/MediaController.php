@@ -39,13 +39,13 @@ class MediaController extends Controller
     {
         return view('public.media.photos', [
             'photos' => Photo::query()
-                                ->with([
-                                    'tags',
-                                ])
-                                ->when($request->has('tag'), function ($query) use ($request) {
-                                    $query->withAnyTags($request->get('tag'), 'photos');
-                                })
-                                ->paginate(18),
+                ->with([
+                    'tags',
+                ])
+                ->when($request->has('tag'), function ($query) use ($request) {
+                    $query->withAnyTags($request->get('tag'), 'photos');
+                })
+                ->paginate(18),
         ]);
     }
 
@@ -64,7 +64,7 @@ class MediaController extends Controller
     {
         return view('public.media.podcasts', [
             'podcasts' => Podcast::latest('date')
-                                    ->paginate(10),
+                ->paginate(10),
         ]);
     }
 
@@ -110,7 +110,7 @@ class MediaController extends Controller
     {
         return view('public.media.newsroom', [
             'articles' => News::latest('date')
-                                ->paginate(10),
+                ->paginate(10),
         ]);
     }
 
@@ -122,5 +122,10 @@ class MediaController extends Controller
     public function requests(Request $request): View
     {
         return view('public.media.requests');
+    }
+
+    public function copyright(Request $request): View
+    {
+        return view('public.media.copyright');
     }
 }
