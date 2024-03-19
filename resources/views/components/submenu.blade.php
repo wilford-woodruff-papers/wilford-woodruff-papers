@@ -197,6 +197,12 @@
                         </div>
                     </div>
                 @endif
+                <a href="{{ route('media.copyright') }}"
+                   class="group flex items-center px-3 py-2 text-sm font-medium @if(request()->is('media/copyright*')) active @else @endif">
+                    <span class="truncate">
+                        Copyright
+                    </span>
+                </a>
             </div>
             <h3 class="px-3 text-xs font-semibold tracking-wider uppercase text-primary" id="media-press-center-headline">
                 Media Center
