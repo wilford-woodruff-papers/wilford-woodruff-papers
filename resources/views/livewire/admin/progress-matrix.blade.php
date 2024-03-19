@@ -131,7 +131,12 @@
                                                     ($stat->whereIn('document_type', $this->typesMap[$docType])->sum('total') ?? 0) == 0
                                                     && $goals[$key][$docType] == 0)
                                                     <div>
-
+                                                        <livewire:admin.progress-matrix.completion-status
+                                                            :document_type="$this->typesMap[$docType]"
+                                                            :action_type="$key"
+                                                            :total="$pageCounts[$docType]"
+                                                            :wire:key="$docType.$key"
+                                                        />
                                                     </div>
                                                 @else
                                                     <div class="flex flex-col">
