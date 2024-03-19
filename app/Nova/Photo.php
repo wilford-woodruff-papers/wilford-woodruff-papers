@@ -101,7 +101,9 @@ class Photo extends Resource
      */
     public function filters(Request $request): array
     {
-        return [];
+        return [
+            new Filters\PhotoCategory,
+        ];
     }
 
     /**
@@ -118,7 +120,7 @@ class Photo extends Resource
     public function actions(Request $request): array
     {
         return [
-
+            new Actions\ExportPhotos,
         ];
     }
 }
