@@ -6,7 +6,6 @@ use App\Models\Item;
 use App\Models\Page;
 use App\Models\Quote;
 use App\Models\Subject;
-use Illuminate\Database\Eloquent\Builder;
 use Livewire\Component;
 
 class ProgressGraphic extends Component
@@ -59,23 +58,26 @@ class ProgressGraphic extends Component
             ];
 
             $bioStats = [
-                'total_identified_people' => Subject::query()
-                    ->whereHas('category', function (Builder $query) {
-                        $query->where('name', 'People');
-                    })
-                    ->whereNotNull('pid_identified_at')
-                    ->count(),
                 'total_bios_approved' => Subject::query()
-                    ->whereHas('category', function (Builder $query) {
-                        $query->where('name', 'People');
-                    })
+                    ->people()
                     ->whereNotNull('bio_approved_at')
                     ->count(),
+                'total_identified_people' => Subject::query()
+                    ->people()
+                    ->whereNotNull('pid')
+                    ->count(),
+                'total_people' => Subject::query()
+                    ->people()
+                    ->count(),
+            ];
+
+            $placeStats = [
                 'total_identified_places' => Subject::query()
-                    ->whereHas('category', function (Builder $query) {
-                        $query->where('name', 'Places');
-                    })
+                    ->places()
                     ->whereNotNull('place_confirmed_at')
+                    ->count(),
+                'total_places' => Subject::query()
+                    ->places()
                     ->count(),
             ];
 
@@ -89,6 +91,7 @@ class ProgressGraphic extends Component
         return view('livewire.admin.progress-graphic', [
             'pageStats' => $pageStats ?? [],
             'bioStats' => $bioStats ?? [],
+            'placeStats' => $placeStats ?? [],
             'quoteStats' => $quoteStats ?? [],
 
         ])
