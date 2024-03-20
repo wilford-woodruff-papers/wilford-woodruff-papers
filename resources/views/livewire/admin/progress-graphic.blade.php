@@ -21,7 +21,7 @@
                         </div>
                         <div class="px-6 pt-12 mx-auto max-w-7xl sm:py-16 lg:px-8">
 
-                            <dl class="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-4">
+                            <dl class="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-3">
                                 <div class="flex flex-col gap-y-4 mx-auto max-w-xs">
                                     <dt class="text-base leading-7 text-gray-600">Published</dt>
                                     <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
@@ -29,17 +29,17 @@
                                     </dd>
                                 </div>
 
-                                <div class="flex flex-col gap-y-4 mx-auto max-w-xs">
+                                {{--<div class="flex flex-col gap-y-4 mx-auto max-w-xs">
                                     <dt class="text-base leading-7 text-gray-600">Identified</dt>
                                     <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
                                         {{ number_format($pageStats['identified']) }}
                                     </dd>
-                                </div>
+                                </div>--}}
 
                                 <div class="flex flex-col gap-y-4 mx-auto max-w-xs">
                                     <dt class="text-base leading-7 text-gray-600">In Progress</dt>
                                     <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
-                                        {{ number_format($pageStats['in_progress']) }}
+                                        {{ number_format($pageStats['in_progress']+$pageStats['identified']) }}
                                     </dd>
                                 </div>
 
@@ -57,17 +57,11 @@
                 @if(! empty($bioStats))
                     <div class="pt-12 pb-24 bg-white sm:py-16">
                         <div class="text-center">
-                            <h1 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">People & Places</h1>
+                            <h1 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">People</h1>
                         </div>
                         <div class="px-6 pt-12 mx-auto max-w-7xl sm:py-16 lg:px-8">
 
-                            <dl class="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-4">
-                                <div class="flex flex-col gap-y-4 mx-auto max-w-xs">
-                                    <dt class="text-base leading-7 text-gray-600">Identified People</dt>
-                                    <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
-                                        {{ number_format($bioStats['total_identified_people']) }}
-                                    </dd>
-                                </div>
+                            <dl class="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-3">
 
                                 <div class="flex flex-col gap-y-4 mx-auto max-w-xs">
                                     <dt class="text-base leading-7 text-gray-600">Bios Approved</dt>
@@ -77,9 +71,41 @@
                                 </div>
 
                                 <div class="flex flex-col gap-y-4 mx-auto max-w-xs">
+                                    <dt class="text-base leading-7 text-gray-600">People with PID</dt>
+                                    <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
+                                        {{ number_format($bioStats['total_identified_people']) }}
+                                    </dd>
+                                </div>
+
+                                <div class="flex flex-col gap-y-4 mx-auto max-w-xs">
+                                    <dt class="text-base leading-7 text-gray-600">Total People</dt>
+                                    <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
+                                        {{ number_format($bioStats['total_people']) }}
+                                    </dd>
+                                </div>
+                            </dl>
+                        </div>
+                    </div>
+                @endif
+
+                @if(! empty($placeStats))
+                    <div class="pt-12 pb-24 bg-white sm:py-16">
+                        <div class="text-center">
+                            <h1 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Places</h1>
+                        </div>
+                        <div class="px-6 pt-12 mx-auto max-w-7xl sm:py-16 lg:px-8">
+
+                            <dl class="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-3">
+                                <div class="flex flex-col gap-y-4 mx-auto max-w-xs">
                                     <dt class="text-base leading-7 text-gray-600">Identified Places</dt>
                                     <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
-                                        {{ number_format($bioStats['total_identified_places']) }}
+                                        {{ number_format($placeStats['total_identified_places']) }}
+                                    </dd>
+                                </div>
+                                <div class="flex flex-col gap-y-4 mx-auto max-w-xs">
+                                    <dt class="text-base leading-7 text-gray-600">Total Places</dt>
+                                    <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
+                                        {{ number_format($placeStats['total_places']) }}
                                     </dd>
                                 </div>
                             </dl>
@@ -94,7 +120,7 @@
                         </div>
                         <div class="px-6 pt-12 mx-auto max-w-7xl sm:py-16 lg:px-8">
 
-                            <dl class="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-4">
+                            <dl class="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-3">
                                 <div class="flex flex-col gap-y-4 mx-auto max-w-xs">
                                     <dt class="text-base leading-7 text-gray-600">Total Tagged</dt>
                                     <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
