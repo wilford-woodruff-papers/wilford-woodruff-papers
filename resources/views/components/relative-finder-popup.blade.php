@@ -35,11 +35,11 @@
         <div class="inset-x-1/3 max-w-2xl transform sm:mx-auto sm:w-full h-3xl"
              x-show="open">
             <div class="px-2 pb-2 w-full h-auto shadow-2xl md:w-72 bg-primary">
-                <div x-on:click="open = false"
+                <div x-on:click="hide()"
                      class="flex justify-between py-2 px-2 text-white cursor-pointer bg-primary hover:bg-primary-80">
                     <span x-show="! open">Find Your Relatives</span>
                     <span x-show="open"></span>
-                    <button x-on:click="open = false">
+                    <button x-on:click="hide()">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-white">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                         </svg>
@@ -82,17 +82,24 @@
                             if(this.shouldPopup()){
                                 setTimeout(() => {
                                     this.open = true;
-                                    console.log("Popup opened");
                                 }, 3000);
                             }
                         },
-                        toggle() {
-                            this.open = ! this.open;
+                        hide() {
+                            this.open = false;
                             localStorage.setItem("relativeFinderPopup", false);
                         },
                         shouldPopup(){
-                            //return true;
-                            return !! localStorage.getItem("relativeFinderPopup");
+                            switch(localStorage.getItem("relativeFinderPopup")){
+                                case 'true':
+                                case true:
+                                case undefined:
+                                case null:
+                                    return true;
+                                case 'false':
+                                case false:
+                                    return false;
+                            }
                         }
                     }))
                 })
