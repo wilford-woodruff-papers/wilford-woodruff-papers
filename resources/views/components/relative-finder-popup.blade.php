@@ -87,10 +87,10 @@
                         },
                         hide() {
                             this.open = false;
-                            localStorage.setItem("relativeFinderPopup", false);
+                            sessionStorage.setItem("relativeFinderPopup", false);
                         },
                         shouldPopup(){
-                            switch(localStorage.getItem("relativeFinderPopup")){
+                            switch(sessionStorage.getItem("relativeFinderPopup")){
                                 case 'true':
                                 case true:
                                 case undefined:
