@@ -54,6 +54,7 @@
         @include('layouts.partials.google-tag-manager-head')
     </head>
     <body>
+        <x-relative-finder-popup />
         @include('layouts.partials.google-tag-manager-no-script')
         <x-admin-bar />
         <x-header />
@@ -97,5 +98,6 @@
         </script>
         @livewire('wire-elements-modal')
         <x-constant-contact />
+
     </body>
 </html>
