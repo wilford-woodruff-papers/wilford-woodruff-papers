@@ -99,6 +99,8 @@ class PlacesIdentificationController extends Controller
      */
     public function create()
     {
+        abort(403, 'You are not authorized to create a new unknown place.');
+
         $place = new PlaceIdentification();
 
         return view('admin.dashboard.places.identification', [
@@ -113,6 +115,8 @@ class PlacesIdentificationController extends Controller
      */
     public function store(Request $request)
     {
+        abort(403, 'You are not authorized to create a new unknown place.');
+
         $place = new PlaceIdentification();
 
         $validated = $request->validate($this->rules);
