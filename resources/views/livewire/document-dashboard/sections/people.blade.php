@@ -42,13 +42,18 @@
             </p>
         </div>
         <div class="grid grid-cols-1 gap-2 lg:grid-cols-3">
-            <div class="col-span-3 mb-20 mx-auto  h-[350px] w-[70%]"
-                wire:ignore
-            >
-                <div class="inline mx-auto">
-                    <canvas id="people-chart" class="max-h-[400px]"></canvas>
-                </div>
+            <div class="col-span-3">
+                @if(count($categories) > 0)
+                    <div class="mb-20 mx-auto h-[350px] w-[70%]"
+                         wire:ignore
+                    >
+                        <div class="inline mx-auto">
+                            <canvas id="people-chart" class="max-h-[400px]"></canvas>
+                        </div>
+                    </div>
+                @endif
             </div>
+
             <div wire:loading x-cloak class="col-span-3">
                 <div class="flex justify-center items-center w-full aspect-[16/6]">
                     <x-heroicon-o-arrow-path class="w-16 h-16 text-gray-400 animate-spin" />
@@ -222,7 +227,7 @@
         <script src="https://unpkg.com/chart.js-plugin-labels-dv/dist/chartjs-plugin-labels.min.js"></script>
     @endpush
     @push('scripts')
-        @if(! empty($peopleCount))
+        @if(! empty($categories))
             <script>
                 const pieDoughnutLegendClickHandler = Chart.controllers.doughnut.overrides.plugins.legend.onClick;
                 const ctx = document.getElementById('people-chart');
@@ -231,10 +236,10 @@
                 const chart = new Chart(ctx, {
                     type: 'pie',
                     data: {
-                        labels: @json(array_keys($this->categories)),
+                        labels: @json(array_keys($categories)),
                         datasets: [{
                             label: '# of People',
-                            data:  @json(array_values($this->categories)),
+                            data:  @json(array_values($categories)),
                             backgroundColor: [
                                 'rgba(11, 40, 54, .1)',
                                 'rgba(11, 40, 54, .2)',
