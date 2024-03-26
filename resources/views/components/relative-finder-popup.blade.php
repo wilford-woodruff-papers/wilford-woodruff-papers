@@ -1,6 +1,5 @@
 @if(
-    auth()->check() && auth()->user()->hasAnyRole('Editor|Admin|Super Admin')
-    && ! request()->is('relative-finder')
+    ! request()->is('relative-finder')
     && ! request()->is('my-relatives')
     )
     <div  x-data="relativeFinderPopup"
@@ -67,7 +66,7 @@
                     </div>
                     <div class="px-4 mb-4 text-center lg:text-left">
                         <a href="{{ route('relative-finder') }}" class="block py-2 text-lg text-center text-white bg-secondary hover:bg-secondary-500">
-                            Find Your Relatives
+                            Start Here
                         </a>
                     </div>
                 </div>
