@@ -8,6 +8,7 @@ use App\Nova\Actions\Enable;
 use App\Nova\Actions\ExportItems;
 use App\Nova\Actions\ExportPcf;
 use App\Nova\Actions\ImportItems;
+use App\Nova\Actions\ImportMetadataFields;
 use App\Nova\Actions\ImportPages;
 use App\Nova\Actions\PcfActions;
 use App\Nova\Filters\Status;
@@ -115,6 +116,9 @@ class Item extends Resource
             BelongsTo::make('Item')
                 ->searchable()
                 ->nullable(),
+            BelongsTo::make('Copyright')
+                ->hideFromIndex()
+                ->nullable(),
             BelongsTo::make('Created By', 'creator', User::class)
                 ->readonly(true)
                 ->nullable(),
@@ -164,6 +168,7 @@ class Item extends Resource
             (new ExportItems())->askForWriterType(),
             new ImportPages,
             new ImportItems,
+            new ImportMetadataFields,
             // new ImportPcf,
             new ExportPcf(),
             // new ImportFtpMetadataExport(),
