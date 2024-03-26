@@ -8,6 +8,7 @@ use Dyrynda\Database\Support\GeneratesUuid;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\DB;
 use Laravel\Scout\Searchable;
 use Mtvs\EloquentHashids\HasHashid;
@@ -117,6 +118,11 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
         }
 
         return self::findOrFail($this->item_id);
+    }
+
+    public function copyright(): BelongsTo
+    {
+        return $this->belongsTo(Copyright::class);
     }
 
     public function canBePublished()

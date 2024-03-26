@@ -33,7 +33,7 @@
             </div>
         </a>
         @auth()
-            @hasanyrole('CFM Researcher|Super Admin')
+            @hasanyrole('Editor|CFM Researcher|Admin|Super Admin')
                 <div class="mt-12 ml-4">
                     <a href="{{ route('document-dashboard.show', ['item' => $item]) }}"
                        class="font-semibold text-secondary"
