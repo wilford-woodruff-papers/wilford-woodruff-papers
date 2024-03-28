@@ -10,12 +10,13 @@ use App\Models\Press;
 use App\Models\Quote;
 use App\Models\Subject;
 use App\Models\Update;
+use App\Models\WebsitePage;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Collection;
 
 class IndexContentToMeilisearchCommand extends Command
 {
-    protected $signature = 'content:index {models=Item,Page,Subject,Press,Team,Timeline,Newsletter,Quote} {--purge}';
+    protected $signature = 'content:index {models=Item,Page,Subject,Press,Team,Timeline,Newsletter,Quote,WebsitePage} {--purge}';
 
     protected $description = 'Index all content to Meilisearch for site wide search';
 
@@ -174,6 +175,17 @@ class IndexContentToMeilisearchCommand extends Command
             ->withCount([
                 'actions',
             ])
+            ->chunkById($this->chunkSize, function (Collection $items) use (&$count) {
+                $items->searchable();
+                $this->info('Indexed Count: '.($count += $items->count()));
+            });
+    }
+
+    private function WebsitePage(): void
+    {
+        $count = 0;
+
+        WebsitePage::query()
             ->chunkById($this->chunkSize, function (Collection $items) use (&$count) {
                 $items->searchable();
                 $this->info('Indexed Count: '.($count += $items->count()));
