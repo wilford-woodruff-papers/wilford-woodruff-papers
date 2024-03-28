@@ -145,6 +145,20 @@
                         Articles
                     </span>
                 </a>
+                @if(request()->is('media/articles*') && $tags = \Spatie\Tags\Tag::withType('articles')->get())
+                    <div class="pl-4 mt-1 space-y-1" aria-labelledby="media-press-center-headline">
+                        <div class="pl-4 space-y-4">
+                            @foreach($tags->sortBy('name') as $tag)
+                                <a href="{{ route('media.articles', ['tag[]' => $tag->name]) }}"
+                                   class="group flex items-center px-3 py-2 text-sm font-medium @if(in_array($tag->name, request()->get('tag', []))) active @else @endif">
+                                    <span class="truncate">
+                                        {{ $tag->name }}
+                                    </span>
+                                </a>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
                 <a href="{{ route('media.photos') }}"
                    class="group flex items-center px-3 py-2 text-sm font-medium  @if(request()->is('media/photos*')) active @else @endif">
                     <span class="truncate">
@@ -171,6 +185,20 @@
                         Podcasts
                     </span>
                 </a>
+                @if(request()->is('media/podcasts*') && $tags = \Spatie\Tags\Tag::withType('podcasts')->get())
+                    <div class="pl-4 mt-1 space-y-1" aria-labelledby="media-press-center-headline">
+                        <div class="pl-4 space-y-4">
+                            @foreach($tags->sortBy('name') as $tag)
+                                <a href="{{ route('media.podcasts', ['tag[]' => $tag->name]) }}"
+                                   class="group flex items-center px-3 py-2 text-sm font-medium @if(in_array($tag->name, request()->get('tag', []))) active @else @endif">
+                                    <span class="truncate">
+                                        {{ $tag->name }}
+                                    </span>
+                                </a>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
                 <a href="{{ route('updates.index') }}"
                    class="group flex items-center px-3 py-2 text-sm font-medium @if(request()->is('updates*')) active @else @endif">
                     <span class="truncate">
