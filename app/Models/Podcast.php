@@ -10,6 +10,7 @@ use Parental\HasParent;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Sluggable\HasSlug;
+use Spatie\Tags\HasTags;
 
 class Podcast extends Press implements \OwenIt\Auditing\Contracts\Auditable, HasMedia
 {
@@ -17,6 +18,7 @@ class Podcast extends Press implements \OwenIt\Auditing\Contracts\Auditable, Has
     use HasFactory;
     use HasParent;
     use HasSlug;
+    use HasTags;
     use InteractsWithMedia;
     use Markable;
 
