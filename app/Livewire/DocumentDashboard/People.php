@@ -52,15 +52,15 @@ class People extends Component
             ->withOnSliceClickEvent('filterPeopleByCategory');
 
         $colors = [
-            'rgba(11, 40, 54, .1)',
-            'rgba(11, 40, 54, .2)',
-            'rgba(11, 40, 54, .3)',
-            'rgba(11, 40, 54, .4)',
-            'rgba(11, 40, 54, .5)',
+            'rgba(11, 40, 54, .55)',
             'rgba(11, 40, 54, .6)',
+            'rgba(11, 40, 54, .65)',
             'rgba(11, 40, 54, .7)',
+            'rgba(11, 40, 54, .75)',
             'rgba(11, 40, 54, .8)',
+            'rgba(11, 40, 54, .85)',
             'rgba(11, 40, 54, .9)',
+            'rgba(11, 40, 54, .95)',
             '#0B2836',
         ];
 

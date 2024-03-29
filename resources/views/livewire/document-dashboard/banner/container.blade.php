@@ -44,9 +44,9 @@
                             Explore the document below or read the pages.
                         </p>
                     </div>
-                    <div class="text-2xl text-white">
-                        <div class="inline-block py-2 px-12 uppercase border border-white bg-secondary">
-                            Read Now
+                    <div class="text-2xl text-secondary">
+                        <div class="inline-block py-2 px-12 uppercase bg-white border border-secondary">
+                            Click to Read
                         </div>
                     </div>
                 </div>
