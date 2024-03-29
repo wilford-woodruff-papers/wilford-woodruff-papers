@@ -35,11 +35,6 @@ class JournalExport extends Command
             ->with([
                 'type',
                 'containerPages',
-                'containerPages.dates',
-                'values',
-                'values.property',
-                'values.source',
-                'values.repository',
             ])
             ->whereIn('type_id', Type::where('name', 'Journals')->pluck('id')->toArray())
             ->limit(1)
@@ -48,6 +43,8 @@ class JournalExport extends Command
         foreach ($documents as $document) {
             $this->exportDocument($document);
         }
+
+        info('https://cloudconvert.com/html-to-docx');
 
     }
 
@@ -115,6 +112,33 @@ class JournalExport extends Command
             }
             $partial .= $line;
         }
+
+        $printTranscript = str($printTranscript)->replaceMatches('/(?:\[\[)(.*?)(?:\]\])/s', function (array $matches) use ($allPeople, $allPlaces) {
+            if (
+                $allPeople->contains('name', str($matches[1])->explode('|')->first()) ||
+                $allPlaces->contains('name', str($matches[1])->explode('|')->first())
+            ) {
+                return $matches[0];
+            } else {
+                logger()->info('Removing: '.$matches[1]);
+
+                return str($matches[1])->explode('|')->last();
+            }
+        })
+            ->replaceMatches('/(?<!-)(?:{)(.*?)(?:})/m', function (array $match) {
+                $parts = str($match[1])->explode('|');
+                switch ($parts->count()) {
+                    case 1:
+                        return '{shorthand: '.$parts->first().'}';
+                    case 2:
+                        return '{'.$parts->last().': '.$parts->first().'}';
+                    case 3:
+                        return '{'.$parts->last().': '.$parts->first().'}';
+                    default:
+                        return '{'.$match[1].'}';
+                }
+            })
+            ->toString();
 
         $printTranscript .= "\n".'<h2>People</h2>'."\n";
         $printTranscript .= $allPeople
