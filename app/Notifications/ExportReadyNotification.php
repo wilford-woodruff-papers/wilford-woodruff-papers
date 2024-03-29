@@ -14,9 +14,12 @@ class ExportReadyNotification extends Notification implements ShouldQueue
 
     public $filename;
 
-    public function __construct($filename)
+    public $subject;
+
+    public function __construct($filename, $subject = 'Export Ready Notification')
     {
         $this->filename = $filename;
+        $this->subject = $subject;
     }
 
     public function via($notifiable): array
@@ -27,6 +30,7 @@ class ExportReadyNotification extends Notification implements ShouldQueue
     public function toMail($notifiable): MailMessage
     {
         return (new MailMessage)
+            ->subject($this->subject)
             ->line('Your export is ready.')
             ->action('Download', Storage::disk('exports')->url($this->filename))
             ->line('Thank you!');

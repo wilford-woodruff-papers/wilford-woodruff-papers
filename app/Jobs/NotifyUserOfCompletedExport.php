@@ -10,6 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Collection;
 
 class NotifyUserOfCompletedExport implements ShouldQueue
 {
@@ -19,18 +20,21 @@ class NotifyUserOfCompletedExport implements ShouldQueue
 
     public $filename;
 
-    public $user;
+    public $users;
+
+    public $subject;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($name, $filename, User $user)
+    public function __construct($name, $filename, Collection|User $users, $subject = 'Export Ready Notification')
     {
         $this->name = $name;
         $this->filename = $filename;
-        $this->user = $user;
+        $this->users = $users;
+        $this->subject = $subject;
     }
 
     /**
@@ -38,13 +42,18 @@ class NotifyUserOfCompletedExport implements ShouldQueue
      */
     public function handle(): void
     {
-        Export::create([
-            'name' => $this->name,
-            'filename' => $this->filename,
-            'user_id' => $this->user->id,
-            'exported_at' => now('America/Denver'),
-        ]);
+        if ($this->users instanceof User) {
+            $this->users = collect([$this->users]);
+        }
 
-        $this->user->notify(new ExportReadyNotification($this->filename));
+        foreach ($this->users as $user) {
+            Export::create([
+                'name' => $this->name,
+                'filename' => $this->filename,
+                'user_id' => $user->id,
+                'exported_at' => now('America/Denver'),
+            ]);
+            $user->notify(new ExportReadyNotification($this->filename, $this->subject));
+        }
     }
 }

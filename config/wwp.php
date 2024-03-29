@@ -4,6 +4,8 @@ return [
 
     'admin_email' => env('ADMIN_EMAIL'),
 
+    'new_uncategorized_subjects_email' => env('NEW_UNCATEGORIZED_SUBJECTS_EMAIL'),
+
     'form_emails' => [
 
         'media_request' => env('MEDIA_REQUEST_FORMS'),
