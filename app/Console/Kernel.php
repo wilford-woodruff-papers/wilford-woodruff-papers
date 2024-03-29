@@ -54,6 +54,13 @@ class Kernel extends ConsoleKernel
             ->pingOnSuccess('http://beats.envoyer.io/heartbeat/NBAuq5yMAJvwwS4');
 
         $schedule
+            ->command('uncat:export')
+            ->dailyAt('8:30 AM')
+            ->withoutOverlapping()
+            ->timezone('America/Denver')
+            ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org');
+
+        $schedule
             ->command('topics:index')
             ->dailyAt('4:30 AM')
             ->withoutOverlapping()
