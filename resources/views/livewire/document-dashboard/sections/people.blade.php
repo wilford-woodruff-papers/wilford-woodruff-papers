@@ -241,7 +241,6 @@
                             label: '# of People',
                             data:  @json(array_values($categories)),
                             backgroundColor: [
-                                'rgba(11, 40, 54, .1)',
                                 'rgba(11, 40, 54, .2)',
                                 'rgba(11, 40, 54, .3)',
                                 'rgba(11, 40, 54, .4)',
@@ -249,6 +248,7 @@
                                 'rgba(11, 40, 54, .6)',
                                 'rgba(11, 40, 54, .7)',
                                 'rgba(11, 40, 54, .8)',
+                                'rgba(11, 40, 54, .9)',
                                 '#0B2836'
                             ],
                             borderWidth: 1
