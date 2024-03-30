@@ -41,7 +41,7 @@ class ImportMetatdataRow implements ShouldQueue
 
         $item = Item::findOrFail($identifier);
 
-        if (! empty($copyrightStatus = data_get($this->row, 'copyright_status'))) {
+        if (! empty($copyrightStatus = data_get($this->row, 'copyright_status_formula'))) {
             $item->copyright_id = Copyright::firstWhere('description', $copyrightStatus)?->id;
             $item->save();
         }
