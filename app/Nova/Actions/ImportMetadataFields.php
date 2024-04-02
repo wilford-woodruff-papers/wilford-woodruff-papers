@@ -27,8 +27,9 @@ class ImportMetadataFields extends Action
     public function handle(ActionFields $fields, Collection $models)
     {
         set_time_limit(3600);
-
+        ray('Starting import');
         Excel::import(new MetadataFieldsImport, $fields->file);
+        ray('Import completed');
 
         return Action::message('Metadata import queued successfully');
     }
