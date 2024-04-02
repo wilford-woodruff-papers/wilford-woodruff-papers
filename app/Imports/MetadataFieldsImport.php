@@ -17,6 +17,7 @@ class MetadataFieldsImport implements ToCollection, WithHeadingRow
     public function collection(Collection $rows)
     {
         foreach ($rows as $row) {
+            ray($row);
             if ($row instanceof Collection) {
                 $row = $row->toArray();
             }
