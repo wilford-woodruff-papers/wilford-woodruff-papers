@@ -113,8 +113,16 @@ class DocumentResource extends Resource
                     ->trueLabel('Imported')
                     ->falseLabel('Not Imported')
                     ->queries(
-                        true: fn (Builder $query) => $query->where('auto_page_count', '>', 0),
-                        false: fn (Builder $query) => $query->where('auto_page_count', '=', 0),
+                        true: fn (Builder $query) => $query
+                            ->where(function (Builder $query) {
+                                $query
+                                    ->where('auto_page_count', '>', 0)
+                                    ->orWhereHas('items');
+                            })
+                            ->whereNull('item_id'),
+                        false: fn (Builder $query) => $query
+                            ->where('auto_page_count', '=', 0)
+                            ->where('enabled', false),
                         blank: fn (Builder $query) => $query,
                     ),
                 Tables\Filters\Filter::make('types')
