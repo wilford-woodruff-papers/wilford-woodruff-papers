@@ -146,6 +146,9 @@ Route::middleware([])->group(function () {
     Route::get('/map/documents', \App\Http\Controllers\MapDocumentsController::class)->name('map.documents');
     Route::get('/map/pages', \App\Http\Controllers\MapPagesController::class)->name('map.pages');
 
+    Route::get('/figures', \App\Http\Controllers\FigureController::class)
+        ->name('figures');
+
     Route::middleware([
         'auth:sanctum',
         'verified',
