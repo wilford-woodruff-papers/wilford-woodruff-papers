@@ -20,7 +20,8 @@ class ExportUncategorizedSubjectsCommand extends Command
         if (now()->isMonday()) {
             $period = now()->subDays(7);
         } else {
-            $period = now()->subDays(1);
+            //$period = now()->subDays(1);
+            return self::SUCCESS;
         }
 
         $count = Subject::query()
