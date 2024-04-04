@@ -169,6 +169,7 @@ class Page extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
     {
         return str($this->transcript)
             ->addSubjectLinks()
+            ->replaceFigureTags()
             ->addScriptureLinks()
             ->removeQZCodes($isQuoteTagger)
             ->replaceInlineLanguageTags()
