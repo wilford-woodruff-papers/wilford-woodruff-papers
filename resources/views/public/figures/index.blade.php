@@ -42,39 +42,41 @@
                             <tbody class="divide-y divide-gray-200">
                                 @foreach($figures as $figure)
                                     <tr>
-                                        <td class="py-4 pr-3 pl-4 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-0 min-w-[8em]">
+                                        <td class="py-4 pr-3 pl-4 text-sm font-medium text-gray-900 whitespace-normal sm:pl-0 min-w-[8em]">
                                             <img src="{{ Storage::disk('figures')->url($figure->filename) }}"
                                                  alt="{{ $figure->design_description }}"
-                                                 class="h-auto w-[8em]"
+                                                 class="h-48 w-[8em]"
                                             />
                                         </td>
-                                        <td class="py-4 px-3 text-lg text-gray-900 whitespace-nowrap">
+                                        <td class="py-4 px-3 text-lg text-gray-900 whitespace-normal">
                                             {!! $figure->design_description !!}
                                         </td>
-                                        <td class="py-4 px-3 text-lg text-gray-900 whitespace-nowrap">
+                                        <td class="py-4 px-3 text-lg text-gray-900 whitespace-normal">
                                             {!! $figure->period_usage !!}
                                         </td>
-                                        <td class="flex flex-col gap-y-2 py-4 px-3 text-lg text-gray-900 whitespace-nowrap">
-                                            @if(! empty($figure->quantitative_utilization))
-                                                <div>
-                                                    <p class="font-black">
-                                                        Quantitative:
-                                                    </p>
-                                                    <p>
-                                                        {!! $figure->quantitative_utilization !!}
-                                                    </p>
-                                                </div>
-                                            @endif
-                                            @if(! empty($figure->qualitative_utilization))
-                                                <div>
-                                                    <p class="font-black">
-                                                        Qualitative:
-                                                    </p>
-                                                    <p>
-                                                        {!!$figure->qualitative_utilization !!}
-                                                    </p>
-                                                </div>
-                                            @endif
+                                        <td class="py-4 px-3 text-lg text-gray-900 whitespace-normal">
+                                            <div class="flex flex-col gap-y-2">
+                                                @if(! empty($figure->quantitative_utilization))
+                                                    <div>
+                                                        <p class="font-black">
+                                                            Quantitative:
+                                                        </p>
+                                                        <p>
+                                                            {!! $figure->quantitative_utilization !!}
+                                                        </p>
+                                                    </div>
+                                                @endif
+                                                @if(! empty($figure->qualitative_utilization))
+                                                    <div>
+                                                        <p class="font-black">
+                                                            Qualitative:
+                                                        </p>
+                                                        <p>
+                                                            {!!$figure->qualitative_utilization !!}
+                                                        </p>
+                                                    </div>
+                                                @endif
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
