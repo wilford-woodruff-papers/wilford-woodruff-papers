@@ -43,7 +43,7 @@
                                 @foreach($figures as $figure)
                                     <tr>
                                         <td class="py-4 pr-3 pl-4 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-0">
-                                            <img src="{{ Storage::url($figure->filname) }}"
+                                            <img src="{{ Storage::disk('figures')->url($figure->filname) }}"
                                                  alt="{{ $figure->design_description }}"
                                                  class="w-20 h-auto rounded-full"
                                             />
