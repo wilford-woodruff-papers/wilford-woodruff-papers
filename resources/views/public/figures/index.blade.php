@@ -45,7 +45,7 @@
                                         <td class="py-4 pr-3 pl-4 text-sm font-medium text-gray-900 whitespace-nowrap sm:pl-0 min-w-[8em]">
                                             <img src="{{ Storage::disk('figures')->url($figure->filename) }}"
                                                  alt="{{ $figure->design_description }}"
-                                                 class="h-auto"
+                                                 class="h-auto w-[8em]"
                                             />
                                         </td>
                                         <td class="py-4 px-3 text-lg text-gray-900 whitespace-nowrap">
