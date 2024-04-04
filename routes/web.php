@@ -162,6 +162,8 @@ Route::middleware([])->group(function () {
 
         Route::get('/document-dashboard/{item}', \App\Livewire\DocumentDashboard\Index::class)
             ->name('document-dashboard.show');
+        Route::get('/figures', \App\Http\Controllers\FigureController::class)
+            ->name('figures');
     });
 
     Route::get('/advanced-search', \App\Livewire\Search::class)->name('advanced-search');
