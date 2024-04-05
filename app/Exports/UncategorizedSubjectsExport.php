@@ -58,6 +58,7 @@ class UncategorizedSubjectsExport implements FromQuery, ShouldQueue, WithHeading
         return [
             'Internal ID',
             'Name',
+            'Slug',
             'Nova URL',
             'Public URL',
         ];
@@ -68,6 +69,7 @@ class UncategorizedSubjectsExport implements FromQuery, ShouldQueue, WithHeading
         return [
             $item->id,
             $item->name,
+            $item->slug,
             url('/nova/resources/subjects/'.$item->id),
             route('subjects.show', ['subject' => $item->slug]),
         ];
