@@ -11,6 +11,9 @@ class AddSubjectLinks
                 if (str($match[1])->lower()->contains("can't be identified")
                     || str(str($match[1])->explode('|')->first())->lower()->contains('cbi')
                     || str(str($match[1])->explode('|')->first())->lower()->contains('grp')
+                    || str(str($match[1])->explode('|')->first())->lower()->contains('cbd')
+                    || str(str($match[1])->explode('|')->first())->lower()->contains('cbm')
+                    || str(str($match[1])->explode('|')->first())->lower()->contains('ii')
                 ) {
                     return str($match[1])->explode('|')->last();
                 } else {
