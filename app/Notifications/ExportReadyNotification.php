@@ -29,10 +29,19 @@ class ExportReadyNotification extends Notification implements ShouldQueue
 
     public function toMail($notifiable): MailMessage
     {
+        if (now()->isMonday()) {
+            $start = now()->subDays(7);
+            $end = now();
+        } else {
+            $start = now()->subDays(1);
+            $end = now();
+        }
+
         return (new MailMessage)
             ->subject($this->subject)
             ->line('Your export is ready.')
             ->action('Download', Storage::disk('exports')->url($this->filename))
+            ->action('View in Nova', url('/nova/resources/subjects?subjects_page=1&subjects_per_page=100&subjects_filter=').base64_encode(json_encode([['Rpj\\Daterangepicker\\Daterangepicker' => "'.$start.' to '.$end.'"]])))
             ->line('Thank you!');
     }
 
