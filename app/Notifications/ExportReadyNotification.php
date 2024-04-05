@@ -41,7 +41,7 @@ class ExportReadyNotification extends Notification implements ShouldQueue
             ->subject($this->subject)
             ->line('Your export is ready.')
             ->action('Download', Storage::disk('exports')->url($this->filename))
-            ->action('View in Nova', url('/nova/resources/subjects?subjects_page=1&subjects_per_page=100&subjects_filter=').base64_encode(json_encode([['Rpj\\Daterangepicker\\Daterangepicker' => "'.$start.' to '.$end.'"]])))
+            ->action('View in Nova', url('/nova/resources/subjects?subjects_page=1&subjects_per_page=100&subjects_filter=').base64_encode(json_encode([['Rpj\\Daterangepicker\\Daterangepicker' => "'.$start.' to '.$end.'"], ['App\\Nova\\Filters\\SubjectType' => '-1']])))
             ->line('Thank you!');
     }
 
