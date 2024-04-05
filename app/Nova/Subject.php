@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\AssignCategory;
 use App\Nova\Actions\ExportPeople;
 use App\Nova\Actions\ExportSubjects;
 use App\Nova\Actions\ExportSubjectsWithChildren;
@@ -15,6 +16,7 @@ use App\Nova\Filters\SubjectIsTagged;
 use App\Nova\Filters\SubjectType;
 use Emilianotisato\NovaTinyMCE\NovaTinyMCE;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
 use Laravel\Nova\Fields\HasMany;
@@ -22,6 +24,8 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Rpj\Daterangepicker\DateHelper;
+use Rpj\Daterangepicker\Daterangepicker;
 
 class Subject extends Resource
 {
@@ -78,7 +82,7 @@ class Subject extends Resource
                 ->asHtml(),
             Number::make(__('Total'), 'total_usage_count')
                 ->readonly()
-                ->sortable(),
+                ->hideFromIndex(),
             Number::make(__('Tagged'), 'tagged_count')
                 ->readonly()
                 ->sortable(),
@@ -119,6 +123,19 @@ class Subject extends Resource
     public function filters(Request $request): array
     {
         return [
+            (new Daterangepicker(
+                'created_at',
+                DateHelper::LAST_7_DAYS,
+            ))
+                ->setRanges([
+                    'Today' => [Carbon::today(), Carbon::today()],
+                    'Yesterday' => [Carbon::yesterday(), Carbon::yesterday()],
+                    'Last 7 days' => [Carbon::today()->subDays(6), Carbon::today()],
+                    'This week' => [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()],
+                    'LAst 30 days' => [Carbon::today()->subDays(29), Carbon::today()],
+                    'This month' => [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()],
+                    'Last month' => [Carbon::now()->subMonth()->startOfMonth(), Carbon::now()->subMonth()->endOfMonth()],
+                ]),
             new SubjectType,
             new SubjectIsTagged,
             new ParentSubjects,
@@ -139,6 +156,7 @@ class Subject extends Resource
     public function actions(Request $request): array
     {
         return [
+            new AssignCategory,
             new ImportIndexTopics,
             new ImportSubjects,
             new ImportPeople,
