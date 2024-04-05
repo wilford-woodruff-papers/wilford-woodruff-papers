@@ -71,6 +71,11 @@ class Subject extends Resource
                 ->sortable(),
             Text::make(__('Name'), 'name')
                 ->sortable(),
+            Text::make(__('FTP URL'), 'subject_uri')
+                ->displayUsing(function ($value) {
+                    return ! empty($value) ? '<a href="'.$value.'" target="_blank" class="link-default">View in FTP</a>' : '';
+                })
+                ->asHtml(),
             Number::make(__('Total'), 'total_usage_count')
                 ->readonly()
                 ->sortable(),
