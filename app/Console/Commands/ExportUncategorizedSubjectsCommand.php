@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use App\Exports\ItemExport;
 use App\Exports\UncategorizedSubjectsExport;
-use App\Jobs\NotifyUserOfCompletedExport;
+use App\Jobs\NotifyUserOfCompletedSubjectExport;
 use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Console\Command;
@@ -45,7 +45,7 @@ class ExportUncategorizedSubjectsCommand extends Command
             ->store($filename, 'exports', \Maatwebsite\Excel\Excel::CSV)
             ->onQueue('exports')
             ->chain([
-                new NotifyUserOfCompletedExport(class_basename(ItemExport::class), $filename, $notify, $subject),
+                new NotifyUserOfCompletedSubjectExport(class_basename(ItemExport::class), $filename, $notify, $subject),
             ]);
 
         return self::SUCCESS;
