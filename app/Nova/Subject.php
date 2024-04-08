@@ -24,7 +24,6 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
-use Rpj\Daterangepicker\DateHelper;
 use Rpj\Daterangepicker\Daterangepicker;
 
 class Subject extends Resource
@@ -125,7 +124,7 @@ class Subject extends Resource
         return [
             (new Daterangepicker(
                 'created_at',
-                DateHelper::LAST_7_DAYS,
+                '2019-01-01 to '.now()->addDay(1)->toDateString()
             ))
                 ->setRanges([
                     'Today' => [Carbon::today(), Carbon::today()],
