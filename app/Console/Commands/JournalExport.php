@@ -77,54 +77,80 @@ class JournalExport extends Command
         foreach ($lines as $line) {
             $line = str($line);
             if (
-                $line->contains('<time datetime="')
+                $line->contains('<strong><time datetime="')
             ) {
-                $subjects = Subject::extractFromText($partial);
-                $footnotes = '';
-                foreach (['people' => 'People', 'places' => 'Places'] as $key => $category) {
-                    if ($subjects->get($category)?->count() > 0) {
-                        switch ($category) {
-                            case 'People':
-                                $footnotes .= '<h3>'.$category.'</h3>';
-                                $allPeople = $allPeople->merge($subjects->get($category));
-                                $footnotes .= $subjects->get($category)
-                                    ?->sortBy('name')
-                                    ->map(fn ($subject) => '<p>'.$subject->name.' ('.$subject->display_life_years.')'.'</p>')
-                                    ->values()
-                                    ->join("\n");
-                                break;
-                            case 'Places':
-                                $footnotes .= '<h3>'.$category.'</h3>';
-                                $allPlaces = $allPlaces->merge($subjects->get($category));
-                                $footnotes .= $subjects->get($category)
-                                    ?->sortBy('name')
-                                    ->map(fn ($subject) => '<p>'.$subject->name.'</p>')
-                                    ->values()
-                                    ->join("\n");
-                                break;
-                        }
+                //$subjects = Subject::extractFromText($partial);
 
+                $matches = str($partial)->matchAll('/(?:\[\[)(.*?)(?:\]\])/s');
+                $matches = collect($matches)
+                    ->map(fn ($match) => str($match)
+                        ->explode('|')
+                        ->first())
+                    ->toArray();
+
+                $subjects = Subject::query()
+                    ->with([
+                        'category',
+                    ])
+                    ->whereIn('name', $matches)
+                    ->get();
+
+                $index = 0;
+                $partial = str($partial)
+                    ->replaceMatches('/(?:\[\[)(.*?)(?:\]\])/s', function (array $matches) use (&$index) {
+                        $index++;
+
+                        return str($matches[0])
+                            ->trim('[]')
+                            ->explode('|')
+                            ->last()."<sup>$index</sup>";
+                    });
+                $footnotes = '';
+                //logger()->info('Matches: ');
+                //logger()->info($matches);
+                foreach ($matches as $key => $match) {
+                    $subject = $subjects->firstWhere('name', $match);
+                    $footnotes .= '<p>'.(array_search($subject->name, $matches) + 1).' '.$subject->name;
+                    if ($subject?->category->contains('name', 'People')) {
+                        $allPeople = $allPeople->push($subject);
+                        $footnotes .= ' ('.$subject->display_life_years.')';
                     }
+
+                    if ($subject?->category->contains('name', 'Places')) {
+                        $allPlaces = $allPlaces->push($subject);
+                        $footnotes .= '<p>'.(array_search($subject->name, $matches) + 1).' '.$subject->name.'</p>'."\n";
+                        break;
+                    }
+
+                    $footnotes .= '</p>'."\n";
+                    /* try {
+                         $footnotes .= '<p>'.(array_search($subject->name, $matches) + 1).' '.$subject->name.' ('.$subject->display_life_years.')'.'</p>'."\n";
+                     } catch (\Exception $e) {
+                         logger()->info('Error: '.$e->getMessage());
+                         logger()->info('Match: '.$match);
+                     }*/
+
                 }
-                $partial .= $footnotes."\n";
-                $printTranscript .= $partial;
+                //$partial .= $footnotes."\n<hr />";
+                $printTranscript .= "$partial \n $footnotes \n <hr />";
                 $partial = '';
             }
             $partial .= $line;
         }
 
-        $printTranscript = str($printTranscript)->replaceMatches('/(?:\[\[)(.*?)(?:\]\])/s', function (array $matches) use ($allPeople, $allPlaces) {
-            if (
-                $allPeople->contains('name', str($matches[1])->explode('|')->first()) ||
-                $allPlaces->contains('name', str($matches[1])->explode('|')->first())
-            ) {
-                return $matches[0];
-            } else {
-                logger()->info('Removing: '.$matches[1]);
+        $printTranscript = str($printTranscript)
+            ->replaceMatches('/(?:\[\[)(.*?)(?:\]\])/s', function (array $matches) use ($allPeople, $allPlaces) {
+                if (
+                    $allPeople->contains('name', str($matches[1])->explode('|')->first())
+                    || $allPlaces->contains('name', str($matches[1])->explode('|')->first())
+                ) {
+                    return $matches[0];
+                } else {
+                    logger()->info('Removing: '.$matches[1]);
 
-                return str($matches[1])->explode('|')->last();
-            }
-        })
+                    return str($matches[1])->explode('|')->last();
+                }
+            })
             ->replaceMatches('/(?<!-)(?:{)(.*?)(?:})/m', function (array $match) {
                 $parts = str($match[1])->explode('|');
                 switch ($parts->count()) {
