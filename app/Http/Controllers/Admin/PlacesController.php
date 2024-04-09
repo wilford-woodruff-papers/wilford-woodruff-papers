@@ -116,6 +116,17 @@ class PlacesController extends Controller
      */
     public function store(Request $request)
     {
+        if (! empty(
+            $existingSubject = Subject::query()
+                ->where('slug', str($request->get('name'))->slug())->first()
+        )
+        ) {
+            return redirect()->back()->withErrors([
+                'There is already a subject named '.$request->get('name').'. You might need to add the Places catergory to the existing subject instead of creating a new one. <a href="'.url('/nova/resources/subjects/'.$existingSubject->id).'" class="font-bold underline" target="_blank">Nova</a>.',
+            ])
+                ->withInput($request->all());
+        }
+
         $place = new Subject();
 
         $validated = $request->validate($this->rules);
