@@ -1,9 +1,6 @@
 import "./bootstrap";
 import collect from "collect.js";
-import {
-    Alpine,
-    Livewire,
-} from "../../vendor/livewire/livewire/dist/livewire.esm";
+import { Alpine, Livewire } from "../../vendor/livewire/livewire/dist/livewire.esm";
 import overlap from "alpinejs-overlap";
 import rangy from "rangy/lib/rangy-core.js";
 import "rangy/lib/rangy-highlighter";
@@ -64,3 +61,4 @@ function dragElement(element, direction)
 if(document.getElementById("document-viewer")){
     dragElement( document.getElementById("separator"), "H" );
 }
+
