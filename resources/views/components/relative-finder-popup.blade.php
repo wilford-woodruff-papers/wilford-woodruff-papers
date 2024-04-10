@@ -1,5 +1,6 @@
 @if(
-    ! request()->is('relative-finder')
+    ! (auth()->check() && auth()->user()->hasAnyRole('Editor|Admin|Super Admin'))
+    && ! request()->is('relative-finder')
     && ! request()->is('my-relatives')
     )
     <div  x-data="relativeFinderPopup"
