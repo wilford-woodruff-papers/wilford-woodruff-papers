@@ -19,6 +19,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
@@ -64,6 +65,11 @@ class Subject extends Resource
         return false;
     }
 
+    public function authorizedToReplicate(Request $request)
+    {
+        return false;
+    }
+
     /**
      * Get the fields displayed by the resource.
      */
@@ -76,7 +82,18 @@ class Subject extends Resource
                 ->sortable(),
             Text::make(__('FTP URL'), 'subject_uri')
                 ->displayUsing(function ($value) {
-                    return ! empty($value) ? '<a href="'.$value.'" target="_blank" class="link-default">View in FTP</a>' : '';
+                    return ! empty($value) ? '<a href="'.$value.'" target="_blank" class="link-default">View</a>' : '';
+                })
+                ->asHtml(),
+            Text::make(__('Admin'), 'slug')
+                ->displayUsing(function ($value) {
+                    if ($this->category->contains('name', 'People')) {
+                        return '<a href="'.url('admin/dashboard/people/'.$value.'/edit').'" target="_blank" class="link-default">View</a>';
+                    } elseif ($this->category->contains('name', 'Places')) {
+                        return '<a href="'.url('admin/dashboard/places/'.$value.'/edit').'" target="_blank" class="link-default">View</a>';
+                    } else {
+                        return ' ';
+                    }
                 })
                 ->asHtml(),
             Number::make(__('Total'), 'total_usage_count')
@@ -103,6 +120,10 @@ class Subject extends Resource
             BelongsTo::make('Parent Subject', 'parent', self::class)
                 ->nullable()
                 ->searchable(),
+            Date::make('Created At')
+                ->sortable(),
+            Date::make('Updated At')
+                ->sortable(),
             HasMany::make('Subjects', 'children', self::class),
             BelongsToMany::make('Events'),
         ];
