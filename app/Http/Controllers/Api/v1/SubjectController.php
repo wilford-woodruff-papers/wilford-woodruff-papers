@@ -39,7 +39,10 @@ class SubjectController extends Controller
             ->with([
                 'category',
             ])
-            ->whereNull('subject_id');
+            ->where(function (Builder $query) {
+                $query->whereNull('subject_id')
+                    ->orWhere('subject_id', 0);
+            });
 
         if ($request->has('types')) {
             $types = [];
