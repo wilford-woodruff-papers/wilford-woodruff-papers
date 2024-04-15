@@ -27,12 +27,12 @@ class RelationshipExport implements FromQuery, WithHeadings, WithMapping
     public function map($relationship): array
     {
         return [
-            $relationship->person->name,
+            $relationship->person?->name,
             $relationship->description,
             $relationship->distance,
-            $relationship->person->public_categories->implode('name', ', '),
-            route('subjects.show', ['subject' => $relationship->person->slug]),
-            'https://www.familysearch.org/tree/person/details/'.$relationship->person->pid,
+            $relationship->person?->public_categories->implode('name', ', '),
+            route('subjects.show', ['subject' => $relationship->person?->slug]),
+            'https://www.familysearch.org/tree/person/details/'.$relationship->person?->pid,
         ];
     }
 
