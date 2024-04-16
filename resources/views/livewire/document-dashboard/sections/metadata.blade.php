@@ -40,6 +40,7 @@
                             '*Collection Box',
                             '*Collection Folder',
                             '*Collection Page',
+                            '*Courtesy Of Exception',
                         ])->get()
                         as $property)
                             @if(! empty($value = $item->values->where('property_id', $property->id)->first()))
@@ -53,6 +54,17 @@
                                 </tr>
                             @endif
                         @endforeach
+                        @if(empty($value = $item->values->whereIn('property.name', ['Courtesy Of', '*Courtesy Of Exception'])->first()))
+                            <tr>
+                                <td class="py-4 pr-3 pl-4 text-base font-medium whitespace-nowrap sm:pl-6">
+                                    Courtesy Of
+                                </td>
+
+                                <td class="py-4 px-3 text-base whitespace-nowrap">
+                                    {!! $item->values->whereIn('property.name', ['Repository', '*Repository'])->first()->repository?->courtesy_of !!}
+                                </td>
+                            </tr>
+                        @endif
                         </tbody>
                         <tfoot></tfoot>
                     </table>
