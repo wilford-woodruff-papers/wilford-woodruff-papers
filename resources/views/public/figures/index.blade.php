@@ -25,8 +25,11 @@
                         <table class="min-w-full divide-y divide-gray-300">
                             <thead>
                             <tr>
+                                <th scope="col" class="py-3.5 pr-3 pl-4 text-base font-semibold text-left text-gray-900 sm:pl-4">
+                                    ID
+                                </th>
                                 <th scope="col" class="py-3.5 pr-3 pl-4 text-base font-semibold text-left text-gray-900 sm:pl-0">
-                                    Figure
+                                    Example Figure
                                 </th>
                                 <th scope="col" class="py-3.5 px-3 text-base font-semibold text-left text-gray-900">
                                     Description
@@ -42,6 +45,9 @@
                             <tbody class="divide-y divide-gray-200">
                                 @foreach($figures as $figure)
                                     <tr>
+                                        <th class="py-4 pr-8 pl-0 text-lg text-gray-900 whitespace-nowrap">
+                                            Figure {!! $figure->tracking_number !!}
+                                        </th>
                                         <td class="py-4 pr-3 pl-4 text-sm font-medium text-gray-900 whitespace-normal sm:pl-0 min-w-[8em]">
                                             <img src="{{ Storage::disk('figures')->url($figure->filename) }}"
                                                  alt="{{ $figure->design_description }}"
