@@ -62,4 +62,8 @@ return [
         'key' => env('API_NINJA_KEY'),
     ],
 
+    'horizon' => [
+        'secret' => env('HORIZON_SECRET'),
+    ],
+
 ];
