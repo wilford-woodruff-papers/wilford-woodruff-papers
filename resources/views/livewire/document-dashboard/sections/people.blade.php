@@ -94,7 +94,8 @@
                 </div>
             </div>
             @foreach($people->shift(9) as $person)
-                <div class="flex flex-col justify-between p-4 border border-gray-300 shadow-lg" wire:loading.remove>
+                <div class="flex flex-col col-span-3 justify-between p-4 border border-gray-300 shadow-lg lg:col-span-1"
+                     wire:loading.remove>
                     <div>
                         <a href="{{ route('subjects.show', ['subject' => $person->slug]) }}"
                            class="text-xl text-secondary popup"
@@ -162,7 +163,8 @@
                     >
                         <span x-show="expanded" aria-hidden="true" class="mr-4" x-cloak>&minus;</span>
                         <span x-show="!expanded" aria-hidden="true" class="mr-4">&plus;</span>
-                        <span>Show more</span>
+                        <span x-show="!expanded">Show more</span>
+                        <span x-show="expanded">Show less</span>
                     </button>
                 </h2>
 

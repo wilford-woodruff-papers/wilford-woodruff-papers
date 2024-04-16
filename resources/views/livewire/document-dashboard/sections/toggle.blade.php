@@ -1,4 +1,4 @@
-<div class="flex z-10 justify-end w-full">
+<div class="flex z-10 justify-end mb-4 w-full">
     <ul
         x-ref="tablist"
         @keydown.right.prevent.stop="$focus.wrap().next()"
@@ -20,8 +20,8 @@
                 type="button"
                 :tabindex="isSelected($el.id) ? 0 : -1"
                 :aria-selected="isSelected($el.id)"
-                :class="isSelected($el.id) ? 'bg-secondary text-white' : 'bg-white text-secondary hover:bg-secondary-400 hover:text-white'"
-                class="inline-flex py-2.5 px-5"
+                :class="isSelected($el.id) ? 'bg-secondary text-white' : 'bg-white text-secondary hover:bg-secondary-500 hover:text-white'"
+                class="inline-flex py-2.5 px-5 border border-secondary"
                 role="tab"
                 wire:click="$set('tab', 'overview')"
             >
@@ -38,8 +38,8 @@
                 type="button"
                 :tabindex="isSelected($el.id) ? 0 : -1"
                 :aria-selected="isSelected($el.id)"
-                :class="isSelected($el.id) ? 'bg-secondary text-white' : 'bg-white text-secondary hover:bg-secondary-400 hover:text-white'"
-                class="inline-flex py-2.5 px-5"
+                :class="isSelected($el.id) ? 'bg-secondary text-white' : 'bg-white text-secondary hover:bg-secondary-500 hover:text-white'"
+                class="inline-flex py-2.5 px-5 border border-secondary"
                 role="tab"
                 wire:click="$set('tab', 'search')"
             >

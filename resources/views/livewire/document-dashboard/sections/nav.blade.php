@@ -1,7 +1,7 @@
 <div class="top-0 z-10 bg-white md:sticky"
      x-show="isSelected($id('tab', 1))"
     wire:ignore>
-    <div class="mb-8 -mt-4"
+    <div class="mb-0"
          :class="{'': !scrolledFromTop, 'md:shadow-2xl': scrolledFromTop}">
         <div x-ref="nav"
              class="px-0 mx-auto max-w-7xl">
