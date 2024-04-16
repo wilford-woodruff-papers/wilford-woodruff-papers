@@ -1,8 +1,8 @@
 <div class="">
     <div
-        class="grid gap-y-8 py-12 px-12 mx-auto max-w-7xl">
+        class="grid gap-y-8 py-4 px-12 mx-auto max-w-7xl">
 
-        @include('livewire.document-dashboard.sections.banner')
+
 
 
 
@@ -29,7 +29,7 @@
               @scroll.window="$refs.nav.getBoundingClientRect().top <= 10 ? scrolledFromTop = true : scrolledFromTop = false"
         >
 
-            @include('livewire.document-dashboard.sections.nav')
+
 
             @include('livewire.document-dashboard.sections.toggle')
             <!-- Tab List -->
@@ -46,6 +46,9 @@
 
                 >
 
+                    @include('livewire.document-dashboard.sections.banner')
+
+                    @include('livewire.document-dashboard.sections.nav')
 
                     @include('livewire.document-dashboard.sections.metadata')
 

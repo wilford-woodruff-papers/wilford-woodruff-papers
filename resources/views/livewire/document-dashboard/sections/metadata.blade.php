@@ -2,7 +2,7 @@
     <div class="relative">
         <div id="{{ str('Metadata')->slug() }}" class="absolute -top-24"></div>
     </div>
-    <div x-data="{ active: null }" class="mx-auto mt-4 space-y-4 w-full">
+    <div x-data="{ active: null }" class="mx-auto mt-0 space-y-4 w-full">
         <div x-data="{
         id: 1,
         get expanded() {
