@@ -14,8 +14,8 @@ class FigureController extends Controller
     {
         return view('public.figures.index', [
             'figures' => Figure::query()
-                ->orderBy('tracking_number', 'asc')
-                ->get(),
+                ->get()
+                ->sortBy('tracking_number', SORT_NATURAL | SORT_FLAG_CASE),
         ]);
     }
 }
