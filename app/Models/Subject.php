@@ -69,6 +69,15 @@ class Subject extends Model implements HasMedia
         );
     }
 
+    public function getConnectionToWilfordAttribute()
+    {
+        return trim(
+            str($this->bio)
+                ->explode('.')
+                ->firstWhere(fn ($value) => str($value)->contains('Wilford Woodruff'))
+        );
+    }
+
     protected function displayLifeYears(): Attribute
     {
         return Attribute::make(

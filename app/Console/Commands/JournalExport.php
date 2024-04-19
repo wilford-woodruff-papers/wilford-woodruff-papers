@@ -110,10 +110,16 @@ class JournalExport extends Command
                 //logger()->info($matches);
                 foreach ($matches as $key => $match) {
                     $subject = $subjects->firstWhere('name', $match);
+                    if (! $subject) {
+                        logger()->info('Subject not found: '.$match);
+
+                        continue;
+                    }
                     $footnotes .= '<p>'.(array_search($subject->name, $matches) + 1).' '.$subject->name;
                     if ($subject?->category->contains('name', 'People')) {
                         $allPeople = $allPeople->push($subject);
-                        $footnotes .= ' ('.$subject->display_life_years.')';
+                        $footnotes .= ' ['.$subject->display_life_years.']';
+                        $footnotes .= ' '.$subject->connection_to_wilford.'.';
                     }
 
                     if ($subject?->category->contains('name', 'Places')) {
@@ -170,7 +176,7 @@ class JournalExport extends Command
         $printTranscript .= $allPeople
             ->unique('id')
             ->sortBy('name')
-            ->map(fn ($subject) => '<p>'.$subject->name.' ('.$subject->display_life_years.')'.'</p>')
+            ->map(fn ($subject) => '<p>'.$subject->name.' ['.$subject->display_life_years.'] '.$subject->connection_to_wilford.'.</p>')
             ->values()
             ->join("\n");
         $printTranscript .= "\n".'<h2>Places</h2>'."\n";
