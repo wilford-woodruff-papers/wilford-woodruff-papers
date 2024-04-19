@@ -23,7 +23,8 @@ class GeolocationImport implements ToCollection, WithHeadingRow
                 ! empty($id = $this->getField($row['internal_id']))
                 && ! empty($this->getField($row['latitude']))
                 && ! empty($this->getField($row['longitude']))
-                && ($this->getField($row['ispartial']) == false || $this->getField($row['ispartial']) == 'FALSE')
+                && ($this->getField($row['internal_id']) != 'New')
+                //&& ($this->getField($row['ispartial']) == false || $this->getField($row['ispartial']) == 'FALSE')
             ) {
                 ImportGeolocationRow::dispatch($row)
                     ->onQueue('import');
