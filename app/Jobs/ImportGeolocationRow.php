@@ -33,15 +33,17 @@ class ImportGeolocationRow implements ShouldQueue
         $subject = $subject->update([
             'latitude' => $this->row['latitude'],
             'longitude' => $this->row['longitude'],
-            'is_partial' => $this->row['ispartial'] == 'TRUE' ? true : false,
+            //'is_partial' => $this->row['ispartial'] == 'TRUE' ? true : false,
             //'google_map_address' => $this->row['google_map_address'],
             //'google_map_id' => $this->row['google_map_id'],
             //'northeast_box' => ! empty($this->row['northeast_box']) ? json_decode(str($this->row['northeast_box'])->replace("'", '"'), true) : null,
             //'southwest_box' => ! empty($this->row['southwest_box']) ? json_decode(str($this->row['southwest_box'])->replace("'", '"'), true) : null,
             //'geolocation' => ! empty($this->row['full_json']) ? json_decode(str($this->row['full_json'])->replace("'", '"'), true) : null,
             'geolocation_updated_at' => now(),
-            'modern_location' => ! empty($this->row['modern_location']) ? $this->row['modern_location'] : null,
+            //'modern_location' => ! empty($this->row['modern_location']) ? $this->row['modern_location'] : null,
         ]);
-        info($subject);
+        logger()
+            ->channel('imports')
+            ->info($subject);
     }
 }
