@@ -38,6 +38,6 @@ table th, table td {
     @apply mt-4 !important;
 }
 
-.property .values .value .unclear{
+.unclear{
     @apply italic;
 }

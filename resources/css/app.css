@@ -102,7 +102,7 @@ nav.sub-menu ul {
     @apply mt-4 !important;
 }
 
-.property .values .value .unclear{
+.unclear{
     @apply italic;
 }
 
