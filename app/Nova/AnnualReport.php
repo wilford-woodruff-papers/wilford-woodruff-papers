@@ -2,7 +2,6 @@
 
 namespace App\Nova;
 
-use Emilianotisato\NovaTinyMCE\NovaTinyMCE;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Boolean;
 use Laravel\Nova\Fields\DateTime;
@@ -11,7 +10,7 @@ use Laravel\Nova\Fields\Image;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class QuarterlyUpdate extends Resource
+class AnnualReport extends Resource
 {
     public static $group = 'Updates';
 
@@ -20,7 +19,7 @@ class QuarterlyUpdate extends Resource
      *
      * @var string
      */
-    public static $model = \App\Models\QuarterlyUpdate::class;
+    public static $model = \App\Models\AnnualReport::class;
 
     /**
      * The single value that should be used to represent the resource when being displayed.
@@ -53,17 +52,13 @@ class QuarterlyUpdate extends Resource
             ID::make(__('ID'), 'id')->sortable(),
             Boolean::make('Enabled'),
             DateTime::make('Publish At'),
-            Image::make('Image', 'primary_image')->disk('updates'),
+            Image::make('Image', 'primary_image')
+                ->disk('updates'),
             Text::make('subject'),
-            Text::make('preheader')->hideFromIndex(),
-            NovaTinyMCE::make('Content', 'content')
-                ->options([
-                    'use_lfm' => true,
-                    'height' => 500,
-                ])
-                ->asHtml()
-                ->alwaysShow()
-                ->help('The Article text should only be provided if the article was originally published on our site.'),
+            Text::make('preheader')
+                ->hideFromIndex(),
+            Text::make('link')
+                ->hideFromIndex(),
         ];
     }
 
