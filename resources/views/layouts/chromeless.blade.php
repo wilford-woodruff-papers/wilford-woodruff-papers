@@ -24,6 +24,7 @@
             display: none !important;
         }
     </style>
+    <x-clarity::script />
 </head>
 <body>
     <div class="font-sans antialiased text-gray-900">
