@@ -34,7 +34,7 @@
                                                     <h2 id="episode-5-title"
                                                         class="mt-2 text-xl font-bold text-slate-900">
                                                         <a href="{{ $update->url }}"
-                                                           @if($update->type == 'Newsletter') target="_newsletter" @endif>
+                                                           @if($update->type !== 'Quarterly') target="_blank" @endif>
                                                             {!! $update->subject !!}
                                                         </a>
                                                     </h2>
