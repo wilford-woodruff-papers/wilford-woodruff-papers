@@ -62,4 +62,7 @@ return [
         'key' => env('API_NINJA_KEY'),
     ],
 
+    'coudconvert' => [
+        'api_key' => env('CLOUDCONVERT_API_KEY'),
+    ],
 ];

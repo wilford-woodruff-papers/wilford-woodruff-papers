@@ -11,6 +11,7 @@
         "andreiio/blade-remix-icon": "^2.5",
         "asantibanez/livewire-charts": "^3.0",
         "blade-ui-kit/blade-heroicons": "^2.1",
+        "cloudconvert/cloudconvert-php": "^3.4",
         "ctessier/nova-advanced-image-field": "^2.0",
         "cweagans/composer-patches": "^1.7",
         "dmitrybubyakin/nova-medialibrary-field": "^4.0",

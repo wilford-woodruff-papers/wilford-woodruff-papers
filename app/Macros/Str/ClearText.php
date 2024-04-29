@@ -42,9 +42,19 @@ class ClearText
 
             // Simple symbol deletion
             $patterns = collect([
+                "/ ?<strike[^>]*>.*?<\/strike>", // Strike throughs and whatever's inside
+                " ?<s[^>]*>.*?<\/s>", // Strike throughs and whatever's inside
                 "\^", // Carrot insertions
+                //"/(?<!^)<br\/>(?=$)", // Remove line breaks at the end of a line, but not the beginning of a line
+                "(?<!^)<br\/>(?=$)",
+                " ?\[rest of page blank\]", // Rest of page blank
+                " ?\[upside\-down text\]", // Upside-down text
+                "\-(?=\[)", // Remove dashes before left bracket
+                "(?<=\])\-", // Remove dash after right bracket
+                "<i>\[(?!\[)", // Remove left italicized single brackets
+                "(?<!\])\]<\/i>", // Remove right italicized single brackets
             ]);
-            $text = $text->replaceMatches('/'.$patterns->implode('|').'/mi', '');
+            $text = $text->replaceMatches($patterns->implode('|').'/mi', '');
 
             // This function takes the bracket symbols we protected up above and restores them to their correct
             // single bracket form.

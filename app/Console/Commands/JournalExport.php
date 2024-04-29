@@ -5,6 +5,9 @@ namespace App\Console\Commands;
 use App\Models\Item;
 use App\Models\Subject;
 use App\Models\Type;
+use CloudConvert\CloudConvert;
+use CloudConvert\Models\Job;
+use CloudConvert\Models\Task;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 
@@ -17,7 +20,7 @@ class JournalExport extends Command
      *
      * @var string
      */
-    protected $signature = 'export:journals';
+    protected $signature = 'export:journals {--convert=false}';
 
     /**
      * The console command description.
@@ -65,8 +68,8 @@ class JournalExport extends Command
         );
 
         $fullTranscript = $fullTranscript
-            ->replace('<br/>', ' ')
-            ->replace('##', '');
+            //->replaceMatches("/(?<!^)<br\/>(?=$)/mi", ' ')// Remove line breaks at the end of a line, but not the beginning of a line
+            ->clearText();
 
         $lines = preg_split("/\r\n|\n|\r/", $fullTranscript);
 
@@ -86,6 +89,7 @@ class JournalExport extends Command
                     ->map(fn ($match) => str($match)
                         ->explode('|')
                         ->first())
+                    ->unique()
                     ->toArray();
 
                 $subjects = Subject::query()
@@ -106,8 +110,8 @@ class JournalExport extends Command
                             ->last()."<sup>$index</sup>";
                     });
                 $footnotes = '';
-                //logger()->info('Matches: ');
-                //logger()->info($matches);
+                // Need to fix super script numbers and footnotes numbering
+                // All tags superscript is getting incremented, but I'm de-duplicating in footnotes
                 foreach ($matches as $key => $match) {
                     $subject = $subjects->firstWhere('name', $match);
                     if (! $subject) {
@@ -115,20 +119,21 @@ class JournalExport extends Command
 
                         continue;
                     }
-                    $footnotes .= '<p>'.(array_search($subject->name, $matches) + 1).' '.$subject->name;
+
                     if ($subject?->category->contains('name', 'People')) {
-                        $allPeople = $allPeople->push($subject);
+                        $allPeople->push($subject);
+                        $footnotes .= '<p>'.(array_search($subject->name, $matches) + 1).' '.$subject->name;
                         $footnotes .= ' ['.$subject->display_life_years.']';
                         $footnotes .= ' '.$subject->connection_to_wilford.'.';
+                        $footnotes .= '</p>'."\n";
                     }
 
                     if ($subject?->category->contains('name', 'Places')) {
-                        $allPlaces = $allPlaces->push($subject);
-                        $footnotes .= '<p>'.(array_search($subject->name, $matches) + 1).' '.$subject->name.'</p>'."\n";
-                        break;
+                        $allPlaces->push($subject);
+                        $footnotes .= '<p>'.(array_search($subject->name, $matches) + 1).' '.$subject->name;
+                        $footnotes .= '</p>'."\n";
                     }
 
-                    $footnotes .= '</p>'."\n";
                     /* try {
                          $footnotes .= '<p>'.(array_search($subject->name, $matches) + 1).' '.$subject->name.' ('.$subject->display_life_years.')'.'</p>'."\n";
                      } catch (\Exception $e) {
@@ -137,6 +142,7 @@ class JournalExport extends Command
                      }*/
 
                 }
+                logger()->info($footnotes);
                 //$partial .= $footnotes."\n<hr />";
                 $printTranscript .= "$partial \n $footnotes \n <hr />";
                 $partial = '';
@@ -190,11 +196,58 @@ class JournalExport extends Command
         // I was able to save the text and then use this online converter to convert to Word:
         // https://cloudconvert.com/html-to-docx
 
-        Storage::put(
+        $filepath = Storage::put(
             'text/'.str($document->name)->slug().'.html',
             '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body>'.$printTranscript.'</body></html>'
         );
 
+        if (boolval($this->option('convert'))) {
+            info('Converting '.$document->name);
+            $this->convertDocument(storage_path('app/text/'.str($document->name)->slug().'.html'));
+        } else {
+            info('Skip converting '.$document->name);
+        }
+
         info($document->name.' exported to text successfully!');
+    }
+
+    private function convertDocument($path)
+    {
+        $cloudconvert = new CloudConvert([
+            'api_key' => config('services.coudconvert.api_key'),
+            'sandbox' => false,
+        ]);
+
+        $job = (new Job())
+            ->addTask(new Task('import/upload', 'upload-my-file'))
+            ->addTask(
+                (new Task('convert', 'convert-my-file'))
+                    ->set('input', 'upload-my-file')
+                    ->set('output_format', 'docx')
+            )
+            ->addTask(
+                (new Task('export/url', 'export-my-file'))
+                    ->set('input', 'convert-my-file')
+            );
+
+        $job = $cloudconvert->jobs()->create($job);
+
+        $uploadTask = $job->getTasks()->whereName('upload-my-file')[0];
+        $cloudconvert->tasks()->upload($uploadTask, fopen($path, 'r'), basename($path));
+
+        $cloudconvert->jobs()->wait($job);
+        $file = $job->getExportUrls()[0];
+
+        $source = $cloudconvert->getHttpTransport()->download($file->url)->detach();
+        if (! Storage::exists('conversions')) {
+            Storage::createDirectory('conversions');
+        }
+        if (Storage::fileExists('conversions/'.$file->filename)) {
+            Storage::delete('conversions/'.$file->filename);
+        }
+
+        $dest = fopen(storage_path('app/conversions/'.$file->filename), 'w');
+
+        stream_copy_to_stream($source, $dest);
     }
 }
