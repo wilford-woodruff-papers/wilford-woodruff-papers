@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "abr4xas/clarity-laravel": "^1.0",
         "alexpechkarev/google-maps": "^10.0",
         "anaseqal/nova-import": "^0.0.6",
         "andreiio/blade-remix-icon": "^2.5",

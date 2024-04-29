@@ -273,6 +273,7 @@
             });
         }, false);
     </script>
+    <x-clarity::script />
 </head>
 <body>
 
