@@ -15,18 +15,22 @@ class UpdateController extends Controller
     {
         return view('public.updates.index', [
             'updates' => Update::query()
-                                ->where('enabled', 1)
-                                ->where('publish_at', '<', now()->toDateTimeString())
-                                ->orderBy('publish_at', 'DESC')
-                                ->paginate(10),
+                ->where('enabled', 1)
+                ->where('publish_at', '<', now()->toDateTimeString())
+                ->orderBy('publish_at', 'DESC')
+                ->paginate(10),
         ]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, Update $update): View
+    public function show(Request $request, Update $update): View|\Illuminate\Http\RedirectResponse
     {
+        if (in_array($update->type, ['Newsletter', 'Annual'])) {
+            return redirect()->away($update->url);
+        }
+
         return view('public.updates.show', [
             'update' => $update,
         ]);
