@@ -19,6 +19,7 @@
         @livewireStyles
 
         @include('layouts.partials.google-tag-manager-head')
+        <x-clarity::script />
     </head>
     <body class="font-sans antialiased">
         @include('layouts.partials.google-tag-manager-no-script')

@@ -23,6 +23,7 @@
         </style>
 
         @stack('styles')
+        <x-clarity::script />
     </head>
     <body class="h-full font-sans antialiased">
         {{--<x-banner />--}}

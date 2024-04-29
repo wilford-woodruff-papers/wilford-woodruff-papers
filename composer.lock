@@ -4,8 +4,78 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "06906927203acb75b836b363b1792a58",
+    "content-hash": "c58c00960ad737e009663fb732b415ab",
     "packages": [
+        {
+            "name": "abr4xas/clarity-laravel",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/abr4xas/clarity-laravel.git",
+                "reference": "f0ba69cb96e5da4353c0e582c9bd7c7dac6651b0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/abr4xas/clarity-laravel/zipball/f0ba69cb96e5da4353c0e582c9bd7c7dac6651b0",
+                "reference": "f0ba69cb96e5da4353c0e582c9bd7c7dac6651b0",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.2",
+                "spatie/laravel-package-tools": "^1.14.0"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.0",
+                "nunomaduro/collision": "^7.8",
+                "orchestra/testbench": "^8.17",
+                "pestphp/pest": "^2.20",
+                "pestphp/pest-plugin-arch": "^2.5",
+                "pestphp/pest-plugin-laravel": "^2.0",
+                "spatie/laravel-ray": "^1.26"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Abr4xas\\ClarityLaravel\\ClarityLaravelServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Abr4xas\\ClarityLaravel\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Angel",
+                    "email": "hello@tepuilabs.dev",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Easy integration of Microsoft Clarity into your Laravel application.",
+            "homepage": "https://github.com/abr4xas/clarity-laravel",
+            "keywords": [
+                "Microsoft Clarity",
+                "abr4xas",
+                "clarity-laravel",
+                "laravel"
+            ],
+            "support": {
+                "source": "https://github.com/abr4xas/clarity-laravel/tree/v1.0.0"
+            },
+            "funding": [
+                {
+                    "url": "https://angelcruz.dev/donate",
+                    "type": "custom"
+                }
+            ],
+            "time": "2024-03-04T22:01:00+00:00"
+        },
         {
             "name": "alexpechkarev/geometry-library",
             "version": "1.0.4",

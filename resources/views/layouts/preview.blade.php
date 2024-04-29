@@ -43,6 +43,7 @@
 
         <!-- Scripts -->
         @include('layouts.partials.google-tag-manager-head')
+        <x-clarity::script />
     </head>
     <body>
         @include('layouts.partials.google-tag-manager-no-script')
