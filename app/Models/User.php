@@ -41,6 +41,7 @@ class User extends Authenticatable implements FilamentUser
         'proposed_use',
         'ww_relationship_distance',
         'ww_relationship_description',
+        'last_login_at',
     ];
 
     /**
