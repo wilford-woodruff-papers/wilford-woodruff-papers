@@ -131,6 +131,9 @@
     </div>
     @push('styles')
         <style>
+            em {
+                background-color: #fff59d;
+            }
             .content ul {
                 list-style-type: none;
             }
