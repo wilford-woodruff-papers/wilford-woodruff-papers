@@ -37,7 +37,7 @@
                 <div class="flex relative z-10 flex-col justify-between pt-8 pb-8 pl-12 h-full pr-18">
                     <div class="flex flex-col gap-y-4 h-full">
                         <h2 class="pb-2 text-4xl font-light text-white uppercase leading-[1.2em]">
-                            {!! $item->name !!}
+                            {!! str($item->name)->stripBracketedID() !!}
                         </h2>
                         <hr class="border-b border-white max-w-[550px]"/>
                         <p class="text-xl text-white">
