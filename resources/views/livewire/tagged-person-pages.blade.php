@@ -7,7 +7,7 @@
              class="divide-y divide-gray-200"
              id="pages">
             @foreach($pages as $page)
-                <x-page-summary :page="$page" />
+                <x-page-summary :page="$page" :subject="$subject" />
             @endforeach
         </ul>
         <div id="page-pagination">
