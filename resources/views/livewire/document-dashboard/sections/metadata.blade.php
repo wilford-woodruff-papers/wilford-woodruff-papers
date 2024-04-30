@@ -49,7 +49,7 @@
                                 )
                                     <tr>
                                         <td class="py-4 pr-3 pl-4 text-base font-medium whitespace-nowrap sm:pl-6">
-                                            {{ $property->name }}
+                                            {{ str($property->name)->replace('*', '') }}
                                         </td>
                                         <td class="py-4 px-3 text-base whitespace-nowrap">
                                             {!! $value->displayValue($item->values) !!}
