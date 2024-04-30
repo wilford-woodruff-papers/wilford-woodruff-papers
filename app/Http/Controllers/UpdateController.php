@@ -15,10 +15,10 @@ class UpdateController extends Controller
     {
         return view('public.updates.index', [
             'updates' => Update::query()
-                                ->where('enabled', 1)
-                                ->where('publish_at', '<', now()->toDateTimeString())
-                                ->orderBy('publish_at', 'DESC')
-                                ->paginate(10),
+                ->where('enabled', 1)
+                ->where('publish_at', '<', now()->toDateTimeString())
+                ->orderBy('publish_at', 'DESC')
+                ->paginate(10),
         ]);
     }
 

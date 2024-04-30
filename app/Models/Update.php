@@ -91,7 +91,7 @@ class Update extends Model implements HasMedia
         return app()->environment('production') ? 'resources' : 'dev-resources';
     }
 
-    public function registerMediaConversions(Media $media = null): void
+    public function registerMediaConversions(?Media $media = null): void
     {
         $this->addMediaConversion('thumb')
             ->width(368)

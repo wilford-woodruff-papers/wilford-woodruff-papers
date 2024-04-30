@@ -68,7 +68,7 @@ class JournalExport extends Command
         );
 
         $fullTranscript = $fullTranscript
-            //->replaceMatches("/(?<!^)<br\/>(?=$)/mi", ' ')// Remove line breaks at the end of a line, but not the beginning of a line
+            ->replaceMatches("/(?<!^)<br\/>(?=$)/mi", ' ')// Remove line breaks at the end of a line, but not the beginning of a line
             ->clearText();
 
         $lines = preg_split("/\r\n|\n|\r/", $fullTranscript);
@@ -90,7 +90,7 @@ class JournalExport extends Command
                         ->explode('|')
                         ->first())
                     ->unique()
-                    ->toArray();
+                    ->values()->all();
 
                 $subjects = Subject::query()
                     ->with([
@@ -100,17 +100,30 @@ class JournalExport extends Command
                     ->get();
 
                 $index = 0;
+                $references = [];
                 $partial = str($partial)
-                    ->replaceMatches('/(?:\[\[)(.*?)(?:\]\])/s', function (array $matches) use (&$index) {
-                        $index++;
-
-                        return str($matches[0])
+                    ->replaceMatches('/(?:\[\[)(.*?)(?:\]\])/s', function (array $matches) use (&$index, &$references) {
+                        $key = str($matches[0])
                             ->trim('[]')
                             ->explode('|')
-                            ->last()."<sup>$index</sup>";
+                            ->first();
+                        if (in_array($key, $references)) {
+                            return str($matches[0])
+                                ->trim('[]')
+                                ->explode('|')
+                                ->last();
+                        } else {
+                            $index++;
+                            $references[] = $key;
+
+                            return str($matches[0])
+                                ->trim('[]')
+                                ->explode('|')
+                                ->last()."<sup>$index</sup>";
+                        }
                     });
                 $footnotes = '';
-                // Need to fix super script numbers and footnotes numbering
+                // TODO: Need to fix super script numbers and footnotes numbering
                 // All tags superscript is getting incremented, but I'm de-duplicating in footnotes
                 foreach ($matches as $key => $match) {
                     $subject = $subjects->firstWhere('name', $match);
@@ -201,7 +214,7 @@ class JournalExport extends Command
             '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body>'.$printTranscript.'</body></html>'
         );
 
-        if (boolval($this->option('convert'))) {
+        if ($this->option('convert') == 'true') {
             info('Converting '.$document->name);
             $this->convertDocument(storage_path('app/text/'.str($document->name)->slug().'.html'));
         } else {

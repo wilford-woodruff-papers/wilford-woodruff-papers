@@ -46,7 +46,7 @@ class ClearText
                 " ?<s[^>]*>.*?<\/s>", // Strike throughs and whatever's inside
                 "\^", // Carrot insertions
                 //"/(?<!^)<br\/>(?=$)", // Remove line breaks at the end of a line, but not the beginning of a line
-                "(?<!^)<br\/>(?=$)",
+                //"(?<!^)<br\/>(?=$)",
                 " ?\[rest of page blank\]", // Rest of page blank
                 " ?\[upside\-down text\]", // Upside-down text
                 "\-(?=\[)", // Remove dashes before left bracket
@@ -66,8 +66,8 @@ class ClearText
             // With all the previous deletions there is sometimes odd whitespace left over.
             // this function handles those cases that.
             $text = $text
-                ->replaceMatches('/(?<=\w)-\s*(?=$)\s*/m', '')
-                ->replaceMatches('/(?<!\.)  /m', '');
+                ->replaceMatches('/(?<=\w)-\s*(?=$)\s*/m', ' ')
+                ->replaceMatches('/(?<!\.)  /m', ' ');
 
             return $text;
         };
