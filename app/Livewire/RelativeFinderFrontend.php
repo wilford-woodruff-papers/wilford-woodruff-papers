@@ -45,6 +45,7 @@ class RelativeFinderFrontend extends Component implements HasForms, HasTable
                         'person',
                         //'person.pages.media',
                     ])
+                    ->has('person')
                     ->where(
                         'user_id',
                         auth()->id()
