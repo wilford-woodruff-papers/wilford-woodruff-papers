@@ -394,9 +394,13 @@ class Subject extends Model implements HasMedia
     {
         $collectionName = 'default';
         $geo = null;
+        $thumbnail = null;
 
         if ($this->category->pluck('name')->contains('People')) {
             $resourceType = 'People';
+            if (str($this->portrait)->startsWith('https://tree-portraits-bgt.familysearchcdn.org')) {
+                $thumbnail = $this->portrait;
+            }
         } elseif ($this->category->pluck('name')->contains('Places')) {
             $resourceType = 'Places';
             $collectionName = 'maps';
@@ -406,6 +410,7 @@ class Subject extends Model implements HasMedia
                     'lng' => $this->longitude,
                 ];
             }
+            $thumbnail = $this->getFirstMedia($collectionName)?->getUrl('thumb');
         } elseif ($this->category->pluck('name')->contains('Index')) {
             $resourceType = 'Topic';
         } else {
@@ -418,7 +423,7 @@ class Subject extends Model implements HasMedia
             'resource_type' => $resourceType,
             'type' => $this->category->pluck('name')->toArray(),
             'url' => route('subjects.show', ['subject' => $this->slug]),
-            'thumbnail' => $this->getFirstMedia($collectionName)?->getUrl('thumb'),
+            'thumbnail' => $thumbnail,
             'name' => $this->name,
             'description' => strip_tags($this->bio ?? ''),
             '_geo' => $geo,
