@@ -40,7 +40,12 @@ class JournalExport extends Command
                 'containerPages',
             ])
             ->whereIn('type_id', Type::where('name', 'Journals')->pluck('id')->toArray())
-            ->limit(1)
+            ->whereIn('name', [
+                'Journal (December 29, 1833 – January 3, 1838)',
+                'Journal (January 1, 1838 – December 31, 1839)',
+                'Journal (January 1, 1840 – December 31, 1840)',
+            ])
+            //->limit(1)
             ->get();
 
         foreach ($documents as $document) {
