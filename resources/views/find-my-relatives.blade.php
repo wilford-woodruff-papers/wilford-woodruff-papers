@@ -36,24 +36,33 @@
 
                         </div>
                     </div>
-                    <div class="text-center lg:text-left">
-                        <a href="{{ route('my-relatives') }}"
-                           class="inline-block py-3 px-6 text-xl font-semibold text-white bg-secondary hover:bg-secondary-500"
-                        >
-                            Find Your Relatives
-                        </a>
-                    </div>
-                    <div class="flex flex-col gap-y-4 justify-between text-lg lg:w-3/4">
-                        <div>
-                            <p>
-                                <span class="font-semibold">Create an account</span> on the Wilford Woodruff Papers website.
-                            </p>
+
+                    <div class="py-4 px-8 bg-[rgba(255,255,255,.6)] lg:w-4/5 border-2 border-gray-600 mx-2 shadow-2xl">
+                        <div class="flex flex-col gap-y-4 justify-between text-lg">
+                            <div>
+                                <p>
+                                    <span class="font-semibold">Click</span> the button below.
+                                </p>
+                            </div>
+                            <div>
+                                <p>
+                                    <span class="font-semibold">Create an account</span> on the Wilford Woodruff Papers website.
+                                </p>
+                            </div>
+                            <div>
+                                <p>
+                                    <span class="font-semibold">Connect your account to FamilySearch</span> and we'll use FamilySearch to find your relatives in Wilford Woodruff's papers.
+                                </p>
+                            </div>
+                            <div class="text-center lg:text-left">
+                                <a href="{{ route('my-relatives') }}"
+                                   class="inline-block py-3 px-6 text-xl font-semibold text-white bg-secondary hover:bg-secondary-500"
+                                >
+                                    Find Your Relatives
+                                </a>
+                            </div>
                         </div>
-                        <div>
-                            <p>
-                                <span class="font-semibold">Connect your account to FamilySearch</span> and we'll use FamilySearch to find your relatives in Wilford Woodruff's papers.
-                            </p>
-                        </div>
+
                     </div>
                 </div>
                 <div class="order-first sm:mt-4 lg:order-last lg:col-span-2 lg:mt-20 min-h-[200px] sm:min-h-[300px]">
