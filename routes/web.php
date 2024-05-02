@@ -149,6 +149,15 @@ Route::middleware([])->group(function () {
     Route::get('/figures', \App\Http\Controllers\FigureController::class)
         ->name('figures');
 
+    Route::get('/come-follow-me', \App\Http\Controllers\ComeFollowMeIndexController::class)
+        ->name('come-follow-me.index');
+    Route::get('/come-follow-me/{book}', \App\Http\Controllers\ComeFollowMeIndexController::class)
+        ->name('come-follow-me.index');
+    Route::get('/come-follow-me/{book}/{week}', \App\Http\Controllers\ComeFollowMeShowController::class)
+        ->name('come-follow-me.show');
+    Route::get('/come-follow-me/{week}', \App\Http\Controllers\ComeFollowMeShowController::class)
+        ->name('come-follow-me.show');
+
     Route::middleware([
         'auth:sanctum',
         'verified',
