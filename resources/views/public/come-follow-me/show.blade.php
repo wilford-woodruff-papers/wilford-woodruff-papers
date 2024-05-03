@@ -195,7 +195,9 @@
                                 {{ $event->description }}
                             </div>
                             @if($event->page?->parent)
-                                <a class="text-lg text-white underline">
+                                <a href="{{ route('pages.show', ['item' => $event->page->parent, 'page' => $event->page]) }}"
+                                   target="_blank"
+                                    class="text-lg text-white underline">
                                     {{ str($event->page->parent->name)->stripBracketedID() }}
                                 </a>
                             @endif
