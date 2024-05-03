@@ -27,7 +27,7 @@ class ComeFollowMeImport implements ToCollection, WithHeadingRow
                 'week' => $row['week'],
             ], [
                 'date' => $row['cfm_calendar_date'],
-                'reference' => $this->getTitle($row['title']),
+                'reference' => $this->getReference($row['title']),
                 'title' => $this->getTitle($row['title']),
                 'quote' => $row['1_quotestory_shauna'],
                 'page_id' => $this->getPageId($row['1_link_to_document_journal_discourse_etc']),
@@ -35,17 +35,19 @@ class ComeFollowMeImport implements ToCollection, WithHeadingRow
                 'video_link' => $row['video_big_questions_testimony_interview_destinations_day_in_life'],
             ]);
 
-            $cfm
-                ->addMediaFromBase64(
-                    base64_encode(
-                        file_get_contents(
-                            storage_path('app/cfm/'.str($cfm->date)->replace('-', '–')->toString().'.webp')
+            if ($cfm->media->count() < 1) {
+                $cfm
+                    ->addMediaFromBase64(
+                        base64_encode(
+                            file_get_contents(
+                                storage_path('app/cfm/'.str($cfm->date)->replace('-', '–')->toString().'.webp')
+                            )
                         )
                     )
-                )
-                ->usingFileName($cfm->date.'.webp')
-                ->preservingOriginal()
-                ->toMediaCollection(collectionName: 'cover_image', diskName: 'come_follow_me');
+                    ->usingFileName($cfm->date.'.webp')
+                    ->preservingOriginal()
+                    ->toMediaCollection(collectionName: 'cover_image', diskName: 'come_follow_me');
+            }
 
             $links = [];
             $links = [
@@ -62,7 +64,7 @@ class ComeFollowMeImport implements ToCollection, WithHeadingRow
                 ->values()
                 ->all();
 
-            $eventLinks = str($row['event_links_to_document_journal_discourse_etc'])
+            $eventLinks = str($row['jons_event_links_to_document_journal_discourse_etc'])
                 ->explode("\n")
                 ->map(function ($item) {
                     return trim($item);
@@ -78,11 +80,14 @@ class ComeFollowMeImport implements ToCollection, WithHeadingRow
 
             $links = array_merge($links, $events);
 
+            $cfm->events()->delete();
             foreach ($links as $link => $description) {
-                $cfm->events()->create([
-                    'description' => $description,
-                    'page_id' => $this->getPageId($link),
-                ]);
+                if (str($link)->contains('documents')) {
+                    $cfm->events()->create([
+                        'description' => $description,
+                        'page_id' => $this->getPageId($link),
+                    ]);
+                }
             }
         }
     }

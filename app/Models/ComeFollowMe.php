@@ -30,4 +30,21 @@ class ComeFollowMe extends Model implements HasMedia
     {
         return 'https://www.youtube.com/embed/'.str($this->video_link)->afterLast('v=').'?rel=0';
     }
+
+    public function getArticle()
+    {
+        if (empty($this->article_link)) {
+            return null;
+        }
+
+        if (str($this->article_link)->contains('wilfordwoodruffpapers.org')) {
+            return Article::query()
+                ->where('slug', str($this->article_link)->afterLast('/'))
+                ->first();
+        } else {
+            return Article::query()
+                ->where('link', $this->article_link)
+                ->first();
+        }
+    }
 }

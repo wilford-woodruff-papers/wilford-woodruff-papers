@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('come_follow_me_events', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('come_follow_me_id');
-            $table->unsignedBigInteger('page_id');
+            $table->unsignedBigInteger('page_id')
+                ->nullable();
             $table->mediumText('description');
             $table->unsignedInteger('order_column')
                 ->nullable();

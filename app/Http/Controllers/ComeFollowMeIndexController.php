@@ -31,14 +31,13 @@ class ComeFollowMeIndexController extends Controller
 
         $lessons = ComeFollowMe::query()
             ->where('book', $book)
+            ->where('week', '<=', now('America/Denver')->week)
             ->orderBy('week', 'desc')
             ->get();
 
         return view('public.come-follow-me.index', [
             'bookSlug' => $bookSlug,
-            'cfm' => $lessons
-                ->where('week', now('America/Denver')->week)
-                ->first(),
+            'cfm' => $lessons->shift(),
             'lessons' => $lessons,
         ]);
     }

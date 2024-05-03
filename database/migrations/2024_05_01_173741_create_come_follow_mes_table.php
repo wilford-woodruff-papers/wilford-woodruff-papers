@@ -22,11 +22,16 @@ return new class extends Migration
                 ->nullable();
             $table->unsignedBigInteger('page_id')
                 ->nullable();
-            $table->string('article_link')
+            $table->string('article_link', 2048)
                 ->nullable();
             $table->string('video_link')
                 ->nullable();
             $table->timestamps();
+
+            $table->foreign('page_id')
+                ->references('id')
+                ->on('pages')
+                ->onDelete('cascade');
         });
     }
 
