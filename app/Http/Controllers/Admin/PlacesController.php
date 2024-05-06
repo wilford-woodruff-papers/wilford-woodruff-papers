@@ -127,6 +127,13 @@ class PlacesController extends Controller
                 ->withInput($request->all());
         }
 
+        if ($request->get('mentioned') == 0 && $request->get('visited') == 0) {
+            return redirect()->back()->withErrors([
+                'You must select either "Mentioned" or "Visited" for this place.',
+            ])
+                ->withInput($request->all());
+        }
+
         $place = new Subject();
 
         $validated = $request->validate($this->rules);
@@ -220,6 +227,13 @@ class PlacesController extends Controller
     public function update(Request $request, Subject $place)
     {
         $validated = $request->validate($this->rules);
+
+        if ($request->get('mentioned') == 0 && $request->get('visited') == 0) {
+            return redirect()->back()->withErrors([
+                'You must select either "Mentioned" or "Visited" for this place.',
+            ])
+                ->withInput($request->all());
+        }
 
         $place->fill($validated);
 

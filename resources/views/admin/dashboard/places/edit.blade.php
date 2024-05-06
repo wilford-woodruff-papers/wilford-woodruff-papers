@@ -288,7 +288,10 @@
                                 </div>
                                 <div class="col-span-3">
                                     <fieldset>
-                                        <legend class="block text-sm font-semibold text-gray-700">Visited or Mentioned</legend>
+                                        <legend class="block text-sm font-semibold text-gray-700">
+                                            Visited or Mentioned
+                                            <span class="text-red-600">*</span>
+                                        </legend>
                                         <div class="flex gap-x-8 items-center">
                                             <div class="flex relative items-start py-3">
                                                 <div class="flex items-center h-6">
