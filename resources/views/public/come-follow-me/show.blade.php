@@ -3,12 +3,22 @@
         <div class="text-white bg-primary">
             <a href="{{ route('come-follow-me.index') }}/{{ $bookSlug }}">
                 <div class="py-3 px-8 mx-auto max-w-7xl">
-                    <h1 class="text-3xl">
-                        Come Follow Me Insights
-                    </h1>
-                    <h2 class="text-xl">
-                        Magnify your Come Follow Me study through Wilford Woodruff’s records
-                    </h2>
+                    <div class="flex flex-col justify-between md:flex-row item-center">
+                        <div class="">
+                            <h1 class="text-3xl">
+                                Come Follow Me Insights
+                            </h1>
+                            <h2 class="text-xl">
+                                Magnify your Come Follow Me study through Wilford Woodruff’s records
+                            </h2>
+                        </div>
+                        <div class="flex items-center flex-0">
+                            <x-heroicon-c-chevron-double-left class="pr-2 w-8 h-8 text-white" />
+                            <span class="text-2xl text-white">
+                                Back
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </a>
         </div>
@@ -132,8 +142,8 @@
                                         :aria-expanded="expanded"
                                         class="flex flex-col py-4 px-6 w-full"
                                     >
-                                        <div class="flex justify-between items-center w-full">
-                                            <span class="text-3xl underline text-secondary">
+                                        <div class="flex gap-x-8 justify-between items-center w-full">
+                                            <span class="text-3xl text-left underline text-secondary">
                                                 {{ $article->title }}
                                             </span>
                                             <span x-show="expanded"
@@ -191,20 +201,23 @@
                     Wilford Woodruff’s Related Documents & Events
                 </div>
                 @foreach($lesson->events as $event)
-                    <div class="flex flex-col gap-y-4 p-4 md:w-[75%] z-20">
-                        <div class="flex flex-col">
-                            <div class="text-lg font-semibold text-white">
-                                {{ $event->description }}
+                    @if($event->page?->parent)
+                        <a href="{{ route('pages.show', ['item' => $event->page->parent, 'page' => $event->page]) }}"
+                           target="_blank"
+                           class="">
+                            <div class="flex flex-col gap-y-4 p-4 md:w-[75%] z-20">
+                                <div class="flex flex-col">
+                                    <div class="text-lg font-semibold text-white">
+                                        {{ $event->description }}
+                                    </div>
+                                    <div class="flex gap-x-1 items-center text-lg text-white underline">
+                                        {{ str($event->page->parent->name)->stripBracketedID() }}
+                                        <x-heroicon-c-chevron-right class="w-6 h-6 text-white" />
+                                    </div>
+                                </div>
                             </div>
-                            @if($event->page?->parent)
-                                <a href="{{ route('pages.show', ['item' => $event->page->parent, 'page' => $event->page]) }}"
-                                   target="_blank"
-                                    class="text-lg text-white underline">
-                                    {{ str($event->page->parent->name)->stripBracketedID() }}
-                                </a>
-                            @endif
-                        </div>
-                    </div>
+                        </a>
+                    @endif
                 @endforeach
                 <div class="hidden absolute right-0 bottom-0 md:block">
                     <img src="{{ asset('img/come-follow-me/wilford-woodruff.png') }}"
