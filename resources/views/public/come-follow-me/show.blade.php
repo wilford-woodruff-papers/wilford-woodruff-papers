@@ -81,31 +81,33 @@
                     @endif
                 </div>
             </div>
-            <div class="grid grid-cols-1 pb-4 md:grid-cols-7">
-                <div class="order-2 p-8 md:order-1 md:col-span-5 bg-secondary">
-                    <div class="flex flex-col gap-y-4 pb-4 border-b border-white">
-                        <div class="pb-2 font-serif text-4xl text-white">
-                            &ldquo;{{ $lesson->title }}&rdquo;
-                        </div>
-                        <div class="flex flex-col">
-                            <div class="py-2 text-2xl text-white line-clamp-6">
-                                {!! $lesson->quote !!}
+            @if($lesson->page)
+                <div class="grid grid-cols-1 pb-4 md:grid-cols-7">
+                    <div class="order-2 p-8 md:order-1 md:col-span-5 bg-secondary">
+                        <div class="flex flex-col gap-y-4 pb-4 border-b border-white">
+                            <div class="pb-2 font-serif text-4xl text-white">
+                                &ldquo;{{ $lesson->title }}&rdquo;
+                            </div>
+                            <div class="flex flex-col">
+                                <div class="py-2 text-2xl text-white line-clamp-6">
+                                    {!! $lesson->quote !!}
+                                </div>
+                            </div>
+                            <div class="flex justify-end">
+                                <a href="{{ route('pages.show', ['item' => $lesson->page->parent, 'page' => $lesson->page]) }}"
+                                   target="_blank"
+                                   class="py-1 px-4 text-xl text-white">
+                                    <span class="underline underline-offset-2">{{ str($lesson->page->parent->name)->stripBracketedID() }}</span>
+                                </a>
                             </div>
                         </div>
-                        <div class="flex justify-end">
-                            <a href="{{ route('pages.show', ['item' => $lesson->page->parent, 'page' => $lesson->page]) }}"
-                               target="_blank"
-                               class="py-1 px-4 text-xl text-white">
-                                <span class="underline underline-offset-2">{{ str($lesson->page->parent->name)->stripBracketedID() }}</span>
-                            </a>
-                        </div>
+                    </div>
+                    <div class="order-1 bg-center bg-no-repeat bg-cover md:order-2 md:col-span-2"
+                         style="background-image: url('{{ $lesson->getFirstMediaUrl('cover_image') }}');">
+                        <img src="{{ $lesson->getFirstMediaUrl('cover_image') }}" alt="" class="w-full md:hidden aspect-[16/8]" />
                     </div>
                 </div>
-                <div class="order-1 bg-center bg-no-repeat bg-cover md:order-2 md:col-span-2"
-                     style="background-image: url('{{ $lesson->getFirstMediaUrl('cover_image') }}');">
-                    <img src="{{ $lesson->getFirstMediaUrl('cover_image') }}" alt="" class="w-full md:hidden aspect-[16/8]" />
-                </div>
-            </div>
+            @endif
             @if(! empty($lesson->video_link))
                 <iframe src="{{ $lesson->video_embed_url }}"
                         class="w-full aspect-[16/9]"
