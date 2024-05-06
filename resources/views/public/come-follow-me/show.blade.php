@@ -99,7 +99,7 @@
                                 &ldquo;{{ $lesson->title }}&rdquo;
                             </div>
                             <div class="flex flex-col">
-                                <div class="py-2 text-2xl text-white line-clamp-6">
+                                <div class="my-2 text-2xl text-white line-clamp-6">
                                     {!! $lesson->quote !!}
                                 </div>
                             </div>
