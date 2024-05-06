@@ -85,7 +85,7 @@ class DatabaseSeeder extends Seeder
             'Journal (September 9, 1836–December 31, 1836)',
             'Letter to Phebe Whittemore Carter Woodruff, 30 September 1839',
         ])
-                ->update(['enabled' => 1]);
+            ->update(['enabled' => 1]);
 
         Artisan::call('import:pages');
         //Artisan::call('import:faqs');

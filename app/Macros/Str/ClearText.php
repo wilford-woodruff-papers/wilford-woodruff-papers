@@ -58,6 +58,7 @@ class ClearText
 
             // This function takes the bracket symbols we protected up above and restores them to their correct
             // single bracket form.
+            // No need to about replacing figures - this will be a table in the front of back of the book
             $text = $text
                 ->replaceMatches('/\[\[illegible\]\]/i', '[illegible]')
                 ->replaceMatches('/\[\[blank\]\]/i', '[blank]')
