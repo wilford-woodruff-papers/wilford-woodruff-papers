@@ -107,7 +107,10 @@
                                 <a href="{{ route('pages.show', ['item' => $lesson->page->parent, 'page' => $lesson->page]) }}"
                                    target="_blank"
                                    class="py-1 px-4 text-xl text-white">
-                                    <span class="underline underline-offset-2">{{ str($lesson->page->parent->name)->stripBracketedID() }}</span>
+                                    <span class="flex gap-x-1 items-center underline underline-offset-2">
+                                        {{ str($lesson->page->parent->name)->stripBracketedID() }}
+                                        <x-heroicon-c-chevron-right class="w-6 h-6 text-white" />
+                                    </span>
                                 </a>
                             </div>
                         </div>
