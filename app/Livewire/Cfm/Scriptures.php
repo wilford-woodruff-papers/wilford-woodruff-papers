@@ -12,6 +12,8 @@ class Scriptures extends Component
 {
     public ComeFollowMe $lesson;
 
+    public bool $show = false;
+
     public function render()
     {
         $this->lesson->loadMissing([
@@ -39,6 +41,19 @@ class Scriptures extends Component
                 return $query;
             })
             ->get();
+
+        foreach ($this->lesson->chapters as $chapter) {
+            if ($pages->filter(function ($page) use ($chapter) {
+                return $page->volumes
+                    ->where('pivot.chapter', $chapter->number)
+                    ->where('pivot.book', $chapter->book->name)
+                    ->count() > 0;
+            })
+                ->count() > 0) {
+                $this->show = true;
+                break;
+            }
+        }
 
         return view('livewire.cfm.scriptures', [
             'pages' => $pages,
