@@ -60,18 +60,15 @@ class ComeFollowMeResource extends Resource
                         SpatieMediaLibraryFileUpload::make('cover_image')
                             ->columnSpan(2)
                             ->disk('come_follow_me')
-                            ->multiple(false)
-                            ->required(),
+                            ->multiple(false),
                         Textarea::make('quote')
-                            ->columnSpan(2)
-                            ->required(),
+                            ->columnSpan(2),
                         Select::make('page_id')
                             ->label('Quote Page')
                             ->relationship(name: 'page', titleAttribute: 'full_name')
                             ->searchable(['full_name'])
                             ->nullable()
-                            ->columnSpan(2)
-                            ->required(),
+                            ->columnSpan(2),
                     ]),
                 Section::make('Scriptures')
                     ->columns(1)
