@@ -148,6 +148,8 @@ return [
                     'places',
                     '_geo',
                     'parent_id',
+                    'volumes',
+                    'books',
                 ],
                 'faceting' => [
                     'maxValuesPerFacet' => 1500,
@@ -262,6 +264,8 @@ return [
                     'places',
                     '_geo',
                     'parent_id',
+                    'volumes',
+                    'books',
                 ],
                 'faceting' => [
                     'maxValuesPerFacet' => 1500,
