@@ -4,10 +4,14 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ComeFollowMeResource\Pages;
 use App\Models\ComeFollowMe;
+use App\Models\Scriptures\Volume;
+use Filament\Forms\Components\Checkbox;
+use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -68,6 +72,39 @@ class ComeFollowMeResource extends Resource
                             ->nullable()
                             ->columnSpan(2)
                             ->required(),
+                    ]),
+                Section::make('Scriptures')
+                    ->columns(1)
+                    ->schema([
+                        Tabs::make()
+                            ->tabs(function () {
+                                return Volume::with(['books.chapters'])->get()
+                                    ->map(function ($volume) {
+                                        return \Filament\Forms\Components\Tabs\Tab::make($volume->name)
+                                            ->schema(function ($record) use ($volume) {
+                                                return $volume->books
+                                                    ->map(function ($book) use ($record) {
+                                                        return Fieldset::make($book->name)
+                                                            ->columns(6)
+                                                            ->schema(
+                                                                function () use ($record, $book) {
+                                                                    return $book->chapters
+                                                                        ->map(function ($chapter) use ($record, $book) {
+                                                                            $checked = in_array($chapter->id, $record->chapters->pluck('id')->toArray());
+
+                                                                            return Checkbox::make('book_'.$book->id.'_'.$chapter->id)
+                                                                                ->label($chapter->number)
+                                                                                ->formatStateUsing(fn () => $checked);
+                                                                        })
+                                                                        ->toArray();
+                                                                }
+                                                            );
+                                                    })
+                                                    ->toArray();
+                                            });
+                                    })
+                                    ->toArray();
+                            }),
                     ]),
                 Section::make()
                     ->columns(1)

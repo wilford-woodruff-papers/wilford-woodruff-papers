@@ -230,6 +230,7 @@
             </div>
 
             {{-- TODO: Scripture References --}}
+            <livewire:cfm.scriptures :lesson="$lesson" />
 
             <div>
                 <h2 class="text-3xl text-primary">
