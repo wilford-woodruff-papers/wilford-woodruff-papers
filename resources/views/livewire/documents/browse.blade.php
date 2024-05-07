@@ -38,6 +38,14 @@
                             </span>
                         </li>
                     @endforeach
+                    <li wire:click="$set('filters.type', 'Scriptures')"
+                        class="flex">
+                        <span class="cursor-pointer py-4 block w-full text-gray-900 hover:bg-gray-100 @if($filters['type'] == 'Scriptures') active @else @endif">
+                            <div class="ml-3">
+                                <p class="text-lg font-medium">Scriptures</p>
+                            </div>
+                        </span>
+                    </li>
                 </ul>
                 <div class="hidden py-8 px-4 mt-24 mb-12 text-white md:block bg-highlight">
                     <div class="text-lg font-semibold">

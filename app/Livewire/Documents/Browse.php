@@ -120,7 +120,17 @@ class Browse extends Component
             ->when(data_get($this->filters, 'search'), function ($query, $q) {
                 $query->where('name', 'LIKE', '%'.$q.'%');
             })
-            ->when(data_get($this->filters, 'type'), fn ($query, $type) => $query->where('type_id', $type))
+            ->when(data_get($this->filters, 'type'), function ($query, $type) {
+                if (data_get($this->filters, 'type') == 'Scriptures') {
+                    $query->whereIn('id', [
+                        42564,
+                        43689,
+                        43339,
+                    ]);
+                } else {
+                    $query->where('type_id', $type);
+                }
+            })
             ->when(data_get($this->filters, 'decade'), fn ($query, $decade) => $query->where('decade', $decade))
             ->when(data_get($this->filters, 'year'), fn ($query, $year) => $query->where('year', $year));
 

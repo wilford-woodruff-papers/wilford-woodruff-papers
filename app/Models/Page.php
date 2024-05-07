@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Scriptures\Volume;
 use Dyrynda\Database\Casts\EfficientUuid;
 use Dyrynda\Database\Support\GeneratesUuid;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Laravel\Scout\Searchable;
 use Mtvs\EloquentHashids\HasHashid;
 use OwenIt\Auditing\Auditable;
@@ -355,6 +357,12 @@ class Page extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
         ];
     }
 
+    public function volumes(): BelongsToMany
+    {
+        return $this->belongsToMany(Volume::class)
+            ->withPivot('book', 'chapter', 'verse');
+    }
+
     protected static function booted()
     {
         static::deleting(function ($page) {
@@ -395,6 +403,8 @@ class Page extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
             })->toArray(),
             'parent_id' => $this->parent->id,
             'order' => $this->order,
+            'volumes' => $this->volumes->pluck('name')->unique()->toArray(),
+            'books' => $this->volumes->pluck('pivot.book')->unique()->toArray(),
         ];
     }
 

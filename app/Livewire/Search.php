@@ -3,10 +3,12 @@
 namespace App\Livewire;
 
 use App\Models\Date;
+use App\src\Facets\BookFacet;
 use App\src\Facets\DecadeFacet;
 use App\src\Facets\ResourceTypeFacet;
 use App\src\Facets\TopicFacet;
 use App\src\Facets\TypeFacet;
+use App\src\Facets\VolumeFacet;
 use App\src\Facets\YearFacet;
 use Asantibanez\LivewireCharts\Models\LineChartModel;
 use Carbon\Carbon;
@@ -48,6 +50,8 @@ class Search extends Component
         'type' => [],
         'resource_type' => [],
         'topics' => [],
+        'volumes' => [],
+        'books' => [],
     ];
 
     public $sort = ['name' => 'asc'];
@@ -100,6 +104,14 @@ class Search extends Component
                 new TopicFacet(),
             ],
         ];
+
+        if (auth()->check() && auth()->user()->hasAnyRole(['Admin', 'Editor', 'Super Admin'])) {
+            $indexes['Scriptures'] = [
+                new VolumeFacet(),
+                new BookFacet(),
+                new TypeFacet(),
+            ];
+        }
 
         if ($this->isDate() && ! str_contains($this->q, '"')) {
             $this->q = '"'.$this->q.'"';
@@ -302,6 +314,7 @@ class Search extends Component
             'Articles', 'Videos' => 'Media',
             'Media' => 'Media',
             'People' => 'People',
+            'Scriptures' => 'Page',
         };
     }
 

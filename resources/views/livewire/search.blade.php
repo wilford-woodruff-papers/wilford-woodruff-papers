@@ -295,6 +295,13 @@
                             :line-chart-model="$documentModel"
                         />
                     </div>
+                @elseif($currentIndex == 'Scriptures')
+                    <a href="{{ route('documents') }}?filters[type]=Scriptures">
+                        <img src="{{ asset('img/banners/wilford-woodruff-scriptures.png') }}"
+                             alt="Explore Wilford Woodruff's Personal Scriptures and Notes"
+                             class="pr-4 pl-5 w-full h-auto"
+                        />
+                    </a>
                 @endif
             </div>
 
