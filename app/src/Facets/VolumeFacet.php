@@ -2,7 +2,7 @@
 
 namespace App\src\Facets;
 
-class VolumeFacet
+class VolumeFacet extends Facet
 {
     public $name = 'Volume';
 

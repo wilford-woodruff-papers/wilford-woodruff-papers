@@ -2,7 +2,7 @@
 
 namespace App\src\Facets;
 
-class TimelineCategoryFacet
+class TimelineCategoryFacet extends Facet
 {
     public $name = 'Context';
 
