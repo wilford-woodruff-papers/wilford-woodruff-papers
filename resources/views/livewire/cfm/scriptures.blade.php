@@ -64,7 +64,7 @@
                                         class="flex justify-center py-2.5 px-5 w-full border border-secondary"
                                         role="tab"
                                     >
-                                        Chapter {{ $chapter->number }}
+                                        {{ $chapter->book->name }} {{ $chapter->number }}
                                     </button>
                                 </li>
                             @endif

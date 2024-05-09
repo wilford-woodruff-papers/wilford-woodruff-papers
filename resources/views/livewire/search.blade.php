@@ -455,6 +455,12 @@
                                             {!! str(data_get($hit, '_formatted.description'))->remove('[[')->remove(']]') !!}
                                         </div>
 
+                                        <div>
+                                            @if($currentIndex == 'Scriptures')
+                                                <x-scripture-tags :text="data_get($hit, 'description')" />
+                                            @endif
+                                        </div>
+
 
 
                                         {{--{!! Str::of( strip_tags( $page->text() ) )->words(50) !!}--}}

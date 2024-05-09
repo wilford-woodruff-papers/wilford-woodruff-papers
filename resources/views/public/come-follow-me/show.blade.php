@@ -243,7 +243,7 @@
                 </div>
             </div>
 
-            <div class="w-full">
+            <div class="mb-12 w-full">
                 <a href="https://www.fairlatterdaysaints.org/cfm2024" target="_blank">
                     <img src="{{ asset('img/come-follow-me/fair-latter-day-saints.png') }}"
                          alt="Dive Deeper Into Come Follow Me on FAIR Latter-day Saints"
