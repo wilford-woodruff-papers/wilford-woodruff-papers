@@ -54,6 +54,13 @@ class Search extends Component
         'books' => [],
     ];
 
+    public $volumeMap = [
+        'ot' => 'Old Testament',
+        'nt' => 'New Testament',
+        'bofm' => 'Book of Mormon',
+        'dc-testament' => 'Doctrine and Covenants',
+    ];
+
     public $sort = ['name' => 'asc'];
 
     protected $queryString = [

@@ -2,7 +2,7 @@
 
 namespace App\src\Facets;
 
-class PlacesFacet
+class PlacesFacet extends Facet
 {
     public $name = 'Places';
 
