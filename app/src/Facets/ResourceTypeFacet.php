@@ -2,7 +2,7 @@
 
 namespace App\src\Facets;
 
-class ResourceTypeFacet
+class ResourceTypeFacet extends Facet
 {
     public $name = 'Resource Type';
 

@@ -2,7 +2,7 @@
 
 namespace App\src\Facets;
 
-class BookFacet
+class BookFacet extends Facet
 {
     public $name = 'Book';
 
@@ -24,5 +24,10 @@ class BookFacet
     {
         return null;
 
+    }
+
+    public function listTemplate()
+    {
+        return 'search.facets.book-list';
     }
 }
