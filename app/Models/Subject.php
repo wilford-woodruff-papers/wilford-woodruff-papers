@@ -292,7 +292,6 @@ class Subject extends Model implements HasMedia
                     ->usingFileName($this->slug.'-map.png')
                     ->usingName($this->slug.'-map.png')
                     ->toMediaCollection('maps', 'maps');
-                $this->searchable();
             } catch (\Exception $e) {
                 logger()->error($e->getMessage());
             }
