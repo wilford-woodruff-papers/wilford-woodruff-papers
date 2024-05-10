@@ -4,11 +4,13 @@ namespace App\Providers;
 
 use App\Events\ContactFormSubmitted;
 use App\Listeners\AddSubscriberToConvertKit;
+use App\Listeners\MediaConversionListener;
 use App\Listeners\UserLoginAtListener;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Spatie\MediaLibrary\Conversions\Events\ConversionHasBeenCompleted;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -30,6 +32,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         Login::class => [
             UserLoginAtListener::class,
+        ],
+        ConversionHasBeenCompleted::class => [
+            MediaConversionListener::class,
         ],
     ];
 
