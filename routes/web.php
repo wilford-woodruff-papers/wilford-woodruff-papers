@@ -76,12 +76,14 @@ Route::middleware([])->group(function () {
         ]);
     })->name('event.calendar');
 
-    Route::middleware([
-        'auth:sanctum',
-        'ai-download',
-    ])
-        ->get('/download/wilford-woodruff-immersive-learning-experience', \App\Http\Controllers\AIDownloadController::class)
+    Route::get('/download/wilford-woodruff-immersive-learning-experience', function () {
+        return response()->redirectTo('/wilford-woodruff-ai-learning-experience-end');
+    })
         ->name('download.wilford-woodruff-immersive-learning-experience');
+
+    Route::get('/wilford-woodruff-ai-learning-experience', function () {
+        return response()->redirectTo('/wilford-woodruff-ai-learning-experience-end');
+    });
 
     Route::get('/donate', [\App\Http\Controllers\DonationController::class, 'index'])->name('donate');
     Route::get('/', \App\Http\Controllers\HomeController::class)->name('home');
