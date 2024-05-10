@@ -269,12 +269,12 @@ class Subject extends Model implements HasMedia
         if (
             ! empty($this->latitude)
             && ! empty($this->longitude)
-            && ! empty($this->google_map_address)
-            && empty($this->getMedia('maps')->first())
+            //&& ! empty($this->google_map_address)
+            && empty($this->getFirstMedia('maps'))
         ) {
             $url = 'https://maps.googleapis.com/maps/api/staticmap?';
 
-            $url .= 'center='.$this->google_map_address;
+            //$url .= 'center='.$this->google_map_address;
             $url .= '&zoom=4&size=600x300&maptype=roadmap';
             //$url .= '&zoom='.$this->zoomLevel().'&size=600x300&maptype=roadmap';
             $url .= '&markers=color:red%7Clabel:.%7C'.$this->latitude.','.$this->longitude;
@@ -292,8 +292,9 @@ class Subject extends Model implements HasMedia
                     ->usingFileName($this->slug.'-map.png')
                     ->usingName($this->slug.'-map.png')
                     ->toMediaCollection('maps', 'maps');
+                $this->searchable();
             } catch (\Exception $e) {
-                // TODO: Do Something when there's an error;
+                logger()->error($e->getMessage());
             }
 
         }
