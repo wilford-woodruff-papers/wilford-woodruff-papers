@@ -13,6 +13,7 @@ class ScriptureTags extends Component
         'nt' => 'New Testament',
         'bofm' => 'Book of Mormon',
         'dc-testament' => 'Doctrine and Covenants',
+        'pgp' => 'Pearl of Great Price',
     ];
 
     /**
