@@ -60,6 +60,7 @@ class Search extends Component
         'bofm' => 'Book of Mormon',
         'dc-testament' => 'Doctrine and Covenants',
         'pgp' => 'Pearl of Great Price',
+        'missing' => 'Missing',
     ];
 
     public $sort = ['name' => 'asc'];
@@ -259,7 +260,7 @@ class Search extends Component
         $query[] = '(is_published = true OR is_published = 1)';
 
         if ($this->currentIndex === 'Scriptures') {
-            $query[] = 'volumes EXISTS';
+            $query[] = '(volumes EXISTS) AND (volumes IS NOT EMPTY)';
         }
 
         if ($this->currentIndex != 'All') {
