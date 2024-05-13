@@ -197,7 +197,7 @@ function getVolume($volume)
         '1 Nephi', '2 Nephi', 'Jacob', 'Enos', 'Jarom', 'Omni', 'Words of Mormon', 'Mosiah', 'Alma', 'Helaman', '3 Nephi', '4 Nephi', 'Mormon', 'Ether', 'Moroni' => 'bofm',
         'D&C', 'Doctrine and Covenants', 'Doctrine & Covenants' => 'dc-testament',
         'Moses', 'Abraham', 'Joseph Smith—Matthew', 'Joseph Smith — Matthew', 'Joseph Smith-Matthew', 'Joseph Smith - Matthew', 'Joseph Smith—History', 'Joseph Smith — History', 'Joseph Smith-History', 'Joseph Smith - History' => 'pgp',
-        default => '',
+        default => 'missing',
     };
 }
 

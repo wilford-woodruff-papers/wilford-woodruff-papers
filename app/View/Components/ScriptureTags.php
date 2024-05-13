@@ -14,6 +14,7 @@ class ScriptureTags extends Component
         'bofm' => 'Book of Mormon',
         'dc-testament' => 'Doctrine and Covenants',
         'pgp' => 'Pearl of Great Price',
+        'missing' => 'Missing',
     ];
 
     /**
