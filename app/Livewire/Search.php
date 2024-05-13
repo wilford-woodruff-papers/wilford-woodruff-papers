@@ -59,6 +59,7 @@ class Search extends Component
         'nt' => 'New Testament',
         'bofm' => 'Book of Mormon',
         'dc-testament' => 'Doctrine and Covenants',
+        'pgp' => 'Pearl of Great Price',
     ];
 
     public $sort = ['name' => 'asc'];
@@ -256,6 +257,10 @@ class Search extends Component
     {
         $query = [];
         $query[] = '(is_published = true OR is_published = 1)';
+
+        if ($this->currentIndex === 'Scriptures') {
+            $query[] = 'volumes EXISTS';
+        }
 
         if ($this->currentIndex != 'All') {
             $query[] = '(resource_type = "'.$this->getResourceType($this->currentIndex).'")';

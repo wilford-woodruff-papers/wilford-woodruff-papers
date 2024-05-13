@@ -7,7 +7,9 @@
                         {{ $key }}:
                     </div>
                     <div class="">
-                        {{ implode(', ', $volume) }}
+                        {{ collect($volume)->map(function($item){
+                            return str($item)->replace('Doctrine and Covenants ', '');
+                        })->join(', ') }}
                     </div>
                 </div>
             @endforeach
