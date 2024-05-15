@@ -13,7 +13,7 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Excel;
 
-class PeopleExport implements FromQuery, ShouldQueue, WithMapping, WithHeadings
+class PeopleExport implements FromQuery, ShouldQueue, WithHeadings, WithMapping
 {
     use Exportable;
 
@@ -40,10 +40,6 @@ class PeopleExport implements FromQuery, ShouldQueue, WithMapping, WithHeadings
             ])
             ->whereRelation('category', function (Builder $query) {
                 $query->where('name', 'People');
-            })
-            ->where(function ($query) {
-                $query->where('tagged_count', '>', 0)
-                    ->orWhere('text_count', '>', 0);
             });
     }
 
