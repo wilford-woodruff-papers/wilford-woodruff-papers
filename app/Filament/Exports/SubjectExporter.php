@@ -43,6 +43,12 @@ class SubjectExporter extends Exporter
                 }),
             ExportColumn::make('subject_uri')
                 ->label('FTP URL'),
+            ExportColumn::make('bio')
+                ->label('Bio'),
+            ExportColumn::make('bio_completed_at')
+                ->label('Bio Completed'),
+            ExportColumn::make('bio_approved_at')
+                ->label('Bio Approved'),
         ];
     }
 

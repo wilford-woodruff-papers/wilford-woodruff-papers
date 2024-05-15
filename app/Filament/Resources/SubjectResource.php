@@ -30,6 +30,9 @@ class SubjectResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->filtersTriggerAction(function ($action) {
+                return $action->button()->label('Filters');
+            })
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->label('Name'),
@@ -37,8 +40,25 @@ class SubjectResource extends Resource
                     ->label('Categories'),
             ])
             ->filters([
-                //
-            ])
+                Tables\Filters\SelectFilter::make('category')
+                    ->relationship('category', 'name'),
+                Tables\Filters\QueryBuilder::make()
+                    ->constraints([
+                        Tables\Filters\QueryBuilder\Constraints\TextConstraint::make('name'),
+                        Tables\Filters\QueryBuilder\Constraints\TextConstraint::make('first_name'),
+                        Tables\Filters\QueryBuilder\Constraints\TextConstraint::make('last_name'),
+                        Tables\Filters\QueryBuilder\Constraints\TextConstraint::make('maiden_name'),
+                        Tables\Filters\QueryBuilder\Constraints\TextConstraint::make('alternate_names'),
+                        Tables\Filters\QueryBuilder\Constraints\TextConstraint::make('bio'),
+                        Tables\Filters\QueryBuilder\Constraints\TextConstraint::make('footnotes'),
+                        Tables\Filters\QueryBuilder\Constraints\TextConstraint::make('pid'),
+                        Tables\Filters\QueryBuilder\Constraints\DateConstraint::make('birth_date'),
+                        Tables\Filters\QueryBuilder\Constraints\DateConstraint::make('death_date'),
+                        Tables\Filters\QueryBuilder\Constraints\DateConstraint::make('updated_at'),
+                        Tables\Filters\QueryBuilder\Constraints\DateConstraint::make('bio_completed_at'),
+                        Tables\Filters\QueryBuilder\Constraints\DateConstraint::make('bio_approved_at'),
+                    ]),
+            ], layout: Tables\Enums\FiltersLayout::AboveContentCollapsible)
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
