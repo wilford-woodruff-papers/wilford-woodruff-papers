@@ -39,7 +39,7 @@
                         <div class="flex gap-x-2 items-center">
                             <x-heroicon-c-chevron-left class="w-12 h-12 text-secondary" />
                             <a href="{{ route('come-follow-me.show', ['book' => $bookSlug, 'week' => $lesson->week - 1]) }}"
-                               class="text-xl text-secondary">
+                               class="text-2xl text-secondary">
                                 Week {{ $lesson->week - 1 }}
                             </a>
                         </div>
@@ -49,7 +49,7 @@
                     @if($lesson->week < now('America/Denver')->week && $lesson->week < 52)
                         <div class="flex gap-x-2 items-center">
                             <a href="{{ route('come-follow-me.show', ['book' => $bookSlug, 'week' => $lesson->week + 1]) }}"
-                               class="text-xl text-secondary">
+                               class="text-2xl text-secondary">
                                 Week {{ $lesson->week + 1 }}
                             </a>
                             <x-heroicon-c-chevron-right class="w-12 h-12 text-secondary" />
@@ -106,7 +106,7 @@
                             <div class="flex justify-end">
                                 <a href="{{ route('pages.show', ['item' => $lesson->page->parent, 'page' => $lesson->page]) }}"
                                    target="_blank"
-                                   class="py-1 px-4 text-xl text-white">
+                                   class="py-1 px-4 text-2xl text-white">
                                     <span class="flex gap-x-1 items-center underline underline-offset-2">
                                         {{ str($lesson->page->parent->name)->stripBracketedID() }}
                                         <x-heroicon-c-chevron-right class="w-6 h-6 text-white" />
@@ -146,7 +146,7 @@
                                         class="flex flex-col py-4 px-6 w-full"
                                     >
                                         <div class="flex gap-x-8 justify-between items-center w-full">
-                                            <span class="text-3xl text-left underline text-secondary">
+                                            <span class="font-sans text-3xl text-left underline text-secondary">
                                                 {{ $article->title }}
                                             </span>
                                             <span x-show="expanded"
@@ -157,11 +157,11 @@
                                                   class="ml-4 text-3xl font-semibold text-secondary">&plus;</span>
                                         </div>
                                         <div class="mt-2 text-xl text-primary">
-                                            by {{ $article->subtitle }} &bullet; {{ $article->date->format('F j, Y') }}
+                                            by {{ $article->subtitle }}
                                         </div>
                                         <div x-show="!expanded"
                                              class="mt-4">
-                                            <div class="text-xl text-left line-clamp-3">
+                                            <div class="text-2xl text-left line-clamp-3">
                                                 {!! $article->description !!}
                                             </div>
                                         </div>
@@ -172,7 +172,7 @@
                                      x-collapse
                                      x-cloak
                                 >
-                                    <div class="px-6 pb-4 text-xl text-left">
+                                    <div class="px-6 pb-4 text-2xl text-left">
                                         {!! $article->description !!}
                                     </div>
                                 </div>
@@ -181,16 +181,16 @@
                     @else
                         <div>
                             <a href="{{ $article->link }}"
-                               class="text-3xl underline text-secondary"
+                               class="font-sans text-3xl underline text-secondary"
                                target="_blank"
                             >
                                 {{ $article->title }}
                             </a>
                             <div class="mt-2 text-xl text-primary">
-                                by {{ $article->subtitle }} &bullet; {{ $article->date->format('F j, Y') }}
+                                by {{ $article->subtitle }}
                             </div>
                             @if(! empty($article->description))
-                                <div class="mt-4 text-xl line-clamp-3">
+                                <div class="mt-4 text-2xl line-clamp-3">
                                     {!! $article->description !!}
                                 </div>
                             @endif
@@ -200,7 +200,7 @@
             @endif
 
             <div class="relative p-8 bg-primary">
-                <div class="mb-6 text-4xl text-white">
+                <div class="mb-6 font-sans text-3xl text-white">
                     Wilford Woodruff’s Related Documents & Events
                 </div>
                 @foreach($lesson->events as $event)
@@ -210,10 +210,10 @@
                            class="">
                             <div class="flex flex-col gap-y-4 p-4 md:w-[75%] z-20">
                                 <div class="flex flex-col">
-                                    <div class="text-lg font-semibold text-white">
+                                    <div class="text-2xl font-semibold text-white">
                                         {{ $event->description }}
                                     </div>
-                                    <div class="flex gap-x-1 items-center text-lg text-white underline">
+                                    <div class="flex gap-x-1 items-center text-2xl text-white underline">
                                         {{ str($event->page->parent->name)->stripBracketedID() }}
                                         <x-heroicon-c-chevron-right class="w-6 h-6 text-white" />
                                     </div>
@@ -233,7 +233,7 @@
             <livewire:cfm.scriptures :lesson="$lesson" />
 
             <div>
-                <h2 class="text-3xl text-primary">
+                <h2 class="font-sans text-3xl text-primary">
                     Study More Come Follow Me
                 </h2>
                 <div class="grid grid-cols-2 gap-x-6 gap-y-8 mt-8 md:grid-cols-4">
@@ -244,7 +244,13 @@
             </div>
 
             <div class="mb-12 w-full">
-                <a href="https://www.fairlatterdaysaints.org/cfm2024" target="_blank">
+                <h2 class="mb-8 font-sans text-3xl text-primary">
+                    Other Resources
+                </h2>
+                <a href="https://www.fairlatterdaysaints.org/cfm2024"
+                   target="_blank"
+                    class=""
+                >
                     <img src="{{ asset('img/come-follow-me/fair-latter-day-saints.png') }}"
                          alt="Dive Deeper Into Come Follow Me on FAIR Latter-day Saints"
                          class="w-full h-auto"
