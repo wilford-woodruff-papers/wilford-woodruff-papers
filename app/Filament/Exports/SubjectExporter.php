@@ -34,9 +34,9 @@ class SubjectExporter extends Exporter
                 ->label('Content Admin URL')
                 ->formatStateUsing(function (Subject $record): string {
                     if ($record->category->contains('name', 'People')) {
-                        return route('admin.dashboard.people.edit', ['place' => $record->slug]);
+                        return route('admin.dashboard.people.edit', ['person' => $record->slug]);
                     } elseif ($record->category->contains('name', 'Places')) {
-                        return route('admin.dashboard.places.edit', ['person' => $record->slug]);
+                        return route('admin.dashboard.places.edit', ['place' => $record->slug]);
                     } else {
                         return '';
                     }
