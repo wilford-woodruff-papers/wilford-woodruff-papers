@@ -61,7 +61,7 @@
                                         :tabindex="isSelected($el.id) ? 0 : -1"
                                         :aria-selected="isSelected($el.id)"
                                         :class="isSelected($el.id) ? 'bg-secondary text-white' : 'bg-white text-secondary'"
-                                        class="flex justify-center py-2.5 px-5 w-full border border-secondary"
+                                        class="flex justify-center py-2.5 px-5 w-full text-2xl border border-secondary"
                                         role="tab"
                                     >
                                         {{ $chapter->book->name }} {{ $chapter->number }}
@@ -97,7 +97,7 @@
                                                     ->count() > 0
                                             )
                                                 <div class="py-2">
-                                                    <div class="text-lg">
+                                                    <div class="text-2xl">
                                                         {!!
                                                             str(
                                                                 str(strip_tags($page))
@@ -113,7 +113,7 @@
                                                     <button x-on:click="Livewire.dispatch('openModal', {component: 'page', arguments: {'pageId': {{ $page->id }} } })"
                                                        class="flex gap-x-2 items-center text-lg text-secondary"
                                                     >
-                                                        <span class="underline">
+                                                        <span class="text-2xl underline">
                                                             {{ $page->parent->public_name }}
                                                         </span>
                                                         <x-heroicon-c-chevron-right class="w-6 h-6"/>
