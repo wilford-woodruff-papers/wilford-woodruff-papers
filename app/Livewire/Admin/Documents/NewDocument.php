@@ -36,6 +36,7 @@ class NewDocument extends Component
                 'Business/Financial' => 'B',
                 'Community' => 'C',
                 'Education' => 'E',
+                'Estate Papers' => 'EP',
                 'Family' => 'F',
                 'Genealogy' => 'G',
                 'Histories' => 'H',
