@@ -55,6 +55,9 @@ class DocumentExporter extends Exporter
             ExportColumn::make('ftp_slug')
                 ->label('FTP URL')
                 ->formatStateUsing(fn (Item $record): string => 'https://fromthepage.com/woodruff/wilford-woodruff-papers-project/'.$record->ftp_slug),
+            ExportColumn::make('public_url')
+                ->label('Public URL')
+                ->formatStateUsing(fn (Item $record): string => route('document.show', ['item' => $record->uuid])),
             ...$columns,
             ExportColumn::make('copyright.description')
                 ->label('Copyright Status'),
