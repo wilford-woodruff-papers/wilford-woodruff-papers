@@ -19,7 +19,7 @@ class ImportSubjectsCommand extends Command
     public function handle(): void
     {
         $response = Http::withHeaders([
-            'Authorization' => 'Token token=Jpu4f3wzZb4BJHFrnaErtAtt',
+            'Authorization' => 'Token token='.config('services.ftp.secret'),
         ])
             ->post('https://fromthepage.com/api/v1/bulk_export/wilford-woodruff-papers-project?subject_details_csv_collection=true');
 
@@ -33,7 +33,7 @@ class ImportSubjectsCommand extends Command
 
             while ($status !== 'finished' && $tries < 10) {
                 $response = Http::withHeaders([
-                    'Authorization' => 'Token token=Jpu4f3wzZb4BJHFrnaErtAtt',
+                    'Authorization' => 'Token token='.config('services.ftp.secret'),
                 ])
                     ->get($statusUri);
                 $status = $response->json('status');
@@ -48,7 +48,7 @@ class ImportSubjectsCommand extends Command
 
             if ($status === 'finished') {
                 $response = Http::withHeaders([
-                    'Authorization' => 'Token token=Jpu4f3wzZb4BJHFrnaErtAtt',
+                    'Authorization' => 'Token token='.config('services.ftp.secret'),
                 ])
                     ->get($downloadUri);
                 Storage::put('subject_export.zip', $response->body());
