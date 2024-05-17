@@ -37,9 +37,9 @@ class SubjectExporter extends Exporter
                         return '';
                     }
                     if ($record->category->contains('name', 'People')) {
-                        return route('admin.dashboard.people.edit', ['person' => $record->slug]);
+                        return url('/admin/dashboard/people/'.$record->slug.'/edit');
                     } elseif ($record->category->contains('name', 'Places')) {
-                        return route('admin.dashboard.places.edit', ['place' => $record->slug]);
+                        return url('/admin/dashboard/places/'.$record->slug.'/edit');
                     } else {
                         return '';
                     }
