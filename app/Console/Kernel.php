@@ -61,6 +61,13 @@ class Kernel extends ConsoleKernel
             ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org');
 
         $schedule
+            ->command('subjects:import')
+            ->dailyAt('8:15 AM')
+            ->withoutOverlapping()
+            ->timezone('America/Denver')
+            ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org');
+
+        $schedule
             ->command('topics:index')
             ->dailyAt('4:30 AM')
             ->withoutOverlapping()
