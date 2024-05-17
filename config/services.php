@@ -66,4 +66,8 @@ return [
         'secret' => env('HORIZON_SECRET'),
     ],
 
+    'ftp' => [
+        'secret' => env('FTP_SECRET'),
+    ],
+
 ];
