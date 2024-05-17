@@ -33,6 +33,9 @@ class SubjectExporter extends Exporter
             ExportColumn::make('content_url')
                 ->label('Content Admin URL')
                 ->formatStateUsing(function (Subject $record): string {
+                    if (empty($record->slug)) {
+                        return '';
+                    }
                     if ($record->category->contains('name', 'People')) {
                         return route('admin.dashboard.people.edit', ['person' => $record->slug]);
                     } elseif ($record->category->contains('name', 'Places')) {
