@@ -52,6 +52,8 @@ class SubjectExporter extends Exporter
                 ->label('Bio Completed'),
             ExportColumn::make('bio_approved_at')
                 ->label('Bio Approved'),
+            ExportColumn::make('footnotes')
+                ->label('Footnotes'),
         ];
     }
 
