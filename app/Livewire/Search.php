@@ -112,15 +112,12 @@ class Search extends Component
                 new TypeFacet(),
                 new TopicFacet(),
             ],
-        ];
-
-        if (auth()->check() && auth()->user()->hasAnyRole(['Admin', 'Editor', 'Super Admin'])) {
-            $indexes['Scriptures'] = [
+            'Scriptures' => [
                 new VolumeFacet(),
                 new BookFacet(),
                 new TypeFacet(),
-            ];
-        }
+            ],
+        ];
 
         if ($this->isDate() && ! str_contains($this->q, '"')) {
             $this->q = '"'.$this->q.'"';
