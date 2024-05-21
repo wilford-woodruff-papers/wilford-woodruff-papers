@@ -131,7 +131,7 @@ function monthName($monthNum)
 function getScriptureLink($scripture)
 {
     //ray('Scripture Match: '.$scripture);
-    $book = str($scripture)->match('/([1-9]*\s?[A-Za-z\s—]+)/s')->toString();
+    $book = str($scripture)->match('/([1-9]*\s?[A-Za-z\s—-]+)/s')->toString();
     // ray('Book Match: '.$book);
     $reference = str($scripture)->after($book)->match('/([0-9]+:?[0-9-,]*)/s');
     // ray('Reference Match: '.$reference);
