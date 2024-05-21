@@ -43,7 +43,7 @@ class ScriptureTags extends Component
                     ->first()
             );
             $book = str($match)
-                ->match("/([1-9]*\s?[A-Za-z\s—]+)/s")
+                ->match("/([1-9]*\s?[A-Za-z\s—-]+)/s")
                 ->trim()
                 ->toString();
             $volumes[$this->volumeMap[getVolume($book)]][] = $match;
