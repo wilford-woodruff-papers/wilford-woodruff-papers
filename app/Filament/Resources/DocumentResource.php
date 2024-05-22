@@ -47,16 +47,23 @@ class DocumentResource extends Resource
                     ->schema([
                         Select::make('type_id')
                             ->relationship(name: 'type', titleAttribute: 'name', modifyQueryUsing: fn (Builder $query) => $query->whereNull('type_id'))
+                            ->live()
                             ->preload()
                             ->required()
                             ->columnSpan(1),
                         TextInput::make('manual_page_count')
                             ->label('Page Count')
                             ->integer()
-                            ->helperText('Only add sections if the document has been split up into multiple sections. Usually if a document is under 20 pages this field will not be used.')
                             ->columnSpan(1),
-                        TextInput::make('sections')
+                        TextInput::make('section_count')
                             ->integer()
+                            ->helperText('Only add sections if the document has been split up into multiple sections. Usually if a document is under 20 pages this field will not be used.')
+                            ->visible(function (?Model $record, Get $get) {
+                                return empty($record) && Type::query()
+                                    ->whereHas('subType')
+                                    ->where('id', $get('type_id'))
+                                    ->count() > 0;
+                            })
                             ->columnSpan(1),
                         TextInput::make('name')
                             ->columnSpan(2)
