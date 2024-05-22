@@ -1,7 +1,7 @@
 <label for="{{ $property->slug }}"
        class="block text-sm font-medium text-gray-700"
 >
-    <span class="font-semibold">{{ $property->name }}</span> ({{ str($property->type)->title() }})
+    <span class="font-semibold">{{ $property->name }}</span> ({{ str($property->type)->title() }}) @if($property->required) <span class="text-red-600">*</span> @endif
 </label>
 {{--<input type="text"
        name="property_{{ $property->slug }}_{{ $property->id }}"
@@ -18,6 +18,7 @@
                value="{{ $value?->value }}"
                class="block w-full rounded-md border-gray-300 shadow-sm sm:text-sm focus:border-sky-500 focus:ring-sky-500"
                @readonly($property->readonly)
+               @required($property->required)
        >
     </div>
     @if(! empty($value?->value))
