@@ -11,6 +11,7 @@ use App\Models\Template;
 use App\Models\Type;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Fieldset;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -42,104 +43,133 @@ class DocumentResource extends Resource
     {
         return $form
             ->schema([
-                Section::make('Document Information')
-                    ->columns(2)
+                Grid::make([
+                    'default' => 1,
+                    'md' => 3,
+                ])
                     ->schema([
-                        Select::make('type_id')
-                            ->relationship(name: 'type', titleAttribute: 'name', modifyQueryUsing: fn (Builder $query) => $query->whereNull('type_id'))
-                            ->live()
-                            ->preload()
-                            ->required()
-                            ->columnSpan(1),
-                        TextInput::make('manual_page_count')
-                            ->label('Page Count')
-                            ->integer()
-                            ->columnSpan(1),
-                        TextInput::make('section_count')
-                            ->integer()
-                            ->helperText('Only add sections if the document has been split up into multiple sections. Usually if a document is under 20 pages this field will not be used.')
-                            ->visible(function (?Model $record, Get $get) {
-                                return empty($record) && Type::query()
-                                    ->whereHas('subType')
-                                    ->where('id', $get('type_id'))
-                                    ->count() > 0;
+                        Section::make('Document Metadata')
+                            ->visible(function (Get $get) {
+                                return ! empty($get('type_id'));
                             })
-                            ->columnSpan(1),
-                        TextInput::make('name')
-                            ->columnSpan(2)
-                            ->autofocus()
-                            ->required(),
-                    ]),
-                Section::make('Document Metadata')
-                    ->visible(function (Get $get) {
-                        return ! empty($get('type_id'));
-                    })
-                    ->columns(1)
-                    ->schema(function (?Model $record, Get $get) {
-                        if (empty($record)) {
-                            return [];
-                        }
-
-                        return Template::query()
-                            ->with([
-                                'properties' => fn ($query) => $query->where('enabled', true),
-                            ])
-                            ->where('type_id', $get('type_id'))
-                            ->first()
-                            ->properties
-                            ->map(function ($property) {
-                                $field = match ($property->type) {
-                                    'text', 'link' => TextInput::make('values.'.$property->id)
-                                        ->label($property->name)
-                                        ->required($property->required)
-                                        ->columnSpan(1),
-                                    'html' => RichEditor::make('values.'.$property->id)
-                                        ->label($property->name)
-                                        ->required($property->required)
-                                        ->columnSpan(1),
-                                    'date' => TextInput::make('values.'.$property->id)
-                                        ->label($property->name)
-                                        ->date()
-                                        ->required($property->required)
-                                        ->columnSpan(1),
-                                    'relationship' => Select::make('values.'.$property->id)
-                                        ->label($property->name)
-                                        ->live()
-                                        ->options(function () use ($property) {
-                                            return match ($property->relationship) {
-                                                'Source' => Source::query()->pluck('name', 'id')->toArray(),
-                                                'Repository' => Repository::query()->pluck('name', 'id')->toArray(),
-                                                'CopyrightStatus' => CopyrightStatus::query()->pluck('name', 'id')->toArray(),
-                                                default => [],
-                                            };
-                                        })
-                                        ->searchable()
-                                        ->required($property->required)
-                                        ->columnSpan(1),
-                                    default => TextInput::make('values.'.$property->id)
-                                        ->label($property->name)
-                                        ->required($property->required)
-                                        ->columnSpan(1),
-                                };
-                                if ($property->nullable) {
-                                    return Fieldset::make()
-                                        ->columns(2)
-                                        ->schema([
-                                            $field->visible(function (Get $get) use ($property) {
-                                                return ! $get('not_found.'.$property->id);
-                                            }),
-                                            Checkbox::make('not_found.'.$property->id)
-                                                ->label('Not Available')
-                                                ->live()
-                                                ->columnSpan(1),
-                                        ]);
-                                } else {
-                                    return $field;
+                            ->columnSpan(function (?Model $record) {
+                                return ! empty($record) ? 2 : 3;
+                            })
+                            ->columns(1)
+                            ->schema(function (?Model $record, Get $get) {
+                                if (empty($record)) {
+                                    return [];
                                 }
+
+                                return [
+                                    TextInput::make('name')
+                                        ->columnSpan(1)
+                                        ->autofocus()
+                                        ->required(),
+                                    ...Template::query()
+                                        ->with([
+                                            'properties' => fn ($query) => $query->where('enabled', true),
+                                        ])
+                                        ->where('type_id', $get('type_id'))
+                                        ->first()
+                                        ->properties
+                                        ->map(function ($property) {
+                                            $field = match ($property->type) {
+                                                'text', 'link' => TextInput::make('values.'.$property->id)
+                                                    ->label($property->name)
+                                                    ->required($property->required)
+                                                    ->columnSpan(1),
+                                                'html' => RichEditor::make('values.'.$property->id)
+                                                    ->label($property->name)
+                                                    ->required($property->required)
+                                                    ->columnSpan(1),
+                                                'date' => TextInput::make('values.'.$property->id)
+                                                    ->label($property->name)
+                                                    ->date()
+                                                    ->required($property->required)
+                                                    ->columnSpan(1),
+                                                'relationship' => Select::make('values.'.$property->id)
+                                                    ->label($property->name)
+                                                    ->live()
+                                                    ->options(function () use ($property) {
+                                                        return match ($property->relationship) {
+                                                            'Source' => Source::query()->pluck('name', 'id')->toArray(),
+                                                            'Repository' => Repository::query()->pluck('name', 'id')->toArray(),
+                                                            'CopyrightStatus' => CopyrightStatus::query()->pluck('name', 'id')->toArray(),
+                                                            default => [],
+                                                        };
+                                                    })
+                                                    ->searchable()
+                                                    ->required($property->required)
+                                                    ->columnSpan(1),
+                                                default => TextInput::make('values.'.$property->id)
+                                                    ->label($property->name)
+                                                    ->required($property->required)
+                                                    ->columnSpan(1),
+                                            };
+                                            if ($property->nullable) {
+                                                return Fieldset::make()
+                                                    ->columns(2)
+                                                    ->schema([
+                                                        $field->visible(function (Get $get) use ($property) {
+                                                            return ! $get('not_found.'.$property->id);
+                                                        }),
+                                                        Checkbox::make('not_found.'.$property->id)
+                                                            ->label('Not Available')
+                                                            ->live()
+                                                            ->columnSpan(1),
+                                                    ]);
+                                            } else {
+                                                return $field;
+                                            }
+                                        })
+                                        ->toArray(),
+                                ];
+                                //return [];
+                            }),
+                        Section::make('Document Information')
+                            ->columnSpan(function (?Model $record) {
+                                return ! empty($record) ? 1 : 3;
                             })
-                            ->toArray();
-                        //return [];
-                    }),
+                            ->columns(2)
+                            ->schema([
+                                Select::make('type_id')
+                                    ->relationship(name: 'type', titleAttribute: 'name', modifyQueryUsing: fn (Builder $query) => $query->whereNull('type_id'))
+                                    ->live()
+                                    ->disabled(function (?Model $record) {
+                                        return ! empty($record);
+                                    })
+                                    ->preload()
+                                    ->required()
+                                    ->columnSpan(1),
+                                TextInput::make('manual_page_count')
+                                    ->label('Page Count (Manual)')
+                                    ->integer()
+                                    ->visible(function (?Model $record, Get $get) {
+                                        return empty($record->auto_page_count) || $record->auto_page_count === 0;
+                                    })
+                                    ->columnSpan(1),
+                                TextInput::make('auto_page_count')
+                                    ->label('Page Count (Auto)')
+                                    ->integer()
+                                    ->visible(function (?Model $record, Get $get) {
+                                        return ! empty($record->auto_page_count) && $record->auto_page_count > 0;
+                                    })
+                                    ->columnSpan(1),
+                                TextInput::make('section_count')
+                                    ->integer()
+                                    ->default(0)
+                                    ->helperText('Only add sections if the document has been split up into multiple sections. Usually if a document is under 20 pages this field will not be used.')
+                                    ->visible(function (?Model $record, Get $get) {
+                                        return empty($record) && Type::query()
+                                            ->whereHas('subType')
+                                            ->where('id', $get('type_id'))
+                                            ->count() > 0;
+                                    })
+                                    ->columnSpan(1),
+                            ]),
+                    ]),
+
             ]);
     }
 

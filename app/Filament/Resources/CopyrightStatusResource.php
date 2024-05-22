@@ -4,11 +4,11 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CopyrightStatusResource\Pages;
 use App\Models\CopyrightStatus;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Laravel\Nova\Fields\Text;
 
 class CopyrightStatusResource extends Resource
 {
@@ -22,9 +22,9 @@ class CopyrightStatusResource extends Resource
     {
         return $form
             ->schema([
-                Text::make('name')
+                TextInput::make('name')
                     ->required()
-                    ->unique(),
+                    ->unique(ignoreRecord: true),
             ]);
     }
 
