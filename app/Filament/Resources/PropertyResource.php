@@ -54,9 +54,14 @@ class PropertyResource extends Resource
                             ->options([
                                 'Source' => 'Source',
                                 'Repository' => 'Repository',
+                                'CopyrightStatus' => 'Copyright Status',
                             ])
                             ->visible(fn (Get $get): bool => $get('type') === 'relationship')
                             ->required(),
+                        Toggle::make('required')
+                            ->default(false),
+                        Toggle::make('nullable')
+                            ->default(false),
                         Toggle::make('multivalue')
                             ->default(false),
                         Toggle::make('readonly')
@@ -85,6 +90,12 @@ class PropertyResource extends Resource
             ->columns([
                 Tables\Columns\ToggleColumn::make('enabled')
                     ->label('Enabled')
+                    ->sortable(),
+                Tables\Columns\ToggleColumn::make('required')
+                    ->label('Required')
+                    ->sortable(),
+                Tables\Columns\ToggleColumn::make('nullable')
+                    ->label('Nullable')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('name')
                     ->label('Template Name')
