@@ -33,6 +33,11 @@ class Value extends Model
         return $this->belongsTo(Repository::class, 'value');
     }
 
+    public function copyright()
+    {
+        return $this->belongsTo(CopyrightStatus::class, 'value');
+    }
+
     public function displayValue($values = null)
     {
         switch ($this->property->type) {
