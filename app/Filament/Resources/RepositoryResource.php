@@ -64,6 +64,10 @@ class RepositoryResource extends Resource
                     ->label('Source')
                     ->searchable()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('courtesy_of')
+                    ->label('Courtesy of')
+                    ->html()
+                    ->wrap(),
             ])
             ->filters([
                 //
