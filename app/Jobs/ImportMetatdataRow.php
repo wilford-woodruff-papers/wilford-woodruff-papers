@@ -2,7 +2,6 @@
 
 namespace App\Jobs;
 
-use App\Models\Copyright;
 use App\Models\Item;
 use App\Models\Property;
 use App\Models\Value;
@@ -41,26 +40,26 @@ class ImportMetatdataRow implements ShouldQueue
 
         $item = Item::findOrFail($identifier);
 
-        if (! empty($copyrightStatus = data_get($this->row, 'copyright_status'))) {
-            $item->copyright_id = Copyright::firstWhere('description', $copyrightStatus)?->id;
-            $item->save();
-        }
+        //        if (! empty($copyrightStatus = data_get($this->row, 'copyright_status'))) {
+        //            $item->copyright_id = Copyright::firstWhere('description', $copyrightStatus)?->id;
+        //            $item->save();
+        //        }
 
         $properties = Property::query()
             ->whereIn('name', [
-                '*Source',
-                '*Source Link',
-                '*Repository',
-                /*'*Sub-Repository',*/
-                '*Collection Number',
-                '*Collection Name',
-                '*Collection Description',
-                '*Collection Box',
-                '*Collection Folder',
-                '*Collection Page',
+                //                '*Source',
+                //                '*Source Link',
+                //                '*Repository',
+                //                /*'*Sub-Repository',*/
+                //                '*Collection Number',
+                //                '*Collection Name',
+                //                '*Collection Description',
+                //                '*Collection Box',
+                //                '*Collection Folder',
+                //                '*Collection Page',
                 '*Copyright Status',
                 '*Copyright Status Notes',
-                '*Courtesy Of Exception',
+                //                '*Courtesy Of Exception',
             ])
             ->get();
 
