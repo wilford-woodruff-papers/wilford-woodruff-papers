@@ -51,13 +51,15 @@ class ImportMetatdataRow implements ShouldQueue
                 '*Source',
                 '*Source Link',
                 '*Repository',
-                '*Sub-Repository',
+                /*'*Sub-Repository',*/
+                '*Collection Number',
                 '*Collection Name',
                 '*Collection Description',
-                '*Collection Number',
                 '*Collection Box',
                 '*Collection Folder',
                 '*Collection Page',
+                '*Copyright Status',
+                '*Copyright Status Notes',
                 '*Courtesy Of Exception',
             ])
             ->get();

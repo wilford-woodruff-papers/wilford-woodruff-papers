@@ -18,16 +18,19 @@ return new class extends Migration
         });
 
         \App\Models\CopyrightStatus::create([
-            'name' => 'Not Evaluated',
+            'name' => 'Copyright not evaluated',
         ]);
         \App\Models\CopyrightStatus::create([
-            'name' => 'In Copyright',
+            'name' => 'In copyright',
+        ]);
+        \App\Models\CopyrightStatus::create([
+            'name' => 'No copyright',
+        ]);
+        \App\Models\CopyrightStatus::create([
+            'name' => 'No known copyright',
         ]);
         \App\Models\CopyrightStatus::create([
             'name' => 'Public Domain',
-        ]);
-        \App\Models\CopyrightStatus::create([
-            'name' => 'No Known Copyright',
         ]);
     }
 

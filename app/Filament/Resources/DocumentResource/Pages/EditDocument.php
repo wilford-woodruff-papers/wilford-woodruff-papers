@@ -12,6 +12,11 @@ class EditDocument extends EditRecord
 {
     protected static string $resource = DocumentResource::class;
 
+    public function getRecordTitle(): string
+    {
+        return $this->record->name;
+    }
+
     protected function getHeaderActions(): array
     {
         return [
