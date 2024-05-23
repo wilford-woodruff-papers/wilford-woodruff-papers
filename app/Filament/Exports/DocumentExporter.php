@@ -31,7 +31,7 @@ class DocumentExporter extends Exporter
                         'values',
                         'values.repository',
                         'values.source',
-                        'values.copyright',
+                        'values.copyrightstatus',
                     ]);
                     $value = $record->values->where('property_id', $property->id)->first();
 
