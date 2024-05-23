@@ -119,7 +119,7 @@ class Search extends Component
                 'values.property',
                 'values.source',
                 'values.repository',
-                'values.copyright',
+                'values.copyrightstatus',
             ])
             ->whereNotNull('type_id')
             ->when(array_key_exists('search', $this->filters) && $this->filters['search'], function ($query, $search) {

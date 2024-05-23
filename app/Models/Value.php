@@ -33,7 +33,7 @@ class Value extends Model
         return $this->belongsTo(Repository::class, 'value');
     }
 
-    public function copyright()
+    public function copyrightstatus()
     {
         return $this->belongsTo(CopyrightStatus::class, 'value');
     }
@@ -45,6 +45,7 @@ class Value extends Model
                 return match ($this->property->relationship) {
                     'Source' => $this->source->name,
                     'Repository' => $this->repository->name,
+                    'CopyrightStatus' => $this->copyrightstatus->name,
                 };
                 break;
             case 'link':
