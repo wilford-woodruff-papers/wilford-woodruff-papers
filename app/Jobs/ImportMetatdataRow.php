@@ -67,16 +67,23 @@ class ImportMetatdataRow implements ShouldQueue
         foreach ($properties as $property) {
             $value = data_get($this->row, str($property->name)->replace('*', '')->snake()->toString());
 
+            $notAvailable = 0;
+            if (str($value)->lower()->trim()->is('n/a')) {
+                $notAvailable = 1;
+                $value = null;
+            }
+
             if ($property->type === 'relationship' && ! empty($value)) {
                 $relationship = "App\\Models\\$property->relationship";
                 $value = $relationship::firstWhere('name', $value)->id;
             }
 
-            $value = Value::updateOrCreate([
+            Value::updateOrCreate([
                 'item_id' => $item->id,
                 'property_id' => $property->id,
             ], [
                 'value' => $value,
+                'not_found' => $notAvailable,
             ]);
 
         }
