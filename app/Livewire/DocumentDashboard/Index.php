@@ -30,6 +30,7 @@ class Index extends Component
                 'values.property',
                 'values.source',
                 'values.repository',
+                'values.copyright',
             ]);
 
         return view('livewire.document-dashboard.overview', [
