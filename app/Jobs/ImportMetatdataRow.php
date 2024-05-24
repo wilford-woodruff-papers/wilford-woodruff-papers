@@ -47,19 +47,19 @@ class ImportMetatdataRow implements ShouldQueue
 
         $properties = Property::query()
             ->whereIn('name', [
-                //                '*Source',
-                //                '*Source Link',
-                //                '*Repository',
-                //                /*'*Sub-Repository',*/
-                //                '*Collection Number',
-                //                '*Collection Name',
-                //                '*Collection Description',
-                //                '*Collection Box',
-                //                '*Collection Folder',
-                //                '*Collection Page',
+                '*Source',
+                '*Source Link',
+                '*Repository',
+                /*'*Sub-Repository',*/
+                '*Collection Number',
+                '*Collection Name',
+                '*Collection Description',
+                '*Collection Box',
+                '*Collection Folder',
+                '*Collection Page',
                 '*Copyright Status',
                 '*Copyright Status Notes',
-                //                '*Courtesy Of Exception',
+                '*Courtesy Of Exception',
             ])
             ->get();
 
