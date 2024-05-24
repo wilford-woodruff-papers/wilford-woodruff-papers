@@ -12,6 +12,8 @@ class CreateDocument extends CreateRecord
 {
     protected static string $resource = DocumentResource::class;
 
+    protected static bool $canCreateAnother = false;
+
     protected function handleRecordCreation(array $data): Model
     {
         if ($data['section_count'] > 1) {

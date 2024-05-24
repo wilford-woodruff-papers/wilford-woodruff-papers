@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\DocumentResource\Pages;
 use App\Models\CopyrightStatus;
 use App\Models\Item;
+use App\Models\Property;
 use App\Models\Repository;
 use App\Models\Source;
 use App\Models\Template;
@@ -32,8 +33,6 @@ class DocumentResource extends Resource
 
     protected static ?string $recordRouteKeyName = 'uuid';
 
-    protected static ?string $navigationIcon = 'heroicon-o-document';
-
     public static function shouldRegisterNavigation(): bool
     {
         return true;
@@ -49,8 +48,8 @@ class DocumentResource extends Resource
                 ])
                     ->schema([
                         Section::make('Document Metadata')
-                            ->visible(function (Get $get) {
-                                return ! empty($get('type_id'));
+                            ->visible(function (?Model $record, Get $get) {
+                                return ! empty($record) && ! empty($get('type_id'));
                             })
                             ->columnSpan(function (?Model $record) {
                                 return ! empty($record) ? 2 : 3;
@@ -63,6 +62,9 @@ class DocumentResource extends Resource
 
                                 return [
                                     TextInput::make('name')
+                                        ->visible(function (?Model $record, Get $get) {
+                                            return ! empty($record);
+                                        })
                                         ->columnSpan(1)
                                         ->autofocus()
                                         ->required(),
@@ -77,26 +79,70 @@ class DocumentResource extends Resource
                                             $field = match ($property->type) {
                                                 'text', 'link' => TextInput::make('values.'.$property->id)
                                                     ->label($property->name)
+                                                    ->formatStateUsing(function (?Model $record) use ($property) {
+                                                        return $record->values->firstWhere('property_id', $property->id)?->value;
+                                                    })
                                                     ->required($property->required)
                                                     ->columnSpan(1),
                                                 'html' => RichEditor::make('values.'.$property->id)
                                                     ->label($property->name)
+                                                    ->formatStateUsing(function (?Model $record) use ($property) {
+                                                        return $record->values->firstWhere('property_id', $property->id)?->value;
+                                                    })
                                                     ->required($property->required)
                                                     ->columnSpan(1),
                                                 'date' => TextInput::make('values.'.$property->id)
                                                     ->label($property->name)
                                                     ->date()
+                                                    ->formatStateUsing(function (?Model $record) use ($property) {
+                                                        return $record->values->firstWhere('property_id', $property->id)?->value;
+                                                    })
                                                     ->required($property->required)
                                                     ->columnSpan(1),
                                                 'relationship' => Select::make('values.'.$property->id)
                                                     ->label($property->name)
                                                     ->live()
-                                                    ->options(function () use ($property) {
+                                                    ->options(function (?Model $record, Get $get) use ($property) {
+                                                        $record->loadMissing(['values.property']);
+                                                        //dd($get('values.'.$record->values->firstWhere('property_id', Property::firstWhere('name', '*Source')->id)?->value));
+                                                        // dd(Property::firstWhere('name', '*Source')->id);
+
                                                         return match ($property->relationship) {
                                                             'Source' => Source::query()->pluck('name', 'id')->toArray(),
-                                                            'Repository' => Repository::query()->pluck('name', 'id')->toArray(),
+                                                            'Repository' => Repository::query()
+                                                                ->where(
+                                                                    'source_id',
+                                                                    $get('values.'.Property::firstWhere('name', '*Source')->id)
+                                                                )
+                                                                ->pluck('name', 'id')
+                                                                ->toArray(),
                                                             'CopyrightStatus' => CopyrightStatus::query()->pluck('name', 'id')->toArray(),
                                                             default => [],
+                                                        };
+                                                    })
+                                                    ->formatStateUsing(function (?Model $record) use ($property) {
+                                                        return $record->values->firstWhere('property_id', $property->id)?->value;
+                                                    })
+                                                    ->createOptionForm(function (Get $get) use ($property) {
+                                                        return match ($property->relationship) {
+                                                            'Source' => [
+                                                                TextInput::make('name')
+                                                                    ->required(),
+                                                            ],
+                                                            'Repository' => [
+                                                                TextInput::make('name')
+                                                                    ->required(),
+                                                            ],
+                                                        };
+                                                    })
+                                                    ->createOptionUsing(function (array $data) use ($property) {
+                                                        return match ($property->relationship) {
+                                                            'Source' => Source::create($data)->id,
+                                                            'Repository' => function (Get $get) use ($data) {
+                                                                $data['source_id'] = $get('values.'.Property::firstWhere('name', '*Source')->id);
+
+                                                                return Repository::create($data)->id;
+                                                            },
                                                         };
                                                     })
                                                     ->searchable()
@@ -109,11 +155,12 @@ class DocumentResource extends Resource
                                             };
                                             if ($property->nullable) {
                                                 return Fieldset::make()
-                                                    ->columns(2)
+                                                    ->columns(4)
                                                     ->schema([
                                                         $field->visible(function (Get $get) use ($property) {
                                                             return ! $get('not_found.'.$property->id);
-                                                        }),
+                                                        })
+                                                            ->columnSpan(3),
                                                         Checkbox::make('not_found.'.$property->id)
                                                             ->label('Not Available')
                                                             ->live()
@@ -133,6 +180,23 @@ class DocumentResource extends Resource
                             })
                             ->columns(2)
                             ->schema([
+                                TextInput::make('name')
+                                    ->visible(function (?Model $record, Get $get) {
+                                        return empty($record);
+                                    })
+                                    ->columnSpan(2)
+                                    ->autofocus()
+                                    ->required(),
+                                TextInput::make('pcf_unique_id_full')
+                                    ->label('Unique ID')
+                                    ->formatStateUsing(function (?Model $record) {
+                                        return $record?->pcf_unique_id_full;
+                                    })
+                                    ->visible(function (?Model $record, Get $get) {
+                                        return ! empty($record);
+                                    })
+                                    ->columnSpan(2)
+                                    ->disabled(),
                                 Select::make('type_id')
                                     ->relationship(name: 'type', titleAttribute: 'name', modifyQueryUsing: fn (Builder $query) => $query->whereNull('type_id'))
                                     ->live()
