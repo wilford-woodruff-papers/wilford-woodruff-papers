@@ -14,6 +14,9 @@ use Vormkracht10\LaravelOpenGraphImage\Http\Controllers\LaravelOpenGraphImageCon
 |
 */
 
+Route::get('/come-follow-me/{book}/{week}/ogimage', \App\Http\Controllers\ComeFollowMeOgImageController::class)
+    ->name('come-follow-me.ogimage');
+
 Route::middleware([])->group(function () {
     Route::domain('{year}.'.config('app.url'))->group(function () {
         Route::get('/', function ($subdomain) {
@@ -172,6 +175,14 @@ Route::middleware([])->group(function () {
             ->name('document-dashboard.show');
         Route::get('/figures', \App\Http\Controllers\FigureController::class)
             ->name('figures');
+
+        Route::get('/ogimage', function () {
+            $lesson = \App\Models\ComeFollowMe::find(6);
+
+            return view('public.come-follow-me.og-image', [
+                'lesson' => $lesson,
+            ]);
+        });
     });
 
     Route::get('/advanced-search', \App\Livewire\Search::class)->name('advanced-search');
