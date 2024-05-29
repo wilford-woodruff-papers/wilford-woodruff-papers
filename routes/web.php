@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\ComeFollowMe;
 use Illuminate\Support\Facades\Route;
 use Vormkracht10\LaravelOpenGraphImage\Http\Controllers\LaravelOpenGraphImageController;
 
@@ -14,8 +15,10 @@ use Vormkracht10\LaravelOpenGraphImage\Http\Controllers\LaravelOpenGraphImageCon
 |
 */
 
-Route::get('/come-follow-me/{book}/{week}/ogimage', \App\Http\Controllers\ComeFollowMeOgImageController::class)
+Route::get('/come-follow-me/{book}/{week}/ogimage', \App\Http\Controllers\ComeFollowMeLessonOgImageController::class)
     ->name('come-follow-me.ogimage');
+Route::get('/ogimage/come-follow-me/{book}', \App\Http\Controllers\ComeFollowMeIndexOgImageController::class)
+    ->name('come-follow-me.index.ogimage');
 
 Route::middleware([])->group(function () {
     Route::domain('{year}.'.config('app.url'))->group(function () {
@@ -179,8 +182,9 @@ Route::middleware([])->group(function () {
         Route::get('/ogimage', function () {
             $lesson = \App\Models\ComeFollowMe::find(6);
 
-            return view('public.come-follow-me.og-image', [
-                'lesson' => $lesson,
+            return view('public.come-follow-me.index-og-image', [
+                'bookName' => 'Book of Mormon',
+                'image' => ComeFollowMe::firstWhere('book', 'Book of Mormon')->getFirstMediaUrl('cover_image'),
             ]);
         });
     });

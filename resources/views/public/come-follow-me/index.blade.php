@@ -1,12 +1,23 @@
 <x-guest-layout>
+
+    <x-slot name="openGraph">
+        <meta property="og:title" content="Come, Follow Me Insights: {{ $book }}">
+        <meta property="og:description" content="Magnify your Come, Follow Me study through Wilford Woodruff's records">
+        <meta property="og:type" content="website">
+        <meta property="og:image" content="{{ route('come-follow-me.index.ogimage', ['book' => $bookSlug]) }}">
+        <meta property="og:url" content="{{ route('come-follow-me.index', ['book' => $bookSlug]) }}">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="Come, Follow Me Insights: {{ $book }}">
+    </x-slot>
+
     <div>
         <div class="mx-auto max-w-7xl">
             <div class="flex flex-col gap-y-1 mt-8 mb-12">
                 <h1 class="text-4xl text-center md:text-6xl">
-                    Come Follow Me with Wilford Woodruff
+                    Come, Follow Me with Wilford Woodruff
                 </h1>
                 <h2 class="text-xl text-center md:text-2xl">
-                    Magnify your Come Follow Me study through Wilford Woodruff’s records
+                    Magnify your Come, Follow Me study through Wilford Woodruff’s records
                 </h2>
             </div>
             @if($cfm)

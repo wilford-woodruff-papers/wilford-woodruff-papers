@@ -17,10 +17,10 @@
                     <div class="flex flex-col justify-between md:flex-row item-center">
                         <div class="">
                             <h1 class="text-3xl">
-                                Come Follow Me Insights
+                                Come, Follow Me Insights
                             </h1>
                             <h2 class="text-xl">
-                                Magnify your Come Follow Me study through Wilford Woodruff’s records
+                                Magnify your Come, Follow Me study through Wilford Woodruff’s records
                             </h2>
                         </div>
                         <div class="flex items-center flex-0">
@@ -36,7 +36,7 @@
         <div class="flex flex-col gap-y-12 px-8 mx-auto max-w-7xl">
             <div class="flex gap-x-4 justify-center items-center mt-12 md:hidden">
                 <a href="{{ $churchLink }}"
-                   title="Open Come Follow Me Lesson on churchofjesuschrist.org"
+                   title="Open Come, Follow Me Lesson on churchofjesuschrist.org"
                    target="_blank"
                    class="text-3xl underline text-primary"
                 >
@@ -82,7 +82,7 @@
                 </div>
                 <div class="flex gap-x-4 items-center">
                     <a href="{{ $churchLink }}"
-                       title="Open Come Follow Me Lesson on churchofjesuschrist.org"
+                       title="Open Come, Follow Me Lesson on churchofjesuschrist.org"
                        target="_blank"
                         class="text-3xl underline text-primary"
                     >
@@ -245,7 +245,7 @@
 
             <div>
                 <h2 class="font-sans text-3xl text-primary">
-                    Study More Come Follow Me
+                    Study More Come, Follow Me
                 </h2>
                 <div class="grid grid-cols-2 gap-x-6 gap-y-8 mt-8 md:grid-cols-4">
                     @foreach($previous->merge($next) as $lesson)
@@ -263,7 +263,7 @@
                     class=""
                 >
                     <img src="{{ asset('img/come-follow-me/fair-latter-day-saints.png') }}"
-                         alt="Dive Deeper Into Come Follow Me on FAIR Latter-day Saints"
+                         alt="Dive Deeper Into Come, Follow Me on FAIR Latter-day Saints"
                          class="w-full h-auto"
                     />
                 </a>
