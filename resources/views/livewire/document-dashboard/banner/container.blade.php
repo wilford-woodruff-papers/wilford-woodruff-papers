@@ -40,11 +40,11 @@
                             {!! str($item->name)->stripBracketedID() !!}
                         </h2>
                         <hr class="border-b border-white max-w-[550px]"/>
-                        <p class="text-xl text-white">
-                            Explore the document below or read the pages.
+                        <p class="pt-8 pr-24 text-xl text-white">
+                            Explore the document through the featured content below or read the individual pages.
                         </p>
                     </div>
-                    <div class="text-2xl text-secondary">
+                    <div class="mb-6 text-2xl text-secondary">
                         <div class="inline-block py-2 px-12 uppercase bg-white border border-secondary">
                             Click to Read
                         </div>

@@ -4,7 +4,8 @@
             <div class="mx-auto w-full max-w-full h-auto md:max-w-7xl aspect-[176/53]">
                 <a href="{{ route('pages.show', ['item' => $item, 'page' => $item->firstPage]) }}">
                     <img class="w-full h-auto"
-                         src="{{ $item->getFirstMediaUrl() }}"
+{{--                         src="{{ $item->getFirstMediaUrl() }}"--}}
+                        src="{{ route('item.banner.image', ['item' => $item]) }}"
                          alt="{{ $item->name }}"
                     />
                 </a>
