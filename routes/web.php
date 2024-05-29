@@ -20,6 +20,9 @@ Route::get('/come-follow-me/{book}/{week}/ogimage', \App\Http\Controllers\ComeFo
 Route::get('/ogimage/come-follow-me/{book}', \App\Http\Controllers\ComeFollowMeIndexOgImageController::class)
     ->name('come-follow-me.index.ogimage');
 
+Route::get('/banner/item/{item}', \App\Http\Controllers\DocumentDashboardImageController::class)
+    ->name('item.banner.image');
+
 Route::middleware([])->group(function () {
     Route::domain('{year}.'.config('app.url'))->group(function () {
         Route::get('/', function ($subdomain) {
