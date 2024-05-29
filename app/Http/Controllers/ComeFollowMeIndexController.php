@@ -36,6 +36,7 @@ class ComeFollowMeIndexController extends Controller
             ->get();
 
         return view('public.come-follow-me.index', [
+            'book' => $book,
             'bookSlug' => $bookSlug,
             'cfm' => $lessons->shift(),
             'lessons' => $lessons,

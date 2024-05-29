@@ -25,13 +25,13 @@ class ComeFollowMeResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $label = 'Come Follow Me';
+    protected static ?string $label = 'Come, Follow Me';
 
-    protected static ?string $pluralLabel = 'Come Follow Me';
+    protected static ?string $pluralLabel = 'Come, Follow Me';
 
-    protected static ?string $pluralModelLabel = 'Come Follow Me';
+    protected static ?string $pluralModelLabel = 'Come, Follow Me';
 
-    protected static ?string $navigationLabel = 'Come Follow Me';
+    protected static ?string $navigationLabel = 'Come, Follow Me';
 
     public static function form(Form $form): Form
     {
