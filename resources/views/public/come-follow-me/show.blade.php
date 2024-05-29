@@ -1,4 +1,15 @@
 <x-guest-layout>
+
+    <x-slot name="openGraph">
+        <meta property="og:title" content="{{ $lesson->title }}">
+        <meta property="og:description" content="{{ $lesson->title }}">
+        <meta property="og:type" content="article">
+        <meta property="og:image" content="{{ route('come-follow-me.ogimage', ['book' => $bookSlug, 'week' => $lesson->week]) }}">
+        <meta property="og:url" content="{{ route('come-follow-me.show', ['book' => $bookSlug, 'week' => $lesson->week]) }}">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="{{ $lesson->title }}">
+    </x-slot>
+
     <div>
         <div class="text-white bg-primary">
             <a href="{{ route('come-follow-me.index') }}/{{ $bookSlug }}">
