@@ -1,8 +1,8 @@
 <x-chromeless-layout>
     <div class="w-[1200px] h-[630px]">
-        <div class="grid grid-cols-1 pb-4 h-full md:grid-cols-7">
+        <div class="grid grid-cols-1 h-full md:grid-cols-7">
             <div class="order-2 p-8 md:order-1 md:col-span-5 bg-secondary">
-                <div class="flex flex-col gap-y-4 pt-4">
+                <div class="flex flex-col gap-y-4 py-4">
                     <div class="flex flex-col gap-y-2 pb-4 border-b border-white">
                         <div class="text-xl text-white">
                             Week {{ $lesson->week }}: {{ $lesson->reference }}
