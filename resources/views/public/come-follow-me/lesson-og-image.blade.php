@@ -14,7 +14,7 @@
 
                     <div class="flex flex-col pt-8">
                         <div class="pb-4 text-3xl font-medium text-white">
-                            Come Follow Me Insights with Wilford Woodruff
+                            Come, Follow Me Insights with Wilford Woodruff
                         </div>
                         <div class="my-2 font-sans text-2xl font-light text-white line-clamp-6">
                             {!! $lesson->quote !!}
@@ -22,7 +22,7 @@
                     </div>
 
                     <div class="pt-4">
-                        <div class="inline py-2 px-4 text-xl font-semibold bg-white shadow-xl text-secondary">
+                        <div class="inline py-4 px-4 text-xl font-semibold bg-white shadow-xl text-secondary">
                             READ MORE
                         </div>
                     </div>

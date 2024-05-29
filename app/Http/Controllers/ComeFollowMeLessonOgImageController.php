@@ -6,7 +6,7 @@ use App\Models\ComeFollowMe;
 use App\src\OgImageGenerator;
 use Illuminate\Http\Request;
 
-class ComeFollowMeOgImageController extends Controller
+class ComeFollowMeLessonOgImageController extends Controller
 {
     public function __invoke(Request $request, $book = null, $week = null)
     {
@@ -23,7 +23,7 @@ class ComeFollowMeOgImageController extends Controller
 
         $image = cache()->rememberForever('lessons.'.$lesson->id.'.ogimage', function () use ($lesson) {
             return (new OgImageGenerator())->render(
-                view('public.come-follow-me.og-image')
+                view('public.come-follow-me.lesson-og-image')
                     ->with([
                         'lesson' => $lesson,
                     ])
