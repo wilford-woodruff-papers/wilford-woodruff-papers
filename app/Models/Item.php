@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\DB;
 use Laravel\Scout\Searchable;
 use Mtvs\EloquentHashids\HasHashid;
@@ -81,12 +82,11 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
             ->orderBy('order', 'ASC');
     }
 
-    public function firstPage()
+    public function firstPage(): HasOne
     {
         return $this
             ->hasOne(Page::class, 'parent_item_id')
-            ->ordered()
-            ->ofMany();
+            ->ofMany('order', 'min');
     }
 
     public function firstPageWithText()

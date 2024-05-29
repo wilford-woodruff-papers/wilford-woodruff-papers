@@ -46,7 +46,7 @@
 
                 >
 
-                    @include('livewire.document-dashboard.sections.banner')
+                    @include('livewire.document-dashboard.sections.banner', ['item' => $item])
 
                     @include('livewire.document-dashboard.sections.nav')
 
