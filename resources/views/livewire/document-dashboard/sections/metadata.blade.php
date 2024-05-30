@@ -49,9 +49,9 @@
                                 )
                                     <tr>
                                         <td class="py-4 pr-3 pl-4 text-base font-medium whitespace-nowrap sm:pl-6">
-                                            {{ str($property->name)->replace('*', '') }}
+                                            {{ str($property->name)->replace('*', '')->replace('Exception', '')->trim() }}
                                         </td>
-                                        <td class="py-4 px-3 text-base whitespace-nowrap">
+                                        <td class="py-4 px-3 text-base whitespace-wrap">
                                             {!! $value->displayValue($item->values) !!}
                                         </td>
                                     </tr>
