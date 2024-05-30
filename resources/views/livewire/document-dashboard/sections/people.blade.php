@@ -47,7 +47,7 @@
                     <div class="mb-20 mx-auto h-[350px] w-[70%]"
                          wire:ignore
                     >
-                        <div class="inline mx-auto">
+                        <div class="inline relative mx-auto">
                             <canvas id="people-chart" class="max-h-[400px]"></canvas>
                         </div>
                     </div>
@@ -236,6 +236,7 @@
                 let currentCategory = null;
 
                 const chart = new Chart(ctx, {
+                    responsive: true,
                     type: 'pie',
                     data: {
                         labels: @json(array_keys($categories)),
@@ -260,7 +261,7 @@
                         plugins: {
                             legend: {
                                 display: true,
-                                position: 'left',
+                                position: (window.innerWidth > 640) ? 'left' : 'top',
                                 labels: {
                                     font: {
                                         size: 18
