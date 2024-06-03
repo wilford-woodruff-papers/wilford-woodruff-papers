@@ -13,7 +13,7 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Excel;
 
-class PeopleExport implements FromQuery, ShouldQueue, WithMapping, WithHeadings
+class PeopleExport implements FromQuery, ShouldQueue, WithHeadings, WithMapping
 {
     use Exportable;
 
