@@ -11,10 +11,6 @@ class ReplaceFigureTags
     public function __invoke()
     {
         return function ($subject) {
-            if (auth()->guest() || ! auth()->user()->hasAnyRole('Editor|Admin|Super Admin')) {
-                return $subject;
-            }
-
             return Str::of($subject)
                 ->replaceMatches('/(\[FIGURE.*?\])/is', function ($match) {
                     $trackingNumber = str($match[1])

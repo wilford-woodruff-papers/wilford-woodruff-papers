@@ -11,8 +11,8 @@
         <div class="px-4 sm:px-6 lg:px-8">
             <div class="sm:flex sm:items-center">
                 <div class="sm:flex-auto">
-                    <p class="mt-2 text-sm text-gray-700">
-
+                    <p class="p-4 mt-2 text-xl font-semibold text-justify text-gray-700">
+                        Wilford Woodruff made approximately 9,000 illustrations in his journals. He used approximately 8,000 symbols repeatedly in predictable contexts to identify recurring events and these symbols are indicated in the manuscript using Figures 1-18. The remaining 1,000 unique images, connected to a single event on a specific day, are indicated in the manuscript by the unnumbered word “Figure.”
                     </p>
                 </div>
                 <div class="mt-4 sm:flex-none sm:mt-0 sm:ml-16">
@@ -38,7 +38,7 @@
                                     Time of Use
                                 </th>
                                 <th scope="col" class="py-3.5 px-3 text-base font-semibold text-left text-gray-900">
-                                    Quantitative or Qualitative Utilization Meaning
+                                    Meaning
                                 </th>
                             </tr>
                             </thead>
@@ -58,15 +58,13 @@
                                             {!! $figure->design_description !!}
                                         </td>
                                         <td class="py-4 px-3 text-lg text-gray-900 whitespace-normal">
-                                            {!! $figure->period_usage !!}
+                                            <p>{!! str($figure->period_usage)->beforeLast('(') !!}</p>
+                                            <p>({!! str($figure->period_usage)->afterLast('(') !!}</p>
                                         </td>
                                         <td class="py-4 px-3 text-lg text-gray-900 whitespace-normal">
                                             <div class="flex flex-col gap-y-2">
                                                 @if(! empty($figure->quantitative_utilization))
                                                     <div>
-                                                        <p class="font-black">
-                                                            Quantitative:
-                                                        </p>
                                                         <p>
                                                             {!! $figure->quantitative_utilization !!}
                                                         </p>
@@ -74,9 +72,6 @@
                                                 @endif
                                                 @if(! empty($figure->qualitative_utilization))
                                                     <div>
-                                                        <p class="font-black">
-                                                            Qualitative:
-                                                        </p>
                                                         <p>
                                                             {!!$figure->qualitative_utilization !!}
                                                         </p>
@@ -90,6 +85,11 @@
                         </table>
                     </div>
                 </div>
+            </div>
+            <div class="my-8 bg-gray-200">
+                <p class="py-8 px-4 text-xl">
+                    The description of these images above derives from Joshua M. Matson, <a href="https://byustudies.byu.edu/article/decoding-the-self-tracking-symbols-of-wilford-woodruffs-journals/" target="_blank" class="underline text-secondary">"Decoding the Self-Tracking Symbols of Wilford Woodruff's Journals," BYU Studies 63:1 (2024): 151-204</a>, used by permission of the author and of BYU Studies.
+                </p>
             </div>
         </div>
     </div>
