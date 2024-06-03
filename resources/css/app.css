@@ -467,3 +467,19 @@ tr:nth-child(even) td.fi-table-cell-name, th.fi-table-header-cell-name {
 /*    background-image: url("https://wilfordwoodruffpapers.org/img/familysearch/Female.png");*/
 /*}*/
 /* End Filament */
+
+div[data-tippy-root] * {
+    @apply text-base rounded-none;
+}
+div[data-tippy-root] h2 {
+    @apply text-lg border-b border-white mb-0 pb-0;
+}
+/*div[data-tippy-root] * {*/
+/*    @apply bg-white text-lg text-black border-white;*/
+/*}*/
+div[data-tippy-root] {
+    @apply px-2 pb-2;
+}
+div[data-tippy-root] hr {
+    @apply mb-0 pb-0;
+}
