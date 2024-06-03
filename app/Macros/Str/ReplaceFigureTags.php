@@ -30,7 +30,23 @@ class ReplaceFigureTags
                         return '<a href="'.route('figures').'" target="_blank" class="text-secondary">'.$match[1].'</a>';
                     }
 
-                    return '<a href="'.route('figures').'" target="_blank" class=""><img src="'.Storage::disk('figures')->url($figure->filename).'"
+                    return '<a href="'.route('figures').'" target="_blank" class="text-secondary"
+                                x-data
+                                x-tooltip="'.collect([
+                        '<h2><strong>FIGURE '.$trackingNumber.'</strong></h2>',
+                        '<strong>Description: </strong>',
+                        $figure->design_description,
+                        '<strong>Meaning: </strong>',
+                        $figure->qualitative_utilization,
+                        $figure->quantitative_utilization,
+                        '<strong>Time of Use: </strong>',
+                        $figure->period_usage,
+                    ])
+                        ->filter()
+                        ->join('<br />').'"
+                                type="button"
+                                class="">
+                        <img src="'.Storage::disk('figures')->url($figure->filename).'"
                                 alt="'.$figure->design_description.'"
                                 class="h-8 w-auto inline-block"
                             ></a>';
