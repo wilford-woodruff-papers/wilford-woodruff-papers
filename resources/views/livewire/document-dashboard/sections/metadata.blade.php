@@ -31,9 +31,19 @@
                     <table class="min-w-full">
                         <thead></thead>
                         <tbody class="bg-white divide-y divide-gray-200">
+                            @if(empty($value = $item->values->whereIn('property.name', ['Courtesy Of', '*Courtesy Of Exception'])->first()?->value))
+                                <tr>
+                                    <td class="py-4 pr-3 pl-4 text-base font-medium whitespace-nowrap sm:pl-6">
+                                        Courtesy Of
+                                    </td>
+
+                                    <td class="py-4 px-3 text-base whitespace-nowrap">
+                                        {!! $item->values->whereIn('property.name', ['Repository', '*Repository'])->first()?->repository?->courtesy_of !!}
+                                    </td>
+                                </tr>
+                            @endif
                             @foreach(\App\Models\Property::query()->whereIn('name', [
                                 '*Source Link',
-                                '*Repository',
                                 '*Collection Name',
                                 '*Collection Description',
                                 '*Collection Number',
@@ -57,17 +67,20 @@
                                     </tr>
                                 @endif
                             @endforeach
-                            @if(empty($value = $item->values->whereIn('property.name', ['Courtesy Of', '*Courtesy Of Exception'])->first()))
-                                <tr>
-                                    <td class="py-4 pr-3 pl-4 text-base font-medium whitespace-nowrap sm:pl-6">
-                                        Courtesy Of
-                                    </td>
+                            <tr>
+                                <td class="py-4 pr-3 pl-4 text-base font-medium whitespace-nowrap sm:pl-6">
+                                    Rights and Use
+                                </td>
 
-                                    <td class="py-4 px-3 text-base whitespace-nowrap">
-                                        {!! $item->values->whereIn('property.name', ['Repository', '*Repository'])->first()?->repository?->courtesy_of !!}
-                                    </td>
-                                </tr>
-                            @endif
+                                <td class="py-4 px-3 text-base whitespace-nowrap">
+                                    <a href="{{ route('media.copyright') }}"
+                                        class="underline text-secondary"
+                                       target="_blank"
+                                    >
+                                        Copyright and Use Information
+                                    </a>
+                                </td>
+                            </tr>
                         </tbody>
                         <tfoot></tfoot>
                     </table>

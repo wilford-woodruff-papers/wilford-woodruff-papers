@@ -49,7 +49,10 @@ class Value extends Model
                 };
                 break;
             case 'link':
-                return "<a href='{$this->value}' class='text-secondary' target='_blank'>{$values->where('property.name', str($this->property->name)->before(' Link'))->first()->displayValue()}</a>";
+                return match ($values->where('property.name', '*Source')->first()->displayValue()) {
+                    'FamilySearch' => "<a href='{$this->value}' class='text-secondary underline' target='_blank'>{$values->where('property.name', '*Repository')->first()->displayValue()}</a>",
+                    default => "<a href='{$this->value}' class='text-secondary underline' target='_blank'>{$values->where('property.name', str($this->property->name)->before(' Link'))->first()->displayValue()}</a>",
+                };
                 break;
             default:
                 return $this->value;
