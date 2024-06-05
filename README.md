@@ -8,18 +8,21 @@ Clone the Github repository
 
 ## Docker
 
-Both local development options use Docker. You first need to install Docker Desktop or OrbStack for your operating system.
+If you'r enot using Herd Pro, then the other 2 local development options use Docker. You first need to install Docker Desktop or OrbStack for your operating system.
  - [OrbStack](https://orbstack.dev/) (Mac and Linux only)
  - [Docker Desktop](https://www.docker.com/products/docker-desktop/) (Mac, Linux, and Windows)
 
 ## Options for Local Development
-There are 2 supported options for doing local development: 
- - [Herd](https://herd.laravel.com/) + [DBngine](https://dbngin.com/) (Mac only)
+There are 3 supported options for doing local development: 
+ - [Herd Pro](https://herd.laravel.com/)(Mac & PC)
+ - [Herd](https://herd.laravel.com/) + [DBngine](https://dbngin.com/) (Mac & PC)
  - [Sail](https://laravel.com/docs/10.x/sail) (Mac, Linux, and Windows)
 
-### Using Herd + Docker for Meilisearch
+### Using Herd Pro
+Herd is a recently released desktop application that handles configuring PHP and local development domains/SSL. Herd Pro is a paid version, but also include MySQL database and Meilisearch services so no additional software is required. This is the current recommended option for local development and includes other tools for monitoring sent email and debugging. Much of the documentation below if for setting up and running the application using legacies methods and can be ignored by following the Herd Pro documentation for running and configuring services.
 
-Herd is a recently released desktop application that handles configuring PHP and local development domains/SSL. However, since the project uses Meilisearch, you will need to run Meilisearch in a separate Docker container. 
+### Using Herd + Docker for Meilisearch
+Since the project uses Meilisearch and Herd (Free version) doesn't include MEilisearch, you will need to run Meilisearch in a separate Docker container. 
 
 DBngin is a Mac only application that handles configuring MySQL and Redis.
 
