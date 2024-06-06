@@ -96,7 +96,6 @@ Route::middleware([])->group(function () {
 
     Route::get('/donate', [\App\Http\Controllers\DonationController::class, 'index'])->name('donate');
     Route::get('/', \App\Http\Controllers\HomeController::class)->name('home');
-    Route::get('/new', \App\Http\Controllers\NewHomeController::class)->name('new-home');
 
     // Route::get('/documents', [\App\Http\Controllers\ItemController::class, 'index'])->name('documents');
     Route::get('/documents', \App\Livewire\Documents\Browse::class)->name('documents');
@@ -189,6 +188,8 @@ Route::middleware([])->group(function () {
                 'image' => ComeFollowMe::firstWhere('book', 'Book of Mormon')->getFirstMediaUrl('cover_image'),
             ]);
         });
+
+        Route::get('/new', \App\Http\Controllers\NewHomeController::class)->name('new-home');
     });
 
     Route::get('/advanced-search', \App\Livewire\Search::class)->name('advanced-search');

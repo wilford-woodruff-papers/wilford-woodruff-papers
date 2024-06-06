@@ -57,23 +57,23 @@
 <body>
 <x-relative-finder-popup />
 @include('layouts.partials.google-tag-manager-no-script')
-<x-admin-bar />
+{{--<x-admin-bar />--}}
 
 <header class="relative z-10">
     <div class="absolute w-full h-32 bg-gradient-to-t from-transparent to-white z-1"></div>
     <nav class="flex relative z-10 justify-between items-center p-3 mx-auto max-w-7xl lg:px-8" aria-label="Global">
-        <a href="#" class="p-1.5 -m-1.5">
-            <span class="sr-only">Your Company</span>
+        <a href="{{ route('home') }}" class="p-1.5 -m-1.5">
+            <span class="sr-only">Wilford Woodruff Papers</span>
             <img class="-mt-4 w-auto h-16" src="{{ asset('img/image-logo.png') }}" alt="">
         </a>
-        <div class="flex lg:hidden">
+        {{--<div class="flex lg:hidden">
             <button type="button" class="inline-flex justify-center items-center p-2.5 -m-2.5 text-gray-700 rounded-md">
                 <span class="sr-only">Open main menu</span>
                 <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                 </svg>
             </button>
-        </div>
+        </div>--}}
         <div class="hidden pt-3 font-sans lg:flex lg:gap-x-12">
             <a href="{{ route('documents') }}" class="text-base font-medium leading-6 text-primary">
                 Documents
@@ -99,7 +99,7 @@
             </a>
         </div>
     </nav>
-    <!-- Mobile menu, show/hide based on menu open state. -->
+    {{--<!-- Mobile menu, show/hide based on menu open state. -->
     <div class="lg:hidden" role="dialog" aria-modal="true">
         <!-- Background backdrop, show/hide based on slide-over state. -->
         <div class="fixed inset-0 z-10"></div>
@@ -130,11 +130,11 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>--}}
 </header>
 
 
-<div class="h-screen font-sans antialiased text-gray-900">
+<div class="min-h-screen font-sans antialiased text-gray-900">
     {{ $slot }}
 </div>
 
