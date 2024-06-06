@@ -19,6 +19,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
+use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -32,6 +33,8 @@ class DocumentResource extends Resource
     protected static ?string $modelLabel = 'Document';
 
     protected static ?string $recordRouteKeyName = 'uuid';
+
+    protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
     public static function shouldRegisterNavigation(): bool
     {
@@ -200,25 +203,111 @@ class DocumentResource extends Resource
                                 Select::make('type_id')
                                     ->relationship(name: 'type', titleAttribute: 'name', modifyQueryUsing: fn (Builder $query) => $query->whereNull('type_id'))
                                     ->live()
+                                    ->afterStateUpdated(function (Set $set, $state) {
+                                        $type = Type::find($state);
+                                        $prefix = match ($type->name) {
+                                            'Additional' => [
+                                                'B' => 'Business/Financial',
+                                                'C' => 'Community',
+                                                'E' => 'Education',
+                                                'EP' => 'Estate Papers',
+                                                'F' => 'Family',
+                                                'G' => 'Genealogy',
+                                                'H' => 'Histories',
+                                                'L' => 'Legal',
+                                                'M' => 'Mission',
+                                                'I' => 'Personal',
+                                                'P' => 'Political/Government',
+                                                'R' => 'Religious',
+                                                'T' => 'Temple',
+                                            ],
+                                            'Autobiographies' => [
+                                                'A' => 'Autobiographies',
+                                            ],
+                                            'Daybooks' => [
+                                                'DB' => 'Daybooks',
+                                            ],
+                                            'Discourses' => [
+                                                'D' => 'Discourses',
+                                            ],
+                                            'Journals' => [
+                                                'J' => 'Journals',
+                                            ],
+                                            'Letters' => [
+                                                'LE' => 'Letters',
+                                            ],
+                                        };
+                                        $set('pcf_unique_id_prefix', collect($prefix)->keys()->first());
+                                    })
                                     ->disabled(function (?Model $record) {
                                         return ! empty($record);
                                     })
                                     ->preload()
                                     ->required()
-                                    ->columnSpan(1),
+                                    ->columnSpan(2),
+                                Select::make('pcf_unique_id_prefix')
+                                    ->label('Prefix')
+                                    ->selectablePlaceholder(false)
+                                    ->visible(function (Get $get) {
+                                        return ! empty($get('type_id'));
+                                    })
+                                    ->disabled(function (?Model $record) {
+                                        return ! empty($record);
+                                    })
+                                    ->options(function (Get $get) {
+                                        if (empty($get('type_id'))) {
+                                            return [];
+                                        }
+                                        $type = Type::find($get('type_id'));
+
+                                        return match ($type->name) {
+                                            'Additional' => [
+                                                'B' => 'Business/Financial',
+                                                'C' => 'Community',
+                                                'E' => 'Education',
+                                                'EP' => 'Estate Papers',
+                                                'F' => 'Family',
+                                                'G' => 'Genealogy',
+                                                'H' => 'Histories',
+                                                'L' => 'Legal',
+                                                'M' => 'Mission',
+                                                'I' => 'Personal',
+                                                'P' => 'Political/Government',
+                                                'R' => 'Religious',
+                                                'T' => 'Temple',
+                                            ],
+                                            'Autobiographies' => [
+                                                'A' => 'Autobiographies',
+                                            ],
+                                            'Daybooks' => [
+                                                'DB' => 'Daybooks',
+                                            ],
+                                            'Discourses' => [
+                                                'D' => 'Discourses',
+                                            ],
+                                            'Journals' => [
+                                                'J' => 'Journals',
+                                            ],
+                                            'Letters' => [
+                                                'LE' => 'Letters',
+                                            ],
+                                        };
+                                    })
+                                    ->required(),
                                 TextInput::make('manual_page_count')
                                     ->label('Page Count (Manual)')
                                     ->integer()
                                     ->visible(function (?Model $record, Get $get) {
                                         return empty($record->auto_page_count) || $record->auto_page_count === 0;
                                     })
-                                    ->columnSpan(1),
+                                    ->columnSpan(2),
                                 TextInput::make('auto_page_count')
                                     ->label('Page Count (Auto)')
                                     ->integer()
                                     ->visible(function (?Model $record, Get $get) {
                                         return ! empty($record->auto_page_count) && $record->auto_page_count > 0;
                                     })
+                                    ->readOnly()
                                     ->columnSpan(1),
                                 TextInput::make('section_count')
                                     ->integer()
@@ -230,7 +319,7 @@ class DocumentResource extends Resource
                                             ->where('id', $get('type_id'))
                                             ->count() > 0;
                                     })
-                                    ->columnSpan(1),
+                                    ->columnSpan(2),
                             ]),
                     ]),
 

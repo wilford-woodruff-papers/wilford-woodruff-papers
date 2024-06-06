@@ -16,6 +16,9 @@ class CreateDocument extends CreateRecord
 
     protected function handleRecordCreation(array $data): Model
     {
+        if (! array_key_exists('section_count', $data)) {
+            $data['section_count'] = 0;
+        }
         if ($data['section_count'] > 1) {
             $data['parental_type'] = \App\Models\Set::class;
             $data['manual_page_count'] = 0;
