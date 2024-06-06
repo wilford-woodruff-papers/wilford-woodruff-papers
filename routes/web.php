@@ -188,6 +188,8 @@ Route::middleware([])->group(function () {
                 'image' => ComeFollowMe::firstWhere('book', 'Book of Mormon')->getFirstMediaUrl('cover_image'),
             ]);
         });
+
+        Route::get('/new', \App\Http\Controllers\NewHomeController::class)->name('new-home');
     });
 
     Route::get('/advanced-search', \App\Livewire\Search::class)->name('advanced-search');
