@@ -19,7 +19,7 @@
                 Search Wilford Woodruff's <span class="font-semibold">documents</span>, as well as <span class="font-semibold">locations</span>, <span class="font-semibold">events</span>, and <span class="font-semibold">people</span> in his records.
             </p>
             <div class="">
-                <form action="{{ route('search') }}"
+                <form action="{{ route('advanced-search') }}"
                 class=""
                 >
                     <div>
