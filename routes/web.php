@@ -96,6 +96,7 @@ Route::middleware([])->group(function () {
 
     Route::get('/donate', [\App\Http\Controllers\DonationController::class, 'index'])->name('donate');
     Route::get('/', \App\Http\Controllers\HomeController::class)->name('home');
+    Route::get('/new', \App\Http\Controllers\NewHomeController::class)->name('new-home');
 
     // Route::get('/documents', [\App\Http\Controllers\ItemController::class, 'index'])->name('documents');
     Route::get('/documents', \App\Livewire\Documents\Browse::class)->name('documents');
