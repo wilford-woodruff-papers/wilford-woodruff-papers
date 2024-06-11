@@ -181,7 +181,7 @@ class JournalExport extends Command
                     return str($matches[1])->explode('|')->last();
                 }
             })
-            ->replaceMatches('/(?<!-)(?:{)(.*?)(?:})/m', function (array $match) {
+            /*->replaceMatches('/(?<!-)(?:{)(.*?)(?:})/m', function (array $match) {
                 $parts = str($match[1])->explode('|');
                 switch ($parts->count()) {
                     case 1:
@@ -193,7 +193,7 @@ class JournalExport extends Command
                     default:
                         return '{'.$match[1].'}';
                 }
-            })
+            })*/
             ->toString();
 
         $printTranscript .= "\n".'<h2>People</h2>'."\n";
