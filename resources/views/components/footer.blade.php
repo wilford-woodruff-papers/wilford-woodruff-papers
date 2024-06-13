@@ -284,10 +284,10 @@
                     <div>Wilford Woodruff Papers Foundation &copy {{ date('Y') }} All Rights Reserved. <a href="{{ route('media.copyright') }}" class="underline">See additional copyright information.</a></div>
                     <div class="grid grid-cols-3 justify-start items-center mt-6">
                         <a href="https://www.guidestar.org/profile/84-4318803" target="_blank" class="">
-                            <img src="https://wilfordwoodruffpapers.org/img/donate/platinum-guidestar.png" alt="Wilford Woodruff Papers Foundation is a gold-level GuideStar participant, demonstrating its commitment to transparency." title="Wilford Woodruff Papers Foundation is a gold-level GuideStar participant, demonstrating its commitment to transparency." class="inline w-auto h-[120px]">
+                            <img src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/candid.png" alt="Wilford Woodruff Papers Foundation is a gold-level GuideStar participant, demonstrating its commitment to transparency." title="Wilford Woodruff Papers Foundation is a gold-level GuideStar participant, demonstrating its commitment to transparency." class="inline w-auto h-[120px]">
                         </a>
                         <a href="https://www.charitynavigator.org/ein/844318803" target="_blank" class="">
-                            <img src="https://wilfordwoodruffpapers.org/img/donate/fours-star-charity-navigator.png" alt="Wilford Woodruff Papers Foundation 4 Star profile on Charity Navigator." title="Wilford Woodruff Papers Foundation 4 Star profile on Charity Navigator." class="inline w-auto h-[120px]">
+                            <img src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/four-star-charity-navigator.png" alt="Wilford Woodruff Papers Foundation 4 Star profile on Charity Navigator." title="Wilford Woodruff Papers Foundation 4 Star profile on Charity Navigator." class="inline w-auto h-[120px]">
                         </a>
                     </div>
                 </div>
