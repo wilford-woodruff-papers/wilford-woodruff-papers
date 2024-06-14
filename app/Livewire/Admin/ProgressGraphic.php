@@ -16,31 +16,40 @@ class ProgressGraphic extends Component
     {
         if ($this->readyToLoad) {
             $pageStats = [
-                'published' => Page::query()
+                'published' => Item::query()
+                    ->whereNotNull('type_id')
+                    ->whereDoesntHave('items')
+                    ->where('enabled', true)
+                    ->sum('auto_page_count'),
+                /*
+                 * Page::query()
                     ->whereHas('item', function ($query) {
-                        $query->where('enabled', true);
+                        $query->whereNotNull('type_id')
+                            ->whereDoesntHave('items')
+                            ->where('enabled', true);
                     })
-                    ->count(),
+                    ->count()*/
                 'identified' => Item::query()
                     ->whereNotNull('type_id')
                     ->whereDoesntHave('items')
+                    ->whereNull('ftp_slug')
                     ->where(function ($query) {
                         $query->where('auto_page_count', '<=', 0)
                             ->orWhereNull('auto_page_count');
                     })
-                    ->sum('manual_page_count')
-                    + Item::query()
-                        ->where('missing_page_count', '>', 0)
-                        ->sum('missing_page_count'),
+                    ->sum('manual_page_count'),
                 'in_progress' => Page::query()
                     ->whereHas('item', function ($query) {
                         $query->where('enabled', false)
+                            ->whereDoesntHave('items')
                             ->whereNotNull('type_id')
                             ->whereNotNull('ftp_slug');
-                    })->count(),
+                    })
+                    ->count(),
                 'total_found' => Item::query()
                     ->whereNotNull('type_id')
                     ->whereDoesntHave('items')
+                    ->whereNull('ftp_slug')
                     ->where(function ($query) {
                         $query->where('auto_page_count', '<=', 0)
                             ->orWhereNull('auto_page_count');
@@ -50,10 +59,7 @@ class ProgressGraphic extends Component
                         ->whereNotNull('type_id')
                         ->whereDoesntHave('items')
                         ->where('auto_page_count', '>', 0)
-                        ->sum('auto_page_count')
-                    + Item::query()
-                        ->where('missing_page_count', '>', 0)
-                        ->sum('missing_page_count'),
+                        ->sum('auto_page_count'),
 
             ];
 
