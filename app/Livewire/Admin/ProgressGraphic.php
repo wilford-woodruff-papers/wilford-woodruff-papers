@@ -16,11 +16,18 @@ class ProgressGraphic extends Component
     {
         if ($this->readyToLoad) {
             $pageStats = [
-                'published' => Item::query()
+                'published' => Page::query()
+                    ->whereHas('item', function ($query) {
+                        $query->whereNotNull('type_id')
+                            ->whereDoesntHave('items')
+                            ->where('enabled', true);
+                    })
+                    ->count(),
+                /*Item::query()
                     ->whereNotNull('type_id')
                     ->whereDoesntHave('items')
                     ->where('enabled', true)
-                    ->sum('auto_page_count'),
+                    ->sum('auto_page_count'),*/
                 /*
                  * Page::query()
                     ->whereHas('item', function ($query) {
