@@ -316,9 +316,11 @@ class PlaceResource extends Resource
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('latitude')
                     ->label('Lat')
+                    ->sortable()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('longitude')
                     ->label('Long')
+                    ->sortable()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('place_confirmed_at')
                     ->label('Confirmed At')
@@ -356,6 +358,9 @@ class PlaceResource extends Resource
                     )
                     ->searchable()
                     ->attribute('researcher_id'),
+                Tables\Filters\TernaryFilter::make('geo_located')
+                    ->nullable()
+                    ->attribute('latitude'),
             ], layout: Tables\Enums\FiltersLayout::AboveContentCollapsible)
             ->actions([
                 ClaimSubject::make()
