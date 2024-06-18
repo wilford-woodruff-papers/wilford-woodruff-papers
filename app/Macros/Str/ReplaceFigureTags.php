@@ -11,6 +11,10 @@ class ReplaceFigureTags
     public function __invoke()
     {
         return function ($subject) {
+            if (auth()->check()) {
+                return $subject;
+            }
+
             return Str::of($subject)
                 ->replaceMatches('/(\[FIGURE.*?\])/is', function ($match) {
                     $trackingNumber = str($match[1])
@@ -32,7 +36,7 @@ class ReplaceFigureTags
 
                     return '<a href="'.route('figures').'" target="_blank" class="text-secondary"
                                 x-data
-                                x-tooltip="'.collect([
+                                x-tooltip="'.htmlentities(collect([
                         '<h2><strong>FIGURE '.$trackingNumber.'</strong></h2>',
                         '<strong>Description: </strong>',
                         $figure->design_description,
@@ -43,7 +47,7 @@ class ReplaceFigureTags
                         $figure->period_usage,
                     ])
                         ->filter()
-                        ->join('<br />').'"
+                        ->join('<br />')).'"
                                 type="button"
                                 class="">
                         <img src="'.Storage::disk('figures')->url($figure->filename).'"
