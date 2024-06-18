@@ -81,6 +81,20 @@
                                     </a>
                                 </td>
                             </tr>
+                            <tr>
+                                <td class="py-4 pr-3 pl-4 text-base font-medium whitespace-nowrap sm:pl-6">
+                                    Transcript
+                                </td>
+
+                                <td class="py-4 px-3 text-base whitespace-nowrap">
+                                    <a href="{{ route('documents.show.transcript', ['item' => $item->uuid]) }}"
+                                        class="underline text-secondary"
+                                       target="_blank"
+                                    >
+                                        View Full Transcript
+                                    </a>
+                                </td>
+                            </tr>
                         </tbody>
                         <tfoot></tfoot>
                     </table>
