@@ -75,7 +75,10 @@
         @livewireScriptConfig
 
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js" charset="utf-8"></script>
+        @auth()
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js" charset="utf-8"></script>
+        @endauth
+
 
         @stack('scripts')
 
@@ -90,6 +93,34 @@
             }
         </script>
 
+        @guest()
+            <!-- Tippy.js -->
+            <!-- https://atomiks.github.io/tippyjs/v6 -->
+            <script src="https://unpkg.com/@popperjs/core@2"></script>
+            <script src="https://unpkg.com/tippy.js@6"></script>
+            <script>
+                document.addEventListener('alpine:init', () => {
+                    // Magic: $tooltip
+                    Alpine.magic('tooltip', el => message => {
+                        let instance = tippy(el, { content: message, trigger: 'manual' })
+
+                        instance.show()
+
+                        setTimeout(() => {
+                            instance.hide()
+
+                            setTimeout(() => instance.destroy(), 150)
+                        }, 2000)
+                    })
+
+                    // Directive: x-tooltip
+                    Alpine.directive('tooltip', (el, { expression }) => {
+                        tippy(el, { content: expression, allowHTML: true })
+                    })
+                })
+            </script>
+        @endguest
+
         <script>
             document.addEventListener('livewire:initialized', () => {
                 Livewire.on('scroll', function() {
@@ -97,31 +128,7 @@
                 });
             });
         </script>
-        <!-- Tippy.js -->
-        <!-- https://atomiks.github.io/tippyjs/v6 -->
-        <script src="https://unpkg.com/@popperjs/core@2"></script>
-        <script src="https://unpkg.com/tippy.js@6"></script>
-        <script>
-            document.addEventListener('alpine:init', () => {
-                // Magic: $tooltip
-                Alpine.magic('tooltip', el => message => {
-                    let instance = tippy(el, { content: message, trigger: 'manual' })
 
-                    instance.show()
-
-                    setTimeout(() => {
-                        instance.hide()
-
-                        setTimeout(() => instance.destroy(), 150)
-                    }, 2000)
-                })
-
-                // Directive: x-tooltip
-                Alpine.directive('tooltip', (el, { expression }) => {
-                    tippy(el, { content: expression, allowHTML: true })
-                })
-            })
-        </script>
         @livewire('wire-elements-modal')
         <x-constant-contact />
 
