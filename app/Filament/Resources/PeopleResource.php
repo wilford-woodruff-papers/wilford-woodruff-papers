@@ -7,6 +7,7 @@ use App\Filament\Actions\Tables\UpdateSubjectValue;
 use App\Filament\Resources\PeopleResource\Pages;
 use App\Livewire\PeopleDuplicateChecker;
 use App\Models\Subject;
+use App\Models\Type;
 use App\Models\User;
 use Filament\Forms\Components\Actions;
 use Filament\Forms\Components\Actions\Action;
@@ -18,6 +19,7 @@ use Filament\Forms\Components\Livewire;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Select as SelectFilter;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
@@ -25,6 +27,7 @@ use Filament\Forms\Set;
 use Filament\Resources\Pages\Page;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -194,6 +197,9 @@ class PeopleResource extends Resource
                                 RichEditor::make('bio')
                                     ->label('Biography')
                                     ->columnSpan(2),
+                                TextInput::make('short_bio')
+                                    ->label('Short Biography')
+                                    ->columnSpan(2),
                                 RichEditor::make('footnotes')
                                     ->label('Footnotes')
                                     ->columnSpan(2),
@@ -257,6 +263,21 @@ class PeopleResource extends Resource
                                                     $set('bio_approved_at', now()->toDateString());
                                                 } else {
                                                     $set('bio_approved_at', null);
+                                                }
+                                            })
+                                    ),
+                                DatePicker::make('short_bio_completed_at')
+                                    ->label('Short Biography Completed On')
+                                    ->hintAction(
+                                        Action::make('now')
+                                            ->label(function ($state) {
+                                                return empty($state) ? 'Now' : 'Clear';
+                                            })
+                                            ->action(function (Set $set, $state) {
+                                                if (empty($state)) {
+                                                    $set('short_bio_completed_at', now()->toDateString());
+                                                } else {
+                                                    $set('short_bio_completed_at', null);
                                                 }
                                             })
                                     ),
@@ -445,9 +466,18 @@ class PeopleResource extends Resource
                 Tables\Columns\TextColumn::make('bio_approved_at')
                     ->date()
                     ->toggleable(),
+                Tables\Columns\TextColumn::make('short_bio_completed_at')
+                    ->date()
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('bio')
                     ->state(function (Model $record) {
                         return trim(strip_tags($record->bio));
+                    })
+                    ->limit(50)
+                    ->toggleable(),
+                Tables\Columns\TextColumn::make('short_bio')
+                    ->state(function (Model $record) {
+                        return trim(strip_tags($record->short_bio));
                     })
                     ->limit(50)
                     ->toggleable(),
@@ -525,6 +555,16 @@ class PeopleResource extends Resource
                         false: fn (Builder $query) => $query->whereNull('bio_approved_at'),
                         blank: fn (Builder $query) => $query,
                     ),
+                Tables\Filters\TernaryFilter::make('short_bio_completed')
+                    ->label('Short Bio Completed')
+                    ->placeholder('All')
+                    ->trueLabel('Completed')
+                    ->falseLabel('Not Completed')
+                    ->queries(
+                        true: fn (Builder $query) => $query->whereNotNull('short_bio_completed_at'),
+                        false: fn (Builder $query) => $query->whereNull('short_bio_completed_at'),
+                        blank: fn (Builder $query) => $query,
+                    ),
                 Tables\Filters\TernaryFilter::make('pid')
                     ->label('PID Found')
                     ->placeholder('All')
@@ -535,6 +575,38 @@ class PeopleResource extends Resource
                         false: fn (Builder $query) => $query->whereNull('pid'),
                         blank: fn (Builder $query) => $query,
                     ),
+                Filter::make('document_type')
+                    ->form([
+                        SelectFilter::make('type')
+                            ->label('In Document Type')
+                            ->placeholder('All')
+                            ->options(
+                                Cache::remember('doc-types-for-people', 3600, function () {
+                                    return Type::query()
+                                        ->whereNull('type_id')
+                                        ->orderBy('pages.type.name')
+                                        ->pluck('name', 'id')
+                                        ->all();
+                                })
+                            ),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['type'],
+                                function (Builder $query, $type): Builder {
+                                    $types = Type::query()
+                                        ->where('id', $type)
+                                        ->orWhere('type_id', $type)
+                                        ->pluck('id')
+                                        ->toArray();
+
+                                    return $query->whereRelation('pages.type', function ($query) use ($types) {
+                                        $query->whereIn('types.id', $types);
+                                    });
+                                },
+                            );
+                    }),
                 Tables\Filters\QueryBuilder::make()
                     ->constraints([
                         Tables\Filters\QueryBuilder\Constraints\TextConstraint::make('name'),
