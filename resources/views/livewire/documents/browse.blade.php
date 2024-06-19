@@ -178,6 +178,26 @@
                                 @endforeach
                             </nav>
                         </div>
+                    @elseif(data_get($filters, 'type') == $types->where('name', 'Additional')->first()->id)
+                        <div class="col-span-1 px-4 pt-6">
+                            <!-- This example requires Tailwind CSS v2.0+ -->
+                            <nav class="space-y-1" aria-label="Decade filter">
+                                @foreach($subtypes as $key => $subtype)
+                                    <span wire:click="$set('filters.subtype', '{{ $key }}')"
+                                          class="@if(data_get($this->filters, 'subtype') == $key) bg-gray-200 text-gray-900 @else text-gray-600 hover:bg-gray-50 hover:text-gray-900 @endif flex items-center pl-3 py-2 text-base font-medium cursor-pointer"
+                                    >
+                                        <span class="truncate">
+                                          {{ $subtype }}
+                                        </span>
+                                        <span class="inline-block py-0.5 px-3 ml-auto text-xs">
+                                          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                            </svg>
+                                        </span>
+                                    </span>
+                                @endforeach
+                            </nav>
+                        </div>
                     @endif
                     <div class="col-span-2 lg:col-span-3">
                         <ul class="px-4 divide-y divide-gray-200">
@@ -207,7 +227,7 @@
                 </div>
                 <div wire:loading.grid
                      class="grid grid-cols-3 grid-flow-col gap-6 lg:grid-cols-4">
-                    @if(data_get($filters, 'type') == $types->where('name', 'Letters')->first()->id)
+                    @if(data_get($filters, 'type') == $types->whereIn('name', ['Additional','Letters'])->first()->id)
                         <div class="col-span-1 px-4 pt-6">
                             <!-- This example requires Tailwind CSS v2.0+ -->
                             <nav class="space-y-1" aria-label="Decade filter">

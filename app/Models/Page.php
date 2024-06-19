@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Laravel\Scout\Searchable;
 use Mtvs\EloquentHashids\HasHashid;
 use OwenIt\Auditing\Auditable;
@@ -61,6 +62,18 @@ class Page extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
         //} else {
         return $this->belongsTo(Item::class, 'parent_item_id');
         //}
+    }
+
+    public function type(): HasManyThrough
+    {
+        return $this->hasManyThrough(
+            Type::class,
+            Item::class,
+            'id',
+            'id',
+            'parent_item_id',
+            'type_id'
+        );
     }
 
     public function next()
