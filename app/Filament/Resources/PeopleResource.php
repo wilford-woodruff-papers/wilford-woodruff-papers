@@ -584,7 +584,7 @@ class PeopleResource extends Resource
                                 Cache::remember('doc-types-for-people', 3600, function () {
                                     return Type::query()
                                         ->whereNull('type_id')
-                                        ->orderBy('pages.type.name')
+                                        ->orderBy('name')
                                         ->pluck('name', 'id')
                                         ->all();
                                 })
