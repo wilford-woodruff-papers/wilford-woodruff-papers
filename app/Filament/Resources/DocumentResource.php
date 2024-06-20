@@ -10,6 +10,8 @@ use App\Models\Repository;
 use App\Models\Source;
 use App\Models\Template;
 use App\Models\Type;
+use Filament\Forms\Components\Actions;
+use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Grid;
@@ -20,11 +22,13 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Livewire\Component;
 
 class DocumentResource extends Resource
 {
@@ -182,7 +186,142 @@ class DocumentResource extends Resource
                                 return ! empty($record) ? 1 : 3;
                             })
                             ->columns(2)
+                            ->headerActions([
+                                \Filament\Forms\Components\Actions\Action::make('Change Type')
+                                    ->form([
+                                        Select::make('type_id')
+                                            ->default(function ($record) {
+                                                return $record->type_id;
+                                            })
+                                            ->relationship(
+                                                name: 'type',
+                                                titleAttribute: 'name',
+                                                modifyQueryUsing: fn (Builder $query) => $query->whereNull('type_id')
+                                            )
+                                            ->live()
+                                            ->afterStateUpdated(function (Set $set, $state) {
+                                                $type = Type::find($state);
+                                                $prefix = match ($type->name) {
+                                                    'Additional' => [
+                                                        'B' => 'Business/Financial',
+                                                        'C' => 'Community',
+                                                        'E' => 'Education',
+                                                        'EP' => 'Estate Papers',
+                                                        'F' => 'Family',
+                                                        'G' => 'Genealogy',
+                                                        'H' => 'Histories',
+                                                        'L' => 'Legal',
+                                                        'M' => 'Mission',
+                                                        'I' => 'Personal',
+                                                        'P' => 'Political/Government',
+                                                        'R' => 'Religious',
+                                                        'T' => 'Temple',
+                                                    ],
+                                                    'Autobiographies' => [
+                                                        'A' => 'Autobiographies',
+                                                    ],
+                                                    'Daybooks' => [
+                                                        'DB' => 'Daybooks',
+                                                    ],
+                                                    'Discourses' => [
+                                                        'D' => 'Discourses',
+                                                    ],
+                                                    'Journals' => [
+                                                        'J' => 'Journals',
+                                                    ],
+                                                    'Letters' => [
+                                                        'LE' => 'Letters',
+                                                    ],
+                                                };
+                                                $set('pcf_unique_id_prefix', collect($prefix)->keys()->first());
+                                            })
+                                            ->preload()
+                                            ->required(),
+                                        Select::make('pcf_unique_id_prefix')
+                                            ->selectablePlaceholder(false)
+                                            ->default(function (?Model $record) {
+                                                return $record->pcf_unique_id_prefix;
+                                            })
+                                            ->options(function (Get $get) {
+                                                return match (Type::find($get('type_id'))?->name) {
+                                                    'Additional' => [
+                                                        'B' => 'Business/Financial',
+                                                        'C' => 'Community',
+                                                        'E' => 'Education',
+                                                        'EP' => 'Estate Papers',
+                                                        'F' => 'Family',
+                                                        'G' => 'Genealogy',
+                                                        'H' => 'Histories',
+                                                        'L' => 'Legal',
+                                                        'M' => 'Mission',
+                                                        'I' => 'Personal',
+                                                        'P' => 'Political/Government',
+                                                        'R' => 'Religious',
+                                                        'T' => 'Temple',
+                                                    ],
+                                                    'Autobiographies' => ['A' => 'Autobiographies'],
+                                                    'Daybooks' => ['DB' => 'Daybooks'],
+                                                    'Discourses' => ['D' => 'Discourses'],
+                                                    'Journals' => ['J' => 'Journals'],
+                                                    'Journal Sections' => ['J' => 'Journal Sections'],
+                                                    'Letters' => ['LE' => 'Letters'],
+                                                    default => [],
+                                                };
+                                            }),
+                                    ])
+                                    ->action(function (Model $record, array $data, Component $livewire) {
+                                        if (! empty($record->item_id) || Item::query()->where('item_id', $record->id)->exists()) {
+                                            Notification::make()
+                                                ->title('Document Type Change Failed because it is a parent or child document.')
+                                                ->danger()
+                                                ->send();
+                                        }
+
+                                        $regenerateUniqueId = false;
+                                        if ($record->type_id !== $data['type_id']) {
+                                            $record->type_id = $data['type_id'];
+                                            $regenerateUniqueId = true;
+                                        }
+                                        if ($record->pcf_unique_id_prefix !== $data['pcf_unique_id_prefix']) {
+                                            $record->pcf_unique_id_prefix = $data['pcf_unique_id_prefix'];
+                                            $regenerateUniqueId = true;
+                                        }
+                                        if ($regenerateUniqueId) {
+                                            $record->pcf_unique_id = null;
+                                            $record->save();
+                                            $record->name = str($record->name)
+                                                ->beforeLast('[')
+                                                ->append('['.$record->pcf_unique_id_full.']');
+                                            $record->save();
+                                        }
+                                    }),
+                            ])
                             ->schema([
+                                Actions::make([
+                                    Action::make('open-ftp-link')
+                                        ->label('FTP')
+                                        ->icon('heroicon-o-arrow-top-right-on-square')
+                                        ->visible(function (Model $record) {
+                                            return ! empty($record);
+                                        })
+                                        ->url(function (Model $record) {
+                                            return ! empty($record?->ftp_slug)
+                                                ? 'https://fromthepage.com/woodruff/wilford-woodruff-papers-project/'.$record->ftp_slug
+                                                : null;
+                                        }, true),
+                                    Action::make('open-website-link')
+                                        ->label('Website')
+                                        ->icon('heroicon-o-arrow-top-right-on-square')
+                                        ->visible(function (Model $record) {
+                                            return ! empty($record);
+                                        })
+                                        ->url(function (Model $record) {
+                                            return ! empty($record?->uuid)
+                                                ? route('documents.show', ['item' => $record->uuid])
+                                                : null;
+                                        }, true),
+                                ])
+                                    ->columns(2),
                                 TextInput::make('name')
                                     ->visible(function (?Model $record, Get $get) {
                                         return empty($record);
