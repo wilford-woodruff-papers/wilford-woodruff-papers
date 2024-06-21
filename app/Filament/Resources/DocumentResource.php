@@ -22,8 +22,10 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
+use Filament\Notifications\Actions\Action as NotificationAction;
 use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
+use Filament\Support\Enums\ActionSize;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -188,6 +190,9 @@ class DocumentResource extends Resource
                             ->columns(2)
                             ->headerActions([
                                 \Filament\Forms\Components\Actions\Action::make('Change Type')
+                                    ->visible(function (?Model $record) {
+                                        return ! empty($record) && auth()->user()->hasAnyRole(['Admin', 'Super Admin']);
+                                    })
                                     ->form([
                                         Select::make('type_id')
                                             ->default(function ($record) {
@@ -275,6 +280,8 @@ class DocumentResource extends Resource
                                                 ->title('Document Type Change Failed because it is a parent or child document.')
                                                 ->danger()
                                                 ->send();
+
+                                            return false;
                                         }
 
                                         $regenerateUniqueId = false;
@@ -293,6 +300,25 @@ class DocumentResource extends Resource
                                                 ->beforeLast('[')
                                                 ->append('['.$record->pcf_unique_id_full.']');
                                             $record->save();
+                                            Notification::make()
+                                                ->title('Update Name & Identifier in FTP')
+                                                ->body('You can use the button below to open this document in FTP and update the Identifier AND Name.')
+                                                ->actions([
+                                                    NotificationAction::make('view')
+                                                        ->label('Edit in FTP')
+                                                        ->button()
+                                                        ->color('warning')
+                                                        ->size(ActionSize::Large)
+                                                        ->icon('heroicon-m-pencil-square')
+                                                        ->url(
+                                                            'https://fromthepage.com/woodruff/wilford-woodruff-papers-project/'.$record->ftp_slug.'/edit',
+                                                            shouldOpenInNewTab: true
+                                                        ),
+
+                                                ])
+                                                ->warning()
+                                                ->duration(60000)
+                                                ->send();
                                         }
                                     }),
                             ])
