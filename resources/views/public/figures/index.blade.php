@@ -12,7 +12,7 @@
             <div class="sm:flex sm:items-center">
                 <div class="sm:flex-auto">
                     <p class="p-4 mt-2 text-xl font-semibold text-justify text-gray-700">
-                        Wilford Woodruff made approximately 9,000 illustrations in his journals. He used approximately 8,000 symbols repeatedly in predictable contexts to identify recurring events and these symbols are indicated in the manuscript using Figures 1-18. The remaining 1,000 unique images, connected to a single event on a specific day, are indicated in the manuscript by the unnumbered word “Figure.”
+                        Wilford Woodruff included over 9,000 illustrations in his journals. He used 18 symbols repeatedly in predictable contexts to identify recurring events and emotions and these symbols, indicated in the manuscript using Figures 1-18, are drawn almost 8,400 times. The remaining unique images, connected to a single event on a specific day, are indicated in the manuscript by the unnumbered word “Figure.”
                     </p>
                 </div>
                 <div class="mt-4 sm:flex-none sm:mt-0 sm:ml-16">
