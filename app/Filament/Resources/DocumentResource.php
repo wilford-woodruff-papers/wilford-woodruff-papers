@@ -319,6 +319,8 @@ class DocumentResource extends Resource
                                                 ->warning()
                                                 ->duration(60000)
                                                 ->send();
+
+                                            $livewire->js("navigator.clipboard.writeText('".$record->pcf_unique_id_full."');");
                                         }
                                     }),
                             ])
