@@ -191,7 +191,7 @@ class DocumentResource extends Resource
                             ->headerActions([
                                 \Filament\Forms\Components\Actions\Action::make('Change Type')
                                     ->visible(function (?Model $record) {
-                                        return ! empty($record) && auth()->user()->hasAnyRole(['Admin', 'Super Admin']);
+                                        return ! empty($record) && auth()->user()->hasAnyRole(['Researcher', 'Admin', 'Super Admin']);
                                     })
                                     ->form([
                                         Select::make('type_id')
