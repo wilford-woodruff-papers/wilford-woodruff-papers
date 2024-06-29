@@ -46,7 +46,9 @@
                                 @foreach($figures as $figure)
                                     <tr>
                                         <th class="py-4 pr-8 pl-0 text-lg text-gray-900 whitespace-nowrap">
-                                            Figure {!! $figure->tracking_number !!}
+                                            <a href="{{ route('advanced-search', ['currentIndex'=> 'Documents', 'exact' => 'true', 'q' => '"[FIGURE '.urlencode($figure->tracking_number).']"']) }}" class="text-secondary" target="_blank">
+                                                Figure {!! $figure->tracking_number !!}
+                                            </a>
                                         </th>
                                         <td class="py-4 pr-3 pl-4 text-sm font-medium text-gray-900 whitespace-normal sm:pl-0 min-w-[8em]">
                                             <img src="{{ Storage::disk('figures')->url($figure->filename) }}"

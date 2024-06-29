@@ -164,6 +164,9 @@ return [
                         'oneTypo' => 5,
                         'twoTypos' => 10,
                     ],
+                    'disableOnWords' => [
+                        'FIGURE',
+                    ],
                 ],
                 'stopWords' => [
                     'A',
@@ -279,6 +282,9 @@ return [
                     'minWordSizeForTypos' => [
                         'oneTypo' => 5,
                         'twoTypos' => 10,
+                    ],
+                    'disableOnWords' => [
+                        'FIGURE',
                     ],
                 ],
                 'stopWords' => [
