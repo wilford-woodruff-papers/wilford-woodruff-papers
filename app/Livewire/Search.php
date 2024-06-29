@@ -67,6 +67,7 @@ class Search extends Component
 
     protected $queryString = [
         'q' => ['except' => ''],
+        'exact' => ['except' => ''],
         'page' => ['except' => 1],
         'currentIndex' => ['except' => 'All'],
         'filters' => ['except' => []],
@@ -120,6 +121,8 @@ class Search extends Component
         ];
 
         if ($this->isDate() && ! str_contains($this->q, '"')) {
+            $this->q = '"'.$this->q.'"';
+        } elseif ($this->exact == true && ! str_contains($this->q, '"')) {
             $this->q = '"'.$this->q.'"';
         }
 
