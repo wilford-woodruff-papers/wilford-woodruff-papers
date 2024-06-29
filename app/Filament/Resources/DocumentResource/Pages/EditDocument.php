@@ -7,10 +7,16 @@ use App\Models\Value;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Database\Eloquent\Model;
+use Livewire\Attributes\On;
 
 class EditDocument extends EditRecord
 {
     protected static string $resource = DocumentResource::class;
+
+    #[On('refreshItem')]
+    public function refresh(): void
+    {
+    }
 
     public function getRecordTitle(): string
     {
@@ -27,8 +33,8 @@ class EditDocument extends EditRecord
 
     protected function handleRecordUpdate(Model $record, array $data): Model
     {
-        dd($data);
-        ray(collect(data_get($data, 'values')));
+        //        dd($data);
+        //        ray(collect(data_get($data, 'values')));
 
         $values = collect(data_get($data, 'values'));
 
@@ -47,8 +53,8 @@ class EditDocument extends EditRecord
                     ->delete();
             }
         }
-        ray()->showApp();
-        dd('Check Ray');
+        //        ray()->showApp();
+        //        dd('Check Ray');
         $record->update($data);
 
         return $record;
