@@ -89,7 +89,7 @@
                     </div>
                     <div class=" !m-0 !mb-12 bg-gray-100">
                         <p class="!mt-0 py-4 px-4 text-black">
-                            The first missionaries arrived in England on July 19, 1837. Apostle Heber C. Kimball baptized the first converts on July 30, 1837 in the River Ribble, near Preston, Lancashire, England. The Preston Ward is the longest continuously functioning Latter Day Saint congregation in the world.
+                            Wilford Woodruff included a 32-page booklet at the front of his journal detailing his mission to England in 1840. The booklet titled "Wilford Woodruff’s Baptismal Record 1840" listed the names of those who were baptized and confirmed members of The Church of Jesus Christ of Latter-day Saints in the tri-county area of Herefordshire, Worcestershire, and Staffordshire, between March 6 and June 22, 1840, as well as the names of those who officiated in the ordinances.
                         </p>
                         <p class="p-4 !m-0">
                             <a href="https://www.familysearch.org/eurona/travel/sites/98957/-british-converts?cid=fs_copy"
