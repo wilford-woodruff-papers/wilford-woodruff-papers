@@ -88,6 +88,7 @@ class PlacesController extends Controller
             'countries' => DB::table('subjects')
                 ->select('country')
                 ->distinct()
+                ->whereNotNull('place_confirmed_at')
                 ->whereNotNull('country')
                 ->orderBy('country', 'asc')
                 ->pluck('country', 'country')
@@ -96,6 +97,7 @@ class PlacesController extends Controller
                 ->select('state_province')
                 ->distinct()
                 ->whereNotNull('state_province')
+                ->whereNotNull('place_confirmed_at')
                 ->orderBy('state_province', 'asc')
                 ->pluck('state_province', 'state_province')
                 ->toArray(),
@@ -103,6 +105,7 @@ class PlacesController extends Controller
                 ->select('county')
                 ->distinct()
                 ->whereNotNull('county')
+                ->whereNotNull('place_confirmed_at')
                 ->orderBy('county', 'asc')
                 ->pluck('county', 'county')
                 ->toArray(),
