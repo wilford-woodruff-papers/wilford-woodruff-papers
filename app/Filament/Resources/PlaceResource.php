@@ -254,7 +254,7 @@ class PlaceResource extends Resource
                     ->searchable()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('name')
-                    ->searchable()
+                    ->searchable(isIndividual: true)
                     ->sortable()
                     ->toggleable(),
                 Tables\Columns\IconColumn::make('subject_uri')
@@ -275,23 +275,23 @@ class PlaceResource extends Resource
                     ->label('Usage')
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('country')
-                    ->searchable()
+                    ->searchable(isIndividual: true)
                     ->sortable()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('state_province')
-                    ->searchable()
+                    ->searchable(isIndividual: true)
                     ->sortable()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('county')
-                    ->searchable()
+                    ->searchable(isIndividual: true)
                     ->sortable()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('city')
-                    ->searchable()
+                    ->searchable(isIndividual: true)
                     ->sortable()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('specific_place')
-                    ->searchable()
+                    ->searchable(isIndividual: true)
                     ->sortable()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('years')
@@ -327,12 +327,14 @@ class PlaceResource extends Resource
                     ->date()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('modern_location')
+                    ->searchable(isIndividual: true)
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('added_to_ftp_at')
                     ->date()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('reference')
                     ->label('Source')
+                    ->searchable()
                     ->state(function (Model $record) {
                         return trim(strip_tags($record->bio));
                     })
@@ -342,6 +344,7 @@ class PlaceResource extends Resource
                     ->state(function (Model $record) {
                         return trim(strip_tags($record->bio));
                     })
+                    ->searchable()
                     ->limit(50)
                     ->toggleable(),
             ])
