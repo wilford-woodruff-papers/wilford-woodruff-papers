@@ -83,13 +83,16 @@
                         <div class="px-6 lg:px-8">
                             <div class="mx-auto max-w-2xl lg:mx-0">
                                 <p class="text-3xl font-bold tracking-tight text-white sm:text-5xl">1840 British Converts</p>
-                                <p class="text-2xl font-medium leading-8 text-white">Preston, Lancashire, England, United Kingdom</p>
+                                <p class="text-2xl font-medium leading-8 text-white">Herefordshire, Worcestershire, and Gloucestershire, England</p>
                             </div>
                         </div>
                     </div>
                     <div class=" !m-0 !mb-12 bg-gray-100">
                         <p class="!mt-0 py-4 px-4 text-black">
-                            Wilford Woodruff included a 32-page booklet at the front of his journal detailing his mission to England in 1840. The booklet titled "Wilford Woodruff’s Baptismal Record 1840" listed the names of those who were baptized and confirmed members of The Church of Jesus Christ of Latter-day Saints in the tri-county area of Herefordshire, Worcestershire, and Staffordshire, between March 6 and June 22, 1840, as well as the names of those who officiated in the ordinances.
+                            Wilford Woodruff included a 24-page booklet he titled "Wilford Woodruff’s Baptismal Record" at the front of his journal detailing his mission to England in 1840. In the booklet he recorded the names of those who were baptized and confirmed members of The Church of Jesus Christ of Latter-day Saints in the Tri-County area of Herefordshire, Worcestershire, and Gliucestershire, between March 6 and June 22, 1840, as well as the names of those who officiated in the ordinances.
+                        </p>
+                        <p class="!mt-0 py-4 px-4 text-black">
+                            We have identified most of the 485 individuals included on Wilford Woodruff's list. If you are able to provide additional information that will help us identify others, please send a message to <a href='ma&#105;l&#116;o&#58;c%&#54;&#70;n&#116;%61ct&#64;wi&#108;%6&#54;ordwood&#37;72u%66%6&#54;pa&#112;%65rs&#46;&#37;6F%72g' class="underline text-secondary">contac&#116;&#64;wilfordwood&#114;u&#102;fp&#97;pe&#114;&#115;&#46;or&#103;</a>.
                         </p>
                         <p class="p-4 !m-0">
                             <a href="https://www.familysearch.org/eurona/travel/sites/98957/-british-converts?cid=fs_copy"
