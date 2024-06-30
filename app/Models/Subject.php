@@ -500,6 +500,31 @@ class Subject extends Model implements HasMedia
         return $country;
     }
 
+    public static function countryName($state, $country)
+    {
+        if (! str($country)->is('United States')) {
+            return $country;
+        }
+
+        if (
+            str($country)->is('United States')
+            && str($state)->contains('Washington, D.C.')
+        ) {
+            return $country;
+        } elseif (
+            str($country)->is('United States')
+            && empty($state)
+        ) {
+            return $country;
+        } elseif (
+            str($country)->is('United States')
+        ) {
+            return null;
+        }
+
+        return $country;
+    }
+
     public function registerMediaConversions(?Media $media = null): void
     {
         $this->addMediaConversion('thumb')
