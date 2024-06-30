@@ -199,7 +199,17 @@
                             </nav>
                         </div>
                     @endif
-                    <div class="col-span-2 lg:col-span-3">
+                    <div class="@if(data_get($filters, 'type') == $types->where('name', 'Additional')->first()->id) col-span-2 lg:col-span-3 @else col-span-4 @endif">
+                        @if(data_get($filters, 'type') == 'Scriptures')
+                            <div class="my-2">
+                                <a href="{{ route('advanced-search', ['currentIndex' => 'Scriptures']) }}">
+                                    <img src="{{ asset('img/banners/wilford-woodruff-scripture-references.png') }}"
+                                         alt="Explore Scripture References in Wilford Woodruff’s Writings"
+                                         class="pr-4 pl-5 w-full h-auto"
+                                    />
+                                </a>
+                            </div>
+                        @endif
                         <ul class="px-4 divide-y divide-gray-200">
                             @if($items->count() > 0)
                                 @foreach($items as $item)
