@@ -100,6 +100,10 @@ class Browse extends Component
             ->orderBy('name', 'ASC')
             ->get();
 
+        if (data_get($this->filters, 'type') != $this->types->where('name', 'Additional')->first()->id) {
+            $this->filters['subtype'] = null;
+        }
+
         if (data_get($this->filters, 'type') == Type::firstWhere('name', 'Letters')->id) {
             $this->decades = DB::table('items')
                 ->select('decade', DB::raw('count(*) as total'))
