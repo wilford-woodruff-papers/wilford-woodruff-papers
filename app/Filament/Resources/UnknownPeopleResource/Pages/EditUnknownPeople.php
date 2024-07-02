@@ -26,6 +26,7 @@ class EditUnknownPeople extends EditRecord
     {
         $record = $this->getRecord();
         if (! empty($record->researcher_id)
+            && $record->wasChanged('researcher_id')
             && ($record->researcher_id != auth()->id())
         ) {
             $record->researcher->notify(new UnknownPersonAssignmentNotification($record));
