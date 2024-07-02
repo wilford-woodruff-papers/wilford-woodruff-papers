@@ -53,7 +53,7 @@ class AppServiceProvider extends ServiceProvider
         Stringable::macro('replaceFigureTags', app(\App\Macros\Stringable\ReplaceFigureTags::class)());
 
         if (! app()->environment('production')) {
-            Mail::alwaysTo('test@wilfordwoodruffpapers.org');
+            Mail::alwaysTo('jon.fackrell@wilfordwoodruffpapers.org');
         }
 
         Validator::extend('exclude_one', function ($attribute, $value, $parameters, $validator) {
