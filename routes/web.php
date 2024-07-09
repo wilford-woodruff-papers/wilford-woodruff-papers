@@ -30,6 +30,8 @@ Route::middleware([])->group(function () {
                 return redirect()->away(config('app.url').'/conference/2023-building-latter-day-faith');
             } elseif ($subdomain == 'book') {
                 return redirect()->away(config('app.url').'/wilford-woodruffs-witness');
+            } elseif ($subdomain == 'walk') {
+                return redirect()->away(config('app.url').'/wilford-woodruff-walk');
             } elseif ($subdomain == 'arts') {
                 return redirect()->to(config('app.url'));
             } elseif ($subdomain == 'rsvp') {
