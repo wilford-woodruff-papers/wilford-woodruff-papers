@@ -525,6 +525,18 @@ class Subject extends Model implements HasMedia
         return $country;
     }
 
+    public function firstLetter()
+    {
+        return Item::query()
+            ->whereIn(
+                'id',
+                $this->pages->pluck('parent_item_id')->toArray())
+            ->whereRelation('type', 'name', 'Letters')
+            ->whereNotNull('first_date')
+            ->orderBy('first_date', 'asc')
+            ->first();
+    }
+
     public function registerMediaConversions(?Media $media = null): void
     {
         $this->addMediaConversion('thumb')
