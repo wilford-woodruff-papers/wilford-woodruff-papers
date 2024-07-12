@@ -131,6 +131,6 @@
 
         @livewire('wire-elements-modal')
         <x-constant-contact />
-
+        @include('layouts.partials.chatbot')
     </body>
 </html>
