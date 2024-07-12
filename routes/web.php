@@ -96,6 +96,10 @@ Route::middleware([])->group(function () {
         return response()->redirectTo('/wilford-woodruff-ai-learning-experience-end');
     });
 
+    Route::view('/chatbot', 'public.chatbot')
+        ->name('chatbot')
+        ->middleware(['auth:sanctum', 'role:Chatbot Access']);
+
     Route::get('/donate', [\App\Http\Controllers\DonationController::class, 'index'])->name('donate');
     Route::get('/', \App\Http\Controllers\HomeController::class)->name('home');
 
