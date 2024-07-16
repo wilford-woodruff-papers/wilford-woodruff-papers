@@ -19,12 +19,20 @@
                             <div class="mt-0 mb-12 divide-y divide-gray-200">
 
                                 @php
-                                    $categories = ['Project', 'Documents', 'Funding'];
+                                    $categories = [
+                                        'Project',
+                                        'Documents',
+                                        'Funding',
+                                        'Citation',
+                                        'In the Papers',
+                                        'Wilford Woodruff',
+                                        'Temples',
+                                        ];
                                     $faqsGroupedByCategory = $faqs->groupBy('category');
                                 @endphp
 
                                 @foreach($categories as $category)
-                                    <div class="grid grid-cols-1 py-8 sm:grid-cols-2 md:grid-cols-3">
+                                    <div id="{{ $category }}" class="grid grid-cols-1 py-8 sm:grid-cols-2 md:grid-cols-3">
                                         <div class="font-extrabold">
                                             <h2 class="pb-1 text-3xl uppercase border-b-4 border-highlight">{{ $category }}</h2>
                                         </div>
