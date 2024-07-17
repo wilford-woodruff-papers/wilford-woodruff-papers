@@ -515,6 +515,12 @@
                                                    class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
                                                     Editorial Method
                                                 </a>
+                                                <div class="pl-4">
+                                                    <a href="{{ route('figures') }}"
+                                                       class="block py-2 px-4 w-full text-sm font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
+                                                        Figures
+                                                    </a>
+                                                </div>
                                                 <a href="{{ route('about.frequently-asked-questions') }}"
                                                    class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
                                                     Frequently Asked Questions
@@ -721,6 +727,12 @@
                                        class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
                                         Editorial Method
                                     </a>
+                                    <div class="pl-4">
+                                        <a href="{{ route('figures') }}"
+                                           class="block py-2 px-4 w-full text-sm font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
+                                            Figures
+                                        </a>
+                                    </div>
                                     <a href="{{ route('about.frequently-asked-questions') }}"
                                        class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
                                         Frequently Asked Questions
