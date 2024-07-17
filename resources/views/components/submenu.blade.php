@@ -39,6 +39,18 @@
                                 Editorial Method
                             </span>
                     </a>
+                    @if(request()->is('about/editorial-method'))
+                        <div class="pl-4 mt-1 space-y-1" aria-labelledby="media-press-center-headline">
+                            <div class="pl-4 space-y-1">
+                                <a href="{{ route('figures') }}"
+                                   class="flex items-center py-2 px-3 text-sm font-medium group">
+                                    <span class="truncate">
+                                        Figures
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    @endif
                     <a href="{{ route('about.frequently-asked-questions') }}"
                        class="group flex items-center px-3 py-2 text-sm font-medium @if(request()->is('about/frequently-asked-questions')) active @else @endif">
                             <span class="truncate">
