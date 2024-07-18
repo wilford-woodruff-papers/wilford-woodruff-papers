@@ -116,6 +116,9 @@ class PeopleController extends Controller
         'United Brethren',
         'Eminent Men and Women',
         'Missionaries',
+        'Native Americans',
+        'Zion’s Camp',
+        'Maine Mission',
     ];
 
     /**
