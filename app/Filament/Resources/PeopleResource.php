@@ -6,8 +6,8 @@ use App\Filament\Actions\Tables\Subjects\ClaimSubject;
 use App\Filament\Actions\Tables\UpdateSubjectValue;
 use App\Filament\Resources\PeopleResource\Pages;
 use App\Livewire\PeopleDuplicateChecker;
+use App\Models\Item;
 use App\Models\Subject;
-use App\Models\Type;
 use App\Models\User;
 use Filament\Forms\Components\Actions;
 use Filament\Forms\Components\Actions\Action;
@@ -575,37 +575,59 @@ class PeopleResource extends Resource
                         false: fn (Builder $query) => $query->whereNull('pid'),
                         blank: fn (Builder $query) => $query,
                     ),
-                Filter::make('document_type')
+                //                Filter::make('document_type')
+                //                    ->form([
+                //                        SelectFilter::make('type')
+                //                            ->label('In Document Type')
+                //                            ->placeholder('All')
+                //                            ->options(
+                //                                Cache::remember('doc-types-for-people', 3600, function () {
+                //                                    return Type::query()
+                //                                        ->whereNull('type_id')
+                //                                        ->orderBy('name')
+                //                                        ->pluck('name', 'id')
+                //                                        ->all();
+                //                                })
+                //                            ),
+                //                    ])
+                //                    ->query(function (Builder $query, array $data): Builder {
+                //                        return $query
+                //                            ->when(
+                //                                $data['type'],
+                //                                function (Builder $query, $type): Builder {
+                //                                    $types = Type::query()
+                //                                        ->where('id', $type)
+                //                                        ->orWhere('type_id', $type)
+                //                                        ->pluck('id')
+                //                                        ->toArray();
+                //
+                //                                    return $query->whereRelation('pages.type', function ($query) use ($types) {
+                //                                        $query->whereIn('types.id', $types);
+                //                                    });
+                //                                },
+                //                            );
+                //                    }),
+                Filter::make('journal')
                     ->form([
-                        SelectFilter::make('type')
-                            ->label('In Document Type')
-                            ->placeholder('All')
+                        SelectFilter::make('journals')
+                            ->label('In Journal')
+                            ->placeholder('-- Select --')
                             ->options(
-                                Cache::remember('doc-types-for-people', 3600, function () {
-                                    return Type::query()
-                                        ->whereNull('type_id')
-                                        ->orderBy('name')
+                                Cache::remember('journals-for-people', 3600, function () {
+                                    return Item::query()
+                                        ->whereRelation('type', 'name', 'Journals')
+                                        ->orderBy('first_date', 'ASC')
                                         ->pluck('name', 'id')
                                         ->all();
                                 })
                             ),
                     ])
                     ->query(function (Builder $query, array $data): Builder {
-                        return $query
-                            ->when(
-                                $data['type'],
-                                function (Builder $query, $type): Builder {
-                                    $types = Type::query()
-                                        ->where('id', $type)
-                                        ->orWhere('type_id', $type)
-                                        ->pluck('id')
-                                        ->toArray();
-
-                                    return $query->whereRelation('pages.type', function ($query) use ($types) {
-                                        $query->whereIn('types.id', $types);
-                                    });
-                                },
-                            );
+                        return $query->when($data['journals'], function (Builder $query, $journal) {
+                            return $query->whereRelation('pages.parent', function ($query) use ($journal) {
+                                $query->where('items.id', $journal);
+                            });
+                        });
                     }),
                 Tables\Filters\QueryBuilder::make()
                     ->constraints([
