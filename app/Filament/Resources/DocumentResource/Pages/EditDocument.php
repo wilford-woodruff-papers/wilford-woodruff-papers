@@ -59,4 +59,9 @@ class EditDocument extends EditRecord
 
         return $record;
     }
+
+    public function hasCombinedRelationManagerTabsWithContent(): bool
+    {
+        return true;
+    }
 }

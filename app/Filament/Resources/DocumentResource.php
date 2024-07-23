@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\DocumentResource\Pages;
+use App\Filament\Resources\DocumentResource\RelationManagers\RealPagesRelationManager;
 use App\Models\CopyrightStatus;
 use App\Models\Item;
 use App\Models\Property;
@@ -606,7 +607,7 @@ class DocumentResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RealPagesRelationManager::class,
         ];
     }
 
