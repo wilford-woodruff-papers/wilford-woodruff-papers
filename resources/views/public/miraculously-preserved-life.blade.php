@@ -168,30 +168,6 @@
                                 <div class="flex-1 py-1 min-w-0">
                                     <div class="ml-5 text-lg text-gray-700">
                                         <p>
-                                            Kicked in the abdomen by an ox.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
-                            <div class="flex relative items-start ml-5 space-x-3">
-                                <div>
-                                    <div class="relative px-1">
-                                        <div class="flex justify-center items-center w-8 h-8 bg-gray-100 rounded-full ring-8 ring-white">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
-                                            </svg>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="flex-1 py-1 min-w-0">
-                                    <div class="ml-5 text-lg text-gray-700">
-                                        <p>
                                             Saved from suffocation after wagonload of hay he stacked incorrectly overturned on top of him.
                                         </p>
                                     </div>
@@ -522,7 +498,7 @@
                                     </div>
                                     <div class="mt-7 text-lg text-gray-700">
                                         <p>
-                                            Preserved from a mob of about 50 people, a black bear and a large pack of wolves.
+                                            January 13, 1835 - Preserved from a black bear and a large pack of wolves.
                                         </p>
                                     </div>
                                 </div>
@@ -546,7 +522,31 @@
                                 <div class="flex-1 py-1 min-w-0">
                                     <div class="ml-5 text-lg text-gray-700">
                                         <p>
-                                            Rescued by divine intervention after wandering for 5 hours in a tremendous storm.
+                                            January 19, 1835 - Preserved from a mob of about 60 people.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="relative pb-8">
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
+                            <div class="flex relative items-start ml-5 space-x-3">
+                                <div>
+                                    <div class="relative px-1">
+                                        <div class="flex justify-center items-center w-8 h-8 bg-gray-100 rounded-full ring-8 ring-white">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex-1 py-1 min-w-0">
+                                    <div class="ml-5 text-lg text-gray-700">
+                                        <p>
+                                            November 15, 1835 - Rescued by divine intervention after wandering for 5 hours in a tremendous storm.
                                         </p>
                                     </div>
                                 </div>
@@ -569,7 +569,7 @@
                                     </div>
                                     <div class="mt-7 text-lg text-gray-700">
                                         <p>
-                                            Left unhurt when a tornado removed the building he was standing in.
+                                            May 5, 1837 - Left unhurt when a tornado removed the building he was standing in.
                                         </p>
                                     </div>
                                 </div>
@@ -592,7 +592,7 @@
                                     </div>
                                     <div class="mt-7 text-lg text-gray-700">
                                         <p>
-                                            Thrown from the axle tree of a wagon, head and shoulder were dragged on the ground for ½ mile.
+                                            April 1839 - Thrown from the axle tree of a wagon, head and shoulder were dragged on the ground for ½ mile.
                                         </p>
                                     </div>
                                 </div>
@@ -616,13 +616,37 @@
                                 <div class="flex-1 py-1 min-w-0">
                                     <div class="ml-5 text-lg text-gray-700">
                                         <p>
-                                            Contracted malaria but left for England to serve his mission with members of Quorum of 12.
+                                            August 8, 1839 - Contracted malaria but left for England to serve his mission with members of Quorum of 12.
                                         </p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </li>
+
+                    <li>
+                        <div class="relative pb-8">
+                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
+                            <div class="flex relative items-start space-x-3">
+                                <div class="relative mt-9">
+                                    <img class="flex justify-center items-center w-20 h-20 bg-gray-400 rounded-full ring-8 ring-white" src="{{ asset('img/miraculously-preserved-life/rock.jpg') }}" alt="">
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div>
+                                        <div class="text-2xl font-medium text-gray-900">
+                                            1840
+                                        </div>
+                                    </div>
+                                    <div class="mt-7 text-lg text-gray-700">
+                                        <p>
+                                            Hit in the head by mob throwing rocks at him while baptizing; later baptized some of mob.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
 
                     <li>
                         <div class="relative pb-8">
@@ -639,7 +663,7 @@
                                     </div>
                                     <div class="mt-7 text-lg text-gray-700">
                                         <p>
-                                            Survived shipwreck on Lake Michigan.
+                                            September 25, 1841 - Survived shipwreck on Lake Michigan.
                                         </p>
                                     </div>
                                 </div>
@@ -662,7 +686,7 @@
                                     </div>
                                     <div class="mt-7 text-lg text-gray-700">
                                         <p>
-                                            Bedridden for 40 days with bilious fever and struggled between life and death.
+                                            July 23, 1842 - Bedridden for 40 days with bilious fever and struggled between life and death.
                                         </p>
                                     </div>
                                 </div>
@@ -685,7 +709,7 @@
                                     </div>
                                     <div class="mt-7 text-lg text-gray-700">
                                         <p>
-                                            Survived train crash; passenger cars smashed, baggage cars caught fire, engineer killed.
+                                            September 12, 1843 - Survived train crash; passenger cars smashed, baggage cars caught fire, engineer killed.
                                         </p>
                                     </div>
                                 </div>
@@ -708,7 +732,7 @@
                                     </div>
                                     <div class="mt-7 text-lg text-gray-700">
                                         <p>
-                                            Had to help ship captain extinguish fire on board the ship he was traveling on.
+                                            September 17, 1844 - Helped ship captain extinguish fire on board the ship he was traveling on with his wife Phebe.
                                         </p>
                                     </div>
                                 </div>
@@ -754,7 +778,7 @@
                                     </div>
                                     <div class="mt-7 text-lg text-gray-700">
                                         <p>
-                                            Crushed by falling tree; broke breast bone and three ribs, caused severe internal injuries.
+                                            October 5, 1846 - Crushed by falling tree; broke breast bone and three ribs, caused severe internal injuries.
                                         </p>
                                     </div>
                                 </div>
@@ -762,29 +786,7 @@
                         </div>
                     </li>
 
-                    <li>
-                        <div class="relative pb-8">
-                            <span class="absolute top-10 left-10 -ml-px w-0.5 h-full bg-gray-200" aria-hidden="true"></span>
-                            <div class="flex relative items-start ml-5 space-x-3">
-                                <div>
-                                    <div class="relative px-1">
-                                        <div class="flex justify-center items-center w-8 h-8 bg-gray-100 rounded-full ring-8 ring-white">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
-                                            </svg>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="flex-1 py-1 min-w-0">
-                                    <div class="ml-5 text-lg text-gray-700">
-                                        <p>
-                                            Hit in the head by mob throwing rocks at him while baptizing; later baptized some of mob.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
+
 
                     <li>
                         <div class="relative pb-8">
