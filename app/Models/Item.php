@@ -440,6 +440,7 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
             'thumbnail' => $this->firstPage?->getFirstMedia()?->getUrl('thumb'),
             'uuid' => $this->uuid,
             'name' => str($this->name)->stripBracketedID()->toString(),
+            'description' => '',
         ];
     }
 
