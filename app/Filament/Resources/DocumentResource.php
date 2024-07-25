@@ -460,8 +460,7 @@ class DocumentResource extends Resource
                                                 'LE' => 'Letters',
                                             ],
                                         };
-                                    })
-                                    ->required(),
+                                    }),
                                 TextInput::make('manual_page_count')
                                     ->label('Page Count (Manual)')
                                     ->integer()
