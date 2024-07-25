@@ -63,6 +63,10 @@ class People extends Component
                 'rgba(11, 40, 54, .9)',
                 'rgba(11, 40, 54, .95)',
                 '#0B2836',
+                'rgba(11, 40, 54, .50)',
+                'rgba(11, 40, 54, .45)',
+                'rgba(11, 40, 54, .40)',
+                'rgba(11, 40, 54, .35)',
             ];
 
             foreach ($this->categories as $category => $count) {
@@ -97,6 +101,16 @@ class People extends Component
     public function getPeople()
     {
         $people = Subject::query()
+            ->select([
+                'id',
+                'name',
+                'slug',
+                'tagged_count',
+                'birth_date',
+                'death_date',
+                'life_years',
+                'bio_approved_at',
+            ])
             ->with([
                 'category',
             ])
