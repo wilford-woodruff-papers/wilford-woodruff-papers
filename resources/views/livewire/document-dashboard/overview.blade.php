@@ -52,7 +52,7 @@
 
                     @include('livewire.document-dashboard.sections.metadata')
 
-                    <livewire:document-dashboard.people :itemId="$item->id"/>
+                    {{--<livewire:document-dashboard.people :itemId="$item->id"/>--}}
 
                     <livewire:document-dashboard.places :itemId="$item->id"/>
 
