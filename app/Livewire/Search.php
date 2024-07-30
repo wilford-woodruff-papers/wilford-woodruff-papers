@@ -150,6 +150,10 @@ class Search extends Component
                 })
                 ->values()
                 ->toArray(),
+            'hybrid' => [
+                'embedder' => 'semanticSearch',
+                'semanticRatio' => 0.7,
+            ],
         ]);
 
         $facetDistribution = $result->getFacetDistribution();
