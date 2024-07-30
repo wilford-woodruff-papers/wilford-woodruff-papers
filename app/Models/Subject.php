@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Stringable;
 use Laravel\Scout\Searchable;
 use OpenAI\Laravel\Facades\OpenAI;
@@ -406,16 +407,6 @@ class Subject extends Model implements HasMedia
         $geo = null;
         $thumbnail = null;
 
-        $vectors = [];
-        $response = OpenAI::embeddings()->create([
-            'model' => 'text-embedding-ada-002',
-            'input' => strip_tags($this->bio ?? ''),
-        ]);
-
-        foreach ($response->embeddings as $embedding) {
-            $vectors = $embedding->embedding;
-        }
-
         if ($this->category->pluck('name')->contains('People')) {
             $resourceType = 'People';
             if (str($this->portrait)->startsWith('https://tree-portraits-bgt.familysearchcdn.org')) {
@@ -437,7 +428,7 @@ class Subject extends Model implements HasMedia
             $resourceType = null;
         }
 
-        return [
+        $data = [
             'id' => 'subject_'.$this->id,
             'is_published' => ($this->tagged_count > 0) | ($this->text_count > 0) | ($this->total_usage_count > 0),
             'resource_type' => $resourceType,
@@ -448,10 +439,36 @@ class Subject extends Model implements HasMedia
             'description' => strip_tags($this->bio ?? ''),
             '_geo' => $geo,
             'usages' => $this->getCount(),
-            '_vectors' => [
-                'semanticSearch' => $vectors,
-            ],
         ];
+
+        if (
+            empty($this->embeddings_created_at)
+            || $this->embeddings_created_at < now()->subDay()
+            || ! Storage::exists('embeddings/'.static::class.'/'.$this->id.'.json')
+        ) {
+            $vectors = [];
+            $response = OpenAI::embeddings()->create([
+                'model' => 'text-embedding-ada-002',
+                'input' => strip_tags($this->bio ?? ''),
+            ]);
+
+            foreach ($response->embeddings as $embedding) {
+                $vectors = $embedding->embedding;
+            }
+            Storage::put('embeddings/'.static::class.'/'.$this->id.'.json', json_encode($vectors));
+            $this->update([
+                'embeddings_created_at' => now(),
+            ]);
+            $data['_vectors'] = [
+                'semanticSearch' => $vectors,
+            ];
+        } else {
+            $data['_vectors'] = [
+                'semanticSearch' => json_decode(Storage::get('embeddings/'.static::class.'/'.$this->id.'.json')),
+            ];
+        }
+
+        return $data;
     }
 
     public function getCount()
