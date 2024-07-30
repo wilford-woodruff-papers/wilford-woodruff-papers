@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
+use OpenAI\Laravel\Facades\OpenAI;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -105,7 +106,7 @@ class Event extends Model implements HasMedia
             });
     }
 
-    public function registerMediaConversions(Media $media = null): void
+    public function registerMediaConversions(?Media $media = null): void
     {
         $this->addMediaConversion('thumb')
             ->width(368)
@@ -211,6 +212,16 @@ class Event extends Model implements HasMedia
 
     public function toSearchableArray(): array
     {
+        $vectors = [];
+        $response = OpenAI::embeddings()->create([
+            'model' => 'text-embedding-ada-002',
+            'input' => $this->text,
+        ]);
+
+        foreach ($response->embeddings as $embedding) {
+            $vectors = $embedding->embedding;
+        }
+
         $geo = null;
         $location = null;
         $this->loadMissing([
@@ -248,6 +259,9 @@ class Event extends Model implements HasMedia
             }),
             '_geo' => $geo,
             'location_name' => $location,
+            '_vectors' => [
+                'semanticSearch' => $vectors,
+            ],
         ];
     }
 

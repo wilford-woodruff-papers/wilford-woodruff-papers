@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Stringable;
 use Laravel\Scout\Searchable;
+use OpenAI\Laravel\Facades\OpenAI;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -405,6 +406,16 @@ class Subject extends Model implements HasMedia
         $geo = null;
         $thumbnail = null;
 
+        $vectors = [];
+        $response = OpenAI::embeddings()->create([
+            'model' => 'text-embedding-ada-002',
+            'input' => strip_tags($this->bio ?? ''),
+        ]);
+
+        foreach ($response->embeddings as $embedding) {
+            $vectors = $embedding->embedding;
+        }
+
         if ($this->category->pluck('name')->contains('People')) {
             $resourceType = 'People';
             if (str($this->portrait)->startsWith('https://tree-portraits-bgt.familysearchcdn.org')) {
@@ -437,6 +448,9 @@ class Subject extends Model implements HasMedia
             'description' => strip_tags($this->bio ?? ''),
             '_geo' => $geo,
             'usages' => $this->getCount(),
+            '_vectors' => [
+                'semanticSearch' => $vectors,
+            ],
         ];
     }
 

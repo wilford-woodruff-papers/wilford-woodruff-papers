@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
+use OpenAI\Laravel\Facades\OpenAI;
 use Parental\HasChildren;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -54,12 +55,21 @@ class Update extends Model implements HasMedia
     public function toSearchableArray(): array
     {
         $route = str($this->type)->lower()->toString();
-        //dd($route);
 
         if ($this->type == 'Newsletter') {
             $summary = str(strip_tags(str($this->content)->after('</head>')->replace('[[trackingImage]]', '') ?? ''))->limit(200)->trim(' ')->toString();
         } else {
             $summary = strip_tags($this->content);
+        }
+
+        $vectors = [];
+        $response = OpenAI::embeddings()->create([
+            'model' => 'text-embedding-ada-002',
+            'input' => $summary,
+        ]);
+
+        foreach ($response->embeddings as $embedding) {
+            $vectors = $embedding->embedding;
         }
 
         return [
@@ -72,6 +82,9 @@ class Update extends Model implements HasMedia
             'name' => $this->subject,
             'description' => $summary,
             'date' => $this->publish_at ? $this->publish_at?->timestamp : null,
+            '_vectors' => [
+                'semanticSearch' => $vectors,
+            ],
         ];
     }
 

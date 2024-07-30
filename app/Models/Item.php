@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\DB;
 use Laravel\Scout\Searchable;
 use Mtvs\EloquentHashids\HasHashid;
+use OpenAI\Laravel\Facades\OpenAI;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Encoders\Base64Encoder;
 use Spatie\Activitylog\LogOptions;
@@ -431,6 +432,16 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
 
     public function toSearchableArray(): array
     {
+        $vectors = [];
+        $response = OpenAI::embeddings()->create([
+            'model' => 'text-embedding-ada-002',
+            'input' => str($this->name)->stripBracketedID()->toString(),
+        ]);
+
+        foreach ($response->embeddings as $embedding) {
+            $vectors = $embedding->embedding;
+        }
+
         return [
             'id' => 'item_'.$this->id,
             'is_published' => (bool) $this->enabled,
@@ -441,6 +452,9 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
             'uuid' => $this->uuid,
             'name' => str($this->name)->stripBracketedID()->toString(),
             'description' => '',
+            '_vectors' => [
+                'semanticSearch' => $vectors,
+            ],
         ];
     }
 
