@@ -20,7 +20,7 @@ class IndexContentToMeilisearchCommand extends Command
 
     protected $description = 'Index all content to Meilisearch for site wide search';
 
-    protected $chunkSize = 100;
+    protected $chunkSize = 25;
 
     public function handle(): void
     {

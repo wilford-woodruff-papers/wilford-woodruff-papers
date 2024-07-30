@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Scout\Searchable;
+use OpenAI\Laravel\Facades\OpenAI;
 use Spatie\Tags\HasTags;
 
 class WebsitePage extends Model
@@ -19,6 +20,17 @@ class WebsitePage extends Model
 
     public function toSearchableArray(): array
     {
+
+        $vectors = [];
+        $response = OpenAI::embeddings()->create([
+            'model' => 'text-embedding-ada-002',
+            'input' => strip_tags($this->description ?? ''),
+        ]);
+
+        foreach ($response->embeddings as $embedding) {
+            $vectors = $embedding->embedding;
+        }
+
         return [
             'id' => 'website_'.$this->id,
             'is_published' => true,
@@ -30,6 +42,9 @@ class WebsitePage extends Model
             'keywords' => $this->tags()->pluck('name')->map(function ($keyword) {
                 return str($keyword)->title();
             })->toArray(),
+            '_vectors' => [
+                'semanticSearch' => $vectors,
+            ],
         ];
     }
 

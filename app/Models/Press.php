@@ -130,7 +130,7 @@ class Press extends Model implements HasMedia
         ]);
 
         foreach ($response->embeddings as $embedding) {
-            $vectors[] = $embedding->embedding;
+            $vectors = $embedding->embedding;
         }
 
         return [
@@ -147,7 +147,9 @@ class Press extends Model implements HasMedia
             'topics' => $this->topLevelIndexTopics->pluck('name')->map(function ($topic) {
                 return str($topic)->title();
             })->toArray(),
-            '_vectors' => $vectors,
+            '_vectors' => [
+                'semanticSearch' => $vectors,
+            ],
         ];
     }
 

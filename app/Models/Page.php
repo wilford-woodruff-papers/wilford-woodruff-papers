@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Laravel\Scout\Searchable;
 use Mtvs\EloquentHashids\HasHashid;
+use OpenAI\Laravel\Facades\OpenAI;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Encoders\Base64Encoder;
 use Spatie\Activitylog\LogOptions;
@@ -390,6 +391,16 @@ class Page extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
 
     public function toSearchableArray(): array
     {
+        $vectors = [];
+        $response = OpenAI::embeddings()->create([
+            'model' => 'text-embedding-ada-002',
+            'input' => strip_tags($this->transcript),
+        ]);
+
+        foreach ($response->embeddings as $embedding) {
+            $vectors = $embedding->embedding;
+        }
+
         return [
             'id' => 'page_'.$this->id,
             'is_published' => (bool) $this->parent->enabled,
@@ -418,6 +429,9 @@ class Page extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
             'order' => $this->order,
             'volumes' => $this->volumes->pluck('name')->unique()->toArray(),
             'books' => $this->volumes->pluck('pivot.book')->unique()->toArray(),
+            '_vectors' => [
+                'semanticSearch' => $vectors,
+            ],
         ];
     }
 
