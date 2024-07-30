@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Scout\Searchable;
+use OpenAI\Laravel\Facades\OpenAI;
 use Parental\HasChildren;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -122,6 +123,16 @@ class Press extends Model implements HasMedia
             $authors = [str($this->subtitle)->title()];
         }
 
+        $vectors = [];
+        $response = OpenAI::embeddings()->create([
+            'model' => 'text-embedding-ada-002',
+            'input' => strip_tags($this->description ?? ''),
+        ]);
+
+        foreach ($response->embeddings as $embedding) {
+            $vectors[] = $embedding->embedding;
+        }
+
         return [
             'id' => 'media_'.$this->id,
             'is_published' => ($this->date < now('America/Denver')),
@@ -136,6 +147,7 @@ class Press extends Model implements HasMedia
             'topics' => $this->topLevelIndexTopics->pluck('name')->map(function ($topic) {
                 return str($topic)->title();
             })->toArray(),
+            '_vectors' => $vectors,
         ];
     }
 
