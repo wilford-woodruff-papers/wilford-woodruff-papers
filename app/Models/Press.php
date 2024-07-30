@@ -123,17 +123,7 @@ class Press extends Model implements HasMedia
             $authors = [str($this->subtitle)->title()];
         }
 
-        $vectors = [];
-        $response = OpenAI::embeddings()->create([
-            'model' => 'text-embedding-ada-002',
-            'input' => strip_tags($this->description ?? ''),
-        ]);
-
-        foreach ($response->embeddings as $embedding) {
-            $vectors = $embedding->embedding;
-        }
-
-        return [
+        $data = [
             'id' => 'media_'.$this->id,
             'is_published' => ($this->date < now('America/Denver')),
             'resource_type' => 'Media',
@@ -147,10 +137,36 @@ class Press extends Model implements HasMedia
             'topics' => $this->topLevelIndexTopics->pluck('name')->map(function ($topic) {
                 return str($topic)->title();
             })->toArray(),
-            '_vectors' => [
-                'semanticSearch' => $vectors,
-            ],
         ];
+
+        if (
+            empty($this->embeddings_created_at)
+            || $this->embeddings_created_at < now()->subDay()
+            || ! Storage::exists('embeddings/'.static::class.'/'.$this->id.'.json')
+        ) {
+            $vectors = [];
+            $response = OpenAI::embeddings()->create([
+                'model' => 'text-embedding-ada-002',
+                'input' => strip_tags($this->description ?? ''),
+            ]);
+
+            foreach ($response->embeddings as $embedding) {
+                $vectors = $embedding->embedding;
+            }
+            Storage::put('embeddings/'.static::class.'/'.$this->id.'.json', json_encode($vectors));
+            $this->update([
+                'embeddings_created_at' => now(),
+            ]);
+            $data['_vectors'] = [
+                'semanticSearch' => $vectors,
+            ];
+        } else {
+            $data['_vectors'] = [
+                'semanticSearch' => json_decode(Storage::get('embeddings/'.static::class.'/'.$this->id.'.json')),
+            ];
+        }
+
+        return $data;
     }
 
     public function getScoutKey(): mixed

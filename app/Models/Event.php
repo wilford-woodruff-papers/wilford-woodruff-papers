@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Scout\Searchable;
 use OpenAI\Laravel\Facades\OpenAI;
 use Spatie\MediaLibrary\HasMedia;
@@ -212,15 +213,6 @@ class Event extends Model implements HasMedia
 
     public function toSearchableArray(): array
     {
-        $vectors = [];
-        $response = OpenAI::embeddings()->create([
-            'model' => 'text-embedding-ada-002',
-            'input' => $this->text,
-        ]);
-
-        foreach ($response->embeddings as $embedding) {
-            $vectors = $embedding->embedding;
-        }
 
         $geo = null;
         $location = null;
@@ -238,7 +230,7 @@ class Event extends Model implements HasMedia
             }
         }
 
-        return [
+        $data = [
             'id' => 'event_'.$this->getKey(),
             'is_published' => true,
             'resource_type' => 'Timeline',
@@ -259,10 +251,36 @@ class Event extends Model implements HasMedia
             }),
             '_geo' => $geo,
             'location_name' => $location,
-            '_vectors' => [
-                'semanticSearch' => $vectors,
-            ],
         ];
+
+        if (
+            empty($this->embeddings_created_at)
+            || $this->embeddings_created_at < now()->subDay()
+            || ! Storage::exists('embeddings/'.static::class.'/'.$this->id.'.json')
+        ) {
+            $vectors = [];
+            $response = OpenAI::embeddings()->create([
+                'model' => 'text-embedding-ada-002',
+                'input' => $this->text,
+            ]);
+
+            foreach ($response->embeddings as $embedding) {
+                $vectors = $embedding->embedding;
+            }
+            Storage::put('embeddings/'.static::class.'/'.$this->id.'.json', json_encode($vectors));
+            $this->update([
+                'embeddings_created_at' => now(),
+            ]);
+            $data['_vectors'] = [
+                'semanticSearch' => $vectors,
+            ];
+        } else {
+            $data['_vectors'] = [
+                'semanticSearch' => json_decode(Storage::get('embeddings/'.static::class.'/'.$this->id.'.json')),
+            ];
+        }
+
+        return $data;
     }
 
     public function getScoutKey(): mixed
