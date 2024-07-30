@@ -14,6 +14,7 @@ use Asantibanez\LivewireCharts\Models\LineChartModel;
 use Carbon\Carbon;
 use Livewire\Component;
 use Meilisearch\Client;
+use OpenAI\Laravel\Facades\OpenAI;
 use Spatie\Regex\Regex;
 
 class Search extends Component
@@ -85,6 +86,11 @@ class Search extends Component
         }
     }
 
+    public function search()
+    {
+        $this->render();
+    }
+
     public function render()
     {
         $facets = [];
@@ -130,7 +136,7 @@ class Search extends Component
 
         $index = $client->index((app()->environment('production') ? 'resources' : 'dev-resources'));
 
-        $result = $index->search($this->q, [
+        $searchConfig = [
             'showRankingScore' => true,
             'attributesToHighlight' => [
                 'name',
@@ -150,11 +156,25 @@ class Search extends Component
                 })
                 ->values()
                 ->toArray(),
-            'hybrid' => [
+        ];
+        if (! empty($this->q)) {
+            $vectors = [];
+            $response = OpenAI::embeddings()->create([
+                'model' => 'text-embedding-ada-002',
+                'input' => strip_tags($this->q ?? ''),
+            ]);
+
+            foreach ($response->embeddings as $embedding) {
+                $vectors = $embedding->embedding;
+            }
+            $searchConfig['hybrid'] = [
                 'embedder' => 'semanticSearch',
                 'semanticRatio' => 0.7,
-            ],
-        ]);
+            ];
+            $searchConfig['vector'] = $vectors;
+        }
+
+        $result = $index->search($this->q, $searchConfig);
 
         $facetDistribution = $result->getFacetDistribution();
         //dd($facetDistribution['decade']);
