@@ -53,6 +53,7 @@
         "mews/purifier": "^3.4",
         "misd/linkify": "^1.1",
         "mtvs/eloquent-hashids": "^3.4",
+        "openai-php/laravel": "^0.6.3",
         "owen-it/laravel-auditing": "^13.1",
         "pixelcreation/nova-field-sortable": "^3.2",
         "psr/simple-cache": "^3.0",
