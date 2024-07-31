@@ -138,7 +138,11 @@ class JournalExport extends Command
                         continue;
                     }
 
-                    if ($subject?->category->contains('name', 'People')) {
+                    if (
+                        $subject?->category->contains('name', 'People')
+                        && $subject?->category->doesntContain('name', 'Scriptural Figures')
+                        && $subject?->category->doesntContain('name', 'CBI')
+                    ) {
                         $allPeople->push($subject);
                         $footnotes .= '<p>'.(array_search($subject->name, $matches) + 1).' '.$subject->name;
                         $footnotes .= ' ['.$subject->display_life_years.']';

@@ -42,8 +42,8 @@ class BoardMember extends Model implements Sortable
             'url' => route('about.meet-the-team').'#'.str($this->name)->slug(),
             'thumbnail' => Storage::disk('board_members')->url($this->image),
             'name' => collect([$this->name, $this->title])->reject(function ($item) {
-                    return empty($item);
-                })->join(', '),
+                return empty($item);
+            })->join(', '),
             'description' => strip_tags($this->bio ?? ''),
         ];
     }

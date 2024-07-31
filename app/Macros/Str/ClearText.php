@@ -49,6 +49,7 @@ class ClearText
                 //"(?<!^)<br\/>(?=$)",
                 " ?\[rest of page blank\]", // Rest of page blank
                 " ?\[upside\-down text\]", // Upside-down text
+                " ?\[end of upside\-down text\]", // Upside-down text
                 "\-(?=\[)", // Remove dashes before left bracket
                 "(?<=\])\-", // Remove dash after right bracket
                 "<i>\[(?!\[)", // Remove left italicized single brackets
