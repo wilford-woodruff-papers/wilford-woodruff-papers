@@ -78,6 +78,7 @@
                                             @endforeach
                                         </div>
                                     @endif
+
                                     @if(! empty($subject->bio_approved_at) && ! empty(strip_tags($subject->bio)))
                                         <div class="pl-2 text-xl">
                                             {!! $linkify->process($subject->bio) !!}
@@ -119,6 +120,30 @@
                                         <div class="col-span-12 my-8">
                                             <x-incomplete-identification :subject="$subject->name"/>
                                         </div>
+                                    @endif
+                                    @if(! empty($subject->subject_id))
+                                        <div
+                                            class="flex gap-4 pl-2 text-xl">
+                                            <span>See also</span>
+                                            <a href="{{ route('subjects.show', ['subject' => $subject->parent->slug]) }}"
+                                               class="text-secondary"
+                                            >
+                                                {{ $subject->parent->name }}
+                                            </a>
+                                        </div>
+                                    @endif
+                                    @if($subject->children->count() > 0)
+                                        @foreach($subject->children as $child)
+                                            <div class="flex gap-4 pl-2 text-xl">
+                                                <span>See also</span>
+                                                <a href="{{ route('subjects.show', ['subject' => $child->slug]) }}"
+                                                   class="text-secondary"
+                                                >
+                                                    {{ $child->name }}
+                                                </a>
+                                            </div>
+
+                                        @endforeach
                                     @endif
                                 </div>
                             </div>
