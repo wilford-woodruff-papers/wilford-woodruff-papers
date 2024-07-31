@@ -44,6 +44,16 @@ class People extends Component
             ->with([
                 'category',
             ])
+            ->select([
+                'id',
+                'name',
+                'slug',
+                'tagged_count',
+                'birth_date',
+                'death_date',
+                'life_years',
+                'bio_approved_at',
+            ])
             ->when($this->category == 'All', fn ($query, $category) => $query->whereHas('category', function (Builder $query) {
                 $query->where('name', 'People');
             }))
