@@ -22,6 +22,8 @@ class BoardMember extends Model implements Sortable
         'sort_when_creating' => true,
     ];
 
+    protected $guarded = ['id'];
+
     public function team()
     {
         return $this->belongsTo(Team::class);
