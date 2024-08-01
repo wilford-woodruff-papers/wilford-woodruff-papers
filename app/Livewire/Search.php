@@ -45,6 +45,8 @@ class Search extends Component
 
     public $currentIndex = 'All';
 
+    public $usingHybridSearch = false;
+
     // public $indexes = [];
 
     public $filters = [
@@ -159,19 +161,27 @@ class Search extends Component
         ];
         if (! empty($this->q)) {
             $vectors = [];
-            $response = OpenAI::embeddings()->create([
-                'model' => 'text-embedding-ada-002',
-                'input' => strip_tags($this->q ?? ''),
-            ]);
+            try {
+                $response = OpenAI::embeddings()->create([
+                    'model' => 'text-embedding-ada-002',
+                    'input' => strip_tags($this->q ?? ''),
+                ]);
 
-            foreach ($response->embeddings as $embedding) {
-                $vectors = $embedding->embedding;
+                foreach ($response->embeddings as $embedding) {
+                    $vectors = $embedding->embedding;
+                }
+                $searchConfig['hybrid'] = [
+                    'embedder' => 'semanticSearch',
+                    'semanticRatio' => 0.7,
+                ];
+                $searchConfig['vector'] = $vectors;
+                $this->usingHybridSearch = true;
+            } catch (\Exception $exception) {
+                logger()->error($exception->getMessage());
+                $this->usingHybridSearch = false;
             }
-            $searchConfig['hybrid'] = [
-                'embedder' => 'semanticSearch',
-                'semanticRatio' => 0.7,
-            ];
-            $searchConfig['vector'] = $vectors;
+        } else {
+            $this->usingHybridSearch = false;
         }
 
         $result = $index->search($this->q, $searchConfig);
