@@ -34,6 +34,8 @@ class Subject extends Model implements HasMedia
         'added_to_ftp_at' => 'date',
         'bio_completed_at' => 'date',
         'place_confirmed_at' => 'date',
+        'approved_for_print_at' => 'date',
+        'confirmed_name_at' => 'date',
         'mentioned' => 'boolean',
         'visited' => 'boolean',
     ];

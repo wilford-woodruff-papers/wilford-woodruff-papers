@@ -495,6 +495,14 @@ class PeopleResource extends Resource
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('subcategory')
                     ->toggleable(),
+                Tables\Columns\TextColumn::make('confirmed_name_at')
+                    ->date()
+                    ->sortable()
+                    ->toggleable(),
+                Tables\Columns\TextColumn::make('approved_for_print_at')
+                    ->date()
+                    ->sortable()
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->date()
                     ->sortable()
@@ -563,6 +571,26 @@ class PeopleResource extends Resource
                     ->queries(
                         true: fn (Builder $query) => $query->whereNotNull('short_bio_completed_at'),
                         false: fn (Builder $query) => $query->whereNull('short_bio_completed_at'),
+                        blank: fn (Builder $query) => $query,
+                    ),
+                Tables\Filters\TernaryFilter::make('confirmed_name')
+                    ->label('Name Confirmed')
+                    ->placeholder('All')
+                    ->trueLabel('Confirmed')
+                    ->falseLabel('Not Confirmed')
+                    ->queries(
+                        true: fn (Builder $query) => $query->whereNotNull('confirmed_name_at'),
+                        false: fn (Builder $query) => $query->whereNull('confirmed_name_at'),
+                        blank: fn (Builder $query) => $query,
+                    ),
+                Tables\Filters\TernaryFilter::make('approved_for_print')
+                    ->label('Approved For Print')
+                    ->placeholder('All')
+                    ->trueLabel('Approved')
+                    ->falseLabel('Not Approved')
+                    ->queries(
+                        true: fn (Builder $query) => $query->whereNotNull('approved_for_print_at'),
+                        false: fn (Builder $query) => $query->whereNull('approved_for_print_at'),
                         blank: fn (Builder $query) => $query,
                     ),
                 Tables\Filters\TernaryFilter::make('pid')

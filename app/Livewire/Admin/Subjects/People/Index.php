@@ -69,6 +69,8 @@ class Index extends Component
         'subcategory' => 'subcategory',
         'bio_completed_at' => 'date_bio_completed',
         'bio_approved_at' => 'date_bio_approved',
+        'confirmed_name_at' => 'confirmed_name_at',
+        'approved_for_print_at' => 'approved_for_print_at',
     ];
 
     public $searchColumns = [
