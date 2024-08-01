@@ -306,6 +306,17 @@
             </div>
 
             <div class="min-h-screen">
+                <div>
+                    @hasanyrole('Super Admin')
+                    <div class="pl-10 text-sm font-medium leading-5 text-center text-gray-500">
+                        @if($usingHybridSearch === true)
+                            Hybrid Search Results
+                        @else
+                            Keyword Search Results
+                        @endif
+                    </div>
+                    @endhasanyrole
+                </div>
                 <div :class="layout ==='grid' ? '' : 'hidden'"
                      x-cloak
                 >
