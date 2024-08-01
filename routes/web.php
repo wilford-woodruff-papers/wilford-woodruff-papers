@@ -126,10 +126,10 @@ Route::middleware([])->group(function () {
         ->missing(function (Illuminate\Http\Request $request) {
             return \Illuminate\Support\Facades\Redirect::route('home');
         });
-    Route::get('/people', [\App\Http\Controllers\PeopleController::class, 'index'])->name('people');
+    Route::get('/people/{letter?}', [\App\Http\Controllers\PeopleController::class, 'index'])->name('people');
     Route::get('/wives-and-children', [\App\Http\Controllers\PeopleController::class, 'family'])->name('wives-and-children');
-    Route::get('/places', [\App\Http\Controllers\PlaceController::class, 'index'])->name('places');
-    Route::get('/topics', [\App\Http\Controllers\TopicController::class, 'index'])->name('topics');
+    Route::get('/places/{letter?}', [\App\Http\Controllers\PlaceController::class, 'index'])->name('places');
+    Route::get('/topics/{letter?}', [\App\Http\Controllers\TopicController::class, 'index'])->name('topics');
     Route::get('/timeline', \App\Livewire\Timeline::class)->name('timeline');
     Route::get('/miraculously-preserved-life', \App\Http\Controllers\MiraculouslyPreservedLife::class)->name('miraculously-preserved-life');
     Route::get('/donate/online', [\App\Http\Controllers\DonationController::class, 'online'])->name('donate.online');
