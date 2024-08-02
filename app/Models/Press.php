@@ -155,9 +155,19 @@ class Press extends Model implements HasMedia
             }
             Storage::put('embeddings/'.static::class.'/'.$this->id.'.json', json_encode($vectors));
             Press::withoutSyncingToSearch(function () {
-                $this->update([
-                    'embeddings_created_at' => now(),
-                ]);
+                Article::withoutSyncingToSearch(function () {
+                    News::withoutSyncingToSearch(function () {
+                        Podcast::withoutSyncingToSearch(function () {
+                            Video::withoutSyncingToSearch(function () {
+                                SocialMedia::withoutSyncingToSearch(function () {
+                                    $this->update([
+                                        'embeddings_created_at' => now(),
+                                    ]);
+                                });
+                            });
+                        });
+                    });
+                });
             });
             $data['_vectors'] = [
                 'semanticSearch' => $vectors,
