@@ -159,9 +159,11 @@ class Search extends Component
                 ->values()
                 ->toArray(),
         ];
+        $str = str($this->q)->trim('"');
         if (
-            ! empty(str($this->q)->trim('"'))
-            && ! str($this->q)->contains('*')
+            ! empty($str)
+            && ! $str->contains('*')
+            && $str->length() > 4
         ) {
             $vectors = [];
             try {
