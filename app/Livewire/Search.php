@@ -159,7 +159,10 @@ class Search extends Component
                 ->values()
                 ->toArray(),
         ];
-        if (! empty($this->q)) {
+        if (
+            ! empty(str($this->q)->trim('"'))
+            && ! str($this->q)->contains('*')
+        ) {
             $vectors = [];
             try {
                 $response = OpenAI::embeddings()->create([
