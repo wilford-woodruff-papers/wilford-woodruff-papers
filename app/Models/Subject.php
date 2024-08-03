@@ -456,11 +456,6 @@ class Subject extends Model implements HasMedia
                 $vectors = $embedding->embedding;
             }
             Storage::put('embeddings/'.static::class.'/'.$this->id.'.json', json_encode($vectors));
-            Subject::withoutSyncingToSearch(function () {
-                $this->update([
-                    'embeddings_created_at' => now(),
-                ]);
-            });
             $data['_vectors'] = [
                 'semanticSearch' => $vectors,
             ];
