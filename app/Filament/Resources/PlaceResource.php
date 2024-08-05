@@ -92,7 +92,7 @@ class PlaceResource extends Resource
                                 TextInput::make('state_province')
                                     ->label('State/Province')
                                     ->datalist(function () {
-                                        return Cache::remember('countries', 3600, function () {
+                                        return Cache::remember('states', 3600, function () {
                                             return DB::table('subjects')
                                                 ->select('state_province')
                                                 ->distinct()
@@ -105,7 +105,7 @@ class PlaceResource extends Resource
                                     }),
                                 TextInput::make('county')
                                     ->datalist(function () {
-                                        return Cache::remember('countries', 3600, function () {
+                                        return Cache::remember('counties', 3600, function () {
                                             return DB::table('subjects')
                                                 ->select('county')
                                                 ->distinct()
