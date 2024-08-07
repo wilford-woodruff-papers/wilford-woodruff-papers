@@ -281,33 +281,81 @@ class PeopleResource extends Resource
                                                 }
                                             })
                                     ),
+
+                                DatePicker::make('confirmed_name_at')
+                                    ->label('Name Confirmed On')
+                                    ->readOnly(function () {
+                                        return auth()->user()->hasRole('Bio Admin');
+                                    })
+                                    ->hintAction(function () {
+                                        if (! auth()->user()->hasRole('Bio Admin')) {
+                                            return null;
+                                        }
+
+                                        return Action::make('now')
+                                            ->label(function ($state) {
+                                                return empty($state) ? 'Now' : 'Clear';
+                                            })
+                                            ->action(function (Set $set, $state) {
+                                                if (empty($state)) {
+                                                    $set('confirmed_name_at', now()->toDateString());
+                                                } else {
+                                                    $set('confirmed_name_at', null);
+                                                }
+                                            });
+                                    }
+
+                                    ),
+
+                                DatePicker::make('approved_for_print_at')
+                                    ->label('Approved For Print On')
+                                    ->readOnly(function () {
+                                        return auth()->user()->hasRole('Bio Admin');
+                                    })
+                                    ->hintAction(function () {
+                                        if (! auth()->user()->hasRole('Bio Admin')) {
+                                            return null;
+                                        }
+
+                                        return Action::make('now')
+                                            ->label(function ($state) {
+                                                return empty($state) ? 'Now' : 'Clear';
+                                            })
+                                            ->action(function (Set $set, $state) {
+                                                if (empty($state)) {
+                                                    $set('approved_for_print_at', now()->toDateString());
+                                                } else {
+                                                    $set('approved_for_print_at', null);
+                                                }
+                                            });
+                                    }),
                             ]),
                         Section::make('Additional (Read Only)')
                             ->visible(fn ($record) => ! empty($record))
                             ->schema([
                                 Actions::make([
                                     Action::make('open-nova-link')
-                                        ->label('Nova')
-                                        ->icon('heroicon-o-arrow-top-right-on-square')
-                                        ->visible(function (Model $record) {
-                                            return ! empty($record);
-                                        })
-                                        ->url(function (Model $record) {
-                                            return ! empty($record?->id)
-                                                ? '/nova/resources/subjects/'.$record->id
-                                                : null;
-                                        }, true),
+                                    ->label('Nova')
+                                    ->icon('heroicon-o-arrow-top-right-on-square')
+                                    ->visible(function (Model $record) {
+                                        return ! empty($record);
+                                    })
+                                    ->url(function (Model $record) {
+                                        return ! empty($record?->id)
+                                            ? '/nova/resources/subjects/'.$record->id
+                                            : null;
+                                    }, true),
                                     Action::make('open-website-link')
-                                        ->label('Website')
-                                        ->icon('heroicon-o-arrow-top-right-on-square')
-                                        ->visible(function (Model $record) {
-                                            return ! empty($record);
-                                        })
-                                        ->url(function (Model $record) {
-                                            return ! empty($record?->slug)
-                                                ? route('subjects.show', ['subject' => $record->slug])
-                                                : null;
-                                        }, true),
+                                    ->label('Website')
+                                    ->icon('heroicon-o-arrow-top-right-on-square')
+                                    ->visible(function (Model $record) {
+                                        return ! empty($record);
+                                    })
+                                    ->url(function (Model $record) {
+                                        return ! empty($record?->slug)
+                                            ? route('subjects.show', ['subject' => $record->slug])
+                                            : null;
+                                    }, true),
                                 ])
                                     ->columns(2),
                                 TextInput::make('unique_id')
