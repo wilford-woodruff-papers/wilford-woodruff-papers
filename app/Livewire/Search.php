@@ -164,6 +164,8 @@ class Search extends Component
             ! empty($str)
             && ! $str->contains('*')
             && $str->length() > 4
+            && $this->exact == false
+            && str($this->q)->explode(' ')->count() > 3
         ) {
             $vectors = [];
             try {
