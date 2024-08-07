@@ -281,33 +281,81 @@ class PeopleResource extends Resource
                                                 }
                                             })
                                     ),
+
+                                DatePicker::make('confirmed_name_at')
+                                    ->label('Name Confirmed On')
+                                    ->readOnly(function () {
+                                        return auth()->user()->hasRole('Bio Admin');
+                                    })
+                                    ->hintAction(function () {
+                                        if (! auth()->user()->hasRole('Bio Admin')) {
+                                            return null;
+                                        }
+
+                                        return Action::make('now')
+                                            ->label(function ($state) {
+                                                return empty($state) ? 'Now' : 'Clear';
+                                            })
+                                            ->action(function (Set $set, $state) {
+                                                if (empty($state)) {
+                                                    $set('confirmed_name_at', now()->toDateString());
+                                                } else {
+                                                    $set('confirmed_name_at', null);
+                                                }
+                                            });
+                                    }
+
+                                    ),
+
+                                DatePicker::make('approved_for_print_at')
+                                    ->label('Approved For Print On')
+                                    ->readOnly(function () {
+                                        return auth()->user()->hasRole('Bio Admin');
+                                    })
+                                    ->hintAction(function () {
+                                        if (! auth()->user()->hasRole('Bio Admin')) {
+                                            return null;
+                                        }
+
+                                        return Action::make('now')
+                                            ->label(function ($state) {
+                                                return empty($state) ? 'Now' : 'Clear';
+                                            })
+                                            ->action(function (Set $set, $state) {
+                                                if (empty($state)) {
+                                                    $set('approved_for_print_at', now()->toDateString());
+                                                } else {
+                                                    $set('approved_for_print_at', null);
+                                                }
+                                            });
+                                    }),
                             ]),
                         Section::make('Additional (Read Only)')
                             ->visible(fn ($record) => ! empty($record))
                             ->schema([
                                 Actions::make([
                                     Action::make('open-nova-link')
-                                        ->label('Nova')
-                                        ->icon('heroicon-o-arrow-top-right-on-square')
-                                        ->visible(function (Model $record) {
-                                            return ! empty($record);
-                                        })
-                                        ->url(function (Model $record) {
-                                            return ! empty($record?->id)
-                                                ? '/nova/resources/subjects/'.$record->id
-                                                : null;
-                                        }, true),
+                                    ->label('Nova')
+                                    ->icon('heroicon-o-arrow-top-right-on-square')
+                                    ->visible(function (Model $record) {
+                                        return ! empty($record);
+                                    })
+                                    ->url(function (Model $record) {
+                                        return ! empty($record?->id)
+                                            ? '/nova/resources/subjects/'.$record->id
+                                            : null;
+                                    }, true),
                                     Action::make('open-website-link')
-                                        ->label('Website')
-                                        ->icon('heroicon-o-arrow-top-right-on-square')
-                                        ->visible(function (Model $record) {
-                                            return ! empty($record);
-                                        })
-                                        ->url(function (Model $record) {
-                                            return ! empty($record?->slug)
-                                                ? route('subjects.show', ['subject' => $record->slug])
-                                                : null;
-                                        }, true),
+                                    ->label('Website')
+                                    ->icon('heroicon-o-arrow-top-right-on-square')
+                                    ->visible(function (Model $record) {
+                                        return ! empty($record);
+                                    })
+                                    ->url(function (Model $record) {
+                                        return ! empty($record?->slug)
+                                            ? route('subjects.show', ['subject' => $record->slug])
+                                            : null;
+                                    }, true),
                                 ])
                                     ->columns(2),
                                 TextInput::make('unique_id')
@@ -495,6 +543,14 @@ class PeopleResource extends Resource
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('subcategory')
                     ->toggleable(),
+                Tables\Columns\TextColumn::make('confirmed_name_at')
+                    ->date()
+                    ->sortable()
+                    ->toggleable(),
+                Tables\Columns\TextColumn::make('approved_for_print_at')
+                    ->date()
+                    ->sortable()
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->date()
                     ->sortable()
@@ -563,6 +619,26 @@ class PeopleResource extends Resource
                     ->queries(
                         true: fn (Builder $query) => $query->whereNotNull('short_bio_completed_at'),
                         false: fn (Builder $query) => $query->whereNull('short_bio_completed_at'),
+                        blank: fn (Builder $query) => $query,
+                    ),
+                Tables\Filters\TernaryFilter::make('confirmed_name')
+                    ->label('Name Confirmed')
+                    ->placeholder('All')
+                    ->trueLabel('Confirmed')
+                    ->falseLabel('Not Confirmed')
+                    ->queries(
+                        true: fn (Builder $query) => $query->whereNotNull('confirmed_name_at'),
+                        false: fn (Builder $query) => $query->whereNull('confirmed_name_at'),
+                        blank: fn (Builder $query) => $query,
+                    ),
+                Tables\Filters\TernaryFilter::make('approved_for_print')
+                    ->label('Approved For Print')
+                    ->placeholder('All')
+                    ->trueLabel('Approved')
+                    ->falseLabel('Not Approved')
+                    ->queries(
+                        true: fn (Builder $query) => $query->whereNotNull('approved_for_print_at'),
+                        false: fn (Builder $query) => $query->whereNull('approved_for_print_at'),
                         blank: fn (Builder $query) => $query,
                     ),
                 Tables\Filters\TernaryFilter::make('pid')

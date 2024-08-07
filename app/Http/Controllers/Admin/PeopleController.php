@@ -100,6 +100,12 @@ class PeopleController extends Controller
         'incomplete_identification' => [
             'nullable',
         ],
+        'confirmed_name_at' => [
+            'nullable',
+        ],
+        'approved_for_print_at' => [
+            'nullable',
+        ],
     ];
 
     private $categories = [
