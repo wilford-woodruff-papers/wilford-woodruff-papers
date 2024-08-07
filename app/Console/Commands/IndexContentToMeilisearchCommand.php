@@ -6,6 +6,7 @@ use App\Models\BoardMember;
 use App\Models\Event;
 use App\Models\Item;
 use App\Models\Page;
+use App\Models\Photo;
 use App\Models\Press;
 use App\Models\Quote;
 use App\Models\Subject;
@@ -16,7 +17,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class IndexContentToMeilisearchCommand extends Command
 {
-    protected $signature = 'content:index {models=Item,Page,Subject,Press,Team,Timeline,Newsletter,Quote,WebsitePage} {--purge}';
+    protected $signature = 'content:index {models=Item,Page,Subject,Press,Team,Timeline,Newsletter,Quote,WebsitePage,Photo} {--purge}';
 
     protected $description = 'Index all content to Meilisearch for site wide search';
 
@@ -186,6 +187,17 @@ class IndexContentToMeilisearchCommand extends Command
         $count = 0;
 
         WebsitePage::query()
+            ->chunkById($this->chunkSize, function (Collection $items) use (&$count) {
+                $items->searchable();
+                $this->info('Indexed Count: '.($count += $items->count()));
+            });
+    }
+
+    private function Photo(): void
+    {
+        $count = 0;
+
+        Photo::query()
             ->chunkById($this->chunkSize, function (Collection $items) use (&$count) {
                 $items->searchable();
                 $this->info('Indexed Count: '.($count += $items->count()));
