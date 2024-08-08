@@ -55,12 +55,23 @@ class PeopleExporter extends Exporter
                 ->label('Footnotes'),
             ExportColumn::make('bio_completed_at')
                 ->label('Bio Completed'),
+            ExportColumn::make('researcher.name')
+                ->label('Researcher'),
             ExportColumn::make('bio_approved_at')
                 ->label('Bio Approved'),
             ExportColumn::make('short_bio')
                 ->label('Short Bio'),
             ExportColumn::make('short_bio_completed_at')
                 ->label('Short Bio Completed'),
+            ExportColumn::make('birth_date')
+                ->label('Birth Date'),
+            ExportColumn::make('baptism_date')
+                ->label('Baptism Date'),
+            ExportColumn::make('death_date')
+                ->label('Death Date'),
+            ExportColumn::make('life_years')
+                ->label('B-D'),
+
         ];
     }
 
