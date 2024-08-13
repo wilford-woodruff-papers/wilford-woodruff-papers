@@ -335,27 +335,27 @@ class PeopleResource extends Resource
                             ->schema([
                                 Actions::make([
                                     Action::make('open-nova-link')
-                                    ->label('Nova')
-                                    ->icon('heroicon-o-arrow-top-right-on-square')
-                                    ->visible(function (Model $record) {
-                                        return ! empty($record);
-                                    })
-                                    ->url(function (Model $record) {
-                                        return ! empty($record?->id)
-                                            ? '/nova/resources/subjects/'.$record->id
-                                            : null;
-                                    }, true),
+                                        ->label('Nova')
+                                        ->icon('heroicon-o-arrow-top-right-on-square')
+                                        ->visible(function (Model $record) {
+                                            return ! empty($record);
+                                        })
+                                        ->url(function (Model $record) {
+                                            return ! empty($record?->id)
+                                                ? '/nova/resources/subjects/'.$record->id
+                                                : null;
+                                        }, true),
                                     Action::make('open-website-link')
-                                    ->label('Website')
-                                    ->icon('heroicon-o-arrow-top-right-on-square')
-                                    ->visible(function (Model $record) {
-                                        return ! empty($record);
-                                    })
-                                    ->url(function (Model $record) {
-                                        return ! empty($record?->slug)
-                                            ? route('subjects.show', ['subject' => $record->slug])
-                                            : null;
-                                    }, true),
+                                        ->label('Website')
+                                        ->icon('heroicon-o-arrow-top-right-on-square')
+                                        ->visible(function (Model $record) {
+                                            return ! empty($record);
+                                        })
+                                        ->url(function (Model $record) {
+                                            return ! empty($record?->slug)
+                                                ? route('subjects.show', ['subject' => $record->slug])
+                                                : null;
+                                        }, true),
                                 ])
                                     ->columns(2),
                                 TextInput::make('unique_id')

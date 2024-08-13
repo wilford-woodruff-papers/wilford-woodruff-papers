@@ -210,6 +210,13 @@
                                 </a>
                             </div>
                         @endif
+                        @if(data_get($filters, 'type') == $types->where('name', 'Journals')->first()->id)
+                            <div class="my-8 bg-gray-200">
+                                <p class="py-8 px-4 text-xl">
+                                    Learn more about many of the <a href="{{ route('figures') }}" class="underline text-secondary" target="_blank">figures used in Wilford Woodruff's Journals</a>. The description of these images are derived from Joshua M. Matson, <a href="https://byustudies.byu.edu/article/decoding-the-self-tracking-symbols-of-wilford-woodruffs-journals/" target="_blank" class="underline text-secondary">"Decoding the Self-Tracking Symbols of Wilford Woodruff's Journals," BYU Studies 63:1 (2024): 151-204</a>, used by permission of the author and of BYU Studies.
+                                </p>
+                            </div>
+                        @endif
                         <ul class="px-4 divide-y divide-gray-200">
                             @if($items->count() > 0)
                                 @foreach($items as $item)
