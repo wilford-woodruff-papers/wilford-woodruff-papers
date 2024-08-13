@@ -83,7 +83,7 @@
                         <div class="col-span-3">
                             <label for="selection" class="block text-sm font-medium text-gray-700"> Selection </label>
                             <div class="mt-1">
-                                <div class="block p-2 mt-1 w-full border border-gray-300 shadow-sm sm:text-sm focus:ring-secondary focus:border-secondary"
+                                <div class="block overflow-auto p-2 mt-1 w-full max-h-40 border border-gray-300 shadow-sm sm:text-sm focus:ring-secondary focus:border-secondary"
                                 >
                                     {{ $selection }}
                                 </div>
@@ -105,39 +105,41 @@
                     </div>
 
 
-                    <div class="flex relative items-start">
-                        <div class="flex items-center h-5">
-                            <input wire:model="continuedOnNextPage"
-                                   id="continuedOnNextPage"
-                                   name="continuedOnNextPage"
-                                   type="checkbox"
-                                   class="w-4 h-4 rounded border-gray-300 text-secondary focus:ring-secondary"
-                            >
+                    <div class="grid grid-cols-2 gap-x-2">
+                        <div class="flex relative items-start">
+                            <div class="flex items-center h-5">
+                                <input wire:model="continuedOnNextPage"
+                                       id="continuedOnNextPage"
+                                       name="continuedOnNextPage"
+                                       type="checkbox"
+                                       class="w-4 h-4 rounded border-gray-300 text-secondary focus:ring-secondary"
+                                >
+                            </div>
+                            <div class="ml-3 text-sm">
+                                <label for="continuedOnNextPage"
+                                       class="font-medium text-gray-700"
+                                >
+                                    Continued on next page
+                                </label>
+                            </div>
                         </div>
-                        <div class="ml-3 text-sm">
-                            <label for="continuedOnNextPage"
-                                   class="font-medium text-gray-700"
-                            >
-                                Continued on next page
-                            </label>
-                        </div>
-                    </div>
 
-                    <div class="flex relative items-start">
-                        <div class="flex items-center h-5">
-                            <input wire:model="continuedFromPreviousPage"
-                                   id="continuedFromPreviousPage"
-                                   name="continuedFromPreviousPage"
-                                   type="checkbox"
-                                   class="w-4 h-4 rounded border-gray-300 text-secondary focus:ring-secondary"
-                            >
-                        </div>
-                        <div class="ml-3 text-sm">
-                            <label for="continuedFromPreviousPage"
-                                   class="font-medium text-gray-700"
-                            >
-                                Continued from previous page
-                            </label>
+                        <div class="flex relative items-start">
+                            <div class="flex items-center h-5">
+                                <input wire:model="continuedFromPreviousPage"
+                                       id="continuedFromPreviousPage"
+                                       name="continuedFromPreviousPage"
+                                       type="checkbox"
+                                       class="w-4 h-4 rounded border-gray-300 text-secondary focus:ring-secondary"
+                                >
+                            </div>
+                            <div class="ml-3 text-sm">
+                                <label for="continuedFromPreviousPage"
+                                       class="font-medium text-gray-700"
+                                >
+                                    Continued from prev page
+                                </label>
+                            </div>
                         </div>
                     </div>
 
