@@ -34,7 +34,7 @@ class Photo extends Model implements HasMedia
         return 'uuid';
     }
 
-    public function registerMediaConversions(Media $media = null): void
+    public function registerMediaConversions(?Media $media = null): void
     {
         $this->addMediaConversion('web')
             ->width(1472)

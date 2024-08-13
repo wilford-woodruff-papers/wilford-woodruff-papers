@@ -19,31 +19,44 @@ class ClearText
                 ->replaceMatches('/\[figure\]/i', '[[figure]]');
 
             // Remove scripture tags and show original text (or editorial added text)
-            $text = $text->replaceMatches('/(?:\#\#)(.*?)(?:\#\#)/s', function ($match) {
-                return str($match[1])
+            $text = $text->replaceMatches('/(?:\[?\#\#)(.*?)(?:\#\#\]?)/s', function ($match) {
+                return '['.str($match[1])
                     ->explode('|')
-                    ->last();
+                    ->first().']';
             });
 
             // Rearrange language tags to show language first, then translated text
-            $text = $text->replaceMatches('/(?<!-)(?:{)(.*?)(?:})/m', function (array $match) {
-                $parts = str($match[1])->explode('|');
-                switch ($parts->count()) {
-                    case 1:
-                        return '{Shorthand: '.$parts->first().'}';
-                    case 2:
-                        return '{'.$parts->last().': '.$parts->first().'}';
-                    case 3:
-                        return '{'.$parts->last().': '.$parts->first().'}';
-                    default:
-                        return '{'.$match[1].'}';
-                }
-            });
+            //            $text = $text->replaceMatches('/(?<!-)(?:{)(.*?)(?:})/m', function (array $match) {
+            //
+            //                if (Str::substrCount($match[1], '|') > 1) {
+            //                    $temp = Str::replaceLast('|', '@placeholder@', $match[1]);
+            //                    $text = str($temp);
+            //                    $parts = $text->explode('@placeholder@');
+            //                } elseif (Str::contains($match[1], '[[')) {
+            //                    $temp = Str::replaceLast('|', '@placeholder@', $match[1]);
+            //                    $text = str($temp);
+            //                    $parts = $text->explode('@placeholder@');
+            //                } else {
+            //                    $text = str($match[1]);
+            //                    $parts = $text->explode('|');
+            //                }
+            //
+            //                switch ($parts->count()) {
+            //                    case 1:
+            //                        return '{Shorthand: '.$parts->first().'}';
+            //                    case 2:
+            //                        return '{'.$parts->last().': '.$parts->first().'}';
+            //                    case 3:
+            //                        return '{'.$parts->last().': '.$parts->first().'}';
+            //                    default:
+            //                        return '{'.$match[1].'}';
+            //                }
+            //            });
 
             // Simple symbol deletion
             $patterns = collect([
-                "/ ?<strike[^>]*>.*?<\/strike>", // Strike throughs and whatever's inside
-                " ?<s[^>]*>.*?<\/s>", // Strike throughs and whatever's inside
+                "/<strike[^>]*>.*?<\/strike>", // Strike throughs and whatever's inside
+                "<s[^>]*>.*?<\/s>", // Strike throughs and whatever's inside
                 "\^", // Carrot insertions
                 //"/(?<!^)<br\/>(?=$)", // Remove line breaks at the end of a line, but not the beginning of a line
                 //"(?<!^)<br\/>(?=$)",

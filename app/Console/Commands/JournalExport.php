@@ -42,8 +42,8 @@ class JournalExport extends Command
             ->whereIn('type_id', Type::where('name', 'Journals')->pluck('id')->toArray())
             ->whereIn('name', [
                 'Journal (December 29, 1833 – January 3, 1838)',
-                'Journal (January 1, 1838 – December 31, 1839)',
-                'Journal (January 1, 1840 – December 31, 1840)',
+                //'Journal (January 1, 1838 – December 31, 1839)',
+                //'Journal (January 1, 1840 – December 31, 1840)',
             ])
             //->limit(1)
             ->get();
@@ -80,6 +80,7 @@ class JournalExport extends Command
 
         $allPeople = collect();
         $allPlaces = collect();
+        $allTopics = collect();
         $printTranscript = '';
         $partial = '';
         foreach ($lines as $line) {
@@ -91,9 +92,11 @@ class JournalExport extends Command
 
                 $matches = str($partial)->matchAll('/(?:\[\[)(.*?)(?:\]\])/s');
                 $matches = collect($matches)
+                    ->filter(fn ($match) => str($match)->contains('|'))
                     ->map(fn ($match) => str($match)
                         ->explode('|')
                         ->first())
+                    ->filter(fn ($match) => str($match)->explode(' ')->count() > 1)
                     ->unique()
                     ->values()->all();
 
@@ -127,11 +130,30 @@ class JournalExport extends Command
                                 ->last()."<sup>$index</sup>";
                         }
                     });
+
+                $partial = $partial->replaceMatches('/(?<!-)(?:{)(.*?)(?:})/m', function (array $match) {
+                    $text = str($match[1]);
+                    $parts = $text->explode('|');
+
+                    switch ($parts->count()) {
+                        case 1:
+                            return '{Shorthand: '.$parts->first().'}';
+                        case 2:
+                            return '{'.$parts->last().': '.$parts->first().'}';
+                        case 3:
+                            return '{'.$parts->last().': '.$parts->first().'}';
+                        default:
+                            return '{'.$match[1].'}';
+                    }
+                });
+
                 $footnotes = '';
                 // TODO: Need to fix super script numbers and footnotes numbering
                 // All tags superscript is getting incremented, but I'm de-duplicating in footnotes
                 foreach ($matches as $key => $match) {
-                    $subject = $subjects->firstWhere('name', $match);
+                    $subject = $subjects->where('name', $match)
+                        ->where('incomplete_identification', 0)
+                        ->first();
                     if (! $subject) {
                         logger()->info('Subject not found: '.$match);
 
@@ -144,14 +166,38 @@ class JournalExport extends Command
                         && $subject?->category->doesntContain('name', 'CBI')
                     ) {
                         $allPeople->push($subject);
-                        $footnotes .= '<p>'.(array_search($subject->name, $matches) + 1).' '.$subject->name;
+                        $footnotes .= '<p>'.(array_search($subject->name, $matches) + 1).' '.str($subject->name)->beforeLast(',');
                         $footnotes .= ' ['.$subject->display_life_years.']';
-                        $footnotes .= ' '.$subject->connection_to_wilford.'.';
+                        $footnotes .= ' '.$subject->short_bio;
                         $footnotes .= '</p>'."\n";
                     }
 
                     if ($subject?->category->contains('name', 'Places')) {
                         $allPlaces->push($subject);
+                        $footnotes .= '<p>'.(array_search($subject->name, $matches) + 1).' '.$subject->name;
+                        $footnotes .= '</p>'."\n";
+                    }
+
+                    if (
+                        ($subject?->category->contains('name', 'Topics') || $subject?->category->contains('name', 'Index'))
+                        && in_array($subject->name, [
+                            'Deseret News',
+                            'Frontier Guardian',
+                            'Gospel Reflector',
+                            'Juvenile Instructor',
+                            'Latter-day Saints\' Millennial Star',
+                            'Latter Day Saints\' Messenger and Advocate',
+                            'Liverpool Papers',
+                            'Nauvoo Neighbor',
+                            'New York Messenger',
+                            'The Evening and the Morning Star',
+                            'The Prophet',
+                            'The Seer',
+                            'Times and Seasons',
+                            'Zion\'s Watchman',
+                        ])
+                    ) {
+                        $allTopics->push($subject);
                         $footnotes .= '<p>'.(array_search($subject->name, $matches) + 1).' '.$subject->name;
                         $footnotes .= '</p>'."\n";
                     }
@@ -204,7 +250,7 @@ class JournalExport extends Command
         $printTranscript .= $allPeople
             ->unique('id')
             ->sortBy('name')
-            ->map(fn ($subject) => '<p>'.$subject->name.' ['.$subject->display_life_years.'] '.$subject->connection_to_wilford.'.</p>')
+            ->map(fn ($subject) => '<p>'.$subject->name.' ['.$subject->display_life_years.'] '.$subject->short_bio.'</p>')
             ->values()
             ->join("\n");
         $printTranscript .= "\n".'<h2>Places</h2>'."\n";
