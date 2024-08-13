@@ -131,11 +131,20 @@ function monthName($monthNum)
 function getScriptureLink($scripture)
 {
     //ray('Scripture Match: '.$scripture);
+    $isJST = false;
+    if (str($scripture)->startsWith('JST')) {
+        $scripture = str($scripture)->after('JST,')->trim();
+        $isJST = true;
+    }
     $book = str($scripture)->match('/([1-9]*\s?[A-Za-z\s—-]+)/s')->toString();
     // ray('Book Match: '.$book);
     $reference = str($scripture)->after($book)->match('/([0-9]+:?[0-9-,]*)/s');
     // ray('Reference Match: '.$reference);
-    $volume = getVolume($book);
+    if ($isJST) {
+        $volume = 'jst';
+    } else {
+        $volume = getVolume($book);
+    }
     $verseRange = '';
     // Sometimes the verse is a range "1-4" or might be non-existent
     if ($reference->isEmpty()) {
@@ -170,6 +179,9 @@ function getScriptureLink($scripture)
     }
     if (! empty($bookAbbreviation = getBookAbbreviation($book))) {
         //ray('Book Abbreviation: '.$bookAbbreviation);
+        if ($isJST) {
+            $bookAbbreviation = 'jst-'.$bookAbbreviation;
+        }
         $query .= "/$bookAbbreviation";
     }
     if (! empty($chapter)) {
@@ -292,6 +304,7 @@ function getBookAbbreviation($book)
         'Abraham' => 'abr',
         'Joseph Smith—Matthew', 'Joseph Smith — Matthew', 'Joseph Smith-Matthew', 'Joseph Smith - Matthew' => 'js-m',
         'Joseph Smith—History', 'Joseph Smith — History', 'Joseph Smith-History', 'Joseph Smith - History' => 'js-h',
+        'Joseph Smith Translation', 'JST' => 'jst',
         default => '',
     };
 }
