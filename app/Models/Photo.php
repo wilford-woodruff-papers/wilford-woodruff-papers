@@ -39,6 +39,11 @@ class Photo extends Model implements HasMedia
         return 'uuid';
     }
 
+    public function resolveRouteBindingQuery($query, $value, $field = null)
+    {
+        return $query->whereUuid($value);
+    }
+
     public function registerMediaConversions(?Media $media = null): void
     {
         $this->addMediaConversion('web')
