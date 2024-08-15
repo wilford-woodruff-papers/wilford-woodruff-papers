@@ -26,8 +26,7 @@ class SubjectImport implements ToCollection, WithHeadingRow
 
         $categories = Category::query()
             ->whereIn('name', [
-                'People',
-                'Places',
+                'Maine Mission',
                 'Native Americans',
             ])
             ->get();

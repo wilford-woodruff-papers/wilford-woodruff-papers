@@ -55,7 +55,7 @@ class ImportSubjectsCommand extends Command
                 $zip = new ZipArchive();
                 $zipFile = $zip->open(storage_path('app/subject_export.zip'));
                 Excel::import(
-                    new SubjectImport(false),
+                    new SubjectImport(true),
                     storage_path('app/exports/subject_details.csv')
                 );
                 Cache::forget('import-subjects');
