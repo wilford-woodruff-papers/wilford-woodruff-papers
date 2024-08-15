@@ -27,7 +27,7 @@ class EditPlace extends EditRecord
             $data['city'],
             $data['county'],
             $data['state_province'],
-            Subject::countryName($data['state_province'], $data['county']),
+            Subject::countryName($data['state_province'], $data['country']),
         ])
             ->filter()
             ->implode(', ');
