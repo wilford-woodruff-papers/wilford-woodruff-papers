@@ -17,11 +17,8 @@ class PhotoExporter extends Exporter
         return [
             ExportColumn::make('uuid')
                 ->label('UUID'),
-            ExportColumn::make('filename')
-                ->label('Filename')
-                ->state(function (Photo $record) {
-                    return $record->getFirstMedia('default')->file_name;
-                }),
+            ExportColumn::make('media.file_name')
+                ->label('Filename(s)'),
             ExportColumn::make('title')
                 ->label('Title'),
             ExportColumn::make('description')
