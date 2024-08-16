@@ -98,7 +98,8 @@ class JournalExport extends Command
                         ->first())
                     ->filter(fn ($match) => str($match)->explode(' ')->count() > 1)
                     ->unique()
-                    ->values()->all();
+                    ->values()
+                    ->all();
 
                 $subjects = Subject::query()
                     ->with([
@@ -110,12 +111,43 @@ class JournalExport extends Command
                 $index = 0;
                 $references = [];
                 $partial = str($partial)
-                    ->replaceMatches('/(?:\[\[)(.*?)(?:\]\])/s', function (array $matches) use (&$index, &$references) {
+                    ->replaceMatches('/(?:\[\[)(.*?)(?:\]\])/s', function (array $matches) use (&$index, &$references, $subjects) {
                         $key = str($matches[0])
                             ->trim('[]')
                             ->explode('|')
                             ->first();
-                        if (in_array($key, $references)) {
+                        $subject = $subjects->where('name', $key)
+                            ->where('incomplete_identification', 0)
+                            ->first();
+                        if (
+                            empty($subject)
+                            || in_array($key, $references)
+                            || (
+                                (
+                                    (
+                                        $subject?->category->contains('name', 'Topics')
+                                        || $subject?->category->contains('name', 'Index')
+                                    )
+                                    && ! in_array($subject->name, [
+                                        'Deseret News',
+                                        'Frontier Guardian',
+                                        'Gospel Reflector',
+                                        'Juvenile Instructor',
+                                        'Latter-day Saints\' Millennial Star',
+                                        'Latter Day Saints\' Messenger and Advocate',
+                                        'Liverpool Papers',
+                                        'Nauvoo Neighbor',
+                                        'New York Messenger',
+                                        'The Evening and the Morning Star',
+                                        'The Prophet',
+                                        'The Seer',
+                                        'Times and Seasons',
+                                        'Zion\'s Watchman',
+                                    ])
+                                )
+                                || $subject?->category->contains('name', 'Scriptural Figures')
+                            )
+                        ) {
                             return str($matches[0])
                                 ->trim('[]')
                                 ->explode('|')
@@ -154,7 +186,11 @@ class JournalExport extends Command
                     $subject = $subjects->where('name', $match)
                         ->where('incomplete_identification', 0)
                         ->first();
-                    if (! $subject) {
+                    if (
+                        empty($subject)
+                        && $subject?->category->contains('name', 'Scriptural Figures')
+                        && $subject?->category->contains('name', 'CBI')
+                    ) {
                         logger()->info('Subject not found: '.$match);
 
                         continue;
@@ -162,19 +198,17 @@ class JournalExport extends Command
 
                     if (
                         $subject?->category->contains('name', 'People')
-                        && $subject?->category->doesntContain('name', 'Scriptural Figures')
-                        && $subject?->category->doesntContain('name', 'CBI')
                     ) {
                         $allPeople->push($subject);
-                        $footnotes .= '<p>'.(array_search($subject->name, $matches) + 1).' '.str($subject->name)->beforeLast(',');
-                        $footnotes .= ' ['.$subject->display_life_years.']';
+                        $footnotes .= '<p>'.(array_search($subject->name, $references) + 1).' '.str($subject->name)->beforeLast(',');
+                        $footnotes .= ' ('.$subject->display_life_years.')';
                         $footnotes .= ' '.$subject->short_bio;
                         $footnotes .= '</p>'."\n";
                     }
 
                     if ($subject?->category->contains('name', 'Places')) {
                         $allPlaces->push($subject);
-                        $footnotes .= '<p>'.(array_search($subject->name, $matches) + 1).' '.$subject->name;
+                        $footnotes .= '<p>'.(array_search($subject->name, $references) + 1).' '.$subject->name;
                         $footnotes .= '</p>'."\n";
                     }
 
@@ -198,7 +232,7 @@ class JournalExport extends Command
                         ])
                     ) {
                         $allTopics->push($subject);
-                        $footnotes .= '<p>'.(array_search($subject->name, $matches) + 1).' '.$subject->name;
+                        $footnotes .= '<p>'.(array_search($subject->name, $references) + 1).' '.$subject->name;
                         $footnotes .= '</p>'."\n";
                     }
 
