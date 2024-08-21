@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Tapp\FilamentAuditing\RelationManagers\AuditsRelationManager;
 
 class PlaceResource extends Resource
 {
@@ -451,7 +452,7 @@ class PlaceResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            AuditsRelationManager::class,
         ];
     }
 

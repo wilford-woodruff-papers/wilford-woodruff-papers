@@ -36,4 +36,9 @@ class EditPlace extends EditRecord
 
         return $record;
     }
+
+    public function hasCombinedRelationManagerTabsWithContent(): bool
+    {
+        return true;
+    }
 }
