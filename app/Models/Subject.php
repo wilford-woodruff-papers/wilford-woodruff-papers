@@ -11,14 +11,16 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Stringable;
 use Laravel\Scout\Searchable;
 use OpenAI\Laravel\Facades\OpenAI;
+use OwenIt\Auditing\Auditable;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
-class Subject extends Model implements HasMedia
+class Subject extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMedia
 {
+    use Auditable;
     use HasFactory;
     use HasSlug;
     use InteractsWithMedia;
