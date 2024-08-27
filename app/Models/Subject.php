@@ -7,11 +7,14 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\HtmlString;
 use Illuminate\Support\Stringable;
 use Laravel\Scout\Searchable;
 use OpenAI\Laravel\Facades\OpenAI;
 use OwenIt\Auditing\Auditable;
+use OwenIt\Auditing\Contracts\Audit;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -607,5 +610,23 @@ class Subject extends Model implements \OwenIt\Auditing\Contracts\Auditable, Has
                     ->first()
                     ?->name;
             });
+    }
+
+    public function formatAuditFieldsForPresentation($field, Audit $record)
+    {
+        $fields = Arr::wrap($record->{$field});
+
+        $formattedResult = '<ul class="max-w-3xl whitespace-normal divide-y divide-gray-300">';
+
+        foreach ($fields as $key => $value) {
+            $formattedResult .= '<li class="py-2">';
+            $formattedResult .= '<span class="font-semibold inline-block text-gray-700 whitespace-normal rounded-md dark:text-gray-200 bg-gray-500/10">'.str($key)->replace('_', ' ')->title().':</span>';
+            $formattedResult .= '<div class="">'.$value.'</div>';
+            $formattedResult .= '</li>';
+        }
+
+        $formattedResult .= '</ul>';
+
+        return new HtmlString($formattedResult);
     }
 }
