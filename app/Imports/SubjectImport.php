@@ -28,6 +28,7 @@ class SubjectImport implements ToCollection, WithHeadingRow
             ->whereIn('name', [
                 'Maine Mission',
                 'Native Americans',
+                "Zion's Camp",
             ])
             ->get();
 
