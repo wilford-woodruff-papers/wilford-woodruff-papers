@@ -11,7 +11,7 @@
 
         <div class="col-span-12 py-6 px-8 mb-12">
 
-            <div class="page-title">Recognize Wilford's influence in the lives of the individuals he interacted with</div>
+            <div class="page-title">Understand more about Wilford Woodruff's wives and children and his family relationships through links to their individual biographies below.</div>
 
             <h2 class="section-title">Family</h2>
 
