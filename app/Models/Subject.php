@@ -449,9 +449,7 @@ class Subject extends Model implements \OwenIt\Auditing\Contracts\Auditable, Has
         ];
 
         if (
-            empty($this->embeddings_created_at)
-            || $this->embeddings_created_at < now()->subDay()
-            || ! Storage::exists('embeddings/'.static::class.'/'.$this->id.'.json')
+            ! Storage::exists('embeddings/'.static::class.'/'.$this->id.'.json')
         ) {
             $vectors = [];
             $response = OpenAI::embeddings()->create([
