@@ -60,15 +60,15 @@ class CalculateTaggedSubjectPageCounts extends Command
                                     ->where('subject_id', $grandchild->id)
                                     ->where('items.enabled', true)
                                     ->count();
-                                $grandchild->save();
+                                Subject::withoutSyncingToSearch(fn () => $grandchild->save());
                             }
 
                             $child->tagged_count = $childPages + $child->children->sum('tagged_count');
-                            $child->save();
+                            Subject::withoutSyncingToSearch(fn () => $child->save());
                         }
 
                         $subject->tagged_count = $subjectPages + $subject->children->sum('tagged_count');
-                        $subject->save();
+                        Subject::withoutSyncingToSearch(fn () => $subject->save());
                     }
                 });
         });

@@ -18,12 +18,12 @@ class IndexPageTopicsCommand extends Command
         set_time_limit(600);
 
         $topics = Subject::query()
-                    ->whereHas('category', function (Builder $query) {
-                        $query->where('name', 'Index');
-                    })
-                    ->where('search_in_text', 1)
-                    ->orderBy('name', 'ASC')
-                    ->get();
+            ->whereHas('category', function (Builder $query) {
+                $query->where('name', 'Index');
+            })
+            ->where('search_in_text', 1)
+            ->orderBy('name', 'ASC')
+            ->get();
 
         $this->info('Topics to index: '.$topics->count());
 
@@ -42,7 +42,7 @@ class IndexPageTopicsCommand extends Command
 
             if ($topic->enabled == 0 && $pages->count() > 0) {
                 $topic->enabled = 1;
-                $topic->save();
+                Subject::withoutSyncingToSearch(fn () => $topic->save());
             }
         }
     }
