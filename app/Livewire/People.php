@@ -68,7 +68,7 @@ class People extends Component
                 }
             });
 
-        if (in_array($this->category, ['Eminent Men and Women', 'Family'])) {
+        if (! in_array($this->category, ['Eminent Men and Women', 'Family'])) {
             $people = $people
                 ->whereEnabled(1)
                 ->where(function ($query) {
