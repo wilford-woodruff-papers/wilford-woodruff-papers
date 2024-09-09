@@ -16,13 +16,16 @@ class People extends Component
 
     public $selectCategories = [
         'All',
-        'Family',
-        'Apostles',
-        '1840 British Converts',
-        'United Brethren',
         '1835 Southern Converts',
+        '1840 British Converts',
+        'Apostles',
+        'Family',
         'Eminent Men and Women',
+        'Maine Mission ',
+        'Missionaries',
         'Scriptural Figures',
+        'United Brethren',
+        'Zion\'s Camp',
     ];
 
     protected $queryString = [
