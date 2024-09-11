@@ -14,7 +14,7 @@ class ImportFamilySearchPerson extends Command
      *
      * @var string
      */
-    protected $signature = 'familysearch:import-person {userid?}';
+    protected $signature = 'familysearch:import-person {userid?} {subject?}';
 
     /**
      * The console command description.
@@ -29,9 +29,13 @@ class ImportFamilySearchPerson extends Command
     public function handle()
     {
         $user = User::findOrFail($this->argument('userid'));
+        $subjectId = $this->argument('subject');
 
         $peopleCount = Subject::query()
             ->people()
+            ->when($subjectId, function ($query, $subjectId) {
+                $query->where('id', $subjectId);
+            })
             ->where(function ($query) {
                 $query->whereNotNull('pid')
                     ->orWhere('pid', '!=', 'n/a');
