@@ -41,7 +41,7 @@
         "laravel/sanctum": "^3.2",
         "laravel/scout": "^10.5.0",
         "laravel/socialite": "^5.6",
-        "laravel/telescope": "^4.12",
+
         "laravel/tinker": "^2.8",
         "league/flysystem-aws-s3-v3": "^3.0",
         "livewire/livewire": "^3.0",
@@ -95,7 +95,7 @@
         "vinkla/hashids": "^11.0",
         "voku/portable-utf8": "^6.0",
         "voku/simple_html_dom": "^4.8",
-        "vormkracht10/laravel-open-graph-image": "^v0.3.1",
+        "vormkracht10/laravel-open-graph-image": "^v0.7",
         "wildside/userstamps": "^2.3",
         "wilford-woodruff-papers/laravel-socialite-familysearch": "^1.0",
         "wire-elements/modal": "^2.0"
@@ -107,6 +107,7 @@
         "laravel/envoy": "^2.8",
         "laravel/pint": "^1.1",
         "laravel/sail": "^1.18",
+        "laravel/telescope": "^4.12",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^7.0",
         "openai-php/client": "^0.6.1",
