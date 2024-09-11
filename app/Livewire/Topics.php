@@ -18,7 +18,7 @@ class Topics extends Component
 
     public function mount()
     {
-        if (empty($this->search) && empty($this->letter)) {
+        if (empty($this->search) && empty(trim($this->letter, '"'))) {
             $this->letter = 'A';
         }
     }
