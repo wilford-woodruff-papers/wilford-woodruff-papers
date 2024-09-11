@@ -129,7 +129,9 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": []
+            "dont-discover": [
+                "laravel/telescope"
+            ]
         },
         "patches": {
             "paquettg/php-html-parser": {
