@@ -27,9 +27,9 @@ class PageController extends Controller
         $relationships = [];
         if (auth()->check()) {
             $relationships = Relationship::query()
-                ->where('distance', '>', 0)
                 ->where('user_id', auth()->id())
                 ->whereIn('subject_id', $page->people->pluck('id')->all())
+                ->where('distance', '>', 0)
                 ->pluck('description', 'subject_id')
                 ->all();
         }
