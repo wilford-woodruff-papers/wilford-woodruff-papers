@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\AssignRole;
 use App\Nova\Actions\CopyUserRoles;
 use App\Nova\Actions\ExportUsers;
 use App\Nova\Filters\ApiUser;
@@ -125,6 +126,7 @@ class User extends Resource
     public function actions(Request $request): array
     {
         return [
+            new AssignRole(),
             new CopyUserRoles(),
             new ExportUsers(),
         ];
