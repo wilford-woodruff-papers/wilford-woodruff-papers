@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7015a3973227cb825ff31a964f33d04e",
+    "content-hash": "536e77d26c27c4f2208101f2fbded1c0",
     "packages": [
         {
             "name": "abr4xas/clarity-laravel",
@@ -5356,24 +5356,26 @@
         },
         {
             "name": "laravel/octane",
-            "version": "v2.3.3",
+            "version": "v2.5.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/octane.git",
-                "reference": "8f9d0da559ba4366fecc5c106d1298abe6773396"
+                "reference": "a6cb30a609a997386533201344196f01bcd90e2b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/octane/zipball/8f9d0da559ba4366fecc5c106d1298abe6773396",
-                "reference": "8f9d0da559ba4366fecc5c106d1298abe6773396",
+                "url": "https://api.github.com/repos/laravel/octane/zipball/a6cb30a609a997386533201344196f01bcd90e2b",
+                "reference": "a6cb30a609a997386533201344196f01bcd90e2b",
                 "shasum": ""
             },
             "require": {
                 "laminas/laminas-diactoros": "^3.0",
                 "laravel/framework": "^10.10.1|^11.0",
+                "laravel/prompts": "^0.1.24",
                 "laravel/serializable-closure": "^1.3.0",
                 "nesbot/carbon": "^2.66.0|^3.0",
                 "php": "^8.1.0",
+                "symfony/console": "^6.0|^7.0",
                 "symfony/psr-http-message-bridge": "^2.2.0|^6.4|^7.0"
             },
             "conflict": {
@@ -5440,7 +5442,7 @@
                 "issues": "https://github.com/laravel/octane/issues",
                 "source": "https://github.com/laravel/octane"
             },
-            "time": "2024-02-04T15:49:02+00:00"
+            "time": "2024-09-11T20:54:55+00:00"
         },
         {
             "name": "laravel/prompts",
