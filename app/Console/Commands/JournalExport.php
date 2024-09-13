@@ -188,8 +188,8 @@ class JournalExport extends Command
                         ->first();
                     if (
                         empty($subject)
-                        && $subject?->category->contains('name', 'Scriptural Figures')
-                        && $subject?->category->contains('name', 'CBI')
+                        || $subject?->category->contains('name', 'Scriptural Figures')
+                        || $subject?->category->contains('name', 'CBI')
                     ) {
                         logger()->info('Subject not found: '.$match);
 
@@ -200,9 +200,8 @@ class JournalExport extends Command
                         $subject?->category->contains('name', 'People')
                     ) {
                         $allPeople->push($subject);
-                        $footnotes .= '<p>'.(array_search($subject->name, $references) + 1).' '.str($subject->name)->beforeLast(',');
-                        $footnotes .= ' ('.$subject->display_life_years.')';
-                        $footnotes .= ' '.$subject->short_bio;
+                        $footnotes .= '<p>';
+                        $footnotes .= (array_search($subject->name, $references) + 1).' '.$subject->short_bio;
                         $footnotes .= '</p>'."\n";
                     }
 
@@ -284,7 +283,7 @@ class JournalExport extends Command
         $printTranscript .= $allPeople
             ->unique('id')
             ->sortBy('name')
-            ->map(fn ($subject) => '<p>'.$subject->name.' ['.$subject->display_life_years.'] '.$subject->short_bio.'</p>')
+            ->map(fn ($subject) => '<p>'.$subject->short_bio.'</p>')
             ->values()
             ->join("\n");
         $printTranscript .= "\n".'<h2>Places</h2>'."\n";
