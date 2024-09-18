@@ -95,10 +95,15 @@ class JournalExport extends Command
                 $matches = str($partial)->matchAll('/(?:\[\[)(.*?)(?:\]\])/s');
                 $matches = collect($matches)
                     ->filter(fn ($match) => str($match)->contains('|'))
+                    ->reject(function ($match) {
+                        $parts = str($match)->explode('|');
+
+                        return $parts->first() == $parts->last()
+                                && str($parts->first())->explode(' ')->count() == 1;
+                    })
                     ->map(fn ($match) => str($match)
                         ->explode('|')
                         ->first())
-                    ->filter(fn ($match) => str($match)->explode(' ')->count() > 1)
                     ->unique()
                     ->values()
                     ->all();

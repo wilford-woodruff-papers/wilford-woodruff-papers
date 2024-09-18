@@ -76,7 +76,7 @@ class ClearText
             $text = $text
                 ->replaceMatches('/\[\[illegible\]\]/i', '[illegible]')
                 ->replaceMatches('/\[\[blank\]\]/i', '[blank]')
-                ->replaceMatches('/\[\[figure\]\]/i', '[figure]');
+                ->replaceMatches('/\[\[figure\]\]/i', '[<b>figure</b>]');
 
             // With all the previous deletions there is sometimes odd whitespace left over.
             // this function handles those cases that.
