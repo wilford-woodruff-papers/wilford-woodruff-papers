@@ -74,6 +74,8 @@ class JournalExport extends Command
 
         $fullTranscript = $fullTranscript
             ->replaceMatches("/(?<!^)<br\/>(?=$)/mi", ' ')// Remove line breaks at the end of a line, but not the beginning of a line
+            ->replaceMatches('/<sup>/mi', '')
+            ->replaceMatches("/<\/sup>/mi", '')
             ->clearText();
 
         $lines = preg_split("/\r\n|\n|\r/", $fullTranscript);
