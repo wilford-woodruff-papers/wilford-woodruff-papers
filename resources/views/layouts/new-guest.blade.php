@@ -55,7 +55,7 @@
     <x-clarity::script />
 </head>
 <body>
-<x-relative-finder-popup />
+{{--<x-relative-finder-popup />--}}
 @include('layouts.partials.google-tag-manager-no-script')
 {{--<x-admin-bar />--}}
 
