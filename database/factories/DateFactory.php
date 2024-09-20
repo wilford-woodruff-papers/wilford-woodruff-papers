@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Date;
 use App\Models\Page;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
