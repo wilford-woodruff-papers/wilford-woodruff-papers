@@ -101,7 +101,7 @@ class Video extends Resource
                 ->asHtml()
                 ->alwaysShow(),
             BelongsToMany::make('Authors')->hideFromIndex(),
-            BelongsToMany::make('Topics', 'topLevelIndexTopics', 'App\Nova\Topic')
+            BelongsToMany::make('Topics', 'topLevelIndexTopics', \App\Nova\Topic::class)
                 ->searchable(),
         ];
     }

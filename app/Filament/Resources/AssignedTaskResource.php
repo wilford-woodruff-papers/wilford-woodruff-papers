@@ -52,7 +52,7 @@ class AssignedTaskResource extends Resource
                 $query
                     ->where('assigned_to', auth()->id())
                     ->whereNull('completed_at')
-                    ->where('actionable_type', 'App\Models\Item');
+                    ->where('actionable_type', \App\Models\Item::class);
             });
     }
 

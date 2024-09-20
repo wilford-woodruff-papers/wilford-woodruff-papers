@@ -34,7 +34,7 @@ class QuoteTaggingReport extends Controller
             $pages[] = Action::query()
                 ->whereNotNull('completed_at')
                 ->where('action_type_id', $actionTypeId)
-                ->where('actionable_type', 'App\Models\Page')
+                ->where('actionable_type', \App\Models\Page::class)
                 ->whereDate('completed_at', '>=', $now->subMonth($i)->startOfMonth())
                 ->whereDate('completed_at', '<=', $now->subMonth($i)->endOfMonth())
                 ->count();
