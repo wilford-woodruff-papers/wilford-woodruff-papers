@@ -25,7 +25,7 @@ class ImportItemMetadataCommand extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         Excel::import(new MetadataFieldsImport, 'document-metadata.csv');
     }

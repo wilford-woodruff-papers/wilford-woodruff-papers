@@ -31,7 +31,7 @@ class XmlDocumentExport extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): int
     {
         //        $id = search(
         //            'Search for the document by name',

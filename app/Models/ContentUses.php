@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,7 +14,7 @@ class ContentUses extends Model
     use SoftDeletes;
     use Userstamps;
 
-    public function content()
+    public function content(): BelongsTo
     {
         return $this->belongsTo(Content::class);
     }

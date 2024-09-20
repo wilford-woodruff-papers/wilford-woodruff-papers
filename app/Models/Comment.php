@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Jobs\SendNewCommentNotification;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,7 +20,7 @@ class Comment extends Model
 
     protected $guarded = ['id'];
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
@@ -28,7 +30,7 @@ class Comment extends Model
         return $this->morphTo();
     }
 
-    public function replies()
+    public function replies(): HasMany
     {
         return $this->hasMany(Comment::class, 'parent_id')
             ->where(function (Builder $query) {

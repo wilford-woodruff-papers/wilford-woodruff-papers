@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -15,17 +18,17 @@ class Theme extends Model
 
     protected $guarded = ['id'];
 
-    public function contents()
+    public function contents(): MorphMany
     {
         return $this->morphMany(Content::class, 'contentable');
     }
 
-    public function page()
+    public function page(): BelongsTo
     {
         return $this->belongsTo(Page::class);
     }
 
-    public function topics()
+    public function topics(): BelongsToMany
     {
         return $this->belongsToMany(Subject::class)->withPivot(['approved_at', 'approved_by', 'created_at', 'created_by']);
     }

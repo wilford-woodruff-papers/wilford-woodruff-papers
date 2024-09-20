@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Wildside\Userstamps\Userstamps;
@@ -20,12 +21,12 @@ class Goal extends Model
         ];
     }
 
-    public function type()
+    public function type(): BelongsTo
     {
         return $this->belongsTo(Type::class);
     }
 
-    public function action_type()
+    public function action_type(): BelongsTo
     {
         return $this->belongsTo(ActionType::class);
     }

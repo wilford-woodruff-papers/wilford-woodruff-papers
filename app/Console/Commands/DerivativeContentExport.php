@@ -32,7 +32,7 @@ class DerivativeContentExport extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         $text = '';
         $documents = Faq::query()

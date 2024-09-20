@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Wildside\Userstamps\Userstamps;
@@ -13,27 +14,27 @@ class Value extends Model
 
     protected $guarded = ['id'];
 
-    public function property()
+    public function property(): BelongsTo
     {
         return $this->belongsTo(Property::class);
     }
 
-    public function item()
+    public function item(): BelongsTo
     {
         return $this->belongsTo(Item::class);
     }
 
-    public function source()
+    public function source(): BelongsTo
     {
         return $this->belongsTo(Source::class, 'value');
     }
 
-    public function repository()
+    public function repository(): BelongsTo
     {
         return $this->belongsTo(Repository::class, 'value');
     }
 
-    public function copyrightstatus()
+    public function copyrightstatus(): BelongsTo
     {
         return $this->belongsTo(CopyrightStatus::class, 'value');
     }

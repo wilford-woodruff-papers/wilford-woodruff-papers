@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,12 +15,12 @@ class Content extends Model
     use SoftDeletes;
     use Userstamps;
 
-    public function contentable()
+    public function contentable(): MorphTo
     {
         return $this->morphTo();
     }
 
-    public function uses()
+    public function uses(): HasMany
     {
         return $this->hasMany(ContentUses::class);
     }

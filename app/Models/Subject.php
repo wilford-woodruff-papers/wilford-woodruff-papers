@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -186,7 +189,7 @@ class Subject extends Model implements \OwenIt\Auditing\Contracts\Auditable, Has
         return $this->attributes['bio_completed_at'];
     }
 
-    public function category()
+    public function category(): BelongsToMany
     {
         return $this->belongsToMany(Category::class);
     }
@@ -204,27 +207,27 @@ class Subject extends Model implements \OwenIt\Auditing\Contracts\Auditable, Has
             ->afterLast('/');
     }
 
-    public function pages()
+    public function pages(): BelongsToMany
     {
         return $this->belongsToMany(Page::class);
     }
 
-    public function parent()
+    public function parent(): BelongsTo
     {
         return $this->belongsTo(self::class, 'subject_id');
     }
 
-    public function researcher()
+    public function researcher(): BelongsTo
     {
         return $this->belongsTo(User::class, 'researcher_id')->withTrashed();
     }
 
-    public function events()
+    public function events(): BelongsToMany
     {
         return $this->belongsToMany(Event::class, 'event_subject');
     }
 
-    public function press()
+    public function press(): BelongsToMany
     {
         return $this->belongsToMany(Press::class, 'press_subject');
     }
@@ -250,7 +253,7 @@ class Subject extends Model implements \OwenIt\Auditing\Contracts\Auditable, Has
         });
     }
 
-    public function children()
+    public function children(): HasMany
     {
         return $this->hasMany(self::class)->with(['children' => function ($query) {
             $query->when(auth()->guest() || (auth()->check() && ! auth()->user()->hasAnyRole(['Super Admin'])), fn ($query) => $query->where('hide_on_index', 0)
@@ -261,7 +264,7 @@ class Subject extends Model implements \OwenIt\Auditing\Contracts\Auditable, Has
         }]);
     }
 
-    public function quotes()
+    public function quotes(): BelongsToMany
     {
         return $this->belongsToMany(Quote::class)->withPivot(['approved_at', 'approved_by', 'created_at', 'created_by']);
     }

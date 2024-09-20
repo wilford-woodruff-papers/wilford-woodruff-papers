@@ -32,7 +32,7 @@ class JournalExport extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         $documents = Item::query()
             ->with([

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Dyrynda\Database\Casts\EfficientUuid;
 use Dyrynda\Database\Support\GeneratesUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -23,7 +24,7 @@ class Contestant extends Model
         ];
     }
 
-    public function submission()
+    public function submission(): BelongsTo
     {
         return $this->belongsTo(ContestSubmission::class, 'contest_submission_id');
     }

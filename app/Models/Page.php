@@ -2,6 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use App\Models\Scriptures\Volume;
 use Dyrynda\Database\Casts\EfficientUuid;
 use Dyrynda\Database\Support\GeneratesUuid;
@@ -47,12 +51,12 @@ class Page extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
         return $query->whereUuid($value);
     }
 
-    public function item()
+    public function item(): BelongsTo
     {
         return $this->belongsTo(Item::class);
     }
 
-    public function parent()
+    public function parent(): BelongsTo
     {
         //if (! empty($this->item) && empty($this->item->item_id)) {
         //    return $this->item();
@@ -89,7 +93,7 @@ class Page extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
             ->first();
     }
 
-    public function people()
+    public function people(): BelongsToMany
     {
         return $this->belongsToMany(Subject::class)
             ->whereHas('category', function (Builder $query) {
@@ -97,7 +101,7 @@ class Page extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
             });
     }
 
-    public function places()
+    public function places(): BelongsToMany
     {
         return $this->belongsToMany(Subject::class)
             ->whereHas('category', function (Builder $query) {
@@ -105,12 +109,12 @@ class Page extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
             });
     }
 
-    public function subjects()
+    public function subjects(): BelongsToMany
     {
         return $this->belongsToMany(Subject::class);
     }
 
-    public function topics()
+    public function topics(): BelongsToMany
     {
         return $this->belongsToMany(Subject::class)
             ->whereHas('category', function (Builder $query) {
@@ -118,28 +122,28 @@ class Page extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
             });
     }
 
-    public function quotes()
+    public function quotes(): HasMany
     {
         return $this->hasMany(Quote::class);
     }
 
-    public function dates()
+    public function dates(): MorphMany
     {
         return $this->morphMany(Date::class, 'dateable');
     }
 
-    public function taggedDates()
+    public function taggedDates(): MorphMany
     {
         return $this->morphMany(Date::class, 'dateable')->orderBy('date', 'ASC');
     }
 
-    public function translations()
+    public function translations(): HasMany
     {
         return $this->hasMany(Translation::class)
             ->orderBy('language', 'ASC');
     }
 
-    public function publishing_tasks()
+    public function publishing_tasks(): MorphMany
     {
         return $this->morphMany(Action::class, 'actionable')
             ->whereNotNull('completed_at')
@@ -245,35 +249,35 @@ class Page extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
     /**
      * Get all of the events that are assigned this page.
      */
-    public function events()
+    public function events(): MorphToMany
     {
         return $this->morphToMany(Event::class, 'timelineable');
     }
 
-    public function actions()
+    public function actions(): MorphMany
     {
         return $this->morphMany(Action::class, 'actionable');
     }
 
-    public function pending_assigned_actions()
+    public function pending_assigned_actions(): MorphMany
     {
         return $this->morphMany(Action::class, 'actionable')
             ->whereNotNull('assigned_at')
             ->whereNull('completed_at');
     }
 
-    public function completed_actions()
+    public function completed_actions(): MorphMany
     {
         return $this->morphMany(Action::class, 'actionable')
             ->whereNotNull('completed_at');
     }
 
-    public function activities()
+    public function activities(): MorphMany
     {
         return $this->morphMany(Activity::class, 'subject');
     }
 
-    public function admin_comments()
+    public function admin_comments(): MorphMany
     {
         return $this->morphMany(AdminComment::class, 'admincommentable')->latest();
     }

@@ -25,7 +25,7 @@ class GenerateBannerForDayInTheLifeRangeCommand extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         $count = $this->argument('count');
 

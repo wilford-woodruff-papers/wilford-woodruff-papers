@@ -2,6 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Dyrynda\Database\Casts\EfficientUuid;
 use Dyrynda\Database\Support\BindsOnUuid;
 use Dyrynda\Database\Support\GeneratesUuid;
@@ -48,7 +53,7 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
         'aa', 'bb', 'cc', 'dd', 'ee', 'ff', 'gg', 'hh', 'ii', 'jj', 'kk', 'll', 'mm', 'nn', 'oo', 'pp', 'qq', 'rr', 'ss', 'tt', 'uu', 'vv', 'ww', 'xx', 'yy', 'zz',
     ];
 
-    public function pages()
+    public function pages(): HasManyThrough
     {
         /*if(Str::of(optional($this->type)->name)->exactly(['Autobiographies', 'Journals'])){
             return $this->hasManyThrough(Page::class, Item::class)->orderBy('order', 'ASC');
@@ -149,22 +154,22 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
         return true;
     }
 
-    public function type()
+    public function type(): BelongsTo
     {
         return $this->belongsTo(Type::class);
     }
 
-    public function dates()
+    public function dates(): MorphMany
     {
         return $this->morphMany(Date::class, 'dateable');
     }
 
-    public function taggedDates()
+    public function taggedDates(): MorphMany
     {
         return $this->morphMany(Date::class, 'dateable');
     }
 
-    public function values()
+    public function values(): HasMany
     {
         return $this->hasMany(Value::class);
     }
@@ -208,7 +213,7 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
     /**
      * Get all of the events that are assigned this item.
      */
-    public function events()
+    public function events(): MorphToMany
     {
         return $this->morphToMany(Event::class, 'timelineable');
     }
@@ -269,12 +274,12 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
         });
     }
 
-    public function activities()
+    public function activities(): MorphMany
     {
         return $this->morphMany(Activity::class, 'subject');
     }
 
-    public function quotes()
+    public function quotes(): HasManyThrough
     {
         return $this->hasManyThrough(
             Quote::class,
@@ -292,12 +297,12 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
             ->dontLogIfAttributesChangedOnly(['transcript']);
     }
 
-    public function actions()
+    public function actions(): MorphMany
     {
         return $this->morphMany(Action::class, 'actionable');
     }
 
-    public function publishing_tasks()
+    public function publishing_tasks(): MorphMany
     {
         return $this->morphMany(Action::class, 'actionable')
             ->whereNotNull('completed_at')
@@ -312,7 +317,7 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
             });
     }
 
-    public function pending_actions()
+    public function pending_actions(): MorphMany
     {
         return $this->morphMany(Action::class, 'actionable')
             ->where(
@@ -322,7 +327,7 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
             ->whereNull('completed_at');
     }
 
-    public function pending_actions_for_user($userId)
+    public function pending_actions_for_user($userId): MorphMany
     {
         return $this->morphMany(Action::class, 'actionable')
             ->where(
@@ -333,20 +338,20 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
             ->get();
     }
 
-    public function unassigned_actions()
+    public function unassigned_actions(): MorphMany
     {
         return $this->morphMany(Action::class, 'actionable')
             ->whereNull('assigned_to')
             ->whereNull('completed_at');
     }
 
-    public function completed_actions()
+    public function completed_actions(): MorphMany
     {
         return $this->morphMany(Action::class, 'actionable')
             ->whereNotNull('completed_at');
     }
 
-    public function page_actions()
+    public function page_actions(): HasManyThrough
     {
         return $this->hasManyThrough(Action::class, Page::class, 'item_id', 'actionable_id')
             ->where(
@@ -355,7 +360,7 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
             );
     }
 
-    public function pending_page_actions()
+    public function pending_page_actions(): HasManyThrough
     {
         return $this->hasManyThrough(Action::class, Page::class, 'item_id', 'actionable_id')
             ->where(
@@ -366,7 +371,7 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
             ->whereNull('completed_at');
     }
 
-    public function pending_page_actions_for_user($userId)
+    public function pending_page_actions_for_user($userId): HasManyThrough
     {
         return $this->hasManyThrough(Action::class, Page::class, 'item_id', 'actionable_id')
             ->where(
@@ -378,17 +383,17 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
             ->get();
     }
 
-    public function admin_comments()
+    public function admin_comments(): MorphMany
     {
         return $this->morphMany(AdminComment::class, 'admincommentable');
     }
 
-    public function target_publish_dates()
+    public function target_publish_dates(): BelongsToMany
     {
         return $this->belongsToMany(TargetPublishDate::class);
     }
 
-    public function active_target_publish_date()
+    public function active_target_publish_date(): BelongsToMany
     {
         return $this->belongsToMany(TargetPublishDate::class)
             ->where('publish_at', '>', now());

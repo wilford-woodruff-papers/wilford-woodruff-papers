@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Dyrynda\Database\Casts\EfficientUuid;
 use Dyrynda\Database\Support\GeneratesUuid;
 use Illuminate\Database\Eloquent\Builder;
@@ -63,7 +64,7 @@ class Photo extends Model implements HasMedia
     /**
      * Get all of the events that are assigned this item.
      */
-    public function events()
+    public function events(): MorphToMany
     {
         return $this->morphToMany(Event::class, 'timelineable');
     }

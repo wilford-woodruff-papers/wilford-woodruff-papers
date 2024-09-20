@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -27,7 +28,7 @@ class Identification extends Model
         ];
     }
 
-    public function researcher()
+    public function researcher(): BelongsTo
     {
         return $this->belongsTo(User::class, 'researcher_id')->withTrashed();
     }

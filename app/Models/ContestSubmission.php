@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Dyrynda\Database\Casts\EfficientUuid;
 use Dyrynda\Database\Support\GeneratesUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -59,12 +61,12 @@ class ContestSubmission extends Model implements HasMedia
         ];
     }
 
-    public function contestants()
+    public function contestants(): HasMany
     {
         return $this->hasMany(Contestant::class);
     }
 
-    public function primary_contact()
+    public function primary_contact(): HasOne
     {
         return $this->hasOne(Contestant::class)->ofMany([
             'is_primary_contact' => 'max',

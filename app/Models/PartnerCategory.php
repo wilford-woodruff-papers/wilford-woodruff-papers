@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\EloquentSortable\Sortable;
@@ -19,7 +20,7 @@ class PartnerCategory extends Model implements Sortable
         'sort_when_creating' => true,
     ];
 
-    public function partners()
+    public function partners(): HasMany
     {
         return $this->hasMany(Partner::class)->ordered();
     }

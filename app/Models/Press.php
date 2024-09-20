@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -27,7 +28,7 @@ class Press extends Model implements HasMedia
 
     protected $guarded = ['id'];
 
-    public function comments()
+    public function comments(): MorphMany
     {
         return $this->morphMany(Comment::class, 'commentable')
             ->where(function (Builder $query) {
@@ -38,7 +39,7 @@ class Press extends Model implements HasMedia
             ->orderBy('created_at', 'DESC');
     }
 
-    public function authors()
+    public function authors(): BelongsToMany
     {
         return $this->belongsToMany(Author::class);
     }

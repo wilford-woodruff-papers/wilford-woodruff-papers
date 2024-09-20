@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,7 +19,7 @@ class TargetPublishDate extends Model
         ];
     }
 
-    public function items()
+    public function items(): BelongsToMany
     {
         return $this->belongsToMany(Item::class);
     }

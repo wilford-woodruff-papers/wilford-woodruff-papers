@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\EloquentSortable\Sortable;
@@ -28,7 +29,7 @@ class ActionType extends Model implements Sortable
         return $query->where('type', $type);
     }
 
-    public function dependentActionTypes()
+    public function dependentActionTypes(): HasMany
     {
         return $this->hasMany(ActionType::class);
     }

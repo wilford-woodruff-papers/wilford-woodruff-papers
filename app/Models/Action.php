@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
@@ -25,12 +27,12 @@ class Action extends Model
         ];
     }
 
-    public function actionable()
+    public function actionable(): MorphTo
     {
         return $this->morphTo();
     }
 
-    public function type()
+    public function type(): BelongsTo
     {
         return $this->belongsTo(ActionType::class, 'action_type_id')->ordered();
     }
@@ -45,12 +47,12 @@ class Action extends Model
         );
     }
 
-    public function assignee()
+    public function assignee(): BelongsTo
     {
         return $this->belongsTo(User::class, 'assigned_to');
     }
 
-    public function finisher()
+    public function finisher(): BelongsTo
     {
         return $this->belongsTo(User::class, 'completed_by');
     }

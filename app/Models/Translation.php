@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
 
 class Translation extends Model
@@ -10,7 +11,7 @@ class Translation extends Model
         'id',
     ];
 
-    public function page()
+    public function page(): BelongsTo
     {
         return $this->belongsTo(Page::class);
     }

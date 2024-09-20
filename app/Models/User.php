@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -78,12 +79,12 @@ class User extends Authenticatable implements FilamentUser
         ];
     }
 
-    public function tasks()
+    public function tasks(): HasMany
     {
         return $this->hasMany(User::class, 'assigned_to');
     }
 
-    public function pending_actions()
+    public function pending_actions(): HasMany
     {
         return $this->hasMany(Action::class, 'assigned_to')
             ->where(
