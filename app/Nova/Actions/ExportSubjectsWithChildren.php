@@ -21,7 +21,7 @@ class ExportSubjectsWithChildren extends DownloadExcel implements WithHeadings, 
     }
 
     /**
-     * @param  $item
+     * @param    $item
      */
     public function map($subject): array
     {

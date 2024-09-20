@@ -24,7 +24,7 @@ class ExportContestEntries extends DownloadExcel implements WithHeadings, WithMa
     }
 
     /**
-     * @param  $item
+     * @param    $item
      */
     public function map($entry): array
     {

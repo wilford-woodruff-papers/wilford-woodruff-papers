@@ -15,6 +15,12 @@ return [
     'max_file_size' => 1024 * 1024 * 200,
 
     /*
+     * This queue connection will be used to generate derived and responsive images.
+     * Leave empty to use the default queue connection.
+     */
+    'queue_connection_name' => env('QUEUE_CONNECTION', 'sync'),
+
+    /*
      * This queue will be used to generate derived and responsive images.
      * Leave empty to use the default queue.
      */
@@ -26,9 +32,22 @@ return [
     'queue_conversions_by_default' => env('QUEUE_CONVERSIONS_BY_DEFAULT', true),
 
     /*
+     * Should database transactions be run after database commits?
+     */
+    'queue_conversions_after_database_commit' => env('QUEUE_CONVERSIONS_AFTER_DB_COMMIT', true),
+
+    /*
      * The fully qualified class name of the media model.
      */
     'media_model' => Spatie\MediaLibrary\MediaCollections\Models\Media::class,
+
+    /*
+     * When enabled, media collections will be serialised using the default
+     * laravel model serialization behaviour.
+     *
+     * Keep this option disabled if using Media Library Pro components (https://medialibrary.pro)
+     */
+    'use_default_collection_serialization' => false,
 
     /*
      * The fully qualified class name of the model used for temporary uploads.
@@ -60,6 +79,20 @@ return [
     'path_generator' => Spatie\MediaLibrary\Support\PathGenerator\DefaultPathGenerator::class,
 
     /*
+     * The class that contains the strategy for determining how to remove files.
+     */
+    'file_remover_class' => Spatie\MediaLibrary\Support\FileRemover\DefaultFileRemover::class,
+
+    /*
+     * Here you can specify which path generator should be used for the given class.
+     */
+    'custom_path_generators' => [
+        // Model::class => PathGenerator::class
+        // or
+        // 'model_morph_alias' => PathGenerator::class
+    ],
+
+    /*
      * When urls to files get generated, this class will be called. Use the default
      * if your files are stored locally above the site root or on s3.
      */
@@ -85,6 +118,7 @@ return [
     'image_optimizers' => [
         Spatie\ImageOptimizer\Optimizers\Jpegoptim::class => [
             '-m85', // set maximum quality to 85%
+            '--force', // ensure that progressive generation is always done also if a little bigger
             '--strip-all', // this strips out all text information such as comments and EXIF data
             '--all-progressive', // this will make sure the resulting image is a progressive one
         ],
@@ -109,6 +143,16 @@ return [
             '-mt', // multithreading for some speed improvements.
             '-q 90', //quality factor that brings the least noticeable changes.
         ],
+        Spatie\ImageOptimizer\Optimizers\Avifenc::class => [
+            '-a cq-level=23', // constant quality level, lower values mean better quality and greater file size (0-63).
+            '-j all', // number of jobs (worker threads, "all" uses all available cores).
+            '--min 0', // min quantizer for color (0-63).
+            '--max 63', // max quantizer for color (0-63).
+            '--minalpha 0', // min quantizer for alpha (0-63).
+            '--maxalpha 63', // max quantizer for alpha (0-63).
+            '-a end-usage=q', // rate control mode set to Constant Quality mode.
+            '-a tune=ssim', // SSIM as tune the encoder for distortion metric.
+        ],
     ],
 
     /*
@@ -117,6 +161,7 @@ return [
     'image_generators' => [
         Spatie\MediaLibrary\Conversions\ImageGenerators\Image::class,
         Spatie\MediaLibrary\Conversions\ImageGenerators\Webp::class,
+        Spatie\MediaLibrary\Conversions\ImageGenerators\Avif::class,
         Spatie\MediaLibrary\Conversions\ImageGenerators\Pdf::class,
         Spatie\MediaLibrary\Conversions\ImageGenerators\Svg::class,
         Spatie\MediaLibrary\Conversions\ImageGenerators\Video::class,
@@ -219,4 +264,10 @@ return [
      * If you set this to `/my-subdir`, all your media will be stored in a `/my-subdir` directory.
      */
     'prefix' => env('MEDIA_PREFIX', ''),
+
+    /*
+     * When forcing lazy loading, media will be loaded even if you don't eager load media and you have
+     * disabled lazy loading globally in the service provider.
+     */
+    'force_lazy_loading' => env('FORCE_MEDIA_LIBRARY_LAZY_LOADING', true),
 ];

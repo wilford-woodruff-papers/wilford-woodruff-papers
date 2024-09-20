@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Parental\HasChildren;
-use Spatie\Image\Manipulations;
+use Spatie\Image\Enums\BorderType;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -55,7 +55,7 @@ class Testimonial extends Model implements HasMedia
 
         $this->addMediaConversion('vintage')
             ->sepia()
-            ->border(10, 'black', Manipulations::BORDER_OVERLAY);
+            ->border(10, 'black', BorderType::Overlay);
 
         $this->addMediaConversion('square')
             ->crop('crop-center', 800, 800); // Trim or crop the image to the center for specified width and height.

@@ -72,7 +72,9 @@ class Feed extends Component
             ->layout('layouts.guest');
     }
 
-    public function submit() {}
+    public function submit()
+    {
+    }
 
     public function loadMore()
     {

@@ -7,7 +7,6 @@ use Illuminate\Foundation\Configuration\Middleware;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withProviders([
-        \Dyrynda\Database\LaravelEfficientUuidServiceProvider::class,
         \SocialiteProviders\Manager\ServiceProvider::class,
     ])
     ->withRouting(
@@ -16,6 +15,11 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         channels: __DIR__.'/../routes/channels.php',
         health: '/up',
+        then: function () {
+            Route::prefix('oai')
+                ->middleware('api')
+                ->group(base_path('routes/oai.php'));
+        }
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->redirectGuestsTo(fn () => route('login'));
@@ -37,7 +41,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->throttleApi();
 
-        $middleware->replace(\Illuminate\Http\Middleware\TrustProxies::class, \App\Http\Middleware\TrustProxies::class);
+        //$middleware->replace(\Illuminate\Http\Middleware\TrustProxies::class, \App\Http\Middleware\TrustProxies::class);
 
         $middleware->alias([
             'ai-download' => \App\Http\Middleware\DownloadAIExperienceMiddleware::class,

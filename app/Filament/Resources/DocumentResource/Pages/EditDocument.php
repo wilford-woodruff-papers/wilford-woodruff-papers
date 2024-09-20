@@ -14,7 +14,9 @@ class EditDocument extends EditRecord
     protected static string $resource = DocumentResource::class;
 
     #[On('refreshItem')]
-    public function refresh(): void {}
+    public function refresh(): void
+    {
+    }
 
     public function getRecordTitle(): string
     {

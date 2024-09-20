@@ -75,7 +75,9 @@ class Topics extends Component
             ->layout('layouts.guest');
     }
 
-    public function submit() {}
+    public function submit()
+    {
+    }
 
     public function updatedSearch()
     {
