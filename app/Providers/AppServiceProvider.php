@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Http\Middleware\DownloadAIExperienceMiddleware;
 use App\Macros\AddSubjectLinks;
 use App\Macros\RemoveQZCodes;
+use App\Macros\Stringable\ClearText;
 use App\Macros\StripBracketedID;
 use Filament\Support\Assets\Css;
 use Filament\Support\Facades\FilamentAsset;
@@ -42,6 +43,8 @@ class AppServiceProvider extends ServiceProvider
 
         Stringable::macro('addSubjectLinks', app(AddSubjectLinks::class)());
         Str::macro('addScriptureLinks', app(\App\Macros\Str\AddScriptureLinks::class)());
+        Stringable::macro('clearText', app(ClearText::class)());
+        Str::macro('clearText', app(\App\Macros\Str\ClearText::class)());
         Stringable::macro('addScriptureLinks', app(\App\Macros\Stringable\AddScriptureLinks::class)());
         Str::macro('extractContentOnDate', app(\App\Macros\Str\ExtractContentOnDate::class)());
         Stringable::macro('extractContentOnDate', app(\App\Macros\Stringable\ExtractContentOnDate::class)());
