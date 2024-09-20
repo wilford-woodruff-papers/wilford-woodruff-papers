@@ -47,7 +47,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'ai-download' => \App\Http\Middleware\DownloadAIExperienceMiddleware::class,
             'api-terms' => \App\Http\Middleware\RequireApiTermsAcceptanceMiddleware::class,
             'honeypot' => \Spatie\Honeypot\ProtectAgainstSpam::class,
-            'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
+            'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
