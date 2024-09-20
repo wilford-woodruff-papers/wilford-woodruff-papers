@@ -37,16 +37,16 @@
                 <div class="flex relative z-10 flex-col justify-between pt-8 pb-8 pl-12 h-full pr-18">
                     <div class="flex flex-col gap-y-4 h-full">
                         <h2 class="pb-2 text-4xl font-light text-white uppercase leading-[1.2em]">
-                            {!! $item->name !!}
+                            {!! str($item->name)->stripBracketedID() !!}
                         </h2>
                         <hr class="border-b border-white max-w-[550px]"/>
-                        <p class="text-xl text-white">
-                            Explore the document below or read the pages.
+                        <p class="pt-8 pr-24 text-xl text-white">
+                            Explore the document through the featured content below or read the individual pages.
                         </p>
                     </div>
-                    <div class="text-2xl text-white">
-                        <div class="inline-block py-2 px-12 uppercase border border-white bg-secondary">
-                            Read Now
+                    <div class="mb-6 text-2xl text-secondary">
+                        <div class="inline-block py-2 px-12 uppercase bg-white border border-secondary">
+                            Click to Read
                         </div>
                     </div>
                 </div>

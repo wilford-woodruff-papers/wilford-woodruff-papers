@@ -4,6 +4,8 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\RepositoryResource\Pages;
 use App\Models\Repository;
+use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -23,14 +25,23 @@ class RepositoryResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name')
-                    ->required()
-                    ->autofocus()
-                    ->unique(ignoreRecord: true),
-                Select::make('source_id')
-                    ->label('Source')
-                    ->relationship('source', 'name')
-                    ->required(),
+                Section::make()
+                    ->schema([
+                        TextInput::make('name')
+                            ->required()
+                            ->autofocus()
+                            ->unique(ignoreRecord: true),
+                        Select::make('source_id')
+                            ->label('Source')
+                            ->relationship('source', 'name')
+                            ->required(),
+                        RichEditor::make('courtesy_of')
+                            ->label('Courtesy Of')
+                            ->required()
+                            ->disableToolbarButtons([
+                                'attachFiles',
+                            ]),
+                    ]),
             ]);
     }
 
@@ -53,6 +64,10 @@ class RepositoryResource extends Resource
                     ->label('Source')
                     ->searchable()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('courtesy_of')
+                    ->label('Courtesy of')
+                    ->html()
+                    ->wrap(),
             ])
             ->filters([
                 //

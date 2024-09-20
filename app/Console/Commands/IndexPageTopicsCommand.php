@@ -42,7 +42,7 @@ class IndexPageTopicsCommand extends Command
 
             if ($topic->enabled == 0 && $pages->count() > 0) {
                 $topic->enabled = 1;
-                $topic->save();
+                Subject::withoutSyncingToSearch(fn () => $topic->save());
             }
         }
     }

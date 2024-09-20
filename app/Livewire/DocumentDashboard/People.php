@@ -25,54 +25,65 @@ class People extends Component
 
     public function render()
     {
-        $this->getPeople();
+        try {
+            $this->getPeople();
 
-        foreach ($this->people as $person) {
-            foreach ($person->category as $category) {
-                if (in_array($category->name, ['People'])) {
-                    continue;
+            foreach ($this->people as $person) {
+                foreach ($person->category as $category) {
+                    if (in_array($category->name, ['People'])) {
+                        continue;
+                    }
+                    if (! array_key_exists($category->name, $this->categories)) {
+                        $this->categories[$category->name] = 0;
+                    }
+                    $this->categories[$category->name]++;
                 }
-                if (! array_key_exists($category->name, $this->categories)) {
-                    $this->categories[$category->name] = 0;
-                }
-                $this->categories[$category->name]++;
             }
+
+            $peopleCategoryChart = (new PieChartModel())
+                ->asPie()
+                ->setTitle('People Categories')
+                ->setAnimated(false)
+                ->setLegendPosition('top')
+                ->setDataLabelsEnabled(true)
+                ->withoutLegend()
+                ->setJsonConfig([
+                    'tooltip.y.formatter' => 'function (val) { return val + " people"; }',
+                ])
+                ->withOnSliceClickEvent('filterPeopleByCategory');
+
+            $colors = [
+                'rgba(11, 40, 54, .55)',
+                'rgba(11, 40, 54, .6)',
+                'rgba(11, 40, 54, .65)',
+                'rgba(11, 40, 54, .7)',
+                'rgba(11, 40, 54, .75)',
+                'rgba(11, 40, 54, .8)',
+                'rgba(11, 40, 54, .85)',
+                'rgba(11, 40, 54, .9)',
+                'rgba(11, 40, 54, .95)',
+                '#0B2836',
+                'rgba(11, 40, 54, .50)',
+                'rgba(11, 40, 54, .45)',
+                'rgba(11, 40, 54, .40)',
+                'rgba(11, 40, 54, .35)',
+            ];
+
+            foreach ($this->categories as $category => $count) {
+                $peopleCategoryChart
+                    ->setOpacity(100)
+                    ->addSlice($category, $count, array_pop($colors));
+            }
+
+            return view('livewire.document-dashboard.sections.people', [
+                'peopleCategoryChart' => $peopleCategoryChart,
+            ]);
+        } catch (\Exception $e) {
+            logger()->error($e->getMessage());
+
+            return '';
         }
 
-        $peopleCategoryChart = (new PieChartModel())
-            ->asPie()
-            ->setTitle('People Categories')
-            ->setAnimated(false)
-            ->setLegendPosition('top')
-            ->setDataLabelsEnabled(true)
-            ->withoutLegend()
-            ->setJsonConfig([
-                'tooltip.y.formatter' => 'function (val) { return val + " people"; }',
-            ])
-            ->withOnSliceClickEvent('filterPeopleByCategory');
-
-        $colors = [
-            'rgba(11, 40, 54, .1)',
-            'rgba(11, 40, 54, .2)',
-            'rgba(11, 40, 54, .3)',
-            'rgba(11, 40, 54, .4)',
-            'rgba(11, 40, 54, .5)',
-            'rgba(11, 40, 54, .6)',
-            'rgba(11, 40, 54, .7)',
-            'rgba(11, 40, 54, .8)',
-            'rgba(11, 40, 54, .9)',
-            '#0B2836',
-        ];
-
-        foreach ($this->categories as $category => $count) {
-            $peopleCategoryChart
-                ->setOpacity(100)
-                ->addSlice($category, $count, array_pop($colors));
-        }
-
-        return view('livewire.document-dashboard.sections.people', [
-            'peopleCategoryChart' => $peopleCategoryChart,
-        ]);
     }
 
     #[On('filterPeopleByCategory')]
@@ -90,6 +101,16 @@ class People extends Component
     public function getPeople()
     {
         $people = Subject::query()
+            ->select([
+                'id',
+                'name',
+                'slug',
+                'tagged_count',
+                'birth_date',
+                'death_date',
+                'life_years',
+                'bio_approved_at',
+            ])
             ->with([
                 'category',
             ])

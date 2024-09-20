@@ -36,6 +36,7 @@ class QuarterlyUpdate extends Resource
      */
     public static $search = [
         'id',
+        'subject',
     ];
 
     public static function usesScout(): bool

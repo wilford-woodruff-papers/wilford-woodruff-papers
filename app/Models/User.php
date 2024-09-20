@@ -41,6 +41,7 @@ class User extends Authenticatable implements FilamentUser
         'proposed_use',
         'ww_relationship_distance',
         'ww_relationship_description',
+        'last_login_at',
     ];
 
     /**
@@ -62,6 +63,7 @@ class User extends Authenticatable implements FilamentUser
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'last_login_at' => 'datetime',
     ];
 
     /**
@@ -127,6 +129,7 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->hasAnyRole([
             'Super Admin',
+            'Admin',
             'Editor',
             'Bio Admin',
             'Bio Editor',

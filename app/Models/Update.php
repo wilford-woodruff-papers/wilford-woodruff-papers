@@ -5,7 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Scout\Searchable;
+use OpenAI\Laravel\Facades\OpenAI;
 use Parental\HasChildren;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -28,6 +30,7 @@ class Update extends Model implements HasMedia
     ];
 
     protected $childTypes = [
+        'Annual' => AnnualReport::class,
         'Newsletter' => Newsletter::class,
         'Quarterly' => QuarterlyUpdate::class,
     ];
@@ -53,7 +56,6 @@ class Update extends Model implements HasMedia
     public function toSearchableArray(): array
     {
         $route = str($this->type)->lower()->toString();
-        //dd($route);
 
         if ($this->type == 'Newsletter') {
             $summary = str(strip_tags(str($this->content)->after('</head>')->replace('[[trackingImage]]', '') ?? ''))->limit(200)->trim(' ')->toString();
@@ -61,7 +63,7 @@ class Update extends Model implements HasMedia
             $summary = strip_tags($this->content);
         }
 
-        return [
+        $data = [
             'id' => 'newsletter_'.$this->id,
             'is_published' => ($this->enabled && $this->publish_at < now('America/Denver')),
             'resource_type' => 'Newsletter',
@@ -72,6 +74,31 @@ class Update extends Model implements HasMedia
             'description' => $summary,
             'date' => $this->publish_at ? $this->publish_at?->timestamp : null,
         ];
+
+        if (
+            ! Storage::exists('embeddings/'.static::class.'/'.$this->id.'.json')
+        ) {
+            $vectors = [];
+            $response = OpenAI::embeddings()->create([
+                'model' => 'text-embedding-ada-002',
+                'input' => $summary,
+            ]);
+
+            foreach ($response->embeddings as $embedding) {
+                $vectors = $embedding->embedding;
+            }
+            Storage::put('embeddings/'.static::class.'/'.$this->id.'.json', json_encode($vectors));
+            $data['_vectors'] = [
+                'semanticSearch' => $vectors,
+            ];
+        } else {
+            $data['_vectors'] = [
+                'semanticSearch' => json_decode(Storage::get('embeddings/'.static::class.'/'.$this->id.'.json')),
+            ];
+        }
+
+        return $data;
+
     }
 
     public function getScoutKey(): mixed

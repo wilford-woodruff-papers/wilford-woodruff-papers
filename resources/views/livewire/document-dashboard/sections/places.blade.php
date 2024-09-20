@@ -68,13 +68,13 @@
                 </div>
             </div>
             <div class="grid grid-cols-3 gap-x-6 aspect-[16/6]">
-                <div class="order-2 col-span-2 md:order-1">
+                <div class="col-span-3 md:col-span-2">
                     <div x-data="map"
                          id="map"
                          class="w-full z-[5] aspect-[16/9]"
                     ></div>
                 </div>
-                <div class="overflow-auto order-1 col-span-1 md:order-2">
+                <div class="overflow-auto col-span-3 mt-0 mt-4 md:col-span-1 min-h-[300px]">
                     <div class="grid grid-cols-1 gap-y-4 pr-2">
                         <template x-for="place in places">
                             <div class="flex gap-x-2">

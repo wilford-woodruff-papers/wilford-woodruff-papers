@@ -5,7 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Scout\Searchable;
+use OpenAI\Laravel\Facades\OpenAI;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 use Spatie\Tags\HasTags;
 use Wildside\Userstamps\Userstamps;
@@ -47,7 +49,7 @@ class Quote extends Model
 
     public function toSearchableArray(): array
     {
-        return [
+        $data = [
             'id' => 'quote_'.$this->id,
             'is_published' => (bool) $this->actions_count > 0,
             'resource_type' => 'Quote',
@@ -64,6 +66,31 @@ class Quote extends Model
                 return str($topic)->title();
             })->toArray(),
         ];
+
+        if (
+            ! Storage::exists('embeddings/'.static::class.'/'.$this->id.'.json')
+        ) {
+            $vectors = [];
+            $response = OpenAI::embeddings()->create([
+                'model' => 'text-embedding-ada-002',
+                'input' => strip_tags($this->text),
+            ]);
+
+            foreach ($response->embeddings as $embedding) {
+                $vectors = $embedding->embedding;
+            }
+            Storage::put('embeddings/'.static::class.'/'.$this->id.'.json', json_encode($vectors));
+            $data['_vectors'] = [
+                'semanticSearch' => $vectors,
+            ];
+        } else {
+            $data['_vectors'] = [
+                'semanticSearch' => json_decode(Storage::get('embeddings/'.static::class.'/'.$this->id.'.json')),
+            ];
+        }
+
+        return $data;
+
     }
 
     public function getScoutKey(): mixed

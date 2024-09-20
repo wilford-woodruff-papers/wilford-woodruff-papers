@@ -47,7 +47,7 @@
                     <div class="mb-20 mx-auto h-[350px] w-[70%]"
                          wire:ignore
                     >
-                        <div class="inline mx-auto">
+                        <div class="inline relative mx-auto">
                             <canvas id="people-chart" class="max-h-[400px]"></canvas>
                         </div>
                     </div>
@@ -94,7 +94,8 @@
                 </div>
             </div>
             @foreach($people->shift(9) as $person)
-                <div class="flex flex-col justify-between p-4 border border-gray-300 shadow-lg" wire:loading.remove>
+                <div class="flex flex-col col-span-3 justify-between p-4 border border-gray-300 shadow-lg lg:col-span-1"
+                     wire:loading.remove>
                     <div>
                         <a href="{{ route('subjects.show', ['subject' => $person->slug]) }}"
                            class="text-xl text-secondary popup"
@@ -162,7 +163,8 @@
                     >
                         <span x-show="expanded" aria-hidden="true" class="mr-4" x-cloak>&minus;</span>
                         <span x-show="!expanded" aria-hidden="true" class="mr-4">&plus;</span>
-                        <span>Show more</span>
+                        <span x-show="!expanded">Show more</span>
+                        <span x-show="expanded">Show less</span>
                     </button>
                 </h2>
 
@@ -234,6 +236,7 @@
                 let currentCategory = null;
 
                 const chart = new Chart(ctx, {
+                    responsive: true,
                     type: 'pie',
                     data: {
                         labels: @json(array_keys($categories)),
@@ -241,7 +244,6 @@
                             label: '# of People',
                             data:  @json(array_values($categories)),
                             backgroundColor: [
-                                'rgba(11, 40, 54, .1)',
                                 'rgba(11, 40, 54, .2)',
                                 'rgba(11, 40, 54, .3)',
                                 'rgba(11, 40, 54, .4)',
@@ -249,6 +251,7 @@
                                 'rgba(11, 40, 54, .6)',
                                 'rgba(11, 40, 54, .7)',
                                 'rgba(11, 40, 54, .8)',
+                                'rgba(11, 40, 54, .9)',
                                 '#0B2836'
                             ],
                             borderWidth: 1
@@ -258,7 +261,7 @@
                         plugins: {
                             legend: {
                                 display: true,
-                                position: 'left',
+                                position: (window.innerWidth > 640) ? 'left' : 'top',
                                 labels: {
                                     font: {
                                         size: 18

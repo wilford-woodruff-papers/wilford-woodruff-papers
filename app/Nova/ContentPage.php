@@ -62,7 +62,11 @@ class ContentPage extends Resource
                 ->readonly(true)
                 ->sortable(),
             Text::make('Preview', function ($page) {
-                return '<a href="'.($page->id ? route('content-page.show', ['contentPage' => $page->slug]) : '#').'" class="no-underline dim text-primary font-bold" target="_preview">Preview</a>';
+                return '<a href="'.($page->id ? route('content-page.show', ['contentPage' => $page->slug]) : '#').'" class="link-default" target="_preview">Preview</a>';
+            })
+                ->asHtml(),
+            Text::make('Edit', function ($page) {
+                return '<a href="'.($page->id ? route('content-page.edit', ['contentPage' => $page->slug]) : '#').'" class="link-default" target="_preview">Edit</a>';
             })
                 ->asHtml(),
             Textarea::make('Body')

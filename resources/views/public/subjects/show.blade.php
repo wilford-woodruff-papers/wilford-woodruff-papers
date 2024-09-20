@@ -98,8 +98,9 @@
                             </ul>
                         @endif
                         @if(! empty($subject->latitude) && ! empty($subject->longitude))
-                            <img src="{{ $subject->getFirstMediaUrl('maps') }}"
-                                 alt=""
+                            {{--<img src="{{ $subject->getFirstMediaUrl('maps') }}"--}}
+                            <img src="{{ $subject->mapUrl() }}"
+                                 alt="Map of {{ $subject->name }}"
                                  class="mx-auto w-full h-auto md:w-3/5"
                             />
                         @endif
@@ -131,6 +132,9 @@
     </div>
     @push('styles')
         <style>
+            em {
+                background-color: #fff59d;
+            }
             .content ul {
                 list-style-type: none;
             }

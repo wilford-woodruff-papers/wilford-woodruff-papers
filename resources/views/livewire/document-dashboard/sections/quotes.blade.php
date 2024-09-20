@@ -107,7 +107,8 @@
                     >
                         <span x-show="expanded" aria-hidden="true" class="mr-4" x-cloak>&minus;</span>
                         <span x-show="!expanded" aria-hidden="true" class="mr-4">&plus;</span>
-                        <span>Show more</span>
+                        <span x-show="!expanded">Show more</span>
+                        <span x-show="expanded">Show less</span>
                     </button>
                 </h2>
 

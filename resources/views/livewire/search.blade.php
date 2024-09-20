@@ -18,7 +18,7 @@
 
     <div class="pb-4 mt-12">
         <div class="flex gap-x-4">
-            <div class="flex-1 min-w-0">
+            <form wire:submit.prevent="search()" class="flex-1 min-w-0">
                 <label for="search" class="sr-only">Search</label>
                 <div class="relative rounded-md shadow-sm">
                     <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
@@ -26,14 +26,14 @@
                             <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd"></path>
                         </svg>
                     </div>
-                    <input wire:model.live.debounce.400="q"
+                    <input wire:model="q"
                            type="search"
                            name="search"
                            id="search"
                            class="block py-1.5 pl-10 w-full border-0 ring-1 ring-inset ring-gray-300 sm:text-lg sm:leading-10 focus:ring-2 focus:ring-inset placeholder:text-gray-400 focus:ring-secondary"
                            placeholder="Search" />
                 </div>
-            </div>
+            </form>
         </div>
         <div class="mt-2 ml-4">
             <div class="flex relative flex-col gap-4 items-center sm:flex-row">
@@ -295,10 +295,28 @@
                             :line-chart-model="$documentModel"
                         />
                     </div>
+                @elseif($currentIndex == 'Scriptures')
+                    <a href="{{ route('documents') }}?filters[type]=Scriptures">
+                        <img src="{{ asset('img/banners/wilford-woodruff-scriptures.png') }}"
+                             alt="Explore Wilford Woodruff's Personal Scriptures and Notes"
+                             class="pr-4 pl-5 w-full h-auto"
+                        />
+                    </a>
                 @endif
             </div>
 
             <div class="min-h-screen">
+                <div>
+                    @hasanyrole('Super Admin')
+                    <div class="pl-10 text-sm font-medium leading-5 text-center text-gray-500">
+                        @if($usingHybridSearch === true)
+                            Hybrid Search Results
+                        @else
+                            Keyword Search Results
+                        @endif
+                    </div>
+                    @endhasanyrole
+                </div>
                 <div :class="layout ==='grid' ? '' : 'hidden'"
                      x-cloak
                 >
@@ -446,6 +464,12 @@
 
                                         <div class="line-clamp-3">
                                             {!! str(data_get($hit, '_formatted.description'))->remove('[[')->remove(']]') !!}
+                                        </div>
+
+                                        <div>
+                                            @if($currentIndex == 'Scriptures')
+                                                <x-scripture-tags :text="data_get($hit, 'description')" />
+                                            @endif
                                         </div>
 
 

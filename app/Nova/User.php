@@ -2,11 +2,13 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\AssignRole;
 use App\Nova\Actions\CopyUserRoles;
 use App\Nova\Actions\ExportUsers;
 use App\Nova\Filters\ApiUser;
 use Illuminate\Http\Request;
 use JeffersonSimaoGoncalves\NovaPermission\Nova\Fields\RoleBooleanGroup;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Password;
@@ -83,6 +85,9 @@ class User extends Resource
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
 
+            DateTime::make('Last Login', 'last_login_at')
+                ->hideWhenCreating()
+                ->hideWhenUpdating(),
             //MorphToMany::make('Roles'),
             RoleBooleanGroup::make('Roles'),
         ];
@@ -121,6 +126,7 @@ class User extends Resource
     public function actions(Request $request): array
     {
         return [
+            new AssignRole(),
             new CopyUserRoles(),
             new ExportUsers(),
         ];

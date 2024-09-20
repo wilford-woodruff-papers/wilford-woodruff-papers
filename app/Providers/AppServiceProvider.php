@@ -27,6 +27,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        if ($this->app->environment('local')) {
+            $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
+            $this->app->register(TelescopeServiceProvider::class);
+        }
         $this->app->singleton(DownloadAIExperienceMiddleware::class);
     }
 
@@ -52,9 +56,11 @@ class AppServiceProvider extends ServiceProvider
         Stringable::macro('stripLanguageTag', app(\App\Macros\Stringable\StripLanguageTag::class)());
         Str::macro('replaceInlineLanguageTags', app(\App\Macros\Str\ReplaceInlineLanguageTags::class)());
         Stringable::macro('replaceInlineLanguageTags', app(\App\Macros\Stringable\ReplaceInlineLanguageTags::class)());
+        Str::macro('replaceFigureTags', app(\App\Macros\Str\ReplaceFigureTags::class)());
+        Stringable::macro('replaceFigureTags', app(\App\Macros\Stringable\ReplaceFigureTags::class)());
 
         if (! app()->environment('production')) {
-            Mail::alwaysTo('test@wilfordwoodruffpapers.org');
+            Mail::alwaysTo('jon.fackrell@wilfordwoodruffpapers.org');
         }
 
         Validator::extend('exclude_one', function ($attribute, $value, $parameters, $validator) {

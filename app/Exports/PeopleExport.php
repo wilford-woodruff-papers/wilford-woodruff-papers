@@ -40,10 +40,6 @@ class PeopleExport implements FromQuery, ShouldQueue, WithHeadings, WithMapping
             ])
             ->whereRelation('category', function (Builder $query) {
                 $query->where('name', 'People');
-            })
-            ->where(function ($query) {
-                $query->where('tagged_count', '>', 0)
-                    ->orWhere('text_count', '>', 0);
             });
     }
 

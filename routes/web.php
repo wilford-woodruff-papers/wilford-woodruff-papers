@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\ComeFollowMe;
 use Illuminate\Support\Facades\Route;
 use Vormkracht10\LaravelOpenGraphImage\Http\Controllers\LaravelOpenGraphImageController;
 
@@ -14,6 +15,14 @@ use Vormkracht10\LaravelOpenGraphImage\Http\Controllers\LaravelOpenGraphImageCon
 |
 */
 
+Route::get('/come-follow-me/{book}/{week}/ogimage', \App\Http\Controllers\ComeFollowMeLessonOgImageController::class)
+    ->name('come-follow-me.ogimage');
+Route::get('/ogimage/come-follow-me/{book}', \App\Http\Controllers\ComeFollowMeIndexOgImageController::class)
+    ->name('come-follow-me.index.ogimage');
+
+Route::get('/banner/item/{item}', \App\Http\Controllers\DocumentDashboardImageController::class)
+    ->name('item.banner.image');
+
 Route::middleware([])->group(function () {
     Route::domain('{year}.'.config('app.url'))->group(function () {
         Route::get('/', function ($subdomain) {
@@ -21,6 +30,8 @@ Route::middleware([])->group(function () {
                 return redirect()->away(config('app.url').'/conference/2023-building-latter-day-faith');
             } elseif ($subdomain == 'book') {
                 return redirect()->away(config('app.url').'/wilford-woodruffs-witness');
+            } elseif ($subdomain == 'walk') {
+                return redirect()->away(config('app.url').'/wilford-woodruff-walk');
             } elseif ($subdomain == 'arts') {
                 return redirect()->to(config('app.url'));
             } elseif ($subdomain == 'rsvp') {
@@ -76,12 +87,18 @@ Route::middleware([])->group(function () {
         ]);
     })->name('event.calendar');
 
-    Route::middleware([
-        'auth:sanctum',
-        'ai-download',
-    ])
-        ->get('/download/wilford-woodruff-immersive-learning-experience', \App\Http\Controllers\AIDownloadController::class)
+    Route::get('/download/wilford-woodruff-immersive-learning-experience', function () {
+        return response()->redirectTo('/wilford-woodruff-ai-learning-experience-end');
+    })
         ->name('download.wilford-woodruff-immersive-learning-experience');
+
+    Route::get('/wilford-woodruff-ai-learning-experience', function () {
+        return response()->redirectTo('/wilford-woodruff-ai-learning-experience-end');
+    });
+
+    Route::view('/chatbot', 'public.chatbot')
+        ->name('chatbot')
+        ->middleware(['auth:sanctum', 'role:Chatbot Access']);
 
     Route::get('/donate', [\App\Http\Controllers\DonationController::class, 'index'])->name('donate');
     Route::get('/', \App\Http\Controllers\HomeController::class)->name('home');
@@ -90,8 +107,10 @@ Route::middleware([])->group(function () {
     Route::get('/documents', \App\Livewire\Documents\Browse::class)->name('documents');
     Route::get('/cktest', \App\Livewire\Documents\Browse::class)->name('documents.cktest');
     Route::get('/dates/{year?}/{month?}', [\App\Http\Controllers\ItemController::class, 'dates'])->name('documents.dates');
-    Route::get('/documents/{item}', \App\Livewire\Documents\Show::class)->name('documents.show');
 
+    //Route::get('/documents/{item}', \App\Livewire\Documents\Show::class)->name('documents.show');
+    Route::get('/documents/{item}', \App\Livewire\DocumentDashboard\Index::class)
+        ->name('documents.show');
     //Route::get('/documents/{item}', [\App\Http\Controllers\ItemController::class, 'show'])->name('documents.show');
     Route::get('/documents/{item}/transcript', [\App\Http\Controllers\ItemController::class, 'transcript'])->name('documents.show.transcript');
     Route::get('/documents/{item}/page/{page}', [\App\Http\Controllers\PageController::class, 'show'])->name('pages.show');
@@ -107,10 +126,10 @@ Route::middleware([])->group(function () {
         ->missing(function (Illuminate\Http\Request $request) {
             return \Illuminate\Support\Facades\Redirect::route('home');
         });
-    Route::get('/people', [\App\Http\Controllers\PeopleController::class, 'index'])->name('people');
+    Route::get('/people/{letter?}', [\App\Http\Controllers\PeopleController::class, 'index'])->name('people');
     Route::get('/wives-and-children', [\App\Http\Controllers\PeopleController::class, 'family'])->name('wives-and-children');
-    Route::get('/places', [\App\Http\Controllers\PlaceController::class, 'index'])->name('places');
-    Route::get('/topics', [\App\Http\Controllers\TopicController::class, 'index'])->name('topics');
+    Route::get('/places/{letter?}', [\App\Http\Controllers\PlaceController::class, 'index'])->name('places');
+    Route::get('/topics/{letter?}', [\App\Http\Controllers\TopicController::class, 'index'])->name('topics');
     Route::get('/timeline', \App\Livewire\Timeline::class)->name('timeline');
     Route::get('/miraculously-preserved-life', \App\Http\Controllers\MiraculouslyPreservedLife::class)->name('miraculously-preserved-life');
     Route::get('/donate/online', [\App\Http\Controllers\DonationController::class, 'online'])->name('donate.online');
@@ -146,6 +165,15 @@ Route::middleware([])->group(function () {
     Route::get('/map/documents', \App\Http\Controllers\MapDocumentsController::class)->name('map.documents');
     Route::get('/map/pages', \App\Http\Controllers\MapPagesController::class)->name('map.pages');
 
+    Route::get('/figures', \App\Http\Controllers\FigureController::class)
+        ->name('figures');
+
+    Route::get('/come-follow-me/{book}/{week}', \App\Http\Controllers\ComeFollowMeShowController::class)
+        ->name('come-follow-me.show');
+    Route::get('/come-follow-me/{book?}', \App\Http\Controllers\ComeFollowMeIndexController::class)
+        ->where('book', '[A-Za-z\-]+')
+        ->name('come-follow-me.index');
+
     Route::middleware([
         'auth:sanctum',
         'verified',
@@ -157,8 +185,16 @@ Route::middleware([])->group(function () {
 
         Route::get('/ai/sessions', \App\Livewire\AI\Sessions::class)->name('ai.sessions');
 
-        Route::get('/document-dashboard/{item}', \App\Livewire\DocumentDashboard\Index::class)
-            ->name('document-dashboard.show');
+        Route::get('/ogimage', function () {
+            $lesson = \App\Models\ComeFollowMe::find(6);
+
+            return view('public.come-follow-me.index-og-image', [
+                'bookName' => 'Book of Mormon',
+                'image' => ComeFollowMe::firstWhere('book', 'Book of Mormon')->getFirstMediaUrl('cover_image'),
+            ]);
+        });
+
+        Route::get('/new', \App\Http\Controllers\NewHomeController::class)->name('new-home');
     });
 
     Route::get('/advanced-search', \App\Livewire\Search::class)->name('advanced-search');

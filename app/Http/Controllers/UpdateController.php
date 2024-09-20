@@ -25,8 +25,12 @@ class UpdateController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Request $request, Update $update): View
+    public function show(Request $request, Update $update): View|\Illuminate\Http\RedirectResponse
     {
+        if (in_array($update->type, ['Newsletter', 'Annual'])) {
+            return redirect()->away($update->url);
+        }
+
         return view('public.updates.show', [
             'update' => $update,
         ]);

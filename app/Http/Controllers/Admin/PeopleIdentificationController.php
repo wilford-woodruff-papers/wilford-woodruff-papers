@@ -212,10 +212,21 @@ class PeopleIdentificationController extends Controller
     {
         $person = new Subject();
 
-        $person->first_name = str($unidentifiedPerson->first_middle_name)->explode(' ')->first();
+        $person->first_name = trim(str($unidentifiedPerson->first_middle_name)->explode(' ')->first());
         $person->middle_name = str($unidentifiedPerson->first_middle_name)->after($person->first_name)->trim();
-        $person->last_name = $unidentifiedPerson->last_name;
-        $person->name = collect([$person->first_name, $person->middle_name, $person->last_name])->filter()->join(' ');
+        $person->last_name = trim($unidentifiedPerson->last_name);
+        $person->name = str(
+            collect([
+                $person->first_name,
+                $person->middle_name,
+                $person->last_name,
+            ])
+                ->filter(function ($item) {
+                    return ! empty(trim($item));
+                })
+                ->join(' ')
+        )
+            ->trim();
 
         $person->pid = $unidentifiedPerson->fs_id;
 

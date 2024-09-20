@@ -8,15 +8,18 @@ use Livewire\Component;
 
 class Index extends Component
 {
-    public Item $item;
+    public ?Item $item;
 
     public array $sections;
 
     public $tab = 'overview';
 
-    public function mount()
+    public function mount(Item $item)
     {
-
+        if (empty($item)) {
+            $item = Item::whereUuid(request()->get('item'))->firstOrFail();
+        }
+        $this->item = $item;
     }
 
     #[Layout('layouts.guest')]
@@ -30,6 +33,7 @@ class Index extends Component
                 'values.property',
                 'values.source',
                 'values.repository',
+                'values.copyrightstatus',
             ]);
 
         return view('livewire.document-dashboard.overview', [

@@ -6,20 +6,22 @@ use App\Models\BoardMember;
 use App\Models\Event;
 use App\Models\Item;
 use App\Models\Page;
+use App\Models\Photo;
 use App\Models\Press;
 use App\Models\Quote;
 use App\Models\Subject;
 use App\Models\Update;
+use App\Models\WebsitePage;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Collection;
 
 class IndexContentToMeilisearchCommand extends Command
 {
-    protected $signature = 'content:index {models=Item,Page,Subject,Press,Team,Timeline,Newsletter,Quote} {--purge}';
+    protected $signature = 'content:index {models=Item,Page,Subject,Press,Team,Timeline,Newsletter,Quote,WebsitePage,Photo} {--purge}';
 
     protected $description = 'Index all content to Meilisearch for site wide search';
 
-    protected $chunkSize = 100;
+    protected $chunkSize = 25;
 
     public function handle(): void
     {
@@ -174,6 +176,28 @@ class IndexContentToMeilisearchCommand extends Command
             ->withCount([
                 'actions',
             ])
+            ->chunkById($this->chunkSize, function (Collection $items) use (&$count) {
+                $items->searchable();
+                $this->info('Indexed Count: '.($count += $items->count()));
+            });
+    }
+
+    private function WebsitePage(): void
+    {
+        $count = 0;
+
+        WebsitePage::query()
+            ->chunkById($this->chunkSize, function (Collection $items) use (&$count) {
+                $items->searchable();
+                $this->info('Indexed Count: '.($count += $items->count()));
+            });
+    }
+
+    private function Photo(): void
+    {
+        $count = 0;
+
+        Photo::query()
             ->chunkById($this->chunkSize, function (Collection $items) use (&$count) {
                 $items->searchable();
                 $this->info('Indexed Count: '.($count += $items->count()));

@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use App\Models\Item;
-use App\Models\Photo;
 use App\Models\Team;
 use App\Models\Type;
 use App\Models\User;
@@ -88,6 +87,7 @@ class DatabaseSeeder extends Seeder
             ->update(['enabled' => 1]);
 
         Artisan::call('import:pages');
+
         //Artisan::call('import:faqs');
     }
 }

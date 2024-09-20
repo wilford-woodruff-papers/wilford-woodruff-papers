@@ -9,9 +9,12 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Scout\Searchable;
 use Mtvs\EloquentHashids\HasHashid;
+use OpenAI\Laravel\Facades\OpenAI;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Encoders\Base64Encoder;
 use Spatie\Activitylog\LogOptions;
@@ -81,12 +84,11 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
             ->orderBy('order', 'ASC');
     }
 
-    public function firstPage()
+    public function firstPage(): HasOne
     {
         return $this
             ->hasOne(Page::class, 'parent_item_id')
-            ->ordered()
-            ->ofMany();
+            ->ofMany('order', 'min');
     }
 
     public function firstPageWithText()
@@ -431,7 +433,7 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
 
     public function toSearchableArray(): array
     {
-        return [
+        $data = [
             'id' => 'item_'.$this->id,
             'is_published' => (bool) $this->enabled,
             'resource_type' => 'Document',
@@ -440,7 +442,33 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
             'thumbnail' => $this->firstPage?->getFirstMedia()?->getUrl('thumb'),
             'uuid' => $this->uuid,
             'name' => str($this->name)->stripBracketedID()->toString(),
+            'description' => '',
         ];
+
+        if (
+            ! Storage::exists('embeddings/'.static::class.'/'.$this->id.'.json')
+        ) {
+            $vectors = [];
+            $response = OpenAI::embeddings()->create([
+                'model' => 'text-embedding-ada-002',
+                'input' => str($this->name)->stripBracketedID()->toString(),
+            ]);
+
+            foreach ($response->embeddings as $embedding) {
+                $vectors = $embedding->embedding;
+            }
+            Storage::put('embeddings/'.static::class.'/'.$this->id.'.json', json_encode($vectors));
+
+            $data['_vectors'] = [
+                'semanticSearch' => $vectors,
+            ];
+        } else {
+            $data['_vectors'] = [
+                'semanticSearch' => json_decode(Storage::get('embeddings/'.static::class.'/'.$this->id.'.json')),
+            ];
+        }
+
+        return $data;
     }
 
     public function getScoutKey(): mixed

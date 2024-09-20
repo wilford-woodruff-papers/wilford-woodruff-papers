@@ -26,8 +26,8 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Source Sans Pro', 'sans-serif'],
-                serif: ['Source Serif Pro', 'serif'],
+                sans: ['"Source Sans Pro"', 'sans-serif'],
+                serif: ['"Source Serif Pro"', 'serif'],
             },
             colors: {
                 'primary': {

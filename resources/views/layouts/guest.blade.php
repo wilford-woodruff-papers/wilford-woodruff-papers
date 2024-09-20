@@ -52,9 +52,10 @@
 
         <!-- Scripts -->
         @include('layouts.partials.google-tag-manager-head')
+        <x-clarity::script />
     </head>
     <body>
-        <x-relative-finder-popup />
+        {{--<x-relative-finder-popup />--}}
         @include('layouts.partials.google-tag-manager-no-script')
         <x-admin-bar />
         <x-header />
@@ -76,6 +77,7 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js" charset="utf-8"></script>
 
+
         @stack('scripts')
 
         <script>
@@ -89,6 +91,34 @@
             }
         </script>
 
+        @guest()
+            <!-- Tippy.js -->
+            <!-- https://atomiks.github.io/tippyjs/v6 -->
+{{--            <script src="https://unpkg.com/@popperjs/core@2"></script>--}}
+            <script src="https://unpkg.com/tippy.js@6"></script>
+            <script>
+                document.addEventListener('alpine:init', () => {
+                    // Magic: $tooltip
+                    Alpine.magic('tooltip', el => message => {
+                        let instance = tippy(el, { content: message, trigger: 'manual' })
+
+                        instance.show()
+
+                        setTimeout(() => {
+                            instance.hide()
+
+                            setTimeout(() => instance.destroy(), 150)
+                        }, 2000)
+                    })
+
+                    // Directive: x-tooltip
+                    Alpine.directive('tooltip', (el, { expression }) => {
+                        tippy(el, { content: expression, allowHTML: true })
+                    })
+                })
+            </script>
+        @endguest
+
         <script>
             document.addEventListener('livewire:initialized', () => {
                 Livewire.on('scroll', function() {
@@ -96,8 +126,9 @@
                 });
             });
         </script>
+
         @livewire('wire-elements-modal')
         <x-constant-contact />
-
+        @include('layouts.partials.chatbot')
     </body>
 </html>

@@ -100,6 +100,12 @@ class PeopleController extends Controller
         'incomplete_identification' => [
             'nullable',
         ],
+        'confirmed_name_at' => [
+            'nullable',
+        ],
+        'approved_for_print_at' => [
+            'nullable',
+        ],
     ];
 
     private $categories = [
@@ -116,6 +122,9 @@ class PeopleController extends Controller
         'United Brethren',
         'Eminent Men and Women',
         'Missionaries',
+        'Native Americans',
+        'Zion’s Camp',
+        'Maine Mission',
     ];
 
     /**
@@ -160,6 +169,17 @@ class PeopleController extends Controller
      */
     public function store(Request $request)
     {
+        if (! empty(
+            $existingSubject = Subject::query()
+                ->where('slug', str($request->get('name'))->slug())->first()
+        )
+        ) {
+            return redirect()->back()->withErrors([
+                'There is already a subject named '.$request->get('name').'. You might need to add the People catergory to the existing subject instead of creating a new one. <a href="'.url('/nova/resources/subjects/'.$existingSubject->id).'" class="font-bold underline" target="_blank">Nova</a>.',
+            ])
+                ->withInput($request->all());
+        }
+
         $person = new Subject();
 
         if ($request->get('pid') !== 'n/a') {

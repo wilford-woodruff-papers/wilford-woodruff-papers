@@ -16,13 +16,16 @@ class People extends Component
 
     public $selectCategories = [
         'All',
-        'Family',
-        'Apostles',
-        '1840 British Converts',
-        'United Brethren',
         '1835 Southern Converts',
+        '1840 British Converts',
+        'Apostles',
+        'Family',
         'Eminent Men and Women',
+        'Maine Mission ',
+        'Missionaries',
         'Scriptural Figures',
+        'United Brethren',
+        'Zion\'s Camp',
     ];
 
     protected $queryString = [
@@ -33,7 +36,10 @@ class People extends Component
 
     public function mount()
     {
-        if (empty($this->search) && empty($this->letter)) {
+        if (empty($this->category)) {
+            $this->category = 'All';
+        }
+        if (empty($this->search) && empty(trim($this->letter, '"'))) {
             $this->letter = 'A';
         }
     }
@@ -43,6 +49,16 @@ class People extends Component
         $people = Subject::query()
             ->with([
                 'category',
+            ])
+            ->select([
+                'id',
+                'name',
+                'slug',
+                'tagged_count',
+                'birth_date',
+                'death_date',
+                'life_years',
+                'bio_approved_at',
             ])
             ->when($this->category == 'All', fn ($query, $category) => $query->whereHas('category', function (Builder $query) {
                 $query->where('name', 'People');
@@ -58,7 +74,7 @@ class People extends Component
                 }
             });
 
-        if (in_array($this->category, ['Eminent Men and Women', 'Family'])) {
+        if (! in_array($this->category, ['Eminent Men and Women', 'Family'])) {
             $people = $people
                 ->whereEnabled(1)
                 ->where(function ($query) {

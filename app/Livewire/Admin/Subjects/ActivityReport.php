@@ -91,6 +91,28 @@ class ActivityReport extends Component
             //                ->where('type', 'place')
             //                ->count();
 
+            $individualStats['people']['identified'] = DB::table('subjects')
+                ->select('users.name', DB::raw('count(*) as completed'))
+                ->join('users', 'subjects.researcher_id', '=', 'users.id')
+                ->join('category_subject', 'subjects.id', '=', 'category_subject.subject_id')
+                ->join('categories', 'categories.id', '=', 'category_subject.category_id')
+                ->whereDate('subjects.created_at', '>=', $this->dates['start'])
+                ->whereDate('subjects.created_at', '<=', $this->dates['end'])
+                ->where('categories.name', 'People')
+                ->groupBy('researcher_id')
+                ->get();
+
+            $individualStats['people']['pid_identified'] = DB::table('subjects')
+                ->select('users.name', DB::raw('count(*) as completed'))
+                ->join('users', 'subjects.researcher_id', '=', 'users.id')
+                ->join('category_subject', 'subjects.id', '=', 'category_subject.subject_id')
+                ->join('categories', 'categories.id', '=', 'category_subject.category_id')
+                ->whereDate('pid_identified_at', '>=', $this->dates['start'])
+                ->whereDate('pid_identified_at', '<=', $this->dates['end'])
+                ->where('categories.name', 'People')
+                ->groupBy('researcher_id')
+                ->get();
+
             $individualStats['biographies']['completed'] = DB::table('subjects')
                 ->select('users.name', DB::raw('count(*) as completed'))
                 ->join('users', 'subjects.researcher_id', '=', 'users.id')

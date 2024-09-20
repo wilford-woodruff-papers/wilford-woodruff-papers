@@ -24,7 +24,13 @@ class SubjectImport implements ToCollection, WithHeadingRow
     {
         set_time_limit(2400);
 
-        $categories = Category::all();
+        $categories = Category::query()
+            ->whereIn('name', [
+                'Maine Mission',
+                'Native Americans',
+                "Zion's Camp",
+            ])
+            ->get();
 
         foreach ($rows as $row) {
             ImportSubject::dispatch($row, [$categories, $this->assignCategories])

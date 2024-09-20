@@ -1,5 +1,5 @@
-<div class="w-[120%] h-[120%] pt-12 ml-24">
-    <div class="grid grid-cols-1 gap-2 scale-150 lg:grid-cols-3"
+<div class="w-[120%] h-[120%] pt-16 ml-24">
+    <div class="grid grid-cols-1 gap-2 pr-56 pl-4 scale-150 lg:grid-cols-2"
         {{--style="transform: perspective(1000px) rotateX(-4deg) rotateY(16deg) rotateZ(-4deg);"--}}
     >
         <div class="absolute inset-0 bg-[#F2F2F2] opacity-20 mix-blend-screen"></div>
@@ -51,4 +51,14 @@
             </div>
         @endforeach
     </div>
+    @push('styles')
+        <style>
+            .border-gray-200 {
+                border-color: rgb(229 231 235) !important;
+            }
+            .border-gray-300 {
+                border-color: rgb(209 213 219) !important;
+            }
+        </style>
+    @endpush
 </div>

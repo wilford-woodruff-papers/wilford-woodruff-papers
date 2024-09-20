@@ -52,6 +52,7 @@ class XmlDocumentExport extends Command
                 'values.property',
                 'values.source',
                 'values.repository',
+                'values.copyrightstatus',
             ])
             ->where('name', 'Journal (January 1, 1838 – December 31, 1839)')
             ->first();

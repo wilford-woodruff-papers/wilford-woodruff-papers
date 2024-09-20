@@ -48,7 +48,21 @@
                         $description .= '<div>...' . str_highlight($match, request('q'), STR_HIGHLIGHT_SIMPLE, '<span class="bg-yellow-100">\1</span>') . '...</div>';
                     }
 
-                }else {
+                } elseif(! empty($subject)){
+                    $description = \Illuminate\Support\Str::of($page->transcript)
+                        ->squish()
+                        ->replace(['[[', ']]'], '')
+
+                        ->pipe(function($item){
+                            return strip_tags($item);
+                        })
+                        ->replaceMatches('/'.$subject->name.'/mi', '<em>' . $subject->name . '</em>')
+                        ->excerpt($subject->name, [
+                            'radius' => 200,
+                        ])
+                   ;
+                }
+                else {
                     $description = (strlen($page->text()) > 0) ? get_snippet($page->text(), 100) . ((get_word_count($page->text()) > 100)?' ...':'') : '';
                     $description = str_replace(['[[', ']]'], '', strip_tags( $description ) );
                 }

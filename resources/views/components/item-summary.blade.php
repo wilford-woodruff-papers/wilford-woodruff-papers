@@ -32,16 +32,5 @@
                 <p>{{ str($item->type?->name)->singular() }}</p>
             </div>
         </a>
-        @auth()
-            @hasanyrole('Editor|CFM Researcher|Admin|Super Admin')
-                <div class="mt-12 ml-4">
-                    <a href="{{ route('document-dashboard.show', ['item' => $item]) }}"
-                       class="font-semibold text-secondary"
-                    >
-                        {{ __('Dashboard') }}
-                    </a>
-                </div>
-            @endhasanyrole
-        @endauth
     </div>
 </li>

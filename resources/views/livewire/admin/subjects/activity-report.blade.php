@@ -118,6 +118,58 @@
                     </table>
                 @endif
 
+                @if(! empty($individualStats['people']['identified']))
+                    <table class="">
+                        <thead>
+                        <tr class="font-semibold">
+                            <td class="p-4">Researcher</td>
+                            <td class="p-4">People Identified</td>
+                        </tr>
+                        </thead>
+                        <tbody class="divide-y-2">
+                        @foreach($individualStats['people']['identified']->groupBy('name') as $individualStat)
+                            <tr class="odd:bg-white even:bg-gray-50">
+                                @foreach($individualStat as $stat)
+                                    <td class="p-4 text-left">
+                                        {{ $stat->name }}
+                                    </td>
+                                    <td class="p-4 text-right">
+                                        {{ $stat->completed }}
+                                    </td>
+                                @endforeach
+                            </tr>
+                        @endforeach
+                        </tbody>
+                        <tfoot></tfoot>
+                    </table>
+                @endif
+
+                @if(! empty($individualStats['people']['pid_identified']))
+                    <table class="">
+                        <thead>
+                        <tr class="font-semibold">
+                            <td class="p-4">Researcher</td>
+                            <td class="p-4">People with PIDs</td>
+                        </tr>
+                        </thead>
+                        <tbody class="divide-y-2">
+                        @foreach($individualStats['people']['pid_identified']->groupBy('name') as $individualStat)
+                            <tr class="odd:bg-white even:bg-gray-50">
+                                @foreach($individualStat as $stat)
+                                    <td class="p-4 text-left">
+                                        {{ $stat->name }}
+                                    </td>
+                                    <td class="p-4 text-right">
+                                        {{ $stat->completed }}
+                                    </td>
+                                @endforeach
+                            </tr>
+                        @endforeach
+                        </tbody>
+                        <tfoot></tfoot>
+                    </table>
+                @endif
+
                 @if(! empty($individualStats['biographies']['completed']))
                     <table class="">
                         <thead>

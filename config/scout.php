@@ -148,6 +148,8 @@ return [
                     'places',
                     '_geo',
                     'parent_id',
+                    'volumes',
+                    'books',
                 ],
                 'faceting' => [
                     'maxValuesPerFacet' => 1500,
@@ -161,6 +163,9 @@ return [
                     'minWordSizeForTypos' => [
                         'oneTypo' => 5,
                         'twoTypos' => 10,
+                    ],
+                    'disableOnWords' => [
+                        'FIGURE',
                     ],
                 ],
                 'stopWords' => [
@@ -262,6 +267,8 @@ return [
                     'places',
                     '_geo',
                     'parent_id',
+                    'volumes',
+                    'books',
                 ],
                 'faceting' => [
                     'maxValuesPerFacet' => 1500,
@@ -275,6 +282,9 @@ return [
                     'minWordSizeForTypos' => [
                         'oneTypo' => 5,
                         'twoTypos' => 10,
+                    ],
+                    'disableOnWords' => [
+                        'FIGURE',
                     ],
                 ],
                 'stopWords' => [

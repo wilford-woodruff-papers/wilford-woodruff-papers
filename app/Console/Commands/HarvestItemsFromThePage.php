@@ -175,7 +175,7 @@ class HarvestItemsFromThePage extends Command
             'J' => Type::firstWhere('name', 'Journals')->id,
             'A' => Type::firstWhere('name', 'Autobiographies')->id,
             'DB' => Type::firstWhere('name', 'Daybooks')->id,
-            'B', 'C', 'E', 'F', 'G', 'H', 'L', 'M', 'P', 'T', 'R' => Type::firstWhere('name', 'Additional')->id,
+            'B', 'C', 'E', 'EP', 'F', 'G', 'H', 'L', 'M', 'P', 'T', 'R' => Type::firstWhere('name', 'Additional')->id,
             default => null,
         };
     }

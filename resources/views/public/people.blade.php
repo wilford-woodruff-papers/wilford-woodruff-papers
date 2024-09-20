@@ -16,26 +16,33 @@
             </div>
 
         @endif
-        <div class="col-span-12 py-6 px-8 mt-4">
+        <div class="flex flex-col col-span-12 gap-y-4 py-6 px-8 mt-4">
             <p class="text-lg text-black">
-                Explore the biographical information on thousands of people who interacted with Wilford Woodruff. Discover their stories through Wilford Woodruff's daily journal entries and their correspondence with him. This list reflects only those people identified in published documents. The information in this list is updated quarterly as new documents are published on this site.
+                Explore information on thousands of people who are included in Wilford Woodruff's records. Discover their stories through his daily journal entries and their correspondence with him.
             </p>
 
 
-                <a href="{{ route('relative-finder') }}">
-                    <div class="flex flex-col gap-4 justify-center items-center py-2 pr-2 pl-2 mt-8 mb-4 border border-gray-200 shadow-xl sm:flex-row sm:gap-8 bg-primary">
-                        <div class="flex gap-x-4 items-center text-lg font-semibold text-white md:text-xl">
-                            <img src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/relative-finder/example-image-1.jpg"
-                                 class="w-auto h-20 border-2 border-white shadow-xl md:flex-shrink md:h-12"
-                            />
-                            <div class="gap-3 items-center">
-                                Discover your family connections in Wilford Woodruff's papers with the help of
-                                <img src="https://wilfordwoodruffpapers.org/img/familytree-logo.png" alt="FamilySearch" class="inline ml-2 -mt-2 w-auto h-8">
-                            </div>
+            <a href="{{ route('relative-finder') }}">
+                <div class="flex flex-col gap-4 justify-center items-center py-4 pr-2 pl-2 border border-gray-200 shadow-xl sm:flex-row sm:gap-8 bg-primary">
+                    <div class="flex gap-x-4 items-center text-lg font-semibold text-white md:text-xl">
+                        <img src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/relative-finder/example-image-1.jpg"
+                             class="w-auto h-20 border-2 border-white shadow-xl md:flex-shrink md:h-12"
+                        />
+                        <div class="gap-3 items-center">
+                            Discover your family connections in Wilford Woodruff's papers with the help of
+                            <img src="https://wilfordwoodruffpapers.org/img/familytree-logo.png" alt="FamilySearch" class="inline ml-2 -mt-2 w-auto h-8">
                         </div>
                     </div>
-                </a>
+                </div>
+            </a>
 
+            <p class="text-lg text-black">
+                These short biographies identify individuals by name; birth date and location; parentage; marriage date and location (if applicable); baptism date and location (if applicable); death date and location; and a brief description of their association with Wilford Woodruff. A biographical reference is included for individuals who are mentioned in the Papers but may not have associated directly with him, such as historical and scriptural figures.
+            </p>
+
+            <p class="text-lg text-black">
+                This list is regularly updated as new documents are transcribed and published on this site.
+            </p>
 
         </div>
 
@@ -50,7 +57,7 @@
     <div class="px-4 mx-auto max-w-7xl">
 
         <div class="col-span-12 py-6 px-8">
-            <livewire:people />
+            <livewire:people :letter="str(request('letter'))->upper()"/>
         </div>
     </div>
 

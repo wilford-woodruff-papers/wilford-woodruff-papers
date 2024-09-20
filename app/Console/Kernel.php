@@ -54,6 +54,20 @@ class Kernel extends ConsoleKernel
             ->pingOnSuccess('http://beats.envoyer.io/heartbeat/NBAuq5yMAJvwwS4');
 
         $schedule
+            ->command('uncat:export')
+            ->dailyAt('8:30 AM')
+            ->withoutOverlapping()
+            ->timezone('America/Denver')
+            ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org');
+
+        $schedule
+            ->command('subjects:import')
+            ->dailyAt('8:15 AM')
+            ->withoutOverlapping()
+            ->timezone('America/Denver')
+            ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org');
+
+        $schedule
             ->command('topics:index')
             ->dailyAt('4:30 AM')
             ->withoutOverlapping()
@@ -150,12 +164,12 @@ class Kernel extends ConsoleKernel
             ->timezone('America/Denver')
             ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org');
 
-        $schedule
-            ->command('topics:count')
-            ->weeklyOn(6, '11:00')
-            ->withoutOverlapping()
-            ->timezone('America/Denver')
-            ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org');
+        //        $schedule
+        //            ->command('topics:count')
+        //            ->weeklyOn(6, '11:00')
+        //            ->withoutOverlapping()
+        //            ->timezone('America/Denver')
+        //            ->emailOutputTo('jon.fackrell@wilfordwoodruffpapers.org');
 
         $schedule
             ->command('items:export')

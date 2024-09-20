@@ -24,6 +24,9 @@ class MediaController extends Controller
                 ])
                 ->latest('date')
                 ->whereDate('date', '<=', DB::raw('NOW()'))
+                ->when($request->has('tag'), function ($query) use ($request) {
+                    $query->withAnyTags($request->get('tag'), 'articles');
+                })
                 ->paginate(10),
         ]);
     }
@@ -63,7 +66,11 @@ class MediaController extends Controller
     public function podcasts(Request $request): View
     {
         return view('public.media.podcasts', [
-            'podcasts' => Podcast::latest('date')
+            'podcasts' => Podcast::query()
+                ->latest('date')
+                ->with([
+                    'tags',
+                ])
                 ->paginate(10),
         ]);
     }

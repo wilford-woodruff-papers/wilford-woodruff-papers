@@ -140,7 +140,7 @@
                                             <div class="mt-2 text-sm text-red-700">
                                                 <ul class="pl-5 space-y-1 list-disc">
                                                     @foreach ($errors->all() as $error)
-                                                        <li>{{ $error }}</li>
+                                                        <li>{!! $error !!}</li>
                                                     @endforeach
                                                 </ul>
                                             </div>
@@ -360,6 +360,38 @@
                                                 Now
                                             </button>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="col-span-3">
+                                    <label for="confirmed_name_at"
+                                           class="block text-sm font-medium text-gray-700"
+                                    >
+                                        <span class="font-semibold">Confirmed Name At</span>
+                                    </label>
+                                    <div class="flex gap-x-2 items-center">
+                                        @if(auth()->user()->hasRole('Bio Admin'))
+                                            <div class="flex-1">
+                                                <input type="date"
+                                                       name="confirmed_name_at"
+                                                       id="confirmed_name_at"
+                                                       value="{{ old('confirmed_name_at', $person->confirmed_name_at?->toDateString()) }}"
+                                                       class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
+                                                />
+                                            </div>
+                                            <div>
+                                                <button x-on:click.prevent="setDateToNow('confirmed_name_at')"
+                                                        type="button"
+                                                        class="inline-flex justify-center py-2 px-4 mt-1 mr-2 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:outline-none focus:ring-sky-500">
+                                                    Now
+                                                </button>
+                                            </div>
+                                        @else
+                                            @if(! empty($person->confirmed_name_at))
+                                                <div class="pt-3 text-gray-500">{{ $person->confirmed_name_at?->toDateString() }}</div>
+                                            @else
+                                                <div class="pt-3 text-gray-500 text-red-700">Not Approved</div>
+                                            @endif
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -671,8 +703,40 @@
                                                 </div>
                                             </div>
                                         @else
-                                            @if(! empty($person->bio_approved_at)))
+                                            @if(! empty($person->bio_approved_at))
                                                 <div class="pt-3 text-gray-500">{{ $person->bio_approved_at }}</div>
+                                            @else
+                                                <div class="pt-3 text-gray-500 text-red-700">Not Approved</div>
+                                            @endif
+                                        @endif
+                                    </div>
+                                    <div class="col-span-3">
+                                        <label for="approved_for_print_at"
+                                               class="block text-sm font-medium text-gray-700"
+                                        >
+                                            <span class="font-semibold">Approved For Print At</span>
+                                        </label>
+                                        @if(auth()->user()->hasRole('Bio Admin'))
+                                            <div class="flex gap-x-2 items-center">
+                                                <div class="flex-1">
+                                                    <input type="date"
+                                                           name="approved_for_print_at"
+                                                           id="approved_for_print_at"
+                                                           value="{{ old('approved_for_print_at', $person->approved_for_print_at?->toDateString()) }}"
+                                                           class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <button x-on:click.prevent="setDateToNow('approved_for_print_at')"
+                                                            type="button"
+                                                            class="inline-flex justify-center py-2 px-4 mt-1 mr-2 text-sm font-medium text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:outline-none focus:ring-sky-500">
+                                                        Now
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        @else
+                                            @if(! empty($person->approved_for_print_at))
+                                            <div class="pt-3 text-gray-500">{{ $person->approved_for_print_at?->toDateString() }}</div>
                                             @else
                                                 <div class="pt-3 text-gray-500 text-red-700">Not Approved</div>
                                             @endif

@@ -38,6 +38,14 @@
                             </span>
                         </li>
                     @endforeach
+                    <li wire:click="$set('filters.type', 'Scriptures')"
+                        class="flex">
+                        <span class="cursor-pointer py-4 block w-full text-gray-900 hover:bg-gray-100 @if($filters['type'] == 'Scriptures') active @else @endif">
+                            <div class="ml-3">
+                                <p class="text-lg font-medium">Scriptures</p>
+                            </div>
+                        </span>
+                    </li>
                 </ul>
                 <div class="hidden py-8 px-4 mt-24 mb-12 text-white md:block bg-highlight">
                     <div class="text-lg font-semibold">
@@ -170,8 +178,45 @@
                                 @endforeach
                             </nav>
                         </div>
+                    @elseif(data_get($filters, 'type') == $types->where('name', 'Additional')->first()->id)
+                        <div class="col-span-1 px-4 pt-6">
+                            <!-- This example requires Tailwind CSS v2.0+ -->
+                            <nav class="space-y-1" aria-label="Decade filter">
+                                @foreach($subtypes as $key => $subtype)
+                                    <span wire:click="$set('filters.subtype', '{{ $key }}')"
+                                          class="@if(data_get($this->filters, 'subtype') == $key) bg-gray-200 text-gray-900 @else text-gray-600 hover:bg-gray-50 hover:text-gray-900 @endif flex items-center pl-3 py-2 text-base font-medium cursor-pointer"
+                                    >
+                                        <span class="truncate">
+                                          {{ $subtype }}
+                                        </span>
+                                        <span class="inline-block py-0.5 px-3 ml-auto text-xs">
+                                          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                            </svg>
+                                        </span>
+                                    </span>
+                                @endforeach
+                            </nav>
+                        </div>
                     @endif
-                    <div class="col-span-2 lg:col-span-3">
+                    <div class="@if(data_get($filters, 'type') == $types->where('name', 'Additional')->first()->id) col-span-2 lg:col-span-3 @else col-span-4 @endif">
+                        @if(data_get($filters, 'type') == 'Scriptures')
+                            <div class="my-2">
+                                <a href="{{ route('advanced-search', ['currentIndex' => 'Scriptures']) }}">
+                                    <img src="{{ asset('img/banners/wilford-woodruff-scripture-references.png') }}"
+                                         alt="Explore Scripture References in Wilford Woodruff’s Writings"
+                                         class="pr-4 pl-5 w-full h-auto"
+                                    />
+                                </a>
+                            </div>
+                        @endif
+                        @if(data_get($filters, 'type') == $types->where('name', 'Journals')->first()->id)
+                            <div class="my-8 bg-gray-200">
+                                <p class="py-8 px-4 text-xl">
+                                    Learn more about many of the <a href="{{ route('figures') }}" class="underline text-secondary" target="_blank">figures used in Wilford Woodruff's Journals</a>. The description of these images are derived from Joshua M. Matson, <a href="https://byustudies.byu.edu/article/decoding-the-self-tracking-symbols-of-wilford-woodruffs-journals/" target="_blank" class="underline text-secondary">"Decoding the Self-Tracking Symbols of Wilford Woodruff's Journals," BYU Studies 63:1 (2024): 151-204</a>, used by permission of the author and of BYU Studies.
+                                </p>
+                            </div>
+                        @endif
                         <ul class="px-4 divide-y divide-gray-200">
                             @if($items->count() > 0)
                                 @foreach($items as $item)
@@ -199,7 +244,7 @@
                 </div>
                 <div wire:loading.grid
                      class="grid grid-cols-3 grid-flow-col gap-6 lg:grid-cols-4">
-                    @if(data_get($filters, 'type') == $types->where('name', 'Letters')->first()->id)
+                    @if(data_get($filters, 'type') == $types->whereIn('name', ['Additional','Letters'])->first()->id)
                         <div class="col-span-1 px-4 pt-6">
                             <!-- This example requires Tailwind CSS v2.0+ -->
                             <nav class="space-y-1" aria-label="Decade filter">

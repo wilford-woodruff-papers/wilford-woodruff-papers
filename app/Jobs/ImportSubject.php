@@ -40,7 +40,11 @@ class ImportSubject implements ShouldQueue
         if ($subject->subject_uri !== $this->row['subject_uri']) {
             Subject::withoutSyncingToSearch(function () use ($subject) {
                 $subject->subject_uri = $this->row['subject_uri'];
-                $subject->save();
+                if ($subject->wasRecentlyCreated) {
+                    $subject->save();
+                } else {
+                    Subject::withoutSyncingToSearch(fn () => $subject->save());
+                }
             });
 
         }

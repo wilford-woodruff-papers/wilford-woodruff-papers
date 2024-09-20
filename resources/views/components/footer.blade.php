@@ -263,6 +263,11 @@
                         </a>
                     </div>
                     <div class="">
+                        <a href="https://www.tiktok.com/@wilfordwoodruffpapers" target="_blank">
+                            <svg class="w-6 h-6 text-white" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><title>Logo TikTok</title><g data-name="Layer 15" id="Layer_15"><path fill="#fff" d="M24,3H8A5,5,0,0,0,3,8V24a5,5,0,0,0,5,5H24a5,5,0,0,0,5-5V8A5,5,0,0,0,24,3Zm3,21a3,3,0,0,1-3,3H8a3,3,0,0,1-3-3V8A3,3,0,0,1,8,5H24a3,3,0,0,1,3,3Z"/><path fill="#fff" d="M22,12a3,3,0,0,1-3-3,1,1,0,0,0-2,0V19a3,3,0,1,1-3-3,1,1,0,0,0,0-2,5,5,0,1,0,5,5V13a4.92,4.92,0,0,0,3,1,1,1,0,0,0,0-2Z"/></g></svg>
+                        </a>
+                    </div>
+                    <div class="">
                         <a href="https://www.youtube.com/c/WilfordWoodruffPapers" target="_blank">
                             <svg class="w-6 h-6 text-white" xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><title>Youtube Logo</title><path fill="#fff" d='M508.64 148.79c0-45-33.1-81.2-74-81.2C379.24 65 322.74 64 265 64h-18c-57.6 0-114.2 1-169.6 3.6C36.6 67.6 3.5 104 3.5 149 1 184.59-.06 220.19 0 255.79q-.15 53.4 3.4 106.9c0 45 33.1 81.5 73.9 81.5 58.2 2.7 117.9 3.9 178.6 3.8q91.2.3 178.6-3.8c40.9 0 74-36.5 74-81.5 2.4-35.7 3.5-71.3 3.4-107q.34-53.4-3.26-106.9zM207 353.89v-196.5l145 98.2z'/></svg>
                         </a>
@@ -279,10 +284,10 @@
                     <div>Wilford Woodruff Papers Foundation &copy {{ date('Y') }} All Rights Reserved. <a href="{{ route('media.copyright') }}" class="underline">See additional copyright information.</a></div>
                     <div class="grid grid-cols-3 justify-start items-center mt-6">
                         <a href="https://www.guidestar.org/profile/84-4318803" target="_blank" class="">
-                            <img src="https://wilfordwoodruffpapers.org/img/donate/platinum-guidestar.png" alt="Wilford Woodruff Papers Foundation is a gold-level GuideStar participant, demonstrating its commitment to transparency." title="Wilford Woodruff Papers Foundation is a gold-level GuideStar participant, demonstrating its commitment to transparency." class="inline w-auto h-[120px]">
+                            <img src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/candid.png" alt="Wilford Woodruff Papers Foundation is a gold-level GuideStar participant, demonstrating its commitment to transparency." title="Wilford Woodruff Papers Foundation is a gold-level GuideStar participant, demonstrating its commitment to transparency." class="inline w-auto h-[120px]">
                         </a>
                         <a href="https://www.charitynavigator.org/ein/844318803" target="_blank" class="">
-                            <img src="https://wilfordwoodruffpapers.org/img/donate/fours-star-charity-navigator.png" alt="Wilford Woodruff Papers Foundation 4 Star profile on Charity Navigator." title="Wilford Woodruff Papers Foundation 4 Star profile on Charity Navigator." class="inline w-auto h-[120px]">
+                            <img src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/four-star-charity-navigator.png" alt="Wilford Woodruff Papers Foundation 4 Star profile on Charity Navigator." title="Wilford Woodruff Papers Foundation 4 Star profile on Charity Navigator." class="inline w-auto h-[120px]">
                         </a>
                     </div>
                 </div>

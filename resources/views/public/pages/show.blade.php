@@ -4,6 +4,7 @@
     </x-slot>
     @php
         $pages = \App\Models\Page::query()
+                ->select('id', 'uuid', 'order')
                 ->with([
                     'parent.type',
                 ])

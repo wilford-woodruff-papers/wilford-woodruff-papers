@@ -100,6 +100,10 @@
                                             About
                                         </a>
 
+                                        <a href="{{ url('wilford-woodruff-bio') }}" class="text-base font-medium text-gray-900 hover:text-gray-700">
+                                            About Wilford Woodruff
+                                        </a>
+
                                         <a href="{{ route('volunteer') }}" class="text-base font-medium text-gray-900 hover:text-gray-700">
                                             Volunteer
                                         </a>
@@ -268,6 +272,10 @@
                                     <a href="{{ route('people') }}"
                                        class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
                                         People Included in Wilford Woodruff's Papers
+                                    </a>
+                                    <a href="{{ url('wilford-woodruff-bio') }}"
+                                       class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
+                                        About Wilford Woodruff
                                     </a>
                                     <a href="{{ route('wives-and-children') }}"
                                        class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
@@ -495,6 +503,10 @@
                                                 About
                                             </span>
                                             <div>
+                                                <a href="{{ url('wilford-woodruff-bio') }}"
+                                                   class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
+                                                    About Wilford Woodruff
+                                                </a>
                                                 <a href="{{ route('about') }}"
                                                    class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
                                                     Mission
@@ -515,6 +527,12 @@
                                                    class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
                                                     Editorial Method
                                                 </a>
+                                                <div class="pl-4">
+                                                    <a href="{{ route('figures') }}"
+                                                       class="block py-2 px-4 w-full text-sm font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
+                                                        Figures
+                                                    </a>
+                                                </div>
                                                 <a href="{{ route('about.frequently-asked-questions') }}"
                                                    class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
                                                     Frequently Asked Questions
@@ -721,6 +739,12 @@
                                        class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
                                         Editorial Method
                                     </a>
+                                    <div class="pl-4">
+                                        <a href="{{ route('figures') }}"
+                                           class="block py-2 px-4 w-full text-sm font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
+                                            Figures
+                                        </a>
+                                    </div>
                                     <a href="{{ route('about.frequently-asked-questions') }}"
                                        class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
                                         Frequently Asked Questions

@@ -15,11 +15,14 @@ class Browse extends Component
 
     public $decades = null;
 
+    public $subtypes = [];
+
     public $direction;
 
     public $filters = [
         'search' => null,
         'type' => null,
+        'subtype' => null,
         'decade' => null,
         'year' => null,
         'sort' => 'created:asc',
@@ -61,6 +64,22 @@ class Browse extends Component
 
         $this->decades = collect([]);
         $this->years = collect([]);
+
+        $this->subtypes = [
+            'B' => 'Business/Financial',
+            'C' => 'Community',
+            'E' => 'Education',
+            'EP' => 'Estate Papers',
+            'F' => 'Family',
+            'G' => 'Genealogy',
+            'H' => 'Histories',
+            'L' => 'Legal',
+            'M' => 'Mission',
+            'I' => 'Personal',
+            'P' => 'Political/Government',
+            'R' => 'Religious',
+            'T' => 'Temple',
+        ];
     }
 
     public function render()
@@ -80,6 +99,10 @@ class Browse extends Component
             }])
             ->orderBy('name', 'ASC')
             ->get();
+
+        if (data_get($this->filters, 'type') != $this->types->where('name', 'Additional')->first()->id) {
+            $this->filters['subtype'] = null;
+        }
 
         if (data_get($this->filters, 'type') == Type::firstWhere('name', 'Letters')->id) {
             $this->decades = DB::table('items')
@@ -120,7 +143,20 @@ class Browse extends Component
             ->when(data_get($this->filters, 'search'), function ($query, $q) {
                 $query->where('name', 'LIKE', '%'.$q.'%');
             })
-            ->when(data_get($this->filters, 'type'), fn ($query, $type) => $query->where('type_id', $type))
+            ->when(data_get($this->filters, 'type'), function ($query, $type) {
+                if (data_get($this->filters, 'type') == 'Scriptures') {
+                    $query->whereIn('id', [
+                        42564,
+                        43689,
+                        43339,
+                    ]);
+                } else {
+                    $query->where('type_id', $type);
+                }
+            })
+            ->when(data_get($this->filters, 'subtype'), function ($query, $subtype) {
+                $query->where('pcf_unique_id_prefix', $subtype);
+            })
             ->when(data_get($this->filters, 'decade'), fn ($query, $decade) => $query->where('decade', $decade))
             ->when(data_get($this->filters, 'year'), fn ($query, $year) => $query->where('year', $year));
 

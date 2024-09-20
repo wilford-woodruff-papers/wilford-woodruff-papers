@@ -2,13 +2,18 @@
 
 namespace App\Models;
 
+use App\Models\Scriptures\Volume;
 use Dyrynda\Database\Casts\EfficientUuid;
 use Dyrynda\Database\Support\GeneratesUuid;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Scout\Searchable;
 use Mtvs\EloquentHashids\HasHashid;
+use OpenAI\Laravel\Facades\OpenAI;
 use OwenIt\Auditing\Auditable;
 use OwenIt\Auditing\Encoders\Base64Encoder;
 use Spatie\Activitylog\LogOptions;
@@ -59,6 +64,18 @@ class Page extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
         //} else {
         return $this->belongsTo(Item::class, 'parent_item_id');
         //}
+    }
+
+    public function type(): HasManyThrough
+    {
+        return $this->hasManyThrough(
+            Type::class,
+            Item::class,
+            'id',
+            'id',
+            'parent_item_id',
+            'type_id'
+        );
     }
 
     public function next()
@@ -169,6 +186,7 @@ class Page extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
     {
         return str($this->transcript)
             ->addSubjectLinks()
+            ->replaceFigureTags()
             ->addScriptureLinks()
             ->removeQZCodes($isQuoteTagger)
             ->replaceInlineLanguageTags()
@@ -354,6 +372,12 @@ class Page extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
         ];
     }
 
+    public function volumes(): BelongsToMany
+    {
+        return $this->belongsToMany(Volume::class)
+            ->withPivot('book', 'chapter', 'verse');
+    }
+
     protected static function booted()
     {
         static::deleting(function ($page) {
@@ -368,7 +392,7 @@ class Page extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
 
     public function toSearchableArray(): array
     {
-        return [
+        $data = [
             'id' => 'page_'.$this->id,
             'is_published' => (bool) $this->parent->enabled,
             'resource_type' => 'Page',
@@ -394,7 +418,33 @@ class Page extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
             })->toArray(),
             'parent_id' => $this->parent->id,
             'order' => $this->order,
+            'volumes' => $this->volumes->pluck('name')->unique()->toArray(),
+            'books' => $this->volumes->pluck('pivot.book')->unique()->toArray(),
         ];
+
+        if (
+            ! Storage::exists('embeddings/'.static::class.'/'.$this->id.'.json')
+        ) {
+            $vectors = [];
+            $response = OpenAI::embeddings()->create([
+                'model' => 'text-embedding-ada-002',
+                'input' => strip_tags($this->transcript),
+            ]);
+
+            foreach ($response->embeddings as $embedding) {
+                $vectors = $embedding->embedding;
+            }
+            Storage::put('embeddings/'.static::class.'/'.$this->id.'.json', json_encode($vectors));
+            $data['_vectors'] = [
+                'semanticSearch' => $vectors,
+            ];
+        } else {
+            $data['_vectors'] = [
+                'semanticSearch' => json_decode(Storage::get('embeddings/'.static::class.'/'.$this->id.'.json')),
+            ];
+        }
+
+        return $data;
     }
 
     public function getScoutKey(): mixed

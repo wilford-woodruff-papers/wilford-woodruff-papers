@@ -9,7 +9,9 @@
 
         <x-favicon />
 
-        <x-open-graph-image::metatags title="{{ str($title ?? null)->before('|')->replaceMatches('/\[.*?\]/', '')->replace(' ', '_')->trim() }}" />
+        <x-open-graph-image::metatags
+            title="{{ str($title ?? null)->before('|')->replaceMatches('/\[.*?\]/', '')->replace(' ', '_')->trim() }}"
+        />
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
@@ -19,6 +21,7 @@
         @livewireStyles
 
         @include('layouts.partials.google-tag-manager-head')
+        <x-clarity::script />
     </head>
     <body class="font-sans antialiased">
         @include('layouts.partials.google-tag-manager-no-script')

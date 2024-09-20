@@ -33,6 +33,11 @@ class Value extends Model
         return $this->belongsTo(Repository::class, 'value');
     }
 
+    public function copyrightstatus()
+    {
+        return $this->belongsTo(CopyrightStatus::class, 'value');
+    }
+
     public function displayValue($values = null)
     {
         switch ($this->property->type) {
@@ -40,10 +45,14 @@ class Value extends Model
                 return match ($this->property->relationship) {
                     'Source' => $this->source->name,
                     'Repository' => $this->repository->name,
+                    'CopyrightStatus' => $this->copyrightstatus->name,
                 };
                 break;
             case 'link':
-                return "<a href='{$this->value}' class='text-secondary' target='_blank'>{$values->where('property.name', str($this->property->name)->before(' Link'))->first()->displayValue()}</a>";
+                return match ($values->where('property.name', '*Source')->first()->displayValue()) {
+                    'FamilySearch' => "<a href='{$this->value}' class='text-secondary underline' target='_blank'>{$values->where('property.name', '*Repository')->first()->displayValue()}</a>",
+                    default => "<a href='{$this->value}' class='text-secondary underline' target='_blank'>{$values->where('property.name', str($this->property->name)->before(' Link'))->first()->displayValue()}</a>",
+                };
                 break;
             default:
                 return $this->value;

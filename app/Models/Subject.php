@@ -7,16 +7,23 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\HtmlString;
 use Illuminate\Support\Stringable;
 use Laravel\Scout\Searchable;
+use OpenAI\Laravel\Facades\OpenAI;
+use OwenIt\Auditing\Auditable;
+use OwenIt\Auditing\Contracts\Audit;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
-class Subject extends Model implements HasMedia
+class Subject extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMedia
 {
+    use Auditable;
     use HasFactory;
     use HasSlug;
     use InteractsWithMedia;
@@ -32,6 +39,8 @@ class Subject extends Model implements HasMedia
         'added_to_ftp_at' => 'date',
         'bio_completed_at' => 'date',
         'place_confirmed_at' => 'date',
+        'approved_for_print_at' => 'date',
+        'confirmed_name_at' => 'date',
         'mentioned' => 'boolean',
         'visited' => 'boolean',
     ];
@@ -74,7 +83,7 @@ class Subject extends Model implements HasMedia
         return trim(
             str($this->bio)
                 ->explode('.')
-                ->firstWhere(fn ($value) => str($value)->contains('Wilford Woodruff'))
+                ->firstWhere(fn ($value) => str($value)->contains('Wilford Woodruff')) ?? ''
         );
     }
 
@@ -278,12 +287,12 @@ class Subject extends Model implements HasMedia
         if (
             ! empty($this->latitude)
             && ! empty($this->longitude)
-            && ! empty($this->google_map_address)
-            && empty($this->getMedia('maps')->first())
+            //&& ! empty($this->google_map_address)
+            && empty($this->getFirstMedia('maps'))
         ) {
             $url = 'https://maps.googleapis.com/maps/api/staticmap?';
 
-            $url .= 'center='.$this->google_map_address;
+            //$url .= 'center='.$this->google_map_address;
             $url .= '&zoom=4&size=600x300&maptype=roadmap';
             //$url .= '&zoom='.$this->zoomLevel().'&size=600x300&maptype=roadmap';
             $url .= '&markers=color:red%7Clabel:.%7C'.$this->latitude.','.$this->longitude;
@@ -302,7 +311,7 @@ class Subject extends Model implements HasMedia
                     ->usingName($this->slug.'-map.png')
                     ->toMediaCollection('maps', 'maps');
             } catch (\Exception $e) {
-                // TODO: Do Something when there's an error;
+                logger()->error($e->getMessage());
             }
 
         }
@@ -403,9 +412,13 @@ class Subject extends Model implements HasMedia
     {
         $collectionName = 'default';
         $geo = null;
+        $thumbnail = null;
 
         if ($this->category->pluck('name')->contains('People')) {
             $resourceType = 'People';
+            if (str($this->portrait)->startsWith('https://tree-portraits-bgt.familysearchcdn.org')) {
+                $thumbnail = $this->portrait;
+            }
         } elseif ($this->category->pluck('name')->contains('Places')) {
             $resourceType = 'Places';
             $collectionName = 'maps';
@@ -415,24 +428,49 @@ class Subject extends Model implements HasMedia
                     'lng' => $this->longitude,
                 ];
             }
+            $thumbnail = $this->getFirstMedia($collectionName)?->getUrl('thumb');
         } elseif ($this->category->pluck('name')->contains('Index')) {
             $resourceType = 'Topic';
         } else {
             $resourceType = null;
         }
 
-        return [
+        $data = [
             'id' => 'subject_'.$this->id,
             'is_published' => ($this->tagged_count > 0) | ($this->text_count > 0) | ($this->total_usage_count > 0),
             'resource_type' => $resourceType,
             'type' => $this->category->pluck('name')->toArray(),
             'url' => route('subjects.show', ['subject' => $this->slug]),
-            'thumbnail' => $this->getFirstMedia($collectionName)?->getUrl('thumb'),
+            'thumbnail' => $thumbnail,
             'name' => $this->name,
             'description' => strip_tags($this->bio ?? ''),
             '_geo' => $geo,
             'usages' => $this->getCount(),
         ];
+
+        if (
+            ! Storage::exists('embeddings/'.static::class.'/'.$this->id.'.json')
+        ) {
+            $vectors = [];
+            $response = OpenAI::embeddings()->create([
+                'model' => 'text-embedding-ada-002',
+                'input' => strip_tags($this->bio ?? ''),
+            ]);
+
+            foreach ($response->embeddings as $embedding) {
+                $vectors = $embedding->embedding;
+            }
+            Storage::put('embeddings/'.static::class.'/'.$this->id.'.json', json_encode($vectors));
+            $data['_vectors'] = [
+                'semanticSearch' => $vectors,
+            ];
+        } else {
+            $data['_vectors'] = [
+                'semanticSearch' => json_decode(Storage::get('embeddings/'.static::class.'/'.$this->id.'.json')),
+            ];
+        }
+
+        return $data;
     }
 
     public function getCount()
@@ -495,6 +533,43 @@ class Subject extends Model implements HasMedia
         return $country;
     }
 
+    public static function countryName($state, $country)
+    {
+        if (! str($country)->is('United States')) {
+            return $country;
+        }
+
+        if (
+            str($country)->is('United States')
+            && str($state)->contains('Washington, D.C.')
+        ) {
+            return $country;
+        } elseif (
+            str($country)->is('United States')
+            && empty($state)
+        ) {
+            return $country;
+        } elseif (
+            str($country)->is('United States')
+        ) {
+            return null;
+        }
+
+        return $country;
+    }
+
+    public function firstLetter()
+    {
+        return Item::query()
+            ->whereIn(
+                'id',
+                $this->pages->pluck('parent_item_id')->toArray())
+            ->whereRelation('type', 'name', 'Letters')
+            ->whereNotNull('first_date')
+            ->orderBy('first_date', 'asc')
+            ->first();
+    }
+
     public function registerMediaConversions(?Media $media = null): void
     {
         $this->addMediaConversion('thumb')
@@ -533,5 +608,23 @@ class Subject extends Model implements HasMedia
                     ->first()
                     ?->name;
             });
+    }
+
+    public function formatAuditFieldsForPresentation($field, Audit $record)
+    {
+        $fields = Arr::wrap($record->{$field});
+
+        $formattedResult = '<ul class="max-w-3xl whitespace-normal divide-y divide-gray-300">';
+
+        foreach ($fields as $key => $value) {
+            $formattedResult .= '<li class="py-2">';
+            $formattedResult .= '<span class="font-semibold inline-block text-gray-700 whitespace-normal rounded-md dark:text-gray-200 bg-gray-500/10">'.str($key)->replace('_', ' ')->title().':</span>';
+            $formattedResult .= '<div class="">'.$value.'</div>';
+            $formattedResult .= '</li>';
+        }
+
+        $formattedResult .= '</ul>';
+
+        return new HtmlString($formattedResult);
     }
 }

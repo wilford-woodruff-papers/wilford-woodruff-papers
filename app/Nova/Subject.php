@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use App\Nova\Actions\AssignCategory;
 use App\Nova\Actions\ExportPeople;
 use App\Nova\Actions\ExportSubjects;
 use App\Nova\Actions\ExportSubjectsWithChildren;
@@ -15,13 +16,16 @@ use App\Nova\Filters\SubjectIsTagged;
 use App\Nova\Filters\SubjectType;
 use Emilianotisato\NovaTinyMCE\NovaTinyMCE;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\BelongsToMany;
+use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Rpj\Daterangepicker\Daterangepicker;
 
 class Subject extends Resource
 {
@@ -61,6 +65,11 @@ class Subject extends Resource
         return false;
     }
 
+    public function authorizedToReplicate(Request $request)
+    {
+        return false;
+    }
+
     /**
      * Get the fields displayed by the resource.
      */
@@ -71,9 +80,25 @@ class Subject extends Resource
                 ->sortable(),
             Text::make(__('Name'), 'name')
                 ->sortable(),
+            Text::make(__('FTP URL'), 'subject_uri')
+                ->displayUsing(function ($value) {
+                    return ! empty($value) ? '<a href="'.$value.'" target="_blank" class="link-default">View</a>' : '';
+                })
+                ->asHtml(),
+            Text::make(__('Admin'), 'slug')
+                ->displayUsing(function ($value) {
+                    if ($this->category->contains('name', 'People')) {
+                        return '<a href="'.url('admin/dashboard/people/'.$value.'/edit').'" target="_blank" class="link-default">View</a>';
+                    } elseif ($this->category->contains('name', 'Places')) {
+                        return '<a href="'.url('admin/dashboard/places/'.$value.'/edit').'" target="_blank" class="link-default">View</a>';
+                    } else {
+                        return ' ';
+                    }
+                })
+                ->asHtml(),
             Number::make(__('Total'), 'total_usage_count')
                 ->readonly()
-                ->sortable(),
+                ->hideFromIndex(),
             Number::make(__('Tagged'), 'tagged_count')
                 ->readonly()
                 ->sortable(),
@@ -95,6 +120,10 @@ class Subject extends Resource
             BelongsTo::make('Parent Subject', 'parent', self::class)
                 ->nullable()
                 ->searchable(),
+            Date::make('Created At')
+                ->sortable(),
+            Date::make('Updated At')
+                ->sortable(),
             HasMany::make('Subjects', 'children', self::class),
             BelongsToMany::make('Events'),
         ];
@@ -114,6 +143,19 @@ class Subject extends Resource
     public function filters(Request $request): array
     {
         return [
+            (new Daterangepicker(
+                'created_at',
+                '2019-01-01 to '.now()->addDay(1)->toDateString()
+            ))
+                ->setRanges([
+                    'Today' => [Carbon::today(), Carbon::today()],
+                    'Yesterday' => [Carbon::yesterday(), Carbon::yesterday()],
+                    'Last 7 days' => [Carbon::today()->subDays(6), Carbon::today()],
+                    'This week' => [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()],
+                    'LAst 30 days' => [Carbon::today()->subDays(29), Carbon::today()],
+                    'This month' => [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()],
+                    'Last month' => [Carbon::now()->subMonth()->startOfMonth(), Carbon::now()->subMonth()->endOfMonth()],
+                ]),
             new SubjectType,
             new SubjectIsTagged,
             new ParentSubjects,
@@ -134,6 +176,7 @@ class Subject extends Resource
     public function actions(Request $request): array
     {
         return [
+            new AssignCategory,
             new ImportIndexTopics,
             new ImportSubjects,
             new ImportPeople,

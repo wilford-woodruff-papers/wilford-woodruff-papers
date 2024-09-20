@@ -8,6 +8,7 @@ use App\Models\Subject;
 use App\Models\User;
 use Filament\Forms\Components\Actions;
 use Filament\Forms\Components\Actions\Action;
+use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Grid;
@@ -24,6 +25,8 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
+use Tapp\FilamentAuditing\RelationManagers\AuditsRelationManager;
 
 class PlaceResource extends Resource
 {
@@ -74,19 +77,85 @@ class PlaceResource extends Resource
                             ),
                         Fieldset::make('Names')
                             ->schema([
-                                TextInput::make('country'),
+                                TextInput::make('country')
+                                    ->datalist(function () {
+                                        return Cache::remember('countries', 3600, function () {
+                                            return DB::table('subjects')
+                                                ->select('country')
+                                                ->distinct()
+                                                ->whereNotNull('place_confirmed_at')
+                                                ->whereNotNull('country')
+                                                ->orderBy('country')
+                                                ->pluck('country')
+                                                ->all();
+                                        });
+                                    }),
                                 TextInput::make('state_province')
-                                    ->label('State/Province'),
-                                TextInput::make('county'),
+                                    ->label('State/Province')
+                                    ->datalist(function () {
+                                        return Cache::remember('states', 3600, function () {
+                                            return DB::table('subjects')
+                                                ->select('state_province')
+                                                ->distinct()
+                                                ->whereNotNull('state_province')
+                                                ->whereNotNull('place_confirmed_at')
+                                                ->orderBy('state_province')
+                                                ->pluck('state_province')
+                                                ->all();
+                                        });
+                                    }),
+                                TextInput::make('county')
+                                    ->datalist(function () {
+                                        return Cache::remember('counties', 3600, function () {
+                                            return DB::table('subjects')
+                                                ->select('county')
+                                                ->distinct()
+                                                ->whereNotNull('county')
+                                                ->whereNotNull('place_confirmed_at')
+                                                ->orderBy('county')
+                                                ->pluck('county')
+                                                ->all();
+                                        });
+                                    }),
                                 TextInput::make('city'),
                                 TextInput::make('specific_place'),
                                 TextInput::make('modern_location'),
+                                Select::make('subject_id')
+                                    ->label('Parent Location')
+                                    ->relationship(
+                                        name: 'parent',
+                                        titleAttribute: 'name',
+                                        ignoreRecord: true,
+                                        modifyQueryUsing: fn (Builder $query) => $query->places()->whereNotNull('place_confirmed_at'),
+                                    )
+                                    ->searchable()
+                                    ->preload()
+                                    ->optionsLimit(200),
                             ]),
                         Fieldset::make('Meta')
                             ->columns(2)
                             ->schema([
                                 TextInput::make('years')
-                                    ->columnSpan(2),
+                                    ->columnSpan(1),
+                                Fieldset::make('Visited or Mentioned')
+                                    ->columns(2)
+                                    ->columnSpan(1)
+                                    ->schema([
+                                        Checkbox::make('visited')
+                                            ->label('Visited')
+                                            ->columnSpan(1)
+                                            ->live()
+                                            ->afterStateUpdated(function (Set $set, $state) {
+                                                if ($state === true) {
+                                                    $set('mentioned', true);
+                                                } else {
+                                                    $set('mentioned', false);
+                                                }
+                                            }),
+                                        Checkbox::make('mentioned')
+                                            ->label('Only Mentioned')
+                                            ->columnSpan(1),
+                                    ]),
                                 Grid::make()
                                     ->columns(2)
                                     ->columnSpan(2)
@@ -112,6 +181,9 @@ class PlaceResource extends Resource
                             ->schema([
                                 RichEditor::make('bio')
                                     ->label('Description')
+                                    ->columnSpan(4),
+                                TextInput::make('reference')
+                                    ->label('Source')
                                     ->columnSpan(4),
                                 RichEditor::make('notes')
                                     ->label('Notes')
@@ -254,7 +326,7 @@ class PlaceResource extends Resource
                     ->searchable()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('name')
-                    ->searchable()
+                    ->searchable(isIndividual: true)
                     ->sortable()
                     ->toggleable(),
                 Tables\Columns\IconColumn::make('subject_uri')
@@ -275,23 +347,23 @@ class PlaceResource extends Resource
                     ->label('Usage')
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('country')
-                    ->searchable()
+                    ->searchable(isIndividual: true)
                     ->sortable()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('state_province')
-                    ->searchable()
+                    ->searchable(isIndividual: true)
                     ->sortable()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('county')
-                    ->searchable()
+                    ->searchable(isIndividual: true)
                     ->sortable()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('city')
-                    ->searchable()
+                    ->searchable(isIndividual: true)
                     ->sortable()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('specific_place')
-                    ->searchable()
+                    ->searchable(isIndividual: true)
                     ->sortable()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('years')
@@ -316,21 +388,25 @@ class PlaceResource extends Resource
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('latitude')
                     ->label('Lat')
+                    ->sortable()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('longitude')
                     ->label('Long')
+                    ->sortable()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('place_confirmed_at')
                     ->label('Confirmed At')
                     ->date()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('modern_location')
+                    ->searchable(isIndividual: true)
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('added_to_ftp_at')
                     ->date()
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('reference')
                     ->label('Source')
+                    ->searchable()
                     ->state(function (Model $record) {
                         return trim(strip_tags($record->bio));
                     })
@@ -340,6 +416,7 @@ class PlaceResource extends Resource
                     ->state(function (Model $record) {
                         return trim(strip_tags($record->bio));
                     })
+                    ->searchable()
                     ->limit(50)
                     ->toggleable(),
             ])
@@ -356,6 +433,9 @@ class PlaceResource extends Resource
                     )
                     ->searchable()
                     ->attribute('researcher_id'),
+                Tables\Filters\TernaryFilter::make('geo_located')
+                    ->nullable()
+                    ->attribute('latitude'),
             ], layout: Tables\Enums\FiltersLayout::AboveContentCollapsible)
             ->actions([
                 ClaimSubject::make()
@@ -372,7 +452,7 @@ class PlaceResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            AuditsRelationManager::class,
         ];
     }
 

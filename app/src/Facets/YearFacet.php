@@ -2,7 +2,7 @@
 
 namespace App\src\Facets;
 
-class YearFacet
+class YearFacet extends Facet
 {
     public $name = 'Year';
 

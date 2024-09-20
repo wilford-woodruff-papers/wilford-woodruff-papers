@@ -3,15 +3,18 @@
 namespace App\Livewire;
 
 use App\Models\Date;
+use App\src\Facets\BookFacet;
 use App\src\Facets\DecadeFacet;
 use App\src\Facets\ResourceTypeFacet;
 use App\src\Facets\TopicFacet;
 use App\src\Facets\TypeFacet;
+use App\src\Facets\VolumeFacet;
 use App\src\Facets\YearFacet;
 use Asantibanez\LivewireCharts\Models\LineChartModel;
 use Carbon\Carbon;
 use Livewire\Component;
 use Meilisearch\Client;
+use OpenAI\Laravel\Facades\OpenAI;
 use Spatie\Regex\Regex;
 
 class Search extends Component
@@ -42,18 +45,32 @@ class Search extends Component
 
     public $currentIndex = 'All';
 
+    public $usingHybridSearch = false;
+
     // public $indexes = [];
 
     public $filters = [
         'type' => [],
         'resource_type' => [],
         'topics' => [],
+        'volumes' => [],
+        'books' => [],
+    ];
+
+    public $volumeMap = [
+        'ot' => 'Old Testament',
+        'nt' => 'New Testament',
+        'bofm' => 'Book of Mormon',
+        'dc-testament' => 'Doctrine and Covenants',
+        'pgp' => 'Pearl of Great Price',
+        'missing' => 'Missing',
     ];
 
     public $sort = ['name' => 'asc'];
 
     protected $queryString = [
         'q' => ['except' => ''],
+        'exact' => ['except' => ''],
         'page' => ['except' => 1],
         'currentIndex' => ['except' => 'All'],
         'filters' => ['except' => []],
@@ -69,6 +86,11 @@ class Search extends Component
         if (! is_array($this->sort)) {
             $this->sort = ['name' => 'asc'];
         }
+    }
+
+    public function search()
+    {
+        $this->render();
     }
 
     public function render()
@@ -99,9 +121,16 @@ class Search extends Component
                 new TypeFacet(),
                 new TopicFacet(),
             ],
+            'Scriptures' => [
+                new VolumeFacet(),
+                new BookFacet(),
+                new TypeFacet(),
+            ],
         ];
 
         if ($this->isDate() && ! str_contains($this->q, '"')) {
+            $this->q = '"'.$this->q.'"';
+        } elseif ($this->exact == true && ! str_contains($this->q, '"')) {
             $this->q = '"'.$this->q.'"';
         }
 
@@ -109,7 +138,7 @@ class Search extends Component
 
         $index = $client->index((app()->environment('production') ? 'resources' : 'dev-resources'));
 
-        $result = $index->search($this->q, [
+        $searchConfig = [
             'showRankingScore' => true,
             'attributesToHighlight' => [
                 'name',
@@ -129,7 +158,40 @@ class Search extends Component
                 })
                 ->values()
                 ->toArray(),
-        ]);
+        ];
+        $str = str($this->q)->trim('"');
+        if (
+            ! empty($str)
+            && ! $str->contains('*')
+            && $str->length() > 4
+            && $this->exact == false
+            && str($this->q)->explode(' ')->count() > 3
+        ) {
+            $vectors = [];
+            try {
+                $response = OpenAI::embeddings()->create([
+                    'model' => 'text-embedding-ada-002',
+                    'input' => strip_tags($this->q ?? ''),
+                ]);
+
+                foreach ($response->embeddings as $embedding) {
+                    $vectors = $embedding->embedding;
+                }
+                $searchConfig['hybrid'] = [
+                    'embedder' => 'semanticSearch',
+                    'semanticRatio' => 0.7,
+                ];
+                $searchConfig['vector'] = $vectors;
+                $this->usingHybridSearch = true;
+            } catch (\Exception $exception) {
+                logger()->error($exception->getMessage());
+                $this->usingHybridSearch = false;
+            }
+        } else {
+            $this->usingHybridSearch = false;
+        }
+
+        $result = $index->search($this->q, $searchConfig);
 
         $facetDistribution = $result->getFacetDistribution();
         //dd($facetDistribution['decade']);
@@ -238,6 +300,10 @@ class Search extends Component
         $query = [];
         $query[] = '(is_published = true OR is_published = 1)';
 
+        if ($this->currentIndex === 'Scriptures') {
+            $query[] = '(volumes EXISTS) AND (volumes IS NOT EMPTY)';
+        }
+
         if ($this->currentIndex != 'All') {
             $query[] = '(resource_type = "'.$this->getResourceType($this->currentIndex).'")';
         }
@@ -302,6 +368,7 @@ class Search extends Component
             'Articles', 'Videos' => 'Media',
             'Media' => 'Media',
             'People' => 'People',
+            'Scriptures' => 'Page',
         };
     }
 

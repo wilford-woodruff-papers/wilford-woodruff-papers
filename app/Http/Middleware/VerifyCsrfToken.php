@@ -15,5 +15,6 @@ class VerifyCsrfToken extends Middleware
         'login/constantcontact/callback',
         'testimonials',
         'content-page/*/upload',
+        'horizon/*',
     ];
 }
