@@ -7,12 +7,21 @@ use App\Macros\AddSubjectLinks;
 use App\Macros\RemoveQZCodes;
 use App\Macros\Stringable\ClearText;
 use App\Macros\StripBracketedID;
+use App\Models\ContestSubmission;
+use App\Models\Item;
+use App\Models\Page;
+use App\Models\Photo;
+use App\Models\Press;
+use App\Models\User;
 use Filament\Support\Assets\Css;
 use Filament\Support\Facades\FilamentAsset;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Vite;
@@ -22,6 +31,15 @@ use Illuminate\Support\Stringable;
 
 class AppServiceProvider extends ServiceProvider
 {
+    /**
+     * The path to the "home" route for your application.
+     *
+     * This is used by Laravel authentication to redirect users after login.
+     *
+     * @var string
+     */
+    public const HOME = '/';
+
     /**
      * Register any application services.
      */
@@ -80,5 +98,52 @@ class AppServiceProvider extends ServiceProvider
 
         Model::preventLazyLoading(! $this->app->isProduction());
         //Model::preventAccessingMissingAttributes(! $this->app->isProduction());
+
+        $this->bootAuth();
+        $this->bootRoute();
+    }
+
+    public function bootAuth(): void
+    {
+        Gate::define('viewPulse', function (User $user) {
+            return $user->hasAnyRole('Super Admin');
+        });
+    }
+
+    public function bootRoute(): void
+    {
+        RateLimiter::for('api', function (Request $request) {
+            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
+        });
+
+
+
+        Route::bind('item', function ($item) {
+            return Item::whereUuid($item)->first();
+        });
+
+        Route::bind('identification', function ($item) {
+            return \App\Models\Identification::findOrFail($item);
+        });
+
+        Route::bind('page', function ($page) {
+            return Page::whereUuid($page)->first();
+        });
+
+        Route::bind('photo', function ($photo) {
+            return Photo::whereUuid($photo)->first();
+        });
+
+        Route::bind('article', function ($article) {
+            if (is_numeric($article)) {
+                return Press::where('id', $article)->first();
+            }
+
+            return Press::where('slug', $article)->first();
+        });
+
+        Route::bind('submission', function ($submission) {
+            return ContestSubmission::whereUuid($submission)->first();
+        });
     }
 }
