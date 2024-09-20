@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::table('children', function (Blueprint $table) {
             $table->unsignedBigInteger('person_id')
-                    ->nullable()
-                    ->after('id');
+                ->nullable()
+                ->after('id');
 
             $table->foreign('person_id')
-                    ->references('id')
-                    ->on('subjects');
+                ->references('id')
+                ->on('subjects');
         });
     }
 

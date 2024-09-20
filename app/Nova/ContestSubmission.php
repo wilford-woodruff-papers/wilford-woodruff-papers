@@ -108,7 +108,7 @@ class ContestSubmission extends Resource
     public function actions(Request $request): array
     {
         return [
-            new ExportContestEntries(),
+            new ExportContestEntries,
         ];
     }
 }

@@ -52,8 +52,8 @@ class Geolocation extends Command
 
         foreach ($places as $place) {
             $response = \GoogleMaps::load('geocoding')
-                            ->setParam(['address' => $place->name])
-                            ->get();
+                ->setParam(['address' => $place->name])
+                ->get();
             //dd($response);
 
             if (! empty(json_decode($response, true)['results'])) {

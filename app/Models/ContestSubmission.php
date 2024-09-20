@@ -71,7 +71,7 @@ class ContestSubmission extends Model implements HasMedia
     public function scopePending($query)
     {
         $query->where('is_original', 0)
-              ->orWhere('is_appropriate', 0);
+            ->orWhere('is_appropriate', 0);
     }
 
     public function getRouteKeyName()
@@ -79,7 +79,7 @@ class ContestSubmission extends Model implements HasMedia
         return 'uuid';
     }
 
-    public function registerMediaConversions(Media $media = null): void
+    public function registerMediaConversions(?Media $media = null): void
     {
         $this->addMediaConversion('thumb')
             ->width(368)

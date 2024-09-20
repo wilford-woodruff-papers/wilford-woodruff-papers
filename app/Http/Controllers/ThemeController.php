@@ -17,7 +17,7 @@ class ThemeController extends Controller
     public function index(Request $request, Page $page)
     {
         $quotes = Theme::query()
-                        ->select('text');
+            ->select('text');
 
         $quotes = $quotes->where('page_id', $page->id);
 

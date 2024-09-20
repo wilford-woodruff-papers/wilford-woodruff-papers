@@ -19,15 +19,15 @@ return new class extends Migration
                 $table->string('first_name')->after('name')->index()->nullable();
             });
             $people = Subject::query()
-                                ->whereHas('category', function (Builder $query) {
-                                    $query->where('name', 'People')
-                                          ->orWhere('name', 'Apostles')
-                                          ->orWhere('name', 'British Converts')
-                                          ->orWhere('name', 'Family')
-                                          ->orWhere('name', 'Scriptural Figures')
-                                          ->orWhere('name', 'Southern Converts');
-                                })
-                                ->get();
+                ->whereHas('category', function (Builder $query) {
+                    $query->where('name', 'People')
+                        ->orWhere('name', 'Apostles')
+                        ->orWhere('name', 'British Converts')
+                        ->orWhere('name', 'Family')
+                        ->orWhere('name', 'Scriptural Figures')
+                        ->orWhere('name', 'Southern Converts');
+                })
+                ->get();
             $people->each(function ($person) {
                 $person->calculateNames();
                 $person->save();

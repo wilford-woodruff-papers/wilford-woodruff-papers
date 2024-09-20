@@ -30,7 +30,7 @@ class ImportClearText extends Action
      */
     public function handle(ActionFields $fields)
     {
-        Excel::import(new TranscriptClearTextImport(), $fields->file);
+        Excel::import(new TranscriptClearTextImport, $fields->file);
 
         return Action::message('Pages successfully added to queue');
     }

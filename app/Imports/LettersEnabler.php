@@ -34,12 +34,12 @@ class LettersEnabler implements ToCollection, WithHeadingRow
 
             if (! empty($slug)) {
                 $item = Item::query()
-                                ->firstWhere('ftp_slug', $slug);
+                    ->firstWhere('ftp_slug', $slug);
                 if (empty($item)) {
                     $name = data_get($row, 'identifier_formula_do_not_edit');
                     if (! empty($name)) {
                         $item = Item::query()
-                                        ->firstWhere('name', $name);
+                            ->firstWhere('name', $name);
                     }
                 }
 

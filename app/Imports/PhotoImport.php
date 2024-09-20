@@ -37,8 +37,8 @@ class PhotoImport implements ToCollection, WithHeadingRow
 
             $photo->clearMediaCollection();
             $photo->addMedia(storage_path('app/ww_images/'.$row['filename']))
-                    ->preservingOriginal()
-                    ->toMediaCollection();
+                ->preservingOriginal()
+                ->toMediaCollection();
         }
     }
 }

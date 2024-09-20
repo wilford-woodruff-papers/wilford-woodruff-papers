@@ -28,7 +28,7 @@ class LastImported extends Filter
 
         return $query->where(function ($query) use ($value) {
             $query->whereNull('imported_at')
-                            ->orWhere('imported_at', '<', now('America/Denver')->subDays($value));
+                ->orWhere('imported_at', '<', now('America/Denver')->subDays($value));
         });
     }
 

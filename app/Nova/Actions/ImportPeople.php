@@ -26,7 +26,7 @@ class ImportPeople extends Action
      */
     public function handle(ActionFields $fields, Collection $models)
     {
-        Excel::import(new PeopleImport(), $fields->file);
+        Excel::import(new PeopleImport, $fields->file);
 
         return Action::message('People added to queue for processing successfully');
     }

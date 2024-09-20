@@ -57,8 +57,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function cards(): array
     {
         return [
-            new PublishedItems(),
-            new NewPages(),
+            new PublishedItems,
+            new NewPages,
         ];
     }
 
@@ -68,7 +68,7 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function dashboards(): array
     {
         return [
-            new Main(),
+            new Main,
         ];
     }
 

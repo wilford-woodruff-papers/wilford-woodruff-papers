@@ -26,7 +26,7 @@ class CopyUnidentifiedPersonToPeople extends Action
         $this
             ->button()
             ->action(function (Model $record): void {
-                $person = new Subject();
+                $person = new Subject;
 
                 $person->first_name = str($record->first_middle_name)->explode(' ')->first();
                 $person->middle_name = str($record->first_middle_name)->after($person->first_name)->trim();

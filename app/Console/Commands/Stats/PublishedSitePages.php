@@ -39,16 +39,16 @@ class PublishedSitePages extends Command
     public function handle(): int
     {
         $itemCount = Page::query()
-                            ->whereHas('item', function (Builder $query) {
-                                $query->where('enabled', 1);
-                            })
-                            ->count();
+            ->whereHas('item', function (Builder $query) {
+                $query->where('enabled', 1);
+            })
+            ->count();
 
         $previousStat = Stat::query()
-                            ->where('name', 'published-site-pages')
-                            ->where('period', 'monthly')
-                            ->latest()
-                            ->first();
+            ->where('name', 'published-site-pages')
+            ->where('period', 'monthly')
+            ->latest()
+            ->first();
 
         if (! empty($previousStat)) {
             $difference = $itemCount - $previousStat->value;

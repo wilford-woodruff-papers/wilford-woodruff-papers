@@ -14,8 +14,7 @@ class RelationshipFinderCompletedNotification extends Notification implements Sh
 
     public function __construct(
         public Collection $relationships,
-    ) {
-    }
+    ) {}
 
     public function via($notifiable): array
     {

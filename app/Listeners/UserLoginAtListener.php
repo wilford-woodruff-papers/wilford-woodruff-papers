@@ -6,9 +6,7 @@ use Illuminate\Auth\Events\Login;
 
 class UserLoginAtListener
 {
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     public function handle(Login $event): void
     {

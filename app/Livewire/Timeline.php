@@ -65,7 +65,7 @@ class Timeline extends Component
     {
         $indexes = [
             new TimelineCategoryFacet(sortUsing: $this->groups),
-            new YearFacet(),
+            new YearFacet,
             new YearFacet(false),
         ];
 

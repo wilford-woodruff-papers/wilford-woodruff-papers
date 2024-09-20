@@ -34,11 +34,11 @@ define('STR_HIGHLIGHT_STRIPLINKS', 8);
  *
  * @link        http://aidanlister.com/2004/04/highlighting-a-search-string-in-html-text/
  *
- * @param  string  $text           Haystack - The text to search
- * @param  array|string  $needle         Needle - The string to highlight
- * @param  bool  $options        Bitwise set of options
- * @param  array  $highlight      Replacement string
- * @return      Text with needle highlighted
+ * @param  string  $text  Haystack - The text to search
+ * @param  array|string  $needle  Needle - The string to highlight
+ * @param  bool  $options  Bitwise set of options
+ * @param  array  $highlight  Replacement string
+ * @return Text with needle highlighted
  */
 function str_highlight($text, $needle, $options = null, $highlight = null)
 {

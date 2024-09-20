@@ -26,7 +26,7 @@ class ImportTimeline extends Action
      */
     public function handle(ActionFields $fields, Collection $models)
     {
-        Excel::import(new TimelineImport(), $fields->file);
+        Excel::import(new TimelineImport, $fields->file);
 
         return Action::message('Timeline imported successfully');
     }

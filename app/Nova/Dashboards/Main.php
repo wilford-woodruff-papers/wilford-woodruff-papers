@@ -16,8 +16,8 @@ class Main extends Dashboard
     public function cards()
     {
         return [
-            new PublishedItems(),
-            new NewPages(),
+            new PublishedItems,
+            new NewPages,
         ];
     }
 }

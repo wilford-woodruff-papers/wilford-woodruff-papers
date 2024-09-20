@@ -25,7 +25,7 @@ class ImportAiSessions extends Action
      */
     public function handle(ActionFields $fields, Collection $models)
     {
-        $zip = new \ZipArchive();
+        $zip = new \ZipArchive;
         $status = $zip->open($fields->file->getRealPath());
         if ($status !== true) {
             throw new \Exception($status);

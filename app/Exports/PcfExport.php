@@ -11,7 +11,7 @@ use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 
-class PcfExport implements FromQuery, ShouldQueue, WithMapping, WithHeadings
+class PcfExport implements FromQuery, ShouldQueue, WithHeadings, WithMapping
 {
     use Exportable;
 
@@ -42,7 +42,7 @@ class PcfExport implements FromQuery, ShouldQueue, WithMapping, WithHeadings
     public function failed(\Throwable $exception): void
     {
         logger()->error($exception->getMessage());
-        $this->user->notify(new ExportFailedNotification());
+        $this->user->notify(new ExportFailedNotification);
     }
 
     public function headings(): array

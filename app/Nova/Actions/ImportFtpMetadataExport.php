@@ -31,7 +31,7 @@ class ImportFtpMetadataExport extends Action
      */
     public function handle(ActionFields $fields, Collection $models)
     {
-        Excel::import(new FTPChecker(), $fields->file);
+        Excel::import(new FTPChecker, $fields->file);
 
         return Action::message('Imported successfully');
     }

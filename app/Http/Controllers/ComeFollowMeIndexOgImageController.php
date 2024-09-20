@@ -28,7 +28,7 @@ class ComeFollowMeIndexOgImageController extends Controller
         };
 
         $image = cache()->rememberForever('year.'.$bookSlug.'.ogimage', function () use ($book) {
-            return (new OgImageGenerator())->render(
+            return (new OgImageGenerator)->render(
                 view('public.come-follow-me.index-og-image')
                     ->with([
                         'bookName' => $book,

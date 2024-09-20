@@ -9,9 +9,7 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class ComeFollowMeImport implements ToCollection, WithHeadingRow
 {
-    public function __construct(public string $book)
-    {
-    }
+    public function __construct(public string $book) {}
 
     /**
      * @param  Collection  $collection

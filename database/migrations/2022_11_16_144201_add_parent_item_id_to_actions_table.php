@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::table('actions', function (Blueprint $table) {
             $table->unsignedBigInteger('parent_item_id')
-                    ->after('actionable_id')
-                    ->nullable();
+                ->after('actionable_id')
+                ->nullable();
         });
     }
 

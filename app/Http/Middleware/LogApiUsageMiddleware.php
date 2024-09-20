@@ -33,6 +33,6 @@ class LogApiUsageMiddleware
                     'uuid',
                 ])
             ))
-        ->log($request->path());
+            ->log($request->path());
     }
 }

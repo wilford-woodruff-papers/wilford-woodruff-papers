@@ -31,11 +31,11 @@ class Comment extends Model
     public function replies()
     {
         return $this->hasMany(Comment::class, 'parent_id')
-                        ->where(function (Builder $query) {
-                            $query->where('status', 1)
-                                ->orWhere('user_id', Auth::id());
-                        })
-                        ->orderBy('created_at', 'DESC');
+            ->where(function (Builder $query) {
+                $query->where('status', 1)
+                    ->orWhere('user_id', Auth::id());
+            })
+            ->orderBy('created_at', 'DESC');
     }
 
     protected static $marks = [

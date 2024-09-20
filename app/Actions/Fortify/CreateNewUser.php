@@ -25,7 +25,7 @@ class CreateNewUser implements CreatesNewUsers
         ])->validate();
 
         if ($input['subscribe_to_newsletter'] ?? 'false' == 'true') {
-            $subscribeToConstantContactAction = new \App\Actions\SubscribeToConstantContactAction();
+            $subscribeToConstantContactAction = new \App\Actions\SubscribeToConstantContactAction;
             $subscribeToConstantContactAction->execute([
                 'email' => $input['email'],
                 'first_name' => str($input['name'])->explode(' ')->first(),

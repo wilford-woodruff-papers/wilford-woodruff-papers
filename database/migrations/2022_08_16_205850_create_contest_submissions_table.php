@@ -28,8 +28,8 @@ return new class extends Migration
         Schema::create('contestants', function (Blueprint $table) {
             $table->id();
             $table->foreignId('contest_submission_id')
-                    ->constrained()
-                    ->onDelete('cascade');
+                ->constrained()
+                ->onDelete('cascade');
             $table->efficientUuid('uuid')->index();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();

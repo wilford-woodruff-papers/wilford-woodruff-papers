@@ -13,7 +13,7 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Excel;
 
-class OverdueTaskExport implements FromQuery, ShouldQueue, WithMapping, WithHeadings
+class OverdueTaskExport implements FromQuery, ShouldQueue, WithHeadings, WithMapping
 {
     use Exportable;
 
@@ -54,7 +54,7 @@ class OverdueTaskExport implements FromQuery, ShouldQueue, WithMapping, WithHead
     public function failed(\Throwable $exception): void
     {
         logger()->error($exception->getMessage());
-        $this->user->notify(new ExportFailedNotification());
+        $this->user->notify(new ExportFailedNotification);
     }
 
     public function headings(): array

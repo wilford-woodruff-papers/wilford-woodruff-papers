@@ -48,7 +48,7 @@ class RelationshipFinderJob implements ShouldQueue
     public function middleware(): array
     {
         return [
-            new ApiRateLimited(),
+            new ApiRateLimited,
         ];
     }
 

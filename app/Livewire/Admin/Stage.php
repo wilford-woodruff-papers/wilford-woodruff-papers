@@ -303,9 +303,7 @@ class Stage extends Component
             ->layout('layouts.admin');
     }
 
-    public function update()
-    {
-    }
+    public function update() {}
 
     public function loadStats()
     {

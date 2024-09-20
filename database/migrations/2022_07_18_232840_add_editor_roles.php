@@ -10,8 +10,8 @@ return new class extends Migration
     public function up(): void
     {
         $types = \App\Models\Type::query()
-                                    ->whereNull('type_id')
-                                    ->get();
+            ->whereNull('type_id')
+            ->get();
 
         $types->each(function ($type) {
             $role = \App\Models\Role::create([

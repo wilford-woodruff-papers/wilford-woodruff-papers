@@ -26,7 +26,7 @@ class ImportPressTopics extends Action
      */
     public function handle(ActionFields $fields, Collection $models)
     {
-        Excel::import(new PressTopicsImport(), $fields->file);
+        Excel::import(new PressTopicsImport, $fields->file);
 
         return Action::message('Media Topics imported successfully');
     }

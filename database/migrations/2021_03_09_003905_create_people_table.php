@@ -28,8 +28,8 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('person_id')
-                    ->references('id')
-                    ->on('subjects');
+                ->references('id')
+                ->on('subjects');
         });
 
         Schema::create('children', function (Blueprint $table) {

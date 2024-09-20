@@ -6,7 +6,7 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 
-class ExportPagesAlternate extends DownloadExcel implements WithMapping, WithHeadings
+class ExportPagesAlternate extends DownloadExcel implements WithHeadings, WithMapping
 {
     public $name = 'Page Export (for LaJean)';
 
@@ -30,7 +30,7 @@ class ExportPagesAlternate extends DownloadExcel implements WithMapping, WithHea
     }
 
     /**
-     * @param $item
+     * @param  $item
      */
     public function map($page): array
     {

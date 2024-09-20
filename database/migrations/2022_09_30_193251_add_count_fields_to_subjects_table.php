@@ -21,7 +21,7 @@ return new class extends Migration
 
             // Todo add last name letter to index column
             $subjects = \App\Models\Subject::query()
-                                                ->get();
+                ->get();
 
             foreach ($subjects as $subject) {
                 $subject->calculateNames();

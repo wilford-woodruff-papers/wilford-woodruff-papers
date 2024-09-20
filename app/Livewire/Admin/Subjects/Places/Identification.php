@@ -11,7 +11,7 @@ use Livewire\Component;
 
 class Identification extends Component
 {
-    use WithPerPagePagination, WithSorting, WithBulkActions, WithCachedRows;
+    use WithBulkActions, WithCachedRows, WithPerPagePagination, WithSorting;
 
     public $showDeleteModal = false;
 

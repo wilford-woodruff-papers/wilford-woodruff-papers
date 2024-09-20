@@ -7,9 +7,7 @@ use Spatie\MediaLibrary\Conversions\Events\ConversionHasBeenCompleted;
 
 class MediaConversionListener
 {
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     public function handle(ConversionHasBeenCompleted $event): void
     {

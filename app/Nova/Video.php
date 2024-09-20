@@ -138,8 +138,8 @@ class Video extends Resource
     public function actions(Request $request): array
     {
         return [
-            new IndexPress(),
-            new ImportPressTopics(),
+            new IndexPress,
+            new ImportPressTopics,
         ];
     }
 }

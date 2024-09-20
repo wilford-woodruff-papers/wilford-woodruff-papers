@@ -108,23 +108,23 @@ class Search extends Component
 
         $indexes = [
             'All' => [
-                new ResourceTypeFacet(),
-                new TopicFacet(),
+                new ResourceTypeFacet,
+                new TopicFacet,
             ],
             'Documents' => [
-                new TypeFacet(),
+                new TypeFacet,
                 new DecadeFacet(false),
-                new TopicFacet(),
+                new TopicFacet,
                 new YearFacet(false),
             ],
             'Media' => [
-                new TypeFacet(),
-                new TopicFacet(),
+                new TypeFacet,
+                new TopicFacet,
             ],
             'Scriptures' => [
-                new VolumeFacet(),
-                new BookFacet(),
-                new TypeFacet(),
+                new VolumeFacet,
+                new BookFacet,
+                new TypeFacet,
             ],
         ];
 
@@ -209,7 +209,7 @@ class Search extends Component
         $this->v_min = $stats['year']['min'] ?? 1800;
         $this->v_max = $stats['year']['max'] ?? 1900;
 
-        $documentModel = (new LineChartModel())
+        $documentModel = (new LineChartModel)
             ->setTitle('Documents by Decade')
             ->singleLine()
             ->setColors(['#671e0d'])

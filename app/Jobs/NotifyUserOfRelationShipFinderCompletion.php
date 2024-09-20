@@ -19,8 +19,7 @@ class NotifyUserOfRelationShipFinderCompletion implements ShouldQueue
      */
     public function __construct(
         public User $user,
-    ) {
-    }
+    ) {}
 
     /**
      * Execute the job.

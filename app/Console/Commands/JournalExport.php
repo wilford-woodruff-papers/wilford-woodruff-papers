@@ -326,7 +326,7 @@ class JournalExport extends Command
             'sandbox' => false,
         ]);
 
-        $job = (new Job())
+        $job = (new Job)
             ->addTask(new Task('import/upload', 'upload-my-file'))
             ->addTask(
                 (new Task('convert', 'convert-my-file'))

@@ -20,7 +20,7 @@ class DocumentDashboardImageController extends Controller
                 'item' => $item,
             ]);
 
-            return (new DocumentBannerImageGenerator())->render(
+            return (new DocumentBannerImageGenerator)->render(
                 view('livewire.document-dashboard.banner.container')
                     ->with([
                         'item' => $item,

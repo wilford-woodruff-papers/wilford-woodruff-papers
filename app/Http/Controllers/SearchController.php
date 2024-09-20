@@ -43,7 +43,7 @@ class SearchController extends Controller
         if ($request->has('q') && $request->get('q') != '*') {
             $pages = $pages->where(function ($query) use ($request) {
                 $query->whereRelation('item', 'name', 'LIKE', '%'.$request->get('q').'%')
-                                      ->orWhere('transcript', 'LIKE', '%'.$request->get('q').'%');
+                    ->orWhere('transcript', 'LIKE', '%'.$request->get('q').'%');
             });
         }
 
@@ -87,11 +87,11 @@ class SearchController extends Controller
 
         if ($request->has('people') && ! empty($request->get('q'))) {
             $people = Subject::query()
-                                ->whereEnabled(1)
-                                ->where('tagged_count', '>', 0)
-                                ->whereHas('category', function (Builder $query) {
-                                    $query->where('name', 'People');
-                                });
+                ->whereEnabled(1)
+                ->where('tagged_count', '>', 0)
+                ->whereHas('category', function (Builder $query) {
+                    $query->where('name', 'People');
+                });
             $names = str($request->get('q'))->explode(' ');
             foreach ($names as $name) {
                 $people = $people->where('name', 'LIKE', '%'.str($name)->trim('.').'%');

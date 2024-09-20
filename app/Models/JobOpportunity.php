@@ -10,7 +10,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
-class JobOpportunity extends Model implements HasMedia, \OwenIt\Auditing\Contracts\Auditable
+class JobOpportunity extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMedia
 {
     use Auditable;
     use HasFactory;

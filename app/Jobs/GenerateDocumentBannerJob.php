@@ -17,10 +17,7 @@ class GenerateDocumentBannerJob implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    public function __construct(public string $itemUuid)
-    {
-
-    }
+    public function __construct(public string $itemUuid) {}
 
     /**
      * Execute the job.

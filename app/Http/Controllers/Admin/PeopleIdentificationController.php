@@ -108,7 +108,7 @@ class PeopleIdentificationController extends Controller
      */
     public function create()
     {
-        $person = new PeopleIdentification();
+        $person = new PeopleIdentification;
 
         return view('admin.dashboard.people.identification', [
             'person' => $person,
@@ -126,7 +126,7 @@ class PeopleIdentificationController extends Controller
      */
     public function store(Request $request)
     {
-        $person = new PeopleIdentification();
+        $person = new PeopleIdentification;
 
         $validated = $request->validate($this->rules);
 
@@ -210,7 +210,7 @@ class PeopleIdentificationController extends Controller
 
     public function copyToPeople(Request $request, PeopleIdentification $unidentifiedPerson)
     {
-        $person = new Subject();
+        $person = new Subject;
 
         $person->first_name = trim(str($unidentifiedPerson->first_middle_name)->explode(' ')->first());
         $person->middle_name = str($unidentifiedPerson->first_middle_name)->after($person->first_name)->trim();
