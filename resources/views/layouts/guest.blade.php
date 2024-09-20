@@ -75,9 +75,7 @@
         @livewireScriptConfig
 
 
-        @auth()
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js" charset="utf-8"></script>
-        @endauth
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js" charset="utf-8"></script>
 
 
         @stack('scripts')
@@ -96,7 +94,7 @@
         @guest()
             <!-- Tippy.js -->
             <!-- https://atomiks.github.io/tippyjs/v6 -->
-            <script src="https://unpkg.com/@popperjs/core@2"></script>
+{{--            <script src="https://unpkg.com/@popperjs/core@2"></script>--}}
             <script src="https://unpkg.com/tippy.js@6"></script>
             <script>
                 document.addEventListener('alpine:init', () => {
