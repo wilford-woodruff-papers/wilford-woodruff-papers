@@ -57,7 +57,6 @@ class ClearText
             $patterns = collect([
                 "/<strike[^>]*>.*?<\/strike>", // Strike throughs and whatever's inside
                 "<s[^>]*>.*?<\/s>", // Strike throughs and whatever's inside
-                "\^", // Carrot insertions
                 //"/(?<!^)<br\/>(?=$)", // Remove line breaks at the end of a line, but not the beginning of a line
                 //"(?<!^)<br\/>(?=$)",
                 " ?\[rest of page blank\]", // Rest of page blank
