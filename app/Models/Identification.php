@@ -15,14 +15,17 @@ class Identification extends Model
 
     protected $guarded = ['id'];
 
-    protected $casts = [
-        'completed_at' => 'date',
-    ];
-
     protected $childTypes = [
         'people' => PeopleIdentification::class,
         'place' => PlaceIdentification::class,
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'completed_at' => 'date',
+        ];
+    }
 
     public function researcher()
     {

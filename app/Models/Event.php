@@ -22,16 +22,19 @@ class Event extends Model implements HasMedia
         'id',
     ];
 
-    protected $casts = [
-        'start_at' => 'datetime',
-        'end_at' => 'datetime',
-    ];
-
     protected $appends = [
         'manual_display_date',
         'display_date',
         'thumbnail_url',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'start_at' => 'datetime',
+            'end_at' => 'datetime',
+        ];
+    }
 
     public function getManualDisplayDateAttribute()
     {

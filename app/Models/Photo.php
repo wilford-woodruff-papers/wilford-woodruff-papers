@@ -26,13 +26,16 @@ class Photo extends Model implements HasMedia
 
     protected $guarded = ['id'];
 
-    protected $casts = [
-        'uuid' => EfficientUuid::class,
-    ];
-
     protected $attributeModifiers = [
         'uuid' => Base64Encoder::class,
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'uuid' => EfficientUuid::class,
+        ];
+    }
 
     public function getRouteKeyName()
     {

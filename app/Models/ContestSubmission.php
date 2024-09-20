@@ -18,10 +18,6 @@ class ContestSubmission extends Model implements HasMedia
 
     protected $guarded = ['id'];
 
-    protected $casts = [
-        'uuid' => EfficientUuid::class,
-    ];
-
     public static array $statuses = [
         'Complete' => 'Complete',
         'Pending Collaborators' => 'Pending Collaborators',
@@ -55,6 +51,13 @@ class ContestSubmission extends Model implements HasMedia
             'Literary Composition' => 'Literary Composition',
         ],
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'uuid' => EfficientUuid::class,
+        ];
+    }
 
     public function contestants()
     {

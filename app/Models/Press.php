@@ -27,11 +27,6 @@ class Press extends Model implements HasMedia
 
     protected $guarded = ['id'];
 
-    protected $casts = [
-        'date' => 'datetime',
-        'day_in_the_life_date' => 'date',
-    ];
-
     public function comments()
     {
         return $this->morphMany(Comment::class, 'commentable')
@@ -90,6 +85,14 @@ class Press extends Model implements HasMedia
         'Video' => Video::class,
         'Instagram' => SocialMedia::class,
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'date' => 'datetime',
+            'day_in_the_life_date' => 'date',
+        ];
+    }
 
     public function toSearchableArray(): array
     {

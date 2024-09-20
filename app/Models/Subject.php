@@ -31,23 +31,25 @@ class Subject extends Model implements \OwenIt\Auditing\Contracts\Auditable, Has
 
     protected $guarded = ['id'];
 
-    protected $casts = [
-        'geolocation' => 'array',
-        'northeast_box' => 'array',
-        'southwest_box' => 'array',
-        //'bio_approved_at' => 'date',
-        'added_to_ftp_at' => 'date',
-        'bio_completed_at' => 'date',
-        'place_confirmed_at' => 'date',
-        'approved_for_print_at' => 'date',
-        'confirmed_name_at' => 'date',
-        'mentioned' => 'boolean',
-        'visited' => 'boolean',
-    ];
-
     protected $appends = [
         'gender',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'geolocation' => 'array',
+            'northeast_box' => 'array',
+            'southwest_box' => 'array',
+            'added_to_ftp_at' => 'date',
+            'bio_completed_at' => 'date',
+            'place_confirmed_at' => 'date',
+            'approved_for_print_at' => 'date',
+            'confirmed_name_at' => 'date',
+            'mentioned' => 'boolean',
+            'visited' => 'boolean',
+        ];
+    }
 
     protected function displayName(): Attribute
     {

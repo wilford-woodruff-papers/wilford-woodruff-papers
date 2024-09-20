@@ -13,9 +13,12 @@ class Goal extends Model
 
     protected $guarded = ['id'];
 
-    protected $casts = [
-        'finish_at' => 'datetime:Y-m-d',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'finish_at' => 'datetime:Y-m-d',
+        ];
+    }
 
     public function type()
     {

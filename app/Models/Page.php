@@ -40,11 +40,6 @@ class Page extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
 
     protected $guarded = ['id'];
 
-    protected $casts = [
-        'imported_at' => 'datetime',
-        'uuid' => EfficientUuid::class,
-    ];
-
     protected $appends = ['hashid'];
 
     public function resolveRouteBindingQuery($query, $value, $field = null)
@@ -238,6 +233,14 @@ class Page extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
     protected $attributeModifiers = [
         'uuid' => Base64Encoder::class,
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'imported_at' => 'datetime',
+            'uuid' => EfficientUuid::class,
+        ];
+    }
 
     /**
      * Get all of the events that are assigned this page.

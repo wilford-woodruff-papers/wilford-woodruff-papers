@@ -19,10 +19,13 @@ class JobOpportunity extends Model implements \OwenIt\Auditing\Contracts\Auditab
 
     protected $guarded = ['id'];
 
-    protected $casts = [
-        'start_at' => 'datetime',
-        'end_at' => 'datetime',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'start_at' => 'datetime',
+            'end_at' => 'datetime',
+        ];
+    }
 
     /**
      * Get the options for generating the slug.

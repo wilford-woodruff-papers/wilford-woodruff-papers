@@ -16,9 +16,12 @@ class Contestant extends Model
 
     protected $guarded = ['id'];
 
-    protected $casts = [
-        'uuid' => EfficientUuid::class,
-    ];
+    protected function casts(): array
+    {
+        return [
+            'uuid' => EfficientUuid::class,
+        ];
+    }
 
     public function submission()
     {

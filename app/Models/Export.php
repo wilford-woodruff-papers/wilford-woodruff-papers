@@ -13,9 +13,12 @@ class Export extends Model
 
     protected $guarded = [];
 
-    protected $casts = [
-        'exported_at' => 'datetime',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'exported_at' => 'datetime',
+        ];
+    }
 
     public function user()
     {

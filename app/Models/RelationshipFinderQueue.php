@@ -13,11 +13,14 @@ class RelationshipFinderQueue extends Model
 
     protected $table = 'relationship_finder_queue';
 
-    protected $casts = [
-        'in_progress' => 'boolean',
-        'started_at' => 'datetime',
-        'finished_at' => 'datetime',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'in_progress' => 'boolean',
+            'started_at' => 'datetime',
+            'finished_at' => 'datetime',
+        ];
+    }
 
     public function user()
     {

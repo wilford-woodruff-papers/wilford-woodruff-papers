@@ -18,9 +18,12 @@ class Date extends Model
         return $this->morphTo();
     }
 
-    protected $casts = [
-        'date' => 'date',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'date' => 'date',
+        ];
+    }
 
     public function toArray()
     {

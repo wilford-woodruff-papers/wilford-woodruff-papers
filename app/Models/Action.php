@@ -17,10 +17,13 @@ class Action extends Model
 
     protected $guarded = ['id'];
 
-    protected $casts = [
-        'assigned_at' => 'datetime',
-        'completed_at' => 'datetime',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'assigned_at' => 'datetime',
+            'completed_at' => 'datetime',
+        ];
+    }
 
     public function actionable()
     {

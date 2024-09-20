@@ -43,14 +43,6 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
 
     protected $guarded = ['id'];
 
-    protected $casts = [
-        'added_to_collection_at' => 'datetime',
-        'sort_date' => 'datetime',
-        'first_date' => 'datetime',
-        'imported_at' => 'datetime',
-        'uuid' => EfficientUuid::class,
-    ];
-
     private $suffixes = [
         'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
         'aa', 'bb', 'cc', 'dd', 'ee', 'ff', 'gg', 'hh', 'ii', 'jj', 'kk', 'll', 'mm', 'nn', 'oo', 'pp', 'qq', 'rr', 'ss', 'tt', 'uu', 'vv', 'ww', 'xx', 'yy', 'zz',
@@ -195,6 +187,17 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
         'order_column_name' => 'order',
         'sort_when_creating' => true,
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'added_to_collection_at' => 'datetime',
+            'sort_date' => 'datetime',
+            'first_date' => 'datetime',
+            'imported_at' => 'datetime',
+            'uuid' => EfficientUuid::class,
+        ];
+    }
 
     public function buildSortQuery()
     {

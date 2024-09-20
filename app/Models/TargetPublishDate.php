@@ -9,11 +9,14 @@ class TargetPublishDate extends Model
 {
     use HasFactory;
 
-    protected $casts = [
-        'publish_at' => 'datetime:Y-m-d',
-    ];
-
     protected $guarded = ['id'];
+
+    protected function casts(): array
+    {
+        return [
+            'publish_at' => 'datetime:Y-m-d',
+        ];
+    }
 
     public function items()
     {
