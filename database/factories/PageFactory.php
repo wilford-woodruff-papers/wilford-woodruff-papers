@@ -10,8 +10,6 @@ use Illuminate\Support\Carbon;
 
 class PageFactory extends Factory
 {
-    protected $model = Page::class;
-
     public function definition(): array
     {
         $item = Item::factory()->journal();

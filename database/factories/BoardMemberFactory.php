@@ -8,8 +8,6 @@ use Illuminate\Support\Carbon;
 
 class BoardMemberFactory extends Factory
 {
-    protected $model = BoardMember::class;
-
     public function definition(): array
     {
         return [

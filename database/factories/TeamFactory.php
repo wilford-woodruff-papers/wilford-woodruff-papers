@@ -8,8 +8,6 @@ use Illuminate\Support\Carbon;
 
 class TeamFactory extends Factory
 {
-    protected $model = Team::class;
-
     public function definition(): array
     {
         return [

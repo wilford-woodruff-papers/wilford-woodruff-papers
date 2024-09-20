@@ -8,8 +8,6 @@ use Illuminate\Support\Carbon;
 
 class CategoryFactory extends Factory
 {
-    protected $model = Category::class;
-
     public function definition(): array
     {
         return [

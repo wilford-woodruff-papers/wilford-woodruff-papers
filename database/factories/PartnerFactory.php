@@ -8,8 +8,6 @@ use Illuminate\Support\Carbon;
 
 class PartnerFactory extends Factory
 {
-    protected $model = Partner::class;
-
     public function definition(): array
     {
         return [
