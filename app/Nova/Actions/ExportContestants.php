@@ -23,7 +23,7 @@ class ExportContestants extends DownloadExcel implements WithHeadings, WithMappi
     }
 
     /**
-     * @param    $item
+     * @param  $item
      */
     public function map($contestant): array
     {
