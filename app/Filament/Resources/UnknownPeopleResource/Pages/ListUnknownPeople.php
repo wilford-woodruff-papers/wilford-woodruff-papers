@@ -2,9 +2,7 @@
 
 namespace App\Filament\Resources\UnknownPeopleResource\Pages;
 
-use App\Filament\Exports\PeopleExporter;
 use App\Filament\Exports\UnknownPeopleExporter;
-use App\Filament\Exports\UnkownPeopleExporter;
 use App\Filament\Resources\UnknownPeopleResource;
 use Filament\Actions;
 use Filament\Actions\Exports\Models\Export;
