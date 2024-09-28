@@ -40,15 +40,15 @@ class SiteSearches extends Command
         $now = now()->subMonth();
 
         $itemCount = Activity::query()
-                        ->where('log_name', 'search')
-                        ->whereBetween('created_at', [$now->startOfMonth()->toDateString(), $now->endOfMonth()->toDateString()])
-                        ->count();
+            ->where('log_name', 'search')
+            ->whereBetween('created_at', [$now->startOfMonth()->toDateString(), $now->endOfMonth()->toDateString()])
+            ->count();
 
         $previousStat = Stat::query()
-                            ->where('name', 'site-searches')
-                            ->where('period', 'monthly')
-                            ->latest()
-                            ->first();
+            ->where('name', 'site-searches')
+            ->where('period', 'monthly')
+            ->latest()
+            ->first();
 
         if (! empty($previousStat)) {
             $difference = $itemCount - $previousStat->value;

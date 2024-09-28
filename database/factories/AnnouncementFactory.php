@@ -2,14 +2,11 @@
 
 namespace Database\Factories;
 
-use App\Models\Announcement;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 
 class AnnouncementFactory extends Factory
 {
-    protected $model = Announcement::class;
-
     public function definition(): array
     {
         return [

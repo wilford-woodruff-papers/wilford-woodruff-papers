@@ -100,9 +100,9 @@ class LettersPcfImportByCollection implements ToCollection, WithHeadingRow
     {
         DB::transaction(function () use ($row, $item, $actionTypes) {
             activity('activity')
-            ->on($item)
-            ->event('imported')
-            ->log('Item imported from PCF');
+                ->on($item)
+                ->event('imported')
+                ->log('Item imported from PCF');
 
             $transcriptionAssignedTo = data_get($row, str('Transcriber Name')->lower()->snake()->toString());
             $transcriptionCompletedAt = $this->toCarbonDate(data_get($row, str('Transcription Completion Date')->lower()->snake()->toString()));

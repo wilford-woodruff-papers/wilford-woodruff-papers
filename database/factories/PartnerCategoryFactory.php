@@ -2,14 +2,11 @@
 
 namespace Database\Factories;
 
-use App\Models\PartnerCategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 
 class PartnerCategoryFactory extends Factory
 {
-    protected $model = PartnerCategory::class;
-
     public function definition(): array
     {
         return [

@@ -41,17 +41,17 @@ class QuoteTaggedDocuments extends Command
     {
         // Store quote count
         $quoteCount = Quote::query()
-                            ->where(function ($query) {
-                                $query->whereNull('continued_from_previous_page')
-                                    ->orWhere('continued_from_previous_page', 0);
-                            })
-                            ->count();
+            ->where(function ($query) {
+                $query->whereNull('continued_from_previous_page')
+                    ->orWhere('continued_from_previous_page', 0);
+            })
+            ->count();
 
         $previousQuoteCount = Stat::query()
-                                    ->where('name', 'tagged-quotes')
-                                    ->where('period', 'monthly')
-                                    ->latest()
-                                    ->first();
+            ->where('name', 'tagged-quotes')
+            ->where('period', 'monthly')
+            ->latest()
+            ->first();
 
         if (! empty($previousQuoteCount)) {
             $difference = $quoteCount - $previousQuoteCount->value;
@@ -73,8 +73,8 @@ class QuoteTaggedDocuments extends Command
 
         // Store page count
         $pageCount = Quote::query()
-                        ->selectRaw('DISTINCT(page_id)')
-                        ->count();
+            ->selectRaw('DISTINCT(page_id)')
+            ->count();
 
         $previousPageCount = Stat::query()
             ->where('name', 'page-tagged-quotes')
@@ -105,16 +105,16 @@ class QuoteTaggedDocuments extends Command
             ->selectRaw('DISTINCT(item_id)')
             ->whereIn('id',
                 Quote::query()
-                        ->selectRaw('DISTINCT(page_id)')
-                            ->pluck('page_id')
-                            ->all()
+                    ->selectRaw('DISTINCT(page_id)')
+                    ->pluck('page_id')
+                    ->all()
             )
             ->pluck('item_id')
             ->all();
 
         $documentCount = Item::query()
-                            ->whereIn('id', $itemIds)
-                            ->count();
+            ->whereIn('id', $itemIds)
+            ->count();
 
         $previousDocumentCount = Stat::query()
             ->where('name', 'item-tagged-quotes')

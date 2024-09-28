@@ -39,15 +39,15 @@ class PublishedSiteDocuments extends Command
     public function handle(): int
     {
         $itemCount = Item::query()
-                            ->whereIn('type_id', Type::whereNull('type_id')->pluck('id')->all())
-                            ->where('enabled', 1)
-                            ->count();
+            ->whereIn('type_id', Type::whereNull('type_id')->pluck('id')->all())
+            ->where('enabled', 1)
+            ->count();
 
         $previousStat = Stat::query()
-                            ->where('name', 'published-site-documents')
-                            ->where('period', 'monthly')
-                            ->latest()
-                            ->first();
+            ->where('name', 'published-site-documents')
+            ->where('period', 'monthly')
+            ->latest()
+            ->first();
 
         if (! empty($previousStat)) {
             $difference = $itemCount - $previousStat->value;

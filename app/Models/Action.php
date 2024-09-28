@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Spatie\DeletedModels\Models\Concerns\KeepsDeletedModels;
 use Wildside\Userstamps\Userstamps;
 use Znck\Eloquent\Traits\BelongsToThrough;
@@ -17,17 +19,20 @@ class Action extends Model
 
     protected $guarded = ['id'];
 
-    protected $casts = [
-        'assigned_at' => 'datetime',
-        'completed_at' => 'datetime',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'assigned_at' => 'datetime',
+            'completed_at' => 'datetime',
+        ];
+    }
 
-    public function actionable()
+    public function actionable(): MorphTo
     {
         return $this->morphTo();
     }
 
-    public function type()
+    public function type(): BelongsTo
     {
         return $this->belongsTo(ActionType::class, 'action_type_id')->ordered();
     }
@@ -42,12 +47,12 @@ class Action extends Model
         );
     }
 
-    public function assignee()
+    public function assignee(): BelongsTo
     {
         return $this->belongsTo(User::class, 'assigned_to');
     }
 
-    public function finisher()
+    public function finisher(): BelongsTo
     {
         return $this->belongsTo(User::class, 'completed_by');
     }

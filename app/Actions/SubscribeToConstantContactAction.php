@@ -30,12 +30,12 @@ class SubscribeToConstantContactAction
         logger()->info(implode(' | ', $listMemberships));
 
         $response = Http::withToken($token)
-                            ->post($url, [
-                                'email_address' => $contact['email'],
-                                'first_name' => $contact['first_name'],
-                                'last_name' => $contact['last_name'],
-                                'list_memberships' => $listMemberships,
-                            ]);
+            ->post($url, [
+                'email_address' => $contact['email'],
+                'first_name' => $contact['first_name'],
+                'last_name' => $contact['last_name'],
+                'list_memberships' => $listMemberships,
+            ]);
         logger($response->json());
     }
 

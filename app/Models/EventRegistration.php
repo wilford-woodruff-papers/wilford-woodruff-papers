@@ -14,12 +14,15 @@ class EventRegistration extends Model
 
     protected $guarded = ['id'];
 
-    public $casts = [
-        'first_name' => CleanHtmlInput::class,
-        'last_name' => CleanHtmlInput::class,
-        'email' => CleanHtmlInput::class,
-        'extra_attributes' => SchemalessAttributes::class,
-    ];
+    protected function casts(): array
+    {
+        return [
+            'first_name' => CleanHtmlInput::class,
+            'last_name' => CleanHtmlInput::class,
+            'email' => CleanHtmlInput::class,
+            'extra_attributes' => SchemalessAttributes::class,
+        ];
+    }
 
     public function scopeWithExtraAttributes(): Builder
     {

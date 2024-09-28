@@ -27,7 +27,7 @@ class IndexPlacesForMap extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         $indexName = (app()->environment('production') ? 'places' : 'dev-places');
         $this->info("Using index: $indexName");

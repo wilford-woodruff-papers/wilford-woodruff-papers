@@ -82,7 +82,7 @@ class PropertyTemplate extends Resource
     public function filters(Request $request): array
     {
         return [
-            new \App\Nova\Filters\Template(),
+            new \App\Nova\Filters\Template,
         ];
     }
 

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 
@@ -21,12 +22,12 @@ class PropertyTemplate extends Model implements Sortable
         'sort_when_creating' => true,
     ];
 
-    public function property()
+    public function property(): BelongsTo
     {
         return $this->belongsTo(Property::class, 'property_id', 'id');
     }
 
-    public function template()
+    public function template(): BelongsTo
     {
         return $this->belongsTo(Template::class, 'template_id', 'id');
     }

@@ -14,7 +14,7 @@ use Livewire\Component;
 
 class Index extends Component
 {
-    use WithPerPagePagination, WithSorting, WithBulkActions, WithCachedRows;
+    use WithBulkActions, WithCachedRows, WithPerPagePagination, WithSorting;
 
     public $researchers = false;
 

@@ -8,8 +8,6 @@ use Illuminate\Support\Carbon;
 
 class ArticleFactory extends Factory
 {
-    protected $model = Article::class;
-
     public function definition(): array
     {
         return [

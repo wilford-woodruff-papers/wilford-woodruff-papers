@@ -14,7 +14,10 @@ class PeopleIdentification extends Identification
 
     protected $guarded = ['id'];
 
-    protected $casts = [
-        'completed_at' => 'date',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'completed_at' => 'date',
+        ];
+    }
 }

@@ -24,7 +24,7 @@ class NewDocument extends Component
 
     public function mount()
     {
-        $this->item = new Item();
+        $this->item = new Item;
 
         $this->types = Type::query()
             ->whereNull('type_id')

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class RelationshipFinderQueue extends Model
 {
@@ -13,13 +14,16 @@ class RelationshipFinderQueue extends Model
 
     protected $table = 'relationship_finder_queue';
 
-    protected $casts = [
-        'in_progress' => 'boolean',
-        'started_at' => 'datetime',
-        'finished_at' => 'datetime',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'in_progress' => 'boolean',
+            'started_at' => 'datetime',
+            'finished_at' => 'datetime',
+        ];
+    }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

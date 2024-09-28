@@ -4,10 +4,11 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class LogApiUsageMiddleware
 {
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): Response
     {
         return $next($request);
     }
@@ -33,6 +34,6 @@ class LogApiUsageMiddleware
                     'uuid',
                 ])
             ))
-        ->log($request->path());
+            ->log($request->path());
     }
 }

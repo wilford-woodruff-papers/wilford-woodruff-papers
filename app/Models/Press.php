@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
@@ -27,12 +28,7 @@ class Press extends Model implements HasMedia
 
     protected $guarded = ['id'];
 
-    protected $casts = [
-        'date' => 'datetime',
-        'day_in_the_life_date' => 'date',
-    ];
-
-    public function comments()
+    public function comments(): MorphMany
     {
         return $this->morphMany(Comment::class, 'commentable')
             ->where(function (Builder $query) {
@@ -43,7 +39,7 @@ class Press extends Model implements HasMedia
             ->orderBy('created_at', 'DESC');
     }
 
-    public function authors()
+    public function authors(): BelongsToMany
     {
         return $this->belongsToMany(Author::class);
     }
@@ -90,6 +86,14 @@ class Press extends Model implements HasMedia
         'Video' => Video::class,
         'Instagram' => SocialMedia::class,
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'date' => 'datetime',
+            'day_in_the_life_date' => 'date',
+        ];
+    }
 
     public function toSearchableArray(): array
     {

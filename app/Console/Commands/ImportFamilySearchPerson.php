@@ -26,7 +26,7 @@ class ImportFamilySearchPerson extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         $user = User::findOrFail($this->argument('userid'));
         $subjectId = $this->argument('subject');

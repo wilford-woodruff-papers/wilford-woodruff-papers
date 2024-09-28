@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
-use Dyrynda\Database\Casts\EfficientUuid;
+use Dyrynda\Database\Support\Casts\EfficientUuid;
 use Dyrynda\Database\Support\GeneratesUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -17,10 +19,6 @@ class ContestSubmission extends Model implements HasMedia
     use InteractsWithMedia;
 
     protected $guarded = ['id'];
-
-    protected $casts = [
-        'uuid' => EfficientUuid::class,
-    ];
 
     public static array $statuses = [
         'Complete' => 'Complete',
@@ -56,12 +54,19 @@ class ContestSubmission extends Model implements HasMedia
         ],
     ];
 
-    public function contestants()
+    protected function casts(): array
+    {
+        return [
+            'uuid' => EfficientUuid::class,
+        ];
+    }
+
+    public function contestants(): HasMany
     {
         return $this->hasMany(Contestant::class);
     }
 
-    public function primary_contact()
+    public function primary_contact(): HasOne
     {
         return $this->hasOne(Contestant::class)->ofMany([
             'is_primary_contact' => 'max',
@@ -71,7 +76,7 @@ class ContestSubmission extends Model implements HasMedia
     public function scopePending($query)
     {
         $query->where('is_original', 0)
-              ->orWhere('is_appropriate', 0);
+            ->orWhere('is_appropriate', 0);
     }
 
     public function getRouteKeyName()
@@ -79,7 +84,7 @@ class ContestSubmission extends Model implements HasMedia
         return 'uuid';
     }
 
-    public function registerMediaConversions(Media $media = null): void
+    public function registerMediaConversions(?Media $media = null): void
     {
         $this->addMediaConversion('thumb')
             ->width(368)

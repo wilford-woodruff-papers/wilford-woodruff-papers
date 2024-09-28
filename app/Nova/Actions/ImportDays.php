@@ -26,7 +26,7 @@ class ImportDays extends Action
      */
     public function handle(ActionFields $fields, Collection $models)
     {
-        Excel::import(new DocumentsByDayImport(), $fields->file);
+        Excel::import(new DocumentsByDayImport, $fields->file);
 
         return Action::message('Days imported successfully');
     }

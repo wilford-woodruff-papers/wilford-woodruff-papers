@@ -52,7 +52,7 @@ class ImportSubjectsCommand extends Command
                 ])
                     ->get($downloadUri);
                 Storage::put('subject_export.zip', $response->body());
-                $zip = new ZipArchive();
+                $zip = new ZipArchive;
                 $zipFile = $zip->open(storage_path('app/subject_export.zip'));
                 Excel::import(
                     new SubjectImport(true),

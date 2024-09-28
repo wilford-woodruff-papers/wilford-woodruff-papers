@@ -6,6 +6,8 @@ use App\Jobs\SendNewCommentNotification;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Facades\Auth;
 use Maize\Markable\Markable;
@@ -18,7 +20,7 @@ class Comment extends Model
 
     protected $guarded = ['id'];
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
@@ -28,14 +30,14 @@ class Comment extends Model
         return $this->morphTo();
     }
 
-    public function replies()
+    public function replies(): HasMany
     {
         return $this->hasMany(Comment::class, 'parent_id')
-                        ->where(function (Builder $query) {
-                            $query->where('status', 1)
-                                ->orWhere('user_id', Auth::id());
-                        })
-                        ->orderBy('created_at', 'DESC');
+            ->where(function (Builder $query) {
+                $query->where('status', 1)
+                    ->orWhere('user_id', Auth::id());
+            })
+            ->orderBy('created_at', 'DESC');
     }
 
     protected static $marks = [

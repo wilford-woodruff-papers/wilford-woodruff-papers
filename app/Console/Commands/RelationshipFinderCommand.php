@@ -30,7 +30,7 @@ class RelationshipFinderCommand extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): int
     {
         $id = $this->argument('id');
         $isBatch = $this->argument('isBatch', false);

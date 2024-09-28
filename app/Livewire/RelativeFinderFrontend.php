@@ -126,7 +126,7 @@ class RelativeFinderFrontend extends Component implements HasForms, HasTable
                     ])
                     ->action(function () {
                         return Excel::download(
-                            new RelationshipExport(),
+                            new RelationshipExport,
                             'my-wilford-woodruff-papers-relationships.xlsx',
                             \Maatwebsite\Excel\Excel::XLSX
                         );

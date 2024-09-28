@@ -39,35 +39,35 @@ class ImportPlacesIdentificationFileAction implements ShouldQueue
 
             return;
         }
-            $subject = PlaceIdentification::query()->where(['file_id' => trim($this->row['id'])])->first();
+        $subject = PlaceIdentification::query()->where(['file_id' => trim($this->row['id'])])->first();
         //if () {
-            if (empty($subject)) {
-                logger()
-                    ->stack(['imports'])
-                    ->info('Not found creating new model');
-                $subject = new PlaceIdentification();
+        if (empty($subject)) {
+            logger()
+                ->stack(['imports'])
+                ->info('Not found creating new model');
+            $subject = new PlaceIdentification();
+        }
+
+        if (! empty(trim($this->row['date_added']))) {
+            $subject->created_at = $this->toCarbonDate(trim($this->row['date_added']));
+        }
+
+        $columns = [
+            'guesses' => 'location',
+            'editorial_assistant' => 'editorial_assistant',
+            'location' => 'name_in_journal_as_written',
+            'link_to_ftp' => 'link_to_ftp',
+            'notes' => 'additional_information',
+            'other_records' => 'other',
+        ];
+
+        foreach ($columns as $key => $column) {
+            if (! empty(trim($this->row[$column]))) {
+                $subject->{$key} = trim($this->row[$column]);
             }
+        }
 
-            if (! empty(trim($this->row['date_added']))) {
-                $subject->created_at = $this->toCarbonDate(trim($this->row['date_added']));
-            }
-
-            $columns = [
-                'guesses' => 'location',
-                'editorial_assistant' => 'editorial_assistant',
-                'location' => 'name_in_journal_as_written',
-                'link_to_ftp' => 'link_to_ftp',
-                'notes' => 'additional_information',
-                'other_records' => 'other',
-            ];
-
-            foreach ($columns as $key => $column) {
-                if (! empty(trim($this->row[$column]))) {
-                    $subject->{$key} = trim($this->row[$column]);
-                }
-            }
-
-            $subject->save();
+        $subject->save();
         //}
     }
 

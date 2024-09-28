@@ -16,7 +16,7 @@ class QuoteController extends Controller
     public function index(Request $request, Page $page)
     {
         $quotes = Quote::query()
-                        ->select('text');
+            ->select('text');
 
         $quotes = $quotes->where('page_id', $page->id);
 

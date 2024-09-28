@@ -37,7 +37,7 @@ class DocumentController extends Controller
      */
     public function store(Request $request)
     {
-        $item = new Item();
+        $item = new Item;
 
         $validated = $request->validate([
             'name' => 'required|max:255',

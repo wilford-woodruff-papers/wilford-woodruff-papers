@@ -2,14 +2,11 @@
 
 namespace Database\Factories;
 
-use App\Models\Press;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 
 class PressFactory extends Factory
 {
-    protected $model = Press::class;
-
     public function definition(): array
     {
         return [

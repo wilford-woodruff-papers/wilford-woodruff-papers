@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Parental\HasChildren;
 
@@ -15,16 +16,19 @@ class Identification extends Model
 
     protected $guarded = ['id'];
 
-    protected $casts = [
-        'completed_at' => 'date',
-    ];
-
     protected $childTypes = [
         'people' => PeopleIdentification::class,
         'place' => PlaceIdentification::class,
     ];
 
-    public function researcher()
+    protected function casts(): array
+    {
+        return [
+            'completed_at' => 'date',
+        ];
+    }
+
+    public function researcher(): BelongsTo
     {
         return $this->belongsTo(User::class, 'researcher_id')->withTrashed();
     }
