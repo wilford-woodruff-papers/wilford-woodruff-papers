@@ -58,13 +58,6 @@ jobs:
 
 
       - name: Composer install
-        run: |
-          php -r "file_exists('.env') || copy('.env.example', '.env');"
-          php artisan key:generate
-          composer config "http-basic.nova.laravel.com" "${{ secrets.NOVA_USERNAME }}" "${{ secrets.NOVA_PASSWORD }}"
-          composer install --no-progress --prefer-dist --optimize-autoloader
-
-      - name: Prepare the application
         env:
           PUSHER_APP_ID: ${{ secrets.PUSHER_APP_ID }}
           PUSHER_APP_KEY: ${{ secrets.PUSHER_APP_KEY }}
@@ -73,6 +66,12 @@ jobs:
           PUSHER_PORT: ${{ secrets.PUSHER_PORT }}
           ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
           MAIL_FROM_ADDRESS: ${{ secrets.MAIL_FROM_ADDRESS }}
+        run: |
+          php -r "file_exists('.env') || copy('.env.example', '.env');"
+          php artisan key:generate
+          composer config "http-basic.nova.laravel.com" "${{ secrets.NOVA_USERNAME }}" "${{ secrets.NOVA_PASSWORD }}"
+          composer install --no-progress --prefer-dist --optimize-autoloader
+
 
       - name: Clear config
         run: php artisan config:clear
