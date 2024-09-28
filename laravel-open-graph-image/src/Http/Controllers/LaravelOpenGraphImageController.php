@@ -106,6 +106,7 @@ class LaravelOpenGraphImageController
     {
         return Browsershot::html($html)
             ->noSandbox()
+            ->setChromePath((app()->environment('local') ? '/opt/homebrew/bin/chromium' : '/usr/bin/google-chrome'))
             ->showBackground()
             ->windowSize($this->imageWidth, $this->imageHeight)
             ->setScreenshotType($this->getImageType(), $this->imageQuality)
