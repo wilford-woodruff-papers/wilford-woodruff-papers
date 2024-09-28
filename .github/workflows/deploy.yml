@@ -56,7 +56,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-composer-
 
-            - name: Prepare the application
+      - name: Prepare the application
         run: |
           php -r "file_exists('.env') || copy('.env.example', '.env');"
           php artisan key:generate
@@ -69,13 +69,14 @@ jobs:
           ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
           MAIL_FROM_ADDRESS: ${{ secrets.MAIL_FROM_ADDRESS }}
 
+      - name: Clear config
+        run: php artisan config:clear
+        
       - name: Composer install
         run: |
               composer config "http-basic.nova.laravel.com" "${{ secrets.NOVA_USERNAME }}" "${{ secrets.NOVA_PASSWORD }}"
               composer install --no-progress --prefer-dist --optimize-autoloader
 
-      - name: Clear config
-        run: php artisan config:clear
 
       - name: NPM install
         run: npm install
