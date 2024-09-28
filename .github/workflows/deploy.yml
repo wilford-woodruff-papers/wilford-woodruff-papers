@@ -71,6 +71,8 @@ jobs:
           PUSHER_APP_SECRET: ${{ secrets.PUSHER_APP_SECRET }}
           PUSHER_HOST: ${{ secrets.PUSHER_HOST }}
           PUSHER_PORT: ${{ secrets.PUSHER_PORT }}
+          ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+          MAIL_FROM_ADDRESS: ${{ secrets.MAIL_FROM_ADDRESS }}
 
       - name: Clear config
         run: php artisan config:clear
@@ -93,6 +95,8 @@ jobs:
           LASSO_DO_SPACES_ENDPOINT: ${{ secrets.LASSO_DO_SPACES_ENDPOINT }}
           LASSO_DO_SPACES_REGION: ${{ secrets.LASSO_DO_SPACES_REGION }}
           LASSO_DO_SPACES_BUCKET: ${{ secrets.LASSO_DO_SPACES_BUCKET }}
+          ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+          MAIL_FROM_ADDRESS: ${{ secrets.MAIL_FROM_ADDRESS }}
 
       - name: Trigger develop deployment
         if: ${{ steps.extract_branch.outputs.branch == 'develop' }}
