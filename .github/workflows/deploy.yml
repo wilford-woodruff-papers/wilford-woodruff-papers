@@ -68,10 +68,9 @@ jobs:
           MAIL_FROM_ADDRESS: ${{ secrets.MAIL_FROM_ADDRESS }}
         run: |
           php -r "file_exists('.env') || copy('.env.example', '.env');"
-          php artisan key:generate
           composer config "http-basic.nova.laravel.com" "${{ secrets.NOVA_USERNAME }}" "${{ secrets.NOVA_PASSWORD }}"
           composer install --no-progress --prefer-dist --optimize-autoloader
-
+          php artisan key:generate
 
       - name: Clear config
         run: php artisan config:clear
