@@ -45,7 +45,7 @@ class ImportPeopleIdentificationFileAction implements ShouldQueue
             logger()
                 ->stack(['imports'])
                 ->info('Not found creating new model');
-            $subject = new PeopleIdentification;
+            $subject = new PeopleIdentification();
         }
 
         if (! empty(trim($this->row['date_added']))) {

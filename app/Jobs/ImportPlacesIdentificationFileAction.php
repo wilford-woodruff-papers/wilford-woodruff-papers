@@ -45,7 +45,7 @@ class ImportPlacesIdentificationFileAction implements ShouldQueue
             logger()
                 ->stack(['imports'])
                 ->info('Not found creating new model');
-            $subject = new PlaceIdentification;
+            $subject = new PlaceIdentification();
         }
 
         if (! empty(trim($this->row['date_added']))) {
