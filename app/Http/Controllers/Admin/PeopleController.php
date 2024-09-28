@@ -180,7 +180,7 @@ class PeopleController extends Controller
                 ->withInput($request->all());
         }
 
-        $person = new Subject();
+        $person = new Subject;
 
         if ($request->get('pid') !== 'n/a') {
             $this->rules['pid'] = [

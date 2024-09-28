@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class DownloadAIExperienceMiddleware
 {
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): Response
     {
         if (auth()->check()) {
 
@@ -38,7 +38,7 @@ class DownloadAIExperienceMiddleware
             ->event('download')
             ->log('User downloaded the AI Experience v'.$version.'.');
 
-        $subscribeToConstantContactAction = new \App\Actions\SubscribeToConstantContactAction();
+        $subscribeToConstantContactAction = new \App\Actions\SubscribeToConstantContactAction;
         $subscribeToConstantContactAction->execute([
             'email' => auth()->user()->email,
             'first_name' => auth()->user()->first_name,

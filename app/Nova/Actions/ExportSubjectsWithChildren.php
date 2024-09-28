@@ -6,7 +6,7 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 
-class ExportSubjectsWithChildren extends DownloadExcel implements WithMapping, WithHeadings
+class ExportSubjectsWithChildren extends DownloadExcel implements WithHeadings, WithMapping
 {
     public $name = 'Export Subjects with Children';
 
@@ -21,7 +21,7 @@ class ExportSubjectsWithChildren extends DownloadExcel implements WithMapping, W
     }
 
     /**
-     * @param $item
+     * @param    $item
      */
     public function map($subject): array
     {

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 
@@ -19,7 +20,7 @@ class Partner extends Model implements Sortable
         'sort_when_creating' => true,
     ];
 
-    public function category()
+    public function category(): BelongsTo
     {
         return $this->belongsTo(PartnerCategory::class, 'partner_category_id');
     }

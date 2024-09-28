@@ -40,11 +40,11 @@ class ConstantContactController extends Controller
         $authorization = 'Basic '.$credentials;
 
         $response = Http::asForm()
-                            ->withHeaders([
-                                'Authorization' => $authorization,
-                            ])
-                            ->acceptJson()
-                            ->post($url);
+            ->withHeaders([
+                'Authorization' => $authorization,
+            ])
+            ->acceptJson()
+            ->post($url);
 
         if (! empty($response->json('access_token'))) {
             DB::table('oauth')->upsert([[

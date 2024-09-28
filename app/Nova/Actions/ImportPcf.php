@@ -38,19 +38,19 @@ class ImportPcf extends Action
     {
         switch ($fields->type) {
             case 'Journals':
-                Excel::import(new JournalsPcfImport(), $fields->file);
+                Excel::import(new JournalsPcfImport, $fields->file);
                 break;
             case 'Autobiographies':
-                Excel::import(new AutobiographiesPcfImport(), $fields->file);
+                Excel::import(new AutobiographiesPcfImport, $fields->file);
                 break;
             case 'Letters':
-                Excel::import(new LettersPcfImport(), $fields->file);
+                Excel::import(new LettersPcfImport, $fields->file);
                 break;
             case 'Additional Documents':
-                Excel::import(new AdditionalDocumentsPcfImport(), $fields->file);
+                Excel::import(new AdditionalDocumentsPcfImport, $fields->file);
                 break;
             case 'Discourses':
-                Excel::import(new DiscoursesPcfImport(), $fields->file);
+                Excel::import(new DiscoursesPcfImport, $fields->file);
                 break;
         }
 

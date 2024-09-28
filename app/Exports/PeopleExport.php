@@ -46,7 +46,7 @@ class PeopleExport implements FromQuery, ShouldQueue, WithHeadings, WithMapping
     public function failed(\Throwable $exception): void
     {
         logger()->error($exception->getMessage());
-        $this->user->notify(new ExportFailedNotification());
+        $this->user->notify(new ExportFailedNotification);
     }
 
     public function headings(): array

@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Scout\Searchable;
 use OpenAI\Laravel\Facades\OpenAI;
@@ -22,16 +24,19 @@ class Event extends Model implements HasMedia
         'id',
     ];
 
-    protected $casts = [
-        'start_at' => 'datetime',
-        'end_at' => 'datetime',
-    ];
-
     protected $appends = [
         'manual_display_date',
         'display_date',
         'thumbnail_url',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'start_at' => 'datetime',
+            'end_at' => 'datetime',
+        ];
+    }
 
     public function getManualDisplayDateAttribute()
     {
@@ -73,7 +78,7 @@ class Event extends Model implements HasMedia
     /**
      * Get all of the resources that are assigned this item.
      */
-    public function items()
+    public function items(): MorphToMany
     {
         return $this->morphedByMany(Item::class, 'timelineable');
     }
@@ -81,7 +86,7 @@ class Event extends Model implements HasMedia
     /**
      * Get all of the resources that are assigned this item.
      */
-    public function pages()
+    public function pages(): MorphToMany
     {
         return $this->morphedByMany(Page::class, 'timelineable');
     }
@@ -89,17 +94,17 @@ class Event extends Model implements HasMedia
     /**
      * Get all of the photos that are assigned this item.
      */
-    public function photos()
+    public function photos(): MorphToMany
     {
         return $this->morphedByMany(Photo::class, 'timelineable');
     }
 
-    public function subjects()
+    public function subjects(): BelongsToMany
     {
         return $this->belongsToMany(Subject::class, 'event_subject');
     }
 
-    public function places()
+    public function places(): BelongsToMany
     {
         return $this->belongsToMany(Subject::class, 'event_subject')
             ->whereHas('category', function ($query) {

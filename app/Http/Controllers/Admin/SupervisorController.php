@@ -18,15 +18,15 @@ class SupervisorController extends Controller
     {
         $users = User::query()
                         /*->has('pending_actions')*/
-                        ->whereHas('pending_actions', function (Builder $query) {
-                            $query->whereHasMorph('actionable',
-                                [Item::class],
-                                function (Builder $query) {
-                                    $query->whereIn('type_id', Type::query()->role(auth()->user()->roles->pluck('id')->all())->pluck('id')->all());
-                                });
-                        })
-                        ->orderBy('name', 'ASC')
-                        ->get();
+            ->whereHas('pending_actions', function (Builder $query) {
+                $query->whereHasMorph('actionable',
+                    [Item::class],
+                    function (Builder $query) {
+                        $query->whereIn('type_id', Type::query()->role(auth()->user()->roles->pluck('id')->all())->pluck('id')->all());
+                    });
+            })
+            ->orderBy('name', 'ASC')
+            ->get();
 
         return view('admin.supervisor.index', [
             'users' => $users,

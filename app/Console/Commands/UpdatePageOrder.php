@@ -38,9 +38,9 @@ class UpdatePageOrder extends Command
     public function handle(): int
     {
         $items = Item::query()
-                        ->whereNull('item_id')
-                        ->doesntHave('items')
-                        ->get();
+            ->whereNull('item_id')
+            ->doesntHave('items')
+            ->get();
         $items->each(function ($item) {
             $pageSortColumn = $item->page_sort_column ?? 'id';
             if ($item->enabled) {

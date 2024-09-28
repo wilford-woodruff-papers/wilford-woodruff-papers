@@ -11,7 +11,7 @@ class ApiPagesTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_pages_cannot_be_accessed_without_personal_access_token()
+    public function test_pages_cannot_be_accessed_without_personal_access_token(): void
     {
         // Make a request to the API endpoint with the token
         $response = $this->withHeaders([
@@ -24,7 +24,7 @@ class ApiPagesTest extends TestCase
         $response->assertStatus(401);
     }
 
-    public function test_documents_can_be_accessed_with_personal_access_token()
+    public function test_documents_can_be_accessed_with_personal_access_token(): void
     {
         // Create a new user
         $user = User::factory()->create();
@@ -44,7 +44,7 @@ class ApiPagesTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_pages_can_be_accessed_with_personal_access_token()
+    public function test_pages_can_be_accessed_with_personal_access_token(): void
     {
         // Create a new user
         $user = User::factory()->create();

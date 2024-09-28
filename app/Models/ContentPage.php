@@ -16,8 +16,8 @@ class ContentPage extends Model implements HasMedia
 {
     use HasFactory;
     use HasSlug;
-    use InteractsWithMedia;
     use HasTags;
+    use InteractsWithMedia;
     use Userstamps;
 
     protected $guarded = ['id'];
@@ -44,7 +44,7 @@ class ContentPage extends Model implements HasMedia
             ->saveSlugsTo('slug');
     }
 
-    public function registerMediaConversions(Media $media = null): void
+    public function registerMediaConversions(?Media $media = null): void
     {
         $this->addMediaConversion('thumb')
             ->width(368)

@@ -14,9 +14,9 @@ class ParterController extends Controller
     {
         return view('public.partners.index', [
             'partnerCategories' => PartnerCategory::query()
-                                    ->with('partners')
-                                    ->ordered()
-                                    ->get(),
+                ->with('partners')
+                ->ordered()
+                ->get(),
         ]);
     }
 }

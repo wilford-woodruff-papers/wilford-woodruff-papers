@@ -13,9 +13,12 @@ class Submission extends Model
 
     protected $guarded = ['id'];
 
-    public $casts = [
-        'extra_attributes' => SchemalessAttributes::class,
-    ];
+    protected function casts(): array
+    {
+        return [
+            'extra_attributes' => SchemalessAttributes::class,
+        ];
+    }
 
     public function scopeWithExtraAttributes(): Builder
     {

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
@@ -14,7 +15,7 @@ class Property extends Model
 
     protected $guarded = ['id'];
 
-    public function templates()
+    public function templates(): BelongsToMany
     {
         return $this->belongsToMany(Template::class)
             ->withPivot([

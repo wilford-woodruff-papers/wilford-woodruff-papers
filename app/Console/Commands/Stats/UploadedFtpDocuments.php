@@ -46,10 +46,10 @@ class UploadedFtpDocuments extends Command
         $itemCount = $manifests->count($manifests);
 
         $previousStat = Stat::query()
-                            ->where('name', 'uploaded-ftp-documents')
-                            ->where('period', 'monthly')
-                            ->latest()
-                            ->first();
+            ->where('name', 'uploaded-ftp-documents')
+            ->where('period', 'monthly')
+            ->latest()
+            ->first();
 
         if (! empty($previousStat)) {
             $difference = $itemCount - $previousStat->value;
@@ -74,10 +74,10 @@ class UploadedFtpDocuments extends Command
         });
 
         $previousPageStat = Stat::query()
-                                ->where('name', 'uploaded-ftp-pages')
-                                ->where('period', 'monthly')
-                                ->latest()
-                                ->first();
+            ->where('name', 'uploaded-ftp-pages')
+            ->where('period', 'monthly')
+            ->latest()
+            ->first();
 
         if (! empty($previousPageStat)) {
             $pageDifference = $manifestCount - $previousPageStat->value;

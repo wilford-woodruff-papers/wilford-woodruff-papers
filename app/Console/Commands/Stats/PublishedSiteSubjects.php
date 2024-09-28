@@ -41,17 +41,17 @@ class PublishedSiteSubjects extends Command
         $now = now()->subMonth();
 
         $peopleCount = Subject::whereEnabled(1)
-                                ->whereHas('category', function (Builder $query) {
-                                    $query->where('name', 'People');
-                                })
-                                ->whereHas('pages')
-                                ->count();
+            ->whereHas('category', function (Builder $query) {
+                $query->where('name', 'People');
+            })
+            ->whereHas('pages')
+            ->count();
 
         $previousPeopleStat = Stat::query()
-                            ->where('name', 'published-site-people')
-                            ->where('period', 'monthly')
-                            ->latest()
-                            ->first();
+            ->where('name', 'published-site-people')
+            ->where('period', 'monthly')
+            ->latest()
+            ->first();
 
         if (! empty($previousPeopleStat)) {
             $peopleDifference = $peopleCount - $previousPeopleStat->value;
@@ -70,17 +70,17 @@ class PublishedSiteSubjects extends Command
         ]);
 
         $placesCount = Subject::whereEnabled(1)
-                                ->whereHas('category', function (Builder $query) {
-                                    $query->where('name', 'Places');
-                                })
-                                ->whereHas('pages')
-                                ->count();
+            ->whereHas('category', function (Builder $query) {
+                $query->where('name', 'Places');
+            })
+            ->whereHas('pages')
+            ->count();
 
         $previousPlacesStat = Stat::query()
-                            ->where('name', 'published-site-places')
-                            ->where('period', 'monthly')
-                            ->latest()
-                            ->first();
+            ->where('name', 'published-site-places')
+            ->where('period', 'monthly')
+            ->latest()
+            ->first();
 
         if (! empty($previousPlacesStat)) {
             $placesDifference = $placesCount - $previousPlacesStat->value;

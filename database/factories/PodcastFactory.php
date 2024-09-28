@@ -8,8 +8,6 @@ use Illuminate\Support\Carbon;
 
 class PodcastFactory extends Factory
 {
-    protected $model = Podcast::class;
-
     public function definition(): array
     {
         return [

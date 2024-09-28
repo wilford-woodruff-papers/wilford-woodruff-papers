@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Date extends Model
 {
@@ -13,14 +14,17 @@ class Date extends Model
 
     public $timestamps = false;
 
-    public function dateable()
+    public function dateable(): MorphTo
     {
         return $this->morphTo();
     }
 
-    protected $casts = [
-        'date' => 'date',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'date' => 'date',
+        ];
+    }
 
     public function toArray()
     {

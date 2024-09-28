@@ -50,7 +50,7 @@ class UncategorizedSubjectsExport implements FromQuery, ShouldQueue, WithHeading
     public function failed(\Throwable $exception): void
     {
         logger()->error($exception->getMessage());
-        $this->user->notify(new ExportFailedNotification());
+        $this->user->notify(new ExportFailedNotification);
     }
 
     public function headings(): array

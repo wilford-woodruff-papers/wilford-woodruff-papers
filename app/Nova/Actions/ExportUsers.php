@@ -6,7 +6,7 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 
-class ExportUsers extends DownloadExcel implements WithMapping, WithHeadings
+class ExportUsers extends DownloadExcel implements WithHeadings, WithMapping
 {
     public function headings(): array
     {

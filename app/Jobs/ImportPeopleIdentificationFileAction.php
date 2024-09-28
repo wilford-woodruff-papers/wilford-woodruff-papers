@@ -39,53 +39,53 @@ class ImportPeopleIdentificationFileAction implements ShouldQueue
 
             return;
         }
-            $subject = PeopleIdentification::query()->where(['file_id' => trim($this->row['id'])])->first();
+        $subject = PeopleIdentification::query()->where(['file_id' => trim($this->row['id'])])->first();
         //if () {
-            if (empty($subject)) {
-                logger()
-                    ->stack(['imports'])
-                    ->info('Not found creating new model');
-                $subject = new PeopleIdentification();
+        if (empty($subject)) {
+            logger()
+                ->stack(['imports'])
+                ->info('Not found creating new model');
+            $subject = new PeopleIdentification();
+        }
+
+        if (! empty(trim($this->row['date_added']))) {
+            $subject->created_at = $this->toCarbonDate(trim($this->row['date_added']));
+        }
+
+        $columns = [
+            'editorial_assistant' => 'editorial_assistant',
+            'title' => 'title',
+            'first_middle_name' => 'first_and_middle_names_or_initials',
+            'last_name' => 'surname_or_initial',
+            'other' => 'other',
+            'link_to_ftp' => 'link_to_ftp',
+            'guesses' => 'guesses_or_notes_if_any',
+            'location' => 'location',
+            /*'completed_at' => 'date_completed',*/
+            'notes' => 'research_notes',
+            'fs_id' => 'fs_id',
+            'approximate_birth_date' => 'approx_birth',
+            'approximate_death_date' => 'approx_death',
+            'nauvoo_database' => 'nauvoo_database',
+            'pioneer_database' => 'pioneer_database',
+            'missionary_database' => 'missionary_database',
+            'boston_index' => 'boston_index',
+            'st_louis_index' => 'st_louis_index',
+            'british_mission' => 'british_mission',
+            'eighteen_forty_census' => '1840_census',
+            'eighteen_fifty_census' => '1850_census',
+            'eighteen_sixty_census' => '1860_census',
+            'other_census' => 'other_census',
+            'other_records' => 'other_records',
+        ];
+
+        foreach ($columns as $key => $column) {
+            if (! empty(trim($this->row[$column]))) {
+                $subject->{$key} = trim($this->row[$column]);
             }
+        }
 
-            if (! empty(trim($this->row['date_added']))) {
-                $subject->created_at = $this->toCarbonDate(trim($this->row['date_added']));
-            }
-
-            $columns = [
-                'editorial_assistant' => 'editorial_assistant',
-                'title' => 'title',
-                'first_middle_name' => 'first_and_middle_names_or_initials',
-                'last_name' => 'surname_or_initial',
-                'other' => 'other',
-                'link_to_ftp' => 'link_to_ftp',
-                'guesses' => 'guesses_or_notes_if_any',
-                'location' => 'location',
-                /*'completed_at' => 'date_completed',*/
-                'notes' => 'research_notes',
-                'fs_id' => 'fs_id',
-                'approximate_birth_date' => 'approx_birth',
-                'approximate_death_date' => 'approx_death',
-                'nauvoo_database' => 'nauvoo_database',
-                'pioneer_database' => 'pioneer_database',
-                'missionary_database' => 'missionary_database',
-                'boston_index' => 'boston_index',
-                'st_louis_index' => 'st_louis_index',
-                'british_mission' => 'british_mission',
-                'eighteen_forty_census' => '1840_census',
-                'eighteen_fifty_census' => '1850_census',
-                'eighteen_sixty_census' => '1860_census',
-                'other_census' => 'other_census',
-                'other_records' => 'other_records',
-            ];
-
-            foreach ($columns as $key => $column) {
-                if (! empty(trim($this->row[$column]))) {
-                    $subject->{$key} = trim($this->row[$column]);
-                }
-            }
-
-            $subject->save();
+        $subject->save();
         //}
     }
 

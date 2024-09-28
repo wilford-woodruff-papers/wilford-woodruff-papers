@@ -44,9 +44,9 @@ class Browse extends Component
     public function render()
     {
         $facets = [
-            new PeopleFacet(),
-            new TopicFacet(),
-            new PlacesFacet(),
+            new PeopleFacet,
+            new TopicFacet,
+            new PlacesFacet,
         ];
 
         $result = null;

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class AiSession extends Model
 {
@@ -11,7 +12,7 @@ class AiSession extends Model
 
     protected $guarded = ['id'];
 
-    public function questions()
+    public function questions(): HasMany
     {
         return $this->hasMany(AiQuestion::class);
     }

@@ -19,33 +19,33 @@ class ItemController extends Controller
     public function index(Request $request): View
     {
         $decades = DB::table('items')
-                        ->select('decade', DB::raw('count(*) as total'))
-                        ->whereEnabled(1)
-                        ->whereNotNull('decade')
-                        ->orderBy('decade', 'ASC')
-                        ->groupBy('decade');
+            ->select('decade', DB::raw('count(*) as total'))
+            ->whereEnabled(1)
+            ->whereNotNull('decade')
+            ->orderBy('decade', 'ASC')
+            ->groupBy('decade');
         if ($request->has('type') && ($request->get('type') == Type::firstWhere('name', 'Letters')->id)) {
             $decades = $decades->where('type_id', $request->get('type'))
-                                ->orderBy('decade')
-                               ->get();
+                ->orderBy('decade')
+                ->get();
         }
 
         $years = DB::table('items')
-                        ->select('year', DB::raw('count(*) as total'))
-                        ->whereEnabled(1)
-                        ->whereNotNull('year')
-                        ->orderBy('year', 'ASC')
-                        ->groupBy('year');
+            ->select('year', DB::raw('count(*) as total'))
+            ->whereEnabled(1)
+            ->whereNotNull('year')
+            ->orderBy('year', 'ASC')
+            ->groupBy('year');
         if ($request->has('decade')) {
             $years = $years->where('type_id', $request->get('type'))
-                               ->where('decade', $request->get('decade'))
-                                ->orderBy('year')
-                               ->get();
+                ->where('decade', $request->get('decade'))
+                ->orderBy('year')
+                ->get();
         }
 
         $items = Item::whereNull('item_id')
-                        ->with('type')
-                        ->whereEnabled(1);
+            ->with('type')
+            ->whereEnabled(1);
 
         if ($request->has('type')) {
             $items = $items->where('type_id', $request->get('type'));
@@ -74,11 +74,11 @@ class ItemController extends Controller
 
         return view('public.documents.index', [
             'types' => Type::whereNull('type_id')
-                                ->withCount(['items' => function (Builder $query) {
-                                    $query->where('enabled', 1);
-                                }])
-                                ->orderBy('name', 'ASC')
-                                ->get(),
+                ->withCount(['items' => function (Builder $query) {
+                    $query->where('enabled', 1);
+                }])
+                ->orderBy('name', 'ASC')
+                ->get(),
             'items' => $items->paginate(25),
             'decades' => $decades,
             'years' => $years,
@@ -93,14 +93,14 @@ class ItemController extends Controller
         $months = null;
         $pages = null;
         $years = Date::select(DB::raw('Distinct(YEAR(date)) as year'))
-                        ->orderBy('year', 'ASC')
-                        ->get();
+            ->orderBy('year', 'ASC')
+            ->get();
 
         if (! empty($year)) {
             $months = Date::select(DB::raw('Distinct(MONTH(date)) as month'))
-                        ->whereYear('date', $year)
-                        ->orderBy('month', 'ASC')
-                        ->get();
+                ->whereYear('date', $year)
+                ->orderBy('month', 'ASC')
+                ->get();
         }
 
         if (! empty($year) && ! empty($month)) {
@@ -116,9 +116,9 @@ class ItemController extends Controller
                             ->get();*/
             $pages = Page::whereHas('dates', function (Builder $query) use ($year, $month) {
                 $query->whereYear('date', $year)
-                                ->whereMonth('date', $month);
+                    ->whereMonth('date', $month);
             })
-                            ->get();
+                ->get();
         }
 
         return view('public.documents.dates', [
@@ -158,9 +158,9 @@ class ItemController extends Controller
     public function show(Item $item): View
     {
         $pages = Page::with(['dates', 'subjects', 'parent'])
-                        ->withCount('quotes')
-                        ->where('parent_item_id', $item->id)
-                        ->ordered();
+            ->withCount('quotes')
+            ->where('parent_item_id', $item->id)
+            ->ordered();
 
         $item->setRelation('item', $item);
         $item->setRelation('pages', $pages);
@@ -177,9 +177,9 @@ class ItemController extends Controller
     public function transcript(Item $item): View
     {
         $pages = Page::query()
-                        ->where('parent_item_id', $item->id)
-                        ->ordered()
-                        ->get();
+            ->where('parent_item_id', $item->id)
+            ->ordered()
+            ->get();
 
         $item->setRelation('pages', $pages);
 

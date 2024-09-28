@@ -57,7 +57,7 @@ class TimelineImport implements ToCollection, WithHeadingRow
                     continue;
                 }
             } else {
-                $event = new Event();
+                $event = new Event;
             }
 
             foreach ($fields as $field => $properties) {

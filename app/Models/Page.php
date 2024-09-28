@@ -3,13 +3,17 @@
 namespace App\Models;
 
 use App\Models\Scriptures\Volume;
-use Dyrynda\Database\Casts\EfficientUuid;
+use Dyrynda\Database\Support\Casts\EfficientUuid;
 use Dyrynda\Database\Support\GeneratesUuid;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Scout\Searchable;
 use Mtvs\EloquentHashids\HasHashid;
@@ -40,11 +44,6 @@ class Page extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
 
     protected $guarded = ['id'];
 
-    protected $casts = [
-        'imported_at' => 'datetime',
-        'uuid' => EfficientUuid::class,
-    ];
-
     protected $appends = ['hashid'];
 
     public function resolveRouteBindingQuery($query, $value, $field = null)
@@ -52,12 +51,12 @@ class Page extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
         return $query->whereUuid($value);
     }
 
-    public function item()
+    public function item(): BelongsTo
     {
         return $this->belongsTo(Item::class);
     }
 
-    public function parent()
+    public function parent(): BelongsTo
     {
         //if (! empty($this->item) && empty($this->item->item_id)) {
         //    return $this->item();
@@ -94,7 +93,7 @@ class Page extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
             ->first();
     }
 
-    public function people()
+    public function people(): BelongsToMany
     {
         return $this->belongsToMany(Subject::class)
             ->whereHas('category', function (Builder $query) {
@@ -102,7 +101,7 @@ class Page extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
             });
     }
 
-    public function places()
+    public function places(): BelongsToMany
     {
         return $this->belongsToMany(Subject::class)
             ->whereHas('category', function (Builder $query) {
@@ -110,12 +109,12 @@ class Page extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
             });
     }
 
-    public function subjects()
+    public function subjects(): BelongsToMany
     {
         return $this->belongsToMany(Subject::class);
     }
 
-    public function topics()
+    public function topics(): BelongsToMany
     {
         return $this->belongsToMany(Subject::class)
             ->whereHas('category', function (Builder $query) {
@@ -123,28 +122,28 @@ class Page extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
             });
     }
 
-    public function quotes()
+    public function quotes(): HasMany
     {
         return $this->hasMany(Quote::class);
     }
 
-    public function dates()
+    public function dates(): MorphMany
     {
         return $this->morphMany(Date::class, 'dateable');
     }
 
-    public function taggedDates()
+    public function taggedDates(): MorphMany
     {
         return $this->morphMany(Date::class, 'dateable')->orderBy('date', 'ASC');
     }
 
-    public function translations()
+    public function translations(): HasMany
     {
         return $this->hasMany(Translation::class)
             ->orderBy('language', 'ASC');
     }
 
-    public function publishing_tasks()
+    public function publishing_tasks(): MorphMany
     {
         return $this->morphMany(Action::class, 'actionable')
             ->whereNotNull('completed_at')
@@ -239,38 +238,46 @@ class Page extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
         'uuid' => Base64Encoder::class,
     ];
 
+    protected function casts(): array
+    {
+        return [
+            'imported_at' => 'datetime',
+            'uuid' => EfficientUuid::class,
+        ];
+    }
+
     /**
      * Get all of the events that are assigned this page.
      */
-    public function events()
+    public function events(): MorphToMany
     {
         return $this->morphToMany(Event::class, 'timelineable');
     }
 
-    public function actions()
+    public function actions(): MorphMany
     {
         return $this->morphMany(Action::class, 'actionable');
     }
 
-    public function pending_assigned_actions()
+    public function pending_assigned_actions(): MorphMany
     {
         return $this->morphMany(Action::class, 'actionable')
             ->whereNotNull('assigned_at')
             ->whereNull('completed_at');
     }
 
-    public function completed_actions()
+    public function completed_actions(): MorphMany
     {
         return $this->morphMany(Action::class, 'actionable')
             ->whereNotNull('completed_at');
     }
 
-    public function activities()
+    public function activities(): MorphMany
     {
         return $this->morphMany(Activity::class, 'subject');
     }
 
-    public function admin_comments()
+    public function admin_comments(): MorphMany
     {
         return $this->morphMany(AdminComment::class, 'admincommentable')->latest();
     }

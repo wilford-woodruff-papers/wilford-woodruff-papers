@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Template extends Model
 {
@@ -11,12 +13,12 @@ class Template extends Model
 
     protected $guarded = ['id'];
 
-    public function type()
+    public function type(): BelongsTo
     {
         return $this->belongsTo(Type::class);
     }
 
-    public function template_properties()
+    public function template_properties(): BelongsToMany
     {
         return $this->belongsToMany(Property::class)
             ->withPivot([
@@ -26,7 +28,7 @@ class Template extends Model
             ->where('enabled', true);
     }
 
-    public function properties()
+    public function properties(): BelongsToMany
     {
         return $this->belongsToMany(Property::class, 'property_template')
             ->withPivot([

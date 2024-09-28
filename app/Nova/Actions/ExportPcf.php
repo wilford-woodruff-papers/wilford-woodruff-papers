@@ -6,7 +6,7 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
 
-class ExportPcf extends DownloadExcel implements WithMapping, WithHeadings
+class ExportPcf extends DownloadExcel implements WithHeadings, WithMapping
 {
     public $name = 'PCF Export';
 

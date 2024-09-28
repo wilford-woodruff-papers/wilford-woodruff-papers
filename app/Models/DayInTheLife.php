@@ -17,9 +17,12 @@ class DayInTheLife extends Model implements HasMedia
 
     protected $table = 'day_in_the_life';
 
-    protected $casts = [
-        'date' => 'date',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'date' => 'date',
+        ];
+    }
 
     public function registerMediaConversions(?Media $media = null): void
     {

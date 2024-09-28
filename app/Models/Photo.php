@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-use Dyrynda\Database\Casts\EfficientUuid;
+use Dyrynda\Database\Support\Casts\EfficientUuid;
 use Dyrynda\Database\Support\GeneratesUuid;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Scout\Searchable;
 use OpenAI\Laravel\Facades\OpenAI;
@@ -26,13 +27,16 @@ class Photo extends Model implements HasMedia
 
     protected $guarded = ['id'];
 
-    protected $casts = [
-        'uuid' => EfficientUuid::class,
-    ];
-
     protected $attributeModifiers = [
         'uuid' => Base64Encoder::class,
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'uuid' => EfficientUuid::class,
+        ];
+    }
 
     public function getRouteKeyName()
     {
@@ -60,7 +64,7 @@ class Photo extends Model implements HasMedia
     /**
      * Get all of the events that are assigned this item.
      */
-    public function events()
+    public function events(): MorphToMany
     {
         return $this->morphToMany(Event::class, 'timelineable');
     }

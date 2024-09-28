@@ -21,7 +21,7 @@ class AiSessionImport implements ToCollection, WithHeadingRow
         //   - Inworld User
         //   - Wilford Woodruff
         $text = '';
-        $question = new AiQuestion();
+        $question = new AiQuestion;
         $session = \App\Models\AiSession::firstOrCreate([
             'session_id' => $this->sessionId,
         ]);
@@ -44,7 +44,7 @@ class AiSessionImport implements ToCollection, WithHeadingRow
                     $question->save();
                     $text = '';
                 }
-                $question = new AiQuestion();
+                $question = new AiQuestion;
                 $question->question = $row['text'];
             } else {
                 $text .= $row['text']."\n";

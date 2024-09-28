@@ -22,7 +22,7 @@ class ComeFollowMeLessonOgImageController extends Controller
             ->firstOrFail();
 
         $image = cache()->rememberForever('lessons.'.$lesson->id.'.ogimage', function () use ($lesson) {
-            return (new OgImageGenerator())->render(
+            return (new OgImageGenerator)->render(
                 view('public.come-follow-me.lesson-og-image')
                     ->with([
                         'lesson' => $lesson,

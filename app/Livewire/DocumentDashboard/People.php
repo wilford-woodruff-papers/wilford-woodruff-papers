@@ -40,7 +40,7 @@ class People extends Component
                 }
             }
 
-            $peopleCategoryChart = (new PieChartModel())
+            $peopleCategoryChart = (new PieChartModel)
                 ->asPie()
                 ->setTitle('People Categories')
                 ->setAnimated(false)

@@ -165,17 +165,17 @@ class Item extends Resource
             new AssignDocumentType,
             new AssignToItem,
             new Enable,
-            (new ExportItems())->askForWriterType(),
+            (new ExportItems)->askForWriterType(),
             new ImportPages,
             new ImportItems,
             new ImportMetadataFields,
             // new ImportPcf,
-            new ExportPcf(),
+            new ExportPcf,
             // new ImportFtpMetadataExport(),
         ];
 
         if (auth()->id() === 1) {
-            $actions[] = new PcfActions();
+            $actions[] = new PcfActions;
         }
 
         return $actions;

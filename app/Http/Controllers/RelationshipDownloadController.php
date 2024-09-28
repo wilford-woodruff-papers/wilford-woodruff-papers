@@ -14,7 +14,7 @@ class RelationshipDownloadController extends Controller
     public function __invoke(Request $request)
     {
         return Excel::download(
-            new RelationshipExport(),
+            new RelationshipExport,
             'my-wilford-woodruff-papers-relationships.xlsx',
             \Maatwebsite\Excel\Excel::XLSX
         );

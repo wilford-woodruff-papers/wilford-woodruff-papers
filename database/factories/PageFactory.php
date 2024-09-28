@@ -3,15 +3,12 @@
 namespace Database\Factories;
 
 use App\Models\Item;
-use App\Models\Page;
 use App\Models\Type;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 
 class PageFactory extends Factory
 {
-    protected $model = Page::class;
-
     public function definition(): array
     {
         $item = Item::factory()->journal();

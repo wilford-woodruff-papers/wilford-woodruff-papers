@@ -119,9 +119,9 @@ class Page extends Resource
         return [
             (new ExportPages)
                 ->askForWriterType(),
-            (new ExportPagesAlternate())
+            (new ExportPagesAlternate)
                 ->askForWriterType(),
-            new ImportClearText(),
+            new ImportClearText,
         ];
     }
 }

@@ -11,7 +11,7 @@ class LocationsController extends Controller
 {
     public function __invoke(Request $request)
     {
-        $locations = new Subject();
+        $locations = new Subject;
         $locations = $locations
             ->query()
             ->select('id', 'name')

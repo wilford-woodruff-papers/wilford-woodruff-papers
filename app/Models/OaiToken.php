@@ -9,16 +9,19 @@ class OaiToken extends Model
 {
     use HasFactory;
 
-    protected $casts = [
-        'from' => 'date',
-        'until' => 'date',
-        'expires_at' => 'datetime',
-    ];
-
     public function usesTimestamps()
     {
         return false;
     }
 
     protected $guarded = [];
+
+    protected function casts(): array
+    {
+        return [
+            'from' => 'date',
+            'until' => 'date',
+            'expires_at' => 'datetime',
+        ];
+    }
 }

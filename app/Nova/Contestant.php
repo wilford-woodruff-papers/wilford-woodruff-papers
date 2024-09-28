@@ -98,7 +98,7 @@ class Contestant extends Resource
     public function actions(Request $request): array
     {
         return [
-            new ExportContestants(),
+            new ExportContestants,
         ];
     }
 }

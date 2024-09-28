@@ -25,15 +25,18 @@ class Update extends Model implements HasMedia
 
     protected $guarded = ['id'];
 
-    protected $casts = [
-        'publish_at' => 'datetime',
-    ];
-
     protected $childTypes = [
         'Annual' => AnnualReport::class,
         'Newsletter' => Newsletter::class,
         'Quarterly' => QuarterlyUpdate::class,
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'publish_at' => 'datetime',
+        ];
+    }
 
     /**
      * Get the options for generating the slug.

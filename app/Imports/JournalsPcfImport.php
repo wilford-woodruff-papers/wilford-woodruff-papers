@@ -34,12 +34,12 @@ class JournalsPcfImport implements ToCollection, WithHeadingRow
 
             if (! empty($slug)) {
                 $item = Item::query()
-                                ->firstWhere('ftp_slug', $slug);
+                    ->firstWhere('ftp_slug', $slug);
                 if (empty($item)) {
                     $name = data_get($row, str('Genre/Date or Title/Section on FTP')->replace('/', '')->lower()->snake()->toString());
                     if (! empty($name)) {
                         $item = Item::query()
-                                        ->firstWhere('name', $name);
+                            ->firstWhere('name', $name);
                     }
                 }
 

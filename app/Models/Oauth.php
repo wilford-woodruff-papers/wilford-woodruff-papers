@@ -11,7 +11,10 @@ class Oauth extends Model
 
     protected $table = 'oauth';
 
-    protected $casts = [
-        'expires_at' => 'datetime',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'expires_at' => 'datetime',
+        ];
+    }
 }

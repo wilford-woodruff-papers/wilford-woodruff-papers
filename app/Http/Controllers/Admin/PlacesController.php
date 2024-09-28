@@ -137,7 +137,7 @@ class PlacesController extends Controller
                 ->withInput($request->all());
         }
 
-        $place = new Subject();
+        $place = new Subject;
 
         $validated = $request->validate($this->rules);
 

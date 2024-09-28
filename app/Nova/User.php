@@ -107,8 +107,8 @@ class User extends Resource
     public function filters(Request $request): array
     {
         return [
-            new ApiUser(),
-            new \App\Nova\Filters\Role(),
+            new ApiUser,
+            new \App\Nova\Filters\Role,
         ];
     }
 
@@ -126,9 +126,9 @@ class User extends Resource
     public function actions(Request $request): array
     {
         return [
-            new AssignRole(),
-            new CopyUserRoles(),
-            new ExportUsers(),
+            new AssignRole,
+            new CopyUserRoles,
+            new ExportUsers,
         ];
     }
 }

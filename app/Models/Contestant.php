@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Dyrynda\Database\Casts\EfficientUuid;
+use Dyrynda\Database\Support\Casts\EfficientUuid;
 use Dyrynda\Database\Support\GeneratesUuid;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Notifications\Notifiable;
 
 class Contestant extends Model
@@ -16,11 +17,14 @@ class Contestant extends Model
 
     protected $guarded = ['id'];
 
-    protected $casts = [
-        'uuid' => EfficientUuid::class,
-    ];
+    protected function casts(): array
+    {
+        return [
+            'uuid' => EfficientUuid::class,
+        ];
+    }
 
-    public function submission()
+    public function submission(): BelongsTo
     {
         return $this->belongsTo(ContestSubmission::class, 'contest_submission_id');
     }

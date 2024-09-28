@@ -42,9 +42,9 @@ class NewCommentNotification extends Notification implements ShouldQueue
     public function toMail($notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line('Please login and approve/deny this new comment:')
-                    ->action('View Comment', url('/nova/resources/comments/'.$this->comment->id))
-                    ->line('Thank you!');
+            ->line('Please login and approve/deny this new comment:')
+            ->action('View Comment', url('/nova/resources/comments/'.$this->comment->id))
+            ->line('Thank you!');
     }
 
     /**
