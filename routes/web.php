@@ -2,7 +2,6 @@
 
 use App\Models\ComeFollowMe;
 use Illuminate\Support\Facades\Route;
-use Vormkracht10\LaravelOpenGraphImage\Http\Controllers\LaravelOpenGraphImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -596,11 +595,12 @@ Route::middleware(['role:Super Admin|Editor|Bio Editor'])->group(function () {
         ->name('api.locations.index');
 });
 
-if (app()->environment('local')) {
-    Route::get('open-graph-image.jpg/preview', [LaravelOpenGraphImageController::class, '__invoke'])->name('open-graph-image.html');
-}
+//if (app()->environment('local')) {
+//    Route::get('open-graph-image.jpg/preview', [LaravelOpenGraphImageController::class, '__invoke'])->name('open-graph-image.html');
+//}
 
-Route::get('open-graph-image.jpg', [LaravelOpenGraphImageController::class, '__invoke'])->name('open-graph-image.file');
+Route::get('open-graph-image.jpg', [\App\Http\OpenGraphImageController::class, '__invoke'])
+    ->name('open-graph-image.file');
 
 //Route::view('test-og-image', 'public.test');
 Route::middleware(['auth', \App\Http\Middleware\LogApiUsageMiddleware::class])
