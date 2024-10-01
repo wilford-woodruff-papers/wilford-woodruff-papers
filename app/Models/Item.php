@@ -53,7 +53,7 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
         'aa', 'bb', 'cc', 'dd', 'ee', 'ff', 'gg', 'hh', 'ii', 'jj', 'kk', 'll', 'mm', 'nn', 'oo', 'pp', 'qq', 'rr', 'ss', 'tt', 'uu', 'vv', 'ww', 'xx', 'yy', 'zz',
     ];
 
-    public function pages(): HasManyThrough
+    public function pages()
     {
         /*if(Str::of(optional($this->type)->name)->exactly(['Autobiographies', 'Journals'])){
             return $this->hasManyThrough(Page::class, Item::class)->orderBy('order', 'ASC');
