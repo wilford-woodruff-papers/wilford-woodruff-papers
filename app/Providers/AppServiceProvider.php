@@ -18,6 +18,7 @@ use Filament\Support\Facades\FilamentAsset;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\RateLimiter;
@@ -28,6 +29,8 @@ use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
+use SocialiteProviders\FamilySearch\FamilySearchExtendSocialite;
+use SocialiteProviders\FamilySearch\Provider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -98,6 +101,10 @@ class AppServiceProvider extends ServiceProvider
 
         Model::preventLazyLoading(! $this->app->isProduction());
         //Model::preventAccessingMissingAttributes(! $this->app->isProduction());
+
+        Event::listen(function (\SocialiteProviders\Manager\SocialiteWasCalled $event) {
+            $event->extendSocialite('familysearch', Provider::class);
+        });
 
         $this->bootAuth();
         $this->bootRoute();
