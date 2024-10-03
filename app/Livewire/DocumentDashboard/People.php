@@ -103,6 +103,7 @@ class People extends Component
         $people = Subject::query()
             ->select([
                 'id',
+                'pid',
                 'name',
                 'slug',
                 'tagged_count',

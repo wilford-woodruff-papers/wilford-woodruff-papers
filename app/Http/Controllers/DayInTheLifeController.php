@@ -61,6 +61,7 @@ class DayInTheLifeController extends Controller
         $subjects = Subject::extractFromText($content);
 
         $content = str($content)
+            ->replaceFigureTags()
             ->addSubjectLinks()
             ->replaceInlineLanguageTags()
             ->addScriptureLinks()

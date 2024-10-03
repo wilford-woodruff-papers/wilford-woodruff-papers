@@ -14,11 +14,22 @@
     opacity: 0;
 }
 
-/* Convert Kit Overrides */
-.formkit-sticky-bar {
-    @apply z-50;
+
+nav a.text-secondary {
+    @apply no-underline !important;
 }
-/* Convert Kit Overrides */
+
+a.text-secondary {
+    @apply underline;
+}
+
+a.scripture {
+    @apply inline-flex text-secondary items-start gap-1;
+    &:after {
+        @apply w-4 h-4 text-secondary inline pt-0.5;
+        content: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20fill%3D%22none%22%20viewBox%3D%220%200%2024%2024%22%20stroke-width%3D%221.5%22%20stroke%3D%22currentColor%22%20class%3D%22h-4%20w-4%20text-secondary%22%3E%0A%20%20%3Cpath%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20d%3D%22M13.5%206H5.25A2.25%202.25%200%200%200%203%208.25v10.5A2.25%202.25%200%200%200%205.25%2021h10.5A2.25%202.25%200%200%200%2018%2018.75V10.5m-10.5%206L21%203m0%200h-5.25M21%203v5.25%22%20style%3D%22color%3A%20%23792310%3B%22%2F%3E%0A%3C%2Fsvg%3E%0A")
+    }
+}
 
 h1 {
     @apply font-serif;

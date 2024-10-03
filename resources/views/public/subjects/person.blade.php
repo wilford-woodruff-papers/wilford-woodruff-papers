@@ -17,15 +17,7 @@
                                     @endif
                                     @if(! empty($subject->pid) && $subject->pid !== 'n/a')
                                         <div class="px-1">
-                                            <a href="https://www.familysearch.org/tree/person/details/{{ $subject->pid }}"
-                                               class="block px-2 pt-1 pb-2 text-sm bg-white border border-gray-200"
-                                               target="_blank"
-                                            >
-                                                <img src="{{ asset('img/familytree-logo.png') }}"
-                                                     alt="FamilySearch"
-                                                     class="mx-auto w-auto h-6"
-                                                />
-                                            </a>
+                                            <x-familysearch-button :pid="$subject->pid" />
                                         </div>
                                     @endif
                                     @hasanyrole('Editor|Researcher|Admin|Super Admin')
