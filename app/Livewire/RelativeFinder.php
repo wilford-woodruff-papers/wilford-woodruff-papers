@@ -77,7 +77,7 @@ class RelativeFinder extends Component implements HasForms, HasTable
                     ->separator(','),
                 ViewColumn::make('person.pid')
                     ->label('FamilySearch')
-                    ->view('components.familysearch-button'),
+                    ->view('components.familysearch-logo'),
             ])
             ->filters([
                 SelectFilter::make('category')

@@ -29,7 +29,6 @@ use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
-use SocialiteProviders\FamilySearch\FamilySearchExtendSocialite;
 use SocialiteProviders\FamilySearch\Provider;
 
 class AppServiceProvider extends ServiceProvider

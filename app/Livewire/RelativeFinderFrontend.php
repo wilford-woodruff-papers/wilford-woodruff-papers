@@ -109,7 +109,7 @@ class RelativeFinderFrontend extends Component implements HasForms, HasTable
                     ->openUrlInNewTab(),
                 ViewColumn::make('person.pid')
                     ->label('FamilySearch')
-                    ->view('components.familysearch-button'),
+                    ->view('components.familysearch-logo'),
             ])
             ->filters([
                 SelectFilter::make('category')
