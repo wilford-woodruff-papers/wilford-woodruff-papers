@@ -8,14 +8,18 @@
         </a>
     </div>
     <div class="col-span-6 py-2 px-4">
-        <p class="pb-1 text-lg font-medium capitalize text-secondary">
-            <a href="{{ route('pages.show', ['item' => $page->parent, 'page' => $page]) }}">Page {{ $page->order }}</a>
+        <p class="pb-1">
+            <a href="{{ route('pages.show', ['item' => $page->parent, 'page' => $page]) }}"
+               class="text-lg font-medium capitalize text-secondary"
+            >Page {{ $page->order }}</a>
         </p>
         <div class="flex gap-x-3 ml-2 text-base font-medium">
             <div>
                 <span class="text-gray-600">Part of </span>
-                <span class="text-secondary">
-                    <a href="{{ route('documents.show', ['item' => $page->parent]) }}">{{ \Illuminate\Support\Str::of($page->parent?->name)->replaceMatches('/\[.*?\]/', '')->trim() }}</a>
+                <span class="">
+                    <a href="{{ route('documents.show', ['item' => $page->parent]) }}"
+                        class="text-secondary"
+                    >{{ \Illuminate\Support\Str::of($page->parent?->name)->replaceMatches('/\[.*?\]/', '')->trim() }}</a>
                 </span>
             </div>
             <div>

@@ -26,7 +26,7 @@
                         </div>
                     @endhasanyrole
                 @endauth
-                <p class="pb-1 text-lg font-medium text-secondary">
+                <p class="pb-1 text-lg font-medium underline text-secondary">
                     {{ \Illuminate\Support\Str::of($item->name)->replaceMatches('/\[.*?\]/', '')->trim() }}
                 </p>
                 <p>{{ str($item->type?->name)->singular() }}</p>
