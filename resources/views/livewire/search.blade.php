@@ -345,7 +345,7 @@
                                     </div>
                                     <div class="max-w-xl">
                                         <div class="relative group">
-                                            <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
+                                            <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 underline group-hover:text-gray-600">
                                                 <span class="absolute inset-0"></span>
                                                 {!! str(data_get($hit, '_formatted.name'))->remove('[[')->remove(']]') !!}
                                             </h3>
@@ -427,7 +427,7 @@
                                         @else
                                             @includeFirst(['search.'.str(data_get($hit, 'resource_type'))->snake(), 'search.generic'])
                                         @endif
-                                        <span class="text-lg font-medium capitalize text-secondary">
+                                        <span class="text-lg font-medium underline capitalize text-secondary">
                                             {!! str(data_get($hit, '_formatted.name'))->remove('[[')->remove(']]') !!}
                                         </span>
                                     </div>

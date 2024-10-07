@@ -93,7 +93,7 @@
                                class="text-xl"
                                target="_blank"
                             >
-                            <span class="text-secondary">
+                            <span class="underline text-secondary">
                                 {{ $topic->name }}
                             </span>
                                 <span class="text-base text-black">
