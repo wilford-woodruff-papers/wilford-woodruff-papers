@@ -6,7 +6,7 @@
                 {{ $section['name'] }}
             </h2>
             <p class="mt-4 mb-8 text-xl">
-                Browse people Wilford Woodruff mentioned on this day in his journal.
+                Browse people Wilford Woodruff mentioned on this day in his journal. Click on the person's name to view a short bio and other pages they are mentioned on or click on "View in Family Search" to view their FamilySearch profile.
             </p>
         </div>
         <div class="grid grid-cols-1 gap-2 lg:grid-cols-3">

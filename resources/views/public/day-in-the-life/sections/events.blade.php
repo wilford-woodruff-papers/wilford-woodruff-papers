@@ -6,7 +6,7 @@
                 {{ $section['name'] }}
             </h2>
             <p class="mt-4 mb-8 text-xl">
-                View selected events in the two months surrounding this date in Wilford Woodruff's life.
+                View selected events in the two months surrounding this date in Wilford Woodruff's life. Click on the dates to jump to that day in Wilford Woodruff's journal.
             </p>
         </div>
         <div class="">
