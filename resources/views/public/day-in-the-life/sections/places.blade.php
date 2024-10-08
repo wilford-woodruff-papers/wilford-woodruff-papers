@@ -6,7 +6,7 @@
                 {{ $section['name'] }}
             </h2>
             <p class="mt-4 mb-8 text-xl">
-                Browse places mentioned in Wilford Woodruff's journal entry on this day.
+                Browse places mentioned in Wilford Woodruff's journal entry on this day. Click on the place names to view other pages where they are mentioned.
             </p>
         </div>
         <div class="grid grid-cols-1 gap-y-4 lg:grid-cols-3">
