@@ -43,7 +43,7 @@ class ComeFollowMeResource extends Resource
                         Select::make('book')
                             ->options([
                                 'Book of Mormon' => 'Book of Mormon',
-                                'Doctrine & Covenants' => 'Doctrine & Covenants',
+                                'Doctrine and Covenants' => 'Doctrine and Covenants',
                                 'New Testament' => 'New Testament',
                                 'Old Testament' => 'Old Testament',
                             ])
@@ -145,7 +145,7 @@ class ComeFollowMeResource extends Resource
                 Tables\Filters\SelectFilter::make('book')
                     ->options([
                         'Book of Mormon' => 'Book of Mormon',
-                        'Doctrine & Covenants' => 'Doctrine & Covenants',
+                        'Doctrine and Covenants' => 'Doctrine and Covenants',
                         'New Testament' => 'New Testament',
                         'Old Testament' => 'Old Testament',
                     ]),
