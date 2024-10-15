@@ -49,7 +49,7 @@ class ComeFollowMeResource extends Resource
                             ])
                             ->required(),
                         Select::make('week')
-                            ->options(range(1, 53))
+                            ->options(array_combine(range(1, 52), range(1, 52)))
                             ->required(),
                         TextInput::make('date')
                             ->required(),
