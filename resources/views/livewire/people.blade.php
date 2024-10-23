@@ -4,7 +4,7 @@
 
         <div class="hidden gap-4 pb-8 max-w-7xl sm:grid sm:grid-cols-4">
             @foreach($selectCategories as $categoryOption)
-                <span wire:click="$set('category', '{{ $categoryOption }}')"
+                <span wire:click="$set('category', '{{ addslashes($categoryOption) }}')"
                       @class([
                         'flex justify-center items-center px-3 py-1 text-lg cursor-pointer',
                         'bg-white text-secondary border border-secondary' => $category != $categoryOption,
