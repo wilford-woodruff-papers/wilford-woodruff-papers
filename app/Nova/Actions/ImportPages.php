@@ -53,12 +53,23 @@ class ImportPages extends Action
         $links = $transcript->matchAll('/<a.*?<\/a>/s');
 
         foreach ($links as $link) {
-            $title = str($link)->match("/(?<=title=')(.*?)(?=')/s");
-            $text = str($link)->match("/(?<=>)(.*?)(?=<\/a>)/s");
-            $transcript = $transcript->replace(
-                $link,
-                '[['.html_entity_decode($title).'|'.$text.']]'
-            );
+            if (str($link)->contains('class="external"')) {
+                $transcript = $transcript->replace(
+                    $link,
+                    str($link)->replace(
+                        'class="external"',
+                        'class="external" target="_blank"',
+                    )
+                );
+            } else {
+                $title = str($link)->match("/(?<=title=')(.*?)(?=')/s");
+                $text = str($link)->match("/(?<=>)(.*?)(?=<\/a>)/s");
+                $transcript = $transcript->replace(
+                    $link,
+                    '[['.html_entity_decode($title).'|'.$text.']]'
+                );
+            }
+
         }
 
         return $transcript;

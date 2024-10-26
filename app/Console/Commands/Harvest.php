@@ -91,14 +91,22 @@ class Harvest extends Command
 
         foreach ($links as $link) {
             if (str($link)->contains('class="external"')) {
-                continue;
+                $transcript = $transcript->replace(
+                    $link,
+                    str($link)->replace(
+                        'class="external"',
+                        'class="external" target="_blank"',
+                    )
+                );
+            } else {
+                $title = str($link)->match("/(?<=title=')(.*?)(?=')/s");
+                $text = str($link)->match("/(?<=>)(.*?)(?=<\/a>)/s");
+                $transcript = $transcript->replace(
+                    $link,
+                    '[['.html_entity_decode($title).'|'.$text.']]'
+                );
             }
-            $title = str($link)->match("/(?<=title=')(.*?)(?=')/s");
-            $text = str($link)->match("/(?<=>)(.*?)(?=<\/a>)/s");
-            $transcript = $transcript->replace(
-                $link,
-                '[['.html_entity_decode($title).'|'.$text.']]'
-            );
+
         }
 
         return $transcript;
