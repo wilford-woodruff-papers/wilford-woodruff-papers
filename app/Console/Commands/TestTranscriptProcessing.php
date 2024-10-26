@@ -45,6 +45,9 @@ class TestTranscriptProcessing extends Command
         $transcript = Str::of($transcript);
         $links = $dom->findMulti('a');
         foreach ($links as $link) {
+            if (str($link)->contains('class="external"')) {
+                continue;
+            }
             //dd($link->outerHtml(), $link->getAttribute('title'), $link->innerHtml());
             if (str($link->outerHtml())->contains('Phebe')) {
                 logger()->info(['Outer HTML: ', str($link->outerHtml())->replace('<br /> ', '<br/>')]);
