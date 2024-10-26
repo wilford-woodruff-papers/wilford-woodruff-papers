@@ -46,6 +46,7 @@ class IndexPlacesForMap extends Command
                 'subjects.latitude',
                 'subjects.longitude',
                 'subjects.total_usage_count',
+                'subjects.visited',
                 DB::raw('YEAR(pages.first_date) as year'),
                 'items.id as doc_id',
                 'pages.id as page_id',
@@ -77,6 +78,7 @@ class IndexPlacesForMap extends Command
                             'name' => $place->name,
                             'type' => $place->type,
                             'year' => $place->year,
+                            'visited' => $place->visited,
                             '_geo' => [
                                 'lat' => $place->latitude,
                                 'lng' => $place->longitude,
