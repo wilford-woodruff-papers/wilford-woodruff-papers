@@ -96,6 +96,24 @@
                            </div>
                        </div>
                    </div>
+                   <div class="pt-4">
+                       <div class="flex relative gap-4 items-start">
+                           <div class="text-base font-semibold leading-6 truncate">
+                               <label for="visited"
+                                      class="font-semibold text-gray-900"
+                                      data-name="visited"
+                               >Visited Places Only</label>
+                           </div>
+                           <div class="flex items-center h-6">
+                               <input x-model="visited"
+                                      id="visited"
+                                      name="visited"
+                                      type="checkbox"
+                                      value="true"
+                                      class="w-4 h-4 rounded border-gray-300 text-secondary focus:ring-secondary">
+                           </div>
+                       </div>
+                   </div>
                </div>
            </div>
 
@@ -400,7 +418,7 @@
                     view: 'locations',
                     loading: true,
                     locations: [],
-                    places: [],
+                    visited: false,
                     currentlocation: null,
                     documents: [],
                     currentDocument: null,
@@ -455,6 +473,11 @@
                         if(this.types.length > 0){
                             visiblePlaces = visiblePlaces.filter(item => this.types.includes(item.type));
                         }
+
+                        if (this.visited == true || this.visited == 'true') {
+                            visiblePlaces = visiblePlaces.filter(item => (item.visited == true || item.visited == 'true'));
+                        }
+
                         visiblePlaces = visiblePlaces.filter(item => item.year >= this.minyear && item.year <= this.maxyear);
 
                         visiblePlaces
@@ -487,6 +510,7 @@
                         this.filters.push(
                             '_geoBoundingBox(['+this.preventOutOfBounds(geo._northEast.lat)+', '+this.preventOutOfBounds(geo._northEast.lng)+'], ['+this.preventOutOfBounds(geo._southWest.lat)+', '+this.preventOutOfBounds(geo._southWest.lng)+'])'
                         );
+
                         return this.filters;
                     },
                     populateTypes(){
@@ -532,6 +556,8 @@
                         this.searchJs();
 
                         this.$watch('types', (value, oldValue) => this.drawOnMap());
+
+                        this.$watch('visited', (value, oldValue) => this.drawOnMap());
 
                         this.map.on('moveend', (function() {
                             if(this.reload){
