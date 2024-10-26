@@ -23,7 +23,7 @@ a.text-secondary {
     @apply underline;
 }
 
-a.scripture {
+a.scripture, a.external {
     @apply inline-flex text-secondary items-start gap-1;
     &:after {
         @apply w-4 h-4 text-secondary inline pt-0.5;
