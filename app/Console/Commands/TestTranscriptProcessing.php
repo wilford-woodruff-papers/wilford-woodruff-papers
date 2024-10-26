@@ -46,13 +46,21 @@ class TestTranscriptProcessing extends Command
         $links = $dom->findMulti('a');
         foreach ($links as $link) {
             if (str($link)->contains('class="external"')) {
-                continue;
+                $transcript = $transcript->replace(
+                    $link,
+                    str($link)->replace(
+                        'class="external"',
+                        'class="external" target="_blank"',
+                    )
+                );
+            } else {
+                if (str($link->outerHtml())->contains('Phebe')) {
+                    logger()->info(['Outer HTML: ', str($link->outerHtml())->replace('<br /> ', '<br/>')]);
+                }
+                $transcript = $transcript->replace(str($link->outerHtml())->replace('<br /> ', "<br/>\n"), '[['.html_entity_decode($link->getAttribute('title')).'|'.$link->innerHtml().']]');
             }
             //dd($link->outerHtml(), $link->getAttribute('title'), $link->innerHtml());
-            if (str($link->outerHtml())->contains('Phebe')) {
-                logger()->info(['Outer HTML: ', str($link->outerHtml())->replace('<br /> ', '<br/>')]);
-            }
-            $transcript = $transcript->replace(str($link->outerHtml())->replace('<br /> ', "<br/>\n"), '[['.html_entity_decode($link->getAttribute('title')).'|'.$link->innerHtml().']]');
+
         }
 
         return $transcript;
