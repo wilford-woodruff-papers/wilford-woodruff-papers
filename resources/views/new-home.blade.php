@@ -4,14 +4,14 @@
 {{--    </div>--}}
     <video autoplay loop muted playsinline
            poster="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/files/video/time-machine.jpeg"
-           class="object-cover absolute top-0 left-0 z-0 w-full h-auto opacity-40 aspect-[8/3]"
+           class="object-cover absolute left-0 top-20 w-full h-auto opacity-40 -z-1 aspect-[8/3]"
 
     >
         <source src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/files/video/time-machine.mp4">
 {{--        <source src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/files/video/time-machine.webm">--}}
     </video>
-    <div class="flex relative z-10 items-center px-8 mx-auto -mt-20 w-full max-w-7xl h-auto aspect-[7/3]">
-        <div class="flex flex-col gap-y-4">
+    <div class="flex relative items-center px-8 mx-auto w-full max-w-7xl h-auto z-1 aspect-[7/3]">
+        <div class="flex flex-col gap-y-4 -mt-20">
             <h1 class="text-7xl">
                 Wilford Woodruff Papers
             </h1>
@@ -20,7 +20,7 @@
             </p>
             <div class="">
                 <form action="{{ route('advanced-search') }}"
-                class=""
+                class="px-20 pt-8"
                 >
                     <div>
                         <label for="q" class="block text-sm font-medium leading-6 text-gray-900 sr-only">Search</label>
@@ -58,6 +58,14 @@
                 Our purpose in making Wilford Woodruff’s records universally accessible is to inspire all people, especially the rising generation, to study and <span class="font-semibold">increase their faith in Jesus Christ</span>.
             </p>
         </div>
+    </div>
+
+    <div class="relative px-8 mx-auto mt-8 max-w-7xl">
+        <x-new-content />
+    </div>
+
+    <div class="relative px-8 my-16 mx-auto max-w-7xl">
+        <x-new-testimonies />
     </div>
 
 </x-new-guest-layout>
