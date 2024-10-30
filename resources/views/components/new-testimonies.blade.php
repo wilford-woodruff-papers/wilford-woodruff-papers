@@ -25,7 +25,7 @@
         </div>
         <div class="flex-0 h-[400px] aspect-[16/9]">
             <div class="inline-block flex overflow-hidden relative items-center w-full aspect-[16/9] image-parent bg-primary-50">
-                <div class="absolute z-0 z-10 w-full h-full bg-left bg-cover image-child"
+                <div class="absolute z-0 z-10 w-full h-full bg-top bg-cover image-child"
                      style="background-image: url({{ $featured->getFirstMediaUrl('images', 'square') }})">
                 </div>
             </div>
