@@ -27,6 +27,7 @@ class NewTestimonies extends Component
             'testimonies' => Cache::remember('new-testimonies', 3600, function () {
                 return Testimonial::query()
                     ->select('id', 'slug', 'name', 'content')
+                    ->whereNotNull('content')
                     ->with('media')
                     ->has('media')
                     ->limit(6)
