@@ -60,9 +60,9 @@
 {{--<x-admin-bar />--}}
 
 <header class="relative z-10">
-    <div class="absolute w-full h-32 bg-gradient-to-t from-transparent to-white z-1"></div>
-    <nav class="flex relative z-10 justify-between items-center p-3 mx-auto max-w-7xl lg:px-8" aria-label="Global">
-        <a href="{{ route('home') }}" class="p-1.5 -m-1.5">
+{{--    <div class="absolute w-full h-20 bg-white z-1"></div>--}}
+    <nav class="flex relative z-50 justify-between items-center p-3 mx-auto max-w-7xl lg:px-8" aria-label="Global">
+        <a href="{{ route('home') }}" class="p-1.5 -mb-1.5">
             <span class="sr-only">Wilford Woodruff Papers</span>
             <img class="-mt-4 w-auto h-16" src="{{ asset('img/image-logo.png') }}" alt="">
         </a>
@@ -74,27 +74,347 @@
                 </svg>
             </button>
         </div>--}}
-        <div class="hidden pt-3 font-sans lg:flex lg:gap-x-12">
-            <a href="{{ route('documents') }}" class="text-base font-medium leading-6 text-primary">
+        <div class="hidden pt-3 font-sans lg:flex lg:gap-x-1">
+            <a href="{{ route('documents') }}" class="py-2.5 px-2 text-base font-medium leading-6 text-primary">
                 Documents
             </a>
-            <a href="#" class="text-base font-medium leading-6 text-primary">
-                Study
-            </a>
-            <a href="#" class="text-base font-medium leading-6 text-primary">
-                Explore
-            </a>
-            <a href="#" class="text-base font-medium leading-6 text-primary">
-                Get Involved
-            </a>
-            <a href="#" class="text-base font-medium leading-6 text-primary">
-                About
-            </a>
-            <a href="#" class="text-base font-medium leading-6 text-primary">
+            <div class="flex justify-center">
+                <div
+                    x-data="{
+                        open: false,
+                        toggle() {
+                            if (this.open) {
+                                return this.close()
+                            }
+
+                            this.$refs.button.focus()
+
+                            this.open = true
+                        },
+                        close(focusAfter) {
+                            if (! this.open) return
+
+                            this.open = false
+
+                            focusAfter && focusAfter.focus()
+                        }
+                    }"
+                    x-on:keydown.escape.prevent.stop="close($refs.button)"
+                    x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
+                    x-id="['dropdown-button']"
+                    class="relative"
+                >
+                    <!-- Button -->
+                    <button
+                        x-ref="button"
+                        x-on:click="toggle()"
+                        :aria-expanded="open"
+                        :aria-controls="$id('dropdown-button')"
+                        type="button"
+                        class="flex gap-2 items-center py-2.5 px-2 text-base font-medium leading-6 uppercase text-primary"
+                    >
+                        Study
+
+                        <!-- Heroicon: chevron-down -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+
+                    <!-- Panel -->
+                    <div
+                        x-ref="panel"
+                        x-show="open"
+                        x-transition.origin.top.left
+                        x-on:click.outside="close($refs.button)"
+                        :id="$id('dropdown-button')"
+                        style="display: none;"
+                        class="absolute left-0 z-50 mt-2 w-80 bg-white shadow-md"
+                    >
+                        <a href="{{ route('documents') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Documents
+                        </a>
+
+                        <a href="{{ route('wives-and-children') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Family
+                        </a>
+
+                        <a href="{{ route('advanced-search', ['currentIndex' => 'Scriptures']) }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Scriptures
+                        </a>
+
+                        <a href="{{ route('come-follow-me.index') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Come Follow Me
+                        </a>
+
+                        <a href="{{ route('people') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            People Included in Wilford Woodruff's Papers
+                        </a>
+
+                        <a href="{{ route('places') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Locations
+                        </a>
+
+                        <a href="{{ route('topics') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Topics
+                        </a>
+
+                        <a href="{{ route('book.product-page') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            The Development of Temple Doctrine
+                        </a>
+
+                        <a href="{{ url('wilford-woodruff-bio') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            About Wilford Woodruff
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-center">
+                <div
+                    x-data="{
+                        open: false,
+                        toggle() {
+                            if (this.open) {
+                                return this.close()
+                            }
+
+                            this.$refs.button.focus()
+
+                            this.open = true
+                        },
+                        close(focusAfter) {
+                            if (! this.open) return
+
+                            this.open = false
+
+                            focusAfter && focusAfter.focus()
+                        }
+                    }"
+                    x-on:keydown.escape.prevent.stop="close($refs.button)"
+                    x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
+                    x-id="['dropdown-button']"
+                    class="relative"
+                >
+                    <!-- Button -->
+                    <button
+                        x-ref="button"
+                        x-on:click="toggle()"
+                        :aria-expanded="open"
+                        :aria-controls="$id('dropdown-button')"
+                        type="button"
+                        class="flex gap-2 items-center py-2.5 px-2 text-base font-medium leading-6 uppercase text-primary"
+                    >
+                        Explore
+
+                        <!-- Heroicon: chevron-down -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+
+                    <!-- Panel -->
+                    <div
+                        x-ref="panel"
+                        x-show="open"
+                        x-transition.origin.top.left
+                        x-on:click.outside="close($refs.button)"
+                        :id="$id('dropdown-button')"
+                        style="display: none;"
+                        class="absolute left-0 z-50 mt-2 w-80 bg-white shadow-md"
+                    >
+                        <a href="{{ route('relative-finder') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Relative Finder
+                        </a>
+
+                        <a href="{{ route('map') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Browse Map
+                        </a>
+
+                        <a href="{{ route('day-in-the-life') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Day in the Life
+                        </a>
+
+                        <a href="{{ route('timeline') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Timeline
+                        </a>
+
+                        <a href="{{ route('miraculously-preserved-life') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Miraculously Preserved Life
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-center">
+                <div
+                    x-data="{
+                        open: false,
+                        toggle() {
+                            if (this.open) {
+                                return this.close()
+                            }
+
+                            this.$refs.button.focus()
+
+                            this.open = true
+                        },
+                        close(focusAfter) {
+                            if (! this.open) return
+
+                            this.open = false
+
+                            focusAfter && focusAfter.focus()
+                        }
+                    }"
+                    x-on:keydown.escape.prevent.stop="close($refs.button)"
+                    x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
+                    x-id="['dropdown-button']"
+                    class="relative"
+                >
+                    <!-- Button -->
+                    <button
+                        x-ref="button"
+                        x-on:click="toggle()"
+                        :aria-expanded="open"
+                        :aria-controls="$id('dropdown-button')"
+                        type="button"
+                        class="flex gap-2 items-center py-2.5 px-2 text-base font-medium leading-6 uppercase text-primary"
+                    >
+                        Get Involved
+
+                        <!-- Heroicon: chevron-down -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+
+                    <!-- Panel -->
+                    <div
+                        x-ref="panel"
+                        x-show="open"
+                        x-transition.origin.top.left
+                        x-on:click.outside="close($refs.button)"
+                        :id="$id('dropdown-button')"
+                        style="display: none;"
+                        class="absolute left-0 z-50 mt-2 w-80 bg-white shadow-md"
+                    >
+                        <a href="{{ route('volunteer') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Volunteer
+                        </a>
+
+                        <a href="{{ url('work-with-us/internship-opportunities') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Internships
+                        </a>
+
+                        <a href="{{ route('contribute-documents') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Contribute Documents
+                        </a>
+
+                        <a href="{{ route('work-with-us') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Career
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-center">
+                <div
+                    x-data="{
+                        open: false,
+                        toggle() {
+                            if (this.open) {
+                                return this.close()
+                            }
+
+                            this.$refs.button.focus()
+
+                            this.open = true
+                        },
+                        close(focusAfter) {
+                            if (! this.open) return
+
+                            this.open = false
+
+                            focusAfter && focusAfter.focus()
+                        }
+                    }"
+                    x-on:keydown.escape.prevent.stop="close($refs.button)"
+                    x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
+                    x-id="['dropdown-button']"
+                    class="relative"
+                >
+                    <!-- Button -->
+                    <button
+                        x-ref="button"
+                        x-on:click="toggle()"
+                        :aria-expanded="open"
+                        :aria-controls="$id('dropdown-button')"
+                        type="button"
+                        class="flex gap-2 items-center py-2.5 px-2 text-base font-medium leading-6 uppercase text-primary"
+                    >
+                        About
+
+                        <!-- Heroicon: chevron-down -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+
+                    <!-- Panel -->
+                    <div
+                        x-ref="panel"
+                        x-show="open"
+                        x-transition.origin.top.left
+                        x-on:click.outside="close($refs.button)"
+                        :id="$id('dropdown-button')"
+                        style="display: none;"
+                        class="absolute left-0 z-50 mt-2 w-80 bg-white shadow-md"
+                    >
+                        <a href="{{ route('about') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Mission
+                        </a>
+
+                        <a href="{{ route('about.meet-the-team') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Meet the Team
+                        </a>
+
+                        <a href="{{ route('testimonies.index') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Testimonies
+                        </a>
+
+                        <a href="{{ route('about.partners') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Partners
+                        </a>
+
+                        <a href="{{ url('impact') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Impact
+                        </a>
+
+                        <a href="#" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Progress
+                        </a>
+
+                        <a href="{{ route('about.editorial-method') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Editorial Method
+                        </a>
+
+                        <a href="{{ route('about.frequently-asked-questions') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Frequently Asked Questions
+                        </a>
+
+                        <a href="{{ route('contact-us') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Contact Us
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+            <a href="{{ route('donate') }}" class="py-2.5 text-base font-medium leading-6 text-primary">
                 Donate
             </a>
 
-            <a href="#" class="text-base font-semibold leading-6 text-primary">
+            <a href="#" class="py-2.5 pl-2 text-base font-semibold leading-6 text-primary">
                 <x-heroicon-o-magnifying-glass class="w-6 h-6" />
             </a>
         </div>
