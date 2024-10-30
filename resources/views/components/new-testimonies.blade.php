@@ -3,7 +3,7 @@
 @endphp
 <div>
     <div class="flex gap-8 h-[400px]">
-        <div class="flex flex-col gap-8 justify-between flex-0">
+        <div class="flex flex-col flex-1 gap-8 justify-between">
             <div class="overflow-y-auto flex-1">
                 <p class="pb-4 text-2xl border-b border-primary">
                     Testimonies
@@ -23,7 +23,7 @@
                 </a>
             </div>
         </div>
-        <div class="flex-1 h-[400px] aspect-[16/9]">
+        <div class="flex-0 h-[400px] aspect-[16/9]">
             <div class="inline-block flex overflow-hidden relative items-center w-full aspect-[16/9] image-parent bg-primary-50">
                 <div class="absolute z-0 z-10 w-full h-full bg-left bg-cover image-child"
                      style="background-image: url({{ $featured->getFirstMediaUrl('images', 'square') }})">
