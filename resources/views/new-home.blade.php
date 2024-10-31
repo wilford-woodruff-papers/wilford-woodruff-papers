@@ -39,8 +39,8 @@
     </div>
 
     <div class="relative z-10 px-8 mx-auto max-w-7xl">
-        <div class="grid grid-cols-3 gap-8 h-96">
-            <div class="bg-secondary"></div>
+        <div class="grid grid-cols-3 gap-8 h-128">
+            <x-new-day-in-the-life />
             <div class="bg-primary"></div>
             <div class="bg-secondary"></div>
         </div>
