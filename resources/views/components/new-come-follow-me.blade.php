@@ -1,6 +1,6 @@
 <div class="flex overflow-hidden flex-col shadow">
     <div class="relative z-0 w-full bg-center bg-cover bg-primary aspect-[16/9]"
-         style="background-image: url('{{ app()->environment('local') ? 'https://wilford-woodruff-papers.nyc3.digitaloceanspaces.com/come-follow-me/581248/October-28-November-3.webp' : $image }}'); background-size: 160%;"
+         style="background-image: url('{{ app()->environment('local') ? 'https://wilford-woodruff-papers.nyc3.digitaloceanspaces.com/come-follow-me/581248/October-28-November-3.webp' : $cfm->getFirstMediaUrl('cover_image') }}'); background-size: 160%;"
     >
         <div class="absolute -bottom-32 w-[150%] h-full inset -rotate-[7deg] bg-secondary -ml-[20%] z-1"></div>
     </div>

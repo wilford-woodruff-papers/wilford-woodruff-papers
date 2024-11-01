@@ -5,11 +5,13 @@ import overlap from "alpinejs-overlap";
 import rangy from "rangy/lib/rangy-core.js";
 import "rangy/lib/rangy-highlighter";
 import "rangy/lib/rangy-classapplier";
+import resize from "@alpinejs/resize";
 
 window.collect = collect;
 window.rangy = rangy;
 
 Alpine.plugin(overlap);
+Alpine.plugin(resize);
 Livewire.start();
 
 
