@@ -20,7 +20,7 @@
             </div>
         </div>
 
-        <div class="flex w-full">
+        <div class="flex -mb-0.5 w-full">
             <a href="{{ route('relative-finder') }}"
                class="block py-2 px-4 w-full text-base font-semibold text-center bg-white text-primary"
             >
