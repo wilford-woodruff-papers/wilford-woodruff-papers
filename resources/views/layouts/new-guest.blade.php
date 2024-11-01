@@ -59,21 +59,26 @@
 @include('layouts.partials.google-tag-manager-no-script')
 {{--<x-admin-bar />--}}
 
-<header class="relative z-10">
+<header x-data="{
+        scrollAtTop: true,
+        showMobileMenu: false,
+        init: function(){
+            // scrollAtTop = (window.pageYOffset > 15) ? false : true;
+        }
+    }"
+    class="relative z-100">
 {{--    <div class="absolute w-full h-20 bg-white z-1"></div>--}}
     <nav class="flex relative z-50 justify-between items-center p-3 mx-auto max-w-7xl lg:px-8" aria-label="Global">
         <a href="{{ route('home') }}" class="p-1.5 -mb-1.5">
             <span class="sr-only">Wilford Woodruff Papers</span>
             <img class="-mt-4 w-auto h-16" src="{{ asset('img/image-logo.png') }}" alt="">
         </a>
-        {{--<div class="flex lg:hidden">
-            <button type="button" class="inline-flex justify-center items-center p-2.5 -m-2.5 text-gray-700 rounded-md">
-                <span class="sr-only">Open main menu</span>
-                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                </svg>
-            </button>
-        </div>--}}
+        <button x-on:click="showMobileMenu = ! showMobileMenu"
+                class="lg:hidden">
+            <svg class="w-10 h-10 text-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon">
+                <path fill-rule="evenodd" d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd"></path>
+            </svg>
+        </button>
         <div class="hidden pt-3 font-sans lg:flex lg:gap-x-1">
             <a href="{{ route('documents') }}" class="py-2.5 px-2 text-base font-medium leading-6 text-primary">
                 Documents
@@ -414,7 +419,7 @@
                 Donate
             </a>
 
-            <a href="#" class="py-2.5 pl-2 text-base font-semibold leading-6 text-primary">
+            <a href="{{ route('advanced-search') }}" class="py-2.5 pl-2 text-base font-semibold leading-6 text-primary">
                 <x-heroicon-o-magnifying-glass class="w-6 h-6" />
             </a>
         </div>
@@ -451,7 +456,218 @@
             </div>
         </div>
     </div>--}}
+    <div x-show="showMobileMenu" class="fixed top-0 right-0 left-0 min-h-screen bg-white z-[100]" style="display: none;">
+        <nav class="">
+            <div class="absolute right-2 top-5 h-20 lg:hidden">
+                <button x-on:click="showMobileMenu = ! showMobileMenu">
+                    <svg class="w-10 h-10 text-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="px-4 pt-0.5 pb-8 ml-0.5">
+                <a aria-label="Homepage" href="/" class="">
+                    <img class="w-auto h-[64px] PageLogo-image" src="{{ asset('img/image-logo.png') }}" alt="Wilford Woodruff Papers Logo">
+                </a>
+            </div>
+            <ul x-data="{ active: null }"
+                class="flex flex-col gap-4 pl-12 mt-2 text-primary">
+                <li>
+                    <a href="{{ route('documents') }}" class="py-2 px-4 text-2xl cursor-pointer hover:bg-gray-50 text-primary">
+                        Documents
+                    </a>
+                </li>
+                <li x-data="{
+                            id: 1,
+                            get expanded() {
+                                return this.active === this.id
+                            },
+                            set expanded(value) {
+                                this.active = value ? this.id : null
+                            },
+                        }"
+                    role="region"
+                    class="px-4 w-full text-primary">
+                    <div>
+                        <button
+                            type="button"
+                            x-on:click="expanded = !expanded"
+                            :aria-expanded="expanded"
+                            class="flex justify-between items-center w-full text-2xl uppercase cursor-pointer hover:bg-gray-50 text-primary"
+                        >
+                            <span>Study</span>
+                            <span x-show="expanded" aria-hidden="true" class="ml-4">&minus;</span>
+                            <span x-show="!expanded" aria-hidden="true" class="ml-4">&plus;</span>
+                        </button>
+                    </div>
+
+                    <div x-show="expanded" x-collapse>
+                        <div class="px-6 pb-4">
+                            <a href="{{ route('documents') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Documents
+                            </a>
+
+                            <a href="{{ route('wives-and-children') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Family
+                            </a>
+
+                            <a href="{{ route('advanced-search', ['currentIndex' => 'Scriptures']) }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Scriptures
+                            </a>
+
+                            <a href="{{ route('come-follow-me.index') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Come Follow Me
+                            </a>
+
+                            <a href="{{ route('people') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                People Included in Wilford Woodruff's Papers
+                            </a>
+
+                            <a href="{{ route('places') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Locations
+                            </a>
+
+                            <a href="{{ route('topics') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Topics
+                            </a>
+
+                            <a href="{{ route('book.product-page') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                The Development of Temple Doctrine
+                            </a>
+
+                            <a href="{{ url('wilford-woodruff-bio') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                About Wilford Woodruff
+                            </a>
+                        </div>
+                    </div>
+                </li>
+
+                <li x-data="{
+                        id: 2,
+                        get expanded() {
+                            return this.active === this.id
+                        },
+                        set expanded(value) {
+                            this.active = value ? this.id : null
+                        },
+                    }"
+                    role="region"
+                    class="px-4 w-full text-primary">
+                    <div>
+                        <button
+                            type="button"
+                            x-on:click="expanded = !expanded"
+                            :aria-expanded="expanded"
+                            class="flex justify-between items-center w-full text-2xl uppercase cursor-pointer hover:bg-gray-50 text-primary"
+                        >
+                            <span>Get Involved</span>
+                            <span x-show="expanded" aria-hidden="true" class="ml-4">&minus;</span>
+                            <span x-show="!expanded" aria-hidden="true" class="ml-4">&plus;</span>
+                        </button>
+                    </div>
+
+                    <div x-show="expanded" x-collapse>
+                        <div class="px-6 pb-4">
+                            <a href="{{ route('volunteer') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Volunteer
+                            </a>
+
+                            <a href="{{ url('work-with-us/internship-opportunities') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Internships
+                            </a>
+
+                            <a href="{{ route('contribute-documents') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Contribute Documents
+                            </a>
+
+                            <a href="{{ route('work-with-us') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Career
+                            </a>
+                        </div>
+                    </div>
+                </li>
+
+                <li x-data="{
+                        id: 3,
+                        get expanded() {
+                            return this.active === this.id
+                        },
+                        set expanded(value) {
+                            this.active = value ? this.id : null
+                        },
+                    }"
+                    role="region"
+                    class="px-4 w-full text-primary">
+                    <div>
+                        <button
+                            type="button"
+                            x-on:click="expanded = !expanded"
+                            :aria-expanded="expanded"
+                            class="flex justify-between items-center w-full text-2xl uppercase cursor-pointer hover:bg-gray-50 text-primary"
+                        >
+                            <span>About</span>
+                            <span x-show="expanded" aria-hidden="true" class="ml-4">&minus;</span>
+                            <span x-show="!expanded" aria-hidden="true" class="ml-4">&plus;</span>
+                        </button>
+                    </div>
+
+                    <div x-show="expanded" x-collapse>
+                        <div class="px-6 pb-4">
+                            <a href="{{ route('about') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Mission
+                            </a>
+
+                            <a href="{{ route('about.meet-the-team') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Meet the Team
+                            </a>
+
+                            <a href="{{ route('testimonies.index') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Testimonies
+                            </a>
+
+                            <a href="{{ route('about.partners') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Partners
+                            </a>
+
+                            <a href="{{ url('impact') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Impact
+                            </a>
+
+                            <a href="#" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Progress
+                            </a>
+
+                            <a href="{{ route('about.editorial-method') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Editorial Method
+                            </a>
+
+                            <a href="{{ route('about.frequently-asked-questions') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Frequently Asked Questions
+                            </a>
+
+                            <a href="{{ route('contact-us') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Contact Us
+                            </a>
+                        </div>
+                    </div>
+                </li>
+
+                <li>
+                    <a href="{{ route('donate') }}" class="py-2 px-4 text-2xl cursor-pointer hover:bg-gray-50 text-primary">
+                        Donate
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ route('advanced-search') }}" class="py-2 px-4 text-2xl cursor-pointer hover:bg-gray-50 text-primary">
+                        Search
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
 </header>
+
 
 
 <div class="min-h-screen font-sans antialiased text-gray-900">

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "78d7e4dd2af5c763f9c5e6a0b47372ad",
+    "content-hash": "4acd0c29a04b6bd32919645a2023656d",
     "packages": [
         {
             "name": "abr4xas/clarity-laravel",
@@ -20586,16 +20586,16 @@
         },
         {
             "name": "wire-elements/modal",
-            "version": "2.0.10",
+            "version": "2.0.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wire-elements/modal.git",
-                "reference": "17b61596d15827394d7c2cd3e3efac28e2e93c30"
+                "reference": "cacff22fda2bffe23dfc6194d6f0ea88165aa15f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wire-elements/modal/zipball/17b61596d15827394d7c2cd3e3efac28e2e93c30",
-                "reference": "17b61596d15827394d7c2cd3e3efac28e2e93c30",
+                "url": "https://api.github.com/repos/wire-elements/modal/zipball/cacff22fda2bffe23dfc6194d6f0ea88165aa15f",
+                "reference": "cacff22fda2bffe23dfc6194d6f0ea88165aa15f",
                 "shasum": ""
             },
             "require": {
@@ -20638,9 +20638,15 @@
             ],
             "support": {
                 "issues": "https://github.com/wire-elements/modal/issues",
-                "source": "https://github.com/wire-elements/modal/tree/2.0.10"
+                "source": "https://github.com/wire-elements/modal/tree/2.0.12"
             },
-            "time": "2024-04-12T14:12:26+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/PhiloNL",
+                    "type": "github"
+                }
+            ],
+            "time": "2024-10-14T10:54:05+00:00"
         },
         {
             "name": "zbateson/mail-mime-parser",
@@ -24457,8 +24463,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "laravel/pulse": 10,
-        "jeffersonsimaogoncalves/nova-permission": 20
+        "jeffersonsimaogoncalves/nova-permission": 20,
+        "laravel/pulse": 10
     },
     "prefer-stable": true,
     "prefer-lowest": false,

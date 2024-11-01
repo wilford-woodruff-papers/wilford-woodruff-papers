@@ -27,6 +27,7 @@ class NewRelativeFinder extends Component
                 ->people()
                 ->whereNotNull('portrait')
                 ->where('portrait', 'LIKE', 'https://tree-portraits-bgt.familysearchcdn.org%')
+                ->inRandomOrder()
                 ->first()
                 ->portrait,
         ]);
