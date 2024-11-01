@@ -1,7 +1,7 @@
 <div class="overflow-hidden relative shadow">
     <div class="absolute -bottom-40 w-[150%] h-full inset -rotate-[7deg] bg-secondary -ml-[20%] z-0"></div>
     <div class="h-2/5 bg-primary z-1">
-        <img src="{{ $page->first()->getFirstMediaUrl('thumb') }}" alt="" />
+        <img src="{{ $image }}" alt="" />
     </div>
     <div class="flex relative z-10 flex-col gap-y-4 px-4 h-1/2">
         <h2 class="pb-2 w-full text-3xl text-white border-b border-white">

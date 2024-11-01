@@ -40,7 +40,7 @@ class NewDayInTheLife extends Component
                 ->first()
                 ?->date);
 
-        $page = Page::query()
+        $pages = Page::query()
             ->with([
                 'media',
             ])
@@ -50,7 +50,7 @@ class NewDayInTheLife extends Component
             ->orderBy('order', 'asc')
             ->get();
 
-        $content = $page
+        $content = $pages
             ->map(function ($entry) use ($date) {
                 return str($entry->transcript)
                     ->extractContentOnDate($date);
@@ -59,7 +59,8 @@ class NewDayInTheLife extends Component
 
         return view('components.new-day-in-the-life', [
             'date' => $date,
-            'page' => $page,
+            'image' => $pages->first()->getFirstMedia()?->getUrl('thumb'),
+            'pages' => $pages,
             'content' => $content,
         ]);
     }
