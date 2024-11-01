@@ -4,23 +4,24 @@
 {{--    </div>--}}
     <video autoplay loop muted playsinline
            poster="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/files/video/time-machine.jpeg"
-           class="object-cover absolute left-0 top-20 w-full h-auto opacity-40 -z-1 aspect-[8/3]"
+           class="object-cover absolute left-0 top-20 w-full h-auto opacity-40 -z-1 aspect-[8/5] lg:aspect-[8/3]"
 
     >
         <source src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/files/video/time-machine.mp4">
 {{--        <source src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/files/video/time-machine.webm">--}}
     </video>
+
     <div class="flex relative items-center px-8 mx-auto w-full max-w-7xl h-auto z-1 aspect-[7/3]">
-        <div class="flex flex-col gap-y-4 -mt-20">
-            <h1 class="text-7xl">
+        <div class="flex flex-col gap-y-4 mt-6 w-full text-center md:text-left lg:mt-0 lg:-mt-20">
+            <h1 class="hidden text-3xl md:block lg:text-7xl">
                 Wilford Woodruff Papers
             </h1>
-            <p class="text-3xl">
+            <p class="text-xl lg:text-2xl">
                 Search Wilford Woodruff's <span class="font-semibold">documents</span>, as well as <span class="font-semibold">locations</span>, <span class="font-semibold">events</span>, and <span class="font-semibold">people</span> in his records.
             </p>
-            <div class="">
+            <div class="mb-10">
                 <form action="{{ route('advanced-search') }}"
-                class="px-20 pt-8"
+                class="lg:px-20 lg:pt-8"
                 >
                     <div>
                         <label for="q" class="block text-sm font-medium leading-6 text-gray-900 sr-only">Search</label>
@@ -35,11 +36,19 @@
                     </div>
                 </form>
             </div>
+            <div class="flex justify-end mb-2 lg:px-20">
+                <button onclick="Livewire.dispatch('openModal', {component: 'full-screen-video', arguments: {url: 'https://www.youtube.com/embed/jSUuwwyWW6E?rel=0'}})"
+                        class="flex gap-2 items-center py-2 px-3 bg-white text-secondary"
+                >
+                    <span>Watch Full Video</span>
+                    <x-heroicon-o-arrows-pointing-out class="w-6 h-6"/>
+                </button>
+            </div>
         </div>
     </div>
 
     <div class="relative z-10 px-8 mx-auto max-w-7xl">
-        <div class="grid grid-cols-3 gap-8 h-128">
+        <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
             <x-new-day-in-the-life />
             <x-new-relative-finder />
             <x-new-come-follow-me />

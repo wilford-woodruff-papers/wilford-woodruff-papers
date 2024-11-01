@@ -4,8 +4,8 @@
             <div class="flex overflow-hidden flex-col w-full h-full shadow-lg shrink-0">
                 <div class="flex-grow">
                     <a href="{{ route('landing-areas.ponder.press', ['press' => $instagram->slug]) }}">
-                        <div class="inline-block flex overflow-hidden relative items-center w-full h-full image-parent bg-primary-50">
-                            <div class="absolute z-0 z-10 w-full h-full bg-left bg-cover image-child"
+                        <div class="inline-block flex overflow-hidden relative items-center w-full h-full image-parent bg-primary-50 aspect-[16/9]">
+                            <div class="absolute z-0 z-10 w-full bg-left bg-cover md:h-full aspect-[16/9] image-child"
                                  style="background-image: url({{ $instagram->cover_image }})">
                             </div>
                             <div class="flex z-10 flex-row justify-center items-center py-3 w-full text-xl font-medium uppercase text-secondary bg-white-80">

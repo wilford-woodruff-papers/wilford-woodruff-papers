@@ -59,7 +59,7 @@ class NewDayInTheLife extends Component
 
         return view('components.new-day-in-the-life', [
             'date' => $date,
-            'image' => $pages->first()->getFirstMedia()?->getUrl('thumb'),
+            'image' => $pages->first()->getFirstMedia()?->getUrl('web'),
             'pages' => $pages,
             'content' => $content,
         ]);
