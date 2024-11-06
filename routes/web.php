@@ -25,7 +25,9 @@ Route::get('/banner/item/{item}', \App\Http\Controllers\DocumentDashboardImageCo
 Route::middleware([])->group(function () {
     Route::domain('{year}.'.config('app.url'))->group(function () {
         Route::get('/', function ($subdomain) {
-            if ($subdomain == '2023') {
+            if ($subdomain == '2025') {
+                return redirect()->away(config('app.url').'/event-registration');
+            } elseif ($subdomain == '2023') {
                 return redirect()->away(config('app.url').'/conference/2023-building-latter-day-faith');
             } elseif ($subdomain == 'book') {
                 return redirect()->away(config('app.url').'/wilford-woodruffs-witness');
@@ -71,18 +73,18 @@ Route::middleware([])->group(function () {
     Route::get('/event-registration/calendar', function () {
         $calendar = \Spatie\IcalendarGenerator\Components\Calendar::create('Wilford Woodruff Papers Foundation')
             ->event([
-                \Spatie\IcalendarGenerator\Components\Event::create('Evening of Appreciation with Elder Matthew Holland')
+                \Spatie\IcalendarGenerator\Components\Event::create('Evening of Appreciation with Elder Neil L. Andersen')
                     ->attendee('lexie.bailey@wilfordwoodruffpapers.org', 'Lexie Bailey')
-                    ->address('The Orangerie at Red Butte Garden, 300 Wakara Way, Salt Lake City, UT 84108')
-                    ->addressName('The Orangerie at Red Butte Garden')
-                    ->startsAt(new DateTime('1 March 2024 17:30', new DateTimeZone('America/Denver')))
-                    ->endsAt(new DateTime('1 March 2024 20:00', new DateTimeZone('America/Denver')))
-                    ->alertMinutesBefore(60, 'An Evening of Appreciation with Elder Matthew Holland is starting 1 hour'),
+                    ->address('American Heritage School, 142 W 200 N Salt Lake City, UT')
+                    ->addressName('American Heritage School')
+                    ->startsAt(new DateTime('28 FEBRUARY 2025 17:30', new DateTimeZone('America/Denver')))
+                    ->endsAt(new DateTime('28 FEBRUARY 2025 20:00', new DateTimeZone('America/Denver')))
+                    ->alertMinutesBefore(60, 'An Evening of Appreciation with Elder Neil L. Andersen is starting 1 hour'),
             ]);
 
         return response($calendar->get(), 200, [
             'Content-Type' => 'text/calendar; charset=utf-8',
-            'Content-Disposition' => 'attachment; filename="evening-of-appreciation-with-elder-matthew-holland.ics"',
+            'Content-Disposition' => 'attachment; filename="evening-of-appreciation-with-elder-neil-l-andersen.ics"',
         ]);
     })->name('event.calendar');
 

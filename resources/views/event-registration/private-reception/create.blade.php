@@ -1,12 +1,12 @@
 <x-guest-layout>
-    <x-slot name="title">Evening of Appreciation with Elder Matthew Holland on March 1, 2024</x-slot>
+    <x-slot name="title">Evening of Appreciation with Elder Matthew Holland on February 28th, 2025</x-slot>
     <div class="my-12 mx-auto max-w-7xl">
             <div class="space-y-12">
                 <div class="grid grid-cols-1 gap-x-8 gap-y-10 pb-12 md:grid-cols-2">
                     <div>
-                        <img src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/elder-matthew-holland-invitation.png"
+                        <img src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/evening-of-appreciation-2025-02-28.png"
                              class="p-4 w-full h-auto"
-                             alt="Evening of Appreciation for friends of the Wilford Woodruff Papers Foundation on March 1st, 2024"
+                             alt="Evening of Appreciation for friends of the Wilford Woodruff Papers Foundation on February 28th, 2025"
                         />
                     </div>
 
