@@ -20,6 +20,7 @@ use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\ViewField;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
@@ -327,13 +328,22 @@ class DocumentResource extends Resource
                             ])
                             ->schema([
                                 Actions::make([
+                                    Action::make('upload-to-ftp-link')
+                                        ->label('Upload to FTP')
+                                        ->icon('heroicon-o-arrow-top-right-on-square')
+                                        ->visible(function (?Model $record) {
+                                            return ! empty($record) && empty($record?->ftp_slug);
+                                        })
+                                        ->url(function (?Model $record) {
+                                            return 'https://fromthepage.com/woodruff/woodruffpapers/new_work';
+                                        }, true),
                                     Action::make('open-ftp-link')
                                         ->label('FTP')
                                         ->icon('heroicon-o-arrow-top-right-on-square')
-                                        ->visible(function (Model $record) {
-                                            return ! empty($record);
+                                        ->visible(function (?Model $record) {
+                                            return ! empty($record) && ! empty($record?->ftp_slug);
                                         })
-                                        ->url(function (Model $record) {
+                                        ->url(function (?Model $record) {
                                             return ! empty($record?->ftp_slug)
                                                 ? 'https://fromthepage.com/woodruff/wilford-woodruff-papers-project/'.$record->ftp_slug
                                                 : null;
@@ -341,16 +351,22 @@ class DocumentResource extends Resource
                                     Action::make('open-website-link')
                                         ->label('Website')
                                         ->icon('heroicon-o-arrow-top-right-on-square')
-                                        ->visible(function (Model $record) {
-                                            return ! empty($record);
+                                        ->visible(function (?Model $record) {
+                                            return ! empty($record) && ! empty($record?->ftp_slug);
                                         })
-                                        ->url(function (Model $record) {
+                                        ->url(function (?Model $record) {
                                             return ! empty($record?->uuid)
                                                 ? route('documents.show', ['item' => $record->uuid])
                                                 : null;
                                         }, true),
                                 ])
                                     ->columns(2),
+                                ViewField::make('Mark Uploaded to FTP')
+                                    ->columnSpan(2)
+                                    ->view('filament.forms.components.single-action-button')
+                                    ->visible(function (?Model $record) {
+                                        return ! empty($record) && empty($record?->ftp_slug);
+                                    }),
                                 TextInput::make('name')
                                     ->visible(function (?Model $record, Get $get) {
                                         return empty($record);
