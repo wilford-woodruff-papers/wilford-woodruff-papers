@@ -78,7 +78,7 @@ Route::middleware([])->group(function () {
                     ->address('American Heritage School, 142 W 200 N Salt Lake City, UT')
                     ->addressName('American Heritage School')
                     ->startsAt(new DateTime('28 FEBRUARY 2025 17:30', new DateTimeZone('America/Denver')))
-                    ->endsAt(new DateTime('28 FEBRUARY 2025 20:00', new DateTimeZone('America/Denver')))
+                    ->endsAt(new DateTime('28 FEBRUARY 2025 20:30', new DateTimeZone('America/Denver')))
                     ->alertMinutesBefore(60, 'An Evening of Appreciation with Elder Neil L. Andersen is starting 1 hour'),
             ]);
 
