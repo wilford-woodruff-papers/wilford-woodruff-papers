@@ -25,7 +25,7 @@
         </div>
         <div class="flex-0 h-[300px] aspect-[16/9] md:aspect-[12/16] lg:aspect-[16/9] lg:h-[400px]">
             <div class="inline-block flex overflow-hidden relative items-center w-full aspect-[16/9] image-parent bg-primary-50 md:aspect-[12/16] lg:aspect-[16/9]">
-                <div class="absolute z-0 z-10 w-full h-full bg-top bg-cover image-child"
+                <div class="absolute z-0 z-10 w-full h-[150%] -mt-24 bg-top bg-cover image-child"
                      style="background-image: url('{{ app()->environment('local') ? 'https://wilford-woodruff-papers.nyc3.digitaloceanspaces.com/testimonials/72366/conversions/Joan-Boren-square.jpg' : $featured->getFirstMediaUrl('images', 'square') }}')">
                 </div>
             </div>
