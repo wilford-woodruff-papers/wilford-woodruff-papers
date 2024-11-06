@@ -48,17 +48,25 @@
     </div>
 
     <div class="relative z-10 px-8 mx-auto max-w-7xl">
-        <div x-data="{
-                height: 160,
-            }"
-             class="mb-8 w-full">
-            <div class="flex justify-center items-center w-full bg-gray-400 h-[160px]"
-                 style="resize: vertical; overflow:auto;"
-                 x-resize="height = $height"
-            >
-                <p x-text="'Height: ' + height + 'px'" class="text-white"></p>
-            </div>
+        <div class="mb-8">
+            <a href="{{ route('advanced-search', ['currentIndex' => 'Scriptures']) }}">
+                <img src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/small-scripture-banner.png"
+                     alt="Explore Wilford Woodruff's Scriptures"
+                     class="w-full h-auto"
+                />
+            </a>
         </div>
+{{--        <div x-data="{--}}
+{{--                height: 160,--}}
+{{--            }"--}}
+{{--             class="mb-8 w-full">--}}
+{{--            <div class="flex justify-center items-center w-full bg-gray-400 h-[160px]"--}}
+{{--                 style="resize: vertical; overflow:auto;"--}}
+{{--                 x-resize="height = $height"--}}
+{{--            >--}}
+{{--                <p x-text="'Height: ' + height + 'px'" class="text-white"></p>--}}
+{{--            </div>--}}
+{{--        </div>--}}
         <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
             <x-new-day-in-the-life />
             <x-new-relative-finder />
