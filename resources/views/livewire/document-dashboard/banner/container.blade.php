@@ -36,7 +36,17 @@
             <div class="max-w-[680px] flex-0">
                 <div class="flex relative z-10 flex-col justify-between pt-8 pb-8 pl-12 h-full pr-18">
                     <div class="flex flex-col gap-y-4 h-full">
-                        <h2 class="pb-2 text-4xl font-light text-white uppercase leading-[1.2em]">
+                        <h2
+                            @php
+                                $length = str($item->name)->stripBracketedID()->length()
+                            @endphp
+                            @class([
+                                'pb-2  font-light text-white uppercase leading-[1.2em] line-clamp-3',
+                                'text-4xl' => $length <= 45,
+                                'text-3xl' => $length > 45 && $length <= 70,
+                                'text-2xl' => $length > 70,
+                            ])
+                        >
                             {!! str($item->name)->stripBracketedID() !!}
                         </h2>
                         <hr class="border-b border-white max-w-[550px]"/>
