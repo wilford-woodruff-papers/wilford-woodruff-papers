@@ -168,7 +168,7 @@
                             The Development of Temple Doctrine
                         </a>
 
-                        <a href="{{ url('wilford-woodruff-bio') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                        <a href="{{ url('wilford-woodruff') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
                             About Wilford Woodruff
                         </a>
 
@@ -535,7 +535,7 @@
                                 The Development of Temple Doctrine
                             </a>
 
-                            <a href="{{ url('wilford-woodruff-bio') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            <a href="{{ url('wilford-woodruff') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
                                 About Wilford Woodruff
                             </a>
                         </div>
