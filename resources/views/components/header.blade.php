@@ -100,7 +100,7 @@
                                             About
                                         </a>
 
-                                        <a href="{{ url('wilford-woodruff-bio') }}" class="text-base font-medium text-gray-900 hover:text-gray-700">
+                                        <a href="{{ url('wilford-woodruff') }}" class="text-base font-medium text-gray-900 hover:text-gray-700">
                                             About Wilford Woodruff
                                         </a>
 
@@ -273,7 +273,7 @@
                                        class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
                                         People Included in Wilford Woodruff's Papers
                                     </a>
-                                    <a href="{{ url('wilford-woodruff-bio') }}"
+                                    <a href="{{ url('wilford-woodruff') }}"
                                        class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
                                         About Wilford Woodruff
                                     </a>
@@ -503,7 +503,7 @@
                                                 About
                                             </span>
                                             <div>
-                                                <a href="{{ url('wilford-woodruff-bio') }}"
+                                                <a href="{{ url('wilford-woodruff') }}"
                                                    class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
                                                     About Wilford Woodruff
                                                 </a>
