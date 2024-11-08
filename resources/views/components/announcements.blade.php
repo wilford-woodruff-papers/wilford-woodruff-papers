@@ -1,6 +1,23 @@
 <div>
     <div class="pb-4 mx-auto max-w-7xl md:pb-8">
         <div class="{{ $position }}-announcements">
+            <div class="mb-2">
+                <div class="px-6 pt-8 md:px-6 md:pt-8 xl:pt-8">
+                    <div class="bg-white">
+                        <div class="flex overflow-hidden flex-col shadow-lg">
+                            <div class="flex-shrink-0">
+                                <div class="mx-auto w-full max-w-full h-auto md:max-w-7xl aspect-[176/53]">
+                                    <a href="{{ route('donate') }}">
+                                        <img class="w-full h-auto"
+                                             src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/giving-tuesday-2024.png"
+                                             alt="DON'T MISS YOUR CHANCE TO HELP MAKE history! YOUR DONATION WILL BE matched BY A GENEROUS DONOR"/>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             @if(! empty($dayInTheLife) && ! empty($dayInTheLife->getFirstMediaUrl('banner')))
                 <div class="mb-2">
                     <div class="px-6 pt-8 md:px-6 md:pt-8 xl:pt-8">
