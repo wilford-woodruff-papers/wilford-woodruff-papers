@@ -156,6 +156,14 @@
                             People Included in Wilford Woodruff's Papers
                         </a>
 
+                        <a href="{{ url('wilford-woodruff') }}" class="flex gap-2 items-center py-2.5 pr-4 pl-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Wilford Woodruff Bio
+                        </a>
+
+                        <a href="{{ url('phebe-woodruff') }}" class="flex gap-2 items-center py-2.5 pr-4 pl-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Phebe Woodruff Bio
+                        </a>
+
                         <a href="{{ route('places') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
                             Locations
                         </a>
@@ -248,6 +256,76 @@
                             Miraculously Preserved Life
                         </a>
 
+                        <div x-data="{ active: null }"
+                             class="mx-auto space-y-4 w-full max-w-3xl">
+                            <div x-data="{
+                                    id: 1,
+                                    get expanded() {
+                                        return this.active === this.id
+                                    },
+                                    set expanded(value) {
+                                        this.active = value ? this.id : null
+                                    },
+                                }"
+                                 role="region"
+                                 class="bg-white"
+                            >
+                                <h2>
+                                    <button
+                                        type="button"
+                                        x-on:click="expanded = !expanded"
+                                        :aria-expanded="expanded"
+                                        class="flex justify-between items-center py-4 px-4 w-full text-sm uppercase hover:bg-gray-50 disabled:text-gray-500 text-primary md:hover:text-highlight"
+                                    >
+                                        <span>Media</span>
+                                        <span x-show="expanded" aria-hidden="true" class="ml-4">&minus;</span>
+                                        <span x-show="!expanded" aria-hidden="true" class="ml-4">&plus;</span>
+                                    </button>
+                                </h2>
+
+                                <div x-show="expanded" x-collapse>
+                                    <div class="pb-4">
+                                        <ul>
+                                            <li>
+                                                <a href="{{ route('media.articles') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                                    Articles
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ route('media.photos') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                                    Photos
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ route('media.podcasts') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                                    Podcasts
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ route('updates.index') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                                    Updates
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ route('updates.index') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                                    Videos
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ route('conference.landing-page') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                                    2023 Conference
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ route('media.copyright') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                                    Copyright
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -404,6 +482,10 @@
                             Editorial Method
                         </a>
 
+                        <a href="{{ route('figures') }}" class="flex gap-2 items-center py-2.5 pr-4 pl-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Figures
+                        </a>
+
                         <a href="{{ route('about.frequently-asked-questions') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
                             Frequently Asked Questions
                         </a>
@@ -411,6 +493,57 @@
                         <a href="{{ route('contact-us') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
                             Contact Us
                         </a>
+
+                        <div x-data="{ active: null }"
+                             class="mx-auto space-y-4 w-full max-w-3xl">
+                            <div x-data="{
+                                    id: 1,
+                                    get expanded() {
+                                        return this.active === this.id
+                                    },
+                                    set expanded(value) {
+                                        this.active = value ? this.id : null
+                                    },
+                                }"
+                                 role="region"
+                                 class="bg-white"
+                            >
+                                <h2>
+                                    <button
+                                        type="button"
+                                        x-on:click="expanded = !expanded"
+                                        :aria-expanded="expanded"
+                                        class="flex justify-between items-center py-4 px-4 w-full text-sm uppercase hover:bg-gray-50 disabled:text-gray-500 text-primary md:hover:text-highlight"
+                                    >
+                                        <span>Media Kit</span>
+                                        <span x-show="expanded" aria-hidden="true" class="ml-4">&minus;</span>
+                                        <span x-show="!expanded" aria-hidden="true" class="ml-4">&plus;</span>
+                                    </button>
+                                </h2>
+
+                                <div x-show="expanded" x-collapse>
+                                    <div class="pb-4">
+                                        <ul>
+                                            <li>
+                                                <a href="{{ route('media.kit') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                                    Media Kit
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ route('media.requests') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                                    Media Requests
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ route('media.news') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                                    Newsroom
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
@@ -456,8 +589,8 @@
             </div>
         </div>
     </div>--}}
-    <div x-show="showMobileMenu" class="fixed top-0 right-0 left-0 min-h-screen bg-white z-[100]" style="display: none;">
-        <nav class="">
+    <div x-show="showMobileMenu" class="fixed top-0 right-0 left-0 min-h-screen bg-white lg:hidden z-[100]" style="display: none;">
+        <nav class="overflow-y-auto h-screen">
             <div class="absolute right-2 top-5 h-20 lg:hidden">
                 <button x-on:click="showMobileMenu = ! showMobileMenu">
                     <svg class="w-10 h-10 text-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon">
@@ -523,6 +656,14 @@
                                 People Included in Wilford Woodruff's Papers
                             </a>
 
+                            <a href="{{ url('wilford-woodruff') }}" class="flex gap-2 items-center py-2.5 pr-4 pl-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Wilford Woodruff Bio
+                            </a>
+
+                            <a href="{{ url('phebe-woodruff') }}" class="flex gap-2 items-center py-2.5 pr-4 pl-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Phebe Woodruff Bio
+                            </a>
+
                             <a href="{{ route('places') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
                                 Locations
                             </a>
@@ -543,7 +684,127 @@
                 </li>
 
                 <li x-data="{
-                        id: 2,
+                            id: 2,
+                            get expanded() {
+                                return this.active === this.id
+                            },
+                            set expanded(value) {
+                                this.active = value ? this.id : null
+                            },
+                        }"
+                    role="region"
+                    class="px-4 w-full text-primary">
+                    <div>
+                        <button
+                            type="button"
+                            x-on:click="expanded = !expanded"
+                            :aria-expanded="expanded"
+                            class="flex justify-between items-center w-full text-2xl uppercase cursor-pointer hover:bg-gray-50 text-primary"
+                        >
+                            <span>Explore</span>
+                            <span x-show="expanded" aria-hidden="true" class="ml-4">&minus;</span>
+                            <span x-show="!expanded" aria-hidden="true" class="ml-4">&plus;</span>
+                        </button>
+                    </div>
+
+                    <div x-show="expanded" x-collapse>
+                        <div class="px-6 pb-4">
+                            <a href="{{ route('relative-finder') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Relative Finder
+                            </a>
+
+                            <a href="{{ route('map') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Browse Map
+                            </a>
+
+                            <a href="{{ route('day-in-the-life') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Day in the Life
+                            </a>
+
+                            <a href="{{ route('timeline') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Timeline
+                            </a>
+
+                            <a href="{{ route('miraculously-preserved-life') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Miraculously Preserved Life
+                            </a>
+
+                            <div x-data="{ active: null }"
+                                 class="mx-auto space-y-4 w-full">
+                                <div x-data="{
+                                    id: 1,
+                                    get expanded() {
+                                        return this.active === this.id
+                                    },
+                                    set expanded(value) {
+                                        this.active = value ? this.id : null
+                                    },
+                                }"
+                                     role="region"
+                                     class="bg-white"
+                                >
+                                    <h2>
+                                        <button
+                                            type="button"
+                                            x-on:click="expanded = !expanded"
+                                            :aria-expanded="expanded"
+                                            class="flex justify-between items-center py-4 px-4 w-full text-sm uppercase hover:bg-gray-50 disabled:text-gray-500 text-primary md:hover:text-highlight"
+                                        >
+                                            <span>Media</span>
+                                            <span x-show="expanded" aria-hidden="true" class="ml-4">&minus;</span>
+                                            <span x-show="!expanded" aria-hidden="true" class="ml-4">&plus;</span>
+                                        </button>
+                                    </h2>
+
+                                    <div x-show="expanded" x-collapse>
+                                        <div class="pb-4">
+                                            <ul>
+                                                <li>
+                                                    <a href="{{ route('media.articles') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                                        Articles
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ route('media.photos') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                                        Photos
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ route('media.podcasts') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                                        Podcasts
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ route('updates.index') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                                        Updates
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ route('updates.index') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                                        Videos
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ route('conference.landing-page') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                                        2023 Conference
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ route('media.copyright') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                                        Copyright
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li x-data="{
+                        id: 3,
                         get expanded() {
                             return this.active === this.id
                         },
@@ -588,7 +849,7 @@
                 </li>
 
                 <li x-data="{
-                        id: 3,
+                        id: 4,
                         get expanded() {
                             return this.active === this.id
                         },
@@ -641,6 +902,10 @@
                                 Editorial Method
                             </a>
 
+                            <a href="{{ route('figures') }}" class="flex gap-2 items-center py-2.5 pr-4 pl-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Figures
+                            </a>
+
                             <a href="{{ route('about.frequently-asked-questions') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
                                 Frequently Asked Questions
                             </a>
@@ -648,6 +913,57 @@
                             <a href="{{ route('contact-us') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
                                 Contact Us
                             </a>
+
+                            <div x-data="{ active: null }"
+                                 class="mx-auto space-y-4 w-full max-w-3xl">
+                                <div x-data="{
+                                    id: 1,
+                                    get expanded() {
+                                        return this.active === this.id
+                                    },
+                                    set expanded(value) {
+                                        this.active = value ? this.id : null
+                                    },
+                                }"
+                                     role="region"
+                                     class="bg-white"
+                                >
+                                    <h2>
+                                        <button
+                                            type="button"
+                                            x-on:click="expanded = !expanded"
+                                            :aria-expanded="expanded"
+                                            class="flex justify-between items-center py-4 px-4 w-full text-sm uppercase hover:bg-gray-50 disabled:text-gray-500 text-primary md:hover:text-highlight"
+                                        >
+                                            <span>Media Kit</span>
+                                            <span x-show="expanded" aria-hidden="true" class="ml-4">&minus;</span>
+                                            <span x-show="!expanded" aria-hidden="true" class="ml-4">&plus;</span>
+                                        </button>
+                                    </h2>
+
+                                    <div x-show="expanded" x-collapse>
+                                        <div class="pb-4">
+                                            <ul>
+                                                <li>
+                                                    <a href="{{ route('media.kit') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                                        Media Kit
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ route('media.requests') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                                        Media Requests
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ route('media.news') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                                        Newsroom
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </li>
