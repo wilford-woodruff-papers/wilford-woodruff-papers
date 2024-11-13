@@ -48,14 +48,7 @@
     </div>
 
     <div class="relative z-10 px-8 mx-auto max-w-7xl">
-        <div class="mb-8">
-            <a href="{{ route('advanced-search', ['currentIndex' => 'Scriptures']) }}">
-                <img src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/small-scripture-banner.png"
-                     alt="Explore Wilford Woodruff's Scriptures"
-                     class="w-full h-auto"
-                />
-            </a>
-        </div>
+        <x-new-announcements :position="'top'"/>
 {{--        <div x-data="{--}}
 {{--                height: 160,--}}
 {{--            }"--}}
