@@ -114,8 +114,9 @@ class ImportItemFromFtp implements ShouldQueue
                         'transcript' => $this->convertSubjectTags(str($translation)->stripLanguageTag()),
                     ]);
                 }
+                
+                if (! $page->hasMedia() || $this->download == 'true' || $this->download) {
 
-                if (! $page->hasMedia() || $this->download == 'true') {
                     $page->clearMediaCollection();
 
                     if (! empty($canvas['images'][0]['resource']['@id'])) {
