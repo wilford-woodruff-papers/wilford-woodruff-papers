@@ -80,9 +80,6 @@
             </svg>
         </button>
         <div class="hidden pt-3 font-sans lg:flex lg:gap-x-1">
-            <a href="{{ route('documents') }}" class="py-2.5 px-2 text-base font-medium leading-6 text-primary">
-                Documents
-            </a>
             <div class="flex justify-center">
                 <div
                     x-data="{
@@ -605,11 +602,6 @@
             </div>
             <ul x-data="{ active: null }"
                 class="flex flex-col gap-4 pl-12 mt-2 text-primary">
-                <li>
-                    <a href="{{ route('documents') }}" class="py-2 px-4 text-2xl cursor-pointer hover:bg-gray-50 text-primary">
-                        Documents
-                    </a>
-                </li>
                 <li x-data="{
                             id: 1,
                             get expanded() {

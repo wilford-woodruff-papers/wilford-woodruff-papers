@@ -13,14 +13,22 @@
                 {{ $date->format('F d, Y ~ l') }}
             </p>
             <div class="!text-white line-clamp-5">
-                {!! str($content)->limit(250) !!}
+                {!! str($content)
+                        ->removeSubjectTags()
+                        ->replaceInlineLanguageTags()
+                        ->replaceMatches('/(?:\[?\#\#)(.*?)(?:\#\#\]?)/s', function ($match) {
+                            return '['.str($match[1])
+                                ->explode('|')
+                                ->first().']';
+                        })
+                        ->limit(250) !!}
             </div>
         </div>
         <div class="px-4 pt-6 pb-4">
             <a href="{{ route('day-in-the-life', ['date' => $date->format('Y-m-d')]) }}"
-               class="block py-2 px-4 w-full text-base font-semibold text-center bg-white text-primary"
+               class="block py-2 px-4 w-full text-base font-semibold text-center uppercase bg-white text-primary"
             >
-                Discover More From This Day
+                Explore More
             </a>
         </div>
     </div>

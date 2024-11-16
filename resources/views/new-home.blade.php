@@ -17,7 +17,7 @@
                 Wilford Woodruff Papers
             </h1>
             <p class="text-xl lg:text-2xl">
-                Search Wilford Woodruff's <span class="font-semibold">documents</span>, as well as <span class="font-semibold">locations</span>, <span class="font-semibold">events</span>, and <span class="font-semibold">people</span> in his records.
+                Search Wilford Woodruff's <span class="font-semibold">documents</span>, as well as the <span class="font-semibold">locations</span>, <span class="font-semibold">events</span>, and <span class="font-semibold">people</span> in his records.
             </p>
             <div class="mb-10">
                 <form action="{{ route('advanced-search') }}"
@@ -27,7 +27,7 @@
                         <label for="q" class="block text-sm font-medium leading-6 text-gray-900 sr-only">Search</label>
                         <div class="flex mt-2 rounded-md shadow-sm">
                             <div class="flex relative flex-grow items-stretch focus-within:z-10">
-                                <input type="text" name="q" id="q" class="block py-1.5 pl-4 w-full text-gray-900 rounded-none border-0 ring-1 ring-inset ring-gray-300 sm:text-lg sm:leading-8 focus:ring-2 focus:ring-inset placeholder:text-primary-70 focus:ring-secondary" placeholder="Search Peoples, Events, Locations and more...">
+                                <input type="text" name="q" id="q" class="block py-1.5 pl-4 w-full text-gray-900 rounded-none border-0 ring-1 ring-inset ring-gray-300 sm:text-lg sm:leading-8 focus:ring-2 focus:ring-inset placeholder:text-primary-70 focus:ring-secondary" placeholder="Search People, Events, Locations and more...">
                             </div>
                             <button type="button" class="inline-flex relative gap-x-1.5 items-center py-2 px-6 -ml-px text-sm font-semibold text-gray-900 ring-1 ring-inset ring-secondary bg-secondary hover:bg-secondary-400">
                                 <x-heroicon-o-magnifying-glass class="-ml-0.5 w-5 h-5 text-white" />
@@ -38,7 +38,7 @@
             </div>
             <div class="flex justify-end mb-2 lg:px-20">
                 <button onclick="Livewire.dispatch('openModal', {component: 'full-screen-video', arguments: {url: 'https://www.youtube.com/embed/jSUuwwyWW6E?rel=0'}})"
-                        class="flex gap-2 items-center py-2 px-3 bg-white text-secondary"
+                        class="flex gap-2 items-center py-2 px-3 uppercase bg-white text-secondary"
                 >
                     <span>Watch Full Video</span>
                     <x-heroicon-o-arrows-pointing-out class="w-6 h-6"/>
@@ -91,13 +91,13 @@
             <div class="grid lg:grid-cols-5">
                 <div class="col-span-3">
                     <div class="flex flex-col gap-y-8 p-12">
-                        <h3 class="pb-2 text-3xl font-semibold">
+                        <h2 class="pb-2 text-3xl font-semibold">
                             Who is Wilford Woodruff?
-                        </h3>
+                        </h2>
                         <p class="text-xl">
                             Wilford Woodruff was the fourth President of The Church of Jesus Christ of Latter-day Saints. He is known for his success as a missionary and his meticulous record keeping. For more than 64 years, he kept a daily journal of his interactions with thousands of individuals, the inspired discourses of early Church leaders, his missionary efforts in the United States and Great Britain, and his service as an apostle, and later prophet, from 1839 to 1898. Over 25,000 people are mentioned in his Papers.
                         </p>
-                        <div>
+                        <div class="text-center">
                             <a href="{{ url('wilford-woodruff') }}"
                                class="inline-block py-2 px-5 uppercase bg-white text-secondary"
                             >
