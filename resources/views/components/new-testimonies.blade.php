@@ -14,7 +14,7 @@
             </div>
             <div class="">
                 <a href="{{ route('testimonies.index') }}"
-                   class="flex justify-center py-2 text-base text-white uppercase lg:text-xl bg-primary"
+                   class="flex justify-center py-2 text-base font-semibold text-white uppercase lg:text-xl bg-primary"
                 >
                     View All Testimonies
                 </a>
