@@ -9,16 +9,16 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class ComeFollowMeImport implements ToCollection, WithHeadingRow
 {
-    public function __construct(public string $book)
-    {
-    }
+    public function __construct(public string $book) {}
 
     /**
      * @param  Collection  $collection
      */
     public function collection(Collection $rows)
     {
+
         foreach ($rows as $row) {
+
             if (empty($row['week'])) {
                 continue;
             }
@@ -26,11 +26,11 @@ class ComeFollowMeImport implements ToCollection, WithHeadingRow
                 'book' => $this->book,
                 'week' => $row['week'],
             ], [
-                'date' => $row['cfm_calendar_date'],
-                'reference' => $this->getReference($row['title']),
-                'title' => $this->getTitle($row['title']),
-                'quote' => $row['1_quotestory_shauna'],
-                'page_id' => $this->getPageId($row['1_link_to_document_journal_discourse_etc']),
+                //'date' => $row['cfm_calendar_date'],
+                //'reference' => $this->getReference($row['title']),
+                //'title' => $this->getTitle($row['title']),
+                'quote' => $row['quotestory'],
+                'page_id' => $this->getPageId($row['link_to_document_journal_discourse_etc']),
                 'article_link' => $row['article_short_message_ww_gem_1_2_paragraphs_include_links_to_documents'],
                 'video_link' => $row['video_big_questions_testimony_interview_destinations_day_in_life'],
             ]);
@@ -51,9 +51,10 @@ class ComeFollowMeImport implements ToCollection, WithHeadingRow
 
             $links = [];
             $links = [
-                $row['link_to_document_journal_discourse_etc'] => $row['people_michael'],
+                $row['link_to_document_journal_discourse_etc'] => $row['people'],
             ];
-            $eventDescriptions = str($row['events_ashlyn_places_matthew'])
+
+            $eventDescriptions = str($row['events_places'])
                 ->explode("\n")
                 ->map(function ($item) {
                     return trim($item);
@@ -75,13 +76,16 @@ class ComeFollowMeImport implements ToCollection, WithHeadingRow
                 ->values()
                 ->all();
 
-            ray($eventLinks, $eventDescriptions);
+            ray('Events:', $eventLinks, $eventDescriptions);
             $events = array_combine($eventLinks, $eventDescriptions);
 
             $links = array_merge($links, $events);
 
             $cfm->events()->delete();
             foreach ($links as $link => $description) {
+                if (empty($link) || empty($description)) {
+                    continue;
+                }
                 if (str($link)->contains('documents')) {
                     $cfm->events()->create([
                         'description' => $description,
