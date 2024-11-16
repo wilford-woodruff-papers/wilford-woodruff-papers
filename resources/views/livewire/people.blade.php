@@ -62,12 +62,18 @@
                         <p class="!mt-0 py-4 px-4 text-black">
                             This list includes the names of the 189 individuals Wilford Woodruff initiated proxy temple work for. Proxy baptisms and confirmations were administered on August 21, 1877, followed by proxy priesthood ordinations and many proxy endowments, as well as proxy sealings of some couples.
                         </p>
-                        <p class="p-4 !m-0">
+                        <p class="p-4 !m-0 flex flex-col md:flex-row gap-8">
                             <a href="https://wilfordwoodruffpapers.org/p/voR0"
                                class="py-2 px-4 text-white bg-secondary"
                                target="_blank"
                             >
                                 View August 21, 1877 Journal Entry
+                            </a>
+                            <a href="{{ url('wilford-woodruff-founding-fathers') }}"
+                               class="py-2 px-4 text-white bg-secondary"
+                               target="_blank"
+                            >
+                                Learn More About the Eminent Men and Women
                             </a>
                         </p>
                     </div>
