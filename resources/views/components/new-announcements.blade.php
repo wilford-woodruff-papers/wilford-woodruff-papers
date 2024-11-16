@@ -3,7 +3,7 @@
         <div class="{{ $position }}-announcements">
             <a href="{{ route('donate') }}">
                 <img class="w-full h-auto"
-                     src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/homepage%20banner%20with%20donate%20button.png"
+                     src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/giving-tuesday-banner-with-donate-button.png"
                      alt="Donate on Giving Tuesday"/>
             </a>
 

@@ -1,9 +1,9 @@
 <x-guest-layout>
     <x-slot name="title">Donate to the Wilford Woodruff Papers Foundation</x-slot>
 
-    @if(now('America/Denver')->lt(\Carbon\Carbon::create(2023, 12, 1, 0, 0, 0, 'America/Denver')))
-        <div class="mx-auto mb-16 max-w-7xl">
-            <img src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/donate-giving-tuesday.png" alt="Giving Tuesday" class="w-full h-auto"/>
+    @if(now('America/Denver')->lt(\Carbon\Carbon::create(2024, 12, 4, 0, 0, 0, 'America/Denver')))
+        <div class="my-16 mx-auto max-w-7xl">
+            <img src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/giving-tuesday-banner.png" alt="Giving Tuesday" class="w-full h-auto"/>
         </div>
     @else
         <div class="bg-center bg-cover" style="background-image: url('{{ asset('img/donate/background.jpg') }}');">
