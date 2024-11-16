@@ -7,7 +7,7 @@
     <div class="flex relative flex-col justify-between h-full bg-secondary">
         <div class="flex flex-col gap-y-2 px-4">
             <h2 class="pb-2 w-full text-2xl text-white border-b border-white">
-                Come Follow Me Insights
+                <span class="italic">Come, Follow Me</span> Insights
             </h2>
             <p class="mt-2 font-semibold text-white">
                 Week {{ $cfm->week }} -  &ldquo;{{ $cfm->title }}&rdquo;
@@ -18,7 +18,7 @@
         </div>
         <div class="px-4 pt-6 pb-4">
             <a href="{{ route('come-follow-me.show', ['book' => $bookSlug, 'week' => $cfm->week]) }}"
-               class="block py-2 px-4 w-full text-base font-semibold text-center bg-white text-primary"
+               class="block py-2 px-4 w-full text-base font-semibold text-center uppercase bg-white text-primary"
             >
                 Study Come Follow Me
             </a>

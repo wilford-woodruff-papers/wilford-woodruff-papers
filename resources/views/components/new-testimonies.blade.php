@@ -1,18 +1,15 @@
-@php
-    $featured = $testimonies->pop();
-@endphp
 <div>
-    <div class="flex flex-col gap-8 md:flex-row">
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
         <div class="flex flex-col flex-1 gap-8 justify-between">
             <div class="flex-1">
-                <p class="pb-4 text-2xl border-b border-primary">
+                <h2 class="pb-4 text-3xl font-semibold border-b border-primary">
                     Testimonies
-                </p>
+                </h2>
                 <div class="!py-0 leading-6 line-clamp-4 lg:line-clamp-6 my-4 px-2">
-                    {!! strip_tags($featured->content) !!}
+                    {!! strip_tags($featuredTestimony->excerpt) !!}
                 </div>
                 <p class="py-4 px-2 font-semibold">
-                    {!! $featured->name !!}
+                    {!! $featuredTestimony->name !!}
                 </p>
             </div>
             <div class="">
@@ -23,16 +20,16 @@
                 </a>
             </div>
         </div>
-        <div class="flex-0 h-[300px] aspect-[16/9] md:aspect-[12/16] lg:aspect-[16/9] lg:h-[400px]">
-            <div class="inline-block flex overflow-hidden relative items-center w-full aspect-[16/9] image-parent bg-primary-50 md:aspect-[12/16] lg:aspect-[16/9]">
-                <div class="absolute z-0 z-10 w-full h-[150%] -mt-24 bg-top bg-cover image-child"
-                     style="background-image: url('{{ app()->environment('local') ? 'https://wilford-woodruff-papers.nyc3.digitaloceanspaces.com/testimonials/72366/conversions/Joan-Boren-square.jpg' : $featured->getFirstMediaUrl('images', 'square') }}')">
+        <div class="flex-0 aspect-[16/9]">
+            <div class="inline-block flex relative items-center w-full aspect-[16/9]">
+                <div class="w-full h-auto aspect-[16/9]">
+                    <iframe class="w-full h-auto aspect-[16/9]" src="{{ $featuredTestimony->embed_link }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
             </div>
         </div>
     </div>
     <div class="grid grid-cols-5 gap-8 mt-8">
-        @foreach($testimonies as $testimony)
+        @foreach($testimonies->take(5) as $testimony)
             <div>
                 <a href="{{ route('testimonies.index', ['testimony' => $testimony->slug]) }}">
                     <div class="overflow-hidden shadow cursor-pointer">
