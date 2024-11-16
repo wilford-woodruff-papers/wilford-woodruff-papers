@@ -17,7 +17,6 @@ use Filament\Support\Assets\Css;
 use Filament\Support\Facades\FilamentAsset;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Mail;
@@ -83,6 +82,15 @@ class AppServiceProvider extends ServiceProvider
             Mail::alwaysTo('jon.fackrell@wilfordwoodruffpapers.org');
         }
 
+        RateLimiter::for('api', function ($request) {
+            $user = $request->user();
+            if ($user) {
+                return Limit::perMinute($user->rate_limit)->by($request->user()?->id ?: $request->ip());
+            }
+
+            return Limit::perMinute(60);
+        });
+
         Validator::extend('exclude_one', function ($attribute, $value, $parameters, $validator) {
             return $value != 1;
         });
@@ -118,9 +126,9 @@ class AppServiceProvider extends ServiceProvider
 
     public function bootRoute(): void
     {
-        RateLimiter::for('api', function (Request $request) {
-            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
-        });
+        //        RateLimiter::for('api', function (Request $request) {
+        //            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
+        //        });
 
         Route::bind('item', function ($item) {
             return Item::whereUuid($item)->first();
