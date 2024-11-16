@@ -1,15 +1,18 @@
 <?php
 
-namespace Database\Seeders;
+namespace App\Console\Commands;
 
-use Illuminate\Database\Seeder;
+use Illuminate\Console\Command;
 use Maatwebsite\Excel\Facades\Excel;
 
-class ComeFollowMeSeeder extends Seeder
+class ImportComeFollowMeCommand extends Command
 {
-    public function run(): void
-    {
+    protected $signature = 'cfm:import';
 
+    protected $description = 'Command description';
+
+    public function handle(): void
+    {
         $books = [
             'Book of Mormon' => 'Book of Mormon.csv',
         ];
