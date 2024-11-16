@@ -38,7 +38,7 @@
             </div>
             <div class="flex justify-end mb-2 lg:px-20">
                 <button onclick="Livewire.dispatch('openModal', {component: 'full-screen-video', arguments: {url: 'https://www.youtube.com/embed/jSUuwwyWW6E?rel=0'}})"
-                        class="flex gap-2 items-center py-2 px-3 uppercase bg-white text-secondary"
+                        class="flex gap-2 items-center py-2 px-3 font-semibold uppercase bg-white text-secondary"
                 >
                     <span>Watch Full Video</span>
                     <x-heroicon-o-arrows-pointing-out class="w-6 h-6"/>
@@ -99,7 +99,7 @@
                         </p>
                         <div class="text-center">
                             <a href="{{ url('wilford-woodruff') }}"
-                               class="inline-block py-2 px-5 uppercase bg-white text-secondary"
+                               class="inline-block py-2 px-8 text-base lg:text-xl !no-underline uppercase bg-white text-secondary font-semibold"
                             >
                                 Read More
                             </a>
