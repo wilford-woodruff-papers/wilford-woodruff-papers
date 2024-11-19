@@ -652,6 +652,16 @@ class PeopleResource extends Resource
                         false: fn (Builder $query) => $query->whereNull('pid'),
                         blank: fn (Builder $query) => $query,
                     ),
+                Tables\Filters\TernaryFilter::make('log_link')
+                    ->label('Research Log')
+                    ->placeholder('All')
+                    ->trueLabel('Is Linked')
+                    ->falseLabel('Is Not Linked')
+                    ->queries(
+                        true: fn (Builder $query) => $query->whereNotNull('log_link'),
+                        false: fn (Builder $query) => $query->whereNull('log_link'),
+                        blank: fn (Builder $query) => $query,
+                    ),
                 //                Filter::make('document_type')
                 //                    ->form([
                 //                        SelectFilter::make('type')
