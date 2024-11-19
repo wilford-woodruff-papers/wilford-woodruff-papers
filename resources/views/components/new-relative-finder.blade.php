@@ -26,6 +26,11 @@
                     />
                 </p>
             </div>
+            <div>
+                <p class="text-white">
+                    Find out how you are related to some of the 25,000 individuals named in Wilford Woodruffs records.
+                </p>
+            </div>
         </div>
         <div class="px-4 pt-6 pb-4">
             <a href="{{ route('relative-finder') }}"
