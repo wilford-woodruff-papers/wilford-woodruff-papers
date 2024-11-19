@@ -1,7 +1,16 @@
 <div class="flex overflow-hidden flex-col shadow">
-    <div class="relative z-0 w-full bg-center bg-cover bg-primary aspect-[4/3]"
-         style="background-image: url('{{ app()->environment('local') ? 'https://tree-portraits-bgt.familysearchcdn.org/jqpzd/thumb200s.jpg' : $image }}'); background-size: 160%;"
+    <div class="relative z-0 w-full bg-primary aspect-[4/3]"
     >
+        <div class="grid grid-cols-4 gap-2 bg-white">
+            @foreach($images as $image)
+                <div class="overflow-hidden aspect-square">
+                    <img src="{{ app()->environment('local') ? 'https://tree-portraits-bgt.familysearchcdn.org/jqpzd/thumb200s.jpg' : $image->portrait }}"
+                         alt=""
+                         class="shadow-lg"
+                    />
+                </div>
+            @endforeach
+        </div>
         <div class="absolute -bottom-60 w-[150%] h-full inset -rotate-[7deg] bg-primary -ml-[20%] z-1"></div>
     </div>
     <div class="flex relative flex-col justify-between h-full bg-primary">

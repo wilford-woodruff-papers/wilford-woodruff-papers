@@ -86,14 +86,14 @@
     </div>
 
     <div class="relative px-8 mx-auto mt-8 max-w-7xl">
+        <h2 class="pb-4 mt-12 mb-4 text-3xl font-semibold border-b border-primary">
+            Who is Wilford Woodruff?
+        </h2>
         <div class="text-white bg-right-bottom bg-no-repeat bg-contain bg-secondary lg:bg-[url('https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/wilford-woodruff-colorized-no-background.png')]"
         >
             <div class="grid lg:grid-cols-5">
                 <div class="col-span-3">
                     <div class="flex flex-col gap-y-8 p-12">
-                        <h2 class="pb-2 text-3xl font-semibold">
-                            Who is Wilford Woodruff?
-                        </h2>
                         <p class="text-xl">
                             Wilford Woodruff was the fourth President of The Church of Jesus Christ of Latter-day Saints. He is known for his success as a missionary and his meticulous record keeping. For more than 64 years, he kept a daily journal of his interactions with thousands of individuals, the inspired discourses of early Church leaders, his missionary efforts in the United States and Great Britain, and his service as an apostle, and later prophet, from 1839 to 1898. Over 25,000 people are mentioned in his Papers.
                         </p>
