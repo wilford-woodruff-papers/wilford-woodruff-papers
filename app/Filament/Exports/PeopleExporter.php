@@ -71,6 +71,8 @@ class PeopleExporter extends Exporter
                 ->label('Death Date'),
             ExportColumn::make('life_years')
                 ->label('B-D'),
+            ExportColumn::make('log_link')
+                ->label('Log Link'),
 
         ];
     }
