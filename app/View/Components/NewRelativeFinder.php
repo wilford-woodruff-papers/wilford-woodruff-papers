@@ -23,13 +23,14 @@ class NewRelativeFinder extends Component
     public function render(): View|Closure|string
     {
         return view('components.new-relative-finder', [
-            'image' => Subject::query()
+            'images' => Subject::query()
+                ->select('portrait')
                 ->people()
                 ->whereNotNull('portrait')
                 ->where('portrait', 'LIKE', 'https://tree-portraits-bgt.familysearchcdn.org%')
                 ->inRandomOrder()
-                ->first()
-                ->portrait,
+                ->limit(12)
+                ->get(),
         ]);
     }
 }

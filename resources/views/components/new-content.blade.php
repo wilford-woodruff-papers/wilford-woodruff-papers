@@ -1,4 +1,7 @@
 <div>
+    <h2 class="pb-4 mt-12 mb-4 text-3xl font-semibold border-b border-primary">
+        Insights in the Papers
+    </h2>
     <div class="grid grid-cols-1 gap-8 md:grid-cols-12">
         <div class="col-span-1 md:col-span-7">
             <div class="flex overflow-hidden flex-col w-full h-full shadow-lg shrink-0">
