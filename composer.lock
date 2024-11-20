@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4acd0c29a04b6bd32919645a2023656d",
+    "content-hash": "02c79e5c2ae00c63244d5edc17467be6",
     "packages": [
         {
             "name": "abr4xas/clarity-laravel",
@@ -20581,16 +20581,16 @@
         },
         {
             "name": "wilford-woodruff-papers/laravel-socialite-familysearch",
-            "version": "v1.0.0",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wilford-woodruff-papers/laravel-socialite-familysearch.git",
-                "reference": "ab5493ee612d82f30d0ac0c51b8a006896ade717"
+                "reference": "7924a527be5c94dbb297702345318357b940bdf9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wilford-woodruff-papers/laravel-socialite-familysearch/zipball/ab5493ee612d82f30d0ac0c51b8a006896ade717",
-                "reference": "ab5493ee612d82f30d0ac0c51b8a006896ade717",
+                "url": "https://api.github.com/repos/wilford-woodruff-papers/laravel-socialite-familysearch/zipball/7924a527be5c94dbb297702345318357b940bdf9",
+                "reference": "7924a527be5c94dbb297702345318357b940bdf9",
                 "shasum": ""
             },
             "require": {
@@ -20627,7 +20627,7 @@
                 "issues": "https://github.com/wilford-woodruff-papers/laravel-socialite-familysearch/issues",
                 "source": "https://github.com/wilford-woodruff-papers/laravel-socialite-familysearch"
             },
-            "time": "2023-12-12T16:50:25+00:00"
+            "time": "2024-11-20T15:27:08+00:00"
         },
         {
             "name": "wire-elements/modal",
