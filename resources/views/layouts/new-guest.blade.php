@@ -162,11 +162,11 @@
                         </a>
 
                         <a href="{{ url('wilford-woodruff') }}" class="flex gap-2 items-center py-2.5 pr-4 pl-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
-                            Wilford Woodruff Bio
+                            About Wilford Woodruff
                         </a>
 
                         <a href="{{ url('phebe-woodruff') }}" class="flex gap-2 items-center py-2.5 pr-4 pl-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
-                            Phebe Woodruff Bio
+                            About Phebe Woodruff
                         </a>
 
                         <a href="{{ route('book.product-page') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
@@ -621,11 +621,11 @@
                             </a>
 
                             <a href="{{ url('wilford-woodruff') }}" class="flex gap-2 items-center py-2.5 pr-4 pl-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
-                                Wilford Woodruff Bio
+                                About Wilford Woodruff
                             </a>
 
                             <a href="{{ url('phebe-woodruff') }}" class="flex gap-2 items-center py-2.5 pr-4 pl-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
-                                Phebe Woodruff Bio
+                                About Phebe Woodruff
                             </a>
 
                             <a href="{{ route('book.product-page') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
