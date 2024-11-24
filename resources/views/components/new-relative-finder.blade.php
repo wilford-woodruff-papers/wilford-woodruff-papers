@@ -28,7 +28,7 @@
             </div>
             <div>
                 <p class="text-white">
-                    Find out how you are related to some of the 25,000 individuals named in Wilford Woodruffs records.
+                    Find out how you are related to some of the 25,000 individuals named in Wilford Woodruff's records.
                 </p>
             </div>
         </div>

@@ -72,7 +72,7 @@
                                         id="type"
                                         name="type"
                                         autocomplete="document-type"
-                                        class="max-w-lg block focus:ring-indigo-500 focus:border-indigo-500 w-full shadow-sm sm:max-w-xs sm:text-sm  @error('email') border-red-500 @else border-gray-300 @enderror rounded-md">
+                                        class="max-w-lg block focus:ring-secondary-500 focus:border-secondary-500 w-full shadow-sm sm:max-w-xs sm:text-sm  @error('email') border-red-500 @else border-gray-300 @enderror rounded-md">
                                     <option value="Biographies">Biographies</option>
                                     <option value="Discourses">Discourses</option>
                                     <option value="Images">Images</option>
@@ -91,7 +91,7 @@
                                         id="attach"
                                         name="attach"
                                         autocomplete="document-attach"
-                                        class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm sm:max-w-xs sm:text-sm focus:border-indigo-500 focus:ring-indigo-500">
+                                        class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm sm:max-w-xs sm:text-sm focus:border-secondary-500 focus:ring-secondary-500">
                                     <option value="No">No</option>
                                     <option value="Yes">Yes</option>
                                 </select>
@@ -106,7 +106,7 @@
                             <div class="flex items-center mt-1">
                                 <input wire:model.live="file"
                                        type="file"
-                                       class="py-2 px-3 ml-5 text-sm font-medium leading-4 text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-none" />
+                                       class="py-2 px-3 ml-5 text-sm font-medium leading-4 text-gray-700 bg-white rounded-md border border-gray-300 shadow-sm hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:outline-none focus:ring-secondary-500" />
                             </div>
                             @error('file') <div class="mt-1 text-sm text-red-500">{{ $message }}</div> @enderror
                         </div>
