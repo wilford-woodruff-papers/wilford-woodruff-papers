@@ -11,6 +11,9 @@
                     </div>
                     <div class="col-span-12 md:col-span-9 content">
                         <h2>Contribute Documents</h2>
+                        <p class="text-lg">
+                            The mission of the Wilford Woodruff Papers Foundation is to preserve and publish all of Wilford Woodruff’s records. If you have an original document that was written by or signed by Wilford Woodruff, or a letter written to Wilford Woodruff, and you are willing to share a digital image of the document with us for inclusion in the Wilford Woodruff Papers, please complete the form below. Thank you!
+                        </p>
                         <livewire:forms.contribute-documents />
                     </div>
                 </div>

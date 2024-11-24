@@ -146,6 +146,7 @@ Route::middleware([])->group(function () {
     Route::get('/about/editorial-method', [\App\Http\Controllers\AboutController::class, 'editorialMethod'])->name('about.editorial-method');
     Route::get('/about/frequently-asked-questions', [\App\Http\Controllers\AboutController::class, 'faqs'])->name('about.frequently-asked-questions');
     Route::get('/contact-us', [\App\Http\Controllers\AboutController::class, 'contact'])->name('contact-us');
+    Route::view('/progress', 'public.progress')->name('progress');
     Route::get('/sitemap.xml', \App\Http\Controllers\SitemapController::class)->name('sitemap');
     Route::get('/opengraph', function () {
         return view('open-graph-image::template', [

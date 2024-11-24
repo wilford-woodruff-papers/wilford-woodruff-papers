@@ -137,20 +137,28 @@
                             Documents
                         </a>
 
-                        <a href="{{ route('wives-and-children') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
-                            Family
+                        <a href="{{ route('topics') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Index
+                        </a>
+
+                        <a href="{{ route('come-follow-me.index') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Come Follow Me Insights
                         </a>
 
                         <a href="{{ route('advanced-search', ['currentIndex' => 'Scriptures']) }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
                             Scriptures
                         </a>
 
-                        <a href="{{ route('come-follow-me.index') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
-                            Come Follow Me
+                        <a href="{{ route('places') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Places
                         </a>
 
                         <a href="{{ route('people') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
-                            People Included in Wilford Woodruff's Papers
+                            People
+                        </a>
+
+                        <a href="{{ route('wives-and-children') }}" class="flex gap-2 items-center py-2.5 pr-4 pl-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Wilford Woodruff's Family
                         </a>
 
                         <a href="{{ url('wilford-woodruff') }}" class="flex gap-2 items-center py-2.5 pr-4 pl-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
@@ -161,20 +169,8 @@
                             Phebe Woodruff Bio
                         </a>
 
-                        <a href="{{ route('places') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
-                            Locations
-                        </a>
-
-                        <a href="{{ route('topics') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
-                            Topics
-                        </a>
-
                         <a href="{{ route('book.product-page') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
-                            The Development of Temple Doctrine
-                        </a>
-
-                        <a href="{{ url('wilford-woodruff') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
-                            About Wilford Woodruff
+                            Wilford Woodruff's Witness: The Development of Temple Doctrine
                         </a>
 
                     </div>
@@ -471,7 +467,7 @@
                             Impact
                         </a>
 
-                        <a href="#" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                        <a href="{{ route('progress') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
                             Progress
                         </a>
 
@@ -554,38 +550,6 @@
             </a>
         </div>
     </nav>
-    {{--<!-- Mobile menu, show/hide based on menu open state. -->
-    <div class="lg:hidden" role="dialog" aria-modal="true">
-        <!-- Background backdrop, show/hide based on slide-over state. -->
-        <div class="fixed inset-0 z-10"></div>
-        <div class="overflow-y-auto fixed inset-y-0 right-0 z-10 py-6 px-6 w-full bg-white sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-            <div class="flex justify-between items-center">
-                <a href="#" class="p-1.5 -m-1.5">
-                    <span class="sr-only">Your Company</span>
-                    <img class="w-auto h-8" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="">
-                </a>
-                <button type="button" class="p-2.5 -m-2.5 text-gray-700 rounded-md">
-                    <span class="sr-only">Close menu</span>
-                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-            <div class="flow-root mt-6">
-                <div class="-my-6 divide-y divide-gray-500/10">
-                    <div class="py-6 space-y-2">
-                        <a href="#" class="block py-2 px-3 -mx-3 text-base font-semibold leading-7 text-gray-900 rounded-lg hover:bg-gray-50">Product</a>
-                        <a href="#" class="block py-2 px-3 -mx-3 text-base font-semibold leading-7 text-gray-900 rounded-lg hover:bg-gray-50">Features</a>
-                        <a href="#" class="block py-2 px-3 -mx-3 text-base font-semibold leading-7 text-gray-900 rounded-lg hover:bg-gray-50">Marketplace</a>
-                        <a href="#" class="block py-2 px-3 -mx-3 text-base font-semibold leading-7 text-gray-900 rounded-lg hover:bg-gray-50">Company</a>
-                    </div>
-                    <div class="py-6">
-                        <a href="#" class="block py-2.5 px-3 -mx-3 text-base font-semibold leading-7 text-gray-900 rounded-lg hover:bg-gray-50">Log in</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>--}}
     <div x-show="showMobileMenu" class="fixed top-0 right-0 left-0 min-h-screen bg-white lg:hidden z-[100]" style="display: none;">
         <nav class="overflow-y-auto h-screen">
             <div class="absolute right-2 top-5 h-20 lg:hidden">
@@ -632,20 +596,28 @@
                                 Documents
                             </a>
 
-                            <a href="{{ route('wives-and-children') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
-                                Family
+                            <a href="{{ route('topics') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Index
+                            </a>
+
+                            <a href="{{ route('come-follow-me.index') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Come Follow Me Insights
                             </a>
 
                             <a href="{{ route('advanced-search', ['currentIndex' => 'Scriptures']) }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
                                 Scriptures
                             </a>
 
-                            <a href="{{ route('come-follow-me.index') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
-                                Come Follow Me
+                            <a href="{{ route('places') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Places
                             </a>
 
                             <a href="{{ route('people') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
-                                People Included in Wilford Woodruff's Papers
+                                People
+                            </a>
+
+                            <a href="{{ url('wives-and-children') }}" class="flex gap-2 items-center py-2.5 pr-4 pl-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Family
                             </a>
 
                             <a href="{{ url('wilford-woodruff') }}" class="flex gap-2 items-center py-2.5 pr-4 pl-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
@@ -656,20 +628,8 @@
                                 Phebe Woodruff Bio
                             </a>
 
-                            <a href="{{ route('places') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
-                                Locations
-                            </a>
-
-                            <a href="{{ route('topics') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
-                                Topics
-                            </a>
-
                             <a href="{{ route('book.product-page') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
-                                The Development of Temple Doctrine
-                            </a>
-
-                            <a href="{{ url('wilford-woodruff') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
-                                About Wilford Woodruff
+                                Wilford Woodruff's Witness: The Development of Temple Doctrine
                             </a>
                         </div>
                     </div>
@@ -886,7 +846,7 @@
                                 Impact
                             </a>
 
-                            <a href="#" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            <a href="{{ route('progress') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
                                 Progress
                             </a>
 
