@@ -66,7 +66,7 @@
             // scrollAtTop = (window.pageYOffset > 15) ? false : true;
         }
     }"
-    class="relative z-100">
+    class="relative z-100 bg-primary">
 {{--    <div class="absolute w-full h-20 bg-white z-1"></div>--}}
     <nav class="flex relative z-50 justify-between items-center p-3 mx-auto max-w-7xl lg:px-8" aria-label="Global">
         <a href="{{ route('home') }}" class="p-1.5 -mb-1.5">
@@ -113,12 +113,12 @@
                         :aria-expanded="open"
                         :aria-controls="$id('dropdown-button')"
                         type="button"
-                        class="flex gap-2 items-center py-2.5 px-2 text-base font-medium leading-6 uppercase text-primary"
+                        class="flex gap-2 items-center py-2.5 px-2 text-base font-medium leading-6 uppercase text-white hover:text-highlight"
                     >
                         Study
 
                         <!-- Heroicon: chevron-down -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-200 hover:text-highlight" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                         </svg>
                     </button>
@@ -209,12 +209,12 @@
                         :aria-expanded="open"
                         :aria-controls="$id('dropdown-button')"
                         type="button"
-                        class="flex gap-2 items-center py-2.5 px-2 text-base font-medium leading-6 uppercase text-primary"
+                        class="flex gap-2 items-center py-2.5 px-2 text-base font-medium leading-6 uppercase text-white hover:text-highlight"
                     >
                         Explore
 
                         <!-- Heroicon: chevron-down -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-200 hover:text-highlight" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                         </svg>
                     </button>
@@ -355,12 +355,12 @@
                         :aria-expanded="open"
                         :aria-controls="$id('dropdown-button')"
                         type="button"
-                        class="flex gap-2 items-center py-2.5 px-2 text-base font-medium leading-6 uppercase text-primary"
+                        class="flex gap-2 items-center py-2.5 px-2 text-base font-medium leading-6 uppercase text-white hover:text-highlight"
                     >
                         Get Involved
 
                         <!-- Heroicon: chevron-down -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-200 hover:text-highlight" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                         </svg>
                     </button>
@@ -427,12 +427,12 @@
                         :aria-expanded="open"
                         :aria-controls="$id('dropdown-button')"
                         type="button"
-                        class="flex gap-2 items-center py-2.5 px-2 text-base font-medium leading-6 uppercase text-primary"
+                        class="flex gap-2 items-center py-2.5 px-2 text-base font-medium leading-6 uppercase text-white hover:text-highlight"
                     >
                         About
 
                         <!-- Heroicon: chevron-down -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-200 hover:text-highlight" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                         </svg>
                     </button>
@@ -541,11 +541,11 @@
                     </div>
                 </div>
             </div>
-            <a href="{{ route('donate') }}" class="py-2.5 text-base font-medium leading-6 text-primary">
+            <a href="{{ route('donate') }}" class="py-2.5 text-base font-medium leading-6 text-white hover:text-highlight">
                 Donate
             </a>
 
-            <a href="{{ route('advanced-search') }}" class="py-2.5 pl-2 text-base font-semibold leading-6 text-primary">
+            <a href="{{ route('advanced-search') }}" class="py-2.5 pl-2 text-base font-semibold leading-6 text-white hover:text-highlight">
                 <x-heroicon-o-magnifying-glass class="w-6 h-6" />
             </a>
         </div>
