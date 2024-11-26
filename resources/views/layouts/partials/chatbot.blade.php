@@ -1,4 +1,3 @@
-@hasanyrole('Chatbot Access')
 <script
     src="https://app.wonderchat.io/scripts/wonderchat.js"
     data-name="wonderchat"
@@ -8,4 +7,3 @@
     data-widget-button-size="extraLarge"
     defer
 ></script>
-@endhasanyrole
