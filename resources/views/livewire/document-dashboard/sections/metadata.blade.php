@@ -43,6 +43,7 @@
                                 </tr>
                             @endif
                             @foreach(\App\Models\Property::query()->whereIn('name', [
+                                'Introduction',
                                 '*Source Link',
                                 '*Collection Name',
                                 '*Collection Description',
