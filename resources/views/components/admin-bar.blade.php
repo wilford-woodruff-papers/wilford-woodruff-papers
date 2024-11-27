@@ -9,13 +9,7 @@
 ]))
 
     <div class="hidden relative z-10 py-4 px-8 w-full text-white bg-black md:block">
-        <ul class="flex gap-x-6 items-center">
-            <li>
-                <img src="{{ asset('img/logo.png') }}"
-                     class="w-auto h-6"
-                     alt="Wilford Woodruff Logo"
-                >
-            </li>
+        <ul class="flex gap-x-6 items-center px-12 mx-auto max-w-7xl">
             @if(auth()->check() && auth()->user()->hasRole([
                 'Editor',
                 'Admin',

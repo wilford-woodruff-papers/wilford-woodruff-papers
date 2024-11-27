@@ -1,151 +1,120 @@
 <x-guest-layout>
+{{--    <div class="inset-1 w-full h-full bg-gradient-to-t from-transparent to-white z-1">--}}
 
-    <x-slot name="title">Wilford Woodruff Papers</x-slot>
+{{--    </div>--}}
+    <video autoplay loop muted playsinline
+           poster="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/files/video/time-machine.jpg"
+           class="object-cover absolute left-0 top-20 w-full h-auto opacity-40 -z-1 aspect-[8/5] lg:aspect-[8/3]"
 
-    <div class="h-24 bg-center bg-cover md:h-28 xl:h-48"
-         style="background-image: url({{ asset('img/banners/home.jpg') }})">
-        <div class="mx-auto max-w-7xl">
+    >
+        <source src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/files/video/time-machine.mp4">
+{{--        <source src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/files/video/time-machine.webm">--}}
+    </video>
 
+    <div class="flex relative items-center px-8 mx-auto w-full max-w-7xl h-auto z-1 aspect-[7/3]">
+        <div class="flex flex-col gap-y-4 mt-6 w-full text-center md:text-left lg:mt-0 lg:-mt-20">
+            <h1 class="hidden text-3xl md:block lg:text-7xl">
+                Wilford Woodruff Papers
+            </h1>
+            <p class="text-xl lg:text-2xl">
+                Search Wilford Woodruff's <span class="font-semibold">documents</span>, as well as the <span class="font-semibold">locations</span>, <span class="font-semibold">events</span>, and <span class="font-semibold">people</span> in his records.
+            </p>
+            <div class="mb-10">
+                <form action="{{ route('advanced-search') }}"
+                class="lg:px-20 lg:pt-8"
+                >
+                    <div>
+                        <label for="q" class="block text-sm font-medium leading-6 text-gray-900 sr-only">Search</label>
+                        <div class="flex mt-2 rounded-md shadow-sm">
+                            <div class="flex relative flex-grow items-stretch focus-within:z-10">
+                                <input type="text" name="q" id="q" class="block py-1.5 pl-4 w-full text-gray-900 rounded-none border-0 ring-1 ring-inset ring-gray-300 sm:text-lg sm:leading-8 focus:ring-2 focus:ring-inset placeholder:text-primary-70 focus:ring-secondary" placeholder="Search People, Events, Locations and more...">
+                            </div>
+                            <button type="button" class="inline-flex relative gap-x-1.5 items-center py-2 px-6 -ml-px text-sm font-semibold text-gray-900 ring-1 ring-inset ring-secondary bg-secondary hover:bg-secondary-400">
+                                <x-heroicon-o-magnifying-glass class="-ml-0.5 w-5 h-5 text-white" />
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="flex justify-end mb-2 lg:px-20">
+                <button onclick="Livewire.dispatch('openModal', {component: 'full-screen-video', arguments: {url: 'https://www.youtube.com/embed/jSUuwwyWW6E?rel=0'}})"
+                        class="flex gap-2 items-center py-2 px-3 font-semibold uppercase bg-white text-secondary"
+                >
+                    <span>Watch Full Video</span>
+                    <x-heroicon-o-arrows-pointing-out class="w-6 h-6"/>
+                </button>
+            </div>
         </div>
     </div>
 
-    {{--@if(app()->environment(['production']))
-        <div class="">
-            <div class="grid grid-cols-12 mx-auto max-w-7xl">
-                <div class="col-span-12 md:col-span-4 md:col-start-9">
-                    <div class="relative">
-                        <div class="-mt-24 md:absolute md:-mt-24 xl:-mt-24">
-                            <img class="px-2 mx-auto w-52 h-auto md:w-56 xl:w-62"
-                                 src="{{ asset('img/wilford-woodruff.png') }}"
-                                 alt=""/>
+    <div class="relative z-10 px-8 mx-auto max-w-7xl">
+        <x-new-announcements :position="'top'"/>
+{{--        <div x-data="{--}}
+{{--                height: 160,--}}
+{{--            }"--}}
+{{--             class="mb-8 w-full">--}}
+{{--            <div class="flex justify-center items-center w-full bg-gray-400 h-[160px]"--}}
+{{--                 style="resize: vertical; overflow:auto;"--}}
+{{--                 x-resize="height = $height"--}}
+{{--            >--}}
+{{--                <p x-text="'Height: ' + height + 'px'" class="text-white"></p>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+        <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+            <x-new-day-in-the-life />
+            <x-new-relative-finder />
+            <x-new-come-follow-me />
+        </div>
+    </div>
+
+    <div class="px-8 my-12 mx-auto max-w-7xl h-48">
+        <div class="flex relative justify-center items-center h-full border-t-2 border-b-2 border-primary">
+            <div class="absolute top-[50%] left-[55%] transform-gpu -translate-x-1/2 -translate-y-1/2 w-128 h-auto opacity-30">
+                <img src="{{ asset('img/logo-opacity-25.png') }}"
+                     alt=""
+                     class="w-full h-auto"
+                />
+            </div>
+            <p class="mx-auto max-w-5xl text-2xl text-center">
+                Our purpose in making Wilford Woodruff’s records universally accessible is to inspire all people, especially the rising generation, to study and <span class="font-semibold">increase their faith in Jesus Christ</span>.
+            </p>
+        </div>
+    </div>
+
+    <div class="relative px-8 mx-auto mt-8 max-w-7xl">
+        <x-new-content />
+    </div>
+
+    <div class="relative px-8 mx-auto mt-8 max-w-7xl">
+        <h2 class="pb-4 mt-12 mb-4 text-3xl font-semibold border-b border-primary">
+            Who is Wilford Woodruff?
+        </h2>
+        <div class="text-white bg-right-bottom bg-no-repeat bg-contain bg-secondary lg:bg-[url('https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/wilford-woodruff-colorized-no-background.png')]"
+        >
+            <div class="grid lg:grid-cols-5">
+                <div class="col-span-3">
+                    <div class="flex flex-col gap-y-8 p-12">
+                        <p class="text-xl">
+                            Wilford Woodruff was the fourth President of The Church of Jesus Christ of Latter-day Saints. He is known for his success as a missionary and his meticulous record keeping. For more than 64 years, he kept a daily journal of his interactions with thousands of individuals, the inspired discourses of early Church leaders, his missionary efforts in the United States and Great Britain, and his service as an apostle, and later prophet, from 1839 to 1898. Over 25,000 people are mentioned in his Papers.
+                        </p>
+                        <div class="text-center">
+                            <a href="{{ url('wilford-woodruff') }}"
+                               class="inline-block py-2 px-8 text-base lg:text-xl !no-underline uppercase bg-white text-secondary font-semibold"
+                            >
+                                Read More
+                            </a>
                         </div>
                     </div>
-
                 </div>
-                <div class="col-span-12 md:col-span-8 md:col-start-1">
-                    <p class="py-4 px-4 font-serif text-2xl italic leading-relaxed md:py-4 md:px-24 md:text-3xl xl:py-8 text-primary">
-                        Explore Wilford Woodruff's powerful eyewitness account of the Restoration
-                    </p>
+                <div class="col-span-2">
+
                 </div>
             </div>
         </div>
-    @endif--}}
+    </div>
 
-    @if(app()->environment(['production','local','development']))
-        <div class="-mt-24 xl:-mt-40 md:-mt-30">
-            <x-top-announcements />
-        </div>
-    @else
-        <div>
-            <x-top-announcements />
-        </div>
-    @endif
-
-    <x-home.purpose />
-
-    @if(app()->environment(['production','local','development', 'testing']))
-        <x-article-preview-carousel />
-    @endif
-
-    @if(app()->environment(['local','development']))
-        <div class="">
-            <x-home-page-buttons />
-        </div>
-    @endif
-
-    @if(app()->environment(['production','local','development', 'testing']))
-
-        <div class="py-12">
-            <x-home.video />
-        </div>
-    @endif
-
-    {{--@if(app()->environment(['production']))
-        @if(! empty($article))
-            <div class="bg-white">
-                <div class="px-12 pt-4 pb-4 mx-auto max-w-7xl md:px-24 md:pt-4 md:pb-8 xl:pt-4">
-                    <div class="">
-                        <p class="font-semibold uppercase text-secondary">
-                            Article
-                        </p>
-                        <h2 class="text-4xl">
-                            <a href="{{ $article->url() }}"
-                               @if(! empty($article->link)) target="_blank" @endif
-                            >
-                                {{ $article->title }}
-                            </a>
-                        </h2>
-                        <p class="text-gray-600">
-                            {{ $article->date->toFormattedDateString() }}
-                        </p>
-                        <p class="my-4 text-base">
-                            @if(! empty($article->excerpt))
-                                {!! $article->excerpt !!}
-                            @else
-                                {!! \Illuminate\Support\Str::of(strip_tags($article->description))->limit(500, ' ...') !!}
-                            @endif
-                        </p>
-                        <a href="{{ $article->url() }}"
-                           class="font-semibold text-secondary"
-                           @if(! empty($article->link)) target="_blank" @endif
-                        >
-                            Read more &gt;
-                        </a>
-                    </div>
-                </div>
-            </div>
-        @endif
-    @endif--}}
-
-    {{--@if(app()->environment(['production']))
-        <div class="bg-primary">
-            <div class="px-12 pt-8 pb-4 mx-auto max-w-7xl md:px-36 md:pt-16 md:pb-8 xl:pt-24">
-                <div class="pb-4 text-3xl leading-10 text-justify md:text-4xl xl:text-5xl text-highlight" style="font-family: 'Italianno', cursive;">
-                    " We pray that thou wilt bring to our remembrance all things which are necessary to the writing of this history . . . that when we have gone into the world of spirits that the saints of God may be blessed in reading our record which we have kept."
-                </div>
-                <div class="text-xl italic text-center text-highlight">
-                    -- Wilford Woodruff
-                </div>
-            </div>
-        </div>
-    @endif--}}
-
-    @if(app()->environment(['production','local','development']))
-        <x-progress />
-    @endif
-
-    @if(app()->environment(['production','local','development']))
-        <x-call-to-action />
-    @endif
-
-    @if(app()->environment(['production','local','development']))
-        <x-home-page-testimonies />
-    @endif
-
-    {{--@if(app()->environment(['production']))
-        <div class="mt-4 md:my-12">
-            <div class="grid grid-cols-1 gap-2 px-4 mx-auto max-w-7xl md:grid-cols-4 md:gap-4 md:px-12 md:px-40 xl:grid-cols-2">
-                <x-polaroid route="documents" image="img/home/documents.jpg" name="Documents" />
-                <x-polaroid route="people" image="img/home/people.jpg" name="People" />
-                <x-polaroid route="places" image="img/home/places.jpg" name="Places" />
-                <x-polaroid route="timeline" image="img/home/historical-context.jpg" name="Timeline" />
-            </div>
-        </div>
-    @endif--}}
-    {{--@push('styles')
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&family=Source+Serif+Pro&display=swap" rel="stylesheet">
-    @endpush--}}
-
-
-
-    <x-home.book />
-
-
-
-    <x-bottom-announcements />
+    <div class="relative px-8 my-16 mx-auto max-w-7xl">
+        <x-new-testimonies />
+    </div>
 
 </x-guest-layout>
-
-

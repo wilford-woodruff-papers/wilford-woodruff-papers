@@ -1,996 +1,878 @@
 <header x-data="{
-                mobileMenuOpen: false,
-                overflowMenuOpen: true,
-            }"
-        class="bg-primary nav"
->
-    <div class="relative mx-auto max-w-7xl">
+        scrollAtTop: true,
+        showMobileMenu: false,
+        init: function(){
+            // scrollAtTop = (window.pageYOffset > 15) ? false : true;
+        }
+    }"
+        class="relative z-100 bg-primary">
+    {{--    <div class="absolute w-full h-20 bg-white z-1"></div>--}}
+    <nav class="flex relative z-50 justify-between items-center p-3 mx-auto max-w-7xl lg:px-8" aria-label="Global">
+        <a href="{{ route('home') }}" class="p-1.5 -mb-1.5">
+            <span class="sr-only">Wilford Woodruff Papers</span>
+            <img class="-mt-4 w-auto h-16" src="{{ asset('img/image-logo.png') }}" alt="">
+        </a>
+        <button x-on:click="showMobileMenu = ! showMobileMenu"
+                class="lg:hidden">
+            <svg class="w-10 h-10 text-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon">
+                <path fill-rule="evenodd" d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd"></path>
+            </svg>
+        </button>
+        <div class="hidden pt-3 font-sans lg:flex lg:gap-x-1">
+            <div class="flex justify-center">
+                <div
+                    x-data="{
+                        open: false,
+                        toggle() {
+                            if (this.open) {
+                                return this.close()
+                            }
 
-        <div class="justify-between items-center py-2 px-4 sm:px-6 md:justify-start md:space-x-10 xl:py-6">
-            <!--<div class="flex relative justify-between items-center py-6 px-4 mx-auto max-w-7xl sm:px-6 md:justify-start md:space-x-10">-->
-            <div class="md:flex md:flex-1 md:justify-between md:items-center">
-                <div class="mb-2 md:flex md:mb-0 md:space-x-10">
-                    <a href="/" class="flex">
-                        <span class="sr-only">{{ config('app.name', 'Laravel') }}</span>
-                        <img class="mx-auto w-auto h-20 md:h-20 xl:h-36"
-                             src="{{ asset('img/image-logo.png') }}"
-                             alt="{{ config('app.name', 'Laravel') }}" />
-                    </a>
+                            this.$refs.button.focus()
 
-                    <div class="absolute top-2 right-4 z-10 -mr-2 md:hidden">
-                        <button x-on:click="mobileMenuOpen = ! mobileMenuOpen;"
-                                type="button"
-                                class="inline-flex justify-center items-center p-2 text-white focus:outline-none bg-secondary hover:text-highlight">
-                            <span class="sr-only">Open menu</span>
-                            <!-- Heroicon name: menu -->
-                            <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                            </svg>
+                            this.open = true
+                        },
+                        close(focusAfter) {
+                            if (! this.open) return
+
+                            this.open = false
+
+                            focusAfter && focusAfter.focus()
+                        }
+                    }"
+                    x-on:keydown.escape.prevent.stop="close($refs.button)"
+                    x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
+                    x-id="['dropdown-button']"
+                    class="relative"
+                >
+                    <!-- Button -->
+                    <button
+                        x-ref="button"
+                        x-on:click="toggle()"
+                        :aria-expanded="open"
+                        :aria-controls="$id('dropdown-button')"
+                        type="button"
+                        class="flex gap-2 items-center py-2.5 px-2 text-base font-medium leading-6 text-white uppercase cursor-pointer group"
+                    >
+                        <span class="group-hover:text-highlight">Study</span>
+
+                        <!-- Heroicon: chevron-down -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-200 group-hover:text-highlight" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+
+                    <!-- Panel -->
+                    <div
+                        x-ref="panel"
+                        x-show="open"
+                        x-transition.origin.top.left
+                        x-on:click.outside="close($refs.button)"
+                        :id="$id('dropdown-button')"
+                        style="display: none;"
+                        class="absolute left-0 z-50 mt-2 w-80 bg-white shadow-md"
+                    >
+                        <a href="{{ route('documents') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Documents
+                        </a>
+
+                        <a href="{{ route('topics') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Index
+                        </a>
+
+                        <a href="{{ route('come-follow-me.index') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            <span class="italic">Come, Follow Me</span> Insights
+                        </a>
+
+                        <a href="{{ route('advanced-search', ['currentIndex' => 'Scriptures']) }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Scriptures
+                        </a>
+
+                        <a href="{{ route('places') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Places
+                        </a>
+
+                        <a href="{{ route('people') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            People
+                        </a>
+
+                        <a href="{{ route('wives-and-children') }}" class="flex gap-2 items-center py-2.5 pr-4 pl-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Wilford Woodruff's Family
+                        </a>
+
+                        <a href="{{ url('wilford-woodruff') }}" class="flex gap-2 items-center py-2.5 pr-4 pl-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            About Wilford Woodruff
+                        </a>
+
+                        <a href="{{ url('phebe-woodruff') }}" class="flex gap-2 items-center py-2.5 pr-4 pl-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            About Phebe Woodruff
+                        </a>
+
+                        <a href="{{ route('book.product-page') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Wilford Woodruff's Witness: The Development of Temple Doctrine
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-center">
+                <div
+                    x-data="{
+                        open: false,
+                        toggle() {
+                            if (this.open) {
+                                return this.close()
+                            }
+
+                            this.$refs.button.focus()
+
+                            this.open = true
+                        },
+                        close(focusAfter) {
+                            if (! this.open) return
+
+                            this.open = false
+
+                            focusAfter && focusAfter.focus()
+                        }
+                    }"
+                    x-on:keydown.escape.prevent.stop="close($refs.button)"
+                    x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
+                    x-id="['dropdown-button']"
+                    class="relative"
+                >
+                    <!-- Button -->
+                    <button
+                        x-ref="button"
+                        x-on:click="toggle()"
+                        :aria-expanded="open"
+                        :aria-controls="$id('dropdown-button')"
+                        type="button"
+                        class="flex gap-2 items-center py-2.5 px-2 text-base font-medium leading-6 text-white uppercase cursor-pointer group"
+                    >
+                        <span class="group-hover:text-highlight">Explore</span>
+
+                        <!-- Heroicon: chevron-down -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-200 group-hover:text-highlight" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+
+                    <!-- Panel -->
+                    <div
+                        x-ref="panel"
+                        x-show="open"
+                        x-transition.origin.top.left
+                        x-on:click.outside="close($refs.button)"
+                        :id="$id('dropdown-button')"
+                        style="display: none;"
+                        class="absolute left-0 z-50 mt-2 w-80 bg-white shadow-md"
+                    >
+                        <a href="{{ route('relative-finder') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Relative Finder
+                        </a>
+
+                        <a href="{{ route('map') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Browse Map
+                        </a>
+
+                        <a href="{{ route('day-in-the-life') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Day in the Life
+                        </a>
+
+                        <a href="{{ route('timeline') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Timeline
+                        </a>
+
+                        <a href="{{ route('miraculously-preserved-life') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Miraculously Preserved Life
+                        </a>
+
+                        <div x-data="{ active: null }"
+                             class="mx-auto space-y-4 w-full max-w-3xl">
+                            <div x-data="{
+                                    id: 1,
+                                    get expanded() {
+                                        return this.active === this.id
+                                    },
+                                    set expanded(value) {
+                                        this.active = value ? this.id : null
+                                    },
+                                }"
+                                 role="region"
+                                 class="bg-white"
+                            >
+                                <h2>
+                                    <button
+                                        type="button"
+                                        x-on:click="expanded = !expanded"
+                                        :aria-expanded="expanded"
+                                        class="flex justify-between items-center py-4 px-4 w-full text-sm uppercase hover:bg-gray-50 disabled:text-gray-500 text-primary md:hover:text-highlight"
+                                    >
+                                        <span>Media</span>
+                                        <span x-show="expanded" aria-hidden="true" class="ml-4">&minus;</span>
+                                        <span x-show="!expanded" aria-hidden="true" class="ml-4">&plus;</span>
+                                    </button>
+                                </h2>
+
+                                <div x-show="expanded" x-collapse>
+                                    <div class="pb-4">
+                                        <ul>
+                                            <li>
+                                                <a href="{{ route('media.articles') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                                    Articles
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ route('media.photos') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                                    Photos
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ route('media.podcasts') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                                    Podcasts
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ route('updates.index') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                                    Updates
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ route('updates.index') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                                    Videos
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ route('conference.landing-page') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                                    2023 Conference
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ route('media.copyright') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                                    Copyright
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-center">
+                <div
+                    x-data="{
+                        open: false,
+                        toggle() {
+                            if (this.open) {
+                                return this.close()
+                            }
+
+                            this.$refs.button.focus()
+
+                            this.open = true
+                        },
+                        close(focusAfter) {
+                            if (! this.open) return
+
+                            this.open = false
+
+                            focusAfter && focusAfter.focus()
+                        }
+                    }"
+                    x-on:keydown.escape.prevent.stop="close($refs.button)"
+                    x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
+                    x-id="['dropdown-button']"
+                    class="relative"
+                >
+                    <!-- Button -->
+                    <button
+                        x-ref="button"
+                        x-on:click="toggle()"
+                        :aria-expanded="open"
+                        :aria-controls="$id('dropdown-button')"
+                        type="button"
+                        class="flex gap-2 items-center py-2.5 px-2 text-base font-medium leading-6 text-white uppercase cursor-pointer group"
+                    >
+                        <span class="group-hover:text-highlight">Get Involved</span>
+
+                        <!-- Heroicon: chevron-down -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-200 group-hover:text-highlight" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+
+                    <!-- Panel -->
+                    <div
+                        x-ref="panel"
+                        x-show="open"
+                        x-transition.origin.top.left
+                        x-on:click.outside="close($refs.button)"
+                        :id="$id('dropdown-button')"
+                        style="display: none;"
+                        class="absolute left-0 z-50 mt-2 w-80 bg-white shadow-md"
+                    >
+                        <a href="{{ route('volunteer') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Volunteer
+                        </a>
+
+                        <a href="{{ url('work-with-us/internship-opportunities') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Internships
+                        </a>
+
+                        <a href="{{ route('contribute-documents') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Contribute Documents
+                        </a>
+
+                        <a href="{{ route('work-with-us') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Career
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-center">
+                <div
+                    x-data="{
+                        open: false,
+                        toggle() {
+                            if (this.open) {
+                                return this.close()
+                            }
+
+                            this.$refs.button.focus()
+
+                            this.open = true
+                        },
+                        close(focusAfter) {
+                            if (! this.open) return
+
+                            this.open = false
+
+                            focusAfter && focusAfter.focus()
+                        }
+                    }"
+                    x-on:keydown.escape.prevent.stop="close($refs.button)"
+                    x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
+                    x-id="['dropdown-button']"
+                    class="relative"
+                >
+                    <!-- Button -->
+                    <button
+                        x-ref="button"
+                        x-on:click="toggle()"
+                        :aria-expanded="open"
+                        :aria-controls="$id('dropdown-button')"
+                        type="button"
+                        class="flex gap-2 items-center py-2.5 px-2 text-base font-medium leading-6 text-white uppercase cursor-pointer group"
+                    >
+                        <span class="group-hover:text-highlight">About</span>
+
+                        <!-- Heroicon: chevron-down -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-200 group-hover:text-highlight" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+
+                    <!-- Panel -->
+                    <div
+                        x-ref="panel"
+                        x-show="open"
+                        x-transition.origin.top.left
+                        x-on:click.outside="close($refs.button)"
+                        :id="$id('dropdown-button')"
+                        style="display: none;"
+                        class="absolute left-0 z-50 mt-2 w-80 bg-white shadow-md"
+                    >
+                        <a href="{{ route('about') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Mission
+                        </a>
+
+                        <a href="{{ route('about.meet-the-team') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Meet the Team
+                        </a>
+
+                        <a href="{{ route('testimonies.index') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Testimonies
+                        </a>
+
+                        <a href="{{ route('about.partners') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Partners
+                        </a>
+
+                        <a href="{{ url('impact') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Impact
+                        </a>
+
+                        <a href="{{ route('progress') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Progress
+                        </a>
+
+                        <a href="{{ route('about.editorial-method') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Editorial Method
+                        </a>
+
+                        <a href="{{ route('figures') }}" class="flex gap-2 items-center py-2.5 pr-4 pl-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Figures
+                        </a>
+
+                        <a href="{{ route('about.frequently-asked-questions') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Frequently Asked Questions
+                        </a>
+
+                        <a href="{{ route('contact-us') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                            Contact Us
+                        </a>
+
+                        <div x-data="{ active: null }"
+                             class="mx-auto space-y-4 w-full max-w-3xl">
+                            <div x-data="{
+                                    id: 1,
+                                    get expanded() {
+                                        return this.active === this.id
+                                    },
+                                    set expanded(value) {
+                                        this.active = value ? this.id : null
+                                    },
+                                }"
+                                 role="region"
+                                 class="bg-white"
+                            >
+                                <h2>
+                                    <button
+                                        type="button"
+                                        x-on:click="expanded = !expanded"
+                                        :aria-expanded="expanded"
+                                        class="flex justify-between items-center py-4 px-4 w-full text-sm uppercase hover:bg-gray-50 disabled:text-gray-500 text-primary md:hover:text-highlight"
+                                    >
+                                        <span>Media Kit</span>
+                                        <span x-show="expanded" aria-hidden="true" class="ml-4">&minus;</span>
+                                        <span x-show="!expanded" aria-hidden="true" class="ml-4">&plus;</span>
+                                    </button>
+                                </h2>
+
+                                <div x-show="expanded" x-collapse>
+                                    <div class="pb-4">
+                                        <ul>
+                                            <li>
+                                                <a href="{{ route('media.kit') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                                    Media Kit
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ route('media.requests') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                                    Media Requests
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ route('media.news') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                                    Newsroom
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <a href="{{ route('donate') }}" class="py-2.5 text-base font-medium leading-6 text-white hover:text-highlight">
+                Donate
+            </a>
+
+            <a href="{{ route('advanced-search') }}" class="py-2.5 pl-2 text-base font-semibold leading-6 text-white hover:text-highlight">
+                <x-heroicon-o-magnifying-glass class="w-6 h-6" />
+            </a>
+        </div>
+    </nav>
+    <div x-show="showMobileMenu" class="fixed top-0 right-0 left-0 min-h-screen bg-white lg:hidden z-[100]" style="display: none;">
+        <nav class="overflow-y-auto h-screen">
+            <div class="absolute right-2 top-5 h-20 lg:hidden">
+                <button x-on:click="showMobileMenu = ! showMobileMenu">
+                    <svg class="w-10 h-10 text-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 0 1 1.06 0L12 10.94l5.47-5.47a.75.75 0 1 1 1.06 1.06L13.06 12l5.47 5.47a.75.75 0 1 1-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 0 1-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="px-4 pt-0.5 pb-8 ml-0.5">
+                <a aria-label="Homepage" href="/" class="">
+                    <img class="w-auto h-[64px] PageLogo-image" src="{{ asset('img/image-logo.png') }}" alt="Wilford Woodruff Papers Logo">
+                </a>
+            </div>
+            <ul x-data="{ active: null }"
+                class="flex flex-col gap-4 pl-12 mt-2 text-primary">
+                <li x-data="{
+                            id: 1,
+                            get expanded() {
+                                return this.active === this.id
+                            },
+                            set expanded(value) {
+                                this.active = value ? this.id : null
+                            },
+                        }"
+                    role="region"
+                    class="px-4 w-full text-primary">
+                    <div>
+                        <button
+                            type="button"
+                            x-on:click="expanded = !expanded"
+                            :aria-expanded="expanded"
+                            class="flex justify-between items-center w-full text-2xl uppercase cursor-pointer hover:bg-gray-50 text-primary"
+                        >
+                            <span>Study</span>
+                            <span x-show="expanded" aria-hidden="true" class="ml-4">&minus;</span>
+                            <span x-show="!expanded" aria-hidden="true" class="ml-4">&plus;</span>
                         </button>
                     </div>
-                    <!--
-                      Mobile menu, show/hide based on mobile menu state.
 
-                      Entering: "duration-200 ease-out"
-                        From: "opacity-0 scale-95"
-                        To: "opacity-100 scale-100"
-                      Leaving: "duration-100 ease-in"
-                        From: "opacity-100 scale-100"
-                        To: "opacity-0 scale-95"
-                    -->
-                    <div class="absolute inset-x-0 top-0 z-20 p-2 transition transform origin-top-right md:hidden"
-                         x-show="mobileMenuOpen"
-                         x-cloak
-                    >
-                        <div class="bg-white rounded-lg divide-y-2 divide-gray-50 ring-1 ring-black ring-opacity-5 shadow-lg">
-                            <div class="px-5 pt-5 pb-6">
-                                <div class="flex justify-between items-center">
-                                    <div>
-                                        <a href="/" class="flex">
-                                            <span class="sr-only">{{ config('app.name', 'Laravel') }}</span>
-                                            <img class="w-auto h-10 md:h-36"
-                                                 src="{{ asset('img/image-logo.png') }}"
-                                                 alt="{{ config('app.name', 'Laravel') }}" />
-                                        </a>
-                                    </div>
-                                    <div class="-mr-2">
-                                        <button @click="mobileMenuOpen = ! mobileMenuOpen;"
-                                                type="button"
-                                                class="inline-flex justify-center items-center p-2 text-gray-400 bg-white rounded-md hover:text-gray-500 hover:bg-gray-100 focus:ring-2 focus:ring-inset focus:ring-indigo-500 focus:outline-none">
-                                            <span class="sr-only">Close menu</span>
-                                            <!-- Heroicon name: x -->
-                                            <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="mt-6">
-                                    <nav class="grid gap-6">
-                                        <a href="{{ route('documents') }}">Documents</a>
-                                        <a href="{{ route('relative-finder') }}">Relative Finder</a>
-                                        <a href="{{ route('people') }}">People</a>
-                                        <a href="{{ route('map') }}">Places</a>
-                                        <a href="{{ route('topics') }}">Topics</a>
-                                        <a href="{{ route('day-in-the-life') }}">Day in the Life</a>
-                                        <a href="{{ route('timeline') }}">Timeline</a>
-                                        <a href="{{ route('advanced-search') }}">Search</a>
-                                        <a href="{{ route('donate') }}">Donate</a>
-                                        <a href="{{ route('get-involved.index') }}">Get Involved</a>
-                                        <a href="{{ route('media.copyright') }}">Copyright</a>
-                                        @auth()
-                                            <form method="POST" action="{{ route('logout') }}">
-                                                @csrf
+                    <div x-show="expanded" x-collapse>
+                        <div class="px-6 pb-4">
+                            <a href="{{ route('documents') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Documents
+                            </a>
 
-                                                <a href="{{ route('logout') }}"
-                                                   onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                                    {{ __('Log Out') }}
-                                                </a>
-                                            </form>
-                                        @endauth()
-                                    </nav>
-                                </div>
-                            </div>
-                            <div class="py-6 px-5 space-y-6">
-                                <div class="grid grid-cols-2 gap-y-4 gap-x-8">
+                            <a href="{{ route('topics') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Index
+                            </a>
 
-                                    <div class="grid grid-cols-1 gap-y-6">
-                                        <a href="{{ route('about') }}" class="text-base font-medium text-gray-900 hover:text-gray-700">
-                                            About
-                                        </a>
+                            <a href="{{ route('come-follow-me.index') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                <span class="italic">Come, Follow Me</span> Insights
+                            </a>
 
-                                        <a href="{{ url('wilford-woodruff') }}" class="text-base font-medium text-gray-900 hover:text-gray-700">
-                                            About Wilford Woodruff
-                                        </a>
+                            <a href="{{ route('advanced-search', ['currentIndex' => 'Scriptures']) }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Scriptures
+                            </a>
 
-                                        <a href="{{ route('volunteer') }}" class="text-base font-medium text-gray-900 hover:text-gray-700">
-                                            Volunteer
-                                        </a>
+                            <a href="{{ route('places') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Places
+                            </a>
 
-                                        <a href="{{ route('about.meet-the-team') }}" class="text-base font-medium text-gray-900 hover:text-gray-700">
-                                            Meet the Team
-                                        </a>
+                            <a href="{{ route('people') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                People
+                            </a>
 
-                                        <a href="{{ route('about.partners') }}" class="text-base font-medium text-gray-900 hover:text-gray-700">
-                                            Partners
-                                        </a>
+                            <a href="{{ url('wives-and-children') }}" class="flex gap-2 items-center py-2.5 pr-4 pl-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Family
+                            </a>
 
-                                        <a href="/impact" class="text-base font-medium text-gray-900 hover:text-gray-700">
-                                            Impact
-                                        </a>
+                            <a href="{{ url('wilford-woodruff') }}" class="flex gap-2 items-center py-2.5 pr-4 pl-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                About Wilford Woodruff
+                            </a>
 
-                                        <a href="{{ route('about.editorial-method') }}" class="text-base font-medium text-gray-900 hover:text-gray-700">
-                                            Editorial Method
-                                        </a>
-                                    </div>
+                            <a href="{{ url('phebe-woodruff') }}" class="flex gap-2 items-center py-2.5 pr-4 pl-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                About Phebe Woodruff
+                            </a>
 
-                                    <div class="grid grid-cols-1 gap-y-6">
-                                        <a href="{{ route('conference.landing-page') }}" class="text-base font-medium text-gray-900 hover:text-gray-700">
-                                            2023 Conference
-                                        </a>
-                                        <a href="{{ route('media.articles') }}" class="text-base font-medium text-gray-900 hover:text-gray-700">
-                                            Articles
-                                        </a>
-
-                                        <a href="{{ route('media.photos') }}" class="text-base font-medium text-gray-900 hover:text-gray-700">
-                                            Photos
-                                        </a>
-
-                                        <a href="{{ route('media.podcasts') }}" class="text-base font-medium text-gray-900 hover:text-gray-700">
-                                            Podcasts
-                                        </a>
-
-                                        <a href="{{ route('updates.index') }}"
-                                           class="text-base font-medium text-gray-900 hover:text-gray-700"
-                                        >
-                                            Updates
-                                        </a>
-
-                                        <a href="{{ route('media.videos') }}" class="text-base font-medium text-gray-900 hover:text-gray-700">
-                                            Videos
-                                        </a>
-
-                                        <a href="{{ route('media.news') }}" class="text-base font-medium text-gray-900 hover:text-gray-700">
-                                            Newsroom
-                                        </a>
-                                    </div>
-
-                                </div>
-                            </div>
+                            <a href="{{ route('book.product-page') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Wilford Woodruff's Witness: The Development of Temple Doctrine
+                            </a>
                         </div>
                     </div>
-                </div>
-                <!--<div class="flex items-center md:ml-12">-->
-                <div class="md:space-x-10">
-                    <div class="relative">
-                        <div class="relative">
-                            <div class="grid grid-cols-1 justify-center md:flex md:justify-end">
-                                <div class="py-0.5 md:pr-8 md:mb-2 md:mb-12 md:-mt-0 xl:-mt-6">
+                </li>
 
-                                </div>
-                                <div class="mr-0 mb-12 md:-mt-2 xl:-mt-8"
-                                     id="search">
-                                    <div>
-                                        <form action="{{ route('advanced-search') }}" id="search-form">
-                                            <div class="flex mt-1 max-w-full shadow-sm">
-                                                <div class="flex relative flex-grow items-stretch focus-within:z-10">
-                                                    <input class="block pl-2 w-full rounded-none border-white sm:text-sm"
-                                                           type="search"
-                                                           name="q"
-                                                           value="{{ request('q') }}"
-                                                           placeholder="Search website"
-                                                           aria-label="Search website">
-                                                </div>
-                                                <button class="inline-flex relative items-center py-2 px-4 -ml-px space-x-2 text-sm font-medium text-gray-700 bg-white hover:bg-gray-100 focus:ring-2 focus:outline-none">
-                                                    <svg class="w-5 h-5 text-secondary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                                                    </svg>
-                                                    <span class="sr-only">Search website</span>
-                                                </button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--</div>-->
-            </div>
-        </div>
-
-    </div>
-    <div x-data="{
-                dropdown: null
-             }"
-         class="hidden py-0.5 md:block xl:py-2 bg-secondary">
-        <div class="relative mx-auto max-w-7xl">
-            <nav class="px-4 md:flex md:justify-between md:items-center md:ml-4">
-                <div class="flex flex-1 space-x-4 min-w-0 md:space-x-10">
-                    <a href="{{ route('documents') }}">Documents</a>
-                    <div class="flex justify-center">
-                        <div
-                            x-data="{
-                                open: false,
-                                toggle() {
-                                    if (this.open) {
-                                        return this.close()
-                                    }
-
-                                    this.$refs.button.focus()
-
-                                    this.open = true
-                                },
-                                show() {
-                                    this.$refs.button.focus()
-
-                                    this.open = true
-                                },
-                                close(focusAfter) {
-                                    if (! this.open) return
-
-                                    this.open = false
-
-                                    focusAfter && focusAfter.focus()
-                                }
-                            }"
-                            x-on:keydown.escape.prevent.stop="close($refs.button)"
-                            x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
-                            x-id="['dropdown-button']"
-                            class="relative"
-                        >
-                            <!-- Button -->
-                            <button
-                                x-ref="button"
-                                x-on:click="toggle()"
-                                x-on:mouseover="show()"
-                                :aria-expanded="open"
-                                :aria-controls="$id('dropdown-button')"
-                                type="button"
-                                class="text-base font-medium uppercase md:text-white text-primary md:hover:text-highlight"
-                            >
-                                <span>People</span>
-                                {{--<span aria-hidden="true">&darr;</span>--}}
-                            </button>
-
-                            <!-- Panel -->
-                            <div
-                                x-ref="panel"
-                                x-show="open"
-                                x-transition.origin.top.left
-                                x-on:click.outside="close($refs.button)"
-                                :id="$id('dropdown-button')"
-                                style="display: none;"
-                                class="overflow-hidden absolute left-0 mt-2 w-auto bg-white shadow-md z-[1000]"
-                            >
-                                <div>
-                                    <a href="{{ route('relative-finder') }}"
-                                       class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
-                                        Relative Finder
-                                    </a>
-                                    <a href="{{ route('people') }}"
-                                       class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
-                                        People Included in Wilford Woodruff's Papers
-                                    </a>
-                                    <a href="{{ url('wilford-woodruff') }}"
-                                       class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
-                                        About Wilford Woodruff
-                                    </a>
-                                    <a href="{{ route('wives-and-children') }}"
-                                       class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
-                                        Family
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="flex justify-center">
-                        <div
-                            x-data="{
-                                open: false,
-                                toggle() {
-                                    if (this.open) {
-                                        return this.close()
-                                    }
-
-                                    this.$refs.button.focus()
-
-                                    this.open = true
-                                },
-                                show() {
-                                    this.$refs.button.focus()
-
-                                    this.open = true
-                                },
-                                close(focusAfter) {
-                                    if (! this.open) return
-
-                                    this.open = false
-
-                                    focusAfter && focusAfter.focus()
-                                }
-                            }"
-                            x-on:keydown.escape.prevent.stop="close($refs.button)"
-                            x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
-                            x-id="['dropdown-button']"
-                            class="relative"
-                        >
-                            <!-- Button -->
-                            <button
-                                x-ref="button"
-                                x-on:click="toggle()"
-                                x-on:mouseover="show()"
-                                :aria-expanded="open"
-                                :aria-controls="$id('dropdown-button')"
-                                type="button"
-                                class="text-base font-medium uppercase md:text-white text-primary md:hover:text-highlight"
-                            >
-                                <span>Places</span>
-                                {{--<span aria-hidden="true">&darr;</span>--}}
-                            </button>
-
-                            <!-- Panel -->
-                            <div
-                                x-ref="panel"
-                                x-show="open"
-                                x-transition.origin.top.left
-                                x-on:click.outside="close($refs.button)"
-                                :id="$id('dropdown-button')"
-                                style="display: none;"
-                                class="overflow-hidden absolute left-0 z-20 mt-2 w-auto bg-white shadow-md"
-                            >
-                                <div>
-                                    <a href="{{ route('map') }}"
-                                       class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
-                                        Browse Map
-                                    </a>
-
-                                    <a href="{{ route('places') }}"
-                                       class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
-                                        List of Locations
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <a href="{{ route('topics') }}">Topics</a>
-                    <div class="flex justify-center">
-                        <div
-                            x-data="{
-                                open: false,
-                                toggle() {
-                                    if (this.open) {
-                                        return this.close()
-                                    }
-
-                                    this.$refs.button.focus()
-
-                                    this.open = true
-                                },
-                                show() {
-                                    this.$refs.button.focus()
-
-                                    this.open = true
-                                },
-                                close(focusAfter) {
-                                    if (! this.open) return
-
-                                    this.open = false
-
-                                    focusAfter && focusAfter.focus()
-                                }
-                            }"
-                            x-on:keydown.escape.prevent.stop="close($refs.button)"
-                            x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
-                            x-id="['dropdown-button']"
-                            class="relative"
-                        >
-                            <!-- Button -->
-                            <button
-                                x-ref="button"
-                                x-on:click="toggle()"
-                                x-on:mouseover="show()"
-                                :aria-expanded="open"
-                                :aria-controls="$id('dropdown-button')"
-                                type="button"
-                                class="text-base font-medium uppercase md:text-white text-primary md:hover:text-highlight"
-                            >
-                                <span>Timeline</span>
-                                {{--<span aria-hidden="true">&darr;</span>--}}
-                            </button>
-
-                            <!-- Panel -->
-                            <div
-                                x-ref="panel"
-                                x-show="open"
-                                x-transition.origin.top.left
-                                x-on:click.outside="close($refs.button)"
-                                :id="$id('dropdown-button')"
-                                style="display: none;"
-                                class="overflow-hidden absolute left-0 z-20 mt-2 w-auto bg-white shadow-md"
-                            >
-                                <div>
-                                    <a href="{{ route('day-in-the-life') }}"
-                                       class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
-                                        Day in the Life
-                                    </a>
-
-                                    <a href="{{ route('timeline') }}"
-                                       class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
-                                        Timeline of Events
-                                    </a>
-
-                                    <a href="{{ route('miraculously-preserved-life') }}"
-                                       class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
-                                        Wilford Woodruff’s Miraculously Preserved Life
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <a href="{{ route('advanced-search') }}"
-                       class="hidden lg:block"
-                    >Search</a>
-                </div>
-                <div class="flex gap-x-8 items-center mt-4 md:mt-0 md:ml-4 xl:hidden">
-                    <a href="{{ route('donate') }}"
-                       class="py-1 px-2 text-base font-medium uppercase rounded-md border-2 border-white md:text-white text-primary md:hover:text-highlight md:hover:border-highlight"
-                    >Donate</a>
+                <li x-data="{
+                            id: 2,
+                            get expanded() {
+                                return this.active === this.id
+                            },
+                            set expanded(value) {
+                                this.active = value ? this.id : null
+                            },
+                        }"
+                    role="region"
+                    class="px-4 w-full text-primary">
                     <div>
-                        <div class="flex justify-center items-center">
-                            <div
-                                x-data="{
-                                open: false,
-                                toggle() {
-                                    if (this.open) {
-                                        return this.close()
-                                    }
+                        <button
+                            type="button"
+                            x-on:click="expanded = !expanded"
+                            :aria-expanded="expanded"
+                            class="flex justify-between items-center w-full text-2xl uppercase cursor-pointer hover:bg-gray-50 text-primary"
+                        >
+                            <span>Explore</span>
+                            <span x-show="expanded" aria-hidden="true" class="ml-4">&minus;</span>
+                            <span x-show="!expanded" aria-hidden="true" class="ml-4">&plus;</span>
+                        </button>
+                    </div>
 
-                                    this.$refs.button.focus()
+                    <div x-show="expanded" x-collapse>
+                        <div class="px-6 pb-4">
+                            <a href="{{ route('relative-finder') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Relative Finder
+                            </a>
 
-                                    this.open = true
-                                },
-                                show() {
-                                    this.$refs.button.focus()
+                            <a href="{{ route('map') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Browse Map
+                            </a>
 
-                                    this.open = true
-                                },
-                                close(focusAfter) {
-                                    if (! this.open) return
+                            <a href="{{ route('day-in-the-life') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Day in the Life
+                            </a>
 
-                                    this.open = false
+                            <a href="{{ route('timeline') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Timeline
+                            </a>
 
-                                    focusAfter && focusAfter.focus()
-                                }
-                            }"
-                                x-on:keydown.escape.prevent.stop="close($refs.button)"
-                                x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
-                                x-id="['dropdown-button']"
-                                class="relative"
-                            >
-                                <!-- Button -->
-                                <button
-                                    x-ref="button"
-                                    x-on:click="toggle()"
-                                    x-on:mouseover="show()"
-                                    :aria-expanded="open"
-                                    :aria-controls="$id('dropdown-button')"
-                                    type="button"
-                                    class="mt-1.5 text-base font-medium uppercase md:text-white text-primary md:hover:text-highlight"
+                            <a href="{{ route('miraculously-preserved-life') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Miraculously Preserved Life
+                            </a>
+
+                            <div x-data="{ active: null }"
+                                 class="mx-auto space-y-4 w-full">
+                                <div x-data="{
+                                    id: 1,
+                                    get expanded() {
+                                        return this.active === this.id
+                                    },
+                                    set expanded(value) {
+                                        this.active = value ? this.id : null
+                                    },
+                                }"
+                                     role="region"
+                                     class="bg-white"
                                 >
-                                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                                    </svg>
-                                    {{--<span aria-hidden="true">&darr;</span>--}}
-                                </button>
+                                    <h2>
+                                        <button
+                                            type="button"
+                                            x-on:click="expanded = !expanded"
+                                            :aria-expanded="expanded"
+                                            class="flex justify-between items-center py-4 px-4 w-full text-sm uppercase hover:bg-gray-50 disabled:text-gray-500 text-primary md:hover:text-highlight"
+                                        >
+                                            <span>Media</span>
+                                            <span x-show="expanded" aria-hidden="true" class="ml-4">&minus;</span>
+                                            <span x-show="!expanded" aria-hidden="true" class="ml-4">&plus;</span>
+                                        </button>
+                                    </h2>
 
-                                <!-- Panel -->
-                                <div
-                                    x-ref="panel"
-                                    x-show="open"
-                                    x-transition.origin.top.left
-                                    x-on:click.outside="close($refs.button)"
-                                    :id="$id('dropdown-button')"
-                                    style="display: none;"
-                                    class="overflow-hidden absolute -right-4 top-10 z-20 w-auto bg-white shadow-md md:w-screen lg:w-[700px]"
-                                >
-                                    <div class="grid grid-cols-3 gap-x-16 p-8">
-                                        <div>
-                                            <span class="text-base font-semibold tracking-wider uppercase whitespace-nowrap text-primary">
-                                                About
-                                            </span>
-                                            <div>
-                                                <a href="{{ url('wilford-woodruff') }}"
-                                                   class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
-                                                    About Wilford Woodruff
-                                                </a>
-                                                <a href="{{ route('about') }}"
-                                                   class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
-                                                    Mission
-                                                </a>
-                                                <a href="{{ route('about.meet-the-team') }}"
-                                                   class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
-                                                    Meet the Team
-                                                </a>
-                                                <a href="{{ route('about.partners') }}"
-                                                   class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
-                                                    Partners
-                                                </a>
-                                                <a href="/impact"
-                                                   class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
-                                                    Impact
-                                                </a>
-                                                <a href="{{ route('about.editorial-method') }}"
-                                                   class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
-                                                    Editorial Method
-                                                </a>
-                                                <div class="pl-4">
-                                                    <a href="{{ route('figures') }}"
-                                                       class="block py-2 px-4 w-full text-sm font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
-                                                        Figures
-                                                    </a>
-                                                </div>
-                                                <a href="{{ route('about.frequently-asked-questions') }}"
-                                                   class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
-                                                    Frequently Asked Questions
-                                                </a>
-                                                <a href="{{ route('contact-us') }}"
-                                                   class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
-                                                    Contact Us
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <span class="text-base font-semibold tracking-wider uppercase whitespace-nowrap text-primary">
-                                                Get Involved
-                                            </span>
-                                            <div>
-                                                <a href="{{ route('donate') }}"
-                                                   class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
-                                                    Donate
-                                                </a>
-                                                <a href="{{ route('volunteer') }}"
-                                                   class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
-                                                    Volunteer
-                                                </a>
-                                                <a href="/work-with-us/internship-opportunities"
-                                                   class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
-                                                    Internships
-                                                </a>
-                                                <a href="{{ route('work-with-us') }}"
-                                                   class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
-                                                    Career
-                                                </a>
-                                                <a href="{{ route('contribute-documents') }}"
-                                                   class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
-                                                    Contribute Documents
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <span class="text-base font-semibold tracking-wider uppercase whitespace-nowrap text-primary">
-                                                Media
-                                            </span>
-                                            <div class="pb-4 pl-4 mt-1 space-y-1" aria-labelledby="media-library-headline">
-                                                <h3 class="text-xs font-semibold tracking-wider uppercase whitespace-nowrap text-primary" id="media-library-headline">
-                                                    Media Library
-                                                </h3>
-                                                <a href="{{ route('conference.landing-page') }}"
-                                                   class="flex items-center py-2 px-3 text-sm font-medium whitespace-nowrap group text-secondary">
-                                                    <span class="truncate">
-                                                        2023 Conference
-                                                    </span>
-                                                </a>
-                                                <a href="{{ route('media.articles') }}"
-                                                   class="group flex items-center px-3 py-2 text-sm font-medium text-secondary whitespace-nowrap @if(request()->is('media/articles*')) active @endif">
-                                                    <span class="truncate">
+                                    <div x-show="expanded" x-collapse>
+                                        <div class="pb-4">
+                                            <ul>
+                                                <li>
+                                                    <a href="{{ route('media.articles') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
                                                         Articles
-                                                    </span>
-                                                </a>
-                                                <a href="{{ route('media.photos') }}"
-                                                   class="group flex items-center px-3 py-2 text-sm font-medium text-secondary whitespace-nowrap @if(request()->is('media/photos*')) active @endif">
-                                                    <span class="truncate">
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ route('media.photos') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
                                                         Photos
-                                                    </span>
-                                                </a>
-                                                <a href="{{ route('media.podcasts') }}"
-                                                   class="group flex items-center px-3 py-2 text-sm font-medium text-secondary whitespace-nowrap @if(request()->is('media/podcasts')) active @endif">
-                                                    <span class="truncate">
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ route('media.podcasts') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
                                                         Podcasts
-                                                    </span>
-                                                </a>
-                                                <a href="{{ route('updates.index') }}"
-                                                   class="flex items-center py-2 px-3 text-sm font-medium whitespace-nowrap group text-secondary"
-                                                >
-                                                    <span class="truncate">
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ route('updates.index') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
                                                         Updates
-                                                    </span>
-                                                </a>
-                                                <a href="{{ route('media.videos') }}"
-                                                   class="group flex items-center px-3 py-2 text-sm font-medium text-secondary whitespace-nowrap @if(request()->is('media/videos')) active @endif">
-                                                    <span class="truncate">
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ route('updates.index') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
                                                         Videos
-                                                    </span>
-                                                </a>
-                                                <a href="{{ route('media.copyright') }}"
-                                                   class="group flex items-center px-3 py-2 text-sm font-medium text-secondary whitespace-nowrap @if(request()->is('media/copyright')) active @endif">
-                                                    <span class="truncate">
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ route('conference.landing-page') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                                        2023 Conference
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ route('media.copyright') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
                                                         Copyright
-                                                    </span>
-                                                </a>
-                                                <h3 class="pt-4 text-xs font-semibold tracking-wider uppercase whitespace-nowrap text-primary" id="media-library-headline">
-                                                    Media Center
-                                                </h3>
-                                                <a href="{{ route('media.kit') }}"
-                                                   class="group flex items-center px-3 py-2 text-sm font-medium text-secondary whitespace-nowrap @if(request()->is('media/media-kit')) active @endif">
-                                                    <span class="truncate">
-                                                        Media Kit
-                                                    </span>
-                                                </a>
-                                                <a href="{{ route('media.requests') }}"
-                                                   class="group flex items-center px-3 py-2 text-sm font-medium text-secondary whitespace-nowrap @if(request()->is('media/requests')) active @endif">
-                                                    <span class="truncate">
-                                                        Media Requests
-                                                    </span>
-                                                </a>
-                                                <a href="{{ route('media.news') }}"
-                                                   class="group flex items-center px-3 py-2 text-sm font-medium text-secondary whitespace-nowrap @if(request()->is('media/news')) active @endif">
-                                                    <span class="truncate">
-                                                        Newsroom
-                                                    </span>
-                                                </a>
-                                            </div>
+                                                    </a>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        {{--<div class="absolute top-2 right-4 z-10 -mr-2 md:hidden">
-                            <button x-on:click="overflowMenuOpen = ! overflowMenuOpen;"
-                                    type="button"
-                                    class="inline-flex justify-center items-center p-2 text-white focus:outline-none bg-secondary hover:text-highlight">
-                                <span class="sr-only">Open menu</span>
-                                <!-- Heroicon name: menu -->
-                                <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                                </svg>
-                            </button>
-                        </div>--}}
                     </div>
-                </div>
-                <div class="hidden mt-4 space-x-4 sm:space-x-10 md:mt-0 md:ml-4 xl:flex">
-                    {{--<a href="/s/wilford-woodruff-papers/page/about">About</a>--}}
-                    <div class="flex justify-center">
-                        <div
-                            x-data="{
-                                open: false,
-                                toggle() {
-                                    if (this.open) {
-                                        return this.close()
-                                    }
+                </li>
 
-                                    this.$refs.button.focus()
-
-                                    this.open = true
-                                },
-                                show() {
-                                    this.$refs.button.focus()
-
-                                    this.open = true
-                                },
-                                close(focusAfter) {
-                                    if (! this.open) return
-
-                                    this.open = false
-
-                                    focusAfter && focusAfter.focus()
-                                }
-                            }"
-                            x-on:keydown.escape.prevent.stop="close($refs.button)"
-                            x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
-                            x-id="['dropdown-button']"
-                            class="relative"
+                <li x-data="{
+                        id: 3,
+                        get expanded() {
+                            return this.active === this.id
+                        },
+                        set expanded(value) {
+                            this.active = value ? this.id : null
+                        },
+                    }"
+                    role="region"
+                    class="px-4 w-full text-primary">
+                    <div>
+                        <button
+                            type="button"
+                            x-on:click="expanded = !expanded"
+                            :aria-expanded="expanded"
+                            class="flex justify-between items-center w-full text-2xl uppercase cursor-pointer hover:bg-gray-50 text-primary"
                         >
-                            <!-- Button -->
-                            <button
-                                x-ref="button"
-                                x-on:click="toggle()"
-                                x-on:mouseover="show()"
-                                :aria-expanded="open"
-                                :aria-controls="$id('dropdown-button')"
-                                type="button"
-                                class="text-base font-medium uppercase md:text-white text-primary md:hover:text-highlight"
-                            >
-                                <span>About</span>
-                                {{--<span aria-hidden="true">&darr;</span>--}}
-                            </button>
+                            <span>Get Involved</span>
+                            <span x-show="expanded" aria-hidden="true" class="ml-4">&minus;</span>
+                            <span x-show="!expanded" aria-hidden="true" class="ml-4">&plus;</span>
+                        </button>
+                    </div>
 
-                            <!-- Panel -->
-                            <div
-                                x-ref="panel"
-                                x-show="open"
-                                x-transition.origin.top.left
-                                x-on:click.outside="close($refs.button)"
-                                :id="$id('dropdown-button')"
-                                style="display: none;"
-                                class="overflow-hidden absolute left-0 z-20 mt-2 w-auto bg-white shadow-md"
-                            >
-                                <div>
-                                    <a href="{{ route('about') }}"
-                                       class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
-                                        Mission
-                                    </a>
-                                    <a href="{{ route('about.meet-the-team') }}"
-                                       class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
-                                        Meet the Team
-                                    </a>
-                                    <a href="{{ route('about.partners') }}"
-                                       class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
-                                        Partners
-                                    </a>
-                                    <a href="/impact"
-                                       class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
-                                        Impact
-                                    </a>
-                                    <a href="{{ route('about.editorial-method') }}"
-                                       class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
-                                        Editorial Method
-                                    </a>
-                                    <div class="pl-4">
-                                        <a href="{{ route('figures') }}"
-                                           class="block py-2 px-4 w-full text-sm font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
-                                            Figures
-                                        </a>
+                    <div x-show="expanded" x-collapse>
+                        <div class="px-6 pb-4">
+                            <a href="{{ route('volunteer') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Volunteer
+                            </a>
+
+                            <a href="{{ url('work-with-us/internship-opportunities') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Internships
+                            </a>
+
+                            <a href="{{ route('contribute-documents') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Contribute Documents
+                            </a>
+
+                            <a href="{{ route('work-with-us') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Career
+                            </a>
+                        </div>
+                    </div>
+                </li>
+
+                <li x-data="{
+                        id: 4,
+                        get expanded() {
+                            return this.active === this.id
+                        },
+                        set expanded(value) {
+                            this.active = value ? this.id : null
+                        },
+                    }"
+                    role="region"
+                    class="px-4 w-full text-primary">
+                    <div>
+                        <button
+                            type="button"
+                            x-on:click="expanded = !expanded"
+                            :aria-expanded="expanded"
+                            class="flex justify-between items-center w-full text-2xl uppercase cursor-pointer hover:bg-gray-50 text-primary"
+                        >
+                            <span>About</span>
+                            <span x-show="expanded" aria-hidden="true" class="ml-4">&minus;</span>
+                            <span x-show="!expanded" aria-hidden="true" class="ml-4">&plus;</span>
+                        </button>
+                    </div>
+
+                    <div x-show="expanded" x-collapse>
+                        <div class="px-6 pb-4">
+                            <a href="{{ route('about') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Mission
+                            </a>
+
+                            <a href="{{ route('about.meet-the-team') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Meet the Team
+                            </a>
+
+                            <a href="{{ route('testimonies.index') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Testimonies
+                            </a>
+
+                            <a href="{{ route('about.partners') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Partners
+                            </a>
+
+                            <a href="{{ url('impact') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Impact
+                            </a>
+
+                            <a href="{{ route('progress') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Progress
+                            </a>
+
+                            <a href="{{ route('about.editorial-method') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Editorial Method
+                            </a>
+
+                            <a href="{{ route('figures') }}" class="flex gap-2 items-center py-2.5 pr-4 pl-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Figures
+                            </a>
+
+                            <a href="{{ route('about.frequently-asked-questions') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Frequently Asked Questions
+                            </a>
+
+                            <a href="{{ route('contact-us') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                Contact Us
+                            </a>
+
+                            <div x-data="{ active: null }"
+                                 class="mx-auto space-y-4 w-full max-w-3xl">
+                                <div x-data="{
+                                    id: 1,
+                                    get expanded() {
+                                        return this.active === this.id
+                                    },
+                                    set expanded(value) {
+                                        this.active = value ? this.id : null
+                                    },
+                                }"
+                                     role="region"
+                                     class="bg-white"
+                                >
+                                    <h2>
+                                        <button
+                                            type="button"
+                                            x-on:click="expanded = !expanded"
+                                            :aria-expanded="expanded"
+                                            class="flex justify-between items-center py-4 px-4 w-full text-sm uppercase hover:bg-gray-50 disabled:text-gray-500 text-primary md:hover:text-highlight"
+                                        >
+                                            <span>Media Kit</span>
+                                            <span x-show="expanded" aria-hidden="true" class="ml-4">&minus;</span>
+                                            <span x-show="!expanded" aria-hidden="true" class="ml-4">&plus;</span>
+                                        </button>
+                                    </h2>
+
+                                    <div x-show="expanded" x-collapse>
+                                        <div class="pb-4">
+                                            <ul>
+                                                <li>
+                                                    <a href="{{ route('media.kit') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                                        Media Kit
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ route('media.requests') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                                        Media Requests
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ route('media.news') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                                        Newsroom
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                    <a href="{{ route('about.frequently-asked-questions') }}"
-                                       class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
-                                        Frequently Asked Questions
-                                    </a>
-                                    <a href="{{ route('contact-us') }}"
-                                       class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
-                                        Contact Us
-                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </li>
 
-                    <div class="flex justify-center">
-                        <div
-                            x-data="{
-                                open: false,
-                                toggle() {
-                                    if (this.open) {
-                                        return this.close()
-                                    }
+                <li>
+                    <a href="{{ route('donate') }}" class="py-2 px-4 text-2xl cursor-pointer hover:bg-gray-50 text-primary">
+                        Donate
+                    </a>
+                </li>
 
-                                    this.$refs.button.focus()
-
-                                    this.open = true
-                                },
-                                show() {
-                                    this.$refs.button.focus()
-
-                                    this.open = true
-                                },
-                                close(focusAfter) {
-                                    if (! this.open) return
-
-                                    this.open = false
-
-                                    focusAfter && focusAfter.focus()
-                                }
-                            }"
-                            x-on:keydown.escape.prevent.stop="close($refs.button)"
-                            x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
-                            x-id="['dropdown-button']"
-                            class="relative"
-                        >
-                            <!-- Button -->
-                            <a href="{{ route('get-involved.index') }}"
-                                x-ref="button"
-                                x-on:click="toggle()"
-                                x-on:mouseover="show()"
-                                :aria-expanded="open"
-                                :aria-controls="$id('dropdown-button')"
-                                type="button"
-                                class="text-base font-medium uppercase md:text-white text-primary md:hover:text-highlight"
-                            >
-                                <span>Get Involved</span>
-                                {{--<span aria-hidden="true">&darr;</span>--}}
-                            </a>
-
-                            <!-- Panel -->
-                            <div
-                                x-ref="panel"
-                                x-show="open"
-                                x-transition.origin.top.left
-                                x-on:click.outside="close($refs.button)"
-                                :id="$id('dropdown-button')"
-                                style="display: none;"
-                                class="overflow-hidden absolute left-0 z-20 mt-2 w-auto bg-white shadow-md"
-                            >
-                                <div>
-                                    <a href="{{ route('donate') }}"
-                                       class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
-                                        Donate
-                                    </a>
-                                    <a href="{{ route('volunteer') }}"
-                                       class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
-                                        Volunteer
-                                    </a>
-                                    <a href="/work-with-us/internship-opportunities"
-                                       class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
-                                        Internships
-                                    </a>
-                                    <a href="{{ route('work-with-us') }}"
-                                       class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
-                                        Career
-                                    </a>
-                                    <a href="{{ route('contribute-documents') }}"
-                                       class="block py-2 px-4 w-full font-medium whitespace-nowrap hover:bg-gray-100 text-secondary" >
-                                        Contribute Documents
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="flex justify-center">
-                        <div
-                            x-data="{
-                                open: false,
-                                toggle() {
-                                    if (this.open) {
-                                        return this.close()
-                                    }
-
-                                    this.$refs.button.focus()
-
-                                    this.open = true
-                                },
-                                show() {
-                                    this.$refs.button.focus()
-
-                                    this.open = true
-                                },
-                                close(focusAfter) {
-                                    if (! this.open) return
-
-                                    this.open = false
-
-                                    focusAfter && focusAfter.focus()
-                                }
-                            }"
-                            x-on:keydown.escape.prevent.stop="close($refs.button)"
-                            x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
-                            x-id="['dropdown-button']"
-                            class="relative"
-                        >
-                            <!-- Button -->
-                            <button
-                                x-ref="button"
-                                x-on:click="toggle()"
-                                x-on:mouseover="show()"
-                                :aria-expanded="open"
-                                :aria-controls="$id('dropdown-button')"
-                                type="button"
-                                class="text-base font-medium uppercase md:text-white text-primary md:hover:text-highlight"
-                            >
-                                <span>Media</span>
-                                {{--<span aria-hidden="true">&darr;</span>--}}
-                            </button>
-
-                            <!-- Panel -->
-                            <div
-                                x-ref="panel"
-                                x-show="open"
-                                x-transition.origin.top.left
-                                x-on:click.outside="close($refs.button)"
-                                :id="$id('dropdown-button')"
-                                style="display: none;"
-                                class="overflow-hidden absolute right-0 z-20 p-4 mt-2 w-auto bg-white shadow-md min-w-[300px]"
-                            >
-                                <div class="pb-4 pl-4 mt-1 space-y-1" aria-labelledby="media-library-headline">
-                                    <h3 class="text-xs font-semibold tracking-wider uppercase whitespace-nowrap text-primary" id="media-library-headline">
-                                        Media Library
-                                    </h3>
-                                    <a href="{{ route('conference.landing-page') }}"
-                                       class="flex items-center py-2 px-3 text-sm font-medium whitespace-nowrap group text-secondary">
-                                        <span class="truncate">
-                                            2023 Conference
-                                        </span>
-                                    </a>
-                                    <a href="{{ route('media.articles') }}"
-                                       class="group flex items-center px-3 py-2 text-sm font-medium text-secondary whitespace-nowrap @if(request()->is('media/articles*')) active @endif">
-                                        <span class="truncate">
-                                            Articles
-                                        </span>
-                                    </a>
-                                    <a href="{{ route('media.photos') }}"
-                                       class="group flex items-center px-3 py-2 text-sm font-medium text-secondary whitespace-nowrap @if(request()->is('media/photos*')) active @endif">
-                                        <span class="truncate">
-                                            Photos
-                                        </span>
-                                    </a>
-                                    <a href="{{ route('media.podcasts') }}"
-                                       class="group flex items-center px-3 py-2 text-sm font-medium text-secondary whitespace-nowrap @if(request()->is('media/podcasts')) active @endif">
-                                        <span class="truncate">
-                                            Podcasts
-                                        </span>
-                                    </a>
-                                    <a href="{{ route('updates.index') }}"
-                                       class="flex items-center py-2 px-3 text-sm font-medium whitespace-nowrap group text-secondary"
-                                    >
-                                        <span class="truncate">
-                                            Updates
-                                        </span>
-                                    </a>
-                                    <a href="{{ route('media.videos') }}"
-                                       class="group flex items-center px-3 py-2 text-sm font-medium text-secondary whitespace-nowrap @if(request()->is('media/videos')) active @endif">
-                                        <span class="truncate">
-                                            Videos
-                                        </span>
-                                    </a>
-                                    <a href="{{ route('media.copyright') }}"
-                                       class="group flex items-center px-3 py-2 text-sm font-medium text-secondary whitespace-nowrap @if(request()->is('media/videos')) active @endif">
-                                        <span class="truncate">
-                                            Copyright
-                                        </span>
-                                    </a>
-                                    <h3 class="pt-4 text-xs font-semibold tracking-wider uppercase whitespace-nowrap text-primary" id="media-library-headline">
-                                        Media Center
-                                    </h3>
-                                    <a href="{{ route('media.kit') }}"
-                                       class="group flex items-center px-3 py-2 text-sm font-medium text-secondary whitespace-nowrap @if(request()->is('media/media-kit')) active @endif">
-                                        <span class="truncate">
-                                            Media Kit
-                                        </span>
-                                    </a>
-                                    <a href="{{ route('media.requests') }}"
-                                       class="group flex items-center px-3 py-2 text-sm font-medium text-secondary whitespace-nowrap @if(request()->is('media/requests')) active @endif">
-                                        <span class="truncate">
-                                            Media Requests
-                                        </span>
-                                    </a>
-                                    <a href="{{ route('media.news') }}"
-                                       class="group flex items-center px-3 py-2 text-sm font-medium text-secondary whitespace-nowrap @if(request()->is('media/news')) active @endif">
-                                        <span class="truncate">
-                                            Newsroom
-                                        </span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="inline-block relative text-left">
-                        <a href="{{ route('donate') }}"
-                           class="py-1 px-2 text-base font-medium uppercase rounded-md border-2 border-white md:text-white text-primary md:hover:text-highlight md:hover:border-highlight"
-                        >Donate</a>
-                    </div>
-
-                    @auth()
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-
-                            <a href="{{ route('logout') }}"
-                               onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                {{ __('Log Out') }}
-                            </a>
-                        </form>
-                    @endauth()
-
-                </div>
-            </nav>
-        </div>
+                <li>
+                    <a href="{{ route('advanced-search') }}" class="py-2 px-4 text-2xl cursor-pointer hover:bg-gray-50 text-primary">
+                        Search
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
-
-
-
-
+    <x-admin-bar />
 </header>
+
