@@ -3,7 +3,7 @@
 
 {{--    </div>--}}
     <video autoplay loop muted playsinline
-           poster="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/files/video/time-machine.jpeg"
+           poster="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/files/video/time-machine.jpg"
            class="object-cover absolute left-0 top-20 w-full h-auto opacity-40 -z-1 aspect-[8/5] lg:aspect-[8/3]"
 
     >
