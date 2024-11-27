@@ -113,12 +113,12 @@
                         :aria-expanded="open"
                         :aria-controls="$id('dropdown-button')"
                         type="button"
-                        class="flex gap-2 items-center py-2.5 px-2 text-base font-medium leading-6 text-white uppercase hover:text-highlight"
+                        class="flex gap-2 items-center py-2.5 px-2 text-base font-medium leading-6 text-white uppercase cursor-pointer group"
                     >
-                        Study
+                        <span class="group-hover:text-highlight">Study</span>
 
                         <!-- Heroicon: chevron-down -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-200 hover:text-highlight" viewBox="0 0 20 20" fill="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-200 group-hover:text-highlight" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                         </svg>
                     </button>
@@ -209,12 +209,12 @@
                         :aria-expanded="open"
                         :aria-controls="$id('dropdown-button')"
                         type="button"
-                        class="flex gap-2 items-center py-2.5 px-2 text-base font-medium leading-6 text-white uppercase hover:text-highlight"
+                        class="flex gap-2 items-center py-2.5 px-2 text-base font-medium leading-6 text-white uppercase cursor-pointer group"
                     >
-                        Explore
+                        <span class="group-hover:text-highlight">Explore</span>
 
                         <!-- Heroicon: chevron-down -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-200 hover:text-highlight" viewBox="0 0 20 20" fill="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-200 group-hover:text-highlight" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                         </svg>
                     </button>
@@ -355,12 +355,12 @@
                         :aria-expanded="open"
                         :aria-controls="$id('dropdown-button')"
                         type="button"
-                        class="flex gap-2 items-center py-2.5 px-2 text-base font-medium leading-6 text-white uppercase hover:text-highlight"
+                        class="flex gap-2 items-center py-2.5 px-2 text-base font-medium leading-6 text-white uppercase cursor-pointer group"
                     >
-                        Get Involved
+                        <span class="group-hover:text-highlight">Get Involved</span>
 
                         <!-- Heroicon: chevron-down -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-200 hover:text-highlight" viewBox="0 0 20 20" fill="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-200 group-hover:text-highlight" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                         </svg>
                     </button>
@@ -427,12 +427,12 @@
                         :aria-expanded="open"
                         :aria-controls="$id('dropdown-button')"
                         type="button"
-                        class="flex gap-2 items-center py-2.5 px-2 text-base font-medium leading-6 text-white uppercase hover:text-highlight"
+                        class="flex gap-2 items-center py-2.5 px-2 text-base font-medium leading-6 text-white uppercase cursor-pointer group"
                     >
-                        About
+                        <span class="group-hover:text-highlight">About</span>
 
                         <!-- Heroicon: chevron-down -->
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-200 hover:text-highlight" viewBox="0 0 20 20" fill="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-200 group-hover:text-highlight" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                         </svg>
                     </button>
