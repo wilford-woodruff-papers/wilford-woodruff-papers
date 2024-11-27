@@ -14,10 +14,10 @@
         <div class="mx-auto max-w-7xl">
             <div class="flex flex-col gap-y-1 mt-8 mb-12">
                 <h1 class="text-4xl text-center md:text-6xl">
-                    Come, Follow Me with Wilford Woodruff
+                    <span class="italic">Come, Follow Me</span> with Wilford Woodruff
                 </h1>
                 <h2 class="text-xl text-center md:text-2xl">
-                    Magnify your Come, Follow Me study through Wilford Woodruff’s records
+                    Magnify your <span class="italic">Come, Follow Me</span> study through Wilford Woodruff’s records
                 </h2>
             </div>
             @if($cfm)
