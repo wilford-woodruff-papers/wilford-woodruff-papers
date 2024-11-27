@@ -113,7 +113,7 @@
                         :aria-expanded="open"
                         :aria-controls="$id('dropdown-button')"
                         type="button"
-                        class="flex gap-2 items-center py-2.5 px-2 text-base font-medium leading-6 uppercase text-white hover:text-highlight"
+                        class="flex gap-2 items-center py-2.5 px-2 text-base font-medium leading-6 text-white uppercase hover:text-highlight"
                     >
                         Study
 
@@ -209,7 +209,7 @@
                         :aria-expanded="open"
                         :aria-controls="$id('dropdown-button')"
                         type="button"
-                        class="flex gap-2 items-center py-2.5 px-2 text-base font-medium leading-6 uppercase text-white hover:text-highlight"
+                        class="flex gap-2 items-center py-2.5 px-2 text-base font-medium leading-6 text-white uppercase hover:text-highlight"
                     >
                         Explore
 
@@ -355,7 +355,7 @@
                         :aria-expanded="open"
                         :aria-controls="$id('dropdown-button')"
                         type="button"
-                        class="flex gap-2 items-center py-2.5 px-2 text-base font-medium leading-6 uppercase text-white hover:text-highlight"
+                        class="flex gap-2 items-center py-2.5 px-2 text-base font-medium leading-6 text-white uppercase hover:text-highlight"
                     >
                         Get Involved
 
@@ -427,7 +427,7 @@
                         :aria-expanded="open"
                         :aria-controls="$id('dropdown-button')"
                         type="button"
-                        class="flex gap-2 items-center py-2.5 px-2 text-base font-medium leading-6 uppercase text-white hover:text-highlight"
+                        class="flex gap-2 items-center py-2.5 px-2 text-base font-medium leading-6 text-white uppercase hover:text-highlight"
                     >
                         About
 
