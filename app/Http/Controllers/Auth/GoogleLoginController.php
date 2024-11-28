@@ -38,8 +38,8 @@ class GoogleLoginController extends Controller
 
             $user->fill([
                 'provider' => 'google',
-                'password' => $googleUser->getId(),
-                'provider_id' => Hash::make(Str::uuid()),
+                'password' => Hash::make(Str::uuid()),
+                'provider_id' => $googleUser->getId(),
             ]);
             $user->save();
         } else {
@@ -47,8 +47,8 @@ class GoogleLoginController extends Controller
                 'email' => $googleUser->getEmail(),
                 'name' => $googleUser->getName(),
                 'provider' => 'google',
-                'password' => $googleUser->getId(),
-                'provider_id' => Hash::make(Str::uuid()),
+                'password' => Hash::make(Str::uuid()),
+                'provider_id' => $googleUser->getId(),
             ]);
             event(new Registered($user));
         }
