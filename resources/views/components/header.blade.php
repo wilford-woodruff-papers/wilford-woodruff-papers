@@ -14,7 +14,7 @@
         </a>
         <button x-on:click="showMobileMenu = ! showMobileMenu"
                 class="lg:hidden">
-            <svg class="w-10 h-10 text-primary" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon">
+            <svg class="w-10 h-10 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" data-slot="icon">
                 <path fill-rule="evenodd" d="M3 6.75A.75.75 0 0 1 3.75 6h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 6.75ZM3 12a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75A.75.75 0 0 1 3 12Zm0 5.25a.75.75 0 0 1 .75-.75h16.5a.75.75 0 0 1 0 1.5H3.75a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd"></path>
             </svg>
         </button>
@@ -500,7 +500,7 @@
             </div>
             <div class="px-4 pt-0.5 pb-8 ml-0.5">
                 <a aria-label="Homepage" href="/" class="">
-                    <img class="w-auto h-[64px] PageLogo-image" src="{{ asset('img/image-logo.png') }}" alt="Wilford Woodruff Papers Logo">
+                    <img class="w-auto h-[60px] PageLogo-image" src="{{ asset('img/image-logo.png') }}" alt="Wilford Woodruff Papers Logo">
                 </a>
             </div>
             <ul x-data="{ active: null }"
