@@ -4,7 +4,7 @@
             Scriptures References in Wilford Woodruff’s Writings
         </h2>
         <h3 class="text-xl text-primary">
-            References related to this week’s Come, Follow Me lesson
+            References related to this week’s <span class="italic">Come, Follow Me</span> lesson
         </h3>
         <!-- Tabs -->
         <div
