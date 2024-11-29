@@ -96,7 +96,7 @@
             </ul>
             <ul>
                 <li>
-                    <form action="https://wilford-woodruff-papers.test/filament/admin/logout" method="post">
+                    <form action="{{ route('logout') }}" method="post">
                         {{ csrf_field() }}
                         <button type="submit" style=";" class="">
                         <span class="flex-1 text-white dark:text-gray-200 fi-dropdown-list-item-label truncate text-start" style="">
