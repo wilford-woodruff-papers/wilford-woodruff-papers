@@ -17,10 +17,10 @@
                     <div class="flex flex-col justify-between md:flex-row item-center">
                         <div class="">
                             <h1 class="text-3xl">
-                                Come, Follow Me Insights
+                                <span class="italic">Come, Follow Me</span> Insights
                             </h1>
                             <h2 class="text-xl">
-                                Magnify your Come, Follow Me study through Wilford Woodruff’s records
+                                Magnify your <span class="italic">Come, Follow Me</span> study through Wilford Woodruff’s records
                             </h2>
                         </div>
                         <div class="flex items-center flex-0">
@@ -245,7 +245,7 @@
 
             <div>
                 <h2 class="font-sans text-3xl text-primary">
-                    Study More Come, Follow Me
+                    Study More <span class="italic">Come, Follow Me</span>
                 </h2>
                 <div class="grid grid-cols-2 gap-x-6 gap-y-8 mt-8 md:grid-cols-4">
                     @foreach($previous->merge($next) as $lesson)

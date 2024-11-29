@@ -20,7 +20,7 @@
             <a href="{{ route('come-follow-me.show', ['book' => $bookSlug, 'week' => $cfm->week]) }}"
                class="block py-2 px-4 w-full text-base font-semibold text-center uppercase bg-white text-primary"
             >
-                Study Come Follow Me
+                Study <span class="italic">Come, Follow Me</span>
             </a>
         </div>
     </div>
