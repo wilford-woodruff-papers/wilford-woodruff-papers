@@ -1,43 +1,19 @@
 <div class="">
-    <div class="pb-4 mx-auto max-w-7xl md:pb-4">
-        <div class="{{ $position }}-announcements">
-            <a href="{{ route('donate') }}">
-                <img class="w-full h-auto"
-                     src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/giving-tuesday-banner-with-donate-button.png"
-                     alt="Donate on Giving Tuesday"/>
-            </a>
-
-            <a href="{{ route('volunteer') }}">
-                <img src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/volunteers-needed.png"
-                     alt="Translators Needed"
-                     class="w-full h-auto"
-                />
-            </a>
-
-            <a href="{{ route('volunteer') }}">
-                <img src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/translators-needed.png"
-                     alt="Explore Wilford Woodruff's Scriptures"
-                     class="w-full h-auto"
-                />
-            </a>
-
-            <a href="{{ route('advanced-search', ['currentIndex' => 'Scriptures']) }}">
-                <img src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/small-scripture-banner.png"
-                     alt="Transcribers Needed"
-                     class="w-full h-auto"
-                />
-            </a>
-
-{{--            @foreach($announcements as $announcement)--}}
-{{--                <div class="hidden mb-2">--}}
-{{--                    <div class="px-6 pt-8 md:px-6 md:pt-8 xl:pt-8">--}}
-{{--                        @include('announcements.single', ['announcement' => $announcement])--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            @endforeach--}}
+    @if($announcements->count() > 0 )
+        <div class="pb-4 mx-auto max-w-7xl md:pb-4">
+            <div class="{{ $position }}-announcements">
+                @foreach($announcements as $announcement)
+                    <a href="{{ $announcement->link }}">
+                        <img class="w-full h-auto"
+                             src="{{ \Illuminate\Support\Facades\Storage::disk('announcements')->url($announcement->image) }}"
+                             alt="{{ $announcement->title }}"/>
+                    </a>
+                @endforeach
+            </div>
         </div>
-    </div>
-{{--    @if($announcements->count() >= 1)--}}
+    @endif
+    
+    @if($announcements->count() > 1 )
         @push('styles')
             <link rel="stylesheet" type="text/css" href="/css/slick.css"/>
             <link rel="stylesheet" type="text/css" href="/css/slick-theme.css"/>
@@ -60,5 +36,5 @@
                 });
             </script>
         @endpush
-{{--    @endif--}}
+    @endif
 </div>
