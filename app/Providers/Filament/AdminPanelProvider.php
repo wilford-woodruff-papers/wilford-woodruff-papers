@@ -69,6 +69,10 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ])
             ->databaseNotifications()
-            ->databaseNotificationsPolling('60s');
+            ->databaseNotificationsPolling('60s')
+            ->renderHook(
+                'panels::auth.login.form.after',
+                fn () => view('auth.socialLogin')
+            );
     }
 }
