@@ -7,9 +7,23 @@
                      alt="Donate on Giving Tuesday"/>
             </a>
 
+            <a href="{{ route('volunteer') }}">
+                <img src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/volunteers-needed.png"
+                     alt="Translators Needed"
+                     class="w-full h-auto"
+                />
+            </a>
+
+            <a href="{{ route('volunteer') }}">
+                <img src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/translators-needed.png"
+                     alt="Explore Wilford Woodruff's Scriptures"
+                     class="w-full h-auto"
+                />
+            </a>
+
             <a href="{{ route('advanced-search', ['currentIndex' => 'Scriptures']) }}">
                 <img src="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/small-scripture-banner.png"
-                     alt="Explore Wilford Woodruff's Scriptures"
+                     alt="Transcribers Needed"
                      class="w-full h-auto"
                 />
             </a>
