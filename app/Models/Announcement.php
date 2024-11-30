@@ -41,11 +41,15 @@ class Announcement extends Model
         parent::boot();
 
         static::created(function (Announcement $announcement) {
-            Cache::forget('top-announcements');
+            Cache::forget('new-top-announcements');
             Cache::forget('bottom-announcements');
         });
         static::updated(function (Announcement $announcement) {
-            Cache::forget('top-announcements');
+            Cache::forget('new-top-announcements');
+            Cache::forget('bottom-announcements');
+        });
+        static::deleted(function (Announcement $announcement) {
+            Cache::forget('new-top-announcements');
             Cache::forget('bottom-announcements');
         });
     }
