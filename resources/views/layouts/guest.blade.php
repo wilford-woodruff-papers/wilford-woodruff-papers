@@ -114,8 +114,8 @@
 </script>
 <!-- Tippy.js -->
 <!-- https://atomiks.github.io/tippyjs/v6 -->
-<script src="https://unpkg.com/@popperjs/core@2"></script>
-<script src="https://unpkg.com/tippy.js@6"></script>
+{{--<script src="https://unpkg.com/@popperjs/core@2"></script>--}}
+{{--<script src="https://unpkg.com/tippy.js@6"></script>--}}
 <script>
     document.addEventListener('alpine:init', () => {
         // Magic: $tooltip
