@@ -29,7 +29,7 @@
                             <div class="flex relative flex-grow items-stretch focus-within:z-10">
                                 <input type="text" name="q" id="q" class="block py-1.5 pl-4 w-full text-gray-900 rounded-none border-0 ring-1 ring-inset ring-gray-300 sm:text-lg sm:leading-8 focus:ring-2 focus:ring-inset placeholder:text-primary-70 focus:ring-secondary" placeholder="Search People, Events, Locations and more...">
                             </div>
-                            <button type="button" class="inline-flex relative gap-x-1.5 items-center py-2 px-6 -ml-px text-sm font-semibold text-gray-900 ring-1 ring-inset ring-secondary bg-secondary hover:bg-secondary-400">
+                            <button type="submit" class="inline-flex relative gap-x-1.5 items-center py-2 px-6 -ml-px text-sm font-semibold text-gray-900 ring-1 ring-inset ring-secondary bg-secondary hover:bg-secondary-400">
                                 <x-heroicon-o-magnifying-glass class="-ml-0.5 w-5 h-5 text-white" />
                             </button>
                         </div>
