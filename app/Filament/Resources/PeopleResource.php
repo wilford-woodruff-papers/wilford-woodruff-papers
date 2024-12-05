@@ -412,6 +412,8 @@ class PeopleResource extends Resource
 //                    ->html()
                     ->searchable(isIndividual: true)
                     ->sortable(),
+                Tables\Columns\TextColumn::make('gender')
+                    ->label('M/F'),
                 Tables\Columns\IconColumn::make('subject_uri')
                     ->label('FTP')
                     ->icon(function (string $state): ?string {
