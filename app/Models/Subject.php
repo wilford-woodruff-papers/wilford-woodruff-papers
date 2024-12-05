@@ -34,9 +34,9 @@ class Subject extends Model implements \OwenIt\Auditing\Contracts\Auditable, Has
 
     protected $guarded = ['id'];
 
-    protected $appends = [
-        'gender',
-    ];
+//    protected $appends = [
+//        'gender',
+//    ];
 
     protected function casts(): array
     {
@@ -201,11 +201,11 @@ class Subject extends Model implements \OwenIt\Auditing\Contracts\Auditable, Has
             ->where('name', '!=', 'People');
     }
 
-    public function getGenderAttribute()
-    {
-        return str(data_get($this->familysearch_person, 'persons.0.gender.type'))
-            ->afterLast('/');
-    }
+//    public function getGenderAttribute()
+//    {
+//        return str(data_get($this->familysearch_person, 'persons.0.gender.type'))
+//            ->afterLast('/');
+//    }
 
     public function pages(): BelongsToMany
     {
