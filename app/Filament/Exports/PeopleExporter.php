@@ -23,6 +23,8 @@ class PeopleExporter extends Exporter
                 ->label('FamilySearch ID'),
             ExportColumn::make('name')
                 ->label('Name'),
+            ExportColumn::make('gender')
+                ->label('M/F'),
             ExportColumn::make('slug')
                 ->label('Slug'),
             ExportColumn::make('category.name')
