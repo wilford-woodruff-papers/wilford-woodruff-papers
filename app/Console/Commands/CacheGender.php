@@ -31,7 +31,7 @@ class CacheGender extends Command
             ->people()
             ->whereNull("gender")
             ->whereNotNull("familysearch_person")
-            ->limit(20)
+            ->limit(50)
             ->get();
 
         foreach ($people as $person) {
