@@ -34,6 +34,10 @@ Schedule::command('queue:prune-batches --hours=48')
 Schedule::command('import:instagram')
     ->everyFourHours();
 
+Schedule::command('app:cache-gender')
+    ->withoutOverlapping()
+    ->everyTenMinutes();
+
 Schedule::command('import:items')
     ->dailyAt('1:00 AM')
     ->withoutOverlapping()
