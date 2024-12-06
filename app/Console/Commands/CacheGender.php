@@ -41,7 +41,7 @@ class CacheGender extends Command
             );
             // print_r($gender . "\n");
             if (empty($gender)) {
-                $this->info("No Gender Available\n");
+                logger()->info("No Gender Available\n");
                 // print_r($person->familysearch_person . "\n");
                 continue;
             }
@@ -52,7 +52,7 @@ class CacheGender extends Command
                 $calculatedGender = "M";
             }
 
-            $this->info($calculatedGender . "\n");
+            logger()->info($calculatedGender . "\n");
 
             if (!empty($calculatedGender)) {
                 $person->update([
