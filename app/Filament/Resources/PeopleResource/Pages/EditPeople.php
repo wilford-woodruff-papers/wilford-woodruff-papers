@@ -32,6 +32,13 @@ class EditPeople extends EditRecord
         }
     }
 
+    protected function getRedirectUrl(): string
+    {
+        return static::getResource()::getUrl('edit', [
+            'record' => $this->record,
+        ]);
+    }
+
     public function hasCombinedRelationManagerTabsWithContent(): bool
     {
         return true;
