@@ -99,7 +99,7 @@
 
                         <li>
                             <a href="{{ route('relative-finder') }}" class="text-base text-white hover:text-highlight">
-                                Relative Finder
+                                WWP Relative Finder
                             </a>
                         </li>
 

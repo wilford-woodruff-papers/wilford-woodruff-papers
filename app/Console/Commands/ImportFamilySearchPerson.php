@@ -73,15 +73,15 @@ class ImportFamilySearchPerson extends Command
                                 config('services.familysearch.base_uri').'/platform/tree/persons/'.$person->pid
                             );
                         if ($response->ok()) {
-                            $gender = $response->json("persons.0.gender.type");
+                            $gender = $response->json('persons.0.gender.type');
                             $calculatedGender = null;
-                            if (str($gender)->endsWith("/Female")) {
-                                $calculatedGender = "F";
-                            } elseif (str($gender)->endsWith("/Male")) {
-                                $calculatedGender = "M";
+                            if (str($gender)->endsWith('/Female')) {
+                                $calculatedGender = 'F';
+                            } elseif (str($gender)->endsWith('/Male')) {
+                                $calculatedGender = 'M';
                             }
                             $person->update([
-                                "gender" => $calculatedGender,
+                                'gender' => $calculatedGender,
                                 'familysearch_person' => $response->json(),
                             ]);
                         }

@@ -1,8 +1,8 @@
 <x-guest-layout>
-    <x-slot name="title">Relative Finder | Wilford Woodruff Papers</x-slot>
+    <x-slot name="title">WWP Relative Finder | Wilford Woodruff Papers</x-slot>
 
     <x-slot name="openGraph">
-        <meta name="title" property="og:title" content="Relative Finder | Wilford Woodruff Papers">
+        <meta name="title" property="og:title" content="WWP Relative Finder | Wilford Woodruff Papers">
         <meta name="description" property="og:description" content="Discover Your Relatives in Wilford Woodruff's Papers"/>
         <meta property="og:locale" content="en_US" />
         <link rel="image_src" href="https://wilford-woodruff-papers.nyc3.cdn.digitaloceanspaces.com/img/relative-finder/relative-finder-wilford-woodruff.png" />

@@ -169,7 +169,7 @@
                         class="absolute left-0 z-50 mt-2 w-80 bg-white shadow-md"
                     >
                         <a href="{{ route('relative-finder') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
-                            Relative Finder
+                            WWP Relative Finder
                         </a>
 
                         <a href="{{ route('map') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
@@ -601,7 +601,7 @@
                     <div x-show="expanded" x-collapse>
                         <div class="px-6 pb-4">
                             <a href="{{ route('relative-finder') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
-                                Relative Finder
+                                WWP Relative Finder
                             </a>
 
                             <a href="{{ route('map') }}" class="flex gap-2 items-center py-2.5 px-4 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
