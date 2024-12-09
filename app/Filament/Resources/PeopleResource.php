@@ -721,6 +721,7 @@ class PeopleResource extends Resource
                 Tables\Filters\QueryBuilder::make()
                     ->constraints([
                         Tables\Filters\QueryBuilder\Constraints\TextConstraint::make('name'),
+                        Tables\Filters\QueryBuilder\Constraints\TextConstraint::make('slug'),
                         Tables\Filters\QueryBuilder\Constraints\TextConstraint::make('first_name'),
                         Tables\Filters\QueryBuilder\Constraints\TextConstraint::make('last_name'),
                         Tables\Filters\QueryBuilder\Constraints\TextConstraint::make('maiden_name'),
