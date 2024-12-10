@@ -76,10 +76,10 @@ class PeopleResource extends Resource
                         Select::make('gender')
                             ->label('M/F')
                             ->columnSpan(1)
-                        ->options([
-                            'F' => 'Female',
-                            'M' => 'Male',
-                        ]),
+                            ->options([
+                                'F' => 'Female',
+                                'M' => 'Male',
+                            ]),
                         TextInput::make('pid')
                             ->label('PID')
                             ->columnSpan(2)

@@ -91,10 +91,10 @@ class Item extends Model implements \OwenIt\Auditing\Contracts\Auditable, HasMed
     public function firstPageWithText()
     {
         return $this
-            ->hasOne(Page::class, 'parent_item_id')
+            ->hasMany(Page::class, 'parent_item_id')
             ->where('is_blank', 0)
             ->orderByRaw('CHAR_LENGTH(transcript) DESC')
-            ->ofMany();
+            ->one();
     }
 
     public function items()
