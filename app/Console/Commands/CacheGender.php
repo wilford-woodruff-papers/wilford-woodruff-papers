@@ -27,7 +27,7 @@ class CacheGender extends Command
     public function handle()
     {
         $people = Subject::query()
-            ->select(['id', 'familysearch_person', 'gender'])
+            ->select(['id', 'name', 'familysearch_person', 'gender'])
             ->people()
             ->whereNull('gender')
             ->whereNotNull('familysearch_person')
