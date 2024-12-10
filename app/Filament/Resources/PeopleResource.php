@@ -72,9 +72,17 @@ class PeopleResource extends Resource
                             ->label('Full Name (As used in FTP)')
                             ->required()
                             ->autofocus(fn () => empty($form->getRecord()))
-                            ->columnSpan(2),
+                            ->columnSpan(3),
+                        Select::make('gender')
+                            ->label('M/F')
+                            ->columnSpan(1)
+                        ->options([
+                            'F' => 'Female',
+                            'M' => 'Male',
+                        ]),
                         TextInput::make('pid')
                             ->label('PID')
+                            ->columnSpan(2)
                             ->hintAction(
                                 Action::make('not-available')
                                     ->label(function ($state) {
