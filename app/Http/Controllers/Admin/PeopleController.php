@@ -17,6 +17,10 @@ class PeopleController extends Controller
             'required',
             'max:191',
         ],
+        'gender' => [
+            'nullable',
+            'in:M,F',
+        ],
         'added_to_ftp_at' => [
             'max:191',
             'required_with:name',
