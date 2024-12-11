@@ -46,6 +46,7 @@ class Index extends Component
     ];
 
     public $columns = [
+        'gender' => 'gender',
         'birth_date' => 'birth_date',
         'death_date' => 'death_date',
         'life_years' => 'b_d_dates',

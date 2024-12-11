@@ -492,6 +492,31 @@
                                            class="block py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                                     />
                                 </div>
+                                <div class="col-span-3">
+                                    <label for="gender"
+                                           class="block text-sm font-medium text-gray-700"
+                                    >
+                                        <span class="font-semibold">M/F</span>
+                                    </label>
+                                    <div class="flex gap-x-8 items-center">
+                                        <div class="flex-1">
+                                            <select name="gender"
+                                                    id="gender"
+                                                    class="block flex-1 py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
+                                            >
+                                                <option value="">
+                                                    -- Select --
+                                                </option>
+                                                <option value="F" @selected($person->gender == 'F')>
+                                                    Female
+                                                </option>
+                                                <option value="M" @selected($person->gender == 'M')>
+                                                    Male
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="grid grid-cols-12 gap-6 mt-6">
