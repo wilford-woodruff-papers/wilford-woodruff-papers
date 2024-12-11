@@ -75,6 +75,10 @@ class PeopleExporter extends Exporter
                 ->label('B-D'),
             ExportColumn::make('log_link')
                 ->label('Log Link'),
+            ExportColumn::make('confirmed_name_at')
+                ->label('Name Confirmed'),
+            ExportColumn::make('approved_for_print_at')
+                ->label('Approved for Print'),
 
         ];
     }
