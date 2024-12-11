@@ -420,8 +420,13 @@ class PeopleResource extends Resource
 //                    ->html()
                     ->searchable(isIndividual: true)
                     ->sortable(),
-                Tables\Columns\TextColumn::make('gender')
-                    ->label('M/F'),
+                Tables\Columns\SelectColumn::make('gender')
+                    ->label('-- Gender (M/F) --')
+                    ->width('100px')
+                    ->options([
+                        'F' => 'Female',
+                        'M' => 'Male',
+                    ]),
                 Tables\Columns\IconColumn::make('subject_uri')
                     ->label('FTP')
                     ->icon(function (string $state): ?string {
@@ -662,6 +667,16 @@ class PeopleResource extends Resource
                         false: fn (Builder $query) => $query->whereNull('pid'),
                         blank: fn (Builder $query) => $query,
                     ),
+                Tables\Filters\TernaryFilter::make('gender')
+                    ->label('M/F')
+                    ->placeholder('All')
+                    ->trueLabel('Is Set')
+                    ->falseLabel('Is Not Set')
+                    ->queries(
+                        true: fn (Builder $query) => $query->whereNotNull('gender'),
+                        false: fn (Builder $query) => $query->whereNull('gender'),
+                        blank: fn (Builder $query) => $query,
+                    ),
                 Tables\Filters\TernaryFilter::make('log_link')
                     ->label('Research Log')
                     ->placeholder('All')
@@ -712,8 +727,13 @@ class PeopleResource extends Resource
                             ->options(
                                 Cache::remember('journals-for-people', 3600, function () {
                                     return Item::query()
+                                        ->select(['id', 'name'])
                                         ->whereRelation('type', 'name', 'Journals')
                                         ->orderBy('first_date', 'ASC')
+                                        ->get()
+                                        ->map(function ($item, $key) {
+                                            return ['id' => $item->id, 'name' => ($key + 1).' - '.$item->name];
+                                        })
                                         ->pluck('name', 'id')
                                         ->all();
                                 })
