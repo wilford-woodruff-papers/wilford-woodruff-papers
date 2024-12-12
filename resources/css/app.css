@@ -23,7 +23,7 @@ a.text-secondary {
     @apply underline;
 }
 
-.content p a {
+.content p a:not(.button) {
     @apply text-secondary underline;
 }
 
