@@ -239,7 +239,7 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="{{ route('updates.index') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                                <a href="{{ route('media.videos') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
                                                     Videos
                                                 </a>
                                             </li>
@@ -671,7 +671,7 @@
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <a href="{{ route('updates.index') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
+                                                    <a href="{{ route('media.videos') }}" class="flex gap-2 items-center py-2.5 px-8 w-full text-sm text-left hover:bg-gray-50 disabled:text-gray-500 text-primary first-of-type:rounded-t-md last-of-type:rounded-b-md">
                                                         Videos
                                                     </a>
                                                 </li>
