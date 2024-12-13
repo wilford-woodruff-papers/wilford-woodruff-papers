@@ -749,6 +749,37 @@ class PeopleResource extends Resource
                             });
                         });
                     }),
+                Filter::make('document_type')
+                    ->form([
+                        SelectFilter::make('document_types')
+                            ->label('In Document Type')
+                            ->placeholder('-- Select --')
+                            ->options([
+                                'Additional' => 'Additional',
+                                'Autobiographies' => 'Autobiographies',
+                                'Daybooks' => 'Daybooks',
+                                'Discourses' => 'Discourses',
+                                'Journals' => 'Journals',
+                                'Letters' => 'Letters',
+                            ]),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        $types = match ($data['document_types']) {
+                            'Additional' => ['Additional', 'Additional Sections'],
+                            'Autobiographies' => ['Autobiographies', 'Autobiography Sections'],
+                            'Daybooks' => ['Daybooks'],
+                            'Discourses' => ['Discourses'],
+                            'Journals' => ['Journals', 'Journal Sections'],
+                            'Letters' => ['Letters'],
+                            default => null,
+                        };
+
+                        return $query->when($types, function (Builder $query, $types) {
+                            return $query->whereRelation('pages.parent.type', function ($query) use ($types) {
+                                $query->whereIn('types.name', $types);
+                            });
+                        });
+                    }),
                 Tables\Filters\QueryBuilder::make()
                     ->constraints([
                         Tables\Filters\QueryBuilder\Constraints\TextConstraint::make('name'),
