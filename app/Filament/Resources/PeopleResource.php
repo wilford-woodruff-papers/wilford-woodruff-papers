@@ -79,7 +79,9 @@ class PeopleResource extends Resource
                             ->options([
                                 'F' => 'Female',
                                 'M' => 'Male',
-                            ]),
+                                'U' => 'Unknown',
+                            ])
+                            ->required(),
                         TextInput::make('pid')
                             ->label('PID')
                             ->columnSpan(2)
@@ -426,6 +428,7 @@ class PeopleResource extends Resource
                     ->options([
                         'F' => 'Female',
                         'M' => 'Male',
+                        'U' => 'Unknown',
                     ]),
                 Tables\Columns\IconColumn::make('subject_uri')
                     ->label('FTP')
