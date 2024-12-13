@@ -503,6 +503,7 @@
                                             <select name="gender"
                                                     id="gender"
                                                     class="block flex-1 py-2 px-3 mt-1 w-full rounded-md border border-gray-300 shadow-sm sm:text-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500"
+                                                required
                                             >
                                                 <option value="">
                                                     -- Select --
@@ -512,6 +513,9 @@
                                                 </option>
                                                 <option value="M" @selected($person->gender == 'M')>
                                                     Male
+                                                </option>
+                                                <option value="U" @selected($person->gender == 'U')>
+                                                    Unknown
                                                 </option>
                                             </select>
                                         </div>

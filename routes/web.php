@@ -128,6 +128,7 @@ Route::middleware([])->group(function () {
             return \Illuminate\Support\Facades\Redirect::route('home');
         });
     Route::get('/people/{letter?}', [\App\Http\Controllers\PeopleController::class, 'index'])->name('people');
+    Route::get('/pid/{pid}', \App\Http\Controllers\PidPersonRedirectController::class)->name('pid');
     Route::get('/wives-and-children', [\App\Http\Controllers\PeopleController::class, 'family'])->name('wives-and-children');
     Route::get('/places/{letter?}', [\App\Http\Controllers\PlaceController::class, 'index'])->name('places');
     Route::get('/topics/{letter?}', [\App\Http\Controllers\TopicController::class, 'index'])->name('topics');

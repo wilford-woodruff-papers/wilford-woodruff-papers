@@ -79,7 +79,9 @@ class PeopleResource extends Resource
                             ->options([
                                 'F' => 'Female',
                                 'M' => 'Male',
-                            ]),
+                                'U' => 'Unknown',
+                            ])
+                            ->required(),
                         TextInput::make('pid')
                             ->label('PID')
                             ->columnSpan(2)
@@ -426,6 +428,7 @@ class PeopleResource extends Resource
                     ->options([
                         'F' => 'Female',
                         'M' => 'Male',
+                        'U' => 'Unknown',
                     ]),
                 Tables\Columns\IconColumn::make('subject_uri')
                     ->label('FTP')
@@ -743,6 +746,37 @@ class PeopleResource extends Resource
                         return $query->when($data['journals'], function (Builder $query, $journal) {
                             return $query->whereRelation('pages.parent', function ($query) use ($journal) {
                                 $query->where('items.id', $journal);
+                            });
+                        });
+                    }),
+                Filter::make('document_type')
+                    ->form([
+                        SelectFilter::make('document_types')
+                            ->label('In Document Type')
+                            ->placeholder('-- Select --')
+                            ->options([
+                                'Additional' => 'Additional',
+                                'Autobiographies' => 'Autobiographies',
+                                'Daybooks' => 'Daybooks',
+                                'Discourses' => 'Discourses',
+                                'Journals' => 'Journals',
+                                'Letters' => 'Letters',
+                            ]),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        $types = match ($data['document_types']) {
+                            'Additional' => ['Additional', 'Additional Sections'],
+                            'Autobiographies' => ['Autobiographies', 'Autobiography Sections'],
+                            'Daybooks' => ['Daybooks'],
+                            'Discourses' => ['Discourses'],
+                            'Journals' => ['Journals', 'Journal Sections'],
+                            'Letters' => ['Letters'],
+                            default => null,
+                        };
+
+                        return $query->when($types, function (Builder $query, $types) {
+                            return $query->whereRelation('pages.parent.type', function ($query) use ($types) {
+                                $query->whereIn('types.name', $types);
                             });
                         });
                     }),
