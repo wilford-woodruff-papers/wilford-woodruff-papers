@@ -179,7 +179,7 @@ class Search extends Component
                 }
                 $searchConfig['hybrid'] = [
                     'embedder' => 'semanticSearch',
-                    'semanticRatio' => 0.7,
+                    'semanticRatio' => 0.4,
                 ];
                 $searchConfig['vector'] = $vectors;
                 $this->usingHybridSearch = true;
