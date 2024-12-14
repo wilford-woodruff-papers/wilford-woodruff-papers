@@ -12,7 +12,8 @@
                 ->ordered()
                 ->get();
     @endphp
-    <div class="flex flex-wrap w-full h-full md:flex-nowrap">
+    <div class="flex flex-wrap w-full h-full md:flex-nowrap"
+         x-data="{ active: 0 }">
         <div class="relative pt-16 w-full min-h-screen bg-gray-900 md:w-3/5" id="document-viewer">
             <div id="openseadrgon-controls"
                  class="flex absolute left-0 top-24 z-10 flex-wrap justify-items-center w-12 bg-white">
@@ -285,84 +286,255 @@
                 </div>
             </div>
 
-            @if($page->people->count() > 0)
-                <div class="property">
-                    <h4>
-                        People
-                    </h4>
-                    <div class="values">
-                        @foreach($page->people->sortBy('name', SORT_NATURAL | SORT_FLAG_CASE) as $subject)
-                            <div class="value" lang="">
-                                <a class="flex gap-x-2 items-center text-secondary"
-                                   href="{{ route('subjects.show', ['subject' => $subject]) }}">
-                                    <span>{{ $subject->name }}</span>
-                                    @if(in_array($subject->id, array_keys($relationships)))
-                                        <x-icon.relationship class="w-4 h-4" :title="$relationships[$subject->id]" :name="$subject->name"/>
-                                    @endif
-                                </a>
+            <div class="py-8">
+                @if($page->people->count() > 0)
+                    <div x-data="{
+                    id: 'people',
+                    get expanded() {
+                        return this.active === this.id
+                    },
+                    set expanded(value) {
+                        this.active = value ? this.id : null
+                    },
+                }"
+                         role="region"
+                         class="property">
+                        <div class="py-4 -ml-4 text-lg border-l-4 border-white"
+                             x-bind:class="{ 'bg-gray-200 border-secondary': active === 'people', 'bg-white border-white': !(active === 'people') }"
+                        >
+                            <!-- Expand/collapse question button -->
+                            <button aria-expanded="true"
+                                    class="flex items-start w-full text-left text-gray-400"
+                                    x-description="Expand/collapse question button"
+                                    x-on:click="expanded = !expanded"
+                                    :aria-expanded="expanded">
+                            <span class="flex items-center mr-4 h-7">
+                                <!--
+                                  Heroicon name: outline/chevron-down
 
+                                  Open: "-rotate-180", Closed: "rotate-0"
+                                -->
+                                <svg aria-hidiven="true" class="w-6 h-6 transform -rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"    x-bind:class="{ 'rotate-0 text-secondary': active === 'people', '-rotate-90': !(active === 'people') }"
+                                     x-state:off="Closed"
+                                     x-state:on="Open" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-widivh="2"></path>
+                                </svg>
+                            </span>
+                                <span class="text-lg font-semibold text-primary">
+                                <h4>
+                                    People
+                                </h4>
+                            </span>
+                            </button>
+                        </div>
+
+                        <div class="py-4 pr-12 pl-4 text-lg text-primary"
+                             x-show="expanded"
+                             x-collapse
+                             x-cloak
+                        >
+                            <div class="values">
+                                @foreach($page->people->sortBy('name', SORT_NATURAL | SORT_FLAG_CASE) as $subject)
+                                    <div class="value" lang="">
+                                        <a class="flex gap-x-2 items-center text-secondary"
+                                           href="{{ route('subjects.show', ['subject' => $subject]) }}">
+                                            <span>{{ $subject->name }}</span>
+                                            @if(in_array($subject->id, array_keys($relationships)))
+                                                <x-icon.relationship class="w-4 h-4" :title="$relationships[$subject->id]" :name="$subject->name"/>
+                                            @endif
+                                        </a>
+
+                                    </div>
+                                @endforeach
                             </div>
-                        @endforeach
+                        </div>
                     </div>
-                </div>
-            @endif
+                @endif
 
-            @if($page->places->count() > 0)
-                <div class="property">
-                    <h4>
-                        Places
-                    </h4>
-                    <div class="values">
-                        @foreach($page->places->sortBy('name', SORT_NATURAL | SORT_FLAG_CASE) as $subject)
-                            <div class="value" lang="">
-                                <a class="text-secondary"
-                                   href="{{ route('subjects.show', ['subject' => $subject]) }}">
-                                    {{ $subject->name }}
-                                </a>
+                @if($page->places->count() > 0)
+                    <div x-data="{
+                    id: 'places',
+                    get expanded() {
+                        return this.active === this.id
+                    },
+                    set expanded(value) {
+                        this.active = value ? this.id : null
+                    },
+                }"
+                         role="region"
+                         class="property">
+                        <div class="py-4 -ml-4 text-lg border-l-4 border-white"
+                             x-bind:class="{ 'bg-gray-200 border-secondary': active === 'places', 'bg-white border-white': !(active === 'places') }"
+                        >
+                            <!-- Expand/collapse question button -->
+                            <button aria-expanded="true"
+                                    class="flex items-start w-full text-left text-gray-400"
+                                    x-description="Expand/collapse question button"
+                                    x-on:click="expanded = !expanded"
+                                    :aria-expanded="expanded">
+                            <span class="flex items-center mr-4 h-7">
+                                <!--
+                                  Heroicon name: outline/chevron-down
+
+                                  Open: "-rotate-180", Closed: "rotate-0"
+                                -->
+                                <svg aria-hidiven="true" class="w-6 h-6 transform -rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"    x-bind:class="{ 'rotate-0 text-secondary': active === 'places', '-rotate-90': !(active === 'places') }"
+                                     x-state:off="Closed"
+                                     x-state:on="Open" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-widivh="2"></path>
+                                </svg>
+                            </span>
+                                <span class="text-lg font-semibold text-primary">
+                                <h4>
+                                    Places
+                                </h4>
+                            </span>
+                            </button>
+                        </div>
+
+                        <div class="py-4 pr-12 pl-4 text-lg text-primary"
+                             x-show="expanded"
+                             x-collapse
+                             x-cloak
+                        >
+                            <div class="values">
+                                @foreach($page->places->sortBy('name', SORT_NATURAL | SORT_FLAG_CASE) as $subject)
+                                    <div class="value" lang="">
+                                        <a class="text-secondary"
+                                           href="{{ route('subjects.show', ['subject' => $subject]) }}">
+                                            {{ $subject->name }}
+                                        </a>
+                                    </div>
+                                @endforeach
                             </div>
-                        @endforeach
+                        </div>
                     </div>
-                </div>
-            @endif
+                @endif
 
-            @if($page->topics->count() > 0)
-                <div class="property">
-                    <h4>
-                        Topics
-                    </h4>
-                    <div class="values">
-                        @foreach($page->topics->sortBy('name', SORT_NATURAL|SORT_FLAG_CASE) as $topic)
-                            <div class="value" lang="">
-                                <a class="text-secondary"
-                                   href="{{ route('subjects.show', ['subject' => $topic]) }}">
-                                    {{ $topic->name }}
-                                </a>
+                @if($page->topics->count() > 0)
+                    <div x-data="{
+                    id: 'topics',
+                    get expanded() {
+                        return this.active === this.id
+                    },
+                    set expanded(value) {
+                        this.active = value ? this.id : null
+                    },
+                }"
+                         role="region"
+                         class="property">
+                        <div class="py-4 -ml-4 text-lg border-l-4 border-white"
+                             x-bind:class="{ 'bg-gray-200 border-secondary': active === 'topics', 'bg-white border-white': !(active === 'topics') }"
+                        >
+                            <!-- Expand/collapse question button -->
+                            <button aria-expanded="true"
+                                    class="flex items-start w-full text-left text-gray-400"
+                                    x-description="Expand/collapse question button"
+                                    x-on:click="expanded = !expanded"
+                                    :aria-expanded="expanded">
+                            <span class="flex items-center mr-4 h-7">
+                                <!--
+                                  Heroicon name: outline/chevron-down
+
+                                  Open: "-rotate-180", Closed: "rotate-0"
+                                -->
+                                <svg aria-hidiven="true" class="w-6 h-6 transform -rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"    x-bind:class="{ 'rotate-0 text-secondary': active === 'topics', '-rotate-90': !(active === 'topics') }"
+                                     x-state:off="Closed"
+                                     x-state:on="Open" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-widivh="2"></path>
+                                </svg>
+                            </span>
+                                <span class="text-lg font-semibold text-primary">
+                                <h4>
+                                    Topics
+                                </h4>
+                            </span>
+                            </button>
+                        </div>
+
+                        <div class="py-4 pr-12 pl-4 text-lg text-primary"
+                             x-show="expanded"
+                             x-collapse
+                             x-cloak
+                        >
+                            <div class="values">
+                                @foreach($page->topics->sortBy('name', SORT_NATURAL|SORT_FLAG_CASE) as $topic)
+                                    <div class="value" lang="">
+                                        <a class="text-secondary"
+                                           href="{{ route('subjects.show', ['subject' => $topic]) }}">
+                                            {{ $topic->name }}
+                                        </a>
+                                    </div>
+                                @endforeach
                             </div>
-                        @endforeach
+                        </div>
                     </div>
-                </div>
-            @endif
+                @endif
 
-            @if($page->dates->count() > 0)
-                <div class="property">
-                    <h4>
-                        Dates
-                    </h4>
-                    <div class="values">
-                        @foreach($page->dates as $date)
-                            <div class="value" lang="">
-                                <a href="{{ route('day-in-the-life', [
+                @if($page->dates->count() > 0)
+                    <div x-data="{
+                    id: 'dates',
+                    get expanded() {
+                        return this.active === this.id
+                    },
+                    set expanded(value) {
+                        this.active = value ? this.id : null
+                    },
+                }"
+                         role="region"
+                         class="property">
+                        <div class="py-4 -ml-4 text-lg border-l-4 border-white"
+                             x-bind:class="{ 'bg-gray-200 border-secondary': active === 'dates', 'bg-white border-white': !(active === 'dates') }"
+                        >
+                            <!-- Expand/collapse question button -->
+                            <button aria-expanded="true"
+                                    class="flex items-start w-full text-left text-gray-400"
+                                    x-description="Expand/collapse question button"
+                                    x-on:click="expanded = !expanded"
+                                    :aria-expanded="expanded">
+                            <span class="flex items-center mr-4 h-7">
+                                <!--
+                                  Heroicon name: outline/chevron-down
+
+                                  Open: "-rotate-180", Closed: "rotate-0"
+                                -->
+                                <svg aria-hidiven="true" class="w-6 h-6 transform -rotate-180" fill="none" stroke="currentColor" viewbox="0 0 24 24"    x-bind:class="{ 'rotate-0 text-secondary': active === 'dates', '-rotate-90': !(active === 'dates') }"
+                                     x-state:off="Closed"
+                                     x-state:on="Open" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-widivh="2"></path>
+                                </svg>
+                            </span>
+                                <span class="text-lg font-semibold text-primary">
+                                <h4>
+                                    Dates
+                                </h4>
+                            </span>
+                            </button>
+                        </div>
+
+                        <div class="py-4 pr-12 pl-4 text-lg text-primary"
+                             x-show="expanded"
+                             x-collapse
+                             x-cloak
+                        >
+                            <div class="values">
+                                @foreach($page->dates as $date)
+                                    <div class="value" lang="">
+                                        <a href="{{ route('day-in-the-life', [
                                         'date' => $date->date->toDateString(),
                                     ]) }}"
-                                   class="text-secondary"
-                                >
-                                    {{ $date->date->format('F j, Y') }}
-                                </a>
+                                           class="text-secondary"
+                                        >
+                                            {{ $date->date->format('F j, Y') }}
+                                        </a>
+                                    </div>
+                                @endforeach
                             </div>
-                        @endforeach
+                        </div>
                     </div>
-                </div>
-            @endif
+                @endif
+            </div>
+
 
             <div class="property">
                 <h4>
