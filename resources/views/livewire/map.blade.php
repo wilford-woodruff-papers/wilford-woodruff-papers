@@ -96,7 +96,7 @@
                            </div>
                        </div>
                    </div>
-                   <div class="pt-4">
+                   <div class="flex relative flex-col gap-4 justify-between items-center pt-4 md:flex-row">
                        <div class="flex relative gap-4 items-start">
                            <div class="text-base font-semibold leading-6 truncate">
                                <label for="visited"
@@ -112,6 +112,24 @@
                                       value="true"
                                       class="w-4 h-4 rounded border-gray-300 text-secondary focus:ring-secondary">
                            </div>
+                       </div>
+                       <div class="flex gap-4 p-2 border border-gray-3">
+                            <div class="flex gap-2 items-center">
+                                <span class="w-5 h-5 rounded-full bg-primary"></span>
+                                <span>Click to show page</span>
+                            </div>
+                            <div class="flex gap-2 items-center">
+                                <div class="flex items-center -space-x-3">
+                                    <span class="w-5 h-5 rounded-full bg-secondary-300"></span>
+                                    <span class="w-5 h-5 rounded-full bg-secondary-400"></span>
+                                    <span class="w-5 h-5 rounded-full bg-secondary-500"></span>
+                                    <span class="w-5 h-5 rounded-full bg-secondary-600"></span>
+                                    <span class="w-5 h-5 rounded-full bg-secondary-700"></span>
+                                    <span class="w-5 h-5 rounded-full bg-secondary-800"></span>
+                                    <span class="w-5 h-5 rounded-full bg-secondary-900"></span>
+                                </div>
+                                <span>Click to zoom and filter</span>
+                            </div>
                        </div>
                    </div>
                </div>
