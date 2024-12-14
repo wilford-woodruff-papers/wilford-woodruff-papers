@@ -58,13 +58,16 @@ class DocumentController extends Controller
             return [
                 'id' => $item->id,
                 'uuid' => $item->uuid,
+                'hash' => $item->hashId(),
                 'type' => $item->type?->name,
                 'name' => $item->name,
                 'links' => [
                     'frontend_url' => route('documents.show', ['item' => $item->uuid]),
+                    'short_url' => route('short-url.item', ['hashid' => $item->hashId()]),
                     'api_url' => route('api.documents.show', ['item' => $item->uuid]),
                     'images' => [
                         'thumbnail_url' => $item->firstPage?->getFirstMedia()?->getUrl('thumb'),
+                        'web_url' => $item->firstPage?->getFirstMedia()?->getUrl('web'),
                         'original_url' => $item->firstPage?->getFirstMedia()?->getUrl(),
                     ],
                 ],
@@ -79,6 +82,9 @@ class DocumentController extends Controller
     public function show(Request $request, Item $item)
     {
         abort_unless($request->ajax() || $request->user()->tokenCan('read'), 401);
+        $item->loadMissing([
+            'realPages.parent.type',
+        ]);
 
         return [
             'id' => $item->id,
@@ -87,13 +93,15 @@ class DocumentController extends Controller
             'name' => $item->name,
             'links' => [
                 'frontend_url' => route('documents.show', ['item' => $item->uuid]),
+                'short_url' => route('short-url.item', ['hashid' => $item->hashId()]),
                 'api_url' => route('api.documents.show', ['item' => $item->uuid]),
                 'images' => [
                     'thumbnail_url' => $item->firstPage?->getFirstMedia()?->getUrl('thumb'),
+                    'web_url' => $item->firstPage?->getFirstMedia()?->getUrl('web'),
                     'original_url' => $item->firstPage?->getFirstMedia()?->getUrl(),
                 ],
             ],
-            'pages' => $item->pages->map(function ($page) {
+            'pages' => $item->realPages->map(function ($page) {
                 return [
                     'id' => $page->id,
                     'uuid' => $page->uuid,
@@ -102,6 +110,7 @@ class DocumentController extends Controller
                     'name' => $page->name,
                     'transcript' => $page->transcript,
                     'text' => strip_tags($page->transcript),
+                    'web_transcript' => $page->text(isQuoteTagger: false),
                 ];
             }),
         ];

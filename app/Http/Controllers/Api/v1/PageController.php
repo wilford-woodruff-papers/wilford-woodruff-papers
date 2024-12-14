@@ -30,7 +30,7 @@ class PageController extends Controller
 
         $pages->with([
             'parent.type',
-            'dates',
+            'taggedDates',
             'people' => function ($query) {
                 $query->select([
                     'id',
@@ -103,16 +103,20 @@ class PageController extends Controller
             return [
                 'id' => $page->id,
                 'uuid' => $page->uuid,
+                'hash' => $page->hashId(),
                 'type' => $page->parent?->type?->name,
                 'full_name' => $page->full_name,
                 'name' => $page->name,
                 'transcript' => $page->transcript,
                 'text' => strip_tags($page->transcript),
+                'web_transcript' => $page->text(isQuoteTagger: false),
                 'links' => [
                     'frontend_url' => route('pages.show', ['item' => $page->parent->uuid, 'page' => $page->uuid]),
+                    'short_url' => route('short-url.page', ['hashid' => $page->hashId()]),
                     'api_url' => route('api.pages.show', ['page' => $page->uuid]),
                     'images' => [
                         'thumbnail_url' => $page->getFirstMedia()?->getUrl('thumb'),
+                        'web_url' => $page->getFirstMedia()?->getUrl('web'),
                         'original_url' => $page->getFirstMedia()?->getUrl(),
                     ],
                 ],
@@ -131,12 +135,14 @@ class PageController extends Controller
         return response()->json([
             'id' => $page->id,
             'uuid' => $page->uuid,
+            'hash' => $page->hashId(),
             'type' => $page->parent?->type?->name,
             'full_name' => $page->full_name,
             'name' => $page->name,
             'transcript' => $page->transcript,
             'text' => strip_tags($page->transcript),
-            'dates' => $page->dates,
+            'web_transcript' => $page->text(isQuoteTagger: false),
+            'dates' => $page->taggedDates,
             'people' => $page->people->map(function ($item) {
                 return [
                     'id' => $item->id,
@@ -186,9 +192,11 @@ class PageController extends Controller
             }),
             'links' => [
                 'frontend_url' => route('pages.show', ['item' => $page->parent->uuid, 'page' => $page->uuid]),
+                'short_url' => route('short-url.page', ['hashid' => $page->hashId()]),
                 'api_url' => route('api.pages.show', ['page' => $page->uuid]),
                 'images' => [
                     'thumbnail_url' => $page->getFirstMedia()?->getUrl('thumb'),
+                    'web_url' => $page->getFirstMedia()?->getUrl('web'),
                     'original_url' => $page->getFirstMedia()?->getUrl(),
                 ],
             ],
