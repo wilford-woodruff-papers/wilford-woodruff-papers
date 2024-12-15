@@ -14,7 +14,7 @@ class ImportComeFollowMeCommand extends Command
     public function handle(): void
     {
         $books = [
-            'Book of Mormon' => 'Book of Mormon.csv',
+            'Doctrine and Covenants' => 'Doctrine and Covenants.csv',
         ];
 
         foreach ($books as $book => $file) {

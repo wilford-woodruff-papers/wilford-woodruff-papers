@@ -12,13 +12,53 @@
 
     <div>
         <div class="mx-auto max-w-7xl">
-            <div class="flex flex-col gap-y-1 mt-8 mb-12">
+            <div class="flex flex-col gap-y-1 mt-8 mb-2">
                 <h1 class="text-4xl text-center md:text-6xl">
                     <span class="italic">Come, Follow Me</span> with Wilford Woodruff
                 </h1>
                 <h2 class="text-xl text-center md:text-2xl">
                     Magnify your <span class="italic">Come, Follow Me</span> study through Wilford Woodruff’s records
                 </h2>
+            </div>
+            <div class="my-8 mx-8">
+                <div>
+                    <div class="flex justify-center sm:hidden">
+                        <!-- Use an "onChange" listener to redirect the user to the selected tab URL. -->
+                        <select aria-label="Select a tab" class="col-start-1 row-start-1 py-2 pr-8 pl-3 w-full text-base text-gray-900 bg-white rounded-md appearance-none outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-secondary-600"
+                                onChange="window.location.href = this.value">
+                        >
+                            <option @selected($bookSlug === 'doctrine-and-covenants')
+                                value="{{ route('come-follow-me.index', ['book' => 'doctrine-and-covenants']) }}">
+                                Doctrine & Covenants
+                            </option>
+                            <option @selected($bookSlug === 'book-of-mormon')
+                                value="{{ route('come-follow-me.index', ['book' => 'book-of-mormon']) }}">
+                                Book of Mormon
+                            </option>
+                        </select>
+                    </div>
+                    <div class="hidden justify-center sm:flex">
+                        <nav class="flex space-x-4" aria-label="Tabs">
+                            <!-- Current: "bg-indigo-100 text-indigo-700", Default: "text-gray-500 hover:text-gray-700" -->
+                            <a href="{{ route('come-follow-me.index', ['book' => 'doctrine-and-covenants']) }}"
+                                @class([
+                                   'py-2 px-3 text-sm font-medium',
+                                   'bg-secondary text-white' => $bookSlug === 'doctrine-and-covenants',
+                                   'bg-white text-secondary hover:bg-secondary-500 hover:text-white' => $bookSlug !== 'doctrine-and-covenants',
+                                ])>
+                                Doctrine & Covenants
+                            </a>
+                            <a href="{{ route('come-follow-me.index', ['book' => 'book-of-mormon']) }}"
+                               @class([
+                                  'py-2 px-3 text-sm font-medium',
+                                  'bg-secondary text-white' => $bookSlug === 'book-of-mormon',
+                                  'bg-white text-secondary hover:bg-secondary-500 hover:text-white' => $bookSlug !== 'book-of-mormon',
+                               ])>
+                                Book of Mormon
+                            </a>
+                        </nav>
+                    </div>
+                </div>
             </div>
             @if($cfm)
                 <div class="grid grid-cols-1 pb-4 md:order-1 md:grid-cols-7">
