@@ -53,7 +53,8 @@ class PageResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->formatStateUsing(function ($record) {
                         return 'Page '.$record->order;
-                    }),
+                    })
+                    ->searchable(['name', 'transcript']),
                 Tables\Columns\TextColumn::make('item.name')
                     ->url(fn (Model $record): string => route('admin.dashboard.document', ['item' => $record->item]))
                     ->color('primary'),
