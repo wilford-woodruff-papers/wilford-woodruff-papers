@@ -110,6 +110,7 @@ class DocumentResource extends Resource
                                                         return $record->values->firstWhere('property_id', $property->id)?->value;
                                                     })
                                                     ->required($property->required)
+                                                    ->readOnly($property->readonly)
                                                     ->columnSpan(1),
                                                 'relationship' => Select::make('values.'.$property->id)
                                                     ->label($property->name)
@@ -163,6 +164,7 @@ class DocumentResource extends Resource
                                                 default => TextInput::make('values.'.$property->id)
                                                     ->label($property->name)
                                                     ->required($property->required)
+                                                    ->readOnly($property->readonly)
                                                     ->columnSpan(1),
                                             };
                                             if ($property->nullable) {
