@@ -557,6 +557,13 @@ class DocumentResource extends Resource
                 Tables\Columns\TextColumn::make('publishing_tasks_count')
                     ->label('Publishing Tasks Completed')
                     ->sortable(),
+                Tables\Columns\TextColumn::make('creator.name')
+                    ->label('Created By')
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('Created At')
+                    ->date(timezone: 'America/Denver')
+                    ->sortable(),
             ])
             ->filters([
                 Tables\Filters\TernaryFilter::make('enabled')
