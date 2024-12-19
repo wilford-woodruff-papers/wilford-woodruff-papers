@@ -23,6 +23,18 @@ class PeopleExporter extends Exporter
                 ->label('FamilySearch ID'),
             ExportColumn::make('name')
                 ->label('Name'),
+            ExportColumn::make('first_name')
+                ->label('Given Name'),
+            ExportColumn::make('middle_name')
+                ->label('Middle Name'),
+            ExportColumn::make('last_name')
+                ->label('Surname Name'),
+            ExportColumn::make('suffix')
+                ->label('Suffix'),
+            ExportColumn::make('alternate_names')
+                ->label('Alternate Names'),
+            ExportColumn::make('maiden_name')
+                ->label('Maiden Name'),
             ExportColumn::make('gender')
                 ->label('M/F'),
             ExportColumn::make('slug')

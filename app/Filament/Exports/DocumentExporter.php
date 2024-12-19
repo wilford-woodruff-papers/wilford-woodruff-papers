@@ -66,6 +66,10 @@ class DocumentExporter extends Exporter
             ...$columns,
             ExportColumn::make('copyright.description')
                 ->label('Copyright Status'),
+            ExportColumn::make('creator.name')
+                ->label('Created By'),
+            ExportColumn::make('created_at')
+                ->label('Created At'),
         ];
     }
 
