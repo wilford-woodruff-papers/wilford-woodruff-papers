@@ -94,6 +94,7 @@ class DocumentResource extends Resource
                                                         return $record->values->firstWhere('property_id', $property->id)?->value;
                                                     })
                                                     ->required($property->required)
+                                                    ->readOnly($property->readonly)
                                                     ->columnSpan(1),
                                                 'html' => RichEditor::make('values.'.$property->id)
                                                     ->label($property->name)

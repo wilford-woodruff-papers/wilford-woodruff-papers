@@ -28,7 +28,7 @@ class Identification extends Component
 
     public $filters = [
         'search' => '',
-        'completed' => false,
+        'completed' => 'false',
         'cant_be_identified' => '',
         'corrections' => '',
         'researcher' => '',
