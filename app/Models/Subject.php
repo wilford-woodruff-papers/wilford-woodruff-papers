@@ -255,6 +255,7 @@ class Subject extends Model implements \OwenIt\Auditing\Contracts\Auditable, Has
 
     public function children(): HasMany
     {
+
         return $this->hasMany(self::class)->with(['children' => function ($query) {
             $query->when(auth()->guest() || (auth()->check() && ! auth()->user()->hasAnyRole(['Super Admin'])), fn ($query) => $query->where('hide_on_index', 0)
                 ->where(function ($query) {

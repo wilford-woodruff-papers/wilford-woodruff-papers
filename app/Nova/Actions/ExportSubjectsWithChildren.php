@@ -25,6 +25,10 @@ class ExportSubjectsWithChildren extends DownloadExcel implements WithHeadings, 
      */
     public function map($subject): array
     {
+        if (empty($subject->id)) {
+            return [];
+        }
+        logger()->info($subject);
         $subject->load('children', 'children.children', 'children.children.children');
 
         $grandChildren = collect([]);
