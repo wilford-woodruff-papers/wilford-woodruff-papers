@@ -100,14 +100,14 @@
                                                     <div class="text-2xl">
                                                         {!!
                                                             str(
-                                                                str(strip_tags($page))
+                                                                str(strip_tags($page->transcript))
                                                                 ->replace('\n', ' ')
+                                                                ->squish()
                                                                 ->excerpt($chapter->book->name . ' ' . $chapter->number, [
                                                                     'radius' => 200,
                                                                 ]))
                                                                 ->addScriptureLinks()
                                                                 ->addSubjectLinks()
-                                                                ->squish()
                                                         !!}
                                                     </div>
                                                     <button x-on:click="Livewire.dispatch('openModal', {component: 'page', arguments: {'pageId': {{ $page->id }} } })"

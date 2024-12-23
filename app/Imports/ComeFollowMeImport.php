@@ -65,7 +65,7 @@ class ComeFollowMeImport implements ToCollection, WithHeadingRow
                 ->values()
                 ->all();
 
-            $eventLinks = str($row['jons_event_links_to_document_journal_discourse_etc'])
+            $eventLinks = str($row['event_links_to_document_journal_discourse_etc'])
                 ->explode("\n")
                 ->map(function ($item) {
                     return trim($item);
