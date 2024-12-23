@@ -7,9 +7,9 @@ use Illuminate\Http\Request;
 
 class ComeFollowMeIndexController extends Controller
 {
-    public function __invoke(Request $request)
+    public function __invoke(Request $request, $book = null)
     {
-        if (! $request->has('book')) {
+        if (empty($book)) {
             $year = substr(now()->year, -1) % 4;
 
             $request->merge([
@@ -20,11 +20,15 @@ class ComeFollowMeIndexController extends Controller
                     3 => 'new-testament',
                 },
             ]);
+        } else {
+            $request->merge([
+                'book' => $book,
+            ]);
         }
         $bookSlug = $request->get('book');
         $book = match ($bookSlug) {
             'book-of-mormon' => 'Book of Mormon',
-            'doctrine-and-covenants' => 'Doctrine & Covenants',
+            'doctrine-and-covenants' => 'Doctrine and Covenants',
             'new-testament' => 'New Testament',
             'old-testament' => 'Old Testament',
         };
