@@ -26,8 +26,7 @@ class PageExporter extends Exporter
                 ->label('Public URL')
                 ->formatStateUsing(fn (Page $record): string => route('short-url.page', ['hashid' => $record->hashid()])),
             ExportColumn::make('ftp_link')
-                ->label('FTP URL')
-                ->formatStateUsing(fn (Page $record): string => route('short-url.page', ['hashid' => $record->hashid()])),
+                ->label('FTP URL'),
             ExportColumn::make('transcript')
                 ->label('Transcript'),
         ];
