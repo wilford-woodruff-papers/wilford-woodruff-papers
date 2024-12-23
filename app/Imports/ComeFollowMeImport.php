@@ -34,7 +34,7 @@ class ComeFollowMeImport implements ToCollection, WithHeadingRow
                 'article_link' => $row['article_short_message_ww_gem_1_2_paragraphs_include_links_to_documents'],
                 'video_link' => $row['video_big_questions_testimony_interview_destinations_day_in_life'],
             ]);
-
+            $cfm->clearMediaCollection('cover_image');
             if ($cfm->media->count() < 1) {
                 $cfm
                     ->addMediaFromBase64(
