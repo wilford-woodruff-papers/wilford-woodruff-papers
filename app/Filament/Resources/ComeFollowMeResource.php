@@ -69,6 +69,8 @@ class ComeFollowMeResource extends Resource
                             ->searchable(['full_name'])
                             ->nullable()
                             ->columnSpan(2),
+                        TextInput::make('article_link')
+                            ->columnSpan(2),
                     ]),
                 Section::make('Scriptures')
                     ->columns(1)
