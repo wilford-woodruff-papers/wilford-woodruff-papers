@@ -27,10 +27,12 @@
                         <select aria-label="Select a tab" class="col-start-1 row-start-1 py-2 pr-8 pl-3 w-full text-base text-gray-900 bg-white rounded-md appearance-none outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-secondary-600"
                                 onChange="window.location.href = this.value">
                         >
-                            <option @selected($bookSlug === 'doctrine-and-covenants')
-                                value="{{ route('come-follow-me.index', ['book' => 'doctrine-and-covenants']) }}">
-                                Doctrine & Covenants
-                            </option>
+                            @hasanyrole('Super Admin')
+                                <option @selected($bookSlug === 'doctrine-and-covenants')
+                                    value="{{ route('come-follow-me.index', ['book' => 'doctrine-and-covenants']) }}">
+                                    Doctrine & Covenants
+                                </option>
+                            @endhasanyrole
                             <option @selected($bookSlug === 'book-of-mormon')
                                 value="{{ route('come-follow-me.index', ['book' => 'book-of-mormon']) }}">
                                 Book of Mormon
@@ -39,15 +41,16 @@
                     </div>
                     <div class="hidden justify-center sm:flex">
                         <nav class="flex space-x-4" aria-label="Tabs">
-                            <!-- Current: "bg-indigo-100 text-indigo-700", Default: "text-gray-500 hover:text-gray-700" -->
-                            <a href="{{ route('come-follow-me.index', ['book' => 'doctrine-and-covenants']) }}"
-                                @class([
-                                   'py-2 px-3 text-sm font-medium',
-                                   'bg-secondary text-white' => $bookSlug === 'doctrine-and-covenants',
-                                   'bg-white text-secondary hover:bg-secondary-500 hover:text-white' => $bookSlug !== 'doctrine-and-covenants',
-                                ])>
-                                Doctrine & Covenants
-                            </a>
+                            @hasanyrole('Super Admin')
+                                <a href="{{ route('come-follow-me.index', ['book' => 'doctrine-and-covenants']) }}"
+                                    @class([
+                                       'py-2 px-3 text-sm font-medium',
+                                       'bg-secondary text-white' => $bookSlug === 'doctrine-and-covenants',
+                                       'bg-white text-secondary hover:bg-secondary-500 hover:text-white' => $bookSlug !== 'doctrine-and-covenants',
+                                    ])>
+                                    Doctrine & Covenants
+                                </a>
+                            @endhasanyrole
                             <a href="{{ route('come-follow-me.index', ['book' => 'book-of-mormon']) }}"
                                @class([
                                   'py-2 px-3 text-sm font-medium',

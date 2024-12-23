@@ -28,7 +28,7 @@ class ComeFollowMeIndexController extends Controller
         $bookSlug = $request->get('book');
         $book = match ($bookSlug) {
             'book-of-mormon' => 'Book of Mormon',
-            'doctrine-and-covenants' => 'Doctrine & Covenants',
+            'doctrine-and-covenants' => 'Doctrine and Covenants',
             'new-testament' => 'New Testament',
             'old-testament' => 'Old Testament',
         };
