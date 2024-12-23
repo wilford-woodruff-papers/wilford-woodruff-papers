@@ -22,6 +22,7 @@ class ComeFollowMeImport implements ToCollection, WithHeadingRow
             if (empty($row['week'])) {
                 continue;
             }
+            ray($row);
             $cfm = ComeFollowMe::updateOrCreate([
                 'book' => $this->book,
                 'week' => $row['week'],
@@ -34,7 +35,7 @@ class ComeFollowMeImport implements ToCollection, WithHeadingRow
                 'article_link' => $row['article_short_message_ww_gem_1_2_paragraphs_include_links_to_documents'],
                 'video_link' => $row['video_big_questions_testimony_interview_destinations_day_in_life'],
             ]);
-            $cfm->clearMediaCollection('cover_image');
+            // $cfm->clearMediaCollection('cover_image');
             if ($cfm->media->count() < 1) {
                 $cfm
                     ->addMediaFromBase64(
@@ -51,7 +52,7 @@ class ComeFollowMeImport implements ToCollection, WithHeadingRow
 
             $links = [];
             $links = [
-                $row['link_to_document_journal_discourse_etc'] => $row['people'],
+                $row['people_link_to_document_journal_discourse_etc'] => $row['people'],
             ];
 
             $eventDescriptions = str($row['events_places'])
@@ -116,6 +117,7 @@ class ComeFollowMeImport implements ToCollection, WithHeadingRow
     {
         $page = null;
         logger()->info($reference);
+        $reference = str($reference)->trim()->toString();
         if (str($reference)->afterLast('/')->isUuid()) {
             logger()->info(str($reference)->afterLast('/'));
             $page = \App\Models\Page::whereUuid(str($reference)->afterLast('/')->toString())->first();
