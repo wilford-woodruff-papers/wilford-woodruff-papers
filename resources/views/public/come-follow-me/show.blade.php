@@ -243,22 +243,25 @@
             {{-- TODO: Scripture References --}}
             <livewire:cfm.scriptures :lesson="$lesson" />
 
-            <div>
-                <h2 class="font-sans text-3xl text-primary">
-                    Study More <span class="italic">Come, Follow Me</span>
-                </h2>
-                <div class="grid grid-cols-2 gap-x-6 gap-y-8 mt-8 md:grid-cols-4">
-                    @foreach($previous->merge($next) as $lesson)
-                        @include('public.come-follow-me.card')
-                    @endforeach
+            @if($previous->count() > 0)
+                <div>
+                    <h2 class="font-sans text-3xl text-primary">
+                        Study More <span class="italic">Come, Follow Me</span>
+                    </h2>
+                    <div class="grid grid-cols-2 gap-x-6 gap-y-8 mt-8 md:grid-cols-4">
+                        @foreach($previous->merge($next) as $lesson)
+                            @include('public.come-follow-me.card')
+                        @endforeach
+                    </div>
                 </div>
-            </div>
+            @endif
 
             <div class="mb-12 w-full">
                 <h2 class="mb-8 font-sans text-3xl text-primary">
                     Other Resources
                 </h2>
-                <a href="https://www.fairlatterdaysaints.org/cfm2024"
+                {{--<a href="https://www.fairlatterdaysaints.org/cfm2025"--}}
+                <a href="https://www.fairlatterdaysaints.org/come-follow-me-doctrine-covenants-church-history"
                    target="_blank"
                     class=""
                 >
