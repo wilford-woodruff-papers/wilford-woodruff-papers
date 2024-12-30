@@ -10,7 +10,8 @@ class ComeFollowMeIndexController extends Controller
     public function __invoke(Request $request, $book = null)
     {
         if (empty($book)) {
-            $year = substr(now()->year, -1) % 4;
+            //$year = substr(now()->year, -1) % 4;
+            $year = 1;
 
             $request->merge([
                 'book' => match ($year) {
@@ -21,6 +22,7 @@ class ComeFollowMeIndexController extends Controller
                 },
             ]);
         } else {
+            $year = 1;
             $request->merge([
                 'book' => $book,
             ]);
@@ -33,9 +35,18 @@ class ComeFollowMeIndexController extends Controller
             'old-testament' => 'Old Testament',
         };
 
+        $bookYear = match ($bookSlug) {
+            'book-of-mormon' => 0,
+            'doctrine-and-covenants' => 1,
+            'new-testament' => 2,
+            'old-testament' => 3,
+        };
+        //dd($bookYear, $year);
         $lessons = ComeFollowMe::query()
             ->where('book', $book)
-            ->where('week', '<=', now('America/Denver')->week)
+            ->when(($bookYear == $year), function ($query) {
+                return $query->where('week', '<=', now('America/Denver')->week);
+            })
             ->orderBy('week', 'desc')
             ->get();
 
