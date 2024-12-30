@@ -15,8 +15,8 @@ class ComeFollowMeShowController extends Controller
         }
 
         if (empty($book)) {
-            $year = substr(now()->year, -1) % 4;
-
+            //$year = substr(now()->year, -1) % 4;
+            $year = 1;
             $book = match ($year) {
                 0 => 'book-of-mormon',
                 1 => 'doctrine-and-covenants',
