@@ -3,11 +3,11 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ComeFollowMeResource\Pages;
+use App\Filament\Resources\ComeFollowMeResource\RelationManagers\EventsRelationManager;
 use App\Models\ComeFollowMe;
 use App\Models\Scriptures\Volume;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Fieldset;
-use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
@@ -105,7 +105,7 @@ class ComeFollowMeResource extends Resource
                                     ->toArray();
                             }),
                     ]),
-                Section::make()
+                /*Section::make()
                     ->columns(1)
                     ->schema([
                         Repeater::make('events')
@@ -119,7 +119,7 @@ class ComeFollowMeResource extends Resource
                                     ->searchable(['full_name'])
                                     ->required(),
                             ]),
-                    ]),
+                    ]),*/
             ]);
     }
 
@@ -165,7 +165,7 @@ class ComeFollowMeResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            EventsRelationManager::class,
         ];
     }
 
