@@ -260,16 +260,27 @@
                 <h2 class="mb-8 font-sans text-3xl text-primary">
                     Other Resources
                 </h2>
-                {{--<a href="https://www.fairlatterdaysaints.org/cfm2025"--}}
-                <a href="https://www.fairlatterdaysaints.org/come-follow-me-doctrine-covenants-church-history"
-                   target="_blank"
-                    class=""
-                >
-                    <img src="{{ asset('img/come-follow-me/fair-latter-day-saints.png') }}"
-                         alt="Dive Deeper Into Come, Follow Me on FAIR Latter-day Saints"
-                         class="w-full h-auto"
-                    />
-                </a>
+                @if($bookSlug === 'doctrine-and-covenants')
+                    <a href="https://www.fairlatterdaysaints.org/scripture-study-resources/dc-pgp"
+                       target="_blank"
+                       class=""
+                    >
+                        <img src="{{ asset('img/come-follow-me/fair-latter-day-saints-2025.jpg') }}"
+                             alt="Dive Deeper Into Come, Follow Me on FAIR Latter-day Saints"
+                             class="w-full h-auto"
+                        />
+                    </a>
+                @elseif($bookSlug === 'book-of-mormon')
+                    <a href="https://www.fairlatterdaysaints.org/cfm2024"
+                       target="_blank"
+                       class=""
+                    >
+                        <img src="{{ asset('img/come-follow-me/fair-latter-day-saints-2024.png') }}"
+                             alt="Dive Deeper Into Come, Follow Me on FAIR Latter-day Saints"
+                             class="w-full h-auto"
+                        />
+                    </a>
+                @endif
             </div>
 
         </div>
